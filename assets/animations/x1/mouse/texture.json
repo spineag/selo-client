@@ -1,0 +1,1 @@
+{"name":"mouse","imagePath":"texture.png","SubTexture":[{"name":"tail1","x":38,"height":5,"y":0,"width":18},{"name":"tail2","x":38,"height":5,"y":7,"width":18},{"name":"mouse_f","x":0,"height":29,"y":31,"width":36},{"name":"m_fr","x":0,"height":29,"y":62,"width":36},{"name":"mouse_b","x":0,"height":29,"y":0,"width":36}]}
