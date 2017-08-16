@@ -22,10 +22,10 @@ public class SocialNetworkSwitch {
             case SN_VK_ID:
                 SECRET_KEY = SECRET_KEY_VK;
                 if (isDebug) {
-                    flashVars["api_id"] = "5448769";
-                    flashVars["viewer_id"] = "146353874";
-                    flashVars["sid"] = "bdf6b395622ac77221cf8936a953fc34186f3a31be83f5d7a48592cde76a9b9c855b681ed93e7cd107600";
-                    flashVars["secret"] = "4d42d4d4e3";
+//                    flashVars["api_id"] = "5448769";
+//                    flashVars["viewer_id"] = "146353874";
+//                    flashVars["sid"] = "bdf6b395622ac77221cf8936a953fc34186f3a31be83f5d7a48592cde76a9b9c855b681ed93e7cd107600";
+//                    flashVars["secret"] = "4d42d4d4e3";
                 }
 
                 flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);
@@ -33,10 +33,10 @@ public class SocialNetworkSwitch {
                 g.user.userSocialId =  flashVars["viewer_id"];
                 break;
             case SN_OK_ID:
-                    // Application ID: 1248696832.
-//                     Публичный ключ приложения: CBALJOGLEBABABABA
-//                     Секретный ключ приложения:  864364A475EBF25367549586
-//                     Ссылка на приложение: http://www.odnoklassniki.ru/game/1248696832
+                    // Application ID: .
+//                     Публичный ключ приложения: 
+//                     Секретный ключ приложения:  
+//                     Ссылка на приложение: http://www.odnoklassniki.ru/game/...
 
                 if (isDebug) {
                     flashVars["uid"] = "555480938615";
@@ -49,8 +49,7 @@ public class SocialNetworkSwitch {
                 break;
             case SN_FB_ID:
                 if (isDebug) {
-                    flashVars["uid"] = " 1302214063192215";
-//                    flashVars["uid"] = "444635519203361"; // ivan
+                    flashVars["uid"] = "1440177116062575";
                     g.socialNetwork = new SN_Blank_FB(flashVars);
                 } else {
                     g.socialNetwork = new SN_FB(flashVars);

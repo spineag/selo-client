@@ -149,10 +149,6 @@ public class ManagerTips {
             count += ob.count;
             _arrTips.push(ob);
 
-            ob = getHero();
-            count += ob.count;
-            _arrTips.push(ob);
-
             ob = getRawAnimal();
             count += ob.count;
             _arrTips.push(ob);
@@ -293,19 +289,6 @@ public class ManagerTips {
         return ob;
     }
 
-    private function getHero():Object {
-        var ob:Object = {};
-        ob.type = TIP_BUY_HERO;
-        if (g.managerCats.curCountCats < g.managerCats.maxCountCats && g.managerCats.catInfo.cost <= g.user.softCurrencyCount) {
-            ob.priority = 9 + 100;
-            ob.count = 1;
-        } else {
-            ob.priority = 9;
-            ob.count = 0;
-        }
-        return ob;
-    }
-
     private function getRawAnimal():Object {
         var ob:Object = {};
         ob.type = TIP_RAW_ANIMAL;
@@ -322,10 +305,7 @@ public class ManagerTips {
     
     public function onChooseTip(ob:Object):void {
         try {
-            if (ob.type == TIP_BUY_HERO) {
-                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
-                Utils.createDelay(.7, atBuyCat);
-            } else if (ob.type == TIP_RAW_ANIMAL) {
+            if (ob.type == TIP_RAW_ANIMAL) {
                 for (var i:int = 0; i < ob.array.length; i++) {
                     (ob.array[i] as Animal).addArrow(5);
                     if (i==0) {

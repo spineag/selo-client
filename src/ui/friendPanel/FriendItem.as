@@ -127,9 +127,9 @@ public class FriendItem {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.visitedUser && g.visitedUser == _person) return;
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
-                g.managerTutorial.checkTutorialCallback();
+        if (g.tuts.isTutorial) {
+            if (g.tuts.currentAction == TutorialAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
+                g.tuts.checkTutorialCallback();
             } else {
                 return;
             }
@@ -138,7 +138,6 @@ public class FriendItem {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (_person == g.user) {
             if (g.isAway) g.townArea.backHome();
-            g.catPanel.visibleCatPanel(true);
             if (g.partyPanel) g.partyPanel.visiblePartyPanel(true);
         } else {
             g.townArea.goAway(_person);
@@ -175,6 +174,7 @@ public class FriendItem {
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+        if (!_person) return;
         if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
         setName(_person.name);
         if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();

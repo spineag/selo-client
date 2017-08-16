@@ -5,8 +5,8 @@ package loaders {
 import manager.*;
 
 public class DataPath {
-    public const MAIN_PATH:String = '505.ninja/';
-    public const MAIN_PATH_GRAPHICS:String = '505.ninja/content/';
+    public const MAIN_PATH:String = '505.ninja/selo-project/';
+    public const MAIN_PATH_GRAPHICS:String = '505.ninja/selo-project/content/';
 
     public static const API_VERSION:String = "api-v1-0/";
 

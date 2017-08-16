@@ -2,14 +2,13 @@ package tutorial {
 import analytic.AnalyticManager;
 import build.WorldObject;
 import build.tutorialPlace.TutorialPlace;
-
 import com.junkbyte.console.Cc;
+import heroes.TutorialCat;
 import manager.Vars;
 import particle.tuts.DustRectangle;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
-import tutorial.pretuts.TutorialMultNew;
 import utils.SimpleArrow;
 
 public class IManagerTutorial {
@@ -27,13 +26,8 @@ public class IManagerTutorial {
     protected var _dustRectangle:DustRectangle;
     protected var _tutorialCallback:Function;
     protected var _onShowWindowCallback:Function;
-    protected var _airBubble:AirTextBubble;
-    protected var _counter:int;
     protected var _arrow:SimpleArrow;
-    protected var _mult:TutorialMultNew;
-    protected var _afterTutorialWindow:AfterTutorialWindow;
-    protected var _useNewTuts:Boolean;
-    protected var _tutorialPlaceBuilding:TutorialPlace;
+    protected var _cat:TutorialCat;
 
     public function IManagerTutorial() {
         _tutorialObjects = [];
@@ -54,7 +48,6 @@ public class IManagerTutorial {
     }
 
     public function onGameStart():void { initScenes(); }
-    public function get useNewTuts():Boolean { return _useNewTuts; }
     protected function initScenes():void {}
     public function get currentAction():int { return _currentAction; }
     public function currentActionNone():void { _currentAction = TutorialAction.NONE; }
@@ -66,7 +59,6 @@ public class IManagerTutorial {
     public function isTutorialBuilding(wo:WorldObject):Boolean { return _tutorialObjects.indexOf(wo) > -1; }
     public function addTutorialWorldObject(w:WorldObject):void {_tutorialObjects.push(w); }
     protected function emptyFunction(...params):void {}
-
     protected function clearAll():void { }
 
     protected function deleteCutScene():void {
@@ -114,6 +106,23 @@ public class IManagerTutorial {
         g.directServer.updateUserTutorialStep(null);
         if (g.analyticManager)
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
+    }
+
+    protected function deleteArrowAndDust():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+    }
+
+    protected function finishTutorial():void {
+        if (_cat) _cat.deleteIt();
+        g.user.tutorialStep = MAX_STEPS;
+        updateTutorialStep();
     }
 }
 }

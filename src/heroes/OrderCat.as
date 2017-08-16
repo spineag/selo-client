@@ -597,7 +597,7 @@ public class OrderCat {
             _source.scaleX = 1;
             Cc.error('OrderCat gotoPoint:: wrong front-back logic');
         }
-        if (g.managerTutorial.isTutorial) {
+        if (g.tuts.isTutorial) {
             new TweenMax(_source, koef/_speedRun, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         } else {
             if (catGoAway) new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});

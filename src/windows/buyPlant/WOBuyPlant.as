@@ -50,7 +50,7 @@ public class WOBuyPlant extends WindowMain {
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         if (g.managerCutScenes.isCutScene) return;
         hideIt();
     }
@@ -143,24 +143,12 @@ public class WOBuyPlant extends WindowMain {
         }
         if (!_ridge) _ridge = r;
         if (_callback == null) _callback = calllback;
-        if (g.managerPlantRidge.checkIsCat(d.id)) {
-            g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
-            _ridge.fillPlant(d);
-            if (_callback != null) {
-                _callback.apply();
-                _callback = null;
-            }
-//            super.hideIt();
-        } else {
-//            g.windowsManager.uncasheWindow();
-            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
-            } else {
-                g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
-            }
-//            super.hideIt();
+        g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
+        _ridge.fillPlant(d);
+        if (_callback != null) {
+            _callback.apply();
+            _callback = null;
         }
-//        g.windowsManager.uncasheWindow();
         if (_birka )super.hideIt();
     }
 

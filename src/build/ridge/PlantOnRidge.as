@@ -47,13 +47,8 @@ public class PlantOnRidge {
         _dataTime.timeToStateGwoned = _data.buildTime -  _dataTime.timeToGrow2 -  _dataTime.timeToGrow3;
     }
 
-    public function get dataPlant():Object {
-        return _data;
-    }
-
-    public function activateRender():void {
-        g.gameDispatcher.addToTimer(render);
-    }
+    public function get dataPlant():Object { return _data; }
+    public function activateRender():void { g.gameDispatcher.addToTimer(render); }
 
     public function checkStateRidge(needSetTimer:Boolean = true):void {
         switch (_ridge.stateRidge) {
@@ -82,8 +77,6 @@ public class PlantOnRidge {
             case Ridge.GROWED:
                 armature.animation.gotoAndStopByFrame("state4");
                 _ridge.checkBuildRect(false);
-//                animateEndState(); !!!
-//                addParticles();
                 growedAnimation();
                 break;
         }
@@ -174,19 +167,11 @@ public class PlantOnRidge {
         fToLeft(5*Math.random());
     }
 
-//    private function addParticles():void {
-//        particles = new PlantParticle(_source.height);
-//        _source.addChildAt(particles.source, 0);
-//    }
-
     public function onCraftPlant():void {
         TweenMax.killTweensOf(_source);
         _source.rotation = 0;
-//        _source.removeChild(particles.source);
         _timerAnimationGrowed = 0;
         g.gameDispatcher.removeFromTimer(timerAnimation);
-//        particles.clearIt();
-//        particles = null;
     }
 
     public function hoverGrowed():void {

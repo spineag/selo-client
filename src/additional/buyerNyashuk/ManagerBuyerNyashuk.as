@@ -30,9 +30,10 @@ public class ManagerBuyerNyashuk {
     public function ManagerBuyerNyashuk(first:Boolean = false) {
         afterNewLvl = first;
         _arrayNya = [];
+        _arr = [];
         g.loadAnimation.load('animations_json/x1/red_n', 'red_n', null);
         g.loadAnimation.load('animations_json/x1/blue_n', 'blue_n', null);
-        g.directServer.getUserPapperBuy(null);
+        if (!g.tuts.isTutorial) g.directServer.getUserPapperBuy(null);
     }
 
     public function get arrNyashuk():Array {
@@ -107,9 +108,8 @@ public class ManagerBuyerNyashuk {
         for (var i:int=0; i<_arrayNya.length; i++) {
             leftSeconds = _arr[i].startTime - int(new Date().getTime()/1000);
             if (leftSeconds <= 0) {
-                if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(30, -5);
-                else _arrayNya[i].setTailPositions(28, -5);
-//                _arrayNya[i].setTailPositions(30 - r*2 , -5 );
+                if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(32, 30);
+                else _arrayNya[i].setTailPositions(30, 30);
                 _arrayNya[i].walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
                 _arrayNya[i].setPositionInQueue(r);
                 g.townArea.addBuyerNyashukToCont(_arrayNya[i]);
@@ -120,11 +120,18 @@ public class ManagerBuyerNyashuk {
         }
     }
 
+    public function addNyashuksOnTutorial():void {
+        timeToNewNyashuk();
+        timeToNewNyashuk();
+    }
+
     public function timeToNewNyashuk():void {
         var ob:Object = {};
         if (_arr.length == 0) ob.buyer_id = 1;
-        else if (_arr[0].buyerId == 1) ob.buyer_id = 2;
+        else {
+            if (_arr[0].buyerId == 1) ob.buyer_id = 2;
             else ob.buyer_id = 1;
+        }
         newBot(false,ob);
         getNewNyaForOrder(null,_arr[_arr.length-1],_arr[_arr.length-1].buyerId);
     }
@@ -359,7 +366,8 @@ public class ManagerBuyerNyashuk {
         nya.arriveCallback = onArriveCallback;
         nya.setPositionInQueue(getFreeQueuePosition());
         _arrayNya.push(nya);
-        arriveNewCat(nya);
+//        arriveNewNyashik(nya);
+        quickArriveNyashuk(nya);
         return nya;
     }
 
@@ -368,45 +376,45 @@ public class ManagerBuyerNyashuk {
         else return _arrayNya.length - 1;
     }
 
-    private function arriveNewCat(nya:BuyerNyashuk):void {
-        nya.source.x = 3600*g.scaleFactor;
-        nya.source.y = 1760*g.scaleFactor;
-        g.townArea.addBuyerNyashukToCont(nya);
-        g.townArea.addBuyerNyashukToCityObjects(nya);
-        nya.flipIt(true);
-        nya.showFront(false);
-        nya.walkAnimation();
-        nya.walkPosition = BuyerNyashuk.LONG_OUTTILE_WALKING;
-        nya.goNyaToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 28, arrivePart1);
-    }
-
-    private function arrivePart1(nya:BuyerNyashuk,id:int):void {
-        var p:Point;
-        if (id == 1)  p = new Point(30, -5);
-        else p = new Point(28, -5);
-        p = g.matrixGrid.getXYFromIndex(p);
-        nya.walkPosition = BuyerNyashuk.SHORT_OUTTILE_WALKING;
-        nya.flipIt(true);
-        nya.showFront(false);
-        if (g.managerTutorial.isTutorial) {
-            nya.walkAnimation();
-            nya.goNyaToXYPoint(p, 6, arrivePart2);
-        } else {
-            nya.walkAnimation();
-            nya.goNyaToXYPoint(p, 6, arrivePart2);
-        }
-    }
-
-    private function arrivePart2(nya:BuyerNyashuk, id:int):void {
-        if (id == 1) nya.setTailPositions(30, -5);
-        else nya.setTailPositions(28, -5);
-        nya.flipIt(false);
-        nya.yesClick();
-        nya.forceStopAnimation();
-        nya.idleFrontAnimation();
-        nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
-        if (g.isAway) nya.showForOptimisation(false);
-    }
+//    private function arriveNewNyashik(nya:BuyerNyashuk):void {
+//        nya.source.x = 3600*g.scaleFactor;
+//        nya.source.y = 1760*g.scaleFactor;
+//        g.townArea.addBuyerNyashukToCont(nya);
+//        g.townArea.addBuyerNyashukToCityObjects(nya);
+//        nya.flipIt(true);
+//        nya.showFront(false);
+//        nya.walkAnimation();
+//        nya.walkPosition = BuyerNyashuk.LONG_OUTTILE_WALKING;
+//        nya.goNyaToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 28, arrivePart1);
+//    }
+//
+//    private function arrivePart1(nya:BuyerNyashuk,id:int):void {
+//        var p:Point;
+//        if (id == 1)  p = new Point(30, -5);
+//        else p = new Point(28, -5);
+//        p = g.matrixGrid.getXYFromIndex(p);
+//        nya.walkPosition = BuyerNyashuk.SHORT_OUTTILE_WALKING;
+//        nya.flipIt(true);
+//        nya.showFront(false);
+//        if (g.tuts.isTutorial) {
+//            nya.walkAnimation();
+//            nya.goNyaToXYPoint(p, 6, arrivePart2);
+//        } else {
+//            nya.walkAnimation();
+//            nya.goNyaToXYPoint(p, 6, arrivePart2);
+//        }
+//    }
+//
+//    private function arrivePart2(nya:BuyerNyashuk, id:int):void {
+//        if (id == 1) nya.setTailPositions(30, -5);
+//        else nya.setTailPositions(28, -5);
+//        nya.flipIt(false);
+//        nya.yesClick();
+//        nya.forceStopAnimation();
+//        nya.idleFrontAnimation();
+//        nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
+//        if (g.isAway) nya.showForOptimisation(false);
+//    }
 
     public function visibleNya(b:Boolean):void {
         if (_arrayNya && _arrayNya.length > 0) {
@@ -414,6 +422,18 @@ public class ManagerBuyerNyashuk {
                 _arrayNya[i].showForOptimisation(b);
             }
         }
+    }
+
+    private function quickArriveNyashuk(nya:BuyerNyashuk):void {
+        if (nya.id == 1) nya.setTailPositions(32, 30);
+        else nya.setTailPositions(30, 30);
+        g.townArea.addBuyerNyashukToCont(nya);
+        g.townArea.addBuyerNyashukToCityObjects(nya);
+        nya.flipIt(false);
+        nya.yesClick();
+        nya.idleFrontAnimation();
+        nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
+        if (g.isAway) nya.showForOptimisation(false);
     }
 
 }

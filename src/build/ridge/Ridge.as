@@ -118,7 +118,7 @@ public class Ridge extends WorldObject{
             _plant.checkTimeGrowing(timeWork);
             if (!g.isAway) {
                 _plant.activateRender();
-                g.managerPlantRidge.addCatForPlant(_dataPlant.id, this);
+                g.managerCats.onStartRidge(this);
             }
             _plant.checkStateRidge(false);
         } else {
@@ -183,7 +183,7 @@ public class Ridge extends WorldObject{
             onOut();
             g.managerAchievement.addResource(_resourceItem.resourceID);
         }
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
+        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.CRAFT_RIDGE) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }
@@ -195,11 +195,11 @@ public class Ridge extends WorldObject{
         if(_isOnHover) return;
         if (g.selectedBuild) return;
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) {
+        if (g.tuts.isTutorial) {
             if (_tutorialCallback == null) return;
-            if ((g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE || g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) && g.managerTutorial.isTutorialBuilding(this)) {
+            if ((g.tuts.currentAction == TutorialAction.NEW_RIDGE || g.tuts.currentAction == TutorialAction.PLANT_RIDGE) && g.tuts.isTutorialBuilding(this)) {
 
-            } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
+            } else if (!g.tuts.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.isActiveMapEditor || g.isAway){
             return;
@@ -232,14 +232,12 @@ public class Ridge extends WorldObject{
     }
 
     private function onStartClick():void {
-//        trace(_build.x + '  X');
-//        trace(_build.y + '   Y');
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;
+        if (g.tuts.isTutorial && (!g.tuts.isTutorialBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            if (!g.managerTutorial.isTutorial) onOut();
+            if (!g.tuts.isTutorial) onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
@@ -248,13 +246,10 @@ public class Ridge extends WorldObject{
                 if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
                     g.toolsModifier.ridgeId = _dataPlant.id;
                 }
-                checkBeforeMove();
                 g.townArea.moveBuild(this);
             }
             return;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-            return;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {  g.toolsModifier.modifierType = ToolsModifier.NONE; return;
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
@@ -265,10 +260,7 @@ public class Ridge extends WorldObject{
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }
-            if (_stateRidge == GROWED) {
-                g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
-                return;
-            }
+            if (_stateRidge == GROWED) { g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT; return; }
             var arr:Array = g.user.userDataCity.plants;
             for (var i:int = 0; i < arr.length; i++) {
                 if (int(arr[i].dbId) == dbBuildingId) {
@@ -279,7 +271,7 @@ public class Ridge extends WorldObject{
             lastBuyResource = true;
             _source.filter = null;
             plantThePlant();
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
+            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.PLANT_RIDGE) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);
                 }
@@ -287,10 +279,10 @@ public class Ridge extends WorldObject{
                 g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED_ACTIVE;
             }
         } else if (_stateRidge == GROWED) {
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.CRAFT_RIDGE) return;
+            if (g.tuts.isTutorial && g.tuts.currentAction != TutorialAction.CRAFT_RIDGE) return;
             craftThePlant();
             g.timerHint.hideIt(true);
-            if (!g.managerTutorial.isTutorial) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
+            if (!g.tuts.isTutorial) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
         }
     }
 
@@ -301,21 +293,16 @@ public class Ridge extends WorldObject{
     public function onEndClick():void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialBuilding(this) && _tutorialCallback != null) {
-                g.managerTutorial.checkTutorialCallback();
-            } else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
+        if (g.tuts.isTutorial) {
+            if (g.tuts.currentAction == TutorialAction.PLANT_RIDGE && g.tuts.isTutorialBuilding(this) && _tutorialCallback != null) {
+                g.tuts.checkTutorialCallback();
+            } else if (g.tuts.currentAction == TutorialAction.NEW_RIDGE) {
 //                if (g.selectedBuild != this) return;
-            } else if (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null) return;
+            } else if (!g.tuts.isTutorialBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.isActiveMapEditor || g.isAway) return;
-        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
-//            g.toolsModifier.modifierType = ToolsModifier.NONE;
-            g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
-            return;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-            return;
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) { g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED; return;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) { g.toolsModifier.modifierType = ToolsModifier.NONE; return;
         } else if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
             onOut();
             if (g.selectedBuild) {
@@ -323,17 +310,13 @@ public class Ridge extends WorldObject{
                     g.toolsModifier.onTouchEnded();
                 } else return;
             }
-        }  else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-            // ничего не делаем вообще
-        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {  g.toolsModifier.modifierType = ToolsModifier.NONE;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) { // ничего не делаем вообще
+        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) { g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                if (g.managerTutorial.isTutorial) return;
+                if (g.tuts.isTutorial) return;
                 onOut();
-
                 if (!lastBuyResource) {
                     if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
                      else g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
@@ -342,9 +325,7 @@ public class Ridge extends WorldObject{
             }
             if (_stateRidge == EMPTY) {
                 onOut();
-                if (g.managerTutorial.isTutorial && _tutorialCallback != null) {
-                    hideArrow();
-                }
+                if (g.tuts.isTutorial && _tutorialCallback != null)  hideArrow();
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
             }
         }
@@ -366,7 +347,7 @@ public class Ridge extends WorldObject{
         g.toolsModifier.plantId = _dataPlant.id;
         g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
         g.managerPlantRidge.checkFreeRidges();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
+        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.PLANT_RIDGE) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }
@@ -382,25 +363,17 @@ public class Ridge extends WorldObject{
         _source.registerHitArea(_hitArea);
     }
 
-    public function get stateRidge():int {
-        return _stateRidge;
-    }
+    public function get stateRidge():int { return _stateRidge; }
+    public function get plant():PlantOnRidge { return _plant; }
+    public function get isFreeRidge():Boolean { return _stateRidge == EMPTY; }
 
     public function set stateRidge(a:int):void {
         _stateRidge = a;
         if (_stateRidge == GROWED) {
-            g.managerPlantRidge.removeCatFromRidge(_dataPlant.id, this);
             if (g.managerTips) g.managerTips.calculateAvailableTips();
+            g.managerCats.onFinishRidge(this);
         }
         updateRidgeHitArea();
-    }
-
-    public function get plant():PlantOnRidge {
-        return _plant;
-    }
-
-    public function get isFreeRidge():Boolean {
-        return _stateRidge == EMPTY;
     }
 
     override public function clearIt():void {
@@ -431,14 +404,9 @@ public class Ridge extends WorldObject{
         }
     }
 
-    private function checkBeforeMove():void {
-        if (_plant)
-            g.managerPlantRidge.onRidgeStartMove(_dataPlant.id, this);
-    }
-
     public function checkAfterMove():void {
-        if (_plant)
-            g.managerPlantRidge.onRidgeFinishMove(_dataPlant.id, this);
+//        if (_plant)
+//            g.managerPlantRidge.onRidgeFinishMove(_dataPlant.id, this);
     }
 
     override public function showArrow(t:Number=0):void {

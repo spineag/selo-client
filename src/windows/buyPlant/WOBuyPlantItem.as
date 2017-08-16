@@ -69,7 +69,6 @@ public class WOBuyPlantItem {
     }
     
     public function fillData(ob:StructureDataResource, f:Function):void {
-//        source.visible = true;
         _dataPlant = ob;
         if (!_dataPlant) {
             Cc.error('WOBuyPlantItem:: empty _dataPlant');
@@ -77,11 +76,9 @@ public class WOBuyPlantItem {
             return;
         }
         _clickCallback = f;
-        if (_dataPlant.blockByLevel == g.user.level + 1) {
-            _maxAlpha = .5;
-        } else if (_dataPlant.blockByLevel <= g.user.level) {
-            _maxAlpha = 1;
-        } else {
+        if (_dataPlant.blockByLevel == g.user.level + 1) _maxAlpha = .5;
+        else if (_dataPlant.blockByLevel <= g.user.level) _maxAlpha = 1;
+        else {
             _maxAlpha = 0;
             Cc.error("Warning woBuyPlantItem filldata:: _dataPlant.blockByLevel > g.user.level + 1");
         }
@@ -92,11 +89,8 @@ public class WOBuyPlantItem {
         if (_maxAlpha == 1) {
             _txtNumber.text = String(_countPlants);
             _txtNumber.visible = true;
-        }
-        else _txtNumber.visible = false;
-        if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialResource(_dataPlant.id)) {
-            addArrow();
-        }
+        } else _txtNumber.visible = false;
+        if (g.tuts && g.tuts.currentAction == TutorialAction.PLANT_RIDGE && g.tuts.isTutorialResource(_dataPlant.id)) addArrow();
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PLANT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PLANT)
             && g.managerQuest.activeTask.resourceId == _dataPlant.id) addArrow(3);
     }
@@ -207,7 +201,7 @@ public class WOBuyPlantItem {
         if (g.managerCutScenes.isCutScene) return;
         if (!_dataPlant) return;
         if (_dataPlant.blockByLevel > g.user.level) return;
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialResource(_dataPlant.id)) return;
+        if (g.tuts.isTutorial && !g.tuts.isTutorialResource(_dataPlant.id)) return;
         g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         source.filter = null;
         g.resourceHint.hideIt();
@@ -230,7 +224,7 @@ public class WOBuyPlantItem {
         if (_isOnHover) return;
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
         source.filter = ManagerFilters.YELLOW_STROKE;
-//        if (g.managerTutorial.isTutorial) return;
+//        if (g.tuts.isTutorial) return;
         _isOnHover = true;
         g.resourceHint.hideIt();
         g.resourceHint.showIt(_dataPlant.id, source.x, 48, source, true);

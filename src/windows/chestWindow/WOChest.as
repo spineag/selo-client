@@ -40,7 +40,7 @@ public class WOChest  extends WindowMain{
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         hideIt();
     }
 
@@ -51,7 +51,7 @@ public class WOChest  extends WindowMain{
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 _armature.animation.gotoAndStopByFrame('idle_2');
-                if (g.managerTutorial.isTutorial) _woChestItemsTutorial = new WOChestItemsTutorial(_source, closeAnimation);
+                if (g.tuts.isTutorial) _woChestItemsTutorial = new WOChestItemsTutorial(_source, closeAnimation);
                 else  _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, closeAnimation);
             };
             _armature.addEventListener(EventObject.COMPLETE, fEndOver);
@@ -84,7 +84,7 @@ public class WOChest  extends WindowMain{
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
             }
-            if (g.managerTutorial.isTutorial) hideItTutorial();
+            if (g.tuts.isTutorial) hideItTutorial();
             else hideIt();
         };
         if (_armature) {
@@ -104,7 +104,7 @@ public class WOChest  extends WindowMain{
     }
 
     private function hideItTutorial():void {
-        g.managerTutorial.checkTutorialCallback();
+        g.tuts.checkTutorialCallback();
         super.hideIt();
         if (_callback != null) {
             _callback.apply(null,[]);

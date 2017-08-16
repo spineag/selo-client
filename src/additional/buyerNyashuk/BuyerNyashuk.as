@@ -31,6 +31,8 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 import utils.CSprite;
 import utils.IsoUtils;
 import utils.MCScaler;
@@ -148,16 +150,20 @@ public class BuyerNyashuk {
     }
 
     private function onClick():void {
+        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.NYASHIK) g.tuts.checkTutorialCallback();
         g.windowsManager.openWindow(WindowsManager.WO_BUYER_NYASHUK, null, _buyerId, _data,this);
     }
 
-    public function get id():int {
-        return _buyerId;
-    }
-
-    public function get dataNyashuk():Object {
-        return _data;
-    }
+    public function get id():int { return _buyerId; }
+    public function get dataNyashuk():Object { return _data; }
+    private function onOut():void { _isHover = false; }
+    public function get source():Sprite { return _source; }
+    public function get posX():int { return _posX; }
+    public function get posY():int { return _posY; }
+    public function get rect():Rectangle { return _rect; }
+    public function setPositionInQueue(i:int):void { _queuePosition = i; }
+    public function get queuePosition():int { return _queuePosition; }
+    public function flipIt(v:Boolean):void { v ? _source.scaleX = -1: _source.scaleX = 1; }
 
     public function noClick():void {
         _source.endClickCallback = null;
@@ -185,15 +191,6 @@ public class BuyerNyashuk {
         _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
         _armature.animation.gotoAndPlayByFrame('run_quest');
     }
-
-    private function onOut():void { _isHover = false; }
-    public function get source():Sprite { return _source; }
-    public function get posX():int { return _posX; }
-    public function get posY():int { return _posY; }
-    public function get rect():Rectangle { return _rect; }
-    public function setPositionInQueue(i:int):void { _queuePosition = i; }
-    public function get queuePosition():int { return _queuePosition; }
-    public function flipIt(v:Boolean):void { v ? _source.scaleX = -1: _source.scaleX = 1; }
 
     public function showFront(v:Boolean):void {
         _booleanFront = v;
@@ -397,7 +394,7 @@ public class BuyerNyashuk {
             _source.scaleX = 1;
             Cc.error('OrderCat gotoPoint:: wrong front-back logic');
         }
-        if (g.managerTutorial.isTutorial) {
+        if (g.tuts.isTutorial) {
             new TweenMax(_source, 6, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         } else {
             if (catGoAway) new TweenMax(_source, 6, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});

@@ -58,6 +58,7 @@ import windows.tipsWindow.WOTips;
 import windows.train.WOTrain;
 import windows.train.WOTrainOrder;
 import windows.train.WOTrainSend;
+import windows.tutorial.WOTutorial;
 import windows.wallPost.PostDoneOrder;
 import windows.wallPost.PostDoneTrain;
 import windows.wallPost.PostOpenCave;
@@ -123,6 +124,7 @@ public class WindowsManager {
     public static const WO_ACHIEVEMENT:String = 'achievement';
     public static const WO_MISS_YOU:String = 'miss_you';
     public static const WO_ANNOUNCEMENT:String = 'announcement';
+    public static const WO_TUTORIAL:String = 'tutorial';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -328,6 +330,9 @@ public class WindowsManager {
                 break;
             case WO_ANNOUNCEMENT:
                 wo = new WOAnnouncement();
+                break;
+            case WO_TUTORIAL:
+                wo = new WOTutorial();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

@@ -170,7 +170,7 @@ public class DecorAnimation extends WorldObject{
                 _armature.animation.gotoAndPlayByFrame('over');
                 return;
             } else if (_decorWork) return;
-            if (!g.managerCats.isFreeCatDecor) {
+            if (!g.managerCats.isFreeCat) {
                 var p:Point = new Point(_source.x, _source.y);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p, String(g.managerLanguage.allTexts[619]));
@@ -186,7 +186,7 @@ public class DecorAnimation extends WorldObject{
                     for (var i:int = 0; i < count; i++) {
                         heroCat = g.managerCats.getFreeCatDecor();
                         if (heroCat) {
-                            heroCat.isFreeDecor = false;
+                            heroCat.isFree = false;
                             heroCat.decorAnimation = (this as DecorAnimation);
                             _heroCatArray.push(heroCat);
                             _catsRunCount++;
@@ -202,7 +202,7 @@ public class DecorAnimation extends WorldObject{
                 } else {
                     heroCat = g.managerCats.getFreeCatDecor();
                     if (heroCat) {
-                        heroCat.isFreeDecor = false;
+                        heroCat.isFree = false;
                         heroCat.decorAnimation = (this as DecorAnimation);
                         _heroCatArray.push(heroCat);
                         _catsRunCount++;
@@ -297,7 +297,7 @@ public class DecorAnimation extends WorldObject{
         }
         if (heroCat) {
             heroCat.visible = true;
-            heroCat.isFreeDecor = true;
+            heroCat.isFree = true;
             heroCat.decorAnimation = null;
             if (_heroCatArray.indexOf(heroCat) >= 0) _heroCatArray.removeAt(_heroCatArray.indexOf(heroCat));
         }
@@ -319,7 +319,7 @@ public class DecorAnimation extends WorldObject{
         }
         if (_heroCatArray.length) {
             (_heroCatArray[0] as HeroCat).visible = true;
-            (_heroCatArray[0] as HeroCat).isFreeDecor = true;
+            (_heroCatArray[0] as HeroCat).isFree = true;
             (_heroCatArray[0] as HeroCat).decorAnimation = null;
             _heroCatArray.length = 0;
         }
@@ -402,7 +402,7 @@ public class DecorAnimation extends WorldObject{
         }
         if (_heroCatArray.length) {
             for (var k:int=0; k<_heroCatArray.length; k++) {
-                (_heroCatArray[k] as HeroCat).isFreeDecor = true;
+                (_heroCatArray[k] as HeroCat).isFree = true;
                 (_heroCatArray[k] as HeroCat).decorAnimation = null;
                 (_heroCatArray[k] as HeroCat).visible = true;
             }
@@ -414,7 +414,7 @@ public class DecorAnimation extends WorldObject{
         if (!h) return;
         _heroCatArray.push(h);
         _decorWork = true;
-        h.isFreeDecor = false;
+        h.isFree = false;
         h.decorAnimation = (this as DecorAnimation);
         _catsRunCount = 1;
         var fEndOver:Function = function (e:Event = null):void {

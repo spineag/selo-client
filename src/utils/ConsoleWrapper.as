@@ -123,7 +123,7 @@ public class ConsoleWrapper {
         if (g.optionPanel) {
             g.optionPanel.makeFullScreen();
 //            g.optionPanel.makeResizeForGame();
-//            if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
+//            if (g.tuts.isTutorial) g.tuts.onResize();
         }
     }
 

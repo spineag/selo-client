@@ -184,7 +184,6 @@ public class Animal {
                 _timeToEnd = g.allData.getResourceById(_data.idResource).buildTime - int(ob.time_work);
                 _state = WORK;
                 if (!g.isAway) {
-                    g.managerAnimal.addCatToFarm(_farm);
                     g.gameDispatcher.addToTimer(render);
                 }
             }
@@ -201,7 +200,7 @@ public class Animal {
             craftResource();
             _farm.readyAnimal();
             addRenderAnimation();
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
+            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_SKIP) {
                 if (_tutorialCallback != null) {
                     g.timerHint.hideArrow();
                     g.timerHint.hideIt(true);
@@ -219,16 +218,6 @@ public class Animal {
 
     public function feedAnimal(last:Boolean = false,show:Boolean = false):void {
         onOut();
-        if (!g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
-            onOut();
-            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
-                return;
-            } else {
-                if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
-                return;
-            }
-        }
         if (!show) {
             if (g.allData.getResourceById(_data.idResourceRaw).buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 if (_wasStartActiveFeeding && g.managerAnimal.isMouseUnderAnimal(this)) {
@@ -253,76 +242,48 @@ public class Animal {
                 return;
             }
         }
-        if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
-            if (_data.id == 1) {
-                    g.soundManager.playSound(SoundConst.CHICKEN_CLICK);
-                } else if (_data.id == 2) {
-                    g.soundManager.playSound(SoundConst.COW_CLICK);
-                } else if (_data.id == 3) {
-                    g.soundManager.playSound(SoundConst.PIG_CLICK);
-                } else if (_data.id == 7) {
-                    g.soundManager.playSound(SoundConst.RAW_SHEEP);
-                } else if (_data.id == 6) {
-                g.soundManager.playSound(SoundConst.BEE_CLICK);
-            }
-            g.soundManager.playSound(SoundConst.OBJECT_CELL);
-            if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
-            _timeToEnd = g.allData.getResourceById(_data.idResource).buildTime; // _data.timeCraft; old from data_animal
-            g.gameDispatcher.addToTimer(render);
-            _state = WORK;
-            g.managerAnimal.addCatToFarm(_farm);
-            var p:Point = new Point(source.x, source.y);
-            p = source.parent.localToGlobal(p);
-            var texture:Texture;
-            var obj:Object = g.allData.getResourceById(_data.idResourceRaw);
-            if (obj.buildType == BuildType.PLANT)
-                texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
-            else
-                texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
+//        if (_data.id == 1) g.soundManager.playSound(SoundConst.CHICKEN_CLICK);
+//        else if (_data.id == 2) g.soundManager.playSound(SoundConst.COW_CLICK);
+//        else if (_data.id == 3) g.soundManager.playSound(SoundConst.PIG_CLICK);
+//        else if (_data.id == 7) g.soundManager.playSound(SoundConst.RAW_SHEEP);
+//        else if (_data.id == 6) g.soundManager.playSound(SoundConst.BEE_CLICK);
+        g.soundManager.playSound(SoundConst.OBJECT_CELL);
+        if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
+        _timeToEnd = g.allData.getResourceById(_data.idResource).buildTime; // _data.timeCraft; old from data_animal
+        g.gameDispatcher.addToTimer(render);
+        _state = WORK;
+        var p:Point = new Point(source.x, source.y);
+        p = source.parent.localToGlobal(p);
+        var texture:Texture;
+        var obj:Object = g.allData.getResourceById(_data.idResourceRaw);
+        if (obj.buildType == BuildType.PLANT)
+            texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
+        else
+            texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
 
-            new RawItem(p, texture, 1, 0);
-            g.directServer.rawUserAnimal(animal_db_id, null);
-            g.managerQuest.onActionForTaskType(ManagerQuest.FEED_ANIMAL, {id:(_data.id)});
-            if (_data.id != 6) {
-//                if (_data.id == 1) {
-//                    g.soundManager.playSound(SoundConst.RAW_CHICKEN);
-//                } else if (_data.id == 2) {
-//                    g.soundManager.playSound(SoundConst.RAW_COW);
-//                } else if (_data.id == 3) {
-//                    g.soundManager.playSound(SoundConst.RAW_PIG);
-//                } else if (_data.id == 7) {
-//                    g.soundManager.playSound(SoundConst.RAW_SHEEP);
-//                }
-                showFeedingAnimation();
-            } else {
-//                g.soundManager.playSound(SoundConst);
-                addRenderAnimation();
-            }
-            onOut();
-            g.userInventory.addResource(_data.idResourceRaw, -1);
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_FEED) {
-                if (_tutorialCallback != null) {
-                    _tutorialCallback.apply(null, [this]);
-                }
+        new RawItem(p, texture, 1, 0);
+        g.directServer.rawUserAnimal(animal_db_id, null);
+        g.managerQuest.onActionForTaskType(ManagerQuest.FEED_ANIMAL, {id:(_data.id)});
+        if (_data.id != 6) {
+            showFeedingAnimation();
+        } else {
+            addRenderAnimation();
+        }
+        g.managerCats.onStartFarm(_farm);
+        onOut();
+        g.userInventory.addResource(_data.idResourceRaw, -1);
+        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_FEED) {
+            if (_tutorialCallback != null) {
+                _tutorialCallback.apply(null, [this]);
             }
         }
-//        } else {
-//            onOut();
-//            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-//                if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
-//                trace('WO_WAIT_FREE_CATS');
-//            } else {
-//                if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
-//                trace('WO_NO_FREE_CATS');
-//            }
-//        }
     }
 
     public function onStartClick():void {
         if(_farm.isAnyCrafted) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
-            if (!g.managerTutorial.isTutorial) {
+            if (!g.tuts.isTutorial) {
                 g.managerAnimal.activeFeedAnimalId = _data.id;
                 if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) trace('kyky');
                 _wasStartActiveFeeding = true;
@@ -343,7 +304,7 @@ public class Animal {
             return;
         }
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
+        if (g.tuts.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         if(_farm.isAnyCrafted) return;
         if (_state == WORK) {
@@ -364,19 +325,19 @@ public class Animal {
                     _wasStartActiveFeeding = false;
                 }
             }
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
+            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_SKIP) {
                 removeArrow();
                 g.mouseHint.hideIt();
                 g.timerHint.addArrow();
             }
         } else if (_state == HUNGRY) {
-            if (g.managerTutorial.isTutorial)
+            if (g.tuts.isTutorial)
                 feedAnimal(last);
         }
     }
 
     public function onResize():void {
-        if (g.managerTutorial.isTutorial) {
+        if (g.tuts.isTutorial) {
             g.timerHint.hideArrow();
             g.timerHint.hideIt(true);
             var p1:Point = new Point(0, _rect.y);
@@ -396,7 +357,7 @@ public class Animal {
             stopAnimation();
             idleAnimation();
         }
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) {
+        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_SKIP) {
             removeArrow();
             g.mouseHint.hideIt();
             g.timerHint.addArrow();
@@ -406,7 +367,7 @@ public class Animal {
     public function onHover():void {
         if (_isOnHover) return;
         if (g.isAway) return;
-        if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
+        if (g.tuts.isTutorial && _tutorialCallback == null) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;
         if (_farm.isAnyCrafted) return;
@@ -422,7 +383,7 @@ public class Animal {
     }
 
     public function onOut():void {
-        if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
+        if (g.tuts.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         g.hint.hideIt();
         if (source.filter) source.filter.dispose();
@@ -557,6 +518,11 @@ public class Animal {
     private function stopAnimation():void {
         if (animation) animation.stopIt();
         TweenMax.killTweensOf(source);
+    }
+    
+    public function onGoAway(v:Boolean):void {
+        if (v) addRenderAnimation();
+        else stopAnimation();
     }
 
     public function clearIt():void {

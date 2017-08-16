@@ -109,7 +109,7 @@ public class CraftItem {
     public function flyIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         removeAnimIt();
-        if (g.managerTutorial.isTutorial && (g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT || g.managerTutorial.currentAction == TutorialAction.FABRICA_CRAFT)) {
+        if (g.tuts.isTutorial && (g.tuts.currentAction == TutorialAction.ANIMAL_CRAFT || g.tuts.currentAction == TutorialAction.FABRICA_CRAFT)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();
                 _tutorialCallback = null;
@@ -156,7 +156,7 @@ public class CraftItem {
         g.cont.animationsResourceCont.addChild(_source);
         if (bonusDrop) {
             if (g.managerDropResources.checkDrop()) {
-                if (g.user.level <= 7 && !g.managerTutorial.isTutorial) g.managerDropResources.createDrop(_source.x, _source.y);
+                if (g.user.level <= 7 && !g.tuts.isTutorial) g.managerDropResources.createDrop(_source.x, _source.y);
                 else g.managerDropResources.createDrop(_source.x, _source.y);
             }
         }

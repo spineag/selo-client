@@ -76,7 +76,7 @@ public class WindowMain {
             onWoShowCallback.apply();
             onWoShowCallback = null;
         } 
-        if (g.managerTutorial.isTutorial)  g.managerTutorial.checkTutorialCallbackOnShowWindow();
+        if (g.tuts.isTutorial)  g.tuts.checkTutorialCallbackOnShowWindow();
         if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.checkMiniCutSceneCallbackOnShowWindow();
         if (g.managerCutScenes.isCutScene) {
             if ((g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET) && _windowType == WindowsManager.WO_MARKET) ||
@@ -148,7 +148,7 @@ public class WindowMain {
         _black.alpha = .0;
         _black.endClickCallback = onBGClick;
         var c:Number = .5;
-        if (g.managerTutorial && g.managerTutorial.isTutorial) c = .7;
+        if (g.tuts && g.tuts.isTutorial) c = .7;
         TweenMax.to(_black, .2, {alpha:c});
     }
 

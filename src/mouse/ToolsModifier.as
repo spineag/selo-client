@@ -571,11 +571,11 @@ public class ToolsModifier {
             for (j = posX; j < posX + width; j++) {
                 if (i < 0 || j < 0 || i >= 80 || j >= 80) return false;
                 obj = _townMatrix[i][j];
-                if (g.managerTutorial.isTutorial) {
-                    if (!obj.isTutorialBuilding) {
-                        return false;
-                    }
-                }
+//                if (g.tuts.isTutorial) {
+//                    if (!obj.isTutorialBuilding) {
+//                        return false;
+//                    }
+//                }
                 if (!obj.inGame) return false;
                 if (obj.isFull) return false;
                 if (obj.isBlocked) return false;

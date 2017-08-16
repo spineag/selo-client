@@ -41,12 +41,11 @@ public class Fabrica extends WorldObject {
     private var _arrRecipes:Array;  // массив всех рецептов, которые можно изготовить на этой фабрике
     private var _arrList:Array; // массив заказанных для изготовления ресурсов
     private var _isOnHover:Boolean;
-    private var _heroCat:HeroCat;
     private var _count:int;
     private var _arrCrafted:Array;
     private var _armatureOpen:Armature;
-    private var _countTimer:int;
-    private var _fabricWork:Boolean;
+    private var _countAnimation:int;
+    private var _callOnRandomWork:Function;
 
     public function Fabrica(_data:Object) {
         super(_data);
@@ -67,7 +66,6 @@ public class Fabrica extends WorldObject {
         _buildingBuildSprite = new Sprite();
         _source.addChild(_buildingBuildSprite);
         checkBuildState();
-        _fabricWork = true;
         _arrRecipes = [];
         _arrList = [];
         _arrCrafted = [];
@@ -125,7 +123,6 @@ public class Fabrica extends WorldObject {
         stopAnimation();
         if (_source) _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
         if (_source) _source.registerHitArea(_hitArea);
-        if (!g.isAway) onHeroAnimation();
     }
 
 
@@ -160,7 +157,7 @@ public class Fabrica extends WorldObject {
             g.hint.showIt(_dataBuild.name);
             return;
         }
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _count = 20;
         if (_stateBuild == STATE_ACTIVE) {
@@ -181,16 +178,7 @@ public class Fabrica extends WorldObject {
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) {
                 buildingBuildFoundationOver();
-                if (g.managerTutorial.isTutorial) {
-                    return;
-                }
-// else {
-//                    _countTimer = 5;
-//                    g.timerHint.managerHide();
-//                    g.wildHint.managerHide();
-//                    g.treeHint.managerHide();
-//                    g.gameDispatcher.addEnterFrame(countEnterFrame);
-//                }
+                if (g.tuts.isTutorial) return;
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
@@ -207,9 +195,9 @@ public class Fabrica extends WorldObject {
         }
         if (_source.filter) _source.filter.dispose();
         _source.filter = null;
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) return;
-            if (!g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.tuts.isTutorial) {
+            if (g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) return;
+            if (!g.tuts.isTutorialBuilding(this)) return;
         }
         if (g.isActiveMapEditor) return;
         _isOnHover = false;
@@ -227,16 +215,14 @@ public class Fabrica extends WorldObject {
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialBuilding(this)) {
-                g.managerTutorial.checkTutorialCallback();
+        if (g.tuts.isTutorial) {
+            if (g.tuts.currentAction == TutorialAction.RAW_RECIPE && g.tuts.isTutorialBuilding(this)) {
+                g.tuts.checkTutorialCallback();
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
-            } else if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION && g.managerTutorial.isTutorialBuilding(this)) {
-
-            } else if (g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialResource(_dataBuild.id)) {
-
-            } else if (g.managerTutorial.currentAction == TutorialAction.FABRICA_CRAFT && g.managerTutorial.isTutorialBuilding(this)) {
-
+            } else if (g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION && g.tuts.isTutorialBuilding(this)) {
+            } else if (g.tuts.currentAction == TutorialAction.PUT_FABRICA && g.tuts.isTutorialResource(_dataBuild.id)) {
+            } else if (g.tuts.currentAction == TutorialAction.PUT_FABRICA && g.tuts.isTutorialBuilding(this)) {
+            } else if (g.tuts.currentAction == TutorialAction.FABRICA_CRAFT && g.tuts.isTutorialBuilding(this)) {
             } else return;
         }
         if (g.isActiveMapEditor) return;
@@ -280,7 +266,7 @@ public class Fabrica extends WorldObject {
                     }
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
-                    if (!g.managerTutorial.isTutorial) g.cont.moveCenterToXY(_source.x, _source.y);
+                    if (!g.tuts.isTutorial) g.cont.moveCenterToXY(_source.x, _source.y);
                     onOut();
                     openFabricaWindow();
                 }
@@ -295,11 +281,11 @@ public class Fabrica extends WorldObject {
                 onOut();
                 g.townArea.moveBuild(this);
             } else {
-                if (g.managerTutorial.isTutorial) {
-                    if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION && g.managerTutorial.subStep == 1) {
+                if (g.tuts.isTutorial) {
+                    if (g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
                         g.timerHint.canHide = false;
                         g.timerHint.addArrow();
-                        g.managerTutorial.checkTutorialCallback();
+                        g.tuts.checkTutorialCallback();
                         g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
                                 _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                     } else return;
@@ -310,7 +296,7 @@ public class Fabrica extends WorldObject {
                 }
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) return;
+            if (g.tuts.isTutorial && g.tuts.currentAction != TutorialAction.PUT_FABRICA) return;
             _stateBuild = STATE_ACTIVE;
             g.managerAchievement.addAll(12,1);
             g.user.userBuildingData[_dataBuild.id].isOpen = 1;
@@ -325,8 +311,8 @@ public class Fabrica extends WorldObject {
             }
             showBoom();
             g.managerFabricaRecipe.onAddNewFabrica(this);
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA && g.managerTutorial.isTutorialBuilding(this)) {
-                g.managerTutorial.checkTutorialCallback();
+            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.PUT_FABRICA && g.tuts.isTutorialBuilding(this)) {
+                g.tuts.checkTutorialCallback();
             }
             g.soundManager.playSound(SoundConst.OPEN_BUILD);
             g.managerQuest.onActionForTaskType(ManagerQuest.OPEN_BUILD, {id:_dataBuild.id});
@@ -334,14 +320,14 @@ public class Fabrica extends WorldObject {
     }
 
     public function onResize():void {
-        if (g.managerTutorial.isTutorial) {
+        if (g.tuts.isTutorial) {
             g.timerHint.canHide = true;
             g.timerHint.hideArrow();
             g.timerHint.hideIt(true);
 
             g.timerHint.canHide = false;
             g.timerHint.addArrow();
-            g.managerTutorial.checkTutorialCallback();
+            g.tuts.checkTutorialCallback();
             g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
                     _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
         }
@@ -352,19 +338,11 @@ public class Fabrica extends WorldObject {
         super.showForOptimisation(needShow);
     }
 
-    public function get arrRecipes():Array {
-        return _arrRecipes;
-    }
-
-    public function get arrList():Array {
-        return _arrList;
-    }
-
-    public function get arrCrafted():Array {
-        return _arrCrafted;
-    }
-
+    public function get arrRecipes():Array { return _arrRecipes; }
+    public function get arrList():Array { return _arrList; }
+    public function get arrCrafted():Array { return _arrCrafted; }
     private function onOpenBuilded(value:Boolean):void { }
+    public function get isAnyCrafted():Boolean { return _arrCrafted.length > 0; }
 
     private function updateRecipes():void {
         _arrRecipes.length = 0;
@@ -382,10 +360,6 @@ public class Fabrica extends WorldObject {
         }
     }
 
-    public function get heroCat():HeroCat {
-        return _heroCat;
-    }
-
     public function onRecipeFromServer(resItem:ResourceItem, dataRecipe:Object, timeInWork:int, delayTime:int, staticDelayTime:int):void {
         resItem.leftTime -= timeInWork;
         resItem.delayTime = delayTime;
@@ -397,53 +371,29 @@ public class Fabrica extends WorldObject {
     public function onLoadFromServer():void {
         if (!_arrList.length) return;
         _arrList.sortOn('delayTime', Array.NUMERIC);
-        if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
-        if (_heroCat) {
-            _heroCat.isFree = false;
-            _heroCat.setPosition(new Point(posX, posY));
-            _heroCat.updatePosition();
-            onHeroAnimation();
-        } else {
-            Cc.error('Fabrica onLoadFromServer:: _heroCat == null');
-        }
         g.gameDispatcher.addToTimer(render);
     }
 
     public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object):void {
-        if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
-        if (!_arrList.length && !_heroCat) {
-            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
-            } else {
-                g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
-            }
-            return;
-        }
         var i:int;
         var delay:int = 0;
-        _heroCat.isFree = false;
         _arrList.push(resItem);
         resItem.currentRecipeID = dataRecipe.id;
-        if (_arrList.length == 1) {
-            g.gameDispatcher.addToTimer(render);
-        }
+        if (_arrList.length == 1)  g.gameDispatcher.addToTimer(render);
         if (_arrList.length > 1) {
-            onHeroAnimation();
             // delay before start make this new recipe
             for (i = 0; i < _arrList.length - 1; i++) {
                 delay += _arrList[i].buildTime;
             }
-        } else g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+        }
         _arrList[_arrList.length -1].staticDelayTime = delay;
-        var f1:Function = function(t:String):void {
-            resItem.idFromServer = t;
-        };
-        Cc.ch('temp', 'fabrica delay: ' + delay);
+        var f1:Function = function(t:String):void {  resItem.idFromServer = t;  };
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
             g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
         g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
         g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.idResource});
+        g.managerCats.onStartFabrica(this);
         // animation of uploading resources to fabrica
         var p:Point = new Point(source.x, source.y);
         p = source.parent.localToGlobal(p);
@@ -451,40 +401,19 @@ public class Fabrica extends WorldObject {
         var texture:Texture;
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
             obj = g.allData.getResourceById(int(dataRecipe.ingridientsId[i]));
-            if (obj.buildType == BuildType.PLANT)
-                texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
-            else
-                texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
+            if (obj.buildType == BuildType.PLANT)  texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
+            else texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
             new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
         }
     }
 
-    private function onHeroAnimation():void {
-        if (_fabricWork) return;
-        if (_arrList && _arrList.length && _heroCat) {
-            startAnimation();
-            _fabricWork = true;
-            _heroCat.visible = false;
-        }
-    }
-
     public function onGoAway(v:Boolean):void {
-        if (v) {
-            if (_heroCat) {
-                _heroCat.killAllAnimations();
-                stopAnimation();
-            }
-        } else {
-            onHeroAnimation();
-        }
+        if (v) startAnimation();
+        else stopAnimation();
     }
 
     private function render():void {
         if (!_arrList.length) {
-            if (_heroCat) {
-                _heroCat.visible = true;
-                _heroCat.isFree = true;
-            }
             stopAnimation();
             g.gameDispatcher.removeFromTimer(render);
             return;
@@ -493,12 +422,9 @@ public class Fabrica extends WorldObject {
         if (_arrList[0].leftTime <= 0) {
             craftResource(_arrList.shift());
             if (!_arrList.length) {
-                if (_heroCat) {
-                    _heroCat.visible = true;
-                    _heroCat.isFree = true;
-                }
                 stopAnimation();
                 g.gameDispatcher.removeFromTimer(render);
+                g.managerCats.onFinishFabrica(this);
             }
         }
     }
@@ -517,16 +443,6 @@ public class Fabrica extends WorldObject {
         _arrCrafted.push(craftItem);
         craftItem.addParticle();
         craftItem.animIt();
-        if (!_arrList.length && _heroCat) {
-            if (_heroCat.visible) {
-                _heroCat.killAllAnimations();
-                _heroCat.isFree = true;
-            } else {
-                _heroCat.visible = true;
-                _heroCat.isFree = true;
-            }
-            _heroCat = null;
-        }
         if (g.managerTips) g.managerTips.calculateAvailableTips();
     }
 
@@ -553,51 +469,70 @@ public class Fabrica extends WorldObject {
         g.managerFabricaRecipe.onCraft(item);
     }
 
-    public function awayImitationOfWork():void {
-        startAnimation();
+    public function onHeroAnimation(f:Function):void {
+        _countAnimation = 5;
+        _callOnRandomWork = f;
+        stopAnimation();
+        if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimationHero);
+        if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimationHero);
+        chooseAnimationHero();
     }
+
+    public function chooseAnimationHero():void {
+        _countAnimation--;
+        if (_countAnimation < 0) {
+            if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimationHero);
+            if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimationHero);
+            if (_callOnRandomWork != null) {
+                _callOnRandomWork.apply();
+                _callOnRandomWork = null;
+            }
+            if (_arrList.length) startAnimation();
+            else stopAnimation();
+        }
+        _armature.animation.gotoAndPlayByFrame('idle2');
+    }
+
+    public function awayImitationOfWork():void { startAnimation(); }
 
     private function startAnimation():void {
         if (!_armature) return;
         _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-        releaseHeroCatWoman();
         chooseAnimation();
     }
 
     private function stopAnimation():void {
-        _fabricWork = false;
         if (_armature) _armature.animation.gotoAndStopByFrame('idle');
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
     }
 
     private function chooseAnimation(e:Event=null):void {
+//        _countAnimation--;
+//        if (_countAnimation < 0 && !g.isAway) {
+//            stopAnimation();
+//            if (_callOnRandomWork != null) {
+//                _callOnRandomWork.apply();
+//                _callOnRandomWork = null;
+//            }
+//        }
         if (!_armature) return;
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-        var k:int = int(Math.random() * 6);
-        switch (k) {
-            case 0:
-                _armature.animation.gotoAndPlayByFrame('idle1');
-                break;
-            case 1:
-                _armature.animation.gotoAndPlayByFrame('idle1');
-                break;
-            case 2:
-                _armature.animation.gotoAndPlayByFrame('idle1');
-                break;
-            case 3:
-                _armature.animation.gotoAndPlayByFrame('idle2');
-                break;
-            case 4:
-                _armature.animation.gotoAndPlayByFrame('idle3');
-                break;
-            case 5:
-                if (_armature.animation.hasAnimation('idle4')) _armature.animation.gotoAndPlayByFrame('idle4');
-                else _armature.animation.gotoAndPlayByFrame('idle3');
-                break;
-        }
+//        var k:int = int(Math.random() * 6);
+//        switch (k) {
+//            case 0: _armature.animation.gotoAndPlayByFrame('idle1'); break;
+//            case 1: _armature.animation.gotoAndPlayByFrame('idle1'); break;
+//            case 2: _armature.animation.gotoAndPlayByFrame('idle1'); break;
+//            case 3: _armature.animation.gotoAndPlayByFrame('idle2'); break;
+//            case 4: _armature.animation.gotoAndPlayByFrame('idle3'); break;
+//            case 5:
+//                if (_armature.animation.hasAnimation('idle4')) _armature.animation.gotoAndPlayByFrame('idle4');
+//                else _armature.animation.gotoAndPlayByFrame('idle3');
+//                break;
+//        }
+        _armature.animation.gotoAndPlayByFrame('idle1');
     }
 
     override public function clearIt():void {
@@ -618,6 +553,12 @@ public class Fabrica extends WorldObject {
         _leftBuildTime = 0;
         renderBuildProgress();
         onOut();
+        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+            g.timerHint.canHide = true;
+            g.timerHint.hideArrow();
+            g.timerHint.hideIt();
+            g.tuts.checkTutorialCallback();
+        }
     }
 
     public function onBuyNewCell():void {
@@ -643,8 +584,6 @@ public class Fabrica extends WorldObject {
                 if (_arrList[i].staticDelayTime > _arrList[number].staticDelayTime )  _arrList[i].staticDelayTime = _arrList[i].staticDelayTime - _arrList[number].staticDelayTime ;
             }
             _arrList.splice(number, 1);
-
-//            craftResource(_arrList.shift());
         } else {
             Cc.error('Fabrica skipSmallRecipe:: _arrList[0] == null');
         }
@@ -653,108 +592,6 @@ public class Fabrica extends WorldObject {
     public function addArrowToCraftItem(f:Function):void {
         if (_arrCrafted.length) {
             (_arrCrafted[0] as CraftItem).addArrow(f);
-        }
-    }
-
-    public function get isAnyCrafted():Boolean {
-        return _arrCrafted.length > 0;
-    }
-
-    private function releaseHeroCatWoman():void {
-        if (_heroCat) {
-            if (_heroCat.typeMan == BasicCat.MAN) {
-                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133) // це конешно сильно)))
-                    releaseManBackTexture();
-                else releaseManFrontTexture();
-            } else if (_heroCat.typeMan == BasicCat.WOMAN) {
-                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133)
-                    releaseWomanBackTexture();
-                else releaseWomanFrontTexture();
-            }
-        } else {
-            if (g.isAway) {
-                if (Math.random() < .5) {
-                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133)
-                        releaseManBackTexture();
-                    else releaseManFrontTexture();
-                } else {
-                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133)
-                        releaseWomanBackTexture();
-                    else releaseWomanFrontTexture();
-                }
-            }
-        }
-    }
-
-    private function releaseManFrontTexture():void {
-        if (!_armature) return;
-        changeTexture("head", "head");
-        changeTexture("body", "body");
-        changeTexture("handLeft", "hand_l");
-        changeTexture("legLeft", "leg_l");
-        changeTexture("handRight", "hand_r");
-        changeTexture("legRight", "leg_r");
-        changeTexture("tail", "tail");
-        if (_dataBuild.id == 10) {
-            changeTexture("handRight2", "hand_r");
-        }
-        var viyi:Bone = _armature.getBone('viyi'); {
-            if (viyi) {
-                viyi.visible = false;
-            }
-        }
-    }
-
-    private function releaseManBackTexture():void {
-        changeTexture("head", "head_b");
-        changeTexture("body", "body_b");
-        changeTexture("handLeft", "hand_l_b");
-        changeTexture("legLeft", "leg_l_b");
-        changeTexture("handRight", "hand_r_b");
-        changeTexture("legRight", "leg_r_b");
-        changeTexture("tail", "tail");
-        if (_dataBuild.id == 10) {
-            changeTexture("handRight2", "hand_r_b");
-        }
-    }
-
-    private function releaseWomanFrontTexture():void {
-        if (!_armature) return;
-        changeTexture("head", "head_w");
-        changeTexture("body", "body_w");
-        changeTexture("handLeft", "hand_w_l");
-        changeTexture("legLeft", "leg_w_r");
-        changeTexture("handRight", "hand_w_r");
-        changeTexture("legRight", "leg_w_r");
-        changeTexture("tail", "tail_w");
-        if (_dataBuild.id == 10) {
-            changeTexture("handRight2", "hand_w_r");
-        }
-        var viyi:Bone = _armature.getBone('viyi'); {
-            if (viyi) {
-                viyi.visible = true;
-            }
-        }
-    }
-
-    private function releaseWomanBackTexture():void {
-        changeTexture("head", "head_w_b");
-        changeTexture("body", "body_w_b");
-        changeTexture("handLeft", "hand_w_l_b");
-        changeTexture("legLeft", "leg_w_l_b");
-        changeTexture("handRight", "hand_w_r_b");
-        changeTexture("legRight", "leg_w_r_b");
-        changeTexture("tail", "tail_w");
-    }
-
-    private function changeTexture(oldName:String, newName:String):void {
-        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
-        if (_armature) var b:Slot = _armature.getSlot(oldName);
-        if (im && b) {
-            b.displayList = null;
-            b.display = im;
-        } else {
-            Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
         }
     }
 
@@ -767,7 +604,6 @@ public class Fabrica extends WorldObject {
         _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
         _armatureOpen.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
         _armatureOpen.animation.gotoAndPlayByFrame("start");
-
     }
 
     private function onBoom(e:Event=null):void {
@@ -776,7 +612,7 @@ public class Fabrica extends WorldObject {
         WorldClock.clock.remove(_armatureOpen);
         _source.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen = null;
-        if (!g.managerTutorial.isTutorial) {
+        if (!g.tuts.isTutorial) {
             g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
         }
     }

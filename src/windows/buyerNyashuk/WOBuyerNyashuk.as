@@ -13,6 +13,9 @@ import starling.display.Image;
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
+
+import tutorial.TutorialAction;
+
 import ui.xpPanel.XPStar;
 import utils.CButton;
 import utils.CTextField;
@@ -174,17 +177,18 @@ public class WOBuyerNyashuk extends WindowMain{
         txt.y = -10;
         _source.addChild(txt);
         _arrCTex.push(txt);
-
     }
 
     private function onClickBuy(noResource:Boolean = false):void {
         var ob:Object = {};
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
-            ob.data = g.allData.getResourceById(_data.resourceId);
-            ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
-            ob.dataNyashuk = _data;
-            super.hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuy, 'nyashuk', ob, _nyashuk);
+            if (g.tuts.isTutorial) {
+                ob.data = g.allData.getResourceById(_data.resourceId);
+                ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
+                ob.dataNyashuk = _data;
+                super.hideIt();
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuy, 'nyashuk', ob, _nyashuk);
+            } else super.hideIt();
             return;
         }
         if (!noResource && _data.type == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount &&  !g.userInventory.checkLastResource(_data.resourceId)) {
@@ -217,6 +221,7 @@ public class WOBuyerNyashuk extends WindowMain{
     }
 
     override protected function deleteIt():void {
+        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.NYASHIK) g.tuts.checkTutorialCallback();
         _data = null;
         _nyashuk = null;
         for (var i:int = 0; i <_arrCTex.length; i++) {

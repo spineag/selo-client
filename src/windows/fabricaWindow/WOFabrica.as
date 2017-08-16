@@ -43,7 +43,7 @@ public class WOFabrica extends WindowMain {
     }
 
     private function onClickExit(e:Event = null):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         hideIt();
     }
 
@@ -125,31 +125,21 @@ public class WOFabrica extends WindowMain {
     private function onItemClick(dataRecipe:Object, lastRes:Boolean = false):void {
         var obj:Object;
         if (!lastRes) {
-                var fExit:Function = function():void {
-                    g.windowsManager.uncasheWindow();
-                };
-                if (_list.arrRecipes.length == 9) {
-                        g.windowsManager.cashWindow = this;
-                        super.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, g.managerTimerSkip.newCount(_list.arrRecipes[0].buildTime, _list.arrRecipes[0].leftTime, _list.arrRecipes[0].priceSkipHard),_list.arrRecipes[0].resourceID, fExit, true);
-                    return;
-                } else if (_list.arrRecipes.length == _list.maxCount){
-                        g.windowsManager.cashWindow = this;
-                        super.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.priceForNewCell, 0, fExit, false);
-                    return;
-                }
-            if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {
-                isCashed = false;
-                super.hideIt();
-                if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-                    g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
-                } else {
-                    g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
-                }
+            var fExit:Function = function():void {
+                g.windowsManager.uncasheWindow();
+            };
+            if (_list.arrRecipes.length == 9) {
+                    g.windowsManager.cashWindow = this;
+                    super.hideIt();
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, g.managerTimerSkip.newCount(_list.arrRecipes[0].buildTime, _list.arrRecipes[0].leftTime, _list.arrRecipes[0].priceSkipHard),_list.arrRecipes[0].resourceID, fExit, true);
+                return;
+            } else if (_list.arrRecipes.length == _list.maxCount){
+                    g.windowsManager.cashWindow = this;
+                    super.hideIt();
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.priceForNewCell, 0, fExit, false);
                 return;
             }
-
+            
             var count:int = 0;
             if (!dataRecipe || !dataRecipe.ingridientsId) {
                 Cc.error('UserInventory checkRecipe:: bad _data');

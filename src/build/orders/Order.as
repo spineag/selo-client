@@ -107,7 +107,7 @@ public class Order extends WorldObject{
             g.hint.showIt(_dataBuild.name);
             return;
         }
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             if (_stateBuild == STATE_ACTIVE) {
@@ -136,7 +136,7 @@ public class Order extends WorldObject{
             return;
         }
         g.hint.hideIt();
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
         if (_source.filter) _source.filter.dispose();
         _source.filter = null;
         _isOnHover = false;
@@ -164,9 +164,9 @@ public class Order extends WorldObject{
             }
             return;
         }
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.isTutorialBuilding(this)) {
-                g.managerTutorial.checkTutorialCallback();
+        if (g.tuts.isTutorial) {
+            if (g.tuts.isTutorialBuilding(this)) {
+                g.tuts.checkTutorialCallback();
             } else return;
         }
         if (g.managerCutScenes.isCutScene) return;

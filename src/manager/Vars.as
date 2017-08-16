@@ -8,9 +8,7 @@ import additional.buyerNyashuk.ManagerBuyerNyashuk;
 import additional.lohmatik.ManagerLohmatik;
 import additional.mouse.ManagerMouse;
 import analytic.AnalyticManager;
-
 import announcement.ManagerAnnouncement;
-
 import build.TownAreaTouchManager;
 import build.farm.FarmGrid;
 import data.AllData;
@@ -32,7 +30,6 @@ import loaders.LoadAnimationManager;
 import loaders.LoaderManager;
 import loaders.allLoadMb.AllLoadMb;
 
-import manager.ManagerPartyNew;
 import manager.hitArea.ManagerHitArea;
 import manager.ownError.ErrorConst;
 import manager.ownError.OwnErrorManager;
@@ -61,11 +58,11 @@ import tutorial.IManagerTutorial;
 import tutorial.helpers.ManagerHelpers;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
-import tutorial.newTuts.ManagerTutorialNew;
 import tutorial.tips.ManagerTips;
+import tutorial.tutorial.TutorialManager;
+
 import ui.achievementPanel.AchievementPanel;
 import ui.bottomInterface.MainBottomPanel;
-import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
 import ui.party.PartyPanel;
@@ -172,7 +169,6 @@ public class Vars {
     public var optionPanel:OptionPanel;
     public var friendPanel:FriendPanel;
     public var toolsPanel:ToolsPanel;
-    public var catPanel:CatPanel;
     public var stockPanel:StockPanel;
     public var partyPanel:PartyPanel;
     public var salePanel:SalePanel;
@@ -192,7 +188,7 @@ public class Vars {
     public var errorManager:OwnErrorManager;
     public var analyticManager:AnalyticManager;
     public var managerCats:ManagerCats;
-    public var managerTutorial:IManagerTutorial;
+    public var tuts:IManagerTutorial;
     public var managerButterfly:ManagerButterfly;
     public var managerHelpers:ManagerHelpers;
     public var soundManager:SoundManager;
@@ -254,7 +250,7 @@ public class Vars {
             dataOrderCats = new DataCat();
             userInventory = new UserInventory();
 
-            managerTutorial = new ManagerTutorialNew();
+            tuts = new TutorialManager();
             managerCutScenes = new ManagerCutScenes();
             managerWallPost = new ManagerWallPost();
             managerTimerSkip = new ManagerTimerSkip();
@@ -269,7 +265,6 @@ public class Vars {
 
             managerCats = new ManagerCats();
             managerOrderCats = new ManagerOrderCats();
-            catPanel = new CatPanel();
             townAreaTouchManager = new TownAreaTouchManager();
             achievementPanel = new AchievementPanel();
             initInterface2();
@@ -285,7 +280,7 @@ public class Vars {
         managerCats.addAllHeroCats();
         managerSalePack = new ManagerSalePack();
         startPreloader.setProgress(81);
-        if (managerTutorial.isTutorial) {
+        if (tuts.isTutorial) {
             loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
         } else {
 //            if ((user as User).level == 3) {
@@ -303,8 +298,6 @@ public class Vars {
 
     private function onDataBuyMoney():void {
         startPreloader.setProgress(88);
-        managerCats.calculateMaxCountCats();
-        catPanel.checkCat();
         directServer.getDataLockedLand(onDataLockedLand);
     }
 
@@ -356,11 +349,10 @@ public class Vars {
         testerPanel =new TesterPanelTop();
 
 //        if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
-            directServer.getDataStockPack(afterServerStock);
+        directServer.getDataStockPack(afterServerStock);
 //            stockPanel = new StockPanel();
 //        }
         managerQuest = new ManagerQuest();
-//        gameDispatcher.addNextFrameFunction();
         managerParty = new ManagerPartyNew();
         optionPanel = new OptionPanel();
         directServer.getDataParty(afterLoadAll);
@@ -369,16 +361,14 @@ public class Vars {
     private function afterLoadAll():void {
         cont.onLoadAll();
         startPreloader.setProgress(100);
-        if (currentGameScale != 1) {
-            optionPanel.makeScaling(currentGameScale, false, true);
-        }
-        cont.moveCenterToXY(0, realGameTilesHeight / 2 - 400 * scaleFactor, true);
+        if (currentGameScale != 1) optionPanel.makeScaling(currentGameScale, false, true);
+        cont.moveCenterToXY(0, realGameTilesHeight / 2 - 700 * scaleFactor, true);
 
         windowsManager = new WindowsManager();
         managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();
-        managerCats.setAllCatsToRandomPositions();
+        managerCats.setAllCatsToRandomPositionsAtStartGame();
         managerDailyBonus.checkDailyBonusStateBuilding();
         lateAction = new ManagerLateAction();
         isGameLoaded = true;
@@ -429,14 +419,14 @@ public class Vars {
     }
 
     private function afterLoadAll_4():void {
-        if (managerTutorial.isTutorial) {
+        if (tuts.isTutorial) {
             if ((user as User).tutorialStep > 1) {
                 startPreloader.hideIt();
                 startPreloader = null;
             }
             managerOrder.showSmallHeroAtOrder(false);
-            managerTutorial.onGameStart();
-            managerTutorial.checkDefaults();
+            tuts.onGameStart();
+            tuts.checkDefaults();
         } else {
             startPreloader.hideIt();
             startPreloader = null;
@@ -482,6 +472,10 @@ public class Vars {
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
         
         if ((user as User).level >= 4) managerAnnouncement = new ManagerAnnouncement();
+        if ((user as User).level >= 4) {
+            managerCats.timerRandomWorkMan();
+            managerCats.timerRandomWorkWoman();
+        }
     }
 
     private function onEnterFrameGlobal():void {

@@ -250,7 +250,7 @@ public class ManagerOrderCats {
         var p:Point = new Point(30, 0);
         p = g.matrixGrid.getXYFromIndex(p);
         cat.walkPosition = OrderCat.SHORT_OUTTILE_WALKING;
-        if (g.managerTutorial.isTutorial) {
+        if (g.tuts.isTutorial) {
             cat.runAnimation();
             cat.goCatToXYPoint(p, 1, arrivePart2, 0);
         } else {

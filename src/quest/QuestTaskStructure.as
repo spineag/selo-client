@@ -90,9 +90,6 @@ public class QuestTaskStructure {
                 else if (arr.length == 2) count = arr[0].arrAnimals.length + arr[1].arrAnimals.length + arr[2].arrAnimals.length;
             if (count >= maxCountAtCurrentLevel) _isDone = true;
                 else if (maxCountAtCurrentLevel - count < countNeed) _countDone = countNeed - (maxCountAtCurrentLevel - count);
-        } else if (_taskData.type_action == ManagerQuest.BUY_CAT) {
-            if (g.managerCats.curCountCats >= g.managerCats.maxCountCats) _isDone = true;
-                else if (g.managerCats.maxCountCats - g.managerCats.curCountCats < countNeed) _countDone = countNeed - (g.managerCats.maxCountCats - g.managerCats.curCountCats);
         }
     }
 

@@ -92,7 +92,7 @@ public class WOShop extends WindowMain {
 
     private function onClickExit(e:Event=null):void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         checkNotif();
         g.bottomPanel.updateTextNotification();
         hideIt();
@@ -197,7 +197,6 @@ public class WOShop extends WindowMain {
         switch (a) {
             case VILLAGE:
                 arR = g.allData.building;
-                arr.push(g.managerCats.catInfo);
                 for (i = 0; i < arR.length; i++) {
                     if (arR[i].buildType == BuildType.RIDGE || arR[i].buildType == BuildType.FARM) {
                         arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
@@ -291,7 +290,7 @@ public class WOShop extends WindowMain {
         _source.addChild(btn);
         var f1:Function = function ():void {
             if (g.managerCutScenes.isCutScene) return;
-            if (g.managerTutorial.isTutorial) return;
+            if (g.tuts.isTutorial) return;
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
         };
@@ -321,7 +320,7 @@ public class WOShop extends WindowMain {
         _source.addChild(btn);
         var f2:Function = function ():void {
             if (g.managerCutScenes.isCutScene) return;
-            if (g.managerTutorial.isTutorial) return;
+            if (g.tuts.isTutorial) return;
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);
         };
@@ -345,7 +344,7 @@ public class WOShop extends WindowMain {
         btn.y = -_woHeight/2 + 528;
         _contCoupone.addChild(btn);
         var f3:Function = function ():void {
-            if (g.managerTutorial.isTutorial) return;
+            if (g.tuts.isTutorial) return;
             hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE, null);
         };

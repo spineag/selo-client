@@ -108,6 +108,7 @@ public class ManagerCutScenes {
     }
 
     public function checkCutScene(reason:int):void {
+        return;
         if (g.isAway) return;
         if (g.user.level < 5) return;
         var i:int;

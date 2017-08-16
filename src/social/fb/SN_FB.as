@@ -22,7 +22,8 @@ import user.Friend;
 import utils.CSprite;
 
 public class SN_FB extends SocialNetwork  {
-    private static const API_SECRET_KEY:String = "dd3c1b11a323f01a3ac23a3482724c49";
+    private static const API_SECRET_KEY:String = "2b62f8a1aed1b7a677a215949d071bcd";
+    // app_id 105089583507105
 
     private var _friendsRest:Array;
     private var _black:CSprite;

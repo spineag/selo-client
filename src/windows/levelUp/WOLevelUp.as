@@ -559,8 +559,8 @@ public class WOLevelUp extends WindowMain {
 
     override protected function deleteIt():void {
         g.levelUpHint.hideIt();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
-            g.managerTutorial.checkTutorialCallback();
+        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.LEVEL_UP) {
+            g.tuts.checkTutorialCallback();
         }
         g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
         if (g.user.level == 3 || g.user.level == 4) g.managerMiniScenes.checkAvailableMiniScenesOnNewLevel();

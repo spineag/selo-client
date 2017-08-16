@@ -20,10 +20,7 @@ public class UserValidateResources {
     private var blueCount:int;
     private var yellowCount:int;
     private var ambarLevel:int;
-    private var ambarMax:int;
-    private var skladMax:int;
     private var skladLevel:int;
-    private var countCats:int;
     private var g:Vars = Vars.getInstance();
 
     public function UserValidateResources() {
@@ -43,10 +40,7 @@ public class UserValidateResources {
             case 'blueCount': blueCount = count*K1 + K2; break;
             case 'yellowCount': yellowCount = count*K1 + K2; break;
             case 'ambarLevel': ambarLevel = count*K1 + K2; break;
-            case 'ambarMax': ambarMax = count*K1 + K2; break;
             case 'skladLevel': skladLevel = count*K1 + K2; break;
-            case 'skladMax': skladMax = count*K1 + K2; break;
-            case 'countCats': countCats = count*K1 + K2; break;
             default:  Cc.error('UserValidResources initInfo:: unknown reason: ' + reason); break;
         }
     }
@@ -80,10 +74,7 @@ public class UserValidateResources {
             case 'blueCount': isGood = blueCount == count*K1 + K2; break;
             case 'yellowCount': isGood = yellowCount == count*K1 + K2; break;
             case 'ambarLevel': isGood = ambarLevel == count*K1 + K2; break;
-            case 'ambarMax': isGood = ambarMax == count*K1 + K2; break;
             case 'skladLevel': isGood = skladLevel == count*K1 + K2; break;
-            case 'skladMax': isGood = skladMax == count*K1 + K2; break;
-            case 'countCats': isGood = countCats == count*K1 + K2; break;
             default:  Cc.error('UserValidResources initInfo:: unknown reason: ' + reason); break;
         }
         if (!isGood) {

@@ -61,7 +61,7 @@ public class Paper extends WorldObject{
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
             if (g.selectedBuild) {

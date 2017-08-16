@@ -77,8 +77,6 @@ public class UserInventory {
             Cc.error('UserInventory addResource:: try to add count=0 for resource id: ' + id);
             return;
         }
-        if (!g.userValidates.checkInfo('ambarMax', g.user.ambarMaxCount)) return;
-        if (!g.userValidates.checkInfo('skladMax', g.user.skladMaxCount)) return;
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
         if (!g.userValidates.checkResources(id, _inventoryResource[id])) return;
         _inventoryResource[id] += count;

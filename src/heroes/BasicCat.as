@@ -85,17 +85,15 @@ public class BasicCat {
         _depth = point3d.x + point3d.z;
     }
 
-    public function get posX():int {
-        return _posX;
-    }
-
-    public function get posY():int {
-        return _posY;
-    }
-
-    public function get source():TownAreaBuildSprite {
-        return _source;
-    }
+    public function get posX():int { return _posX; }
+    public function get posY():int { return _posY; }
+    public function get source():TownAreaBuildSprite { return _source; }
+    public function get visible():Boolean { return isOnMap; }
+    public function idleAnimation():void {}
+    public function sleepAnimation():void {}
+    public function get currentPath():Array { return _currentPath; }
+    public function showFront(v:Boolean):void {}
+    public function flipIt(v:Boolean):void {}
 
     public function set visible(value:Boolean):void {
         if (value) {
@@ -105,10 +103,6 @@ public class BasicCat {
             isOnMap = false;
             g.townArea.removeHero(this);
         }
-    }
-
-    public function get visible():Boolean {
-        return isOnMap;
     }
 
     public function walkAnimation():void {
@@ -127,8 +121,7 @@ public class BasicCat {
         _curSpeed = 0;
         _curTypeMoving = STOP;
     }
-    public function idleAnimation():void {}
-    public function sleepAnimation():void {}
+
     public function goWithPath(arr:Array, callbackOnWalking:Function):void {
         _currentPath = arr;
         _callbackOnWalking = callbackOnWalking;
@@ -146,10 +139,6 @@ public class BasicCat {
             }
         }
     }
-    
-    public function get currentPath():Array {
-        return _currentPath;
-    }
 
     public function get endPathPoint():Point {
         if (_currentPath.length) {
@@ -159,9 +148,6 @@ public class BasicCat {
         }
     }
     
-    public function showFront(v:Boolean):void {}
-    public function flipIt(v:Boolean):void {}
-
     protected function gotoPoint(p:Point, callbackOnWalking:Function):void {
         if (_curSpeed <= 0) return;
         var koef:Number = 1;

@@ -38,9 +38,9 @@ public class Chest extends WorldObject{
 
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction != TutorialAction.TAKE_CHEST) return;
-            if (!g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.tuts.isTutorial) {
+            if (g.tuts.currentAction != TutorialAction.TAKE_CHEST) return;
+            if (!g.tuts.isTutorialBuilding(this)) return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -52,8 +52,8 @@ public class Chest extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             try {
                 g.windowsManager.openWindow(WindowsManager.WO_CHEST, deleteThisBuild);
-                if (g.managerTutorial.isTutorial && g.managerTutorial.isTutorialBuilding(this)) {
-                    g.managerTutorial.checkTutorialCallback();
+                if (g.tuts.isTutorial && g.tuts.isTutorialBuilding(this)) {
+                    g.tuts.checkTutorialCallback();
                 }
             } catch (e:Error) {
                 Cc.error('Chest onClick error: ' + e.message);

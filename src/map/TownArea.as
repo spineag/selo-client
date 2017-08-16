@@ -249,7 +249,7 @@ public class TownArea extends Sprite {
             _needTownAreaSort = false;
             if (isError) {
                 _zSortCounter = 1;
-            } else if (g.managerTutorial.isTutorial) {
+            } else if (g.tuts.isTutorial) {
                 _zSortCounter = 3;
             } else {
                 _zSortCounter = SORT_COUNTER_MAX;
@@ -344,7 +344,7 @@ public class TownArea extends Sprite {
                     Cc.error('TownArea checkFreeGrids:: obj == nul');
                     return false;
                 }
-                if (g.managerTutorial.isTutorial) {
+                if (g.tuts.isTutorial) {
                     if (!obj.isTutorialBuilding) {
                         return true;
                     }
@@ -367,7 +367,7 @@ public class TownArea extends Sprite {
                     Cc.error('TownArea checkAwayFreeGrids:: obj == nul');
                     return false;
                 }
-                if (g.managerTutorial.isTutorial) {
+                if (g.tuts.isTutorial) {
                     if (!obj.isTutorialBuilding) {
                         return true;
                     }
@@ -876,17 +876,17 @@ public class TownArea extends Sprite {
             }
         }
 
-        if (isNewAtMap && g.managerTutorial.isTutorial) {
+        if (isNewAtMap && g.tuts.isTutorial) {
             if (worldObject is TutorialPlace) return;
-            if (worldObject is Fabrica && g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA) {
-                g.managerTutorial.addTutorialWorldObject(worldObject);
-                g.managerTutorial.checkTutorialCallback();
-            } else if (worldObject is Ridge && g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
-                g.managerTutorial.addTutorialWorldObject(worldObject);
-                g.managerTutorial.checkTutorialCallback();
-            } else if (worldObject is Farm && g.managerTutorial.currentAction == TutorialAction.PUT_FARM) {
-                g.managerTutorial.addTutorialWorldObject(worldObject);
-                g.managerTutorial.checkTutorialCallback();
+            if (worldObject is Fabrica && g.tuts.currentAction == TutorialAction.PUT_FABRICA) {
+                g.tuts.addTutorialWorldObject(worldObject);
+                g.tuts.checkTutorialCallback();
+            } else if (worldObject is Ridge && g.tuts.currentAction == TutorialAction.NEW_RIDGE) {
+                g.tuts.addTutorialWorldObject(worldObject);
+                g.tuts.checkTutorialCallback();
+            } else if (worldObject is Farm && g.tuts.currentAction == TutorialAction.PUT_FARM) {
+                g.tuts.addTutorialWorldObject(worldObject);
+                g.tuts.checkTutorialCallback();
             }
         }
         worldObject.afterPasteBuild();
@@ -1114,7 +1114,7 @@ public class TownArea extends Sprite {
         g.selectedBuild = null;
         if ((build as WorldObject).dataBuild.buildType == BuildType.FARM) {
             g.user.buyShopTab = WOShop.VILLAGE;
-           if (!g.managerTutorial.isTutorial) (build as WorldObject).showArrow(3);
+           if (!g.tuts.isTutorial) (build as WorldObject).showArrow(3);
         }
         if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {
             g.bottomPanel.cancelBoolean(false);
@@ -1658,7 +1658,6 @@ public class TownArea extends Sprite {
         }
         if (g.managerHelpers) g.managerHelpers.stopIt();
         g.hideAllHints();
-        g.catPanel.visibleCatPanel(false);
         if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(false);
@@ -1692,12 +1691,12 @@ public class TownArea extends Sprite {
             g.managerCats.onGoAway(true);
             g.managerOrderCats.onGoAwayToUser(true);
         }
-        if (person.userDataCity.objects) {
-            setAwayCity(person, !g.isAway);
-        } else {
-            g.directServer.getAllCityData(person, setAwayCity, !g.isAway);
-        }
         g.isAway = true;
+        if (person.userDataCity.objects) {
+            setAwayCity(person);
+        } else {
+            g.directServer.getAllCityData(person, setAwayCity);
+        }
         g.bottomPanel.doorBoolean(true,person);
         _townAwayMatrix = [];
         setDefaultAwayMatrix();
@@ -1764,31 +1763,8 @@ public class TownArea extends Sprite {
         }
     }
 
-    private function setAwayCity(p:Someone, isGoFromUser:Boolean):void {
+    private function setAwayCity(p:Someone):void {
         var i:int;
-
-//        if (isGoFromUser) {
-//            g.managerLohmatic.onGoAway();
-//            removeTownAreaSortCheking();
-//            for (i = 0; i < _cityObjects.length; i++) {
-//                _cont.removeChild(_cityObjects[i].source);
-//                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
-//                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
-//                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
-//            }
-//            for (i = 0; i < _cityTailObjects.length; i++) {
-//                _contTail.removeChild(_cityTailObjects[i].source);
-//            }
-//            g.managerCats.onGoAway(true);
-//            g.managerOrderCats.onGoAwayToUser(true);
-//        } else {
-//            g.managerMouseHero.removeMouse();
-//            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
-//            removeAwayTownAreaSortCheking();
-//            g.managerOrderCats.removeAwayCats();
-//            clearAwayCity();
-//        }
-
         _townAwayMatrix = [];
         setDefaultAwayMatrix();
         addAwayTownAreaSortCheking();
@@ -2377,6 +2353,8 @@ public class TownArea extends Sprite {
             if (_cityObjects[i].source) _cont.addChild(_cityObjects[i].source);
             else {
                 Cc.error('backHome:: no _source or deleted for smth from class: ' + flash.utils.getQualifiedClassName(_cityObjects[i]));
+                _cityObjects.removeAt(i);
+                i--;
                 continue;
             }
             if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(true);
@@ -2395,7 +2373,7 @@ public class TownArea extends Sprite {
         var p:Point = new Point();
         p.x = 24;
         p.y = 26;
-        if (!g.managerTutorial.isTutorial) g.cont.moveCenterToPos(p.x, p.y, true, 2);
+        if (!g.tuts.isTutorial) g.cont.moveCenterToPos(p.x, p.y, true, 2);
         g.managerCats.onGoAway(false);
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         g.managerLohmatic.onBackHome();

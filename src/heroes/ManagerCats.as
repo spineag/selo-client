@@ -2,20 +2,17 @@
  * Created by user on 9/23/15.
  */
 package heroes {
+import build.WorldObject;
+import build.fabrica.Fabrica;
+import build.farm.Farm;
+import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
-
-import heroes.BasicCat;
-
 import manager.AStar.AStar;
 import manager.Vars;
 import manager.ownError.ErrorConst;
-
-import quest.ManagerQuest;
-
-import tutorial.TutorialAction;
 
 import utils.Utils;
 
@@ -25,15 +22,19 @@ public class ManagerCats {
     protected var _townMatrix:Array;
     private var _matrixLength:int;
     protected var _townAwayMatrix:Array;
-//    [ArrayElementType('heroes.BasicCat')]
     private var _catsArray:Array;
     private var _catsAwayArray:Array;
     private var _catInfo:Object;
-    private var _maxCountCats:int;
+    private var _arrRidge:Array;
+    private var _arrFabrica:Array;
+    private var _arrFarm:Array;
 
     private var g:Vars = Vars.getInstance();
 
     public function ManagerCats() {
+        _arrFabrica = [];
+        _arrFarm = [];
+        _arrRidge = [];
         _townMatrix = g.townArea.townMatrix;
         _matrixLength = g.matrixGrid.getLengthMatrix();
         _catsArray = [];
@@ -43,59 +44,93 @@ public class ManagerCats {
         _catInfo.image = 'cat';
         _catInfo.image2 = 'cat_woman';
         _catInfo.cost = 0;
-        _catInfo.currency == DataMoney.SOFT_CURRENCY;
+        _catInfo.currency = DataMoney.SOFT_CURRENCY;
         _catInfo.buildType = BuildType.CAT;
     }
 
-    public function get catInfo():Object {
-        return _catInfo;
-    }
-
-
     public function addAllHeroCats():void {
-        for (var i:int=0; i < g.user.countCats; i++) {
-            addHeroCat(int(Math.random()*2) + 1);
-        }
+        addHeroCat(1);
+        addHeroCat(2);
     }
 
-    public function addHeroCat(type:int):void {
+    private function addHeroCat(type:int):void {
         var cat:HeroCat = new HeroCat(type);
         _catsArray.push(cat);
     }
 
-    public function get curCountCats():int {
-        return _catsArray.length;
+    public function timerRandomWorkMan():void {
+        var delay:int = 30 + int(Math.random()*60);
+        Utils.createDelay(delay, function():void {chooseRandomWork(_catsArray[0])});
     }
 
-    public function get maxCountCats():int {
-        return _maxCountCats;
+    public function timerRandomWorkWoman():void {
+        var delay:int = 30 + int(Math.random()*60);
+        Utils.createDelay(delay,  function():void {chooseRandomWork(_catsArray[1])});
     }
-    
+
+    private function chooseRandomWork(cat:HeroCat):void {
+        if (!cat.isFree) return;
+        if (cat.isWorkRandom) return;
+        var t:int = _arrFabrica.length + _arrFarm.length + _arrRidge.length;
+        if (t>0) {
+            cat.workRandom = true;
+            t = int(t*Math.random());
+            if (t < _arrFabrica.length)  cat.activeRandomWorkBuild = _arrFabrica[t];
+            else if (t < _arrFabrica.length + _arrFarm.length) cat.activeRandomWorkBuild = _arrFarm[t - _arrFabrica.length];
+            else cat.activeRandomWorkBuild = _arrRidge[t - _arrFabrica.length - _arrFarm.length];
+            goCatToPoint(cat, new Point(cat.activeRandomWorkBuild.posX, cat.activeRandomWorkBuild.posY), onArrivedForRandomWork, cat);
+        }
+    }
+
+    private function onArrivedForRandomWork(cat:HeroCat):void {
+        if (cat.activeRandomWorkBuild is Farm) cat.onArrivedCatToFarm();
+        else if (cat.activeRandomWorkBuild is Ridge) cat.onArrivedCatToRidge();
+        else cat.onArrivedCatToFabrica();
+    }
+
+    public function onStartRidge(r:Ridge):void {
+        if (_arrRidge.indexOf(r) > 0) return;
+        _arrRidge.push(r);
+    }
+
+    public function onFinishRidge(r:Ridge):void {
+        if (_arrRidge.indexOf(r) == -1) return;
+        _arrRidge.removeAt(_arrRidge.indexOf(r));
+    }
+
+    public function onStartFabrica(f:Fabrica):void {
+        if (_arrFabrica.indexOf(f) > 0) return;
+        _arrFabrica.push(f);
+    }
+
+    public function onFinishFabrica(f:Fabrica):void {
+        if (_arrFabrica.indexOf(f) == -1) return;
+        _arrFabrica.removeAt(_arrFabrica.indexOf(f));
+    }
+
+    public function onStartFarm(f:Farm):void {
+        if (_arrFarm.indexOf(f) > 0) return;
+        _arrFarm.push(f);
+    }
+
+    public function onFinishFarm(f:Farm):void {
+        if (_arrFarm.indexOf(f) == -1) return;
+        _arrFarm.removeAt(_arrFarm.indexOf(f));
+    }
+
     public function onGoAway(v:Boolean):void {
         for (var i:int=0; i<_catsArray.length; i++) {
             (_catsArray[i] as HeroCat).pauseIt(v);
         }
         g.managerAnimal.onGoAwayCats(v);
-        g.managerPlantRidge.onGoAwayCats(v);
         g.managerFabricaRecipe.onGoAwayCats(v);
     }
 
-    public function calculateMaxCountCats():void {
-        for (var i:int=0; i < g.dataCats.length; i++) {
-            if (g.dataCats[i].blockByLevel[0] > g.user.level) {
-                break;
-            }
-        }
-        _maxCountCats = i;
-    }
-
-    public function setAllCatsToRandomPositions():void {
+    public function setAllCatsToRandomPositionsAtStartGame():void {
         for (var i:int=0; i<_catsArray.length; i++) {
-            if ((_catsArray[i] as HeroCat).isFree) {
-                (_catsArray[i] as BasicCat).setPosition(g.townArea.getRandomFreeCell());
-                (_catsArray[i] as BasicCat).addToMap();
-                (_catsArray[i] as HeroCat).makeFreeCatIdle();
-            }
+            (_catsArray[i] as BasicCat).setPosition(g.townArea.getRandomFreeCell());
+            (_catsArray[i] as BasicCat).addToMap();
+            (_catsArray[i] as HeroCat).makeFreeCatIdle();
         }
     }
 
@@ -196,87 +231,48 @@ public class ManagerCats {
         }
     }
 
-    public function onBuyCatFromShop():void {
-        g.managerQuest.onActionForTaskType(ManagerQuest.BUY_CAT);
-        jumpCatsFunny();
-        g.user.countCats++;
-        g.directServer.buyHeroCat(null);
-        addNewHeroFromShop();
-
-//        var cat:HeroCat = new HeroCat(int(Math.random()*2) + 1);
-//        _catsArray.push(cat);
-//        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-//            cat.setPosition(new Point(31, 28));
-//        } else {
-//            cat.setPosition(g.townArea.getRandomFreeCell());
-//        }
-//        cat.addToMap();
-//        g.user.countCats++;
-//        g.directServer.buyHeroCat(null);
-//        g.catPanel.checkCat();
-//        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-//            cat.playDirectLabel('idle', true, cat.makeFreeCatIdle);
-//        } else {
-//            cat.makeFreeCatIdle();
-//        }
-    }
-
-    public function getFreeCat():HeroCat {
-        for (var i:int=0; i<_catsArray.length; i++) {
-            if ((_catsArray[i] as HeroCat).isFree) {
-                (_catsArray[i] as HeroCat).stopFreeCatIdle();
-                return _catsArray[i];
-            }
-        }
-        return null;
-    }
 
     public function getFreeCatDecor():HeroCat {
         for (var i:int=0; i<_catsArray.length; i++) {
-            if ((_catsArray[i] as HeroCat).isFree && (_catsArray[i] as HeroCat).isFreeDecor) {
-                (_catsArray[i] as HeroCat).stopFreeCatIdle();
+            if ((_catsArray[i] as HeroCat).isFree && (_catsArray[i] as HeroCat).isFree) {
+                (_catsArray[i] as HeroCat).killAllAnimations();
                 return _catsArray[i];
             }
         }
         return null;
     }
 
-    public function get isFreeCatDecor():Boolean {
+    public function get isFreeCat():Boolean {
         for (var i:int=0; i<_catsArray.length; i++) {
-            if ((_catsArray[i] as HeroCat).isFree && (_catsArray[i] as HeroCat).isFreeDecor) {
+            if ((_catsArray[i] as HeroCat).isFree && (_catsArray[i] as HeroCat).isFree) {
                return true;
             }
         }
         return false;
     }
 
-    public function get countFreeCats():int {
-        var j:int = 0;
-        for (var i:int=0; i<_catsArray.length; i++) {
-            if ((_catsArray[i] as HeroCat).isFree) ++j;
-        }
-        return j;
-    }
-
     public function makeAwayCats():void {
+        _townAwayMatrix = g.townArea.townAwayMatrix;
         _catsAwayArray = [];
         var cat:HeroCat;
-        for (var i:int=0; i<5; i++) {
-            cat = new HeroCat(int(Math.random() * 2) + 1);
-            _catsAwayArray.push(cat);
-            cat.isAwayCat = true;
-        }
-        _townAwayMatrix = g.townArea.townAwayMatrix;
-        for (i=0; i<_catsAwayArray.length; i++) {
-            (_catsAwayArray[i] as BasicCat).setPosition(g.townArea.getRandomFreeCell());
-            (_catsAwayArray[i] as BasicCat).addToMap();
-            (_catsAwayArray[i] as HeroCat).makeFreeCatIdle();
-        }
+        cat = new HeroCat(1);
+        _catsAwayArray.push(cat);
+        cat.setPosition(g.townArea.getRandomFreeCell());
+        cat.addToMap();
+        cat.makeFreeCatIdle();
+        cat.isAwayCat = true;
+
+        cat = new HeroCat(2);
+        _catsAwayArray.push(cat);
+        cat.setPosition(g.townArea.getRandomFreeCell());
+        cat.addToMap();
+        cat.makeFreeCatIdle();
+        cat.isAwayCat = true;
     }
 
     public function removeAwayCats():void {
         if (!_catsAwayArray.length) return;
-        for (var i:int=0; i<_catsAwayArray.length; i++) {
+        for (var i:int=0; i<2; i++) {
             (_catsAwayArray[i] as HeroCat).deleteIt();
         }
         _catsAwayArray = [];
@@ -347,40 +343,6 @@ public class ManagerCats {
         var p:Point = new Point(posX, posY);
         p = g.matrixGrid.getXYFromIndex(p);
         cat.goCatToXYPoint(p, 1, callback);
-    }
-
-    public function addNewHeroFromShop():void {
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-                g.managerTutorial.checkTutorialCallback();
-            }
-        }
-        g.cont.moveCenterToPos(31, 33, false, .5, addNewHeroFromShop1);
-        if (g.windowsManager.currentWindow) g.windowsManager.currentWindow.hideIt();
-    }
-
-    private function addNewHeroFromShop1():void {
-        var newHero:AddNewHero = new AddNewHero();
-        var isWoman:int = int(Math.random()*2) + 1;
-        newHero.addHero(isWoman, onAdd);
-    }
-    
-    private function onAdd(isWoman:int):void {
-        var cat:HeroCat = new HeroCat(isWoman);
-        _catsArray.push(cat);
-        g.catPanel.catBuing = false;
-        cat.setPosition(new Point(31, 30));
-        cat.addToMap();
-        g.catPanel.checkCat();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-            g.managerTutorial.checkTutorialCallback();
-        }
-        goIdleCatToPoint(cat, new Point(31, 33), onEndAdd, cat);
-    }
-
-    private function onEndAdd(cat:HeroCat):void {
-        cat.stopAnimation();
-        cat.makeFreeCatIdle();
     }
 
     public function jumpCatsFunny(f:Function = null):void {

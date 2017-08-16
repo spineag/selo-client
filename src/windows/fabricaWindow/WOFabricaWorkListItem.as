@@ -180,7 +180,7 @@ public class WOFabricaWorkListItem {
         }
         if (_type == BIG_CELL) {
             _btnSkip.visible = true;
-            if (g.managerTutorial.isTutorial)  _txtSkip.text = String(0);  // no for new tuts
+            if (g.tuts.isTutorial)  _txtSkip.text = String(0);  // no for new tuts
             else {
                 _txtSkip.text = String(g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard));
                 _priceSkip = g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard);
@@ -204,9 +204,9 @@ public class WOFabricaWorkListItem {
                 _source.removeChild(_armatureBoom.display as StarlingArmatureDisplay);
                 _armatureBoom = null;
             }
-            if (g.managerTutorial) {
+            if (g.tuts) {
 //                removeArrow();
-                g.managerTutorial.checkTutorialCallback();
+                g.tuts.checkTutorialCallback();
             }
         };
         if (buy) {
@@ -291,8 +291,8 @@ public function destroyTimer():void {
             _txtTimer.text = '';
             _timerBlock.visible = false;
             _btnSkip.visible = false;
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
-                g.managerTutorial.checkTutorialCallback();
+            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+                g.tuts.checkTutorialCallback();
             }
             if (_timerFinishCallback != null) {
                 _timerFinishCallback.apply();
@@ -303,7 +303,7 @@ public function destroyTimer():void {
     }
 
     public function showBuyPropose(buyCount:int, callback:Function):void {
-        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_type == SMALL_CELL) {
             _source.visible = true;
             _txt.visible = false;
@@ -363,14 +363,14 @@ public function destroyTimer():void {
     }
 
     private function makeSkip():void {
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+        if (g.tuts.isTutorial) {
+            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
                 if (_skipCallback != null) {
                     destroyTimer();
                     _btnSkip.visible = false;
                     _skipCallback.apply();
                 }
-                g.managerTutorial.checkTutorialCallback();
+                g.tuts.checkTutorialCallback();
             }
             return;
         }
@@ -382,8 +382,8 @@ public function destroyTimer():void {
                 _btnSkip.visible = false;
                 _skipCallback.apply();
             }
-            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
-                g.managerTutorial.checkTutorialCallback();
+            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+                g.tuts.checkTutorialCallback();
             }
         } else {
             g.windowsManager.hideWindow(WindowsManager.WO_FABRICA);

@@ -101,14 +101,6 @@ public class WOTipsItem {
                 _txt.text = String(g.managerLanguage.allTexts[321]);
 //                isPos = false;
                 break;
-            case ManagerTips.TIP_BUY_HERO:
-                im = new Image(g.allData.atlas['tipsAtlas'].getTexture('grey_cat_icon'));
-//                MCScaler.scale(im, 70, 70);
-//                im.x = 22;
-//                im.y = 15;
-                _txt.text = String(g.managerLanguage.allTexts[322]);
-//                isPos = false;
-                break;
             case ManagerTips.TIP_RAW_ANIMAL:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('animals_icon'));
                 _txt.text = String(g.managerLanguage.allTexts[323]);

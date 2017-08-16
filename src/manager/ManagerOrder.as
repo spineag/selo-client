@@ -294,7 +294,7 @@ public class ManagerOrder {
         var r:StructureDataResource;
 
         for (i = 0; i < n; i++) {
-            if (_arrOrders && !g.managerTutorial.isTutorial && _arrOrders.length > 0) {
+            if (_arrOrders && !g.tuts.isTutorial && _arrOrders.length > 0) {
                 for (i = 0; i < _arrOrders.length; i++) {
                     if (_arrOrders[i].fasterBuy == true) {
                         countFastBuyer++;

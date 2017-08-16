@@ -187,7 +187,7 @@ public class LockedLand extends WorldObject {
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _build.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
         _topRibbon.filter = ManagerFilters.RED_LIGHT_TINT_FILTER;
@@ -196,7 +196,7 @@ public class LockedLand extends WorldObject {
 
     override public function onOut():void {
         super.onOut();
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         if (_build) {
             if (_build.filter) _build.filter.dispose();
@@ -213,7 +213,7 @@ public class LockedLand extends WorldObject {
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.selectedBuild) return;
         if (g.isActiveMapEditor) return;

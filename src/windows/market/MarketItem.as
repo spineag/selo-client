@@ -386,7 +386,7 @@ public class MarketItem {
     }
 
     private function onDelete():void {
-        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
 
         var f1:Function = function():void {
             for (var i:int = 0; i < g.user.marketItems.length; i++) {
@@ -428,14 +428,14 @@ public class MarketItem {
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (_closeCell) return;
-        if (g.managerTutorial.isTutorial) {
-            if (!_data || !g.managerTutorial.isTutorialResource(_data.id)) return;
+        if (g.tuts.isTutorial) {
+            if (!_data || !g.tuts.isTutorialResource(_data.id)) return;
         }
         _onHover = false;
         var i:int;
         if (isFill == 1) {//заполненная
             if (_isUser) {
-                if (g.managerTutorial.isTutorial) return;
+                if (g.tuts.isTutorial) return;
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
             } else {
                 if (_plawkaSold.visible == true) return;
@@ -462,9 +462,9 @@ public class MarketItem {
                         return;
                     }
                 }
-                if (g.managerTutorial.isTutorial) {
-                    if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR)
-                        g.managerTutorial.checkTutorialCallback();
+                if (g.tuts.isTutorial) {
+                    if (g.tuts.currentAction == TutorialAction.VISIT_NEIGHBOR)
+                        g.tuts.checkTutorialCallback();
                 }
                 if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.BUY_INSTRUMENT)) g.managerMiniScenes.checkMiniSceneCallback();
 
@@ -473,7 +473,7 @@ public class MarketItem {
                 g.managerQuest.onActionForTaskType(ManagerQuest.BUY_PAPER);
             }
         } else if (isFill == 0) { // пустая
-            if (g.managerTutorial.isTutorial) return;
+            if (g.tuts.isTutorial) return;
             if (_isUser) {
                 _wo.onItemClickAndOpenWOChoose(this);
                 _onHover = false;
@@ -482,7 +482,7 @@ public class MarketItem {
         } else if (isFill == 3){ // недоступна по лвлу
 
         } else {
-            if (g.managerTutorial.isTutorial) return;
+            if (g.tuts.isTutorial) return;
             if (_isUser) { // купленная
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {

@@ -124,7 +124,7 @@ public class Farm extends WorldObject{
         if (g.selectedBuild) return;
         super.onHover();
         g.hint.showIt(_dataBuild.name);
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             for (var i:int = 0; i < _arrAnimals.length; i++) {
@@ -145,11 +145,11 @@ public class Farm extends WorldObject{
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isTutorial) {
-            if (g.managerTutorial.currentAction == TutorialAction.ANIMAL_CRAFT) {
+        if (g.tuts.isTutorial) {
+            if (g.tuts.currentAction == TutorialAction.ANIMAL_CRAFT) {
 
-            } else if (g.managerTutorial.currentAction != TutorialAction.PUT_FARM) {
-                if (!g.managerTutorial.isTutorialBuilding(this)) return;
+            } else if (g.tuts.currentAction != TutorialAction.PUT_FARM) {
+                if (!g.tuts.isTutorialBuilding(this)) return;
             }
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
@@ -184,7 +184,7 @@ public class Farm extends WorldObject{
                     checkForCraft();
                 }
             } else {
-                if (!isFull && !g.managerTutorial.isTutorial && !g.isAway) {
+                if (!isFull && !g.tuts.isTutorial && !g.isAway) {
                     g.user.decorShiftShop = 0;
                     g.user.decorShop = false;
                     g.user.animalIdArrow = _dataAnimal.id;
@@ -349,13 +349,7 @@ public class Farm extends WorldObject{
     }
 
     public function readyAnimal():void {
-        var countNotWorkedAnimals:int = 0;
-        for (var i:int=0; i<_arrAnimals.length; i++) {
-            if ((_arrAnimals[i] as Animal).state != Animal.WORK) countNotWorkedAnimals++;
-        }
-        if (countNotWorkedAnimals >= _arrAnimals.length) {
-            g.managerAnimal.freeFarmCat(_dbBuildingId);
-        }
+        g.managerCats.onFinishFarm(this);
     }
 
     public function showParticles(p:Point, isFromLeftSide:Boolean):void {

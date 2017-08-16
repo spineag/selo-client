@@ -116,7 +116,6 @@ public class XPPanel {
             g.friendPanel.checkLevel();
             g.directServer.updateUserLevel(null);
             g.userInventory.addNewElementsAfterGettingNewLevel();
-            g.managerCats.calculateMaxCountCats();
 
 //            if (g.user.level == 5 && g.socialNetworkID != SocialNetworkSwitch.SN_FB_ID) {
 //                g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);

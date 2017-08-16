@@ -50,7 +50,7 @@ public class ManagerQuest {
     public static const FEED_ANIMAL:int = 13;      // +pogodyvatu tvar'
     public static const REMOVE_WILD:int = 14;      // +remove wild
     public static const OPEN_TERRITORY:int = 15;   // +open territory
-    public static const BUY_CAT:int = 16;          // +buy cat
+//    public static const BUY_CAT:int = 16;          // +buy cat
     public static const NIASH_BUYER:int = 17;      // +vukonatu zamovlennia niawuka-pokyptsia
     public static const KILL_MOUSE:int = 18;       // +zlovutu muwei
     public static const BUY_PAPER:int = 19;        // +kyputu v gazeti
@@ -131,7 +131,10 @@ public class ManagerQuest {
             var q:QuestStructure;
             var i:int;
             for (i=0; i<d.quests.length; i++) {
-                if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) continue;
+                if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) {
+                    Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
+                    continue;
+                }
 //                trace(d.quests[i].quest_data.only_testers);
                 q = getUserQuestById(int(d.quests[i].id));
                 if (q) {
@@ -148,7 +151,7 @@ public class ManagerQuest {
                 if (q) {
                     q.addTask(d.tasks[i]);
                 } else {
-                    Cc.error('ManagerQuests addQuest task:: no quest with id: ' + int(d.tasks[i].quest_id));
+                    Cc.error('ManagerQuests addQuest task:: quest is for testers OR no quest with id: ' + int(d.tasks[i].quest_id));
                 }
             }
             if (d.awards) {
@@ -157,7 +160,7 @@ public class ManagerQuest {
                     if (q) {
                         q.addAward(d.awards[i]);
                     } else {
-                        Cc.error('ManagerQuests addQuest award:: no quest with id: ' + int(d.tasks[i].quest_id));
+                        Cc.error('ManagerQuests addQuest award:: quest is for testers OR no quest with id: ' + int(d.tasks[i].quest_id));
                     }
                 }
             } else {
@@ -356,10 +359,6 @@ public class ManagerQuest {
                     Cc.error('ManagerQuest checkOnClickAtWoQuestItem FEED_ANIMAL:: no farm for aminalId: ' + t.resourceId);
                 }
                 break;
-            case BUY_CAT:
-                g.windowsManager.closeAllWindows();
-                g.bottomPanel.addArrow('shop', 3,2,HelperReason.REASON_BUY_HERO);
-                break;
             case OPEN_TERRITORY:
                 g.windowsManager.closeAllWindows();
                 arrT = g.townArea.getCityObjectsByType(BuildType.LOCKED_LAND);
@@ -514,7 +513,7 @@ public class ManagerQuest {
                     }
                 }
             }
-        } else if (type == KILL_LOHMATIC || type == KILL_MOUSE || type == INVITE_FRIENDS || type == BUY_CAT || type == RELEASE_ORDER
+        } else if (type == KILL_LOHMATIC || type == KILL_MOUSE || type == INVITE_FRIENDS || type == RELEASE_ORDER
                 || type == NIASH_BUYER || type == OPEN_TERRITORY || SET_IN_PAPER || BUY_PAPER) {
             tArr = getTasksByTypeFromCurrentQuests(type);
             if (tArr.length) {

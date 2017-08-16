@@ -41,7 +41,7 @@ public class SmallHeroAnimation {
         (_arma.display as StarlingArmatureDisplay).x = 26;
         b.display = _armaClipCont;
         _armaClip.touchable = false;
-        if (g.managerTutorial && g.managerTutorial.isTutorial) {
+        if (g.tuts && g.tuts.isTutorial) {
             _armaClipCont.visible = false;
             _needShow = false;
         } else {

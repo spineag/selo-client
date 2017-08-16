@@ -417,11 +417,11 @@ public class WorldObject {
             clearBuildingBuildSprite();
             addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
-            if (g.managerTutorial.isTutorial && _dataBuild.buildType == BuildType.FABRICA && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+            if (g.tuts.isTutorial && _dataBuild.buildType == BuildType.FABRICA && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
                 g.timerHint.canHide = true;
                 g.timerHint.hideArrow();
                 g.timerHint.hideIt(true);
-                g.managerTutorial.checkTutorialCallback();
+                g.tuts.checkTutorialCallback();
             }
         }
     }

@@ -42,7 +42,7 @@ public class ShopTabBtn {
         _txtTabName.y = 10;
         var f1:Function = function():void {
             if (g.managerCutScenes.isCutScene) return;
-            if (g.managerTutorial.isTutorial) return;
+            if (g.tuts.isTutorial) return;
             if (f!=null) f.apply();
         };
         _source.endClickCallback = f1;

@@ -100,13 +100,11 @@ public class MarketFriendItem {
     private function visitPerson():void {
         if (g.managerCutScenes.isCutScene) return;
         if (_person == g.user) {
-            g.catPanel.visibleCatPanel(true);
             if (g.partyPanel) g.partyPanel.visiblePartyPanel(true);
             g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
             g.windowsManager.uncasheWindow();
             g.townArea.backHome();
         } else {
-            g.catPanel.visibleCatPanel(false);
             if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
             g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
             g.windowsManager.uncasheWindow();
@@ -151,7 +149,7 @@ public class MarketFriendItem {
     }
 
     private function chooseThis():void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         if (_wo.curUser == _person) return;
         if (_person == g.user && _person.level < 5) return;
         if (!_wo) return;

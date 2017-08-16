@@ -213,7 +213,7 @@ public class WOLevelUpItem {
     private function onHover():void {
         return;
         if (_onHover) return;
-//        if (g.managerTutorial.isTutorial) return;
+//        if (g.tuts.isTutorial) return;
         if (_data.coins) return;
         if (_data.hard) return;
 

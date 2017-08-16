@@ -113,7 +113,7 @@ public class ManagerHelpers {
         _countSeconds++;
         if ((g.user.level == 2 && _countSeconds >= 2) || (g.user.level == 4 && _countSeconds >= 5) ||(g.user.level < 4 && _countSeconds >= LOW_SECONDS) || (g.user.level == 5 && _countSeconds >= MEMIUM_SECONDS) || _countSeconds >= MAX_SECONDS) {
             _countSeconds = 0;
-            if (g.managerTutorial.isTutorial) return;
+            if (g.tuts.isTutorial) return;
             if (g.managerCutScenes.isCutScene) return;
             if (g.managerMiniScenes.isMiniScene) return;
             if (g.isActiveMapEditor) return;
@@ -152,7 +152,6 @@ public class ManagerHelpers {
             case HelperReason.REASON_RAW_FABRICA: wasFindedReason = checkFabricaForRaw(); break;
             case HelperReason.REASON_BUY_FABRICA: wasFindedReason = checkForBuyFabrica(); break;
             case HelperReason.REASON_BUY_FARM: wasFindedReason = checkForBuyFarm(); break;
-            case HelperReason.REASON_BUY_HERO: wasFindedReason = checkForBuyHero(); break;
             case HelperReason.REASON_BUY_ANIMAL: wasFindedReason = checkForBuyAnimal(); break;
             case HelperReason.REASON_BUY_RIDGE: wasFindedReason = checkForBuyRidge(); break;
             case HelperReason.REASON_WILD_DELETE: wasFindedReason = checkForDeleteWild(); break;
@@ -169,7 +168,6 @@ public class ManagerHelpers {
     }
 
     private function checkForFeedAnimal():Boolean {
-        if (g.managerCats.countFreeCats <= 0) return false;
         var an:Animal;
         var animals:Array = g.managerAnimal.getAllAnimals();
         for (var i:int=0; i<animals.length; i++) {
@@ -261,7 +259,6 @@ public class ManagerHelpers {
     }
 
     private function checkForRawPlant():Boolean {
-        if (g.managerCats.countFreeCats <= 0) return false;
         if (g.userInventory.currentCountInAmbar > 0) {
             var arr:Array = g.managerPlantRidge.getEmptyRidges();
             if (arr.length) {
@@ -272,7 +269,6 @@ public class ManagerHelpers {
     }
 
     private function checkFabricaForRaw():Boolean {
-        if (g.managerCats.countFreeCats <= 0) return false;
         var f:Fabrica = g.managerFabricaRecipe.getFabricaWithPossibleRecipe();
         if (f) {
             _curReason.build = f;
@@ -332,13 +328,6 @@ public class ManagerHelpers {
         if (arr.length) {
             _curReason.id = arr[0].id;
             _curReason.type = BuildType.FARM;
-            return true;
-        } else return false;
-    }
-
-    private function checkForBuyHero():Boolean {
-        if ((g.managerCats.curCountCats < g.managerCats.maxCountCats) && (g.dataCats[g.managerCats.curCountCats].cost <= g.user.softCurrencyCount)) {
-            _curReason.type = BuildType.CAT;
             return true;
         } else return false;
     }

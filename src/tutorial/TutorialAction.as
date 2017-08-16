@@ -26,5 +26,6 @@ public class TutorialAction {
    public static const GO_HOME:int = 23;
    public static const TAKE_CHEST:int = 24;
    public static const REMOVE_WILD:int = 25;
+   public static const NYASHIK:int= 26;
 }
 }

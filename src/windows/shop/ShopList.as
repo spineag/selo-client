@@ -234,7 +234,7 @@ public class ShopList {
                 item.deleteIt();
             }
         };
-        if (g.user.decorShop && !g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) {
+        if (g.user.decorShop && !g.tuts.isTutorial && !g.managerCutScenes.isCutScene) {
             var newCount:int = g.user.decorShiftShop;
             for (i = 0; i<newCount; i++) {
                 if (_currentShopArr[_shift + 4 + i]) {
@@ -253,7 +253,7 @@ public class ShopList {
             g.user.decorShop = true;
         }
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
-        if (lookForId >= 0 && !g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) addArrow(lookForId);
+        if (lookForId >= 0 && !g.tuts.isTutorial && !g.managerCutScenes.isCutScene) addArrow(lookForId);
     }
 
     public function clearIt(b:Boolean = false):void {  // need remake
@@ -301,7 +301,7 @@ public class ShopList {
 
     private function onLeftClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         var newCount:int = 4;
         if (_shift - newCount < 0) newCount = _shift;
         _shift -= newCount;
@@ -331,7 +331,7 @@ public class ShopList {
 
     private function onRightClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) return;
+        if (g.tuts.isTutorial) return;
         var newCount:int = 4;
         if (_shift + newCount + 4 >= _currentShopArr.length) newCount = _currentShopArr.length - _shift - 4;
 

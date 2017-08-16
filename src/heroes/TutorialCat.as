@@ -19,9 +19,11 @@ public class TutorialCat extends BasicCat {
     private var _bubble:TutorialTextBubble;
     private var _isFlip:Boolean;
     private var _label:String = '';
+    private var _callbackOnCreate:Function;
 
-    public function TutorialCat() {
+    public function TutorialCat(f:Function = null) {
         super();
+        _callbackOnCreate = f;
         _speedWalk = 4;
         _speedRun = 12;
 
@@ -56,9 +58,16 @@ public class TutorialCat extends BasicCat {
         addShadow();
         if (_isFlip) _animation.flipIt(_isFlip);
         if (_label != '') _animation.playIt(_label);
+        if (_callbackOnCreate != null) 
+            g.gameDispatcher.addNextFrameFunction(
+                function():void {
+                    _callbackOnCreate.apply();
+                    _callbackOnCreate = null;
+                });
     }
 
     public function get isFree():Boolean { return true; }
+    public function get isCreate():Boolean { return Boolean(_animation); }
 
     private function addShadow():void {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_shadow'));
