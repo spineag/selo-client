@@ -2,7 +2,7 @@
  * Created by user on 4/20/16.
  */
 package user {
-import manager.ManagerOrderItem;
+import order.ManagerOrderItem;
 import manager.Vars;
 
 import ui.stock.StockPanel;

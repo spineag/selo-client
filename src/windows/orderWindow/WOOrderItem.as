@@ -8,8 +8,8 @@ import com.greensock.TweenMax;
 import data.BuildType;
 
 import manager.ManagerFilters;
-import manager.ManagerOrder;
-import manager.ManagerOrderItem;
+import order.ManagerOrder;
+import order.ManagerOrderItem;
 import manager.Vars;
 
 import starling.animation.Tween;

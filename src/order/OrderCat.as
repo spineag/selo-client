@@ -1,7 +1,9 @@
 /**
  * Created by user on 2/5/16.
  */
-package heroes {
+package order {
+import heroes.*;
+
 import build.TownAreaBuildSprite;
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;

@@ -2,7 +2,7 @@
  * Created by user on 7/28/16.
  */
 package temp.catCharacters {
-import heroes.OrderCat;
+import order.OrderCat;
 
 import manager.Vars;
 

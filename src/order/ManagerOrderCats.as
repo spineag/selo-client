@@ -1,7 +1,9 @@
 /**
  * Created by user on 2/5/16.
  */
-package heroes {
+package order {
+import heroes.*;
+
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import manager.AStar.AStar;
@@ -12,7 +14,7 @@ import manager.ownError.ErrorConst;
 import windows.WindowsManager;
 
 public class ManagerOrderCats {
-    [ArrayElementType('heroes.OrderCat')]
+    [ArrayElementType('order.OrderCat')]
     private var _arrCats:Array;
     private var _arrAwayCats:Array;
     private var g:Vars = Vars.getInstance();

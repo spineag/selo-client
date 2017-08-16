@@ -42,7 +42,7 @@ import flash.utils.getQualifiedClassName;
 
 import heroes.AddNewHero;
 import heroes.BasicCat;
-import heroes.OrderCat;
+import order.OrderCat;
 import hint.FlyMessage;
 import manager.Vars;
 import manager.ownError.ErrorConst;

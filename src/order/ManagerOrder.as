@@ -1,7 +1,9 @@
 /**
  * Created by andy on 11/14/15.
  */
-package manager {
+package order {
+import manager.*;
+
 import build.orders.Order;
 import com.junkbyte.console.Cc;
 import data.BuildType;

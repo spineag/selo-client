@@ -15,7 +15,7 @@ import build.ridge.Ridge;
 import flash.geom.Point;
 import heroes.AddNewHero;
 import heroes.BasicCat;
-import heroes.OrderCat;
+import order.OrderCat;
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
 import mouse.ToolsModifier;

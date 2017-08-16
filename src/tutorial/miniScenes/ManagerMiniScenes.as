@@ -8,7 +8,7 @@ import build.orders.Order;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 
-import heroes.OrderCat;
+import order.OrderCat;
 
 import manager.Vars;
 import particle.tuts.DustRectangle;

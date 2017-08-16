@@ -14,7 +14,9 @@ import build.farm.FarmGrid;
 import data.AllData;
 import data.BuildType;
 import heroes.ManagerCats;
-import heroes.ManagerOrderCats;
+
+import order.ManagerOrder;
+import order.ManagerOrderCats;
 import hint.BuyHint;
 import hint.LevelUpHint;
 import hint.MarketHint;

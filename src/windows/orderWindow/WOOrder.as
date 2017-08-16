@@ -17,13 +17,13 @@ import dragonBones.starling.StarlingFactory;
 
 import flash.geom.Point;
 
-import heroes.OrderCat;
-import heroes.OrderCat;
+import order.OrderCat;
+import order.OrderCat;
 
 import manager.ManagerFabricaRecipe;
 import manager.ManagerFilters;
-import manager.ManagerOrder;
-import manager.ManagerOrderItem;
+import order.ManagerOrder;
+import order.ManagerOrderItem;
 import media.SoundConst;
 
 import quest.ManagerQuest;

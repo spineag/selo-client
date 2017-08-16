@@ -1,8 +1,8 @@
 /**
  * Created by user on 2/15/16.
  */
-package manager {
-import heroes.OrderCat;
+package order {
+import order.OrderCat;
 
 public class ManagerOrderItem {
     public var dbId:String;

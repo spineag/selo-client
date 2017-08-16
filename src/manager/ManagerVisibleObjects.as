@@ -9,7 +9,7 @@ import build.wild.Wild;
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import heroes.OrderCat;
+import order.OrderCat;
 import starling.core.Starling;
 import starling.display.Quad;
 
