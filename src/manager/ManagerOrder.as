@@ -63,10 +63,6 @@ public class ManagerOrder {
 //        _arrNames = ['Булавка', 'Петелька', 'Шпилька', 'Ниточка', 'Иголочка', 'Пряжа', 'Ленточка', 'Ирис', 'Наперсток', 'Кристик', 'Акрил', 'Стежок', 'Шнурочек', 'Ажур'];
     }
 
-    public function get arrOrders():Array {
-        return _arrOrders;
-    }
-
     public function checkOrders():void {
         updateMaxCounts();
         if (g.user.level < 3) return;
@@ -98,6 +94,7 @@ public class ManagerOrder {
         }
     }
 
+    public function get arrOrders():Array { return _arrOrders; }
     public function get countOrders():int { return _arrOrders.length; }
     public function get maxCountOrders():int { return _curMaxCountOrders; }
 

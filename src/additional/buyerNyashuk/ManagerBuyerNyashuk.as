@@ -191,7 +191,8 @@ public class ManagerBuyerNyashuk {
             if (objectNew.buyer_id == 1) {
                 arr = g.allData.resource;
                 for (i = 0; i < arr.length; i++) {
-                    if (arr[i].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(arr[i].id) && (arr[i] as StructureDataResource).visitorPrice > 0) {
+//                    if (arr[i].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(arr[i].id) && (arr[i] as StructureDataResource).visitorPrice > 0) {
+                    if (arr[i].blockByLevel <= g.user.level && (arr[i] as StructureDataResource).visitorPrice > 0) {
                         arrMin.push(arr[i]);
                     }
                 }

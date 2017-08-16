@@ -34,32 +34,38 @@ public class TextsTutorial {
         _objText[8][0] = 'Уменьшим срок созревания плода до 0!';
 
         _objText[9] = {};
-        _objText[9][0] = 'Купи Булочную'; //String(g.managerLanguage.allTexts[546]);
+        _objText[9][0] = 'Собери яйца!'; //String(g.managerLanguage.allTexts[546]);
 
         _objText[10] = {};
-        _objText[10][1] = 'Ускорь постройку'; //String(g.managerLanguage.allTexts[547]);
+        _objText[10][0] = 'Купи Булочную'; //String(g.managerLanguage.allTexts[546]);
 
         _objText[11] = {};
-        _objText[11][1] = 'Открой коробочку'; //String(g.managerLanguage.allTexts[547]);
+        _objText[11][1] = 'Ускорь постройку'; //String(g.managerLanguage.allTexts[547]);
 
         _objText[12] = {};
-        _objText[12][0] = 'Вот такое вот это оно все';  //String(g.managerLanguage.allTexts[548]);
-        _objText[12][1] = 'Покликай давай!';
+        _objText[12][1] = 'Открой коробочку'; //String(g.managerLanguage.allTexts[547]);
 
         _objText[13] = {};
-        _objText[13][0] = 'Купи Кормилку, бро';
+        _objText[13][0] = 'Вот такое вот это оно все';  //String(g.managerLanguage.allTexts[548]);
+        _objText[13][1] = 'Покликай давай!';
 
         _objText[14] = {};
-        _objText[14][0] = 'Скопай пару грядок';
+        _objText[14][0] = 'Бери булочку';
 
         _objText[15] = {};
-        _objText[15][0] = 'Посади что-то';
+        _objText[15][0] = 'Купи Кормилку, бро';
 
         _objText[16] = {};
-        _objText[16][2] = 'Что за винни-пухи?';
-        
+        _objText[16][0] = 'Скопай пару грядок';
+
         _objText[17] = {};
-        _objText[17][0] = 'Ну, как-то так вот';
+        _objText[17][0] = 'Посади что-то';
+
+        _objText[18] = {};
+        _objText[18][2] = 'Что за винни-пухи?';
+        
+        _objText[19] = {};
+        _objText[19][0] = 'Ну, как-то так вот';
     }
 
     public function get objText():Object {
