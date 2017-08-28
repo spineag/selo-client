@@ -292,7 +292,7 @@ public class ManagerOrderCats {
             var l:int = g.managerOrder.getMaxCountForLevel(g.visitedUser.level);
             if (l > 5) l = 5;
             for (var i:int = 0; i < l; i++) {
-                ob = g.dataOrderCats.getRandomCat();
+                ob = g.managerOrder.getFreeCatObj();
                 cat = new OrderCat(ob);
                 cat.setTailPositions(30, 25 - i * 2);
                 cat.walkPosition = OrderCat.STAY_IN_QUEUE;

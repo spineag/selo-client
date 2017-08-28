@@ -141,7 +141,7 @@ public class WOOrderItem {
         _leftSeconds = _order.startTime - int(new Date().getTime()/1000);
 
         if (_leftSeconds > 0) {
-            if (order.delOb) {
+            if (_order.delOb) {
                 _txtName.visible = false;
                 _txtXP.visible = false;
                 _txtCoins.visible = false;
@@ -165,7 +165,7 @@ public class WOOrderItem {
                 _clockImage.visible = true;
             }
         } else {
-            if (order.delOb)  order.delOb = false;
+            if (_order.delOb)  _order.delOb = false;
             _leftSeconds = -1;
             _txtName.visible = true;
             _txtXP.visible = true;

@@ -2,13 +2,11 @@
  * Created by user on 2/15/16.
  */
 package order {
-import order.OrderCat;
 
 public class ManagerOrderItem {
     public var dbId:String;
     public var resourceIds:Array;
     public var resourceCounts:Array;
-    public var catName:String;
     public var coins:int;
     public var xp:int;
     public var addCoupone:Boolean;

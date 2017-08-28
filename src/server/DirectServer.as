@@ -4782,7 +4782,7 @@ public class DirectServer {
         }
     }
 
-    public function addUserOrder(order:Object, delay:int, callback:Function):void {
+    public function addUserOrder(order:Object, delay:int, catId:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_ORDER);
         var variables:URLVariables = new URLVariables();
@@ -4790,6 +4790,7 @@ public class DirectServer {
         Cc.ch('server', 'addUserOrder', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.catId = catId;
         variables.ids = order.resourceIds.join('&');
         variables.counts = order.resourceCounts.join('&');
         variables.xp = order.xp;

@@ -3,29 +3,22 @@
  */
 package order {
 import heroes.*;
-
 import build.TownAreaBuildSprite;
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import dragonBones.Armature;
-import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
 import flash.geom.Point;
 import flash.geom.Rectangle;
-
 import manager.Vars;
-
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-
-import temp.catCharacters.DataCat;
 import utils.IsoUtils;
 import utils.Point3D;
 import utils.Utils;
@@ -49,7 +42,6 @@ public class OrderCat {
     protected var _posY:int;
     protected var _depth:Number;
     protected var _source:TownAreaBuildSprite;
-//    protected var _typeCat:int;
     protected var _speedWalk:int = 2;
     protected var _speedRun:int = 8;
     private var _catImage:Sprite;
@@ -71,7 +63,6 @@ public class OrderCat {
 
     public function OrderCat(ob:Object) {
         _posX = _posY = -1;
-//        _typeCat = type;
         _catData = ob;
         _source = new TownAreaBuildSprite();
         _source.isTouchable = false;
@@ -99,37 +90,19 @@ public class OrderCat {
         addShadow();
     }
 
-    public function get rect():Rectangle {
-        return _rect;
-    }
-
-    public function setPositionInQueue(i:int):void {
-        _queuePosition = i;
-    }
-
-    public function get queuePosition():int {
-        return _queuePosition;
-    }
-
-    public function get source():Sprite {
-        return _source;
-    }
-
-    public function get posX():int {
-        return _posX;
-    }
-
-    public function get posY():int {
-        return _posY;
-    }
-
-    public function flipIt(v:Boolean):void {
-        v ? _source.scaleX = -1: _source.scaleX = 1;
-    }
-
-    public function set arriveCallback(f:Function):void {
-        _arriveCallback = f;
-    }
+    public function get rect():Rectangle { return _rect; }
+    public function setPositionInQueue(i:int):void { _queuePosition = i; }
+    public function get queuePosition():int { return _queuePosition; }
+    public function get source():Sprite { return _source; }
+    public function get posX():int { return _posX; }
+    public function get posY():int { return _posY; }
+    public function flipIt(v:Boolean):void { v ? _source.scaleX = -1: _source.scaleX = 1; }
+    public function set arriveCallback(f:Function):void { _arriveCallback = f; }
+    public function get dataCatId():int { return _catData.id; }
+    public function get typeCat():int { return _catData.color; }
+//    public function get sexCat():Boolean { return _catData.isWoman; }
+//    public function get catData():Object { return _catData; }
+    public function showForOptimisation(needShow:Boolean):void { if (_source) _source.visible = needShow; }
 
     public function checkArriveCallback():void {
         if (_arriveCallback != null) {
@@ -200,61 +173,61 @@ public class OrderCat {
         } else changeBant(int(Math.random() * 8 + 1));
         var okuli:Slot = armature.getSlot('okuli');
         var sharf:Slot = armature.getSlot('sharf');
-        switch (_catData.type) {
-            case DataCat.AKRIL:
+        switch (_catData.id) {
+            case 1:
                 okuli.displayList = null;
                 break;
-            case DataCat.ASHUR:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case DataCat.BULAVKA:
+            case 2:
                 okuli.displayList = null;
                 sharf.displayList = null;
                 break;
-            case DataCat.BUSINKA:
+            case 3:
                 okuli.displayList = null;
                 break;
-            case DataCat.IGOLOCHKA:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case DataCat.IRIS:
+            case 4:
                 okuli.displayList = null;
                 sharf.displayList = null;
                 break;
-            case DataCat.KRUCHOK:
-                okuli.displayList = null;
-                break;
-            case DataCat.LENTOCHKA:
+            case 5:
                 okuli.displayList = null;
                 sharf.displayList = null;
                 break;
-            case DataCat.NAPERSTOK:
+            case 6:
+                okuli.displayList = null;
+                break;
+            case 7:
                 okuli.displayList = null;
                 sharf.displayList = null;
                 break;
-            case DataCat.PETELKA:
+            case 8:
                 okuli.displayList = null;
                 sharf.displayList = null;
                 break;
-            case DataCat.PRYAGA:
+            case 9:
                 okuli.displayList = null;
                 sharf.displayList = null;
                 break;
-            case DataCat.SINTETIKA:
-                sharf.displayList = null;
-                break;
-            case DataCat.STESHOK:
+            case 10:
                 okuli.displayList = null;
                 sharf.displayList = null;
                 break;
-            case DataCat.YZELOK:
+            case 11:
+                okuli.displayList = null;
+                sharf.displayList = null;
+                break;
+            case 12:
                 okuli.displayList = null;
                 break;
+            case 13:
+                okuli.displayList = null;
+                sharf.displayList = null;
+                break;
+            case 14:
+                sharf.displayList = null;
+                break;
+
         }
         if (_catData.png) {
-//            var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(_catData.png) as Image;
             var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(_catData.png));
             var sp:Sprite = new Sprite();
             if (sharf.displayList.length) {
@@ -271,7 +244,6 @@ public class OrderCat {
 
     private function changeBant(n:int):void {
         bant = n;
-//        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
         var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture('bant_'+ n));
         var b:Slot = armature.getSlot('bant');
         var sp:Sprite = new Sprite();
@@ -308,7 +280,6 @@ public class OrderCat {
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-//        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
         var b:Slot = arma.getSlot(oldName);
         var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
         b.displayList = null;
@@ -350,23 +321,8 @@ public class OrderCat {
         _currentPath = [];
     }
 
-//    public function get typeCat():int {
-//        return _catData.color;
-//    }
-//
-//    public function get sexCat():Boolean {
-//        return _catData.isWoman;
-//    }
-
-    public function get catData():Object {
-        return _catData;
-    }
-
-    public function showForOptimisation(needShow:Boolean):void {
-        if (_source) _source.visible = needShow;
-    }
-
-
+    
+    
     //  ------------------ ANIMATIONS -----------------------
 
     private var count:int;
@@ -393,50 +349,22 @@ public class OrderCat {
                 case 10:
                     armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
                     armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
-                    switch (_catData.type) {
-                    case DataCat.AKRIL:
-                        armature.animation.gotoAndPlayByFrame("akril");
-                        break;
-                    case DataCat.ASHUR:
-                        armature.animation.gotoAndPlayByFrame("agur");
-                        break;
-                    case DataCat.BULAVKA:
-                        armature.animation.gotoAndPlayByFrame("bulavka");
-                        break;
-                    case DataCat.BUSINKA:
-                        armature.animation.gotoAndPlayByFrame("businka");
-                        break;
-                    case DataCat.IGOLOCHKA:
-                        armature.animation.gotoAndPlayByFrame("igolochka");
-                        break;
-                    case DataCat.IRIS:
-                        armature.animation.gotoAndPlayByFrame("iris");
-                        break;
-                    case DataCat.KRUCHOK:
-                        armature.animation.gotoAndPlayByFrame("kruchek");
-                        break;
-                    case DataCat.LENTOCHKA:
-                        armature.animation.gotoAndPlayByFrame("lentochka");
-                        break;
-                    case DataCat.NAPERSTOK:
-                        armature.animation.gotoAndPlayByFrame("naperdstok");
-                        break;
-                    case DataCat.PETELKA:
-                        armature.animation.gotoAndPlayByFrame("petelka");
-                        break;
-                    case DataCat.PRYAGA:
-                        armature.animation.gotoAndPlayByFrame("pryaga");
-                        break;
-                    case DataCat.SINTETIKA:
-                        armature.animation.gotoAndPlayByFrame("sintetika");
-                        break;
-                    case DataCat.STESHOK:
-                        armature.animation.gotoAndPlayByFrame("stegok");
-                        break;
-                    case DataCat.YZELOK:
-                        armature.animation.gotoAndPlayByFrame("uzelok");
-                        break;
-                }
+                    switch (_catData.id) {
+                        case 6: armature.animation.gotoAndPlayByFrame("akril");  break;
+                        case 7: armature.animation.gotoAndPlayByFrame("agur"); break;
+                        case 11: armature.animation.gotoAndPlayByFrame("bulavka"); break;
+                        case 12: armature.animation.gotoAndPlayByFrame("businka"); break;
+                        case 8: armature.animation.gotoAndPlayByFrame("igolochka"); break;
+                        case 4: armature.animation.gotoAndPlayByFrame("iris"); break;
+                        case 3: armature.animation.gotoAndPlayByFrame("kruchek"); break;
+                        case 9: armature.animation.gotoAndPlayByFrame("lentochka"); break;
+                        case 5: armature.animation.gotoAndPlayByFrame("naperdstok"); break;
+                        case 13: armature.animation.gotoAndPlayByFrame("petelka"); break;
+                        case 10: armature.animation.gotoAndPlayByFrame("pryaga"); break;
+                        case 14: armature.animation.gotoAndPlayByFrame("sintetika"); break;
+                        case 2: armature.animation.gotoAndPlayByFrame("stegok"); break;
+                        case 1: armature.animation.gotoAndPlayByFrame("uzelok"); break;
+                    }
                     break;
             }
         }

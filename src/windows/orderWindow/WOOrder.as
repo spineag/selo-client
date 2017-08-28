@@ -8,42 +8,25 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import dragonBones.Armature;
-import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-import dragonBones.starling.StarlingFactory;
-
 import flash.geom.Point;
-
 import order.OrderCat;
-import order.OrderCat;
-
-import manager.ManagerFabricaRecipe;
 import manager.ManagerFilters;
 import order.ManagerOrder;
 import order.ManagerOrderItem;
 import media.SoundConst;
-
 import quest.ManagerQuest;
-
 import resourceItem.DropItem;
 import resourceItem.DropPartyResource;
-
-import starling.animation.Tween;
-
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
 import starling.utils.Color;
-
-import temp.catCharacters.DataCat;
-
 import utils.CTextField;
-
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import tutorial.TutorialTextBubble;
@@ -52,7 +35,6 @@ import utils.CButton;
 import utils.MCScaler;
 import utils.TimeUtils;
 import utils.Utils;
-
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
@@ -302,7 +284,7 @@ public class WOOrder extends WindowMain{
         _btnSkipDelete.clickCallback = skipDelete;
     }
 
-    private function sellOrder(b:Boolean = false, _order:ManagerOrderItem = null):void {
+    private function sellOrder(b:Boolean = false, or:ManagerOrderItem = null):void {
         if (_waitForAnswer) return;
         if (g.tuts.isTutorial && g.tuts.currentAction != TutorialAction.ORDER) return;
         var i:int;
@@ -327,7 +309,7 @@ public class WOOrder extends WindowMain{
         } else {
             if (!_isShowed) super.showIt();
             for (i=0; i< _arrItems.length; i++) {
-                if (_arrItems[i].getOrder().dbId == _order.dbId) {
+                if (_arrItems[i].getOrder().dbId == or.dbId) {
                     onItemClick(_arrItems[i]);
                     break;
                 }
@@ -393,7 +375,7 @@ public class WOOrder extends WindowMain{
         }
         _waitForAnswer = true;
         var tOrderItem:WOOrderItem = _activeOrderItem;
-        var f:Function = function (order:ManagerOrderItem):void { afterSell(order, tOrderItem); };
+        var f:Function = function (or:ManagerOrderItem):void { afterSell(or, tOrderItem); };
         _arrOrders[_activeOrderItem.position] = null;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         animateCatsOnSell();
@@ -405,12 +387,12 @@ public class WOOrder extends WindowMain{
         g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
     }
 
-    private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
+    private function afterSell(or:ManagerOrderItem, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
         if (_isShowed) {
-            order.startTime = int(new Date().getTime()/1000) + 6;
-            orderItem.fillIt(order, order.placeNumber, onItemClick);
-            _arrOrders[order.placeNumber] = order;
+            or.startTime = int(new Date().getTime()/1000) + 6;
+            orderItem.fillIt(or, or.placeNumber, onItemClick);
+            _arrOrders[or.placeNumber] = or;
             if (_activeOrderItem == orderItem) {
                 onItemClick(_activeOrderItem, true);
                 _clickItem = false;
@@ -429,12 +411,12 @@ public class WOOrder extends WindowMain{
 
     private function fillList():void {
         var maxCount:int = g.managerOrder.maxCountOrders;
-        var order:ManagerOrderItem;
+        var or:ManagerOrderItem;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (i >= maxCount) return;
-            order = _arrOrders[i];
-            if (order.placeNumber > -1) {
-                (_arrItems[i] as WOOrderItem).fillIt(order, order.placeNumber, onItemClick);
+            or = _arrOrders[i];
+            if (or.placeNumber > -1) {
+                (_arrItems[i] as WOOrderItem).fillIt(or, or.placeNumber, onItemClick);
 //                _arrItems[i].animation(delay);
 //                delay += .1;
             } else {
@@ -512,8 +494,8 @@ public class WOOrder extends WindowMain{
         _txtCoins.text = '';
     }
 
-    private function fillResourceItems(order:ManagerOrderItem):void {
-        if (order)_txtName.text = order.catOb.name + ' ' + String(g.managerLanguage.allTexts[370]);
+    private function fillResourceItems(or:ManagerOrderItem):void {
+        if (or)_txtName.text = or.catOb.name + ' ' + String(g.managerLanguage.allTexts[370]);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.text = String(_activeOrderItem.getOrder().xp * g.managerParty.coefficient);
         else _txtXP.text = String(_activeOrderItem.getOrder().xp);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.text = String(_activeOrderItem.getOrder().coins * g.managerParty.coefficient);
@@ -538,8 +520,8 @@ public class WOOrder extends WindowMain{
             _waitForAnswer = true;
             _arrOrders[_activeOrderItem.position] = null;
             var tOrderItem:WOOrderItem = _activeOrderItem;
-            var f:Function = function (order:ManagerOrderItem):void {
-                afterDeleteOrder(order, tOrderItem);
+            var f:Function = function (or:ManagerOrderItem):void {
+                afterDeleteOrder(or, tOrderItem);
 //                newPlaceNumber();
             };
             g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
@@ -554,21 +536,21 @@ public class WOOrder extends WindowMain{
             _arrItems[i].animationHide(delay);
             delay += .1;
         }
-        var order:ManagerOrderItem;
+        var or:ManagerOrderItem;
         var k:int;
         var b:Boolean;
         delay = .1;
         for (i = 0; i < _arrOrders.length; i++) {
             b = true;
-            order = _arrOrders[i];
-            for (k=0; k<order.resourceIds.length; k++) {
-                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+            or = _arrOrders[i];
+            for (k=0; k<or.resourceIds.length; k++) {
+                if (g.userInventory.getCountResourceById(or.resourceIds[k]) < or.resourceCounts[k]) {
                     b = false;
                     break;
                 }
             }
-            if (order.placeNumber > -1) {
-                _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b,order.cat,true);
+            if (or.placeNumber > -1) {
+                _arrItems[i].fillIt(or, or.placeNumber, onItemClick, b, or.cat,true);
 //                _arrItems[i].animation(delay);
                 delay += .1;
 
@@ -577,30 +559,30 @@ public class WOOrder extends WindowMain{
         onItemClick(_arrItems[0]);
     }
 
-    private function afterDeleteOrder(order:ManagerOrderItem, orderItem:WOOrderItem):void {
+    private function afterDeleteOrder(or:ManagerOrderItem, orderItem:WOOrderItem):void {
         if (_isShowed) {
             if (g.user.level <= 6) {
-                order.startTime += ManagerOrder.TIME_FIRST_DELAY;
+                or.startTime += ManagerOrder.TIME_FIRST_DELAY;
                 _waitForAnswer = false;
                 setTimerText = ManagerOrder.TIME_FIRST_DELAY;
             }
             else if (g.user.level <= 9) {
-                order.startTime += ManagerOrder.TIME_SECOND_DELAY;
+                or.startTime += ManagerOrder.TIME_SECOND_DELAY;
                 _waitForAnswer = false;
                 setTimerText = ManagerOrder.TIME_SECOND_DELAY;
             }
             else if (g.user.level <= 15) {
-                order.startTime += ManagerOrder.TIME_THIRD_DELAY;
+                or.startTime += ManagerOrder.TIME_THIRD_DELAY;
                 _waitForAnswer = false;
                 setTimerText = ManagerOrder.TIME_THIRD_DELAY;
             }
             else if (g.user.level <= 19) {
-                order.startTime += ManagerOrder.TIME_FOURTH_DELAY;
+                or.startTime += ManagerOrder.TIME_FOURTH_DELAY;
                 _waitForAnswer = false;
                 setTimerText = ManagerOrder.TIME_FOURTH_DELAY;
             }
             else if (g.user.level >= 20) {
-                order.startTime += ManagerOrder.TIME_FIFTH_DELAY;
+                or.startTime += ManagerOrder.TIME_FIFTH_DELAY;
                 _waitForAnswer = false;
                 setTimerText = ManagerOrder.TIME_FIFTH_DELAY;
             }
@@ -608,14 +590,14 @@ public class WOOrder extends WindowMain{
 //            _waitForAnswer = false;
 //            setTimerText = ManagerOrder.TIME_DELAY;
             var b:Boolean = true;
-            for (var k:int=0; k<order.resourceIds.length; k++) {
-                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
+            for (var k:int=0; k<or.resourceIds.length; k++) {
+                if (g.userInventory.getCountResourceById(or.resourceIds[k]) < or.resourceCounts[k]) {
                     b = false;
                     break;
                 }
             }
-            orderItem.fillIt(order, order.placeNumber, onItemClick);
-            _arrOrders[order.placeNumber] = order;
+            orderItem.fillIt(or, or.placeNumber, onItemClick);
+            _arrOrders[or.placeNumber] = or;
             if (_activeOrderItem == orderItem) {
                 onItemClick(_activeOrderItem);
             }
@@ -693,8 +675,8 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    public function timerSkip(order:ManagerOrderItem):void {
-        var pl:int = order.placeNumber;
+    public function timerSkip(or:ManagerOrderItem):void {
+        var pl:int = or.placeNumber;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl &&  _arrOrders[i].delOb) {
                 _arrOrders[i].delOb = false;
@@ -920,8 +902,8 @@ public class WOOrder extends WindowMain{
             _srcBaloon.y = (_armatureCustomer.display as StarlingArmatureDisplay).y - 60;
             new TweenMax(_srcBaloon, 1, {scaleX: 1, scaleY: 1, y: _srcBaloon + 83, ease: Back.easeOut});
         }
-        switch (_arrOrders[pos-1].catOb.type) {
-            case DataCat.AKRIL:
+        switch (_arrOrders[pos-1].catOb.id) {
+            case 6:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
                 if (_txtBaloon) {
@@ -929,7 +911,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1049]);
                 }
                 break;
-            case DataCat.ASHUR:
+            case 7:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -937,7 +919,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1054]);
                 }
                 break;
-            case DataCat.BULAVKA:
+            case 11:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -945,7 +927,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1032]);
                 }
                 break;
-            case DataCat.BUSINKA:
+            case 12:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
                 if (_txtBaloon) {
@@ -953,7 +935,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1042]);
                 }
                 break;
-            case DataCat.IGOLOCHKA:
+            case 8:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -961,7 +943,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1038]);
                 }
                 break;
-            case DataCat.IRIS:
+            case 4:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -969,7 +951,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1046]);
                 }
                 break;
-            case DataCat.KRUCHOK:
+            case 3:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
                 if (_txtBaloon) {
@@ -977,7 +959,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1048]);
                 }
                 break;
-            case DataCat.LENTOCHKA:
+            case 9:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -985,7 +967,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1044]);
                 }
                 break;
-            case DataCat.NAPERSTOK:
+            case 5:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -993,7 +975,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1056]);
                 }
                 break;
-            case DataCat.PETELKA:
+            case 13:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -1001,7 +983,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1036]);
                 }
                 break;
-            case DataCat.PRYAGA:
+            case 10:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -1009,7 +991,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1034]);
                 }
                 break;
-            case DataCat.SINTETIKA:
+            case 14:
                 if (okuli) okuli.visible = true;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -1017,7 +999,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1040]);
                 }
                 break;
-            case DataCat.STESHOK:
+            case 2:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
                 if (_txtBaloon) {
@@ -1025,7 +1007,7 @@ public class WOOrder extends WindowMain{
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1058]);
                 }
                 break;
-            case DataCat.YZELOK:
+            case 1:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
                 if (_txtBaloon) {

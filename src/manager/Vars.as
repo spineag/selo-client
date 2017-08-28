@@ -15,6 +15,8 @@ import data.AllData;
 import data.BuildType;
 import heroes.ManagerCats;
 
+import order.DataOrderCat;
+
 import order.ManagerOrder;
 import order.ManagerOrderCats;
 import hint.BuyHint;
@@ -51,7 +53,6 @@ import social.SocialNetwork;
 import social.SocialNetworkSwitch;
 import starling.core.Starling;
 import starling.display.Stage;
-import temp.catCharacters.DataCat;
 import temp.dataTemp.DataLevel;
 import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
@@ -151,7 +152,6 @@ public class Vars {
     public var allData:AllData;
     public var dataLevel:DataLevel;
     public var dataCats:Array;
-    public var dataOrderCats:DataCat;
 
     public var timerHint:TimerHint;
     public var wildHint:WildHint;
@@ -249,7 +249,6 @@ public class Vars {
             (user as User).createNeighbor();
             cont.hideAll(true);
             startPreloader.setProgress(80);
-            dataOrderCats = new DataCat();
             userInventory = new UserInventory();
 
             tuts = new TutorialManager();
@@ -261,6 +260,7 @@ public class Vars {
             managerAchievement = new ManagerAchievement();
 
             new ManagerFilters();
+            new DataOrderCat();
             ownMouse = new OwnMouse();
             toolsModifier = new ToolsModifier();
             toolsModifier.setTownArray();
