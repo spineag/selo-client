@@ -25,6 +25,10 @@ public class StructureDataResource {
     private var _buildTime:int;
     private var _craftXP:int;
     private var _image:String;
+    private var _orderCoinMin:int = 1;
+    private var _orderCoinMax:int = 50;
+    private var _orderXPMin:int = 1;
+    private var _orderXPMax:int = 50;
     private var g:Vars = Vars.getInstance();
 
     public function StructureDataResource(ob:Object) {
@@ -50,6 +54,10 @@ public class StructureDataResource {
         if (ob.cost_skip) _priceSkipHard = int(ob.cost_skip);
         if (ob.build_time) _buildTime = int(ob.build_time);
         if (ob.craft_xp) _craftXP = int(ob.craft_xp);
+        if (ob.order_coin_min) _orderCoinMin = int(ob.order_coin_min);
+        if (ob.order_coin_max) _orderCoinMax = int(ob.order_coin_max);
+        if (ob.order_xp_min) _orderXPMin = int(ob.order_xp_min);
+        if (ob.order_xp_max) _orderXPMax = int(ob.order_xp_max);
     }
 
     public function get id():int {return _id;}
@@ -72,5 +80,9 @@ public class StructureDataResource {
     public function get priceSkipHard():int {return _priceSkipHard;}
     public function get buildTime():int {return _buildTime;}
     public function get craftXP():int {return _craftXP;}
+    public function get orderPriceMin():int { return _orderCoinMin; }
+    public function get orderPriceMax():int { return _orderCoinMax; }
+    public function get orderXPMin():int { return _orderXPMin; }
+    public function get orderXPMax():int { return _orderXPMax; }
 }
 }

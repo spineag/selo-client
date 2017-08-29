@@ -151,7 +151,7 @@ public class ManagerOrder {
         return c;
     }
 
-    private function addNewFaserOrders():Object {
+    private function addNewFastOrder():Object {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FABRICA);
         var i:int = 0;
         var j:int = 0;
@@ -291,7 +291,7 @@ public class ManagerOrder {
         var countFastBuyer:int = 0;
         var r:StructureDataResource;
 
-        for (i = 0; i < n; i++) {
+        for (var ik:int = 0; ik < n; ik++) {
             if (_arrOrders && !g.tuts.isTutorial && _arrOrders.length > 0) {
                 for (i = 0; i < _arrOrders.length; i++) {
                     if (_arrOrders[i].fasterBuy == true) {
@@ -304,7 +304,7 @@ public class ManagerOrder {
                 or.resourceIds = [];
                 or.resourceCounts = [];
                 or.addCoupone = false;
-                var ob:Object = addNewFaserOrders();
+                var ob:Object = addNewFastOrder();
                 or.resourceIds.push(ob.id);
                 or.resourceCounts.push(ob.count);
                 or.fasterBuy = true;
@@ -1051,8 +1051,10 @@ public class ManagerOrder {
                 if (or.resourceIds[k]) {
                     r = g.allData.getResourceById(or.resourceIds[k]);
                     if (r) {
-                        or.coins += r.orderPrice * or.resourceCounts[k];
-                        or.xp += r.orderXP * or.resourceCounts[k];
+                        i = r.orderPriceMin + int(Math.random()*(r.orderPriceMax - r.orderPriceMin)); // change from r.orderPrice
+                        or.coins += i * or.resourceCounts[k];
+                        i = r.orderXPMin + int(Math.random()*(r.orderXPMax - r.orderXPMin));  // change from r.orderXP
+                        or.xp += i * or.resourceCounts[k];
                     } else {
                         Cc.error('ManagerOrder::::::: no resource with id: ' + or.resourceCounts[k]);
                     }
