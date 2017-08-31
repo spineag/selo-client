@@ -16,7 +16,7 @@ import flash.geom.Point;
 import order.OrderCat;
 import manager.ManagerFilters;
 import order.ManagerOrder;
-import order.ManagerOrderItem;
+import order.OrderItemStructure;
 import media.SoundConst;
 import quest.ManagerQuest;
 import resourceItem.DropItem;
@@ -271,11 +271,8 @@ public class WOOrder extends WindowMain{
         _btnSkipDelete.addChild(_txtBtnSkip);
         _txtBtnSkip2 = new CTextField(20, 50, '');
         _txtBtnSkip2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        if (g.user.level <= 6) _txtBtnSkip2.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
-        else if (g.user.level <= 9) _txtBtnSkip2.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
-        else if (g.user.level <= 15) _txtBtnSkip2.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);
-        else if (g.user.level <= 19) _txtBtnSkip2.text = String(ManagerOrder.COST_FOURTH_SKIP_WAIT);
-        else if (g.user.level >= 20) _txtBtnSkip2.text = String(ManagerOrder.COST_FIFTH_SKIP_WAIT);
+        _txtBtnSkip2.text = String(g.managerOrder.delayBeforeNextOrder);
+        
         _txtBtnSkip2.x = 80;
         _btnSkipDelete.addChild(_txtBtnSkip2);
         _btnSkipDelete.x = 160;
@@ -284,7 +281,7 @@ public class WOOrder extends WindowMain{
         _btnSkipDelete.clickCallback = skipDelete;
     }
 
-    private function sellOrder(b:Boolean = false, or:ManagerOrderItem = null):void {
+    private function sellOrder(b:Boolean = false, or:OrderItemStructure = null):void {
         if (_waitForAnswer) return;
         if (g.tuts.isTutorial && g.tuts.currentAction != TutorialAction.ORDER) return;
         var i:int;
@@ -375,7 +372,7 @@ public class WOOrder extends WindowMain{
         }
         _waitForAnswer = true;
         var tOrderItem:WOOrderItem = _activeOrderItem;
-        var f:Function = function (or:ManagerOrderItem):void { afterSell(or, tOrderItem); };
+        var f:Function = function (or:OrderItemStructure):void { afterSell(or, tOrderItem); };
         _arrOrders[_activeOrderItem.position] = null;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         animateCatsOnSell();
@@ -387,7 +384,7 @@ public class WOOrder extends WindowMain{
         g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
     }
 
-    private function afterSell(or:ManagerOrderItem, orderItem:WOOrderItem):void {
+    private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
         if (_isShowed) {
             or.startTime = int(new Date().getTime()/1000) + 6;
@@ -411,7 +408,7 @@ public class WOOrder extends WindowMain{
 
     private function fillList():void {
         var maxCount:int = g.managerOrder.maxCountOrders;
-        var or:ManagerOrderItem;
+        var or:OrderItemStructure;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (i >= maxCount) return;
             or = _arrOrders[i];
@@ -494,7 +491,7 @@ public class WOOrder extends WindowMain{
         _txtCoins.text = '';
     }
 
-    private function fillResourceItems(or:ManagerOrderItem):void {
+    private function fillResourceItems(or:OrderItemStructure):void {
         if (or)_txtName.text = or.catOb.name + ' ' + String(g.managerLanguage.allTexts[370]);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.text = String(_activeOrderItem.getOrder().xp * g.managerParty.coefficient);
         else _txtXP.text = String(_activeOrderItem.getOrder().xp);
@@ -512,15 +509,11 @@ public class WOOrder extends WindowMain{
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
 //            g.userTimer.setOrder(_activeOrderItem.getOrder());
-            if (g.user.level <= 6) setTimerText = ManagerOrder.TIME_FIRST_DELAY;
-            else if (g.user.level <= 9) setTimerText = ManagerOrder.TIME_SECOND_DELAY;
-            else if (g.user.level <= 15) setTimerText = ManagerOrder.TIME_THIRD_DELAY;
-            else if (g.user.level <= 19) setTimerText = ManagerOrder.TIME_FOURTH_DELAY;
-            else if (g.user.level >= 20) setTimerText = ManagerOrder.TIME_FIFTH_DELAY;
+            setTimerText = g.managerOrder.delayBeforeNextOrder;
             _waitForAnswer = true;
             _arrOrders[_activeOrderItem.position] = null;
             var tOrderItem:WOOrderItem = _activeOrderItem;
-            var f:Function = function (or:ManagerOrderItem):void {
+            var f:Function = function (or:OrderItemStructure):void {
                 afterDeleteOrder(or, tOrderItem);
 //                newPlaceNumber();
             };
@@ -536,7 +529,7 @@ public class WOOrder extends WindowMain{
             _arrItems[i].animationHide(delay);
             delay += .1;
         }
-        var or:ManagerOrderItem;
+        var or:OrderItemStructure;
         var k:int;
         var b:Boolean;
         delay = .1;
@@ -559,36 +552,12 @@ public class WOOrder extends WindowMain{
         onItemClick(_arrItems[0]);
     }
 
-    private function afterDeleteOrder(or:ManagerOrderItem, orderItem:WOOrderItem):void {
+    private function afterDeleteOrder(or:OrderItemStructure, orderItem:WOOrderItem):void {
         if (_isShowed) {
-            if (g.user.level <= 6) {
-                or.startTime += ManagerOrder.TIME_FIRST_DELAY;
-                _waitForAnswer = false;
-                setTimerText = ManagerOrder.TIME_FIRST_DELAY;
-            }
-            else if (g.user.level <= 9) {
-                or.startTime += ManagerOrder.TIME_SECOND_DELAY;
-                _waitForAnswer = false;
-                setTimerText = ManagerOrder.TIME_SECOND_DELAY;
-            }
-            else if (g.user.level <= 15) {
-                or.startTime += ManagerOrder.TIME_THIRD_DELAY;
-                _waitForAnswer = false;
-                setTimerText = ManagerOrder.TIME_THIRD_DELAY;
-            }
-            else if (g.user.level <= 19) {
-                or.startTime += ManagerOrder.TIME_FOURTH_DELAY;
-                _waitForAnswer = false;
-                setTimerText = ManagerOrder.TIME_FOURTH_DELAY;
-            }
-            else if (g.user.level >= 20) {
-                or.startTime += ManagerOrder.TIME_FIFTH_DELAY;
-                _waitForAnswer = false;
-                setTimerText = ManagerOrder.TIME_FIFTH_DELAY;
-            }
-//            order.startTime += ManagerOrder.TIME_DELAY;
-//            _waitForAnswer = false;
-//            setTimerText = ManagerOrder.TIME_DELAY;
+            var d:int = g.managerOrder.delayBeforeNextOrder;
+            or.startTime += d;
+            _waitForAnswer = false;
+            setTimerText = d;
             var b:Boolean = true;
             for (var k:int=0; k<or.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(or.resourceIds[k]) < or.resourceCounts[k]) {
@@ -598,9 +567,7 @@ public class WOOrder extends WindowMain{
             }
             orderItem.fillIt(or, or.placeNumber, onItemClick);
             _arrOrders[or.placeNumber] = or;
-            if (_activeOrderItem == orderItem) {
-                onItemClick(_activeOrderItem);
-            }
+            if (_activeOrderItem == orderItem) onItemClick(_activeOrderItem);
             g.managerOrder.checkForFullOrder();
             g.gameDispatcher.addToTimer(onTimer);
         }
@@ -608,12 +575,7 @@ public class WOOrder extends WindowMain{
 
     private function skipDelete():void {
         if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
-        var n:int;
-        if (g.user.level <= 6) n = ManagerOrder.COST_FIRST_SKIP_WAIT;
-        else if (g.user.level <= 9) n = ManagerOrder.COST_SECOND_SKIP_WAIT;
-        else if (g.user.level <= 15) n = ManagerOrder.COST_THIRD_SKIP_WAIT;
-        else if (g.user.level <= 19) n = ManagerOrder.COST_FOURTH_SKIP_WAIT;
-        else if (g.user.level >= 20) n = ManagerOrder.COST_FIFTH_SKIP_WAIT;
+        var n:int = ManagerOrder.COST_SKIP_WAIT;
         if (g.user.hardCurrency < n) {
             isCashed = false;
             super.hideIt();
@@ -675,7 +637,7 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    public function timerSkip(or:ManagerOrderItem):void {
+    public function timerSkip(or:OrderItemStructure):void {
         var pl:int = or.placeNumber;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl &&  _arrOrders[i].delOb) {

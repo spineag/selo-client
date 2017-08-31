@@ -244,7 +244,7 @@ public class ManagerMiniScenes {
         _counter = 0;
         if (!g.managerOrder.countOrders) {
             _counter = 2;
-            g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
+//            g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
             Utils.createDelay(1, order_3);
         } else firstOrderBuyer();
     }
@@ -273,7 +273,7 @@ public class ManagerMiniScenes {
             return;
         }
         if (!g.managerOrder.countOrders) {
-            g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
+//            g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
             return;
         }
         isMiniScene = true;

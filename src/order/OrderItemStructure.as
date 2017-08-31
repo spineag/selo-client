@@ -3,7 +3,7 @@
  */
 package order {
 
-public class ManagerOrderItem {
+public class OrderItemStructure {
     public var dbId:String;
     public var resourceIds:Array;
     public var resourceCounts:Array;

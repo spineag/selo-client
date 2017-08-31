@@ -9,7 +9,7 @@ import data.BuildType;
 
 import manager.ManagerFilters;
 import order.ManagerOrder;
-import order.ManagerOrderItem;
+import order.OrderItemStructure;
 import manager.Vars;
 
 import starling.animation.Tween;
@@ -31,7 +31,7 @@ public class WOOrderItem {
     private var _txtName:CTextField;
     private var _txtXP:CTextField;
     private var _txtCoins:CTextField;
-    private var _order:ManagerOrderItem;
+    private var _order:OrderItemStructure;
     private var _leftSeconds:int;
     private var _starImage:Image;
     private var _coinsImage:Image;
@@ -125,7 +125,7 @@ public class WOOrderItem {
         }
     }
 
-    public function fillIt(order:ManagerOrderItem, position:int, f:Function):void {
+    public function fillIt(order:OrderItemStructure, position:int, f:Function):void {
         _position = position;
         _order = order;
         _clickCallback = f;
@@ -318,7 +318,7 @@ public class WOOrderItem {
 
     public function get position():int { return _position; }
     public function get leftSeconds():int { return _leftSeconds; }
-    public function getOrder():ManagerOrderItem { return _order; }
+    public function getOrder():OrderItemStructure { return _order; }
     public function animation(delay:Number):void { TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:1, y: source.y, delay:delay}); }
     public function animationHide(delay:Number):void { TweenMax.to(source, .3, {scaleX:0, scaleY:0, alpha:1, y: source.y, delay:delay}); }
     public function get isClock():Boolean { return _clockImage.visible; } 

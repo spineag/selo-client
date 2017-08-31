@@ -2,7 +2,7 @@
  * Created by user on 4/20/16.
  */
 package user {
-import order.ManagerOrderItem;
+import order.OrderItemStructure;
 import manager.Vars;
 
 import ui.stock.StockPanel;
@@ -15,7 +15,7 @@ public class UserTimer {
     public var timerAtNyashukRed:int;
     public var timerAtNyashukBlue:int;
     public var _arrOrderItem:Array;
-    private var _orderManagerItem:ManagerOrderItem;
+    private var _orderManagerItem:OrderItemStructure;
     private var g:Vars = Vars.getInstance();
     public var partyToEndTimer:int;
     public var partyToStartTimer:int;
@@ -54,7 +54,7 @@ public class UserTimer {
         }
     }
 
-    public function setOrder(manager:ManagerOrderItem):void {
+    public function setOrder(manager:OrderItemStructure):void {
         _arrOrderItem.push(manager);
     }
 
