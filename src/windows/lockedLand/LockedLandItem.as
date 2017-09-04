@@ -21,7 +21,7 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 import windows.WOComponents.WOButtonTexture;
 import windows.WindowsManager;
 
@@ -33,7 +33,7 @@ public class LockedLandItem {
     private var _count:int;
     private var _iconCoins:Image;
     private var _galo4ka:Image;
-    private var _bg:CartonBackgroundIn;
+    private var _bg:WhiteBackgroundIn;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
     private var _txtCount:CTextField;
@@ -42,7 +42,7 @@ public class LockedLandItem {
 
     public function LockedLandItem() {
         source = new Sprite();
-        _bg = new CartonBackgroundIn(428, 88);
+        _bg = new WhiteBackgroundIn(428, 88);
         source.addChild(_bg);
     }
 
@@ -148,7 +148,7 @@ public class LockedLandItem {
             source.addChild(_btn);
             _btn.clickCallback = buyItem;
 //            btn = new CButton();
-//            btn.addButtonTexture(112, 30, CButton.YELLOW, true);
+//            btn.addButtonTexture(112, 30, CButton.ORANGE, true);
 //            txt = new TextField(112,30,'Показать',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
 //            txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
 //            btn.addChild(txt);
@@ -188,7 +188,7 @@ public class LockedLandItem {
             _isGood = true;
         } else {
             _btn = new CButton();
-            _btn.addButtonTexture(120, 30, CButton.YELLOW, true);
+            _btn.addButtonTexture(120, 30, CButton.ORANGE, true);
             txt = new CTextField(120,30,String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.YELLOW_COLOR);
             _btn.addChild(txt);

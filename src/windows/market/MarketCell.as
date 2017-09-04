@@ -14,7 +14,7 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 import windows.WindowsManager;
 
 public class MarketCell {
@@ -26,7 +26,7 @@ public class MarketCell {
     private var _countTxt:CTextField;
     private var g:Vars = Vars.getInstance();
     private var _clickCallback:Function;
-    private var _carton:CartonBackgroundIn;
+    private var _carton:WhiteBackgroundIn;
 
     public function MarketCell(info:Object) {
         _clickCallback = null;
@@ -34,7 +34,7 @@ public class MarketCell {
         _cont = new Sprite();
         source.addChild(_cont);
         source.endClickCallback = onClick;
-        _carton = new CartonBackgroundIn(100, 100);
+        _carton = new WhiteBackgroundIn(100, 100);
         _cont.addChild(_carton);
 
         _info = info;

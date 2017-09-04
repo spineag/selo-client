@@ -127,7 +127,7 @@ public class Consts {
     public static var INQ_GET_USER_QUEST_AWARD:String = 'a_userData/getUserQuestAward.php';
     public static var INQ_OPEN_USER_ORDER:String = 'a_game/openUserOrder.php';
     public static var INQ_CHEST_YELLOW:String = 'a_gameData/getChestYellow.php';
-    public static var INQ_STARTER_PACK:String = 'a_gameData/getStarterPack.php';
+    public static var INQ_STARTER_PACK:String = 'a_userData/getStarterPack.php';
     public static var INQ_UPDATE_STARTER_PACK:String = 'a_game/updateStarterPack.php';
     public static var INQ_GET_USER_PARTY:String = 'a_userData/getUserParty.php';
     public static var INQ_GET_DATA_PARTY:String = 'a_gameData/getDataParty.php';

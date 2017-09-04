@@ -43,7 +43,7 @@ public class WOAmbarFilled extends WindowMain {
 
         _btn = new CButton();
         _btn.clickCallback = onClick;
-        _btn.addButtonTexture(200, 40, CButton.YELLOW, true);
+        _btn.addButtonTexture(200, 40, CButton.ORANGE, true);
         _txtBtn = new CTextField(200,50,"");
         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
         _txtBtn.y = -5;

@@ -40,7 +40,7 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 import windows.WindowsManager;
 
 public class MarketItem {
@@ -50,7 +50,7 @@ public class MarketItem {
     private var _countTxt:CTextField;
     private var _txtPlawka:CTextField;
     private var _txtAdditem:CTextField;
-    private var _bg:CartonBackgroundIn;
+    private var _bg:WhiteBackgroundIn;
     private var quad:Quad;
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
     private var _callback:Function;
@@ -98,7 +98,7 @@ public class MarketItem {
         _onHover = false;
         _woWidth = 110;
         _woHeight = 133;
-        _bg = new CartonBackgroundIn(_woWidth, _woHeight);
+        _bg = new WhiteBackgroundIn(_woWidth, _woHeight);
         source.addChild(_bg);
         quad = new Quad(_woWidth, _woHeight,Color.WHITE);
         quad.alpha = 0;
@@ -825,7 +825,7 @@ public class MarketItem {
         }
 
         _btnGoAwaySaleItem = new CButton();
-        _btnGoAwaySaleItem.addButtonTexture(76, 29, CButton.BLUE, true);
+        _btnGoAwaySaleItem.addButtonTexture(76, 29, CButton.GREEN, true);
         _txtGo = new CTextField(70, 30, String(g.managerLanguage.allTexts[386]));
         _txtGo.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtGo.x = 3;

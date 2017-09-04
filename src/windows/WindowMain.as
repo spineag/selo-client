@@ -25,6 +25,8 @@ import utils.CButton;
 import utils.CSprite;
 import utils.Utils;
 
+import windows.WOComponents.WindowBackgroundNew;
+
 public class WindowMain {
     protected var _source:Sprite;
     protected var _btnExit:CButton;
@@ -38,7 +40,9 @@ public class WindowMain {
     protected var _isShowed:Boolean = false;
     protected var SOUND_OPEN:int = 0;
     protected var onWoShowCallback:Function;
+    protected var _woBGNew:WindowBackgroundNew;
     public var isCashed:Boolean = false;
+    
 
     public function WindowMain() {
         _source = new Sprite();

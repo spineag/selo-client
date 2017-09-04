@@ -16,7 +16,7 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.Utils;
 import windows.WOComponents.Birka;
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.HorizontalPlawka;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
@@ -48,7 +48,7 @@ public class WOShop extends WindowMain {
     private var _txtRedMoney:CTextField;
     private var _animal:Boolean;
     private var _birka:Birka;
-    private var _shopCartonBackground:CartonBackground;
+    private var _shopCartonBackground:YellowBackgroundOut;
     private var _pl1:HorizontalPlawka;
     private var _pl2:HorizontalPlawka;
     private var _pl3:HorizontalPlawka;
@@ -171,7 +171,7 @@ public class WOShop extends WindowMain {
     }
 
     public function createShopTabBtns():void {
-        _shopCartonBackground = new CartonBackground(666, 320);
+        _shopCartonBackground = new YellowBackgroundOut(666, 320);
         _shopSprite.addChild(_shopCartonBackground);
         _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _shopTabBtnCont);
         _btnTab1.setPosition(7, -81);

@@ -95,7 +95,7 @@ public class CutSceneTextBubble {
 
     private function addButton(btnSt:String, callback:Function, startClick:Function):void {
         _btn = new CButton();
-        _btn.addButtonTexture(200, 30, CButton.BLUE, true);
+        _btn.addButtonTexture(200, 30, CButton.GREEN, true);
         _btn.clickCallback = callback;
         _btn.startClickCallback = startClick;
         _btnTxt = new CTextField(200, 30, btnSt);

@@ -18,7 +18,7 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 import windows.WindowsManager;
 
 public class AmbarCell {
@@ -39,7 +39,7 @@ public class AmbarCell {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         source.endClickCallback = onClick;
-        var s:CartonBackgroundIn = new CartonBackgroundIn(100, 100);
+        var s:WhiteBackgroundIn = new WhiteBackgroundIn(100, 100);
         source.addChild(s);
 
         _info = info;

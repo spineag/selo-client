@@ -563,7 +563,7 @@ public class WOPartyWindow extends WindowMain {
                 }
             }
             _btnParty = new CButton();
-            _btnParty.addButtonTexture(172, 45, CButton.YELLOW, true);
+            _btnParty.addButtonTexture(172, 45, CButton.ORANGE, true);
             _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[1029]));
             _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
             _btnParty.addChild(_txtBtn);

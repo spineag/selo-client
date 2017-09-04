@@ -137,7 +137,7 @@ public class WODailyBonus extends WindowMain {
     private function createKoleso():void {
         var im:Image;
         _btnFree = new CButton();
-        _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
+        _btnFree.addButtonTexture(146, 40, CButton.GREEN, true);
         _txtBtnBuy2  = new CTextField(146, 40, String(g.managerLanguage.allTexts[1006]));
         _txtBtnBuy2.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnFree.addChild(_txtBtnBuy2);

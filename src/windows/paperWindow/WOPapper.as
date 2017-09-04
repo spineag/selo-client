@@ -74,7 +74,7 @@ public class WOPapper extends WindowMain {
         _btnExit.x += 30;
         _btnExit.y -= 25;
         _btnRefreshBlue = new CButton();
-        _btnRefreshBlue.addButtonTexture(130,40, CButton.BLUE, true);
+        _btnRefreshBlue.addButtonTexture(130,40, CButton.GREEN, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         im.x = 5;
         im.y = 5;

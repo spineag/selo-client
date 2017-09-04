@@ -12,11 +12,11 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 
 public class WOOrderResourceItem {
     public var source:CSprite;
-    private var _bg:CartonBackgroundIn;
+    private var _bg:WhiteBackgroundIn;
     private var _check:Image;
     private var _countTxt:CTextField;
     private var _countRed:CTextField;
@@ -27,7 +27,7 @@ public class WOOrderResourceItem {
 
     public function WOOrderResourceItem() {
         source = new CSprite();
-        _bg = new CartonBackgroundIn(93, 93);
+        _bg = new WhiteBackgroundIn(93, 93);
         source.addChild(_bg);
         _onHover = false;
         _check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));

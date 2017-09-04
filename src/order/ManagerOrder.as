@@ -921,7 +921,7 @@ public class ManagerOrder {
         var arAllCats:Array = DataOrderCat.getArrByLevel(g.user.level);
         var arIdsNotFree:Array = [];
         for (var i:int=0; i<_arrOrders.length; i++) {
-            arIdsNotFree.push((_arrOrders[i] as OrderItemStructure).cat.dataCatId);
+            if ((_arrOrders[i] as OrderItemStructure).cat) arIdsNotFree.push((_arrOrders[i] as OrderItemStructure).cat.dataCatId);
         }
         if (_lastActiveCatId) arIdsNotFree.push(_lastActiveCatId);
         _lastActiveCatId = 0;

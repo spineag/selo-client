@@ -224,6 +224,9 @@ public class MainBottomPanel {
         if (_arrow) _arrow.deleteIt();
         switch (reason) {
             case 'shop':
+                g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null);
+                return;
+
                 if (g.tuts.isTutorial) {
                     if (g.tuts.currentAction == TutorialAction.BUY_ANIMAL || g.tuts.currentAction == TutorialAction.BUY_FABRICA
                         || g.tuts.currentAction == TutorialAction.NEW_RIDGE) {

@@ -17,7 +17,7 @@ import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WOComponents.Birka;
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -25,7 +25,7 @@ import windows.WindowsManager;
 public class WOQuest extends WindowMain{
     private var _woBG:WindowBackground;
     private var _birka:Birka;
-    private var _bgC:CartonBackground;
+    private var _bgC:YellowBackgroundOut;
     private var _quest:QuestStructure;
     private var _txtName:CTextField;
     private var _questItem:WOQuestItem;
@@ -44,7 +44,7 @@ public class WOQuest extends WindowMain{
         _callbackClickBG = hideIt;
         _birka = new Birka(String(g.managerLanguage.allTexts[623]), _source, _woWidth, _woHeight);
 
-        _bgC = new CartonBackground(480, 240);
+        _bgC = new YellowBackgroundOut(480, 240);
         _bgC.filter =  ManagerFilters.SHADOW;
         _bgC.x = -240;
         _bgC.y = 12;

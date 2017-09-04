@@ -18,10 +18,12 @@ import starling.textures.Texture;
 import starling.utils.Color;
 import user.NeighborBot;
 import user.Someone;
+
+import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.WOButtonTexture;
 import windows.WindowsManager;
 
@@ -34,7 +36,7 @@ public class MarketAllFriendItem{
     private var _wo:WOMarket;
     private var _planet:CSprite;
     private var _shiftFriend:int;
-    private var _visitBtn:WOButtonTexture;
+    private var _visitBtn:CButton;
 
     private var g:Vars = Vars.getInstance();
 
@@ -77,7 +79,8 @@ public class MarketAllFriendItem{
         }
         if (_person.userSocialId != g.user.userSocialId) {
             _planet = new CSprite();
-            _visitBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
+            _visitBtn = new CButton();
+            _visitBtn.addButtonTexture(65, 25, CButton.GREEN, true);
             _btnTxt = new CTextField(65, 25, String(g.managerLanguage.allTexts[386]));
             _btnTxt.setFormat(CTextField.BOLD18, 12, Color.WHITE);
             _planet.addChild(_visitBtn);

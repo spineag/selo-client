@@ -13,11 +13,11 @@ import tutorial.tips.ManagerTips;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 
 public class WOTipsItem {
     public var source:Sprite;
-    private var _bg:CartonBackgroundIn;
+    private var _bg:WhiteBackgroundIn;
     private var _txtBtn:CTextField;
     private var _txt:CTextField;
     private var _btn:CButton;
@@ -31,7 +31,7 @@ public class WOTipsItem {
         var q:Quad = new Quad(422, 68);
         source.addChild(q);
         q.alpha = 0;
-        _bg = new CartonBackgroundIn(400, 55);
+        _bg = new WhiteBackgroundIn(400, 55);
         _bg.x = 19;
         _bg.y = 6;
         source.addChild(_bg);

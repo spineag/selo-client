@@ -13,7 +13,7 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 
 import windows.WOComponents.WindowBackground;
@@ -22,7 +22,7 @@ import windows.WindowsManager;
 
 public class WOInviteFriends extends WindowMain {
     private var _woBG:WindowBackground;
-    private var _cartonBackground:CartonBackground;
+    private var _cartonBackground:YellowBackgroundOut;
     private var _txt:CTextField;
     private var _btn:CButton;
     private var _scrollSprite:DefaultVerticalScrollSprite;
@@ -36,7 +36,7 @@ public class WOInviteFriends extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _arrItem = [];
-        _cartonBackground = new CartonBackground(330, 300);
+        _cartonBackground = new YellowBackgroundOut(330, 300);
         _cartonBackground.y = -165;
         _cartonBackground.x = -165;
         _source.addChild(_cartonBackground);
@@ -46,7 +46,7 @@ public class WOInviteFriends extends WindowMain {
         _txt.y = -200;
         _source.addChild(_txt);
         _btn = new CButton();
-        _btn.addButtonTexture(100, 34, CButton.BLUE, true);
+        _btn.addButtonTexture(100, 34, CButton.GREEN, true);
         var txt:CTextField = new CTextField(100,30,String(g.managerLanguage.allTexts[415]));
         txt.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(txt);

@@ -25,7 +25,7 @@ import utils.TimeUtils;
 import utils.Utils;
 
 import windows.WOComponents.Birka;
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -91,7 +91,7 @@ public class WOMarket  extends WindowMain {
         _btnFriends.x = _woWidth/2 - 97;
         _btnFriends.y = _woHeight/2 - 58;
         _source.addChild(_cont);
-        var c:CartonBackground = new CartonBackground(550, 445);
+        var c:YellowBackgroundOut = new YellowBackgroundOut(550, 445);
         c.x = -_woWidth/2 + 43;
         c.y = -_woHeight/2 + 40;
         _cont.filter = ManagerFilters.SHADOW;
@@ -552,7 +552,7 @@ public class WOMarket  extends WindowMain {
     }
 
     public function createMarketTabBtns(paper:Boolean = false):void {
-        var c:CartonBackground;
+        var c:YellowBackgroundOut;
         if (_arrFriends == null) {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Обнови сиды и сикреты');
             return;
@@ -580,7 +580,7 @@ public class WOMarket  extends WindowMain {
                     _item.visitBtn.visible = false;
                 } else _item.visitBtn.visible = true;
             }
-            c = new CartonBackground(125, 115);
+            c = new YellowBackgroundOut(125, 115);
             c.x = 208 - 5;
             c.y = -185;
             _cont.addChild(c);
@@ -591,7 +591,7 @@ public class WOMarket  extends WindowMain {
             if (_arrFriends[_shiftFriend + 1] == null && paper)  _item2 = new MarketFriendItem(g.user, this, _shiftFriend + 1);
             else _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
             _item2.source.y = 1 * 120 - 177;
-            c = new CartonBackground(120, 110);
+            c = new YellowBackgroundOut(120, 110);
             c.x = 208 - 5;
             c.y = 1 * 120 - 185;
             _contItem.addChild(c);
@@ -606,7 +606,7 @@ public class WOMarket  extends WindowMain {
                 if (_curUser.userSocialId == g.visitedUser.userSocialId) _item.visitBtn.visible = false;
                 else _item.visitBtn.visible = true;
             } else _item.visitBtn.visible = true;
-            c = new CartonBackground(125, 115);
+            c = new YellowBackgroundOut(125, 115);
             c.x = 208 - 5;
             c.y = -185;
             _cont.addChild(c);
@@ -624,7 +624,7 @@ public class WOMarket  extends WindowMain {
                 if (_arrFriends[_shiftFriend] == g.user) _item.visitBtn.visible = false;
                 else _item.visitBtn.visible = true;
             }
-            c = new CartonBackground(125, 115);
+            c = new YellowBackgroundOut(125, 115);
             c.x = 208 - 5;
             c.y = -185;
             _cont.addChild(c);
@@ -635,7 +635,7 @@ public class WOMarket  extends WindowMain {
         }
         _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
         _item2.source.y = 1 * 120 - 177;
-        c = new CartonBackground(120, 110);
+        c = new YellowBackgroundOut(120, 110);
         c.x = 208 - 5;
         c.y = 1 * 120 - 185;
         _contItem.addChild(c);
@@ -644,7 +644,7 @@ public class WOMarket  extends WindowMain {
 
         _item3 = new MarketFriendItem(_arrFriends[_shiftFriend + 2],this,_shiftFriend + 2);
         _item3.source.y = 2 * 120-182;
-        c = new CartonBackground(120, 110);
+        c = new YellowBackgroundOut(120, 110);
         c.x = 208-5;
         c.y = 2 * 120-190;
         _contItem.addChild(c);

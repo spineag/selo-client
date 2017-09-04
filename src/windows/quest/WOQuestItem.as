@@ -56,12 +56,12 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 
 internal class Item extends Sprite {
     private var g:Vars = Vars.getInstance();
     private var _task:QuestTaskStructure;
-    private var _bg:CartonBackgroundIn;
+    private var _bg:WhiteBackgroundIn;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
     private var _txt:CTextField;
@@ -114,19 +114,19 @@ internal class Item extends Sprite {
             }
         }
         if (c == 1) {
-            _bg = new CartonBackgroundIn(460, 160);
+            _bg = new WhiteBackgroundIn(460, 160);
             _txt = new CTextField(220, 120, _task.description);
             _txt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
             _txt.y = -62;
             _txt.x = 100;
         } else if (c == 2) {
-            _bg = new CartonBackgroundIn(460, 100);
+            _bg = new WhiteBackgroundIn(460, 100);
             _txt = new CTextField(210, 80, _task.description);
             _txt.setFormat(CTextField.MEDIUM24, 20, ManagerFilters.BROWN_COLOR);
             _txt.y = -40;
             _txt.x = 75;
         } else if (c == 3) {
-            _bg = new CartonBackgroundIn(460, 70);
+            _bg = new WhiteBackgroundIn(460, 70);
             _txt = new CTextField(240, 60, _task.description);
             _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BROWN_COLOR);
             _txt.y = -30;

@@ -17,7 +17,7 @@ import windows.WOComponents.DefaultVerticalScrollSprite;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WOComponents.Birka;
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -29,9 +29,9 @@ public class WOAmbars extends WindowMain {
     private var _mainSprite:Sprite;
     private var _tabAmbar:CSprite;
     private var _tabSklad:CSprite;
-    private var _cartonAmbar:CartonBackground;
-    private var _cartonSklad:CartonBackground;
-    private var _cartonBG:CartonBackground;
+    private var _cartonAmbar:YellowBackgroundOut;
+    private var _cartonSklad:YellowBackgroundOut;
+    private var _cartonBG:YellowBackgroundOut;
     private var _woBG:WindowBackground;
     private var _type:int;
     private var _scrollSprite:DefaultVerticalScrollSprite;
@@ -86,7 +86,7 @@ public class WOAmbars extends WindowMain {
 
     private function createWOElements():void {
         _tabAmbar = new CSprite();
-        _cartonAmbar = new CartonBackground(122, 80);
+        _cartonAmbar = new YellowBackgroundOut(122, 80);
         _tabAmbar.addChild(_cartonAmbar);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
         MCScaler.scale(im, 41, 41);
@@ -119,7 +119,7 @@ public class WOAmbars extends WindowMain {
         _tabAmbar.outCallback = oAmbar;
 
         _tabSklad = new CSprite();
-        _cartonSklad = new CartonBackground(122, 80);
+        _cartonSklad = new YellowBackgroundOut(122, 80);
         _tabSklad.addChild(_cartonSklad);
         im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
         MCScaler.scale(im, 40, 40);
@@ -153,7 +153,7 @@ public class WOAmbars extends WindowMain {
         _tabSklad.outCallback = oSklad;
 
         _mainSprite = new Sprite();
-        _cartonBG = new CartonBackground(454, 332);
+        _cartonBG = new YellowBackgroundOut(454, 332);
         _mainSprite.addChild(_cartonBG);
         _mainSprite.filter = ManagerFilters.SHADOW;
         _mainSprite.x = -_woWidth/2 + 43;
@@ -195,7 +195,7 @@ public class WOAmbars extends WindowMain {
 
     private function createWOUpdateElements():void {
         _btnBackFromUpdate = new CButton();
-        _btnBackFromUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
+        _btnBackFromUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
         _txtBtnBack = new CTextField(90, 50, String(g.managerLanguage.allTexts[464]));
         _txtBtnBack.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtBtnBack.x = 18;
@@ -229,7 +229,7 @@ public class WOAmbars extends WindowMain {
         _updateSprite.addChild(_txtNeed);
 
         _btnMakeUpdate = new CButton();
-        _btnMakeUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
+        _btnMakeUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
         _txtBtnUpdate = new CTextField(90, 50, String(g.managerLanguage.allTexts[466]));
         _txtBtnUpdate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtBtnUpdate.x = 17;

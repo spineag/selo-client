@@ -21,13 +21,13 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackground;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.WhiteBackgroundIn;
 
 public class WOOrderItem {
     public var source:CSprite;
-    private var _bgCarton:CartonBackground;
-    private var _bgCartonIn:CartonBackgroundIn;
+    private var _bgCarton:YellowBackgroundOut;
+    private var _bgCartonIn:WhiteBackgroundIn;
     private var _txtName:CTextField;
     private var _txtXP:CTextField;
     private var _txtCoins:CTextField;
@@ -50,12 +50,12 @@ public class WOOrderItem {
     public function WOOrderItem(wo:WOOrder) {
         _wo = wo;
         source = new CSprite();
-        _bgCarton = new CartonBackground(112, 90);
+        _bgCarton = new YellowBackgroundOut(112, 90);
         _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(_bgCarton);
         source.pivotX = source.width/2;
         source.pivotY = source.height/2;
-        _bgCartonIn = new CartonBackgroundIn(102, 64);
+        _bgCartonIn = new WhiteBackgroundIn(102, 64);
         _bgCartonIn.x = 5;
         _bgCartonIn.y = 21;
         source.addChild(_bgCartonIn);

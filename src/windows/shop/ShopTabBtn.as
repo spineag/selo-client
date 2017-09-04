@@ -14,7 +14,7 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 
 public class ShopTabBtn {
     private var _source:CSprite;
@@ -22,7 +22,7 @@ public class ShopTabBtn {
     private var _shopSource:Sprite;
     private var _defaultX:int;
     private var _defaultY:int;
-    private var _bg:CartonBackground;
+    private var _bg:YellowBackgroundOut;
     private var _imNotification:Image;
     private var _txtNotification:CTextField;
     private var _txtTabName:CTextField;
@@ -34,7 +34,7 @@ public class ShopTabBtn {
         _shopSource = shopSource;
         _source = new CSprite();
         _type = type;
-        _bg = new CartonBackground(123, 100);
+        _bg = new YellowBackgroundOut(123, 100);
         _bg.touchable = true;
         _source.addChild(_bg);
         _txtTabName = new CTextField(123, 100, '');

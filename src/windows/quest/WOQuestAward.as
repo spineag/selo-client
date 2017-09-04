@@ -21,7 +21,7 @@ import starling.utils.Color;
 import utils.CTextField;
 import utils.MCScaler;
 
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 
 public class WOQuestAward {
     private var g:Vars = Vars.getInstance();

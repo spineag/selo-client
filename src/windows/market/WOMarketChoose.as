@@ -17,7 +17,7 @@ import utils.MCScaler;
 import utils.TimeUtils;
 
 import windows.WOComponents.Birka;
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import utils.CButton;
 import windows.WOComponents.WindowBackground;
@@ -44,9 +44,9 @@ public class WOMarketChoose extends WindowMain {
     private var booleanMinus:Boolean;
     private var _woBG:WindowBackground;
     private var _defaultY:int = -232;
-    private var _cartonAmbar:CartonBackground;
-    private var _cartonSklad:CartonBackground;
-    private var _carton:CartonBackground;
+    private var _cartonAmbar:YellowBackgroundOut;
+    private var _cartonSklad:YellowBackgroundOut;
+    private var _carton:YellowBackgroundOut;
     private var _activetedItem:MarketItem;
     private var _txtCount:CTextField;
     private var _txtPrice:CTextField;
@@ -255,7 +255,7 @@ public class WOMarketChoose extends WindowMain {
 
     private function createWOElements():void {
         _tabAmbar = new CSprite();
-        _cartonAmbar = new CartonBackground(122, 80);
+        _cartonAmbar = new YellowBackgroundOut(122, 80);
         _tabAmbar.addChild(_cartonAmbar);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
         MCScaler.scale(im, 41, 41);
@@ -287,7 +287,7 @@ public class WOMarketChoose extends WindowMain {
         _tabAmbar.outCallback = oAmbar;
 
         _tabSklad = new CSprite();
-        _cartonSklad = new CartonBackground(122, 80);
+        _cartonSklad = new YellowBackgroundOut(122, 80);
         _tabSklad.addChild(_cartonSklad);
         im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
         MCScaler.scale(im, 40, 40);
@@ -319,7 +319,7 @@ public class WOMarketChoose extends WindowMain {
         _tabSklad.outCallback = oSklad;
 
         _mainSprite = new Sprite();
-        _carton = new CartonBackground(454, 435);
+        _carton = new YellowBackgroundOut(454, 435);
         _mainSprite.addChild(_carton);
         _mainSprite.filter = ManagerFilters.SHADOW;
         _mainSprite.x = -_woWidth/2 + 43;

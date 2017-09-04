@@ -226,7 +226,7 @@ public class WOLevelUp extends WindowMain {
             _source.addChild(_contBtn);
         } else {
             _contBtn = new CButton();
-            _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
+            _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
             _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
             MCScaler.scale(_imageHard, 25, 25);
 

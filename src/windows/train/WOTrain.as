@@ -31,8 +31,8 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 import windows.WOComponents.Birka;
-import windows.WOComponents.CartonBackground;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.WhiteBackgroundIn;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -72,10 +72,10 @@ public class WOTrain extends WindowMain {
     private var _lock:int;
     private var _isBigCount:Boolean;
     private var _birka:Birka;
-    private var _rightBlockBG:CartonBackground;
-    private var _rightBlockCarton:CartonBackgroundIn;
-    private var _rightBlockCarton2:CartonBackgroundIn;
-    private var _leftBlockBG:CartonBackground;
+    private var _rightBlockBG:YellowBackgroundOut;
+    private var _rightBlockCarton:WhiteBackgroundIn;
+    private var _rightBlockCarton2:WhiteBackgroundIn;
+    private var _leftBlockBG:YellowBackgroundOut;
 
     public function WOTrain() {
         super ();
@@ -133,7 +133,7 @@ public class WOTrain extends WindowMain {
         _rightBlock.y = -205;
         _rightBlock.x = 35;
         _source.addChild(_rightBlock);
-        _rightBlockBG = new CartonBackground(287, 375);
+        _rightBlockBG = new YellowBackgroundOut(287, 375);
         _rightBlockBG.filter = ManagerFilters.SHADOW;
         _rightBlock.addChild(_rightBlockBG);
 
@@ -142,7 +142,7 @@ public class WOTrain extends WindowMain {
         _txtLoad.x = 25;
         _txtLoad.y = 5;
         _rightBlock.addChild(_txtLoad);
-        _rightBlockCarton = new CartonBackgroundIn(267, 68);
+        _rightBlockCarton = new WhiteBackgroundIn(267, 68);
         _rightBlockCarton.y = 250;
         _rightBlockCarton.x = 10;
         _rightBlock.addChild(_rightBlockCarton);
@@ -153,7 +153,7 @@ public class WOTrain extends WindowMain {
         _rightBlock.addChild(im);
         if (!g.isAway) {
             _btnLoad = new CButton();
-            _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
+            _btnLoad.addButtonTexture(130, 36, CButton.ORANGE, true);
             _txtLoad2 = new CTextField(130, 36, String(g.managerLanguage.allTexts[294]));
             _txtLoad2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
             _txtLoad2.y = -2;
@@ -228,7 +228,7 @@ public class WOTrain extends WindowMain {
         _txtC.y = 283;
         _rightBlock.addChild(_txtC);
 
-        _rightBlockCarton2 = new CartonBackgroundIn(90, 90);
+        _rightBlockCarton2 = new WhiteBackgroundIn(90, 90);
         _rightBlockCarton2.x = 20;
         _rightBlockCarton2.y = 70;
         _rightBlock.addChild(_rightBlockCarton2);
@@ -236,7 +236,7 @@ public class WOTrain extends WindowMain {
 
     private function createLeftBlock():void {
         _leftBlock = new Sprite();
-        _leftBlockBG = new CartonBackground(324, 432);
+        _leftBlockBG = new YellowBackgroundOut(324, 432);
         _leftBlockBG.filter = ManagerFilters.SHADOW;
         _leftBlock.addChild(_leftBlockBG);
         _leftBlock.y = -205;
@@ -358,7 +358,7 @@ public class WOTrain extends WindowMain {
                 if (_arrItems[k].needHelp && int(_arrItems[k].idWhoHelp) <= 0) {
                     if (!_btnHelp) {
                         _btnHelp = new CButton();
-                        _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
+                        _btnHelp.addButtonTexture(240, 52, CButton.GREEN, true);
                         _btnHelp.x = 143;
                         _btnHelp.y = 210;
                         _rightBlock.addChild(_btnHelp);
@@ -380,7 +380,7 @@ public class WOTrain extends WindowMain {
             if (!_arrItems[k].needHelp) {
                 if (!_btnHelp && !_arrItems[k].isResourceLoaded) {
                     _btnHelp = new CButton();
-                    _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
+                    _btnHelp.addButtonTexture(240, 52, CButton.GREEN, true);
                     var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
                     im.y = -10;
                     im.touchable = false;

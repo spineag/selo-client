@@ -18,7 +18,7 @@ import utils.CButton;
 import utils.CTextField;
 
 import windows.WOComponents.Birka;
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.HintBackground;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
@@ -33,7 +33,7 @@ public class WOLockedLand extends WindowMain {
     private var _armature:Armature;
     private var _birka:Birka;
     private var _pl:HintBackground;
-    private var _bgC:CartonBackground;
+    private var _bgC:YellowBackgroundOut;
     private var _txtInfo:CTextField;
     private var _txtBtn:CTextField;
 
@@ -49,7 +49,7 @@ public class WOLockedLand extends WindowMain {
         _callbackClickBG = hideIt;
         _birka = new Birka(String(g.managerLanguage.allTexts[417]), _source, _woWidth, _woHeight);
 
-        _bgC = new CartonBackground(460, 320);
+        _bgC = new YellowBackgroundOut(460, 320);
         _bgC.filter =  ManagerFilters.SHADOW;
         _bgC.x = -_woWidth/2 + 47;
         _bgC.y = -_woHeight/2 + 180;

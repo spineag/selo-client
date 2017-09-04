@@ -31,7 +31,7 @@ public class WOBuyCave extends WindowMain {
         _windowType = WindowsManager.WO_BUY_CAVE;
         _callbackClickBG = hideIt;
         _btn = new CButton();
-        _btn.addButtonTexture(250, 35, CButton.BLUE, true);
+        _btn.addButtonTexture(250, 35, CButton.GREEN, true);
         _btn.y = 165;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(im,25,25);

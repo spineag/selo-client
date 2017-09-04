@@ -23,7 +23,7 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 import windows.WindowsManager;
 
 public class UpdateItem {
@@ -49,7 +49,7 @@ public class UpdateItem {
         _wo = wo;
         source = new CSprite();
         _contImage = new CSprite();
-        _bg = new CartonBackgroundIn(100, 100);
+        _bg = new WhiteBackgroundIn(100, 100);
         source.addChild(_bg);
         source.addChild(_contImage);
         _contImage.hoverCallback = onHover;

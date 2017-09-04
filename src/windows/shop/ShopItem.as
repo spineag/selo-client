@@ -40,7 +40,7 @@ import utils.MCScaler;
 import utils.Utils;
 import utils.Utils;
 
-import windows.WOComponents.CartonBackgroundIn;
+import windows.WOComponents.WhiteBackgroundIn;
 import windows.WindowsManager;
 import windows.shop.decorRadioButton.DecorRadioButton;
 
@@ -71,7 +71,7 @@ public class ShopItem {
     private var _txtAvailablePink:CTextField;
     private var _shopLimitSprite:Sprite;
     private var _wo:WOShop;
-    private var _bg:CartonBackgroundIn;
+    private var _bg:WhiteBackgroundIn;
     private var _positionInList:int;
     private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
@@ -89,7 +89,7 @@ public class ShopItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
             return;
         }
-        _bg = new CartonBackgroundIn(145, 221);
+        _bg = new WhiteBackgroundIn(145, 221);
         source.addChild(_bg);
 
         _nameTxt = new CTextField(145, 60, '');
@@ -220,7 +220,7 @@ public class ShopItem {
             case 'blue':
                 if (_btnBuyBlue) return;
                 _btnBuyBlue = new CButton();
-                _btnBuyBlue.addButtonTexture(126, 40, CButton.BLUE, true);
+                _btnBuyBlue.addButtonTexture(126, 40, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
                 MCScaler.scale(im, 35, 35);
                 im.x = 85;
@@ -260,7 +260,7 @@ public class ShopItem {
             case 'yellow':
                 if (_btnActivationYellow) return;
                 _btnActivationYellow = new CButton();
-                _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
+                _btnActivationYellow.addButtonTexture(126, 40, CButton.ORANGE, true);
                 _txtBtnYellow = new CTextField(125, 40, String(g.managerLanguage.allTexts[341]));
                 _txtBtnYellow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.YELLOW_COLOR);
                 _txtBtnYellow.cacheIt = false;    

@@ -50,7 +50,7 @@ public class AirTextBubble {
         _txt.autoScale = true;
         _source.addChild(_txt);
         _btn = new CButton();
-        _btn.addButtonTexture(120, 40, CButton.BLUE, true);
+        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
         _btn.x = 180;
         _btn.y = 140;
         _btnTxt = new CTextField(120, 38, String(g.managerLanguage.allTexts[532]));

@@ -11,7 +11,7 @@ import starling.display.Sprite;
 
 import utils.MCScaler;
 
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.ProgressBarComponent;
 
 public class AmbarProgress {

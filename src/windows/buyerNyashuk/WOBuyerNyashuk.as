@@ -57,7 +57,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _arrCTex.push(txt);
 
         btn = new CButton();
-        btn.addButtonTexture(172, 45, CButton.YELLOW, true);
+        btn.addButtonTexture(172, 45, CButton.ORANGE, true);
         txt =  new CTextField(172,45,String(g.managerLanguage.allTexts[449]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
         btn.addChild(txt);

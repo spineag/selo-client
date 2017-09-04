@@ -11,84 +11,69 @@ import utils.CButton;
 import utils.DrawToBitmap;
 
 public class WOSimpleButtonTexture  extends Sprite {
-    public static const GREEN:int = 1;
-    public static const BLUE:int = 2;
-    public static const YELLOW:int = 3;
-    public static const PINK:int = 4;
     private var g:Vars = Vars.getInstance();
 
     public function WOSimpleButtonTexture(w:int, h:int, _type:int) {
         var im:Image;
         var tex:TextureAtlas = g.allData.atlas['interfaceAtlas'];
-        var arr:Array = [];
-        var st:String = 'bt_b_b_';
-        var useBig:Boolean = h<=35;
-        var _s:Sprite = new Sprite();
+        var imLeft:String;
+        var imCenter:String;
+        var dX:int = 0;
+        var dY:int = 0;
+        var dW:int;
 
         if (w%2) w++;
-        if (h%2) h++;
-
         switch (_type) {
             case CButton.GREEN:
-                if (useBig) st = 'bt_b_g_';
-                    else st = 'bt_s_g_';
+                if (h < 41) {
+                    h = 40; // !!!
+                    imLeft = 'fs_green_button_big_left';
+                    imCenter = 'fs_green_button_big_center';
+                    dX = -5;
+                    dY = -3;
+                } else if (h < 45) {
+                    h = 42; // !!!
+                    imLeft = 'silo_green_button_big_left';
+                    imCenter = 'silo_green_button_big_center';
+                    dX = -5;
+                    dY = -3;
+                } else {
+                    h = 53; // !!!
+                    imLeft = 'shop_green_button_left';
+                    imCenter = 'shop_green_button_center';
+                }
                 break;
-            case CButton.BLUE:
-                if (useBig) st = 'bt_b_b_';
-                    else st = 'bt_s_b_';
-                break;
-            case CButton.YELLOW:
-                if (useBig) st = 'bt_b_y_';
-                    else st = 'bt_s_y_';
-                break;
-            case CButton.PINK:
-                if (useBig )st = 'bt_b_m_';
-                    else st = 'bt_s_m_';
+            case CButton.ORANGE:
+                h = 35; // !!!
+                imLeft = 'shop_yellow_button_left';
+                imCenter = 'shop_yellow_button_center';
                 break;
         }
 
         //left
-        im = new Image(tex.getTexture(st+'l'));
-        im.x = 0;
-        im.y = 0;
-        _s.addChild(im);
-        arr.push(im);
+        im = new Image(tex.getTexture(imLeft));
+        im.x = dX;
+        im.y = dY;
+        dW = im.width + dX;
+        addChild(im);
 
         //right
-        im = new Image(tex.getTexture(st+'r'));
-        im.x = w - im.width;
-        im.y = 0;
-        _s.addChild(im);
-        arr.push(im);
+        im = new Image(tex.getTexture(imLeft));
+        im.scaleX = -1;
+        im.x = w - dX;
+        im.y = dY;
+        addChild(im);
 
         //center
-        var temp:int;
-        im = new Image(tex.getTexture(st+'c'));
-        temp = im.height;
+        im = new Image(tex.getTexture(imCenter));
         im.tileGrid = new Rectangle();
-        im.width = w - arr[0].width - arr[1].width;
-        im.x = arr[0].x + arr[0].width;
+        im.width = w - 2 * dW;
+        im.x = dW;
+        im.y = dY;
         im.tileGrid = im.tileGrid;
-        _s.addChildAt(im, 0);
-
-        // add shadows
-        im = new Image(tex.getTexture('shadow_s'));
-        im.tileGrid = new Rectangle();
-        im.width = w - arr[0].width - arr[1].width;
-        im.x = arr[0].x + arr[0].width;
-        im.y = temp - 2;
-        _s.addChildAt(im, 0);
-
-        arr.length = 0;
-        im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(_s));
-        im.height = int(h*1.2); // because we have shadow in pictures
-        addChild(im);
-        _s.dispose();
+        addChildAt(im, 0);
     }
 
-    public function deleteIt():void {
-        dispose();
-        g = null;
-    }
+    public function deleteIt():void { dispose(); }
 }
 }

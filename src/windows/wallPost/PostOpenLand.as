@@ -68,7 +68,7 @@ public class PostOpenLand  extends WindowMain {
             _source.addChild(_image);
         }
         _btn = new CButton();
-        _btn.addButtonTexture(200, 45, CButton.BLUE, true);
+        _btn.addButtonTexture(200, 45, CButton.GREEN, true);
         _btn.clickCallback = onClick;
         _txt1 = new CTextField(120,30,String(g.managerLanguage.allTexts[291]));
         _txt1.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);

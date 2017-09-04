@@ -9,7 +9,7 @@ import starling.utils.Color;
 import utils.CTextField;
 
 import windows.WOComponents.Birka;
-import windows.WOComponents.CartonBackground;
+import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
@@ -17,7 +17,7 @@ import windows.WindowsManager;
 
 public class WOTips  extends WindowMain {
     private var _woBG:WindowBackground;
-    private var _carton:CartonBackground;
+    private var _carton:YellowBackgroundOut;
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _arrTips:Array;
     private var _birka:Birka;
@@ -31,7 +31,7 @@ public class WOTips  extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _callbackClickBG = hideIt;
-        _carton = new CartonBackground(464, 444);
+        _carton = new YellowBackgroundOut(464, 444);
         _carton.filter = ManagerFilters.SHADOW_LIGHT;
         _carton.x = -232;
         _carton.y = -221;

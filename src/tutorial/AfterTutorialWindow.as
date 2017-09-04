@@ -35,7 +35,7 @@ public class AfterTutorialWindow {
     public function AfterTutorialWindow() {
         _source = new Sprite();
         _btn = new CButton();
-        _btn.addButtonTexture(172, 45, CButton.BLUE, true);
+        _btn.addButtonTexture(172, 45, CButton.GREEN, true);
         g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png',onLoad);
         _needShow = false;
     }

@@ -20,9 +20,7 @@ import windows.WOComponents.WOSimpleButtonTexture;
 
 public class CButton extends Sprite {
     public static const GREEN:int = 1;
-    public static const BLUE:int = 2;
-    public static const YELLOW:int = 3;
-    public static const PINK:int = 4;
+    public static const ORANGE:int = 3;
 
     private var _clickCallback:Function;
     private var _hoverCallback:Function;
@@ -48,19 +46,10 @@ public class CButton extends Sprite {
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
 
-    public function setPivots():void {
-        this.pivotX = this.width/2;
-        this.pivotY = this.height/2;
-    }
-
     public function addButtonTexture(w:int, h:int, type:int, setP:Boolean = false):void {
         var t:Sprite = new WOSimpleButtonTexture(w, h, type);
         _bg.addChild(t);
         if (setP) setPivots();
-    }
-
-    public function addDisplayObject(d:DisplayObject):void {
-        _bg.addChild(d);
     }
 
     private function onTouch(te:TouchEvent):void {
@@ -124,26 +113,15 @@ public class CButton extends Sprite {
         }
     }
 
-    public function set startClickCallback(f:Function):void {
-        _startClickCallback = f;
-    }
-
-    public function set clickCallback(f:Function):void {
-        _clickCallback = f;
-    }
-
-    public function set hoverCallback(f:Function):void {
-        _hoverCallback = f;
-    }
-
-    public function set outCallback(f:Function):void {
-        _outCallback = f;
-    }
-
-    public function set onMovedCallback(f:Function):void {
-        _onMovedCallback = f;
-    }
-
+    public function set startClickCallback(f:Function):void { _startClickCallback = f; }
+    public function set clickCallback(f:Function):void { _clickCallback = f; }
+    public function set hoverCallback(f:Function):void { _hoverCallback = f; }
+    public function set outCallback(f:Function):void { _outCallback = f; }
+    public function set onMovedCallback(f:Function):void { _onMovedCallback = f; }
+    public function createHitArea(name:String):void { _hitArea = g.managerHitArea.getHitArea(this, name, ManagerHitArea.TYPE_CREATE); }
+    public function setPivots():void {  this.alignPivot(); }
+    public function addDisplayObject(d:DisplayObject):void { _bg.addChild(d); }
+    
     public function set isTouchable(value:Boolean):void {
         this.touchable = value;
         if (value) {
@@ -207,10 +185,6 @@ public class CButton extends Sprite {
         if (_bg.filter) _bg.filter.dispose();
         _bg.filter = null;
         if (_hoverImage) _hoverImage.visible = true;
-    }
-
-    public function createHitArea(name:String):void {
-        _hitArea = g.managerHitArea.getHitArea(this, name, ManagerHitArea.TYPE_CREATE);
     }
 
     public function releaseHoverAnimation():void {
