@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/shopicons/shopicons.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/shopicons/shopicons.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -379,6 +379,7 @@
             <filename>tail_usa_2_icon.png</filename>
             <filename>statue_cow_icon.png</filename>
             <filename>fireworks_event_icon.png</filename>
+            <filename>corn_fabric_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

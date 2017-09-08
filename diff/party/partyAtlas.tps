@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/party/partyAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/party/partyAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -217,11 +217,11 @@
             <filename>tabs_top_2.png</filename>
             <filename>star_event_winner_45x45.png</filename>
             <filename>event_window_standard.png</filename>
-            <filename>milk.png</filename>
-            <filename>milk_text.png</filename>
-            <filename>corn_event_icon.png</filename>
-            <filename>cornbread_rus.png</filename>
-            <filename>seven_milk_desserts.png</filename>
+            <filename>../../../farm505/diff/party/butter_ru.png</filename>
+            <filename>../../../farm505/diff/party/cream_icon.png</filename>
+            <filename>../../../farm505/diff/party/punckake_icon.png</filename>
+            <filename>../../../farm505/diff/party/cream_rus.png</filename>
+            <filename>../../../farm505/diff/party/pancake_breakfast.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
