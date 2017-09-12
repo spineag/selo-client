@@ -40,7 +40,7 @@ public class DecorShopNewFilter {
         for (var i:int=0; i<arr.length; i++) {
             item = new FilterButtonItem(arr[i], onClick);
             item.btnSource.x = 84;
-            item.btnSource.y = 45 + 60*i;
+            item.btnSource.y = 45 + 55*i;
             _source.addChild(item.btnSource);
             if (arr[i] == g.user.shopDecorFilter) {
                 item.setActive(true);

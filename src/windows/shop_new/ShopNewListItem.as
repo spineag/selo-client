@@ -130,10 +130,10 @@ public class ShopNewListItem {
             if (!texture) Cc.error('ShopItem:: no such texture: ' + _data.url + ' for _data.id ' + _data.id);
             else {
                 _im = new Image(texture);
-                MCScaler.scale(_im, 110, 110);
+                MCScaler.scale(_im, 140, 140);
                 _im.alignPivot();
                 _im.x = 82;
-                _im.y = 105;
+                _im.y = 120;
                 _im.touchable = false;
                 _source.addChild(_im);
             }

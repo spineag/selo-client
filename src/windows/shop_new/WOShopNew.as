@@ -20,6 +20,7 @@ public class WOShopNew extends WindowMain {
     private var _tabs:ShopNewTabs;
     private var _decorFilter:DecorShopNewFilter;
     private var _shopList:ShopNewList;
+    private var _isBigShop:Boolean;
     
     public function WOShopNew() {
         super();
