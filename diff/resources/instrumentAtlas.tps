@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/resources/instrumentAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/resources/instrumentAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -203,6 +203,7 @@
             <filename>part_instruments/saw.png</filename>
             <filename>part_instruments/shovel.png</filename>
             <filename>part_instruments/pin.png</filename>
+            <filename>part_instruments/dynamite.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
