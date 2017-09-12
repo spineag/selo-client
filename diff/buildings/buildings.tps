@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/buildings/buildings.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/buildings/buildings.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -206,6 +206,7 @@
             <filename>pillar_new.png</filename>
             <filename>building_table_white.png</filename>
             <filename>advertisement.png</filename>
+            <filename>newspaper.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
