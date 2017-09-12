@@ -4,7 +4,6 @@
 package tutorial.tutorial {
 import additional.buyerNyashuk.BuyerNyashuk;
 import additional.buyerNyashuk.ManagerBuyerNyashuk;
-
 import build.WorldObject;
 import build.fabrica.Fabrica;
 import build.farm.Animal;
@@ -18,12 +17,12 @@ import mouse.ToolsModifier;
 import particle.tuts.DustRectangle;
 import tutorial.CutScene;
 import tutorial.IManagerTutorial;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import utils.SimpleArrow;
 import utils.Utils;
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
-import windows.shop.WOShop;
+import windows.shop_new.WOShopNew;
 
 public class TutorialManager extends IManagerTutorial{
     public function TutorialManager() {  super(); }
@@ -31,7 +30,7 @@ public class TutorialManager extends IManagerTutorial{
     override protected function initScenes():void {
         var curFunc:Function;
         _subStep = 0;
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
 //        try {
             Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
             switch (g.user.tutorialStep) {
@@ -119,7 +118,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep3_1():void {
         _subStep = 1;
-        _currentAction = TutorialAction.CRAFT_RIDGE;
+        _action = TutsAction.CRAFT_RIDGE;
         _cat.setPosition(new Point((_tutorialObjects[0] as Ridge).posX-2, (_tutorialObjects[0] as Ridge).posY+2));
         _cat.addToMap();
         _cat.flipIt(false);
@@ -161,7 +160,7 @@ public class TutorialManager extends IManagerTutorial{
         }
         _tutorialObjects = [];
         _tutorialResourceIDs = [31];
-        _currentAction = TutorialAction.PLANT_RIDGE;
+        _action = TutsAction.PLANT_RIDGE;
         var ar:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<ar.length; i++) {
             if ((ar[i] as Ridge).isFreeRidge) {
@@ -242,7 +241,7 @@ public class TutorialManager extends IManagerTutorial{
     private function initScene6_1():void {
         _subStep = 1;
         _cat.idleAnimation();
-        _currentAction = TutorialAction.BUY_ANIMAL;
+        _action = TutsAction.BUY_ANIMAL;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep6_2, 0, '', 'main_panel_bt_shop');
         g.bottomPanel.tutorialCallback = subStep6_2;
         addBlackUnderInterface();
@@ -258,14 +257,14 @@ public class TutorialManager extends IManagerTutorial{
         _tutorialResourceIDs = [1];
         removeBlack();
         _onShowWindowCallback = subStep6_3;
-        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.ANIMAL);
     }
 
     private function subStep6_3():void {
         _subStep = 3;
         _onShowWindowCallback = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
@@ -279,7 +278,7 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep6_4():void {
         _subStep = 4;
         _tutorialCallback = null;
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
         deleteArrowAndDust();
         Utils.createDelay(2, subStep6_5);
     }
@@ -318,7 +317,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep7_1():void {
         _subStep = 1;
-        _currentAction = TutorialAction.ANIMAL_FEED;
+        _action = TutsAction.ANIMAL_FEED;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
         subStep7_2();
@@ -383,7 +382,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep8_2():void {
         if (_tutorialObjects.length) {
-            _currentAction = TutorialAction.ANIMAL_SKIP;
+            _action = TutsAction.ANIMAL_SKIP;
             var an:Animal = _tutorialObjects[0] as Animal;
             an.playDirectIdle();
             an.addArrow();
@@ -392,7 +391,7 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function subStep8_3(ch:Animal):void {
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
         if (g.timerHint) g.timerHint.managerHide();
         _subStep = 3;
         ch.removeArrow();
@@ -419,7 +418,7 @@ public class TutorialManager extends IManagerTutorial{
         }
         if (_tutorialObjects.length) {
             g.cont.moveCenterToPos((_tutorialObjects[0] as Farm).posX, (_tutorialObjects[0] as Farm).posY, false, 1);
-            _currentAction = TutorialAction.ANIMAL_CRAFT;
+            _action = TutsAction.ANIMAL_CRAFT;
             (_tutorialObjects[0] as Farm).addArrowToCraftItem(subStep9_1);
         } else {
             subStep9_1();
@@ -429,13 +428,13 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep9_1():void {
         _tutorialObjects = [];
         _subStep = 1;
-        _currentAction = TutorialAction.LEVEL_UP;
+        _action = TutsAction.LEVEL_UP;
         _tutorialCallback = subStep9_2;
     }
 
     private function subStep9_2():void {
         _tutorialCallback = null;
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
         g.user.tutorialStep = 10;
         updateTutorialStep();
         initScenes();
@@ -451,7 +450,7 @@ public class TutorialManager extends IManagerTutorial{
         if (_tutorialObjects.length) {
             subStep10_4();
         } else {
-            _currentAction = TutorialAction.BUY_FABRICA;
+            _action = TutsAction.BUY_FABRICA;
             addBlackUnderInterface();
             cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep10_1, 0, '', 'main_panel_bt_shop');
             g.bottomPanel.tutorialCallback = subStep10_1;
@@ -468,15 +467,15 @@ public class TutorialManager extends IManagerTutorial{
         removeBlack();
         _subStep = 1;
         _onShowWindowCallback = subStep10_2;
-        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.FABRICA);
     }
 
     private function subStep10_2():void {
         _subStep = 2;
         _onShowWindowCallback = null;
-        _currentAction = TutorialAction.BUY_FABRICA;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+        _action = TutsAction.BUY_FABRICA;
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
@@ -490,7 +489,7 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep10_3():void {
         _subStep = 3;
         deleteArrowAndDust();
-        _currentAction = TutorialAction.PUT_FABRICA;
+        _action = TutsAction.PUT_FABRICA;
         _tutorialCallback = subStep10_4;
     }
 
@@ -528,7 +527,7 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 2;
         removeBlack();
         cutScene.hideIt(deleteCutScene);
-        _currentAction = TutorialAction.FABRICA_SKIP_FOUNDATION;
+        _action = TutsAction.FABRICA_SKIP_FOUNDATION;
         (_tutorialObjects[0] as Fabrica).showArrow();
         _tutorialCallback = subStep11_3;
     }
@@ -540,7 +539,7 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function subStep11_4():void {
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
         _subStep = 4;
         g.user.tutorialStep = 12;
         _tutorialObjects = [];
@@ -565,7 +564,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep12_1():void {
         _subStep = 1;
-        _currentAction = TutorialAction.PUT_FABRICA;
+        _action = TutsAction.PUT_FABRICA;
         g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY, false, 1);
         _cat.flipIt(false);
         _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
@@ -580,7 +579,7 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function subStep12_3():void {
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
         _subStep = 4;
         g.user.tutorialStep = 13;
         _tutorialObjects = [];
@@ -612,7 +611,7 @@ public class TutorialManager extends IManagerTutorial{
         removeBlack();
         cutScene.hideIt(deleteCutScene);
         _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
-        _currentAction = TutorialAction.RAW_RECIPE;
+        _action = TutsAction.RAW_RECIPE;
         _tutorialResourceIDs = [6]; // recipeId
         g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY, false, 1);
         (_tutorialObjects[0] as Fabrica).showArrow();
@@ -628,7 +627,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep13_3():void {
         _subStep = 3;
-        _currentAction = TutorialAction.FABRICA_SKIP_RECIPE;
+        _action = TutsAction.FABRICA_SKIP_RECIPE;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_FABRICA) {
             var ob:Object = (g.windowsManager.currentWindow as WOFabrica).getSkipBtnProperties();
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
@@ -644,7 +643,7 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep13_4():void {
         deleteArrowAndDust();
         g.windowsManager.closeAllWindows();
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
         _subStep = 4;
         g.user.tutorialStep = 14;
         _tutorialObjects = [];
@@ -666,7 +665,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep14_1():void {
         _subStep = 1;
-        _currentAction = TutorialAction.FABRICA_CRAFT;
+        _action = TutsAction.FABRICA_CRAFT;
         (_tutorialObjects[0] as Fabrica).addArrowToCraftItem(subStep14_2);
         _tutorialCallback = subStep14_2;
     }
@@ -674,7 +673,7 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep14_2():void {
         _tutorialObjects = [];
         _subStep = 2;
-        _currentAction = TutorialAction.LEVEL_UP;
+        _action = TutsAction.LEVEL_UP;
         _tutorialCallback = subStep14_3;
     }
 
@@ -682,7 +681,7 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 2;
         _tutorialObjects = [];
         _tutorialResourceIDs = [];
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
         g.user.tutorialStep = 15;
         updateTutorialStep();
         initScenes();
@@ -698,7 +697,7 @@ public class TutorialManager extends IManagerTutorial{
         if (_tutorialObjects.length) {
             subStep15_4();
         } else {
-            _currentAction = TutorialAction.BUY_FABRICA;
+            _action = TutsAction.BUY_FABRICA;
             addBlackUnderInterface();
             cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep15_1, 0, '', 'main_panel_bt_shop');
             g.bottomPanel.tutorialCallback = subStep15_1;
@@ -715,15 +714,15 @@ public class TutorialManager extends IManagerTutorial{
         removeBlack();
         _subStep = 1;
         _onShowWindowCallback = subStep15_2;
-        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.FABRICA);
     }
 
     private function subStep15_2():void {
         _subStep = 2;
         _onShowWindowCallback = null;
-        _currentAction = TutorialAction.BUY_FABRICA;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+        _action = TutsAction.BUY_FABRICA;
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
@@ -737,7 +736,7 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep15_3():void {
         _subStep = 3;
         deleteArrowAndDust();
-        _currentAction = TutorialAction.PUT_FABRICA;
+        _action = TutsAction.PUT_FABRICA;
         _tutorialCallback = subStep15_4;
     }
 
@@ -751,7 +750,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function initScene_16():void {
         _subStep=0;
-        _currentAction = TutorialAction.NEW_RIDGE;
+        _action = TutsAction.NEW_RIDGE;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TextsTutorial()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep16_2, 0, '', 'main_panel_bt_shop');
@@ -769,15 +768,15 @@ public class TutorialManager extends IManagerTutorial{
         _tutorialResourceIDs = [11];
         removeBlack();
         _onShowWindowCallback = subStep16_3;
-        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.VILLAGE);
     }
 
     private function subStep16_3():void {
         _subStep = 3;
         _onShowWindowCallback = null;
         _tutorialObjects.length = 0;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
@@ -835,7 +834,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep17_1():void {
         _subStep = 1;
-        _currentAction = TutorialAction.PLANT_RIDGE;
+        _action = TutsAction.PLANT_RIDGE;
         Utils.createDelay(1, subStep17_2);
     }
 
@@ -875,7 +874,7 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep18_1():void {
         if (!texts) texts = (new TextsTutorial()).objText;
         _tutorialObjects = g.managerBuyerNyashuk.arrNyashuk;
-        _currentAction = TutorialAction.NYASHIK;
+        _action = TutsAction.NYASHIK;
         g.cont.moveCenterToPos((_tutorialObjects[0] as BuyerNyashuk).posX, (_tutorialObjects[0] as BuyerNyashuk).posY, false, 1);
         if (!_cat) {
             _cat = new TutorialCat(subStep18_2);

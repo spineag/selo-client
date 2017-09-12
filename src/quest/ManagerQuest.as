@@ -9,28 +9,19 @@ import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.ridge.Ridge;
 import build.tree.Tree;
-
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import data.StructureDataBuilding;
-
-import dragonBones.animation.WorldClock;
-
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerWallPost;
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import social.SocialNetworkSwitch;
-
 import tutorial.helpers.HelperReason;
-
 import utils.Link;
 import windows.WindowsManager;
-import windows.shop.WOShop;
 
 public class ManagerQuest {
     public static const ICON_PATH:String = 'https://505.ninja/content/quest_icon/';

@@ -3,7 +3,6 @@
  */
 package tutorial.managerCutScenes {
 import additional.buyerNyashuk.ManagerBuyerNyashuk;
-
 import build.WorldObject;
 import build.decor.Decor;
 import build.market.Market;
@@ -11,15 +10,8 @@ import build.paper.Paper;
 import build.train.Train;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-import flash.events.TimerEvent;
-import flash.geom.Point;
-import flash.utils.Timer;
 import manager.Vars;
 import mouse.ToolsModifier;
-
-import social.SocialNetworkSwitch;
-
-import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
@@ -27,15 +19,11 @@ import tutorial.AirTextBubble;
 import tutorial.CutScene;
 import particle.tuts.DustRectangle;
 import utils.SimpleArrow;
-import heroes.TutorialCat;
-
 import utils.Utils;
-
 import windows.WindowsManager;
 import windows.buyPlant.WOBuyPlant;
 import windows.market.MarketItem;
-import windows.market.WOMarket;
-import windows.shop.WOShop;
+import windows.shop_new.WOShopNew;
 import windows.train.WOTrain;
 
 public class ManagerCutScenes {
@@ -327,8 +315,8 @@ public class ManagerCutScenes {
     private function decor_2():void {
         _cutSceneStep = 3;
         _cutSceneResourceIDs = [28, 151, 152];
-        (g.windowsManager.currentWindow as WOShop).openOnResource(_cutSceneResourceIDs[0]);
-        var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_cutSceneResourceIDs[0], true);
+        (g.windowsManager.currentWindow as WOShopNew).openOnResource(_cutSceneResourceIDs[0]);
+        var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_cutSceneResourceIDs[0]);
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
         _arrow.scaleIt(.7);
@@ -845,7 +833,7 @@ public class ManagerCutScenes {
                         } else if (_cutSceneStep == 3) {
                             deleteArrow();
                             deleteDust();
-                            ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_cutSceneResourceIDs[0], true);
+                            ob = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_cutSceneResourceIDs[0]);
                             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
                             _arrow.scaleIt(.7);

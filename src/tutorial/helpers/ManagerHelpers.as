@@ -7,18 +7,12 @@ import build.farm.Animal;
 import build.farm.Farm;
 import build.ridge.Ridge;
 import data.BuildType;
-
-import flash.events.TimerEvent;
-import flash.utils.Timer;
-
 import manager.Vars;
 import mouse.ToolsModifier;
-
 import utils.Utils;
-
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
-import windows.shop.WOShop;
+import windows.shop_new.WOShopNew;
 
 public class ManagerHelpers {
     private const MAX_SECONDS:int = 12;
@@ -90,7 +84,7 @@ public class ManagerHelpers {
                _curReason.reason != HelperReason.REASON_BUY_FARM && _curReason.reason != HelperReason.REASON_BUY_HERO && _curReason.reason != HelperReason.REASON_BUY_RIDGE) {
                 onEnd();
             } else {
-                if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType != WindowsManager.WO_SHOP) onEnd();
+                if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType != WindowsManager.WO_SHOP_NEW) onEnd();
             }
         }
     }
@@ -113,7 +107,7 @@ public class ManagerHelpers {
         _countSeconds++;
         if ((g.user.level == 2 && _countSeconds >= 2) || (g.user.level == 4 && _countSeconds >= 5) ||(g.user.level < 4 && _countSeconds >= LOW_SECONDS) || (g.user.level == 5 && _countSeconds >= MEMIUM_SECONDS) || _countSeconds >= MAX_SECONDS) {
             _countSeconds = 0;
-            if (g.tuts.isTutorial) return;
+            if (g.tuts.isTuts) return;
             if (g.managerCutScenes.isCutScene) return;
             if (g.managerMiniScenes.isMiniScene) return;
             if (g.isActiveMapEditor) return;
@@ -403,13 +397,13 @@ public class ManagerHelpers {
     public function onOpenShop():void {
         if (_helper) _helper.deleteHelper();
         _helper = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
             if (_curReason.reason == HelperReason.REASON_BUY_ANIMAL || _curReason.reason == HelperReason.REASON_BUY_FABRICA || _curReason.reason == HelperReason.REASON_BUY_FARM
                  || _curReason.reason == HelperReason.REASON_BUY_RIDGE) {
-                (g.windowsManager.currentWindow as WOShop).openOnResource(_curReason.id);
-                (g.windowsManager.currentWindow as WOShop).addArrow(_curReason.id);
+                (g.windowsManager.currentWindow as WOShopNew).openOnResource(_curReason.id);
+                (g.windowsManager.currentWindow as WOShopNew).addItemArrow(_curReason.id);
             } else if (_curReason.reason == HelperReason.REASON_BUY_HERO) {
-                (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0);
+                (g.windowsManager.currentWindow as WOShopNew).addArrowAtPos(0);
             }
         }
         _isActiveHelper = false;

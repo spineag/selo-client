@@ -46,7 +46,7 @@ public class WOTrainSend extends WindowMain {
         _btnNo = new CButton();
         _btnNo.addButtonTexture(80, 40, CButton.GREEN, true);
         _btnYes = new CButton();
-        _btnYes.addButtonTexture(80, 40, CButton.PINK, true);
+        _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         _txtYes = new CTextField(50,50,String(g.managerLanguage.allTexts[308]));
         _txtYes.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.RED_COLOR);
         _txtYes.x = 15;

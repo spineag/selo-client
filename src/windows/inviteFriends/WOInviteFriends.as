@@ -64,7 +64,7 @@ public class WOInviteFriends extends WindowMain {
 
     private function onClickExit(e:Event=null):void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         hideIt();
     }
 

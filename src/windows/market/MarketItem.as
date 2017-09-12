@@ -30,7 +30,7 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 import temp.DropResourceVariaty;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
 
@@ -386,7 +386,7 @@ public class MarketItem {
     }
 
     private function onDelete():void {
-        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
 
         var f1:Function = function():void {
             for (var i:int = 0; i < g.user.marketItems.length; i++) {
@@ -428,14 +428,14 @@ public class MarketItem {
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (_closeCell) return;
-        if (g.tuts.isTutorial) {
-            if (!_data || !g.tuts.isTutorialResource(_data.id)) return;
+        if (g.tuts.isTuts) {
+            if (!_data || !g.tuts.isTutsResource(_data.id)) return;
         }
         _onHover = false;
         var i:int;
         if (isFill == 1) {//заполненная
             if (_isUser) {
-                if (g.tuts.isTutorial) return;
+                if (g.tuts.isTuts) return;
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
             } else {
                 if (_plawkaSold.visible == true) return;
@@ -462,9 +462,9 @@ public class MarketItem {
                         return;
                     }
                 }
-                if (g.tuts.isTutorial) {
-                    if (g.tuts.currentAction == TutorialAction.VISIT_NEIGHBOR)
-                        g.tuts.checkTutorialCallback();
+                if (g.tuts.isTuts) {
+                    if (g.tuts.action == TutsAction.VISIT_NEIGHBOR)
+                        g.tuts.checkTutsCallback();
                 }
                 if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.BUY_INSTRUMENT)) g.managerMiniScenes.checkMiniSceneCallback();
 
@@ -473,7 +473,7 @@ public class MarketItem {
                 g.managerQuest.onActionForTaskType(ManagerQuest.BUY_PAPER);
             }
         } else if (isFill == 0) { // пустая
-            if (g.tuts.isTutorial) return;
+            if (g.tuts.isTuts) return;
             if (_isUser) {
                 _wo.onItemClickAndOpenWOChoose(this);
                 _onHover = false;
@@ -482,7 +482,7 @@ public class MarketItem {
         } else if (isFill == 3){ // недоступна по лвлу
 
         } else {
-            if (g.tuts.isTutorial) return;
+            if (g.tuts.isTuts) return;
             if (_isUser) { // купленная
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {

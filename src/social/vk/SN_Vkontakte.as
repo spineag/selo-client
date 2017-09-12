@@ -537,7 +537,7 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function showPayment(e:Object):void {
-//        if (g.tuts.isTutorial || g.selectedBuild || g.isAway || g.area.handler.selectedBuild) {
+//        if (g.tuts.isTuts || g.selectedBuild || g.isAway || g.area.handler.selectedBuild) {
 //            return;
 //        }
 

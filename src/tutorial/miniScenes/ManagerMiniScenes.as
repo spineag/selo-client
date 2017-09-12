@@ -7,9 +7,7 @@ import build.market.Market;
 import build.orders.Order;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-
 import order.OrderCat;
-
 import manager.Vars;
 import particle.tuts.DustRectangle;
 import starling.display.Quad;
@@ -19,11 +17,10 @@ import tutorial.AirTextBubble;
 import tutorial.CutScene;
 import utils.SimpleArrow;
 import utils.Utils;
-
 import windows.WindowsManager;
 import windows.market.WOMarket;
 import windows.orderWindow.WOOrder;
-import windows.shop.WOShop;
+import windows.shop_new.WOShopNew;
 
 public class ManagerMiniScenes {
     public static const OPEN_ORDER:int = 1;  // use after getting new level
@@ -391,8 +388,8 @@ public class ManagerMiniScenes {
     private function bulo4na_2():void {
         deleteArrowAndDust();
         _onShowWindowCallback = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_miniSceneResourceIDs[0]);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_miniSceneResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);

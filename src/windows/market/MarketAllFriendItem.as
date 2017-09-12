@@ -6,25 +6,18 @@ import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
 import manager.ManagerFilters;
 import manager.Vars;
-
 import social.SocialNetwork;
-
 import social.SocialNetworkEvent;
-
 import starling.display.Image;
 import starling.display.Quad;
-import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 import user.NeighborBot;
 import user.Someone;
-
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.YellowBackgroundOut;
-import windows.WOComponents.WOButtonTexture;
 import windows.WindowsManager;
 
 public class MarketAllFriendItem{

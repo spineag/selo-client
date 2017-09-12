@@ -13,7 +13,7 @@ import starling.display.Quad;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 
 import utils.CTextField;
 import utils.SimpleArrow;
@@ -148,7 +148,7 @@ public class TimerHint {
         _isOnHover = true;
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
-        if (g.tuts.isTutorial) {
+        if (g.tuts.isTuts) {
             _txtCost.text = '0';
         } else {
             _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
@@ -180,7 +180,7 @@ public class TimerHint {
         if (!_canHide && !force) return;
         if (_isOnHover && !force) return;
         if (!_isShow) return;
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_SKIP) return;
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.ANIMAL_SKIP) return;
         if (force) _closeTime = 0;
             else _closeTime = 1;
         g.gameDispatcher.addToTimer(closeTimer);
@@ -231,7 +231,7 @@ public class TimerHint {
     }
 
     private function onClickBtn():void {
-        if (g.tuts.isTutorial) {
+        if (g.tuts.isTuts) {
             _isOnHover = false;
 
             if (_callbackSkip != null) {
@@ -258,7 +258,7 @@ public class TimerHint {
 
     public function managerHide(callback:Function = null):void {
         if (_isShow) {
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_SKIP) return;
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.ANIMAL_SKIP) return;
             _closeTime = 1;
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);

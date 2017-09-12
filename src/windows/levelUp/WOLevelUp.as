@@ -30,7 +30,7 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import utils.CButton;
 import utils.CTextField;
@@ -559,8 +559,8 @@ public class WOLevelUp extends WindowMain {
 
     override protected function deleteIt():void {
         g.levelUpHint.hideIt();
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.LEVEL_UP) {
-            g.tuts.checkTutorialCallback();
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.LEVEL_UP) {
+            g.tuts.checkTutsCallback();
         }
         g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
         if (g.user.level == 3 || g.user.level == 4) g.managerMiniScenes.checkAvailableMiniScenesOnNewLevel();

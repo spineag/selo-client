@@ -21,7 +21,7 @@ public class IManagerTutorial {
     protected var black:Sprite;
     protected var blackUnderInterface:Sprite;
     protected var _tutorialObjects:Array;
-    protected var _currentAction:int;
+    protected var _action:int;
     protected var _tutorialResourceIDs:Array;
     protected var _dustRectangle:DustRectangle;
     protected var _tutorialCallback:Function;
@@ -31,17 +31,17 @@ public class IManagerTutorial {
 
     public function IManagerTutorial() {
         _tutorialObjects = [];
-        _currentAction = TutorialAction.NONE;
+        _action = TutsAction.NONE;
         _tutorialResourceIDs = [];
     }
 
-    public function checkTutorialCallback():void {
+    public function checkTutsCallback():void {
         if (_tutorialCallback != null) {
             _tutorialCallback.apply();
         }
     }
 
-    public function checkTutorialCallbackOnShowWindow():void {
+    public function checkTutsCallbackOnShowWindow():void {
         if (_onShowWindowCallback != null) {
             _onShowWindowCallback.apply();
         }
@@ -49,15 +49,15 @@ public class IManagerTutorial {
 
     public function onGameStart():void { initScenes(); }
     protected function initScenes():void {}
-    public function get currentAction():int { return _currentAction; }
-    public function currentActionNone():void { _currentAction = TutorialAction.NONE; }
+    public function get action():int { return _action; }
+    public function currentActionNone():void { _action = TutsAction.NONE; }
     public function get subStep():int { return _subStep; }
-    public function isTutorialResource(id:int):Boolean { return _tutorialResourceIDs.indexOf(id) > -1; }
-    public function get isTutorial():Boolean { return TUTORIAL_ON && g.user.tutorialStep < MAX_STEPS; }
+    public function isTutsResource(id:int):Boolean { return _tutorialResourceIDs.indexOf(id) > -1; }
+    public function get isTuts():Boolean { return TUTORIAL_ON && g.user.tutorialStep < MAX_STEPS; }
     public function checkDefaults():void {}
     public function onResize():void {}
-    public function isTutorialBuilding(wo:WorldObject):Boolean { return _tutorialObjects.indexOf(wo) > -1; }
-    public function addTutorialWorldObject(w:WorldObject):void {_tutorialObjects.push(w); }
+    public function isTutsBuilding(wo:WorldObject):Boolean { return _tutorialObjects.indexOf(wo) > -1; }
+    public function addTutsWorldObject(w:WorldObject):void {_tutorialObjects.push(w); }
     protected function emptyFunction(...params):void {}
     protected function clearAll():void { }
 

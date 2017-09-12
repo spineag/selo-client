@@ -16,10 +16,13 @@ import starling.textures.TextureAtlas;
 
 public class YellowBackgroundOut extends Sprite{
     private var g:Vars = Vars.getInstance();
+    private var _source:Sprite;
 
     public function YellowBackgroundOut(w:int, h:int) {
         var im:Image;
         var tex:TextureAtlas = g.allData.atlas['interfaceAtlas'];
+        _source = new Sprite();
+        addChild(_source);
 
         if (w%2) w++;
         if (h%2) h++;
@@ -28,27 +31,27 @@ public class YellowBackgroundOut extends Sprite{
         im = new Image(tex.getTexture('fs_yellow_panel_corner_top'));
         im.x = -5;
         im.y = -4;
-        addChild(im);
+        _source.addChild(im);
 
         // bottom left
         im = new Image(tex.getTexture('fs_yellow_panel_corner_bottom'));
         im.scaleX = -1;
         im.x = 13;
         im.y = h - 10.5;
-        addChild(im);
+        _source.addChild(im);
 
         // top right
         im = new Image(tex.getTexture('fs_yellow_panel_corner_top'));
         im.scaleX = -1;
         im.x = w + 5;
         im.y = -4;
-        addChild(im);
+        _source.addChild(im);
 
         // bottom right
         im = new Image(tex.getTexture('fs_yellow_panel_corner_bottom'));
         im.x = w - 13;
         im.y = h - 10;
-        addChild(im);
+        _source.addChild(im);
 
         // top
         im = new Image(tex.getTexture('fs_yellow_panel_top'));
@@ -57,7 +60,7 @@ public class YellowBackgroundOut extends Sprite{
         im.x = 12;
         im.y = -4;
         im.tileGrid = im.tileGrid;
-        addChild(im);
+        _source.addChild(im);
 
         // bottom
         im = new Image(tex.getTexture('fs_yellow_panel_bottom'));
@@ -66,7 +69,7 @@ public class YellowBackgroundOut extends Sprite{
         im.x = 13;
         im.y = h - 8;
         im.tileGrid = im.tileGrid;
-        addChild(im);
+        _source.addChild(im);
 
         // left
         im = new Image(tex.getTexture('fs_yellow_panel_left'));
@@ -75,7 +78,7 @@ public class YellowBackgroundOut extends Sprite{
         im.x = -5;
         im.y = 13;
         im.tileGrid = im.tileGrid;
-        addChild(im);
+        _source.addChild(im);
 
         // right
         im = new Image(tex.getTexture('fs_yellow_panel_left'));
@@ -85,7 +88,7 @@ public class YellowBackgroundOut extends Sprite{
         im.x = w + 5;
         im.y = 13;
         im.tileGrid = im.tileGrid;
-        addChild(im);
+        _source.addChild(im);
 
         // center
         im = new Image(tex.getTexture('fs_yellow_panel_center'));
@@ -95,15 +98,18 @@ public class YellowBackgroundOut extends Sprite{
         im.x = 4;
         im.y = 4;
         im.tileGrid = im.tileGrid;
-        addChild(im);
+        _source.addChild(im);
 
-        touchable = false;
+        _source.touchable = false;
+    }
+
+    public function get source():Sprite {
+        return _source;
     }
 
     public function deleteIt():void {
         filter = null;
         dispose();
-        g = null;
     }
 }
 }

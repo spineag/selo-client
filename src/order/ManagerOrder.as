@@ -10,7 +10,7 @@ import data.BuildType;
 import data.StructureDataResource;
 
 import social.SocialNetworkSwitch;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import utils.Utils;
 
 public class ManagerOrder {
@@ -318,7 +318,7 @@ public class ManagerOrder {
         var r:StructureDataResource;
 
         for (var ik:int = 0; ik < n; ik++) {
-            if (_arrOrders && !g.tuts.isTutorial && _arrOrders.length > 0) {
+            if (_arrOrders && !g.tuts.isTuts && _arrOrders.length > 0) {
                 for (i = 0; i < _arrOrders.length; i++) {
                     if (_arrOrders[i].fasterBuy == true) {
                         countFastBuyer++;

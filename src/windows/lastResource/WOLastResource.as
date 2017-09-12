@@ -63,7 +63,7 @@ public class WOLastResource extends WindowMain {
         _txtYes.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PINK_COLOR);
         _txtYes.x = 15;
         _txtYes.y = -5;
-        _btnYes.addButtonTexture(80, 40, CButton.PINK, true);
+        _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         _btnYes.addChild(_txtYes);
         _source.addChild(_btnYes);
 

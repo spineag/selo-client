@@ -84,7 +84,7 @@ public class WOMissYou extends WindowMain {
 
         _source.addChild(_btnYes);
         _btnNo = new CButton();
-        _btnNo.addButtonTexture(160, 50, CButton.PINK, true);
+        _btnNo.addButtonTexture(160, 50, CButton.GREEN, true);
         txt = new CTextField(160,50,String(g.managerLanguage.allTexts[309]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.RED_COLOR);
         _btnNo.addChild(txt);

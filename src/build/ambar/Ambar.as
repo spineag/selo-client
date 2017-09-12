@@ -61,7 +61,7 @@ public class Ambar extends WorldObject{
     }
 
     private function onClick():void {
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.selectedBuild) {

@@ -31,7 +31,7 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Color;
 
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 
 import utils.CSprite;
 import utils.IsoUtils;
@@ -150,7 +150,7 @@ public class BuyerNyashuk {
     }
 
     private function onClick():void {
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.NYASHIK) g.tuts.checkTutorialCallback();
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.NYASHIK) g.tuts.checkTutsCallback();
         g.windowsManager.openWindow(WindowsManager.WO_BUYER_NYASHUK, null, _buyerId, _data,this);
     }
 
@@ -394,7 +394,7 @@ public class BuyerNyashuk {
             _source.scaleX = 1;
             Cc.error('OrderCat gotoPoint:: wrong front-back logic');
         }
-        if (g.tuts.isTutorial) {
+        if (g.tuts.isTuts) {
             new TweenMax(_source, 6, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         } else {
             if (catGoAway) new TweenMax(_source, 6, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});

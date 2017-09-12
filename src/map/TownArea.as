@@ -2,7 +2,6 @@
 import additional.buyerNyashuk.BuyerNyashuk;
 import additional.lohmatik.Lohmatik;
 import additional.mouse.MouseHero;
-
 import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.achievement.Achievement;
@@ -19,7 +18,6 @@ import build.decor.DecorFence;
 import build.decor.DecorFenceArka;
 import build.decor.DecorFenceGate;
 import build.decor.DecorPostFence;
-import build.decor.DecorPostFenceArka;
 import build.decor.DecorPostFenceArka;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
@@ -39,37 +37,27 @@ import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
 import flash.utils.getQualifiedClassName;
-
 import heroes.AddNewHero;
 import heroes.BasicCat;
 import order.OrderCat;
 import hint.FlyMessage;
 import manager.Vars;
-import manager.ownError.ErrorConst;
-
 import mouse.ToolsModifier;
 import preloader.AwayPreloader;
-
 import quest.ManagerQuest;
-
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
-
 import social.SocialNetworkSwitch;
-
 import starling.display.Sprite;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
-
 import ui.xpPanel.XPStar;
 import user.NeighborBot;
 import user.Someone;
-
 import utils.Utils;
-
 import windows.WindowsManager;
-import windows.shop.WOShop;
+import windows.shop_new.WOShopNew;
 
 public class TownArea extends Sprite {
     private var _cityObjects:Array;
@@ -249,7 +237,7 @@ public class TownArea extends Sprite {
             _needTownAreaSort = false;
             if (isError) {
                 _zSortCounter = 1;
-            } else if (g.tuts.isTutorial) {
+            } else if (g.tuts.isTuts) {
                 _zSortCounter = 3;
             } else {
                 _zSortCounter = SORT_COUNTER_MAX;
@@ -344,7 +332,7 @@ public class TownArea extends Sprite {
                     Cc.error('TownArea checkFreeGrids:: obj == nul');
                     return false;
                 }
-                if (g.tuts.isTutorial) {
+                if (g.tuts.isTuts) {
                     if (!obj.isTutorialBuilding) {
                         return true;
                     }
@@ -367,7 +355,7 @@ public class TownArea extends Sprite {
                     Cc.error('TownArea checkAwayFreeGrids:: obj == nul');
                     return false;
                 }
-                if (g.tuts.isTutorial) {
+                if (g.tuts.isTuts) {
                     if (!obj.isTutorialBuilding) {
                         return true;
                     }
@@ -876,17 +864,17 @@ public class TownArea extends Sprite {
             }
         }
 
-        if (isNewAtMap && g.tuts.isTutorial) {
+        if (isNewAtMap && g.tuts.isTuts) {
             if (worldObject is TutorialPlace) return;
-            if (worldObject is Fabrica && g.tuts.currentAction == TutorialAction.PUT_FABRICA) {
-                g.tuts.addTutorialWorldObject(worldObject);
-                g.tuts.checkTutorialCallback();
-            } else if (worldObject is Ridge && g.tuts.currentAction == TutorialAction.NEW_RIDGE) {
-                g.tuts.addTutorialWorldObject(worldObject);
-                g.tuts.checkTutorialCallback();
-            } else if (worldObject is Farm && g.tuts.currentAction == TutorialAction.PUT_FARM) {
-                g.tuts.addTutorialWorldObject(worldObject);
-                g.tuts.checkTutorialCallback();
+            if (worldObject is Fabrica && g.tuts.action == TutsAction.PUT_FABRICA) {
+                g.tuts.addTutsWorldObject(worldObject);
+                g.tuts.checkTutsCallback();
+            } else if (worldObject is Ridge && g.tuts.action == TutsAction.NEW_RIDGE) {
+                g.tuts.addTutsWorldObject(worldObject);
+                g.tuts.checkTutsCallback();
+            } else if (worldObject is Farm && g.tuts.action == TutsAction.PUT_FARM) {
+                g.tuts.addTutsWorldObject(worldObject);
+                g.tuts.checkTutsCallback();
             }
         }
         worldObject.afterPasteBuild();
@@ -1113,8 +1101,8 @@ public class TownArea extends Sprite {
         (build as WorldObject).source.filter = null;
         g.selectedBuild = null;
         if ((build as WorldObject).dataBuild.buildType == BuildType.FARM) {
-            g.user.buyShopTab = WOShop.VILLAGE;
-           if (!g.tuts.isTutorial) (build as WorldObject).showArrow(3);
+            g.user.shopTab = WOShopNew.VILLAGE;
+           if (!g.tuts.isTuts) (build as WorldObject).showArrow(3);
         }
         if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {
             g.bottomPanel.cancelBoolean(false);
@@ -2373,7 +2361,7 @@ public class TownArea extends Sprite {
         var p:Point = new Point();
         p.x = 24;
         p.y = 26;
-        if (!g.tuts.isTutorial) g.cont.moveCenterToPos(p.x, p.y, true, 2);
+        if (!g.tuts.isTuts) g.cont.moveCenterToPos(p.x, p.y, true, 2);
         g.managerCats.onGoAway(false);
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         g.managerLohmatic.onBackHome();

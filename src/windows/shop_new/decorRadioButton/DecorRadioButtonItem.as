@@ -1,7 +1,7 @@
 /**
  * Created by user on 10/17/16.
  */
-package windows.shop.decorRadioButton {
+package windows.shop_new.decorRadioButton {
 import com.junkbyte.console.Cc;
 import manager.Vars;
 import starling.display.Image;

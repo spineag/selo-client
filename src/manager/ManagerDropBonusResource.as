@@ -28,7 +28,7 @@ public class ManagerDropBonusResource {
 
     public function checkDrop():Boolean {
         _countBonus ++ ;
-            if (g.user.level <= 7 && !g.tuts.isTutorial) return int(Math.random()*100) < DROP_VARIATY_5 + 1;
+            if (g.user.level <= 7 && !g.tuts.isTuts) return int(Math.random()*100) < DROP_VARIATY_5 + 1;
              else if (_countBonus == 2) {
                 _countBonus = 0;
                 return int(Math.random()*100) < DROP_VARIATY + 1;
@@ -51,7 +51,7 @@ internal class MakeDrop {
     public static const DROP_TYPE_MONEY:String = 'money';
     private var g:Vars = Vars.getInstance();
     public function MakeDrop(_x:int, _y:int):void {
-        if (g.user.level <= 10 && !g.tuts.isTutorial) makeDropForUpdateAmbar(_x, _y);
+        if (g.user.level <= 10 && !g.tuts.isTuts) makeDropForUpdateAmbar(_x, _y);
         else makeDrop(_x, _y);
     }
 

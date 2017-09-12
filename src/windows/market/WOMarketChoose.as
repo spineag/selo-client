@@ -442,15 +442,15 @@ public class WOMarketChoose extends WindowMain {
         _countMoneyBlock.minValue =  count * g.allData.getResourceById(_curResourceId).costDefault;
         var def:int = ((count * g.allData.getResourceById(_curResourceId).costMax) - (count * g.allData.getResourceById(_curResourceId).costDefault)) /2 + count * g.allData.getResourceById(_curResourceId).costDefault;
         _countMoneyBlock.count =  def;
-//        _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+//        _countMoneyBlock._btnMinus.filter =  ManagerFilters.DISABLE_FILTER;
 //        _countMoneyBlock._btnMinus.setEnabled = false;
         if (countRes == 1) {
-//            _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-//            _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//            _countResourceBlock._btnPlus.filter = ManagerFilters.DISABLE_FILTER;
+//            _countResourceBlock._btnMinus.filter = ManagerFilters.DISABLE_FILTER;
             _countResourceBlock._btnMinus.setEnabled = false;
             _countResourceBlock._btnPlus.setEnabled = false;
         } else if (_countResourceBlock.count == 10) {
-//            _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//            _countResourceBlock._btnPlus.filter = ManagerFilters.DISABLE_FILTER;
             _countResourceBlock._btnPlus.setEnabled = false;
         }
         if ( _countMoneyBlock.count <= 0){
@@ -482,10 +482,10 @@ public class WOMarketChoose extends WindowMain {
                 if (_countResourceBlock.count == 10 || _countResourceBlock.count == countRes) {
                     booleanPlus = false;
                     _countMoneyBlock.count = _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault;
-//                    _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//                    _countResourceBlock._btnPlus.filter = ManagerFilters.DISABLE_FILTER;
                     _countResourceBlock._btnPlus.setEnabled = true;
                     if (_countMoneyBlock.count == _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault) {
-//                        _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+//                        _countMoneyBlock._btnMinus.filter =  ManagerFilters.DISABLE_FILTER;
                         _countMoneyBlock._btnMinus.setEnabled = true;
                     }
                     return;
@@ -494,13 +494,13 @@ public class WOMarketChoose extends WindowMain {
             booleanPlus = true;
             _countMoneyBlock.count = _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault;
             if (_countMoneyBlock.count == _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault) {
-//                _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+//                _countMoneyBlock._btnMinus.filter =  ManagerFilters.DISABLE_FILTER;
                 _countMoneyBlock._btnMinus.setEnabled = false;
             }
         } else {
             booleanPlus = true;
             if (_countMoneyBlock.count == _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costMax) {
-//                _countMoneyBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//                _countMoneyBlock._btnPlus.filter = ManagerFilters.DISABLE_FILTER;
                 _countMoneyBlock._btnPlus.setEnabled = false;
                 return;
             }
@@ -515,17 +515,17 @@ public class WOMarketChoose extends WindowMain {
                     booleanMinus = false;
                     if (_countMoneyBlock.count == 1 || 0 >= _countMoneyBlock.count - g.allData.getResourceById(_curResourceId).costDefault) {
                         _countMoneyBlock.count = _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault;
-//                        _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//                        _countResourceBlock._btnMinus.filter = ManagerFilters.DISABLE_FILTER;
                         _countResourceBlock._btnMinus.setEnabled = false;
                         if (_countMoneyBlock.count == _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault) {
-//                            _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+//                            _countMoneyBlock._btnMinus.filter =  ManagerFilters.DISABLE_FILTER;
                             _countMoneyBlock._btnMinus.setEnabled = false;
 
                         }
                         return;
                     }
                     _countMoneyBlock.count = _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault;
-//                    _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//                    _countResourceBlock._btnMinus.filter = ManagerFilters.DISABLE_FILTER;
                     _countResourceBlock._btnMinus.setEnabled = false;
                     return;
                 } else  _countResourceBlock._btnMinus.setEnabled = true; //_countResourceBlock._btnMinus.filter = null;
@@ -537,7 +537,7 @@ public class WOMarketChoose extends WindowMain {
             booleanMinus = true;
             _countMoneyBlock.count = _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault;
             if (_countMoneyBlock.count == _countResourceBlock.count * g.allData.getResourceById(_curResourceId).costDefault) {
-//                _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
+//                _countMoneyBlock._btnMinus.filter =  ManagerFilters.DISABLE_FILTER;
                 _countMoneyBlock._btnMinus.setEnabled = false;
             }
         }

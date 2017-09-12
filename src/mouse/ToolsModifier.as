@@ -571,7 +571,7 @@ public class ToolsModifier {
             for (j = posX; j < posX + width; j++) {
                 if (i < 0 || j < 0 || i >= 80 || j >= 80) return false;
                 obj = _townMatrix[i][j];
-//                if (g.tuts.isTutorial) {
+//                if (g.tuts.isTuts) {
 //                    if (!obj.isTutorialBuilding) {
 //                        return false;
 //                    }

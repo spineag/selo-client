@@ -5,27 +5,16 @@ package tutorial.tips {
 import build.WorldObject;
 import build.farm.Animal;
 import build.wild.Wild;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import dragonBones.starling.StarlingFactory;
-
 import flash.display.Bitmap;
-import flash.events.TimerEvent;
-import flash.utils.Timer;
-
 import manager.Vars;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 import ui.tips.TipsPanel;
-
-import utils.SimpleArrow;
-import utils.Utils;
-
 import windows.WindowsManager;
-import windows.shop.WOShop;
+import windows.shop_new.WOShopNew;
 
 public class ManagerTips {
     public static const TIP_RAW_RIDGE:String = 'raw_ridge';        // 8 - priority
@@ -326,8 +315,8 @@ public class ManagerTips {
     }
     
     private function atBuyCat():void {
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
-            (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0, 3);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+            (g.windowsManager.currentWindow as WOShopNew).addArrowAtPos(0, 3);
         }
     }
 

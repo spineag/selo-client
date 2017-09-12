@@ -66,12 +66,12 @@ public class ConsoleWrapper {
     public function initTesterMode():void {
         Cc.info("Console:: tester mode ON");
         Cc.info("KeyBinds:\n" +
-                "      0 - open/close console\n" +
+                "      505 - open/close console\n" +
                 "      alt + L - save log\n" +
                 "      alt + R - reset user Data\n" +
                 "      alt + T - In - Out User Tester\n" +
                 "      alt + F - set fullscreen\n" +
-                "      /g - command for monitoring Objects class\n" +
+                "      /g - command for monitoring Vars class\n" +
                 "");
         Cc.commandLine = true;
         Cc.config.keystrokePassword = "0";
@@ -123,7 +123,7 @@ public class ConsoleWrapper {
         if (g.optionPanel) {
             g.optionPanel.makeFullScreen();
 //            g.optionPanel.makeResizeForGame();
-//            if (g.tuts.isTutorial) g.tuts.onResize();
+//            if (g.tuts.isTuts) g.tuts.onResize();
         }
     }
 

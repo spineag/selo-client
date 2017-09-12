@@ -70,8 +70,8 @@ public class CountBlock {
     }
 
     public function btnFilter():void {
-        _btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
-        _btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+        _btnMinus.filter = ManagerFilters.DISABLE_FILTER;
+        _btnPlus.filter = ManagerFilters.DISABLE_FILTER;
     }
     
     public function updateTextField():void {
@@ -186,7 +186,7 @@ public class CountBlock {
 
     private function checkPlusBtn():void {
         if (_curCount >= _max) {
-//            _btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//            _btnPlus.filter = ManagerFilters.DISABLE_FILTER;
             _btnPlus.setEnabled = false;
         } else {
 //            _btnPlus.filter = null;
@@ -196,7 +196,7 @@ public class CountBlock {
 
     private function checkMinusBtn():void {
         if (_curCount <= _min) {
-//            _btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+//            _btnMinus.filter = ManagerFilters.DISABLE_FILTER;
             _btnMinus.setEnabled = false;
         } else {
 //            _btnMinus.filter = null;

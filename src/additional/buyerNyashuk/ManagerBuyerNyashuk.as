@@ -33,7 +33,7 @@ public class ManagerBuyerNyashuk {
         _arr = [];
         g.loadAnimation.load('animations_json/x1/red_n', 'red_n', null);
         g.loadAnimation.load('animations_json/x1/blue_n', 'blue_n', null);
-        if (!g.tuts.isTutorial) g.directServer.getUserPapperBuy(null);
+        if (!g.tuts.isTuts) g.directServer.getUserPapperBuy(null);
     }
 
     public function get arrNyashuk():Array {
@@ -397,7 +397,7 @@ public class ManagerBuyerNyashuk {
 //        nya.walkPosition = BuyerNyashuk.SHORT_OUTTILE_WALKING;
 //        nya.flipIt(true);
 //        nya.showFront(false);
-//        if (g.tuts.isTutorial) {
+//        if (g.tuts.isTuts) {
 //            nya.walkAnimation();
 //            nya.goNyaToXYPoint(p, 6, arrivePart2);
 //        } else {

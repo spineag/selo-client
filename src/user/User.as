@@ -11,6 +11,8 @@ import manager.Vars;
 
 import social.SocialNetwork;
 
+import windows.shop_new.WOShopNew;
+
 public class User extends Someone {
     public var ambarMaxCount:int;
     public var skladMaxCount:int;
@@ -30,7 +32,6 @@ public class User extends Someone {
     public var arrFriends:Array;
     public var arrTempUsers:Array;     // users that not your friends, but you interact with them
     public var neighbor:NeighborBot;
-    public var countCats:int;
     public var tutorialStep:int;
     public var lastVisitAmbar:Boolean;
     public var lastVisitPlant:int = 1;
@@ -48,7 +49,7 @@ public class User extends Someone {
     public var decorShiftShop:int;
     public var userGAcid:String = 'unknown';
     public var paperShift:int;
-    public var buyShopTab:int;
+    public var shopTab:int = WOShopNew.VILLAGE;
     public var animalIdArrow:int;
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;

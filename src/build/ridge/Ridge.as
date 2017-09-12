@@ -33,7 +33,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import utils.CSprite;
 import windows.WindowsManager;
 
@@ -183,7 +183,7 @@ public class Ridge extends WorldObject{
             onOut();
             g.managerAchievement.addResource(_resourceItem.resourceID);
         }
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.CRAFT_RIDGE) {
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.CRAFT_RIDGE) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }
@@ -195,11 +195,11 @@ public class Ridge extends WorldObject{
         if(_isOnHover) return;
         if (g.selectedBuild) return;
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) {
+        if (g.tuts.isTuts) {
             if (_tutorialCallback == null) return;
-            if ((g.tuts.currentAction == TutorialAction.NEW_RIDGE || g.tuts.currentAction == TutorialAction.PLANT_RIDGE) && g.tuts.isTutorialBuilding(this)) {
+            if ((g.tuts.action == TutsAction.NEW_RIDGE || g.tuts.action == TutsAction.PLANT_RIDGE) && g.tuts.isTutsBuilding(this)) {
 
-            } else if (!g.tuts.isTutorialBuilding(this) || _tutorialCallback == null) return;
+            } else if (!g.tuts.isTutsBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.isActiveMapEditor || g.isAway){
             return;
@@ -234,10 +234,10 @@ public class Ridge extends WorldObject{
     private function onStartClick():void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial && (!g.tuts.isTutorialBuilding(this) || _tutorialCallback == null)) return;
+        if (g.tuts.isTuts && (!g.tuts.isTutsBuilding(this) || _tutorialCallback == null)) return;
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            if (!g.tuts.isTutorial) onOut();
+            if (!g.tuts.isTuts) onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
@@ -271,7 +271,7 @@ public class Ridge extends WorldObject{
             lastBuyResource = true;
             _source.filter = null;
             plantThePlant();
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.PLANT_RIDGE) {
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.PLANT_RIDGE) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);
                 }
@@ -279,10 +279,10 @@ public class Ridge extends WorldObject{
                 g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED_ACTIVE;
             }
         } else if (_stateRidge == GROWED) {
-            if (g.tuts.isTutorial && g.tuts.currentAction != TutorialAction.CRAFT_RIDGE) return;
+            if (g.tuts.isTuts && g.tuts.action != TutsAction.CRAFT_RIDGE) return;
             craftThePlant();
             g.timerHint.hideIt(true);
-            if (!g.tuts.isTutorial) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
+            if (!g.tuts.isTuts) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
         }
     }
 
@@ -293,12 +293,12 @@ public class Ridge extends WorldObject{
     public function onEndClick():void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) {
-            if (g.tuts.currentAction == TutorialAction.PLANT_RIDGE && g.tuts.isTutorialBuilding(this) && _tutorialCallback != null) {
-                g.tuts.checkTutorialCallback();
-            } else if (g.tuts.currentAction == TutorialAction.NEW_RIDGE) {
+        if (g.tuts.isTuts) {
+            if (g.tuts.action == TutsAction.PLANT_RIDGE && g.tuts.isTutsBuilding(this) && _tutorialCallback != null) {
+                g.tuts.checkTutsCallback();
+            } else if (g.tuts.action == TutsAction.NEW_RIDGE) {
 //                if (g.selectedBuild != this) return;
-            } else if (!g.tuts.isTutorialBuilding(this) || _tutorialCallback == null) return;
+            } else if (!g.tuts.isTutsBuilding(this) || _tutorialCallback == null) return;
         }
         if (g.isActiveMapEditor || g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) { g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED; return;
@@ -315,7 +315,7 @@ public class Ridge extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) { g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                if (g.tuts.isTutorial) return;
+                if (g.tuts.isTuts) return;
                 onOut();
                 if (!lastBuyResource) {
                     if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
@@ -325,7 +325,7 @@ public class Ridge extends WorldObject{
             }
             if (_stateRidge == EMPTY) {
                 onOut();
-                if (g.tuts.isTutorial && _tutorialCallback != null)  hideArrow();
+                if (g.tuts.isTuts && _tutorialCallback != null)  hideArrow();
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
             }
         }
@@ -347,7 +347,7 @@ public class Ridge extends WorldObject{
         g.toolsModifier.plantId = _dataPlant.id;
         g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
         g.managerPlantRidge.checkFreeRidges();
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.PLANT_RIDGE) {
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.PLANT_RIDGE) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }

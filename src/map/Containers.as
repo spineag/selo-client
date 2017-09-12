@@ -11,7 +11,7 @@ import mouse.ToolsModifier;
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import utils.CSprite;
 
@@ -167,7 +167,7 @@ public class Containers {
             return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
-            if (!_isDragged && !g.tuts.isTutorial) {
+            if (!_isDragged && !g.tuts.isTuts) {
                 if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE) {
                     g.bottomPanel.cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -196,8 +196,8 @@ public class Containers {
 
     public function dragGameCont(mouseP:Point):void {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
-        if (g.tuts.isTutorial) { // no for new tuts
-            if (g.tuts.currentAction == TutorialAction.PUT_FABRICA || g.tuts.currentAction == TutorialAction.PUT_FARM) {
+        if (g.tuts.isTuts) { // no for new tuts
+            if (g.tuts.action == TutsAction.PUT_FABRICA || g.tuts.action == TutsAction.PUT_FARM) {
 
             } else {
                 return;
