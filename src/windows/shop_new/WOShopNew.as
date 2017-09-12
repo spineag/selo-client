@@ -2,7 +2,8 @@
  * Created by andy on 9/1/17.
  */
 package windows.shop_new {
-import windows.WOComponents.WhiteBackgroundIn;
+import data.BuildType;
+import utils.Utils;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.YellowBackgroundOut;
 import windows.WindowMain;
@@ -16,7 +17,9 @@ public class WOShopNew extends WindowMain {
     public static const DECOR:int=5;
     
     private var _bigYellowBG:YellowBackgroundOut;
-    private var t:WhiteBackgroundIn;
+    private var _tabs:ShopNewTabs;
+    private var _decorFilter:DecorShopNewFilter;
+    private var _shopList:ShopNewList;
     
     public function WOShopNew() {
         super();
@@ -30,19 +33,113 @@ public class WOShopNew extends WindowMain {
 
         _bigYellowBG = new YellowBackgroundOut(868, 486);
         _bigYellowBG.x = -434;
-        _bigYellowBG.y = -184;
+        _bigYellowBG.y = -185;
+        _bigYellowBG.source.touchable = true;
         _source.addChild(_bigYellowBG);
 
-        t = new WhiteBackgroundIn(300, 200);
-        t.x = -400;
-        t.y = -170;
-        _source.addChild(t);
-    }
+        _tabs = new ShopNewTabs(_bigYellowBG, onChooseTab);
+        _decorFilter = new DecorShopNewFilter(this);
+        _decorFilter.source.x = -_woWidth/2 + 81;
+        _decorFilter.source.y = -_woHeight/2 + 172;
+        _source.addChild(_decorFilter.source);
+        _decorFilter.source.visible = false;
 
-    private function onClickExit():void {}
+        _shopList = new ShopNewList(_source, this);
+    }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.userValidates.checkInfo('level', g.user.level)) return;
+        if (params && params[0]) g.user.shopTab = params[0];
+        _tabs.activateTab(g.user.shopTab);
+        onChooseTab(g.user.shopTab);
         super.showIt();
     }
+
+    public function onChooseTab(n:int):void {
+        var arr:Array = [];
+        var i:int;
+        var arR:Array;
+
+        g.user.shopTab = n;
+        _decorFilter.source.visible = n == 5;
+
+        switch (n) {
+            case VILLAGE:
+                arR = g.allData.building;
+                for (i = 0; i < arR.length; i++) {
+                    if (arR[i].buildType == BuildType.RIDGE || arR[i].buildType == BuildType.FARM) {
+                        arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
+                    }
+                }
+                break;
+            case ANIMAL:
+                arR = g.allData.animal;
+                for (i = 0; i < arR.length; i++) {
+                    arr.push(Utils.objectFromStructureAnimaToObject(arR[i]));
+                }
+                break;
+            case FABRICA:
+                arR = g.allData.building;
+                for (i = 0; i < arR.length; i++) {
+                    if (arR[i].buildType == BuildType.FABRICA) {
+                        arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
+                    }
+                }
+                break;
+            case PLANT:
+                arR = g.allData.building;
+                for (i = 0; i < arR.length; i++) {
+                    if (arR[i].buildType == BuildType.TREE) {
+                        arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
+                    }
+                }
+                break;
+            case DECOR:
+                arR = g.allData.building;
+                for (i = 0; i < arR.length; i++) {
+                    if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_FULL_FENСE ||
+                            arR[i].buildType == BuildType.DECOR_POST_FENCE || arR[i].buildType == BuildType.DECOR_TAIL || arR[i].buildType == BuildType.DECOR_FENCE_GATE ||
+                            arR[i].buildType == BuildType.DECOR_FENCE_ARKA || arR[i].buildType == BuildType.DECOR_POST_FENCE_ARKA) {
+                        if (g.user.shopDecorFilter == DecorShopNewFilter.FILTER_ALL || g.user.shopDecorFilter == arR[i].filterType) {
+                            if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_TAIL) {
+                                if (arR[i].group && !g.allData.isFirstInGroupDecor(arR[i].group, arR[i].id))
+                                    continue;
+                            }
+                            arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
+                        }
+                    }
+                }
+                break;
+            default:
+
+        }
+        _shopList.updateList(arr);
+    }
+
+    public function openOnResource(_id:int):void { _shopList.openOnResource(_id); }
+    public function getShopItemBounds(_id:int):Object { return _shopList.getShopItemBounds(_id); }
+    public function addItemArrow(_id:int, t:int=0):void { _shopList.addItemArrow(_id, t); }
+    public function addArrowAtPos(n:int, t:int=0):void { _shopList.addArrowAtPos(n, t); }
+    public function deleteAllArrows():void { _shopList.deleteAllArrows(); }
+
+    private function onClickExit():void {
+        if (g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts) return;
+        super.hideIt();
+    }
+
+    override protected function deleteIt():void {
+        if (!_source) return;
+        _source.removeChild(_bigYellowBG);
+        _bigYellowBG.deleteIt();
+        _tabs.deleteIt();
+        _source.removeChild(_decorFilter.source);
+        _decorFilter.deleteIt();
+        _shopList.deleteIt();
+        super.deleteIt();
+    }
+
+
+
 }
 }

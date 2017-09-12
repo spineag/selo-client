@@ -24,7 +24,7 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import tutorial.miniScenes.ManagerMiniScenes;
 
 import user.NeighborBot;
@@ -142,7 +142,7 @@ public class FriendPanel {
     }
 
     private function onTab1Click():void {
-        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
         if (_activeTabType == TYPE_NORMAL) return;
         else {
             _shift = 0;
@@ -158,7 +158,7 @@ public class FriendPanel {
     }
 
     private function onTab2Click():void {
-        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
         if (_activeTabType == TYPE_NEED_HELP) return;
         else {
             _shift = 0;
@@ -173,7 +173,7 @@ public class FriendPanel {
     }
 
     private function onTab3Click():void {
-        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
         if (_activeTabType == TYPE_NEIGHBOR) return;
         else {
             _shift = 0;
@@ -202,7 +202,7 @@ public class FriendPanel {
 
     private function inviteFriends():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         g.socialNetwork.showInviteWindow();
     }
 
@@ -531,7 +531,7 @@ public class FriendPanel {
 
     private function onLeftClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.finishLetGoToNeighbor();
         var newCount:int = 5;
         if (_shift - newCount < 0) newCount = _shift;
@@ -561,7 +561,7 @@ public class FriendPanel {
 
     private function onRightClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         var newCount:int = 5;
         if (_shift + newCount + 5 >= _arrFriends.length) newCount = _arrFriends.length - _shift - 5;
         var item:FriendItem;

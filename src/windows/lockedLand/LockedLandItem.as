@@ -3,26 +3,16 @@
  */
 package windows.lockedLand {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.WhiteBackgroundIn;
-import windows.WOComponents.WOButtonTexture;
 import windows.WindowsManager;
 
 public class LockedLandItem {

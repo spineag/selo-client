@@ -147,7 +147,7 @@ public class SoftHardCurrency {
     }
 
     private function onClickSoft():void {
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
             g.toolsModifier.cancelMove();
@@ -158,7 +158,7 @@ public class SoftHardCurrency {
 
     private function onClickHard():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
             g.toolsModifier.cancelMove();
             g.toolsModifier.modifierType = ToolsModifier.NONE;

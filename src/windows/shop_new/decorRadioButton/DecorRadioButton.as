@@ -1,7 +1,7 @@
 /**
  * Created by user on 10/17/16.
  */
-package windows.shop.decorRadioButton {
+package windows.shop_new.decorRadioButton {
 import com.junkbyte.console.Cc;
 
 import starling.display.Sprite;
@@ -18,7 +18,8 @@ public class DecorRadioButton {
         _items = [];
         _source = new Sprite();
         _parent = p;
-        _source.y = 153;
+        _source.x = 7;
+        _source.y = 156;
         _parent.addChild(_source);
         _updateCallback = f;
     }

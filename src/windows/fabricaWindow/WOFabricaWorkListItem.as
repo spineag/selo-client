@@ -28,7 +28,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
@@ -180,7 +180,7 @@ public class WOFabricaWorkListItem {
         }
         if (_type == BIG_CELL) {
             _btnSkip.visible = true;
-            if (g.tuts.isTutorial)  _txtSkip.text = String(0);  // no for new tuts
+            if (g.tuts.isTuts)  _txtSkip.text = String(0);  // no for new tuts
             else {
                 _txtSkip.text = String(g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard));
                 _priceSkip = g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard);
@@ -206,7 +206,7 @@ public class WOFabricaWorkListItem {
             }
             if (g.tuts) {
 //                removeArrow();
-                g.tuts.checkTutorialCallback();
+                g.tuts.checkTutsCallback();
             }
         };
         if (buy) {
@@ -291,8 +291,8 @@ public function destroyTimer():void {
             _txtTimer.text = '';
             _timerBlock.visible = false;
             _btnSkip.visible = false;
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
-                g.tuts.checkTutorialCallback();
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.FABRICA_SKIP_RECIPE) {
+                g.tuts.checkTutsCallback();
             }
             if (_timerFinishCallback != null) {
                 _timerFinishCallback.apply();
@@ -303,7 +303,7 @@ public function destroyTimer():void {
     }
 
     public function showBuyPropose(buyCount:int, callback:Function):void {
-        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
         if (_type == SMALL_CELL) {
             _source.visible = true;
             _txt.visible = false;
@@ -363,14 +363,14 @@ public function destroyTimer():void {
     }
 
     private function makeSkip():void {
-        if (g.tuts.isTutorial) {
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+        if (g.tuts.isTuts) {
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.FABRICA_SKIP_RECIPE) {
                 if (_skipCallback != null) {
                     destroyTimer();
                     _btnSkip.visible = false;
                     _skipCallback.apply();
                 }
-                g.tuts.checkTutorialCallback();
+                g.tuts.checkTutsCallback();
             }
             return;
         }
@@ -382,8 +382,8 @@ public function destroyTimer():void {
                 _btnSkip.visible = false;
                 _skipCallback.apply();
             }
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
-                g.tuts.checkTutorialCallback();
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.FABRICA_SKIP_RECIPE) {
+                g.tuts.checkTutsCallback();
             }
         } else {
             g.windowsManager.hideWindow(WindowsManager.WO_FABRICA);

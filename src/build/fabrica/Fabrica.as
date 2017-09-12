@@ -32,7 +32,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.textures.Texture;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import tutorial.helpers.HelperReason;
 import ui.xpPanel.XPStar;
 import windows.WindowsManager;
@@ -157,7 +157,7 @@ public class Fabrica extends WorldObject {
             g.hint.showIt(_dataBuild.name);
             return;
         }
-        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
+        if (g.tuts.isTuts && !g.tuts.isTutsBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _count = 20;
         if (_stateBuild == STATE_ACTIVE) {
@@ -178,7 +178,7 @@ public class Fabrica extends WorldObject {
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) {
                 buildingBuildFoundationOver();
-                if (g.tuts.isTutorial) return;
+                if (g.tuts.isTuts) return;
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
@@ -195,9 +195,9 @@ public class Fabrica extends WorldObject {
         }
         if (_source.filter) _source.filter.dispose();
         _source.filter = null;
-        if (g.tuts.isTutorial) {
-            if (g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) return;
-            if (!g.tuts.isTutorialBuilding(this)) return;
+        if (g.tuts.isTuts) {
+            if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) return;
+            if (!g.tuts.isTutsBuilding(this)) return;
         }
         if (g.isActiveMapEditor) return;
         _isOnHover = false;
@@ -215,14 +215,14 @@ public class Fabrica extends WorldObject {
     private function onClick():void {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) {
-            if (g.tuts.currentAction == TutorialAction.RAW_RECIPE && g.tuts.isTutorialBuilding(this)) {
-                g.tuts.checkTutorialCallback();
+        if (g.tuts.isTuts) {
+            if (g.tuts.action == TutsAction.RAW_RECIPE && g.tuts.isTutsBuilding(this)) {
+                g.tuts.checkTutsCallback();
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
-            } else if (g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION && g.tuts.isTutorialBuilding(this)) {
-            } else if (g.tuts.currentAction == TutorialAction.PUT_FABRICA && g.tuts.isTutorialResource(_dataBuild.id)) {
-            } else if (g.tuts.currentAction == TutorialAction.PUT_FABRICA && g.tuts.isTutorialBuilding(this)) {
-            } else if (g.tuts.currentAction == TutorialAction.FABRICA_CRAFT && g.tuts.isTutorialBuilding(this)) {
+            } else if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION && g.tuts.isTutsBuilding(this)) {
+            } else if (g.tuts.action == TutsAction.PUT_FABRICA && g.tuts.isTutsResource(_dataBuild.id)) {
+            } else if (g.tuts.action == TutsAction.PUT_FABRICA && g.tuts.isTutsBuilding(this)) {
+            } else if (g.tuts.action == TutsAction.FABRICA_CRAFT && g.tuts.isTutsBuilding(this)) {
             } else return;
         }
         if (g.isActiveMapEditor) return;
@@ -266,7 +266,7 @@ public class Fabrica extends WorldObject {
                     }
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
-                    if (!g.tuts.isTutorial) g.cont.moveCenterToXY(_source.x, _source.y);
+                    if (!g.tuts.isTuts) g.cont.moveCenterToXY(_source.x, _source.y);
                     onOut();
                     openFabricaWindow();
                 }
@@ -281,11 +281,11 @@ public class Fabrica extends WorldObject {
                 onOut();
                 g.townArea.moveBuild(this);
             } else {
-                if (g.tuts.isTutorial) {
-                    if (g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+                if (g.tuts.isTuts) {
+                    if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) {
                         g.timerHint.canHide = false;
                         g.timerHint.addArrow();
-                        g.tuts.checkTutorialCallback();
+                        g.tuts.checkTutsCallback();
                         g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
                                 _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                     } else return;
@@ -296,7 +296,7 @@ public class Fabrica extends WorldObject {
                 }
             }
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            if (g.tuts.isTutorial && g.tuts.currentAction != TutorialAction.PUT_FABRICA) return;
+            if (g.tuts.isTuts && g.tuts.action != TutsAction.PUT_FABRICA) return;
             _stateBuild = STATE_ACTIVE;
             g.managerAchievement.addAll(12,1);
             g.user.userBuildingData[_dataBuild.id].isOpen = 1;
@@ -311,8 +311,8 @@ public class Fabrica extends WorldObject {
             }
             showBoom();
             g.managerFabricaRecipe.onAddNewFabrica(this);
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.PUT_FABRICA && g.tuts.isTutorialBuilding(this)) {
-                g.tuts.checkTutorialCallback();
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.PUT_FABRICA && g.tuts.isTutsBuilding(this)) {
+                g.tuts.checkTutsCallback();
             }
             g.soundManager.playSound(SoundConst.OPEN_BUILD);
             g.managerQuest.onActionForTaskType(ManagerQuest.OPEN_BUILD, {id:_dataBuild.id});
@@ -320,14 +320,14 @@ public class Fabrica extends WorldObject {
     }
 
     public function onResize():void {
-        if (g.tuts.isTutorial) {
+        if (g.tuts.isTuts) {
             g.timerHint.canHide = true;
             g.timerHint.hideArrow();
             g.timerHint.hideIt(true);
 
             g.timerHint.canHide = false;
             g.timerHint.addArrow();
-            g.tuts.checkTutorialCallback();
+            g.tuts.checkTutsCallback();
             g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
                     _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
         }
@@ -553,11 +553,11 @@ public class Fabrica extends WorldObject {
         _leftBuildTime = 0;
         renderBuildProgress();
         onOut();
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) {
             g.timerHint.canHide = true;
             g.timerHint.hideArrow();
             g.timerHint.hideIt();
-            g.tuts.checkTutorialCallback();
+            g.tuts.checkTutsCallback();
         }
     }
 
@@ -612,7 +612,7 @@ public class Fabrica extends WorldObject {
         WorldClock.clock.remove(_armatureOpen);
         _source.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen = null;
-        if (!g.tuts.isTutorial) {
+        if (!g.tuts.isTuts) {
             g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
         }
     }

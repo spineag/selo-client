@@ -21,7 +21,7 @@ import starling.utils.Color;
 
 import utils.CTextField;
 import utils.SimpleArrow;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
@@ -90,7 +90,7 @@ public class WOBuyPlantItem {
             _txtNumber.text = String(_countPlants);
             _txtNumber.visible = true;
         } else _txtNumber.visible = false;
-        if (g.tuts && g.tuts.currentAction == TutorialAction.PLANT_RIDGE && g.tuts.isTutorialResource(_dataPlant.id)) addArrow();
+        if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE && g.tuts.isTutsResource(_dataPlant.id)) addArrow();
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PLANT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PLANT)
             && g.managerQuest.activeTask.resourceId == _dataPlant.id) addArrow(3);
     }
@@ -201,7 +201,7 @@ public class WOBuyPlantItem {
         if (g.managerCutScenes.isCutScene) return;
         if (!_dataPlant) return;
         if (_dataPlant.blockByLevel > g.user.level) return;
-        if (g.tuts.isTutorial && !g.tuts.isTutorialResource(_dataPlant.id)) return;
+        if (g.tuts.isTuts && !g.tuts.isTutsResource(_dataPlant.id)) return;
         g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         source.filter = null;
         g.resourceHint.hideIt();
@@ -224,7 +224,7 @@ public class WOBuyPlantItem {
         if (_isOnHover) return;
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
         source.filter = ManagerFilters.YELLOW_STROKE;
-//        if (g.tuts.isTutorial) return;
+//        if (g.tuts.isTuts) return;
         _isOnHover = true;
         g.resourceHint.hideIt();
         g.resourceHint.showIt(_dataPlant.id, source.x, 48, source, true);

@@ -10,6 +10,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.TextureAtlas;
 
+import utils.DrawToBitmap;
+
 public class WindowBackgroundNew extends Sprite {
     private var g:Vars = Vars.getInstance();
 
@@ -19,20 +21,21 @@ public class WindowBackgroundNew extends Sprite {
         if (w%2) w++;
         if (h%2) h++;
         if (hT%2) hT++;
+        var s:Sprite = new Sprite();
 
     // blue part
         //top left
         im = new Image(tex.getTexture('fs_blue_panel_corner_top'));
         im.x = -w/2 - 9;
         im.y = -h/2 - 8;
-        addChild(im);
+        s.addChild(im);
 
         // top right
         im = new Image(tex.getTexture('fs_blue_panel_corner_top'));
         im.scaleX = -1;
         im.x = w/2 + 9;
         im.y = -h/2 - 8;
-        addChild(im);
+        s.addChild(im);
 
         // top centre
         im = new Image(tex.getTexture('fs_blue_panel_top'));
@@ -41,7 +44,7 @@ public class WindowBackgroundNew extends Sprite {
         im.x = -w/2 + 23;
         im.y = -h/2 - 9;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
 
         // left centre
         im = new Image(tex.getTexture('fs_blue_panel_left'));
@@ -50,7 +53,7 @@ public class WindowBackgroundNew extends Sprite {
         im.x = -w/2 - 10;
         im.y = -h/2 + 25;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
 
         // right centre
         im = new Image(tex.getTexture('fs_blue_panel_left'));
@@ -60,7 +63,7 @@ public class WindowBackgroundNew extends Sprite {
         im.x = w/2 + 10;
         im.y = -h/2 + 25;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
 
         // center
         im = new Image(tex.getTexture('fs_blue_panel_center'));
@@ -71,21 +74,21 @@ public class WindowBackgroundNew extends Sprite {
         im.x = -w/2 + 10;
         im.y = -h/2 + 11;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
 
      // milk part
         // left bottom
         im = new Image(tex.getTexture('fs_white_panel_corner_bottom'));
         im.x = -w/2 - 9;
         im.y = h/2 - 26;
-        addChild(im);
+        s.addChild(im);
 
         // right bottom
         im = new Image(tex.getTexture('fs_white_panel_corner_bottom'));
         im.scaleX = -1;
         im.x = w/2 + 9;
         im.y = h/2 - 26;
-        addChild(im);
+        s.addChild(im);
 
         //bottom centre
         im = new Image(tex.getTexture('fs_white_panel_bottom'));
@@ -94,7 +97,7 @@ public class WindowBackgroundNew extends Sprite {
         im.x = -w/2 + 23;
         im.y = h/2 - 12;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
 
         // left centre
         im = new Image(tex.getTexture('fs_white_panel_left'));
@@ -103,7 +106,7 @@ public class WindowBackgroundNew extends Sprite {
         im.x = -w/2 - 10;
         im.y = -h/2 + hT;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
 
         // right centre
         im = new Image(tex.getTexture('fs_white_panel_left'));
@@ -113,7 +116,7 @@ public class WindowBackgroundNew extends Sprite {
         im.x = w/2 + 10;
         im.y = -h/2 + hT;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
 
         // center
         im = new Image(tex.getTexture('fs_white_panel_center'));
@@ -123,7 +126,17 @@ public class WindowBackgroundNew extends Sprite {
         im.x = -w/2 + 10;
         im.y = -h/2 + hT;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
+
+        var s2:Sprite = new Sprite();
+        s.x = w/2;
+        s.y = h/2;
+        s2.addChild(s);
+        im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(s2));
+        addChild(im);
+        im.x = -w/2;
+        im.y = -h/2;
+        s.dispose();
     }
 
     public function deleteIt():void {

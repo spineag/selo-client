@@ -21,6 +21,7 @@ public class WOSimpleButtonTexture  extends Sprite {
         var dX:int = 0;
         var dY:int = 0;
         var dW:int;
+        var s:Sprite = new Sprite();
 
         if (w%2) w++;
         switch (_type) {
@@ -48,6 +49,13 @@ public class WOSimpleButtonTexture  extends Sprite {
                 imLeft = 'shop_yellow_button_left';
                 imCenter = 'shop_yellow_button_center';
                 break;
+            case CButton.YELLOW:
+                h = 45; // !!!
+                imLeft = 'fs_yellow_button_left';
+                imCenter = 'fs_yellow_button_center';
+                dX = -5;
+                dY = -3;
+                break;
         }
 
         //left
@@ -55,14 +63,14 @@ public class WOSimpleButtonTexture  extends Sprite {
         im.x = dX;
         im.y = dY;
         dW = im.width + dX;
-        addChild(im);
+        s.addChild(im);
 
         //right
         im = new Image(tex.getTexture(imLeft));
         im.scaleX = -1;
         im.x = w - dX;
         im.y = dY;
-        addChild(im);
+        s.addChild(im);
 
         //center
         im = new Image(tex.getTexture(imCenter));
@@ -71,7 +79,11 @@ public class WOSimpleButtonTexture  extends Sprite {
         im.x = dW;
         im.y = dY;
         im.tileGrid = im.tileGrid;
-        addChildAt(im, 0);
+        s.addChildAt(im, 0);
+
+        im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(s));
+        addChild(im);
+        s.dispose();
     }
 
     public function deleteIt():void { dispose(); }

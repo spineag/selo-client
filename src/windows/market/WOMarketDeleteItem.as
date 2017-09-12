@@ -65,7 +65,7 @@ public class WOMarketDeleteItem extends WindowMain{
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         super.hideIt();
     }
 

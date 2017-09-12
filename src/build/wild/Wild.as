@@ -18,7 +18,7 @@ import quest.ManagerQuest;
 
 import starling.display.Image;
 
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 
 import ui.xpPanel.XPStar;
 import windows.WindowsManager;
@@ -80,7 +80,7 @@ public class Wild extends WorldObject{
         if (g.selectedBuild) return;
         super.onHover();
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
+        if (g.tuts.isTuts && !g.tuts.isTutsBuilding(this)) return;
         if (_curLockedLand && !g.isActiveMapEditor) return;
         if (_delete) return;
         if(_isOnHover) return;
@@ -90,7 +90,7 @@ public class Wild extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
-        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
+        if (g.tuts.isTuts && !g.tuts.isTutsBuilding(this)) return;
         if (_delete) return;
         _isOnHover = false;
 //            if (!_isOnHover) g.wildHint.hideIt();
@@ -102,9 +102,9 @@ public class Wild extends WorldObject{
 
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) {
-            if (g.tuts.currentAction != TutorialAction.REMOVE_WILD) return;
-            if (!g.tuts.isTutorialBuilding(this)) return;
+        if (g.tuts.isTuts) {
+            if (g.tuts.action != TutsAction.REMOVE_WILD) return;
+            if (!g.tuts.isTutsBuilding(this)) return;
         }
         if (_delete) return;
         if (g.selectedBuild) {
@@ -212,9 +212,9 @@ public class Wild extends WorldObject{
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
                 }
                 g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.REMOVE_WILD) {
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.REMOVE_WILD) {
                 g.wildHint.addArrow();
-                g.tuts.checkTutorialCallback();
+                g.tuts.checkTutsCallback();
             }
 //            }
         } else {

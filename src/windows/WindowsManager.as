@@ -4,9 +4,7 @@
 package windows {
 import com.junkbyte.console.Cc;
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import windows.achievementWindow.WOAchievement;
 import windows.ambar.WOAmbars;
 import windows.ambarFilled.WOAmbarFilled;
@@ -52,7 +50,6 @@ import windows.salePack.WOSalePack;
 import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
 import windows.serverNoWork.WOSeverNoWork;
-import windows.shop.WOShop;
 import windows.shop_new.WOShopNew;
 import windows.starterPackWindow.WOStarterPack;
 import windows.tipsWindow.WOTips;
@@ -95,7 +92,6 @@ public class WindowsManager {
     public static const WO_SERVER_ERROR:String = 'server_error';
     public static const WO_SERVER_CRACK:String = 'server_crack';
     public static const WO_ANOTHER_GAME_ERROR:String = 'another_game';
-    public static const WO_SHOP:String = 'shop';
     public static const WO_SHOP_NEW:String = 'shop_new';
     public static const WO_TRAIN:String = 'train';
     public static const WO_TRAIN_ORDER:String = 'train_order';
@@ -248,9 +244,6 @@ public class WindowsManager {
                 break;
             case WO_TRAIN_SEND:
                 wo = new WOTrainSend();
-                break;
-            case WO_SHOP:
-                wo = new WOShop();
                 break;
             case WO_SHOP_NEW:
                 wo = new WOShopNew();

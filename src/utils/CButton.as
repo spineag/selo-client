@@ -16,10 +16,14 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
+import starling.filters.ColorMatrixFilter;
+import starling.utils.Color;
+
 import windows.WOComponents.WOSimpleButtonTexture;
 
 public class CButton extends Sprite {
     public static const GREEN:int = 1;
+    public static const YELLOW:int = 2;
     public static const ORANGE:int = 3;
 
     private var _clickCallback:Function;
@@ -34,6 +38,9 @@ public class CButton extends Sprite {
     private var _isHover:Boolean;
     private var _isHoverAnimation:Boolean;
     private var _hoverImage:Image;
+    private var _colorBGFilter:ColorMatrixFilter;
+    private var _txt:CTextField;
+    private var _sensBlocks:Array;
     private var g:Vars = Vars.getInstance();
 
     public function CButton() {
@@ -42,6 +49,7 @@ public class CButton extends Sprite {
         _scale = 1;
         _bg = new Sprite();
         _isHover = false;
+        _sensBlocks = [];
         this.addChild(_bg);
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
@@ -51,6 +59,32 @@ public class CButton extends Sprite {
         _bg.addChild(t);
         if (setP) setPivots();
     }
+
+    public function addTextField(w:int, h:int, x:int = 0, y:int = 0, t:String=''):void {
+        _txt = new CTextField(w, h, t);
+        _txt.x = x;
+        _txt.y = y;
+        this.addChild(_txt);
+    }
+
+    public function addSensBlock(sb:SensibleBlock, x:int, y:int):void {
+        _sensBlocks.push(sb);
+        sb.x = x;
+        sb.y = y;
+        this.addChild(sb);
+    }
+
+    public function setTextFormat(font:String, size:int, color:int, stroke:int):void { if (_txt) _txt.setFormat(font,size,color,stroke); }
+    public function get txt():CTextField { return _txt; }
+    public function set text(st:String):void { if (_txt) _txt.text = st; }
+    public function set startClickCallback(f:Function):void { _startClickCallback = f; }
+    public function set clickCallback(f:Function):void { _clickCallback = f; }
+    public function set hoverCallback(f:Function):void { _hoverCallback = f; }
+    public function set outCallback(f:Function):void { _outCallback = f; }
+    public function set onMovedCallback(f:Function):void { _onMovedCallback = f; }
+    public function createHitArea(name:String):void { _hitArea = g.managerHitArea.getHitArea(this, name, ManagerHitArea.TYPE_CREATE); }
+    public function setPivots():void {  this.alignPivot(); }
+    public function addDisplayObject(d:DisplayObject):void { _bg.addChild(d); }
 
     private function onTouch(te:TouchEvent):void {
         te.stopPropagation();
@@ -71,10 +105,8 @@ public class CButton extends Sprite {
             if (_hitAreaState != 3) {
                 te.stopImmediatePropagation();
                 te.stopPropagation();
-                onBeganClickAnimation();
-                if (_startClickCallback != null) {
-                    _startClickCallback.apply();
-                }
+                onBeganClick_Filter();
+                if (_startClickCallback != null) _startClickCallback.apply();
                 Mouse.cursor = OwnMouse.CLICK_CURSOR;
             }
         } else if (te.getTouch(this, TouchPhase.ENDED)) {
@@ -82,7 +114,7 @@ public class CButton extends Sprite {
                 if (_clickCallback != null) {
                     te.stopImmediatePropagation();
                     te.stopPropagation();
-                    onEndClickAnimation();
+                    onEndClick_Filter();
                     _clickCallback.apply();
                 }
             }
@@ -91,37 +123,36 @@ public class CButton extends Sprite {
                 te.stopImmediatePropagation();
                 te.stopPropagation();
                 Mouse.cursor = OwnMouse.HOVER_CURSOR;
-                if (!_isHover && _hoverCallback != null) {
-                    _hoverCallback.apply();
-                }
-                onHoverAnimation();
+                if (!_isHover && _hoverCallback != null) _hoverCallback.apply();
+                onHover_Filter();
             } else {
                 Mouse.cursor = OwnMouse.USUAL_CURSOR;
-                if (!_isHover && _outCallback != null) {
-                    _outCallback.apply();
-                }
-                onOutAnimation();
+                onOut_Filter();
+                if (!_isHover && _outCallback != null)  _outCallback.apply();
             }
         } else {
             if (_hitAreaState != 2) {
                 Mouse.cursor = OwnMouse.USUAL_CURSOR;
-                onOutAnimation();
-                if (_outCallback != null) {
-                    _outCallback.apply();
-                }
+                onOut_Filter();
+                if (_outCallback != null) _outCallback.apply();
             }
         }
     }
 
-    public function set startClickCallback(f:Function):void { _startClickCallback = f; }
-    public function set clickCallback(f:Function):void { _clickCallback = f; }
-    public function set hoverCallback(f:Function):void { _hoverCallback = f; }
-    public function set outCallback(f:Function):void { _outCallback = f; }
-    public function set onMovedCallback(f:Function):void { _onMovedCallback = f; }
-    public function createHitArea(name:String):void { _hitArea = g.managerHitArea.getHitArea(this, name, ManagerHitArea.TYPE_CREATE); }
-    public function setPivots():void {  this.alignPivot(); }
-    public function addDisplayObject(d:DisplayObject):void { _bg.addChild(d); }
-    
+    public function set colorBGFilter(c:ColorMatrixFilter):void {
+        if (c) {
+            _colorBGFilter = c;
+            if (_bg.filter) _bg.filter = null;
+            _bg.filter = c;
+        } else {
+            if (_colorBGFilter) {
+                if (_bg.filter && _bg.filter == _colorBGFilter) _bg.filter = null;
+                _colorBGFilter.dispose();
+                _colorBGFilter = null;
+            }
+        }
+    }
+
     public function set isTouchable(value:Boolean):void {
         this.touchable = value;
         if (value) {
@@ -138,7 +169,9 @@ public class CButton extends Sprite {
         if (v) {
             if (this.filter) this.filter.dispose();
             this.filter = null;
+            if (_colorBGFilter) _bg.filter = _colorBGFilter;
         } else {
+            if (_bg.filter) _bg.filter = null;
             this.filter = ManagerFilters.getButtonDisableFilter();
         }
     }
@@ -146,6 +179,13 @@ public class CButton extends Sprite {
     public function deleteIt():void {
         finishHoverAnimation();
         filter = null;
+        if (_sensBlocks.length) {
+            for (var i:int=0; i<_sensBlocks.length; i++) {
+                this.removeChild(_sensBlocks[i]);
+                (_sensBlocks[i] as SensibleBlock).deleteIt();
+            }
+            _sensBlocks.length = 0;
+        }
         _hitArea = null;
         _bg.filter = null;
         if (this.hasEventListener(TouchEvent.TOUCH)) this.removeEventListener(TouchEvent.TOUCH, onTouch);
@@ -159,31 +199,35 @@ public class CButton extends Sprite {
         _startClickCallback = null;
     }
 
-    private function onBeganClickAnimation():void {
+    private function onBeganClick_Filter():void {
+        if (_bg.filter) _bg.filter = null;
         _bg.filter = ManagerFilters.getButtonClickFilter();
         this.scaleX = this.scaleY = _scale*.95;
     }
 
-    private function onEndClickAnimation():void {
+    private function onEndClick_Filter():void {
         g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         if (_bg.filter) _bg.filter.dispose();
         _bg.filter = null;
+        if (_colorBGFilter)  _bg.filter = _colorBGFilter;
         this.scaleX = this.scaleY = _scale;
     }
 
-    private function onHoverAnimation():void {
+    private function onHover_Filter():void {
         if (_isHover) return;
         _isHover = true;
         if (_hoverImage) _hoverImage.visible = false;
-        if(_bg) _bg.filter = ManagerFilters.getButtonHoverFilter();
+        if (_bg.filter) _bg.filter = null;
+        _bg.filter = ManagerFilters.getButtonHoverFilter();
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
     }
 
-    private function onOutAnimation():void {
+    private function onOut_Filter():void {
         _isHover = false;
         this.scaleX = this.scaleY = _scale;
         if (_bg.filter) _bg.filter.dispose();
         _bg.filter = null;
+        if (_colorBGFilter) _bg.filter = _colorBGFilter;
         if (_hoverImage) _hoverImage.visible = true;
     }
 

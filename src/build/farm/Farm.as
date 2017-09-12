@@ -3,38 +3,28 @@
  */
 package build.farm {
 import build.WorldObject;
-
 import com.greensock.TweenMax;
-import com.greensock.easing.Expo;
 import com.junkbyte.console.Cc;
-
 import data.StructureDataAnimal;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
-import mouse.ToolsModifier;
 import mouse.ToolsModifier;
 import particle.FarmFeedParticles;
-
 import quest.ManagerQuest;
-
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
-
 import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import ui.xpPanel.XPStar;
 import windows.WindowsManager;
-import windows.shop.WOShop;
+import windows.shop_new.WOShopNew;
 
 public class Farm extends WorldObject{
     private var _dataAnimal:StructureDataAnimal;
@@ -124,7 +114,7 @@ public class Farm extends WorldObject{
         if (g.selectedBuild) return;
         super.onHover();
         g.hint.showIt(_dataBuild.name);
-        if (g.tuts.isTutorial && !g.tuts.isTutorialBuilding(this)) return;
+        if (g.tuts.isTuts && !g.tuts.isTutsBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             for (var i:int = 0; i < _arrAnimals.length; i++) {
@@ -145,11 +135,11 @@ public class Farm extends WorldObject{
     }
 
     private function onClick():void {
-        if (g.tuts.isTutorial) {
-            if (g.tuts.currentAction == TutorialAction.ANIMAL_CRAFT) {
+        if (g.tuts.isTuts) {
+            if (g.tuts.action == TutsAction.ANIMAL_CRAFT) {
 
-            } else if (g.tuts.currentAction != TutorialAction.PUT_FARM) {
-                if (!g.tuts.isTutorialBuilding(this)) return;
+            } else if (g.tuts.action != TutsAction.PUT_FARM) {
+                if (!g.tuts.isTutsBuilding(this)) return;
             }
         }
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
@@ -184,11 +174,12 @@ public class Farm extends WorldObject{
                     checkForCraft();
                 }
             } else {
-                if (!isFull && !g.tuts.isTutorial && !g.isAway) {
+                if (!isFull && !g.tuts.isTuts && !g.isAway) {
                     g.user.decorShiftShop = 0;
                     g.user.decorShop = false;
                     g.user.animalIdArrow = _dataAnimal.id;
-                    g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
+                    g.user.shopTab = WOShopNew.ANIMAL;
+                    g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.ANIMAL);
                 }
             }
         } else {

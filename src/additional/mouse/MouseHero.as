@@ -117,7 +117,7 @@ public class MouseHero {
     }
 
     private function onClick():void {
-        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
         _source.endClickCallback = null;
         _source.isTouchable = false;
         _callbackOnAnimation = null;

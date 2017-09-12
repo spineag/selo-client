@@ -15,7 +15,7 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 
 import utils.CTextField;
 

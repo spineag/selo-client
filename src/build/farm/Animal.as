@@ -22,7 +22,7 @@ import quest.ManagerQuest;
 import resourceItem.RawItem;
 import starling.textures.Texture;
 import utils.SimpleArrow;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import utils.CSprite;
 import utils.Utils;
 
@@ -200,7 +200,7 @@ public class Animal {
             craftResource();
             _farm.readyAnimal();
             addRenderAnimation();
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_SKIP) {
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.ANIMAL_SKIP) {
                 if (_tutorialCallback != null) {
                     g.timerHint.hideArrow();
                     g.timerHint.hideIt(true);
@@ -272,7 +272,7 @@ public class Animal {
         g.managerCats.onStartFarm(_farm);
         onOut();
         g.userInventory.addResource(_data.idResourceRaw, -1);
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_FEED) {
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.ANIMAL_FEED) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }
@@ -283,7 +283,7 @@ public class Animal {
         if(_farm.isAnyCrafted) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
-            if (!g.tuts.isTutorial) {
+            if (!g.tuts.isTuts) {
                 g.managerAnimal.activeFeedAnimalId = _data.id;
                 if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) trace('kyky');
                 _wasStartActiveFeeding = true;
@@ -304,7 +304,7 @@ public class Animal {
             return;
         }
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial && _tutorialCallback == null) return;
+        if (g.tuts.isTuts && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         if(_farm.isAnyCrafted) return;
         if (_state == WORK) {
@@ -325,19 +325,19 @@ public class Animal {
                     _wasStartActiveFeeding = false;
                 }
             }
-            if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_SKIP) {
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.ANIMAL_SKIP) {
                 removeArrow();
                 g.mouseHint.hideIt();
                 g.timerHint.addArrow();
             }
         } else if (_state == HUNGRY) {
-            if (g.tuts.isTutorial)
+            if (g.tuts.isTuts)
                 feedAnimal(last);
         }
     }
 
     public function onResize():void {
-        if (g.tuts.isTutorial) {
+        if (g.tuts.isTuts) {
             g.timerHint.hideArrow();
             g.timerHint.hideIt(true);
             var p1:Point = new Point(0, _rect.y);
@@ -357,7 +357,7 @@ public class Animal {
             stopAnimation();
             idleAnimation();
         }
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ANIMAL_SKIP) {
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.ANIMAL_SKIP) {
             removeArrow();
             g.mouseHint.hideIt();
             g.timerHint.addArrow();
@@ -367,7 +367,7 @@ public class Animal {
     public function onHover():void {
         if (_isOnHover) return;
         if (g.isAway) return;
-        if (g.tuts.isTutorial && _tutorialCallback == null) return;
+        if (g.tuts.isTuts && _tutorialCallback == null) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         if (g.isActiveMapEditor) return;
         if (_farm.isAnyCrafted) return;
@@ -383,7 +383,7 @@ public class Animal {
     }
 
     public function onOut():void {
-        if (g.tuts.isTutorial && _tutorialCallback == null) return;
+        if (g.tuts.isTuts && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         g.hint.hideIt();
         if (source.filter) source.filter.dispose();

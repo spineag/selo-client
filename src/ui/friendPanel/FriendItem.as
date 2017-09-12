@@ -18,7 +18,7 @@ import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import tutorial.miniScenes.ManagerMiniScenes;
 
 import user.NeighborBot;
@@ -127,9 +127,9 @@ public class FriendItem {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.visitedUser && g.visitedUser == _person) return;
         if (g.managerCutScenes.isCutScene) return;
-        if (g.tuts.isTutorial) {
-            if (g.tuts.currentAction == TutorialAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
-                g.tuts.checkTutorialCallback();
+        if (g.tuts.isTuts) {
+            if (g.tuts.action == TutsAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
+                g.tuts.checkTutsCallback();
             } else {
                 return;
             }

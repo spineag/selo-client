@@ -90,7 +90,7 @@ public class BuildMoveGrid {
         if (!_townMatrix[posX] || !_townMatrix[posX][posY]) return false;
         var obj:Object = _townMatrix[posX][posY];
         if (!obj) return false;
-//        if (g.tuts.isTutorial) {
+//        if (g.tuts.isTuts) {
 //            if (obj.isTutorialBuilding) {
 //                return true;
 //            } else {

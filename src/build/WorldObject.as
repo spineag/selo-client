@@ -24,7 +24,7 @@ import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.utils.Color;
 import utils.SimpleArrow;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import utils.IsoUtils;
 import utils.Point3D;
 import windows.WindowsManager;
@@ -417,11 +417,11 @@ public class WorldObject {
             clearBuildingBuildSprite();
             addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
-            if (g.tuts.isTutorial && _dataBuild.buildType == BuildType.FABRICA && g.tuts.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) {
+            if (g.tuts.isTuts && _dataBuild.buildType == BuildType.FABRICA && g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) {
                 g.timerHint.canHide = true;
                 g.timerHint.hideArrow();
                 g.timerHint.hideIt(true);
-                g.tuts.checkTutorialCallback();
+                g.tuts.checkTutsCallback();
             }
         }
     }

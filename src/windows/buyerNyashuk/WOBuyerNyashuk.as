@@ -14,7 +14,7 @@ import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
 
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 
 import ui.xpPanel.XPStar;
 import utils.CButton;
@@ -32,7 +32,7 @@ public class WOBuyerNyashuk extends WindowMain{
     private var _arrCTex:Array;
 
     public function WOBuyerNyashuk() {
-        _windowType = WindowsManager.WO_SHOP;
+        _windowType = WindowsManager.WO_BUYER_NYASHUK;
         _woWidth = 550;
         _woHeight = 400;
         _arrCTex = [];
@@ -182,7 +182,7 @@ public class WOBuyerNyashuk extends WindowMain{
     private function onClickBuy(noResource:Boolean = false):void {
         var ob:Object = {};
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
-            if (g.tuts.isTutorial) {
+            if (g.tuts.isTuts) {
                 ob.data = g.allData.getResourceById(_data.resourceId);
                 ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
                 ob.dataNyashuk = _data;
@@ -221,7 +221,7 @@ public class WOBuyerNyashuk extends WindowMain{
     }
 
     override protected function deleteIt():void {
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.NYASHIK) g.tuts.checkTutorialCallback();
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.NYASHIK) g.tuts.checkTutsCallback();
         _data = null;
         _nyashuk = null;
         for (var i:int = 0; i <_arrCTex.length; i++) {

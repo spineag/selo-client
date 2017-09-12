@@ -28,7 +28,7 @@ import starling.events.Event;
 import starling.utils.Color;
 import utils.CTextField;
 import utils.SimpleArrow;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import tutorial.TutorialTextBubble;
 import ui.xpPanel.XPStar;
 import utils.CButton;
@@ -139,14 +139,14 @@ public class WOOrder extends WindowMain{
         _waitForAnswer = false;
 //        changeCatTexture(i);
         startAnimationCats();
-        if (g.user.level == 4 && !g.tuts.isTutorial) {
+        if (g.user.level == 4 && !g.tuts.isTuts) {
             if (g.managerOrder.checkIsAnyFullOrder()) showBtnSellArrow();
         }
         super.showIt();
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         g.managerMiniScenes.onHideOrder();
         hideIt();
     }
@@ -283,7 +283,7 @@ public class WOOrder extends WindowMain{
 
     private function sellOrder(b:Boolean = false, or:OrderItemStructure = null):void {
         if (_waitForAnswer) return;
-        if (g.tuts.isTutorial && g.tuts.currentAction != TutorialAction.ORDER) return;
+        if (g.tuts.isTuts && g.tuts.action != TutsAction.ORDER) return;
         var i:int;
         if (!b) {
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
@@ -378,8 +378,8 @@ public class WOOrder extends WindowMain{
         animateCatsOnSell();
         g.managerOrder.cancelAnimateSmallHero();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
-        if (g.tuts.isTutorial && g.tuts.currentAction == TutorialAction.ORDER) {
-            g.tuts.checkTutorialCallback();
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.ORDER) {
+            g.tuts.checkTutsCallback();
         } else g.managerMiniScenes.onBuyOrder();
         g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
     }
@@ -460,7 +460,7 @@ public class WOOrder extends WindowMain{
                 _btnSkipDelete.visible = false;
             } else {
                 stopCatsAnimations();
-            if (!g.tuts.isTutorial) emptyCarCustomer();
+            if (!g.tuts.isTuts) emptyCarCustomer();
                 _txtOrder.text = String(g.managerLanguage.allTexts[369]);
             }
 
@@ -503,7 +503,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function deleteOrder():void {
-        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
         if (_activeOrderItem) {
             g.hint.hideIt();
             _rightBlock.visible = false;
@@ -574,7 +574,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function skipDelete():void {
-        if (g.tuts.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
         var n:int = ManagerOrder.COST_SKIP_WAIT;
         if (g.user.hardCurrency < n) {
             isCashed = false;
@@ -814,8 +814,8 @@ public class WOOrder extends WindowMain{
     }
 
     private function changeCatTexture(pos:int):void {
-        if (g.tuts.isTutorial) {
-            if (g.tuts.currentAction != TutorialAction.ORDER) return;
+        if (g.tuts.isTuts) {
+            if (g.tuts.action != TutsAction.ORDER) return;
         }
         var st:String;
         if (!_arrOrders[pos-1] || !_arrOrders[pos-1].cat) return;

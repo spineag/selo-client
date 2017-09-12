@@ -3131,7 +3131,7 @@ public class DirectServer {
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else if (d.id == 14 && !g.tuts.isTutorial) {
+        } else if (d.id == 14 && !g.tuts.isTuts) {
             Cc.error('getUserMarketItem d.id=14 :: unknown socialId: ' + socialId);
             g.windowsManager.closeAllWindows();
         } else {

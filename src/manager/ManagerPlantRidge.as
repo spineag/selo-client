@@ -77,7 +77,7 @@ public class ManagerPlantRidge {
     }
 
     public function onStartActivePlanting(isStart:Boolean):void {
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         if (isStart) g.gameDispatcher.addEnterFrame(checkForPlanting);
         else g.gameDispatcher.removeEnterFrame(checkForPlanting);
         g.cont.deleteDragPoint();
@@ -85,7 +85,7 @@ public class ManagerPlantRidge {
     }
 
     private function checkForPlanting():void {
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         _tempPoint.x = g.ownMouse.mouseX;
         _tempPoint.y = g.ownMouse.mouseY;
         _tempPoint = g.cont.contentCont.globalToLocal(_tempPoint);
@@ -100,7 +100,7 @@ public class ManagerPlantRidge {
     }
 
     public function onStartCraftPlanting(isStart:Boolean):void {
-        if (g.tuts.isTutorial) return;
+        if (g.tuts.isTuts) return;
         g.cont.contentCont.releaseContDrag = !isStart;
         g.cont.tailCont.releaseContDrag = !isStart;
         g.cont.deleteDragPoint();

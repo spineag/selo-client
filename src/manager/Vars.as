@@ -282,7 +282,7 @@ public class Vars {
         managerCats.addAllHeroCats();
         managerSalePack = new ManagerSalePack();
         startPreloader.setProgress(81);
-        if (tuts.isTutorial) {
+        if (tuts.isTuts) {
             loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
         } else {
 //            if ((user as User).level == 3) {
@@ -421,7 +421,7 @@ public class Vars {
     }
 
     private function afterLoadAll_4():void {
-        if (tuts.isTutorial) {
+        if (tuts.isTuts) {
             if ((user as User).tutorialStep > 1) {
                 startPreloader.hideIt();
                 startPreloader = null;

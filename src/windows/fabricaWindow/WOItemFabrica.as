@@ -17,7 +17,7 @@ import quest.ManagerQuest;
 
 import starling.display.Image;
 import utils.SimpleArrow;
-import tutorial.TutorialAction;
+import tutorial.TutsAction;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
@@ -72,7 +72,7 @@ public class WOItemFabrica {
             Cc.error("Warning woItemFabrica filldata:: _dataRecipe.blockByLevel > g.user.level + 1");
         }
         fillIcon(g.allData.getResourceById(_dataRecipe.idResource).imageShop);
-        if (g.tuts && g.tuts.currentAction == TutorialAction.RAW_RECIPE && g.tuts.isTutorialResource(_dataRecipe.id)) {
+        if (g.tuts && g.tuts.action == TutsAction.RAW_RECIPE && g.tuts.isTutsResource(_dataRecipe.id)) {
             addArrow();
         }
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PRODUCT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PRODUCT )
@@ -169,7 +169,7 @@ public class WOItemFabrica {
     }
 
     private function onClick():void {
-        if (g.tuts.isTutorial && g.tuts.currentAction != TutorialAction.RAW_RECIPE) return;
+        if (g.tuts.isTuts && g.tuts.action != TutsAction.RAW_RECIPE) return;
         if (!_dataRecipe) return;
         if (_dataRecipe.blockByLevel > g.user.level) return;
 
@@ -180,7 +180,7 @@ public class WOItemFabrica {
         }
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
-        if (g.tuts && g.tuts.currentAction == TutorialAction.RAW_RECIPE && g.tuts.isTutorialResource(_dataRecipe.id)) {
+        if (g.tuts && g.tuts.action == TutsAction.RAW_RECIPE && g.tuts.isTutsResource(_dataRecipe.id)) {
             removeArrow();
             g.tuts.currentActionNone();
 //            g.tuts.checkTutorialCallback();
@@ -193,7 +193,7 @@ public class WOItemFabrica {
         _isOnHover = true;
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
         source.filter = ManagerFilters.YELLOW_STROKE;
-//        if (g.tuts.isTutorial) return;
+//        if (g.tuts.isTuts) return;
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
         if (_dataRecipe.blockByLevel > g.user.level) g.resourceHint.showIt(_dataRecipe.id,source.x,source.y,source,false,true);
