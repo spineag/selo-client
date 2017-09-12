@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/resources/resourceAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/resources/resourceAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -291,6 +291,11 @@
             <filename>part_products/wool_icon.png</filename>
             <filename>part_plants</filename>
             <filename>product_particle.png</filename>
+            <filename>part_products/carrot_pie_icon.png</filename>
+            <filename>part_products/cherry_jam_icon.png</filename>
+            <filename>part_products/cherry_juice_icon.png</filename>
+            <filename>part_products/bacon_pie.png</filename>
+            <filename>part_products/goat_feed_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
