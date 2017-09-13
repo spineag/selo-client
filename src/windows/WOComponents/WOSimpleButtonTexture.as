@@ -26,7 +26,11 @@ public class WOSimpleButtonTexture  extends Sprite {
         if (w%2) w++;
         switch (_type) {
             case CButton.GREEN:
-                if (h < 41) {
+                if (h < 38) {
+                    h = 35; // !!!
+                    imLeft = 'green_button_left_part';
+                    imCenter = 'green_button_center_part';
+                } else if (h < 41) {
                     h = 40; // !!!
                     imLeft = 'fs_green_button_big_left';
                     imCenter = 'fs_green_button_big_center';

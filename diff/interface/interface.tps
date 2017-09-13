@@ -309,15 +309,8 @@
             <filename>rubins_small.png</filename>
             <filename>rubins.png</filename>
             <filename>sale_icon.png</filename>
-            <filename>sale.png</filename>
             <filename>server_clock</filename>
             <filename>shop</filename>
-            <filename>shop_window_animals.png</filename>
-            <filename>shop_window_court.png</filename>
-            <filename>shop_window_decor.png</filename>
-            <filename>shop_window_fabric.png</filename>
-            <filename>shop_window_limit.png</filename>
-            <filename>shop_window_plants.png</filename>
             <filename>shop_window_tr.png</filename>
             <filename>star_medium.png</filename>
             <filename>star_particle.png</filename>
@@ -343,9 +336,9 @@
             <filename>checkbox.png</filename>
             <filename>best_price_eng.png</filename>
             <filename>top_eng.png</filename>
-            <filename>buttons_new</filename>
             <filename>baloon_4.png</filename>
             <filename>new_window</filename>
+            <filename>sale.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
