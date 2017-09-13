@@ -130,12 +130,51 @@ public class ShopNewListItem {
             if (!texture) Cc.error('ShopItem:: no such texture: ' + _data.url + ' for _data.id ' + _data.id);
             else {
                 _im = new Image(texture);
-                MCScaler.scale(_im, 110, 110);
-                _im.alignPivot();
-                _im.x = 82;
-                _im.y = 105;
-                _im.touchable = false;
+                if (_data.buildType == BuildType.RIDGE || _data.buildType == BuildType.FARM) {
+                    if (_data.buildType == BuildType.RIDGE) {
+                        _im.alignPivot();
+                        _im.x = 81;
+                        _im.y = 115;
+                        _im.touchable = false;
+                    } else {
+                        _im.alignPivot();
+                        _im.x = 81;
+                        _im.y = 110;
+                        _im.touchable = false;
+                    }
+                } else if (_data.buildType == BuildType.ANIMAL) {
+                    _im.alignPivot();
+                    _im.x = 82;
+                    _im.y = 115;
+                    _im.touchable = false;
+
+                } else if (_data.buildType == BuildType.FABRICA) {
+                    _im = new Image(texture);
+                    MCScaler.scale(_im, 135, 135);
+                    _im.alignPivot();
+                    _im.x = 82;
+                    _im.y = 110;
+                    _im.touchable = false;
+
+                } else if(_data.buildType == BuildType.TREE) {
+                    _im = new Image(texture);
+                    MCScaler.scale(_im, 130, 130);
+                    _im.alignPivot();
+                    _im.x = 82;
+                    _im.y = 115;
+                    _im.touchable = false;
+
+                } else {
+                    _im = new Image(texture);
+                    MCScaler.scale(_im, 125, 125);
+                    _im.alignPivot();
+                    _im.x = 82;
+                    _im.y = 113;
+                    _im.touchable = false;
+
+                }
                 _source.addChild(_im);
+
             }
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
@@ -400,7 +439,7 @@ public class ShopNewListItem {
                 t.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
-                _btn.addSensBlock(sens,0,20);
+                _btn.addSensBlock(sens,10,20);
             } else if (_data.currency[0] == DataMoney.HARD_CURRENCY) {
                 _btn.addButtonTexture(152, 40, CButton.GREEN, true);
                 _btn.y = 195;
@@ -411,7 +450,7 @@ public class ShopNewListItem {
                 t.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
-                _btn.addSensBlock(sens,0,20);
+                _btn.addSensBlock(sens,10,20);
             } else {
                 _btn.addButtonTexture(152, 40, CButton.GREEN, true);
                 _btn.y = 195;
