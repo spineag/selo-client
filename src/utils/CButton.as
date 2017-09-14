@@ -23,8 +23,13 @@ import windows.WOComponents.WOSimpleButtonTexture;
 
 public class CButton extends Sprite {
     public static const GREEN:int = 1;
-    public static const YELLOW:int = 2;
-    public static const ORANGE:int = 3;
+    public static const ORANGE:int = 2;
+    public static const RED:int = 3;
+    public static const YELLOW:int = 4;
+
+    public static const BIG_HEIGHT:int = 55;
+    public static const MEDIUM_HEIGHT:int = 41;
+    public static const SMALL_HEIGHT:int = 32;
 
     private var _clickCallback:Function;
     private var _hoverCallback:Function;

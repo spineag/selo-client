@@ -57,11 +57,13 @@ public class ShopNewListItem {
     private var _arrow:SimpleArrow;
     private var _wo:WOShopNew;
     private var _isThisItemBlocked:Boolean;
+    private var _blackPlawka:Image;
 
     public function ShopNewListItem(obj:Object, pg:int, np:int, w:WOShopNew) { // 160x216
         _wo = w;
         _data = obj;
         _pageNumber = pg;
+        
         _numberOnPage = np;
         _source = new CSprite();
         _source.endClickCallback = onClick;
@@ -71,6 +73,11 @@ public class ShopNewListItem {
         _bg.x = -6;
         _bg.y = -7;
         _source.addChild(_bg);
+        _blackPlawka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_at_limit'));
+        _blackPlawka.x = 1;
+        _blackPlawka.y = 179;
+        _source.addChild(_blackPlawka);
+        _blackPlawka.visible = false;
 
         _txtName = new CTextField(160, 50, '');
         _txtName.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -78,11 +85,11 @@ public class ShopNewListItem {
         _txtCount = new CTextField(54, 24, '');
         _txtCount.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txtCount.alignH = HorizontalAlign.RIGHT;
-        _txtCount.x = 94;
-        _txtCount.y = 146;
+        _txtCount.x = 91;
+        _txtCount.y = 150;
         _source.addChild(_txtCount);
         _txtInfo = new CTextField(150, 32, '');
-        _txtInfo.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtInfo.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
         _txtInfo.x = 5;
         _txtInfo.y = 180;
         _source.addChild(_txtInfo);
@@ -130,51 +137,10 @@ public class ShopNewListItem {
             if (!texture) Cc.error('ShopItem:: no such texture: ' + _data.url + ' for _data.id ' + _data.id);
             else {
                 _im = new Image(texture);
-                if (_data.buildType == BuildType.RIDGE || _data.buildType == BuildType.FARM) {
-                    if (_data.buildType == BuildType.RIDGE) {
-                        _im.alignPivot();
-                        _im.x = 81;
-                        _im.y = 115;
-                        _im.touchable = false;
-                    } else {
-                        _im.alignPivot();
-                        _im.x = 81;
-                        _im.y = 110;
-                        _im.touchable = false;
-                    }
-                } else if (_data.buildType == BuildType.ANIMAL) {
-                    _im.alignPivot();
-                    _im.x = 82;
-                    _im.y = 115;
-                    _im.touchable = false;
-
-                } else if (_data.buildType == BuildType.FABRICA) {
-                    _im = new Image(texture);
-                    MCScaler.scale(_im, 135, 135);
-                    _im.alignPivot();
-                    _im.x = 82;
-                    _im.y = 110;
-                    _im.touchable = false;
-
-                } else if(_data.buildType == BuildType.TREE) {
-                    _im = new Image(texture);
-                    MCScaler.scale(_im, 130, 130);
-                    _im.alignPivot();
-                    _im.x = 82;
-                    _im.y = 115;
-                    _im.touchable = false;
-
-                } else {
-                    _im = new Image(texture);
-                    MCScaler.scale(_im, 125, 125);
-                    _im.alignPivot();
-                    _im.x = 82;
-                    _im.y = 113;
-                    _im.touchable = false;
-
-                }
+                _im.alignPivot();
+                _im.x = 82;
+                _im.touchable = false;
                 _source.addChild(_im);
-
             }
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
@@ -210,6 +176,10 @@ public class ShopNewListItem {
 
         if (!_data) return;
         if (_data.buildType == BuildType.FABRICA ) {
+            if (_im) {
+                MCScaler.scale(_im, 130, 130);
+                _im.y = 115;
+            }
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                 if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -227,6 +197,7 @@ public class ShopNewListItem {
                     _txtInfo.text = g.managerLanguage.allTexts[340];
                     if (_im)_im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
+                    _blackPlawka.visible = true;
                     _txtCount.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                     _isThisItemBlocked = true;
                 } else if (arr.length >= maxCountAtCurrentLevel) {
@@ -234,6 +205,7 @@ public class ShopNewListItem {
                     _txtCount.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
                     if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
+                    _blackPlawka.visible = true;
                     _isThisItemBlocked = true;
                 } else {
                     _txtCount.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
@@ -242,10 +214,15 @@ public class ShopNewListItem {
                 }
             }
         } else if (_data.buildType == BuildType.FARM) {
+            if (_im) {
+                MCScaler.scale(_im, 135, 135);
+                _im.y = 113;
+            }
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                 if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                 _bg.filter = ManagerFilters.getButtonDisableFilter();
+                _blackPlawka.visible = true;
                 _isThisItemBlocked = true;
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
@@ -258,6 +235,7 @@ public class ShopNewListItem {
                     _isThisItemBlocked = true;
                     if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
+                    _blackPlawka.visible = true;
                     if (g.user.level < _data.blockByLevel[arr.length]) _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[arr.length])));
                     else _txtCount.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else {
@@ -269,6 +247,10 @@ public class ShopNewListItem {
         } else if (_data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR ||  _data.buildType == BuildType.DECOR_FULL_FENСE
                 || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_ARKA
                 || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) {
+            if (_im) {
+                MCScaler.scale(_im, 125, 125);
+                _im.y = 113;
+            }
             var decorMax:int = 0;
             if (_data.blockByLevel) {
                 if ( _data.buildType == BuildType.DECOR_ANIMATION) createHand();
@@ -280,6 +262,7 @@ public class ShopNewListItem {
                     _txtInfo.text =  String(str.replace(myPattern, String(_data.blockByLevel[0])));
                     if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
+                    _blackPlawka.visible = true;
                     _isThisItemBlocked = true;
                     if (_hand) _hand.filter = ManagerFilters.getButtonDisableFilter();
                 } else {
@@ -300,12 +283,17 @@ public class ShopNewListItem {
                 }
             }
         } else if (_data.buildType == BuildType.ANIMAL) {
+            if (_im) {
+                MCScaler.scale(_im, 135, 135);
+                _im.y = 115;
+            }
             var dataFarm:Object = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(_data.buildId));
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
                     _txtInfo.text = String(str.replace(myPattern, String(dataFarm.blockByLevel[0])));
                     if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
+                    _blackPlawka.visible = true;
                     _isThisItemBlocked = true;
                 } else {
                     arr = g.townArea.getCityObjectsById(dataFarm.id);
@@ -319,6 +307,7 @@ public class ShopNewListItem {
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
                             if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                             _bg.filter = ManagerFilters.getButtonDisableFilter();
+                            _blackPlawka.visible = true;
                             _txtCount.text = String(maxCount) + '/' + String(maxCount);
                             _costCount = 0;
                             _isThisItemBlocked = true;
@@ -326,6 +315,7 @@ public class ShopNewListItem {
                             _txtInfo.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
                             if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                             _bg.filter = ManagerFilters.getButtonDisableFilter();
+                            _blackPlawka.visible = true;
                             if (g.user.isTester) _txtName.text = String(_data.id) +':'+ String(_data.name);
                                 else _txtName.text = String(_data.name);
                             _isThisItemBlocked = true;
@@ -339,10 +329,15 @@ public class ShopNewListItem {
                 }
             }
         } else if (_data.buildType == BuildType.TREE) {
+            if (_im) {
+                MCScaler.scale(_im, 130, 130);
+                _im.y = 115;
+            }
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                 if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                 _bg.filter = ManagerFilters.getButtonDisableFilter();
+                _blackPlawka.visible = true;
                 _isThisItemBlocked = true;
             } else {
                 arr = g.townArea.getCityTreeById(_data.id, true);
@@ -357,6 +352,7 @@ public class ShopNewListItem {
                     if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
+                    _blackPlawka.visible = true;
                     _isThisItemBlocked = true;
                 } else {
                     _txtCount.text = String(curCount) + '/' + String(maxCount);
@@ -365,6 +361,10 @@ public class ShopNewListItem {
                 }
             }
         } else if (_data.buildType == BuildType.RIDGE) {
+            if (_im) {
+                MCScaler.scale(_im, 135, 135);
+                _im.y = 115;
+            }
             if (_data.blockByLevel) {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 curCount = arr.length;
@@ -378,6 +378,7 @@ public class ShopNewListItem {
                     _txtInfo.text = g.managerLanguage.allTexts[340];
                     if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
+                    _blackPlawka.visible = true;
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
                     _isThisItemBlocked = true;
                 } else {
@@ -421,75 +422,70 @@ public class ShopNewListItem {
         }
         _btn = new CButton();
         if (_isFromInventory) {
-            _btn.addButtonTexture(152, 35, CButton.ORANGE, true);
-            _btn.y = 198;
-            _btn.addTextField(152, 33, 0, 0, String(g.managerLanguage.allTexts[344]) + ': ' + String(g.userInventory.decorInventory[_data.id].count));
+            _btn.addButtonTexture(152, CButton.MEDIUM_HEIGHT, CButton.ORANGE, true);
+            _btn.addTextField(152, 39, 0, 0, String(g.managerLanguage.allTexts[344]) + ': ' + String(g.userInventory.decorInventory[_data.id].count));
             _btn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
         } else {
             var im:Image;
             var t:CTextField;
             var sens:SensibleBlock;
             if (!_data.currency || _data.currency[0] == DataMoney.SOFT_CURRENCY) {
-                _btn.addButtonTexture(152, 40, CButton.GREEN, true);
-                _btn.y = 195;
+                _btn.addButtonTexture(152, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
                 im.alignPivot();
-                MCScaler.scale(im, 30, 30);
-                t = new CTextField(90, 33, String(_costCount));
-                t.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                MCScaler.scale(im, 25, 25);
+                t = new CTextField(90, 39, String(_costCount));
+                t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
-                _btn.addSensBlock(sens,10,20);
+                _btn.addSensBlock(sens,0,18);
             } else if (_data.currency[0] == DataMoney.HARD_CURRENCY) {
-                _btn.addButtonTexture(152, 40, CButton.GREEN, true);
-                _btn.y = 195;
+                _btn.addButtonTexture(152, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
                 im.alignPivot();
-                MCScaler.scale(im, 30, 30);
-                t = new CTextField(90, 33, String(_costCount));
-                t.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                MCScaler.scale(im, 25, 25);
+                t = new CTextField(90, 39, String(_costCount));
+                t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
-                _btn.addSensBlock(sens,10,20);
+                _btn.addSensBlock(sens,0,18);
             } else {
-                _btn.addButtonTexture(152, 40, CButton.GREEN, true);
-                _btn.y = 195;
+                _btn.addButtonTexture(152, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
                 if (_data.currency.length == 1) {
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 152);
-                    _btn.addSensBlock(sens,0,20);
+                    _btn.addSensBlock(sens,0,19);
                 } else if (_data.currency.length == 2) {
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 76);
-                    _btn.addSensBlock(sens,0,20);
+                    _btn.addSensBlock(sens,0,19);
                     sens = createSensBlockForCoupone(_data.currency[1], _data.cost[1], 76);
-                    _btn.addSensBlock(sens,76,20);
+                    _btn.addSensBlock(sens,70,19);
                 } else {
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 70);
-                    _btn.addSensBlock(sens,5,20);
+                    _btn.addSensBlock(sens,5,18);
                     sens = createSensBlockForCoupone(_data.currency[1], _data.cost[1], 70);
-                    _btn.addSensBlock(sens,70,20);
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-                    MCScaler.scale(im, 14, 14);
-                    im.x = 136;
-                    im.y = 13;
+                    _btn.addSensBlock(sens,65,18);
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_more'));
+                    im.x = 132;
+                    im.y = 5;
                     _btn.addChild(im);
                     _additionalCoupones = new Sprite();
-                    _additionalCoupones.addChild(new WOSimpleButtonTexture(152, 53, CButton.GREEN));
+                    _additionalCoupones.addChild(new WOSimpleButtonTexture(152, CButton.BIG_HEIGHT, CButton.GREEN));
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 76);
                     sens.x = 5;
-                    sens.y = 20;
+                    sens.y = 16;
                     _additionalCoupones.addChild(sens);
                     sens = createSensBlockForCoupone(_data.currency[1], _data.cost[1], 76);
-                    sens.x = 81;
-                    sens.y = 20;
+                    sens.x = 74;
+                    sens.y = 16;
                     _additionalCoupones.addChild(sens);
                     sens = createSensBlockForCoupone(_data.currency[2], _data.cost[2], 76);
                     sens.x = 5;
-                    sens.y = 47;
+                    sens.y = 43;
                     _additionalCoupones.addChild(sens);
                     if (_data.currency.length == 4) {
                         sens = createSensBlockForCoupone(_data.currency[3], _data.cost[3], 76);
-                        sens.y = 47;
-                        sens.x = 81;
+                        sens.y = 43;
+                        sens.x = 74;
                         _additionalCoupones.addChild(sens);
                     }
                     _btn.addChild(_additionalCoupones);
@@ -500,7 +496,8 @@ public class ShopNewListItem {
                 }
             }
         }
-        _btn.x = 86;
+        _btn.x = 81;
+        _btn.y = 195;
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
     }
@@ -514,7 +511,7 @@ public class ShopNewListItem {
             case DataMoney.GREEN_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone')); break;
         }
         im.alignPivot();
-        MCScaler.scale(im, 26, 26);
+        MCScaler.scale(im, 25, 25);
         var t:CTextField = new CTextField(90, 33, String(cost));
         t.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
         var sens:SensibleBlock = new SensibleBlock();

@@ -19,7 +19,7 @@ public class DecorRadioButton {
         _source = new Sprite();
         _parent = p;
         _source.x = 7;
-        _source.y = 156;
+        _source.y = 162;
         _parent.addChild(_source);
         _updateCallback = f;
     }

@@ -21,11 +21,14 @@ public class DecorShopNewFilter {
     private var _bg:WhiteBackgroundIn;
     private var _arrBtns:Array;
     private var _activeBtn:FilterButtonItem;
+    private var _isBigShop:Boolean;
 
-    public function DecorShopNewFilter(w:WOShopNew) {
+    public function DecorShopNewFilter(w:WOShopNew, isBigShop:Boolean) {
+        _isBigShop = isBigShop;
         _wo = w;
         _source = new Sprite();
-        _bg = new WhiteBackgroundIn(160, 450);
+        if (_isBigShop) _bg = new WhiteBackgroundIn(160, 450);
+        else _bg = new WhiteBackgroundIn(160, 300);
         _source.addChild(_bg);
         _arrBtns = [];
         createBtns();
@@ -38,9 +41,10 @@ public class DecorShopNewFilter {
         if (g.managerParty.filterOn && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level) arr.insertAt(0, FILTER_HOLIDAY);
         var item:FilterButtonItem;
         for (var i:int=0; i<arr.length; i++) {
-            item = new FilterButtonItem(arr[i], onClick);
-            item.btnSource.x = 84;
-            item.btnSource.y = 45 + 60*i;
+            item = new FilterButtonItem(arr[i], onClick, _isBigShop);
+            item.btnSource.x = 81;
+            if (_isBigShop) item.btnSource.y = 40 + 55*i;
+                else item.btnSource.y = 35 + 46*i;
             _source.addChild(item.btnSource);
             if (arr[i] == g.user.shopDecorFilter) {
                 item.setActive(true);
@@ -48,7 +52,6 @@ public class DecorShopNewFilter {
             } else item.setActive(false);
             _arrBtns.push(item);
         }
-
     }
     
     private function onClick(id:int):void {
@@ -99,15 +102,22 @@ internal class FilterButtonItem {
     private var _txt:CTextField;
     private var _filterID:int;
 
-    public function FilterButtonItem(id:int, f:Function) {
+    public function FilterButtonItem(id:int, f:Function, isBigShop:Boolean) {
         _filterID = id;
         _btn = new CButton();
-        _btn.addButtonTexture(120, 45, CButton.YELLOW, true);
+        if (isBigShop) {
+            _btn.addButtonTexture(120, CButton.MEDIUM_HEIGHT, CButton.YELLOW, true);
+            _txt = new CTextField(120, 35, '');
+            _txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BROWN_COLOR);
+        } else {
+            _btn.addButtonTexture(120, CButton.MEDIUM_HEIGHT, CButton.YELLOW, true);
+            _txt = new CTextField(120, 35, '');
+            _txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BROWN_COLOR);
+        }
         _btn.clickCallback = function():void {
             if (f!=null) f.apply(null, [_filterID]);
         };
-        _txt = new CTextField(120, 40, '');
-        _txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BROWN_COLOR);
+
         _btn.addChild(_txt);
         switch (_filterID) {
             case DecorShopNewFilter.FILTER_ALL: _txt.text = String(g.managerLanguage.allTexts[332]); break;
