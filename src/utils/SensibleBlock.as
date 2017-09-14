@@ -22,6 +22,7 @@ public class SensibleBlock extends Sprite {
         t.y = -t.height/2 - 2;
         _tempSprite.addChild(t);
         im.x = t.x + t.width + delta;
+        im.y = -2;
         _tempSprite.addChild(im);
         _tempSprite.x = width/2 - (wT + delta + im.width)/2 + 5;
         this.addChild(_tempSprite);
