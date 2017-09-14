@@ -63,6 +63,7 @@ public class ShopNewListItem {
         _wo = w;
         _data = obj;
         _pageNumber = pg;
+        
         _numberOnPage = np;
         _source = new CSprite();
         _source.endClickCallback = onClick;
@@ -84,8 +85,8 @@ public class ShopNewListItem {
         _txtCount = new CTextField(54, 24, '');
         _txtCount.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txtCount.alignH = HorizontalAlign.RIGHT;
-        _txtCount.x = 94;
-        _txtCount.y = 155;
+        _txtCount.x = 91;
+        _txtCount.y = 150;
         _source.addChild(_txtCount);
         _txtInfo = new CTextField(150, 32, '');
         _txtInfo.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
@@ -421,74 +422,69 @@ public class ShopNewListItem {
         }
         _btn = new CButton();
         if (_isFromInventory) {
-            _btn.addButtonTexture(152, 35, CButton.ORANGE, true);
-            _btn.x = -10;
-            _btn.y = 195;
-            _btn.addTextField(152, 33, 0, 0, String(g.managerLanguage.allTexts[344]) + ': ' + String(g.userInventory.decorInventory[_data.id].count));
+            _btn.addButtonTexture(152, CButton.MEDIUM_HEIGHT, CButton.ORANGE, true);
+            _btn.addTextField(152, 39, 0, 0, String(g.managerLanguage.allTexts[344]) + ': ' + String(g.userInventory.decorInventory[_data.id].count));
             _btn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
         } else {
             var im:Image;
             var t:CTextField;
             var sens:SensibleBlock;
             if (!_data.currency || _data.currency[0] == DataMoney.SOFT_CURRENCY) {
-                _btn.addButtonTexture(152, 35, CButton.GREEN, true);
-                _btn.y = 195;
+                _btn.addButtonTexture(152, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
                 im.alignPivot();
                 MCScaler.scale(im, 25, 25);
-                t = new CTextField(90, 33, String(_costCount));
+                t = new CTextField(90, 39, String(_costCount));
                 t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
                 _btn.addSensBlock(sens,0,18);
             } else if (_data.currency[0] == DataMoney.HARD_CURRENCY) {
-                _btn.addButtonTexture(152, 35, CButton.GREEN, true);
-                _btn.y = 195;
+                _btn.addButtonTexture(152, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
                 im.alignPivot();
                 MCScaler.scale(im, 25, 25);
-                t = new CTextField(90, 33, String(_costCount));
+                t = new CTextField(90, 39, String(_costCount));
                 t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
                 _btn.addSensBlock(sens,0,18);
             } else {
-                _btn.addButtonTexture(152, 35, CButton.GREEN, true);
-                _btn.y = 195;
+                _btn.addButtonTexture(152, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
                 if (_data.currency.length == 1) {
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 152);
-                    _btn.addSensBlock(sens,0,18);
+                    _btn.addSensBlock(sens,0,19);
                 } else if (_data.currency.length == 2) {
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 76);
-                    _btn.addSensBlock(sens,0,18);
+                    _btn.addSensBlock(sens,0,19);
                     sens = createSensBlockForCoupone(_data.currency[1], _data.cost[1], 76);
-                    _btn.addSensBlock(sens,76,18);
+                    _btn.addSensBlock(sens,70,19);
                 } else {
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 70);
                     _btn.addSensBlock(sens,5,18);
                     sens = createSensBlockForCoupone(_data.currency[1], _data.cost[1], 70);
-                    _btn.addSensBlock(sens,70,18);
+                    _btn.addSensBlock(sens,65,18);
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_more'));
                     im.x = 132;
                     im.y = 5;
                     _btn.addChild(im);
                     _additionalCoupones = new Sprite();
-                    _additionalCoupones.addChild(new WOSimpleButtonTexture(152, 53, CButton.GREEN));
+                    _additionalCoupones.addChild(new WOSimpleButtonTexture(152, CButton.BIG_HEIGHT, CButton.GREEN));
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 76);
                     sens.x = 5;
-                    sens.y = 20;
+                    sens.y = 16;
                     _additionalCoupones.addChild(sens);
                     sens = createSensBlockForCoupone(_data.currency[1], _data.cost[1], 76);
                     sens.x = 74;
-                    sens.y = 20;
+                    sens.y = 16;
                     _additionalCoupones.addChild(sens);
                     sens = createSensBlockForCoupone(_data.currency[2], _data.cost[2], 76);
                     sens.x = 5;
-                    sens.y = 48;
+                    sens.y = 43;
                     _additionalCoupones.addChild(sens);
                     if (_data.currency.length == 4) {
                         sens = createSensBlockForCoupone(_data.currency[3], _data.cost[3], 76);
-                        sens.y = 48;
+                        sens.y = 43;
                         sens.x = 74;
                         _additionalCoupones.addChild(sens);
                     }
@@ -500,7 +496,8 @@ public class ShopNewListItem {
                 }
             }
         }
-        _btn.x = 80;
+        _btn.x = 81;
+        _btn.y = 195;
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
     }

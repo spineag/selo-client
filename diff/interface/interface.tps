@@ -339,6 +339,9 @@
             <filename>baloon_4.png</filename>
             <filename>new_window</filename>
             <filename>sale.png</filename>
+            <filename>new_button_big</filename>
+            <filename>new_button_medium</filename>
+            <filename>new_button_small</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

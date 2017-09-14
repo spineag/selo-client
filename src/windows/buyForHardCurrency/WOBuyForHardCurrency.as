@@ -37,7 +37,7 @@ public class WOBuyForHardCurrency extends WindowMain {
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         _btnNo = new CButton();
-        _btnNo.addButtonTexture(80, 40, CButton.ORANGE, true);
+        _btnNo.addButtonTexture(80, 40, CButton.RED, true);
         _btnYes = new CButton();
         _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         _txtYes = new CTextField(50,50,String(g.managerLanguage.allTexts[308]));

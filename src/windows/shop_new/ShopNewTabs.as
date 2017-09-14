@@ -15,10 +15,12 @@ public class ShopNewTabs {
     private var _btn4:TabButton;
     private var _btn5:TabButton;
     private var _activeTabButton:TabButton;
+    private var _isBigShop:Boolean;
 
-    public function ShopNewTabs(bg:YellowBackgroundOut, f:Function) {
+    public function ShopNewTabs(bg:YellowBackgroundOut, f:Function, isBigShop:Boolean) {
         _shopBGSource = bg;
         _callback = f;
+        _isBigShop = isBigShop;
         _btn1 = new TabButton(WOShopNew.VILLAGE, onTab, _shopBGSource);
         _btn2 = new TabButton(WOShopNew.ANIMAL, onTab, _shopBGSource);
         _btn3 = new TabButton(WOShopNew.FABRICA, onTab, _shopBGSource);
@@ -32,43 +34,43 @@ public class ShopNewTabs {
         switch (n) {
             case 1:
                 _activeTabButton = _btn1;
-                _btn1.setPosition(0, 44 + 172/2, true);
-                _btn2.setPosition(44 + 172 + 152/2, 0);
-                _btn3.setPosition(44 + 172 + 152 + 152/2, 0);
-                _btn4.setPosition(44 + 172 + 2*152 + 152/2, 0);
-                _btn5.setPosition(44 + 172 + 3*152 + 152/2, 0);
+                _btn1.setPosition(0, 44 + 172/2, true, _isBigShop);
+                _btn2.setPosition(44 + 172 + 152/2, 0, false, _isBigShop);
+                _btn3.setPosition(44 + 172 + 152 + 152/2, 0, false, _isBigShop);
+                _btn4.setPosition(44 + 172 + 2*152 + 152/2, 0, false, _isBigShop);
+                _btn5.setPosition(44 + 172 + 3*152 + 152/2, 0, false, _isBigShop);
                 break;
             case 2:
                 _activeTabButton = _btn2;
-                _btn1.setPosition(44 + 152/2, 0);
-                _btn2.setPosition(0, 44 + 152 + 172/2, true);
-                _btn3.setPosition(44 + 152 + 172 + 152/2, 0);
-                _btn4.setPosition(44 + 2*152 + 172 + 152/2, 0);
-                _btn5.setPosition(44 + 3*152 + 172 + 152/2, 0);
+                _btn1.setPosition(44 + 152/2, 0,false, _isBigShop);
+                _btn2.setPosition(0, 44 + 152 + 172/2, true, _isBigShop);
+                _btn3.setPosition(44 + 152 + 172 + 152/2, 0, false, _isBigShop);
+                _btn4.setPosition(44 + 2*152 + 172 + 152/2, 0, false, _isBigShop);
+                _btn5.setPosition(44 + 3*152 + 172 + 152/2, 0, false, _isBigShop);
                 break;
             case 3:
                 _activeTabButton = _btn3;
-                _btn1.setPosition(44 + 152/2, 0);
-                _btn2.setPosition(44 + 152 + 152/2, 0);
-                _btn3.setPosition(0, 44 + 2*152 + 172/2, true);
-                _btn4.setPosition(44 + 2*152 + 172 + 152/2, 0);
-                _btn5.setPosition(44 + 3*152 + 172 + 152/2, 0);
+                _btn1.setPosition(44 + 152/2, 0, false, _isBigShop);
+                _btn2.setPosition(44 + 152 + 152/2, 0, false, _isBigShop);
+                _btn3.setPosition(0, 44 + 2*152 + 172/2, true,  _isBigShop);
+                _btn4.setPosition(44 + 2*152 + 172 + 152/2, 0, false, _isBigShop);
+                _btn5.setPosition(44 + 3*152 + 172 + 152/2, 0, false, _isBigShop);
                 break;
             case 4:
                 _activeTabButton = _btn4;
-                _btn1.setPosition(44 + 152/2, 0);
-                _btn2.setPosition(44 + 152 + 152/2, 0);
-                _btn3.setPosition(44 + 2*152 + 152/2, 0);
-                _btn4.setPosition(0, 44 + 3*152 + 172/2, true);
-                _btn5.setPosition(44 + 3*152 + 172 + 152/2, 0);
+                _btn1.setPosition(44 + 152/2, 0, false, _isBigShop);
+                _btn2.setPosition(44 + 152 + 152/2, 0, false, _isBigShop);
+                _btn3.setPosition(44 + 2*152 + 152/2, 0, false, _isBigShop);
+                _btn4.setPosition(0, 44 + 3*152 + 172/2, true, _isBigShop);
+                _btn5.setPosition(44 + 3*152 + 172 + 152/2, 0, false, _isBigShop);
                 break;
             case 5:
                 _activeTabButton = _btn5;
-                _btn1.setPosition(44 + 152/2, 0);
-                _btn2.setPosition(44 + 152 + 152/2, 0);
-                _btn3.setPosition(44 + 2*152 + 152/2, 0);
-                _btn4.setPosition(44 + 3*152 + 152/2, 0);
-                _btn5.setPosition(0, 44 + 4*152 + 172/2, true);
+                _btn1.setPosition(44 + 152/2, 0, false, _isBigShop);
+                _btn2.setPosition(44 + 152 + 152/2, 0, false, _isBigShop);
+                _btn3.setPosition(44 + 2*152 + 152/2, 0, false, _isBigShop);
+                _btn4.setPosition(44 + 3*152 + 152/2, 0, false, _isBigShop);
+                _btn5.setPosition(0, 44 + 4*152 + 172/2, true, _isBigShop);
                 break;
 
         }
@@ -155,9 +157,11 @@ internal class TabButton {
         }
     }
 
-    public function setPosition(xU:int, xA:int, isActive:Boolean = false):void {
-        _tabUnactive.x = xU;
-        _tabActive.x = xA;
+    public function setPosition(xU:int, xA:int, isActive:Boolean, isBigShop:Boolean):void {
+        var delta:int = 0;
+        if (!isBigShop) delta = 28;
+        _tabUnactive.x = xU - delta;
+        _tabActive.x = xA - delta;
         _tabActive.visible = isActive;
         _tabUnactive.visible = !isActive;
     }

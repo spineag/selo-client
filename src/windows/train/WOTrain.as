@@ -153,7 +153,7 @@ public class WOTrain extends WindowMain {
         _rightBlock.addChild(im);
         if (!g.isAway) {
             _btnLoad = new CButton();
-            _btnLoad.addButtonTexture(130, 36, CButton.ORANGE, true);
+            _btnLoad.addButtonTexture(130, 36, CButton.RED, true);
             _txtLoad2 = new CTextField(130, 36, String(g.managerLanguage.allTexts[294]));
             _txtLoad2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
             _txtLoad2.y = -2;

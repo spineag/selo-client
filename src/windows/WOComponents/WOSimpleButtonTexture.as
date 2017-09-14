@@ -2,6 +2,7 @@
  * Created by andy on 1/21/16.
  */
 package windows.WOComponents {
+import com.junkbyte.console.Cc;
 import flash.geom.Rectangle;
 import manager.Vars;
 import starling.display.Image;
@@ -24,42 +25,40 @@ public class WOSimpleButtonTexture  extends Sprite {
         var s:Sprite = new Sprite();
 
         if (w%2) w++;
-        switch (_type) {
-            case CButton.GREEN:
-                if (h < 38) {
-                    h = 35; // !!!
-                    imLeft = 'green_button_left_part';
-                    imCenter = 'green_button_center_part';
-                } else if (h < 41) {
-                    h = 40; // !!!
-                    imLeft = 'fs_green_button_big_left';
-                    imCenter = 'fs_green_button_big_center';
-                    dX = -5;
-                    dY = -3;
-                } else if (h < 45) {
-                    h = 42; // !!!
-                    imLeft = 'silo_green_button_big_left';
-                    imCenter = 'silo_green_button_big_center';
-                    dX = -5;
-                    dY = -3;
-                } else {
-                    h = 53; // !!!
-                    imLeft = 'shop_green_button_left';
-                    imCenter = 'shop_green_button_center';
-                }
-                break;
-            case CButton.ORANGE:
-                h = 35; // !!!
-                imLeft = 'shop_yellow_button_left';
-                imCenter = 'shop_yellow_button_center';
-                break;
-            case CButton.YELLOW:
-                h = 45; // !!!
-                imLeft = 'fs_yellow_button_left';
-                imCenter = 'fs_yellow_button_center';
-                dX = -5;
-                dY = -3;
-                break;
+        if (h!=CButton.SMALL_HEIGHT && h!=CButton.MEDIUM_HEIGHT && h!=CButton.BIG_HEIGHT) {
+            Cc.error('For buttons WOSimpleButtonTexture use only HEIGHT = {SMALL=32, MEDIUM=41 or BIG=55}');
+            if (h<35) h = CButton.SMALL_HEIGHT;
+            else if (h<44) h = CButton.MEDIUM_HEIGHT;
+            else h=CButton.BIG_HEIGHT;
+        }
+
+        if (h == CButton.SMALL_HEIGHT) {
+            switch (_type) {
+                case CButton.GREEN: imLeft = 'green_button_s_L'; imCenter = 'green_button_s_C'; break;
+                case CButton.RED: imLeft = 'red_button_s_L'; imCenter = 'red_button_s_C'; break;
+                case CButton.ORANGE: imLeft = 'yellow_button_s_L'; imCenter = 'yellow_button_s_C'; break;
+                case CButton.YELLOW: imLeft = 'yellow_light_button_s_L'; imCenter = 'yellow_light_button_s_C'; break;
+            }
+            dX = -1;
+            dY = -1;
+        } else if (h == CButton.MEDIUM_HEIGHT) {
+            switch (_type) {
+                case CButton.GREEN: imLeft = 'green_button_m_L'; imCenter = 'green_button_m_C'; break;
+                case CButton.RED: imLeft = 'red_button_m_L'; imCenter = 'red_button_m_C'; break;
+                case CButton.ORANGE: imLeft = 'yellow_button_m_L'; imCenter = 'yellow_button_m_C'; break;
+                case CButton.YELLOW: imLeft = 'yellow_light_button_m_L'; imCenter = 'yellow_light_button_m_C'; break;
+            }
+            dX = -5;
+            dY = -6;
+        } else if (h == CButton.BIG_HEIGHT) {
+            switch (_type) {
+                case CButton.GREEN: imLeft = 'green_button_b_L'; imCenter = 'green_button_b_C'; break;
+                case CButton.RED: imLeft = 'red_button_b_L'; imCenter = 'red_button_b_C'; break;
+                case CButton.ORANGE: imLeft = 'yellow_button_b_L'; imCenter = 'yellow_button_b_C'; break;
+                case CButton.YELLOW: imLeft = 'yellow_light_button_b_L'; imCenter = 'yellow_light_button_b_C'; break;
+            }
+            dX = -5;
+            dY = -7;
         }
 
         //left
@@ -85,9 +84,15 @@ public class WOSimpleButtonTexture  extends Sprite {
         im.tileGrid = im.tileGrid;
         s.addChildAt(im, 0);
 
-        im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(s));
+        var sp2:Sprite = new Sprite();
+        s.x = -dX;
+        s.y = -dY;
+        sp2.addChild(s);
+        im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(sp2));
+        sp2.dispose();
+        im.x = dX;
+        im.y = dY;
         addChild(im);
-        s.dispose();
     }
 
     public function deleteIt():void { dispose(); }

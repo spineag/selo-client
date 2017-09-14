@@ -138,7 +138,7 @@ public class LockedLandItem {
             source.addChild(_btn);
             _btn.clickCallback = buyItem;
 //            btn = new CButton();
-//            btn.addButtonTexture(112, 30, CButton.ORANGE, true);
+//            btn.addButtonTexture(112, 30, CButton.RED, true);
 //            txt = new TextField(112,30,'Показать',g.allData.fonts['BloggerMedium'],16,Color.WHITE);
 //            txt.nativeFilters = ManagerFilters.TEXT_STROKE_YELLOW;
 //            btn.addChild(txt);
@@ -178,7 +178,7 @@ public class LockedLandItem {
             _isGood = true;
         } else {
             _btn = new CButton();
-            _btn.addButtonTexture(120, 30, CButton.ORANGE, true);
+            _btn.addButtonTexture(120, 30, CButton.RED, true);
             txt = new CTextField(120,30,String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.YELLOW_COLOR);
             _btn.addChild(txt);

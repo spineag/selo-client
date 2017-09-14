@@ -3,6 +3,12 @@
  */
 package windows.shop_new {
 import data.BuildType;
+
+import manager.ManagerFilters;
+
+import starling.utils.Color;
+
+import utils.CTextField;
 import utils.Utils;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.YellowBackgroundOut;
@@ -21,31 +27,58 @@ public class WOShopNew extends WindowMain {
     private var _decorFilter:DecorShopNewFilter;
     private var _shopList:ShopNewList;
     private var _isBigShop:Boolean;
+    private var _txtShopName:CTextField;
     
     public function WOShopNew() {
         super();
         _windowType = WindowsManager.WO_SHOP_NEW;
-        _woWidth = 988;
-        _woHeight = 676;
-        _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 154);
+        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigShop = false;
+            else _isBigShop = true;
+        if (_isBigShop) {
+            _woWidth = 988;
+            _woHeight = 676;
+        } else {
+            _woWidth = 830;
+            _woHeight = 486;
+        }
+        if (_isBigShop) _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 154);
+            else _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 124);
         _source.addChild(_woBGNew);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
 
-        _bigYellowBG = new YellowBackgroundOut(868, 486);
-        _bigYellowBG.x = -434;
-        _bigYellowBG.y = -185;
+        if (_isBigShop) {
+            _bigYellowBG = new YellowBackgroundOut(868, 486);
+            _bigYellowBG.x = -434;
+            _bigYellowBG.y = -185;
+        } else {
+            _bigYellowBG = new YellowBackgroundOut(810, 346);
+            _bigYellowBG.x = -405;
+            _bigYellowBG.y = -120;
+        }
         _bigYellowBG.source.touchable = true;
         _source.addChild(_bigYellowBG);
 
-        _tabs = new ShopNewTabs(_bigYellowBG, onChooseTab);
-        _decorFilter = new DecorShopNewFilter(this);
-        _decorFilter.source.x = -_woWidth/2 + 81;
-        _decorFilter.source.y = -_woHeight/2 + 172;
+        _tabs = new ShopNewTabs(_bigYellowBG, onChooseTab, _isBigShop);
+        _decorFilter = new DecorShopNewFilter(this, _isBigShop);
+        if (_isBigShop) {
+            _decorFilter.source.x = -_woWidth / 2 + 81;
+            _decorFilter.source.y = -_woHeight / 2 + 170;
+        } else {
+            _decorFilter.source.x = -_woWidth / 2 + 81;
+            _decorFilter.source.y = -_woHeight / 2 + 142;
+        }
         _source.addChild(_decorFilter.source);
         _decorFilter.source.visible = false;
 
-        _shopList = new ShopNewList(_source, this);
+        _shopList = new ShopNewList(_source, this, _isBigShop);
+        
+        _txtShopName = new CTextField(200, 32, g.managerLanguage.allTexts[352]);
+        _txtShopName.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtShopName.x = -100;
+        if (_isBigShop) _txtShopName.y = -_woHeight/2 + 46;
+            else _txtShopName.y = -_woHeight/2 + 27;
+        _source.addChild(_txtShopName);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -131,6 +164,8 @@ public class WOShopNew extends WindowMain {
 
     override protected function deleteIt():void {
         if (!_source) return;
+        _source.removeChild(_txtShopName);
+        _txtShopName.deleteIt();
         _source.removeChild(_bigYellowBG);
         _bigYellowBG.deleteIt();
         _tabs.deleteIt();
