@@ -23,15 +23,18 @@ import ui.xpPanel.XPStar;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SensibleBlock;
+
 import windows.*;
 import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 
 public class WONoResources extends WindowMain {
     private var _btnBuy:CButton;
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _txtHardCost:CTextField;
     private var _arrItems:Array;
     private var _countOfResources:int;
@@ -41,14 +44,16 @@ public class WONoResources extends WindowMain {
     private var _txtNoResource:CTextField;
     private var _text:CTextField;
     private var _nyashuk:BuyerNyashuk;
+    private var _sensi:SensibleBlock;
+    private var _imRubin:Image;
 
     public function WONoResources() {
         super();
         _windowType = WindowsManager.WO_NO_RESOURCES;
-        _woWidth = 400;
-        _woHeight = 340;
+        _woWidth = 870;
+        _woHeight = 495;
         _arrItems = [];
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,154);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
@@ -66,19 +71,29 @@ public class WONoResources extends WindowMain {
         _source.addChild(_text);
 
         _btnBuy = new CButton();
-        _btnBuy.addButtonTexture(210, 34, CButton.GREEN, true);
+        _btnBuy.addButtonTexture(265, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnBuy.addTextField(210, 34, 0, 0, String(g.managerLanguage.allTexts[375]));
+        _btnBuy.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnBuy.x = 0;
         _btnBuy.y = 110;
         _source.addChild(_btnBuy);
-        _txtHardCost = new CTextField(180, 34, String(g.managerLanguage.allTexts[375]));
-        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btnBuy.addChild(_txtHardCost);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-        MCScaler.scale(im, 25, 25);
-        im.x = 180;
-        im.y = 4;
-        _btnBuy.addChild(im);
-        im.filter = ManagerFilters.SHADOW_TINY;
+//        _txtHardCost = new CTextField(180, 34, String(g.managerLanguage.allTexts[375]));
+//        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//        _btnBuy.addChild(_txtHardCost);
+        _imRubin = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+        _imRubin.alignPivot();
+        MCScaler.scale(_imRubin, 25, 25);
+//        _txtHardCost = new CTextField(90, 39, String(g.managerLanguage.allTexts[375]));
+        _txtHardCost = new CTextField(90, 39, String(''));
+        _txtHardCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
+//        _sensi = new SensibleBlock();
+//        _sensi.textAndImage(_txtHardCost,_imRubin,152);
+//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+//        MCScaler.scale(im, 25, 25);
+//        im.x = 180;
+//        im.y = 4;
+//        _btnBuy.addChild(im);
+//        im.filter = ManagerFilters.SHADOW_TINY;
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -92,6 +107,18 @@ public class WONoResources extends WindowMain {
                 _countOfResources = 1;
                 _countCost = g.allData.getResourceById(_paramData.idResourceRaw).priceHard * _countOfResources;
                 _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                if (_sensi) {
+                    _sensi.deleteIt();
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                } else {
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                }
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.idResourceRaw, _countOfResources);
                 item.source.x =  - item.source.width/2;
@@ -109,6 +136,18 @@ public class WONoResources extends WindowMain {
                 _countOfResources = _paramData.count;
                 _countCost = g.allData.getResourceById(_paramData.id).priceHard * _countOfResources;
                 _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                if (_sensi) {
+                    _sensi.deleteIt();
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                } else {
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                }
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.id, _countOfResources);
                 item.source.x =  - item.source.width/2;
@@ -127,6 +166,18 @@ public class WONoResources extends WindowMain {
                     return;
                 }
                 _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                if (_sensi) {
+                    _sensi.deleteIt();
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                } else {
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                }
                 item = new WONoResourcesItem();
                 item.fillWithMoney(_countOfResources);
                 item.source.x = - item.source.width/2;
@@ -145,6 +196,18 @@ public class WONoResources extends WindowMain {
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
                 _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                if (_sensi) {
+                    _sensi.deleteIt();
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                } else {
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                }
                 _btnBuy.clickCallback = onClickNyashuk;
                 break;
             case 'order':
@@ -188,6 +251,18 @@ public class WONoResources extends WindowMain {
                         break;
                 }
                 _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                if (_sensi) {
+                    _sensi.deleteIt();
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                } else {
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                }
                 _btnBuy.clickCallback = onClickOrder;
                 break;
             case 'papper':
@@ -200,6 +275,18 @@ public class WONoResources extends WindowMain {
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
                 _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                if (_sensi) {
+                    _sensi.deleteIt();
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                } else {
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                }
                 _btnBuy.clickCallback = onClickPapper;
                 break;
             case 'train':
@@ -212,6 +299,18 @@ public class WONoResources extends WindowMain {
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
                 _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                if (_sensi) {
+                    _sensi.deleteIt();
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                } else {
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _btnBuy.addSensBlock(_sensi,0,18);
+
+                }
                 _btnBuy.clickCallback = onClickTrain;
         }
         super.showIt();
@@ -235,6 +334,18 @@ public class WONoResources extends WindowMain {
             _arrItems.push(im);
             _countCost = int(_data.priceHard)*_countOfResources;
             _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+            if (_sensi) {
+                _sensi.deleteIt();
+                _sensi = new SensibleBlock();
+                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _btnBuy.addSensBlock(_sensi,0,18);
+
+            } else {
+                _sensi = new SensibleBlock();
+                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _btnBuy.addSensBlock(_sensi,0,18);
+
+            }
         } else if (_data.buildType && _data.buildType == BuildType.PLANT) {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, _countOfResources);
@@ -244,6 +355,18 @@ public class WONoResources extends WindowMain {
             _arrItems.push(im);
             _countCost = int(_data.priceHard) * _countOfResources;
             _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+            if (_sensi) {
+                _sensi.deleteIt();
+                _sensi = new SensibleBlock();
+                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _btnBuy.addSensBlock(_sensi,0,18);
+
+            } else {
+                _sensi = new SensibleBlock();
+                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _btnBuy.addSensBlock(_sensi,0,18);
+
+            }
         } else if (_data.ingridientsId && _data.ingridientsId) {
             var countR:int;
             _countCost = 0;
@@ -259,6 +382,18 @@ public class WONoResources extends WindowMain {
                 }
             }
             _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+            if (_sensi) {
+                _sensi.deleteIt();
+                _sensi = new SensibleBlock();
+                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _btnBuy.addSensBlock(_sensi,0,18);
+
+            } else {
+                _sensi = new SensibleBlock();
+                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _btnBuy.addSensBlock(_sensi,0,18);
+
+            }
             switch (_arrItems.length) {
                 case 1:
                     _arrItems[0].source.x = - im.source.width/2;
