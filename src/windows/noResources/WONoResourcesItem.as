@@ -38,9 +38,9 @@ public class WONoResourcesItem {
 
     public function WONoResourcesItem() {
         source = new CSprite();
-        var bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
-        MCScaler.scale(bg,66, 70);
-        source.addChild(bg);
+//        var bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
+//        MCScaler.scale(bg,66, 70);
+//        source.addChild(bg);
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _inHover = false;
@@ -90,16 +90,16 @@ public class WONoResourcesItem {
         if (!_image) {
             Cc.error('WONoResourcesItem:: no such image ' + st);
         } else {
-            MCScaler.scale(_image, 50, 50);
+//            MCScaler.scale(_image, 50, 50);
             _image.x = 33 - _image.width / 2;
             _image.y = 33 - _image.height / 2;
             source.addChild(_image);
         }
 
-        _txtCount = new CTextField(66, 20, String(count));
-        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtCount.y = 40;
-        _txtCount.x = 20;
+        _txtCount = new CTextField(80, 40, String(count));
+        _txtCount.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtCount.y = 50;
+        _txtCount.x = 35;
         source.addChild(_txtCount);
     }
 

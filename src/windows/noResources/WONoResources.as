@@ -64,18 +64,19 @@ public class WONoResources extends WindowMain {
         _txtNoResource.x = -150;
         _txtNoResource.y = -130;
         _source.addChild(_txtNoResource);
-        _text = new CTextField(350, 75, String(g.managerLanguage.allTexts[374]));
-        _text.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _text.x = -175;
-        _text.y = -100;
+        _text = new CTextField(800, 150, String(g.managerLanguage.allTexts[374]));
+        _text.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW);
+//        _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
+        _text.x = -(_text.textBounds.width/2 + 25);
+        _text.y = -130;
         _source.addChild(_text);
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(265, CButton.BIG_HEIGHT, CButton.GREEN, true);
-        _btnBuy.addTextField(210, 34, 0, 0, String(g.managerLanguage.allTexts[375]));
+//        _btnBuy.addTextField(210, 34, 0, 0, String(g.managerLanguage.allTexts[375]));
         _btnBuy.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnBuy.x = 0;
-        _btnBuy.y = 110;
+        _btnBuy.y = 190;
         _source.addChild(_btnBuy);
 //        _txtHardCost = new CTextField(180, 34, String(g.managerLanguage.allTexts[375]));
 //        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
@@ -84,7 +85,7 @@ public class WONoResources extends WindowMain {
         _imRubin.alignPivot();
         MCScaler.scale(_imRubin, 25, 25);
 //        _txtHardCost = new CTextField(90, 39, String(g.managerLanguage.allTexts[375]));
-        _txtHardCost = new CTextField(90, 39, String(''));
+        _txtHardCost = new CTextField(265, 80, String(''));
         _txtHardCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
 //        _sensi = new SensibleBlock();
 //        _sensi.textAndImage(_txtHardCost,_imRubin,152);
@@ -102,27 +103,29 @@ public class WONoResources extends WindowMain {
         if (params[2]) _nyashuk = params[2];
         _callbackBuy = callback;
         _text.text = String(g.managerLanguage.allTexts[374]);
+//        _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
+        _text.x = -(_text.textBounds.width/2 + 25);
         switch (params[0]) {
             case 'animal':
                 _countOfResources = 1;
                 _countCost = g.allData.getResourceById(_paramData.idResourceRaw).priceHard * _countOfResources;
-                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
                 if (_sensi) {
                     _sensi.deleteIt();
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 } else {
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 }
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.idResourceRaw, _countOfResources);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 0;
+                item.source.y = 20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickAnimal;
@@ -135,23 +138,23 @@ public class WONoResources extends WindowMain {
             case 'trainHelp':
                 _countOfResources = _paramData.count;
                 _countCost = g.allData.getResourceById(_paramData.id).priceHard * _countOfResources;
-                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
                 if (_sensi) {
                     _sensi.deleteIt();
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 } else {
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 }
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.id, _countOfResources);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 0;
+                item.source.y = 20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickTrainHelp;
@@ -160,28 +163,30 @@ public class WONoResources extends WindowMain {
                 _countOfResources = _paramData.count;
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
                 _text.text = String(g.managerLanguage.allTexts[374]);
+//                _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
+                _text.x = -(_text.textBounds.width/2 + 25);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
                     Cc.error('hard currency can"t be in woNoResourceWindow');
                     g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
                     return;
                 }
-                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
                 if (_sensi) {
                     _sensi.deleteIt();
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 } else {
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 }
                 item = new WONoResourcesItem();
                 item.fillWithMoney(_countOfResources);
                 item.source.x = - item.source.width/2;
-                item.source.y = 0;
+                item.source.y = 20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickMoney;
@@ -191,20 +196,20 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 0;
+                item.source.y = 20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
-                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
                 if (_sensi) {
                     _sensi.deleteIt();
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 } else {
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 }
@@ -225,22 +230,22 @@ public class WONoResources extends WindowMain {
                 }
                 switch (_arrItems.length) {
                     case 1:
-                        _arrItems[0].source.x = - item.source.width/2;
+                        _arrItems[0].source.x = - (item.source.width/4);
                         break;
                     case 2:
-                        _arrItems[0].source.x = -200 + 117;
-                        _arrItems[1].source.x = -200 + 217;
+                        _arrItems[0].source.x = -200 + 102;
+                        _arrItems[1].source.x = -200 + 232;
                         break;
                     case 3:
-                        _arrItems[0].source.x = -200 + 77;
+                        _arrItems[0].source.x = -200 + 47;
                         _arrItems[1].source.x = -200 + 167;
-                        _arrItems[2].source.x = -200 + 257;
+                        _arrItems[2].source.x = -200 + 287;
                         break;
                     case 4:
-                        _arrItems[0].source.x = -200 + 39;
-                        _arrItems[1].source.x = -200 + 124;
-                        _arrItems[2].source.x = -200 + 209;
-                        _arrItems[3].source.x = -200 + 294;
+                        _arrItems[0].source.x = -211;
+                        _arrItems[1].source.x = -200 + 104;
+                        _arrItems[2].source.x = -200 + 219;
+                        _arrItems[3].source.x = -200 + 334;
                         break;
                     case 5:
                         _arrItems[0].source.x = -200 + 27;
@@ -250,16 +255,16 @@ public class WONoResources extends WindowMain {
                         _arrItems[4].source.x = -200 + 307;
                         break;
                 }
-                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
                 if (_sensi) {
                     _sensi.deleteIt();
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 } else {
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 }
@@ -270,20 +275,20 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 0;
+                item.source.y = 20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
-                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
                 if (_sensi) {
                     _sensi.deleteIt();
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 } else {
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 }
@@ -294,20 +299,20 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 0;
+                item.source.y = 20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
-                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
                 if (_sensi) {
                     _sensi.deleteIt();
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 } else {
                     _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
                     _btnBuy.addSensBlock(_sensi,0,18);
 
                 }
@@ -329,20 +334,20 @@ public class WONoResources extends WindowMain {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, 1);
             im.source.x =  - im.source.width/2;
-            im.source.y = 0;
+            im.source.y = 20;
             _source.addChild(im.source);
             _arrItems.push(im);
             _countCost = int(_data.priceHard)*_countOfResources;
-            _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+            _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
             if (_sensi) {
                 _sensi.deleteIt();
                 _sensi = new SensibleBlock();
-                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _sensi.textAndImage(_txtHardCost,_imRubin,265);
                 _btnBuy.addSensBlock(_sensi,0,18);
 
             } else {
                 _sensi = new SensibleBlock();
-                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _sensi.textAndImage(_txtHardCost,_imRubin,265);
                 _btnBuy.addSensBlock(_sensi,0,18);
 
             }
@@ -350,20 +355,20 @@ public class WONoResources extends WindowMain {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, _countOfResources);
             im.source.x =  - im.source.width/2;
-            im.source.y = 0;
+            im.source.y = 20;
             _source.addChild(im.source);
             _arrItems.push(im);
             _countCost = int(_data.priceHard) * _countOfResources;
-            _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+            _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
             if (_sensi) {
                 _sensi.deleteIt();
                 _sensi = new SensibleBlock();
-                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _sensi.textAndImage(_txtHardCost,_imRubin,265);
                 _btnBuy.addSensBlock(_sensi,0,18);
 
             } else {
                 _sensi = new SensibleBlock();
-                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _sensi.textAndImage(_txtHardCost,_imRubin,265);
                 _btnBuy.addSensBlock(_sensi,0,18);
 
             }
@@ -376,42 +381,42 @@ public class WONoResources extends WindowMain {
                     im = new WONoResourcesItem();
                     im.fillWithResource(_data.ingridientsId[i], _data.ingridientsCount[i] - countR);
                     _countCost += g.allData.getResourceById(_data.ingridientsId[i]).priceHard * (_data.ingridientsCount[i] - countR);
-                    im.source.y = 0;
+                    im.source.y = 20;
                     _source.addChild(im.source);
                     _arrItems.push(im);
                 }
             }
-            _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
+            _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
             if (_sensi) {
                 _sensi.deleteIt();
                 _sensi = new SensibleBlock();
-                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _sensi.textAndImage(_txtHardCost,_imRubin,265);
                 _btnBuy.addSensBlock(_sensi,0,18);
 
             } else {
                 _sensi = new SensibleBlock();
-                _sensi.textAndImage(_txtHardCost,_imRubin,152);
+                _sensi.textAndImage(_txtHardCost,_imRubin,265);
                 _btnBuy.addSensBlock(_sensi,0,18);
 
             }
             switch (_arrItems.length) {
                 case 1:
-                    _arrItems[0].source.x = - im.source.width/2;
+                    _arrItems[0].source.x = - (im.source.width/4);
                     break;
                 case 2:
-                    _arrItems[0].source.x = -200 + 117;
-                    _arrItems[1].source.x = -200 + 217;
+                    _arrItems[0].source.x = -200 + 102;
+                    _arrItems[1].source.x = -200 + 232;
                     break;
                 case 3:
-                    _arrItems[0].source.x = -200 + 77;
+                    _arrItems[0].source.x = -200 + 47;
                     _arrItems[1].source.x = -200 + 167;
-                    _arrItems[2].source.x = -200 + 257;
+                    _arrItems[2].source.x = -200 + 287;
                     break;
                 case 4:
-                    _arrItems[0].source.x = -200 + 39;
-                    _arrItems[1].source.x = -200 + 124;
-                    _arrItems[2].source.x = -200 + 209;
-                    _arrItems[3].source.x = -200 + 294;
+                    _arrItems[0].source.x = -211;
+                    _arrItems[1].source.x = -200 + 104;
+                    _arrItems[2].source.x = -200 + 219;
+                    _arrItems[3].source.x = -200 + 334;
                     break;
                 case 5:
                     _arrItems[0].source.x = -200 + 27;
