@@ -27,7 +27,7 @@ public class WOShopNew extends WindowMain {
     private var _decorFilter:DecorShopNewFilter;
     private var _shopList:ShopNewList;
     private var _isBigShop:Boolean;
-    private var _txtShopName:CTextField;
+    private var _txtWindowName:CTextField;
     
     public function WOShopNew() {
         super();
@@ -73,12 +73,12 @@ public class WOShopNew extends WindowMain {
 
         _shopList = new ShopNewList(_source, this, _isBigShop);
         
-        _txtShopName = new CTextField(200, 32, g.managerLanguage.allTexts[352]);
-        _txtShopName.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-        _txtShopName.x = -100;
-        if (_isBigShop) _txtShopName.y = -_woHeight/2 + 46;
-            else _txtShopName.y = -_woHeight/2 + 27;
-        _source.addChild(_txtShopName);
+        _txtWindowName = new CTextField(200, 32, g.managerLanguage.allTexts[352]);
+        _txtWindowName.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtWindowName.x = -100;
+        if (_isBigShop) _txtWindowName.y = -_woHeight/2 + 46;
+            else _txtWindowName.y = -_woHeight/2 + 27;
+        _source.addChild(_txtWindowName);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -164,8 +164,8 @@ public class WOShopNew extends WindowMain {
 
     override protected function deleteIt():void {
         if (!_source) return;
-        _source.removeChild(_txtShopName);
-        _txtShopName.deleteIt();
+        _source.removeChild(_txtWindowName);
+        _txtWindowName.deleteIt();
         _source.removeChild(_bigYellowBG);
         _bigYellowBG.deleteIt();
         _tabs.deleteIt();
