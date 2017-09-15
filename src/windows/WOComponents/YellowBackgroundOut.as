@@ -14,6 +14,8 @@ import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
+import utils.DrawToBitmap;
+
 public class YellowBackgroundOut extends Sprite{
     private var g:Vars = Vars.getInstance();
     private var _source:Sprite;
@@ -23,6 +25,7 @@ public class YellowBackgroundOut extends Sprite{
         var tex:TextureAtlas = g.allData.atlas['interfaceAtlas'];
         _source = new Sprite();
         addChild(_source);
+        var s:Sprite = new Sprite();
 
         if (w%2) w++;
         if (h%2) h++;
@@ -31,27 +34,27 @@ public class YellowBackgroundOut extends Sprite{
         im = new Image(tex.getTexture('fs_yellow_panel_corner_top'));
         im.x = -5;
         im.y = -4;
-        _source.addChild(im);
+        s.addChild(im);
 
         // bottom left
         im = new Image(tex.getTexture('fs_yellow_panel_corner_bottom'));
         im.scaleX = -1;
         im.x = 13;
         im.y = h - 10.5;
-        _source.addChild(im);
+        s.addChild(im);
 
         // top right
         im = new Image(tex.getTexture('fs_yellow_panel_corner_top'));
         im.scaleX = -1;
         im.x = w + 5;
         im.y = -4;
-        _source.addChild(im);
+        s.addChild(im);
 
         // bottom right
         im = new Image(tex.getTexture('fs_yellow_panel_corner_bottom'));
         im.x = w - 13;
         im.y = h - 10;
-        _source.addChild(im);
+        s.addChild(im);
 
         // top
         im = new Image(tex.getTexture('fs_yellow_panel_top'));
@@ -60,7 +63,7 @@ public class YellowBackgroundOut extends Sprite{
         im.x = 12;
         im.y = -4;
         im.tileGrid = im.tileGrid;
-        _source.addChild(im);
+        s.addChild(im);
 
         // bottom
         im = new Image(tex.getTexture('fs_yellow_panel_bottom'));
@@ -69,7 +72,7 @@ public class YellowBackgroundOut extends Sprite{
         im.x = 13;
         im.y = h - 8;
         im.tileGrid = im.tileGrid;
-        _source.addChild(im);
+        s.addChild(im);
 
         // left
         im = new Image(tex.getTexture('fs_yellow_panel_left'));
@@ -78,7 +81,7 @@ public class YellowBackgroundOut extends Sprite{
         im.x = -5;
         im.y = 13;
         im.tileGrid = im.tileGrid;
-        _source.addChild(im);
+        s.addChild(im);
 
         // right
         im = new Image(tex.getTexture('fs_yellow_panel_left'));
@@ -88,7 +91,7 @@ public class YellowBackgroundOut extends Sprite{
         im.x = w + 5;
         im.y = 13;
         im.tileGrid = im.tileGrid;
-        _source.addChild(im);
+        s.addChild(im);
 
         // center
         im = new Image(tex.getTexture('fs_yellow_panel_center'));
@@ -98,14 +101,21 @@ public class YellowBackgroundOut extends Sprite{
         im.x = 4;
         im.y = 4;
         im.tileGrid = im.tileGrid;
-        _source.addChild(im);
+        s.addChild(im);
 
+        var s2:Sprite = new Sprite();
+        s.x = 5;
+        s.y = 4;
+        s2.addChild(s);
+        im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(s2));
+        s2.dispose();
+        im.x = -5;
+        im.y = -4;
+        _source.addChild(im);
         _source.touchable = false;
     }
 
-    public function get source():Sprite {
-        return _source;
-    }
+    public function get source():Sprite { return _source; }
 
     public function deleteIt():void {
         filter = null;
