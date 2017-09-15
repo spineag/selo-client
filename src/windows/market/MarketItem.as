@@ -401,7 +401,7 @@ public class MarketItem {
             g.windowsManager.cashWindow = _wo;
             _wo.hideIt();
             g.marketHint.hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _data, _countResource);
+            g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _data, _countResource, _dataFromServer.cost);
         };
         g.directServer.getUserMarketItem(g.user.userSocialId, f1);
     }
