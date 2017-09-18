@@ -73,11 +73,11 @@ public class WOShopNew extends WindowMain {
 
         _shopList = new ShopNewList(_source, this, _isBigShop);
         
-        _txtWindowName = new CTextField(200, 32, g.managerLanguage.allTexts[352]);
-        _txtWindowName.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-        _txtWindowName.x = -100;
-        if (_isBigShop) _txtWindowName.y = -_woHeight/2 + 46;
-            else _txtWindowName.y = -_woHeight/2 + 27;
+        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[352]);
+        _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtWindowName.x = -150;
+        if (_isBigShop) _txtWindowName.y = -_woHeight/2 + 35;
+            else _txtWindowName.y = -_woHeight/2 + 18;
         _source.addChild(_txtWindowName);
     }
 

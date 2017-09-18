@@ -65,11 +65,10 @@ public class WOAmbars extends WindowMain {
         createMainPart();
         createUpgradePart();
 
-        _txtWindowName = new CTextField(200, 32, g.managerLanguage.allTexts[132]);
-        _txtWindowName.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-        _txtWindowName.x = -100;
-        if (_isBigShop) _txtWindowName.y = -_woHeight/2 + 25;
-            else _txtWindowName.y = -_woHeight/2 + 25;
+        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[132]);
+        _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtWindowName.x = -150;
+        _txtWindowName.y = -_woHeight/2 + 15;
         _source.addChild(_txtWindowName);
 
         _progress = new AmbarProgress();
