@@ -26,11 +26,10 @@ import utils.MCScaler;
 import windows.WOComponents.WhiteBackgroundIn;
 import windows.WindowsManager;
 
-public class UpdateItem {
-    public var source:CSprite;
+public class UpgradeItem {
+    public var source:Sprite;
     private var _contImage:CSprite;
     private var _resourceId:int;
-    private var _bg:Sprite;
     private var _btn:CButton;
     private var _btnTxt:CTextField;
     private var _imGalo4ka:Image;
@@ -42,48 +41,50 @@ public class UpdateItem {
     private var _wo:WOAmbars;
     private var _rubinsSmall:Image;
     private var _onHover:Boolean;
-
     private var g:Vars = Vars.getInstance();
 
-    public function UpdateItem(wo:WOAmbars) {
+    public function UpgradeItem(wo:WOAmbars, f:Function, x:int, y:int) {
+        _buyCallback = f;
         _wo = wo;
-        source = new CSprite();
+        source = new Sprite();
+        source.x = x;
+        source.y = y;
         _contImage = new CSprite();
-        _bg = new WhiteBackgroundIn(100, 100);
-        source.addChild(_bg);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_yellow_cell'));
+        im.alignPivot();
+        _contImage.addChild(im);
         source.addChild(_contImage);
         _contImage.hoverCallback = onHover;
         _contImage.outCallback = onOut;
 
         _txtCount = new CTextField(80,40,'');
-        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_LIGHT_NEW);
         _txtCount.alignH = Align.RIGHT;
-        _txtCount.x = 15;
-        _txtCount.y = 65;
+        _txtCount.x = -25;
+        _txtCount.y = 23;
         source.addChild(_txtCount);
 
         _btn = new CButton();
         _btn.addButtonTexture(100, 40, CButton.GREEN, true);
-        _btn.x = 50;
-        _btn.y = 140;
+        _btn.y = 90;
         source.addChild(_btn);
         _btn.clickCallback = onBuy;
 
         _btnTxt = new CTextField(50,20,'50');
         _btnTxt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnTxt.x = 11;
-        _btnTxt.y = 10;
+        _btnTxt.y = 8;
         _btn.addChild(_btnTxt);
 
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _rubinsSmall.x = 57;
-        _rubinsSmall.y = 5;
+        _rubinsSmall.y = 4;
         _btn.addChild(_rubinsSmall);
         _rubinsSmall.filter = ManagerFilters.SHADOW_TINY;
 
-        _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _imGalo4ka.x = 53 - _imGalo4ka.width/2;
-        _imGalo4ka.y = 123;
+        _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
+        _imGalo4ka.alignPivot();
+        _imGalo4ka.y = 85;
         source.addChild(_imGalo4ka);
         _imGalo4ka.filter = ManagerFilters.SHADOW_TINY;
         _onHover = false;
@@ -125,35 +126,24 @@ public class UpdateItem {
             _resourceImage = null;
         }
         _resourceImage = new Image(g.allData.atlas[g.allData.getResourceById(_resourceId).url].getTexture(g.allData.getResourceById(_resourceId).imageShop));
-        MCScaler.scale(_resourceImage, 90, 90);
-        _resourceImage.x = 50 - _resourceImage.width/2;
-        _resourceImage.y = 50 - _resourceImage.height/2;
+        MCScaler.scale(_resourceImage, 100, 100);
+        _resourceImage.alignPivot();
         _contImage.addChild(_resourceImage);
     }
 
-    public function get isFull():Boolean {
-        return _imGalo4ka.visible;
-    }
-
-    public function set onBuyCallback(f:Function):void {
-        _buyCallback = f;
-    }
+    public function get isFull():Boolean { return _imGalo4ka.visible; }
 
     private function onBuy():void {
         if (g.user.hardCurrency >= _countForBuy * g.allData.getResourceById(_resourceId).priceHard) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.allData.getResourceById(_resourceId).priceHard);
-            var p:Point = new Point(source.x, source.y);
-            p = source.parent.localToGlobal(p);
             var prise:Object = {};
             prise.id = _resourceId;
             prise.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
             prise.count = _countForBuy;
             new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
             updateIt(_resourceId, _isAmbarItem);
-            _wo.smallUpdate();
-            if (_buyCallback != null) {
-                _buyCallback.apply();
-            }
+            if (!_isAmbarItem) _wo.updateCells();
+            if (_buyCallback != null) _buyCallback.apply();
         } else {
             _wo.isCashed = false;
             _wo.hideIt();
@@ -164,8 +154,7 @@ public class UpdateItem {
     private function onHover():void {
         if(_onHover) return;
         _onHover = true;
-        if (!g.resourceHint.isShowed)
-            g.resourceHint.showIt(_resourceId,source.x,source.y,source,true);
+        if (!g.resourceHint.isShowed)  g.resourceHint.showIt(_resourceId, source.x - 60, source.y - 60, source, true);
     }
 
     private function onOut():void {
@@ -174,6 +163,7 @@ public class UpdateItem {
     }
 
     public function deleteIt():void {
+        if (!source) return;
         _wo = null;
         _imGalo4ka.filter = null;
         _rubinsSmall.filter = null;

@@ -38,6 +38,7 @@ public class WOSimpleButtonTexture  extends Sprite {
                 case CButton.RED: imLeft = 'red_button_s_L'; imCenter = 'red_button_s_C'; break;
                 case CButton.ORANGE: imLeft = 'yellow_button_s_L'; imCenter = 'yellow_button_s_C'; break;
                 case CButton.YELLOW: imLeft = 'yellow_light_button_s_L'; imCenter = 'yellow_light_button_s_C'; break;
+                case CButton.BLUE: imLeft = 'blue_button_s_L'; imCenter = 'blue_button_s_C'; break;
             }
             dX = -1;
             dY = -1;
@@ -47,6 +48,7 @@ public class WOSimpleButtonTexture  extends Sprite {
                 case CButton.RED: imLeft = 'red_button_m_L'; imCenter = 'red_button_m_C'; break;
                 case CButton.ORANGE: imLeft = 'yellow_button_m_L'; imCenter = 'yellow_button_m_C'; break;
                 case CButton.YELLOW: imLeft = 'yellow_light_button_m_L'; imCenter = 'yellow_light_button_m_C'; break;
+                case CButton.BLUE: imLeft = 'blue_button_m_L'; imCenter = 'blue_button_m_C'; break;
             }
             dX = -5;
             dY = -6;
@@ -56,6 +58,7 @@ public class WOSimpleButtonTexture  extends Sprite {
                 case CButton.RED: imLeft = 'red_button_b_L'; imCenter = 'red_button_b_C'; break;
                 case CButton.ORANGE: imLeft = 'yellow_button_b_L'; imCenter = 'yellow_button_b_C'; break;
                 case CButton.YELLOW: imLeft = 'yellow_light_button_b_L'; imCenter = 'yellow_light_button_b_C'; break;
+                case CButton.BLUE: imLeft = 'blue_button_b_L'; imCenter = 'blue_button_b_C'; break;
             }
             dX = -5;
             dY = -7;

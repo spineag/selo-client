@@ -107,6 +107,10 @@ public class WindowMain {
             _btnExit = null;
         }
         _callbackClickBG = null;
+        if (_woBGNew) {
+            _source.removeChild(_woBGNew);
+            _woBGNew.deleteIt();
+        }
         if (_source) _source.dispose();
         _source = null;
     }

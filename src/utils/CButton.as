@@ -26,6 +26,7 @@ public class CButton extends Sprite {
     public static const ORANGE:int = 2;
     public static const RED:int = 3;
     public static const YELLOW:int = 4;
+    public static const BLUE:int = 5;
 
     public static const BIG_HEIGHT:int = 55;
     public static const MEDIUM_HEIGHT:int = 41;
@@ -65,18 +66,18 @@ public class CButton extends Sprite {
         if (setP) setPivots();
     }
 
-    public function addTextField(w:int, h:int, x:int = 0, y:int = 0, t:String=''):void {
-        _txt = new CTextField(w, h, t);
-        _txt.x = x;
-        _txt.y = y;
-        this.addChild(_txt);
-    }
-
     public function addSensBlock(sb:SensibleBlock, x:int, y:int):void {
         _sensBlocks.push(sb);
         sb.x = x;
         sb.y = y;
         this.addChild(sb);
+    }
+
+    public function addTextField(w:int, h:int, x:int = 0, y:int = 0, t:String=''):void {
+        _txt = new CTextField(w, h, t);
+        _txt.x = x;
+        _txt.y = y;
+        this.addChild(_txt);
     }
 
     public function setTextFormat(font:String, size:int, color:int, stroke:int):void { if (_txt) _txt.setFormat(font,size,color,stroke); }

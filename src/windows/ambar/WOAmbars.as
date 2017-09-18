@@ -2,372 +2,215 @@
  * Created by user on 11/24/15.
  */
 package windows.ambar {
-import com.junkbyte.console.Cc;
-
 import data.StructureDataBuilding;
-
 import manager.ManagerFilters;
-import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Align;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import windows.WOComponents.DefaultVerticalScrollSprite;
-import utils.CSprite;
-import utils.MCScaler;
-import windows.WOComponents.Birka;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.YellowBackgroundOut;
-import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOAmbars extends WindowMain {
-    public static const AMBAR:int = 1;
-    public static const SKLAD:int = 2;
-
-    private var _mainSprite:Sprite;
-    private var _tabAmbar:CSprite;
-    private var _tabSklad:CSprite;
-    private var _cartonAmbar:YellowBackgroundOut;
-    private var _cartonSklad:YellowBackgroundOut;
-    private var _cartonBG:YellowBackgroundOut;
-    private var _woBG:WindowBackground;
-    private var _type:int;
-    private var _scrollSprite:DefaultVerticalScrollSprite;
-    private var _arrCells:Array;
-    private var _birka:Birka;
+    private var _isAmbar:Boolean;
+    private var _isBigShop:Boolean = true;
+    private var _txtWindowName:CTextField;
+    private var _bigYellowBG:YellowBackgroundOut;
+    private var _tabs:AmbarTabs;
     private var _progress:AmbarProgress;
+    private var _arrCells:Array;
+    private var _mainPart:Sprite;
+    private var _upgradePart:Sprite;
+    private var _scrollSprite:DefaultVerticalScrollSprite;
+    private var _btnUpgrade:CButton;
+    private var _btnBack:CButton;
     private var _txtCount:CTextField;
-    private var _btnShowUpdate:CButton;
-    private var _txtBtnShowUpdate:CTextField;
-    private var _btnBackFromUpdate:CButton;
-    private var _updateSprite:Sprite;
-    private var _item1:UpdateItem;
-    private var _item2:UpdateItem;
-    private var _item3:UpdateItem;
-    private var _btnMakeUpdate:CButton;
-    private var _defaultY:int = -232;
-    private var _txtAmbar:CTextField;
-    private var _txtSklad:CTextField;
+    private var _uItem1:UpgradeItem;
+    private var _uItem2:UpgradeItem;
+    private var _uItem3:UpgradeItem;
+    private var _btnMakeUpgrade:CButton;
     private var _txtNeed:CTextField;
-    private var _txtBtnBack:CTextField;
-    private var _txtBtnUpdate:CTextField;
 
     public function WOAmbars() {
         super();
         _windowType = WindowsManager.WO_AMBAR;
-        _woWidth = 538;
-        _woHeight = 566;
+        _woWidth = 625;
+        _woHeight = 640;
         _arrCells = [];
 
-        _woBG = new WindowBackground(_woWidth, _woHeight);
-        _source.addChild(_woBG);
+        _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 133);
+        _source.addChild(_woBGNew);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        createWOElements();
-        createWOUpdateElements();
+        _bigYellowBG = new YellowBackgroundOut(578, 414);
+        _bigYellowBG.source.touchable = true;
+        _bigYellowBG.x = -_woWidth/2 + 24;
+        _bigYellowBG.y = -_woHeight/2 + 133;
+        _source.addChild(_bigYellowBG);
+        _tabs = new AmbarTabs(_bigYellowBG, onTabClick);
 
-        _birka = new Birka(String(g.managerLanguage.allTexts[132]), _source, _woWidth, _woHeight);
+        createMainPart();
+        createUpgradePart();
+
+        _txtWindowName = new CTextField(200, 32, g.managerLanguage.allTexts[132]);
+        _txtWindowName.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtWindowName.x = -100;
+        if (_isBigShop) _txtWindowName.y = -_woHeight/2 + 25;
+            else _txtWindowName.y = -_woHeight/2 + 27;
+        _source.addChild(_txtWindowName);
+
+        _progress = new AmbarProgress();
+        _progress.source.x = -_woWidth/2 + 242;
+        _progress.source.y = -_woHeight/2 + 580;
+        _source.addChild(_progress.source);
+        _progress.showAmbarIcon(true);
+
+        _txtCount = new CTextField(200, 32, '');
+        _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR);
+        _txtCount.alignH = Align.LEFT;
+        _txtCount.x = -_woWidth/2 + 22;
+        _txtCount.y = -_woHeight/2 + 595;
+        _source.addChild(_txtCount);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        _type = params[0];
-        showUsualState();
-        checkTypes();
-        fillItems();
+        if (params && params[0]) _isAmbar = params[0];
+            else _isAmbar = g.user.isAmbar;
+        _tabs.activate(_isAmbar);
+        fillCells();
         updateProgress();
-        if (params[1]) { // if params[1] exist - its mean show updateState
-            showUpdateState();
+        if (params[1]) { // if params[1] exist - its mean show upgradePart
+            _mainPart.visible = false;
+            _upgradePart.visible = true;
+            updateForUpdates();
+            checkUpdateBtn();
         }
         super.showIt();
     }
 
-    private function createWOElements():void {
-        _tabAmbar = new CSprite();
-        _cartonAmbar = new YellowBackgroundOut(122, 80);
-        _tabAmbar.addChild(_cartonAmbar);
-        var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
-        MCScaler.scale(im, 41, 41);
-        im.x = 12;
-        im.y = 1;
-        _tabAmbar.addChild(im);
-        _txtAmbar = new CTextField(90, 40, String(g.managerLanguage.allTexts[132]));
-        _txtAmbar.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtAmbar.x = 31;
-        _txtAmbar.y = 2;
-        _txtAmbar.touchable = true;
-        _tabAmbar.addChild(_txtAmbar);
-        _tabAmbar.x = -205;
-        _tabAmbar.y = _defaultY;
-        var fAmbar:Function = function():void {
-           _type = AMBAR;
-            updateItems();
-            checkTypes();
-            updateItemsForUpdate();
-            g.user.visitAmbar = true;
+    private function createMainPart():void {
+        _mainPart = new Sprite();
+        _source.addChild(_mainPart);
+
+        _scrollSprite = new DefaultVerticalScrollSprite(480, 370, 121, 121);
+        _scrollSprite.source.x = 49 - _woWidth/2;
+        _scrollSprite.source.y = 159 - _woHeight/2;
+        _mainPart.addChild(_scrollSprite.source);
+        _scrollSprite.createScoll(530, 0, 368, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+
+        _btnUpgrade = new CButton();
+        _btnUpgrade.addButtonTexture(110, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+        _btnUpgrade.addTextField(110, 37, 0, 0, g.managerLanguage.allTexts[463]);
+        _btnUpgrade.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _btnUpgrade.x = -_woWidth/2 + 548;
+        _btnUpgrade.y = -_woHeight/2 + 580;
+        _mainPart.addChild(_btnUpgrade);
+        _btnUpgrade.clickCallback = function():void {
+            _mainPart.visible = false;
+            _upgradePart.visible = true;
+            updateForUpdates();
+            checkUpdateBtn();
         };
-        var hAmbar:Function = function():void {
-            _tabAmbar.y = _defaultY + 3;
-        };
-        var oAmbar:Function = function():void {
-            _tabAmbar.y = _defaultY + 10;
-        };
-        _tabAmbar.endClickCallback = fAmbar;
-        _tabAmbar.hoverCallback = hAmbar;
-        _tabAmbar.outCallback = oAmbar;
-
-        _tabSklad = new CSprite();
-        _cartonSklad = new YellowBackgroundOut(122, 80);
-        _tabSklad.addChild(_cartonSklad);
-        im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
-        MCScaler.scale(im, 40, 40);
-        im.x = 12;
-        im.y = 2;
-        _tabSklad.addChild(im);
-        _txtSklad = new CTextField(90, 40, String(g.managerLanguage.allTexts[133]));
-        _txtSklad.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtSklad.x = 37;
-        _txtSklad.y = 2;
-        _txtSklad.touchable = true;
-        _tabSklad.addChild(_txtSklad);
-        _tabSklad.x = -75;
-        _tabSklad.y = _defaultY;
-        var fSklad:Function = function():void {
-            _type = SKLAD;
-            updateItems();
-            checkTypes();
-            updateItemsForUpdate();
-            g.user.visitAmbar = false;
-        };
-
-        var hSklad:Function = function():void {
-            _tabSklad.y = _defaultY + 3;
-        };
-        var oSklad:Function = function():void {
-            _tabSklad.y = _defaultY + 10;
-        };
-        _tabSklad.endClickCallback = fSklad;
-        _tabSklad.hoverCallback = hSklad;
-        _tabSklad.outCallback = oSklad;
-
-        _mainSprite = new Sprite();
-        _cartonBG = new YellowBackgroundOut(454, 332);
-        _mainSprite.addChild(_cartonBG);
-        _mainSprite.filter = ManagerFilters.SHADOW;
-        _mainSprite.x = -_woWidth/2 + 43;
-        _mainSprite.y = -_woHeight/2 + 96;
-
-        _source.addChild(_mainSprite);
-
-        _scrollSprite = new DefaultVerticalScrollSprite(405, 303, 101, 101);
-        _scrollSprite.source.x = 55 - _woWidth/2;
-        _scrollSprite.source.y = 107 - _woHeight/2;
-        _source.addChild(_scrollSprite.source);
-        _scrollSprite.createScoll(423, 0, 303, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
-
-        _progress = new AmbarProgress();
-        _progress.source.x = -_woWidth/2 + 271;
-        _progress.source.y = -_woHeight/2 + 458;
-        _source.addChild(_progress.source);
-
-        _txtCount = new CTextField(290, 67, String(g.managerLanguage.allTexts[462]) + " 0/0");
-        _txtCount.setFormat(CTextField.BOLD24, 22, ManagerFilters.ORANGE_COLOR, Color.WHITE);
-        _txtCount.alignH = Align.LEFT;
-        _txtCount.x = -_woWidth/2 + 47;
-        _txtCount.y = -_woHeight/2 + 473;
-        _source.addChild(_txtCount);
-
-        _btnShowUpdate = new CButton();
-        _btnShowUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
-        _btnShowUpdate.x = -_woWidth/2 + 430;
-        _btnShowUpdate.y = -_woHeight/2 + 514;
-        _txtBtnShowUpdate = new CTextField(90, 50, String(g.managerLanguage.allTexts[463]));
-        _txtBtnShowUpdate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtBtnShowUpdate.leading = -1;
-        _txtBtnShowUpdate.x = 18;
-        _txtBtnShowUpdate.y = -5;
-        _btnShowUpdate.addChild(_txtBtnShowUpdate);
-        _source.addChild(_btnShowUpdate);
-        _btnShowUpdate.clickCallback = showUpdateState;
     }
 
-    private function createWOUpdateElements():void {
-        _btnBackFromUpdate = new CButton();
-        _btnBackFromUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
-        _txtBtnBack = new CTextField(90, 50, String(g.managerLanguage.allTexts[464]));
-        _txtBtnBack.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtBtnBack.x = 18;
-        _txtBtnBack.y = -5;
-        _btnBackFromUpdate.addChild(_txtBtnBack);
-        _btnBackFromUpdate.x = -_woWidth/2 + 430;
-        _btnBackFromUpdate.y = -_woHeight/2 + 514;
-        _source.addChild(_btnBackFromUpdate);
-        _btnBackFromUpdate.clickCallback = showUsualState;
+    private function createUpgradePart():void {
+        _upgradePart = new Sprite();
+        _source.addChild(_upgradePart);
+        _upgradePart.visible = false;
 
-        _updateSprite = new Sprite();
-        _item1 = new UpdateItem(this);
-        _item2 = new UpdateItem(this);
-        _item3 = new UpdateItem(this);
-        _item1.onBuyCallback = checkUpdateBtn;
-        _item2.onBuyCallback = checkUpdateBtn;
-        _item3.onBuyCallback = checkUpdateBtn;
-        _item1.source.x = 17;
-        _item2.source.x = 150;
-        _item3.source.x = 283;
-        _item1.source.y = 20;
-        _item2.source.y = 20;
-        _item3.source.y = 20;
-        _updateSprite.addChild(_item1.source);
-        _updateSprite.addChild(_item2.source);
-        _updateSprite.addChild(_item3.source);
-        _txtNeed = new CTextField(284,45,String(g.managerLanguage.allTexts[465]));
-        _txtNeed.setFormat(CTextField.MEDIUM24, 22, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtNeed.x = 59;
-        _txtNeed.y = -35;
-        _updateSprite.addChild(_txtNeed);
+        _btnBack = new CButton();
+        _btnBack.addButtonTexture(110, CButton.MEDIUM_HEIGHT, CButton.BLUE, true);
+        _btnBack.addTextField(110, 37, 0, 0, g.managerLanguage.allTexts[464]);
+        _btnBack.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _btnBack.x = -_woWidth/2 + 548;
+        _btnBack.y = -_woHeight/2 + 580;
+        _upgradePart.addChild(_btnBack);
+        _btnBack.clickCallback = function():void {
+            _mainPart.visible = true;
+            _upgradePart.visible = false;
+        };
 
-        _btnMakeUpdate = new CButton();
-        _btnMakeUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
-        _txtBtnUpdate = new CTextField(90, 50, String(g.managerLanguage.allTexts[466]));
-        _txtBtnUpdate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtBtnUpdate.x = 17;
-        _txtBtnUpdate.y = -5;
-        _txtBtnUpdate.autoScale = true;
-        _btnMakeUpdate.addChild(_txtBtnUpdate);
-        _btnMakeUpdate.x = 201;
-        _btnMakeUpdate.y = 220;
-        _updateSprite.addChild(_btnMakeUpdate);
-        _btnMakeUpdate.clickCallback = onUpdate;
+        _uItem1 = new UpgradeItem(this, checkUpdateBtn, -150, -30);
+        _uItem2 = new UpgradeItem(this, checkUpdateBtn, 0, -30);
+        _uItem3 = new UpgradeItem(this, checkUpdateBtn, 150, -30);
+        _upgradePart.addChild(_uItem1.source);
+        _upgradePart.addChild(_uItem2.source);
+        _upgradePart.addChild(_uItem3.source);
 
-        _updateSprite.x = - _updateSprite.width/2 - 10;
-        _updateSprite.y = - 155;
-        _source.addChild(_updateSprite);
+        _btnMakeUpgrade = new CButton();
+        _btnMakeUpgrade.addButtonTexture(138, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnMakeUpgrade.addTextField(138, 50, 0, 0, g.managerLanguage.allTexts[463]);
+        _btnMakeUpgrade.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _btnMakeUpgrade.y = 150;
+        _upgradePart.addChild(_btnMakeUpgrade);
+        _btnMakeUpgrade.clickCallback = onUpdate;
+
+        _txtNeed = new CTextField(300,40,String(g.managerLanguage.allTexts[465]));
+        _txtNeed.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtNeed.x = -150;
+        _txtNeed.y = -160;
+        _upgradePart.addChild(_txtNeed);
     }
 
-    private function checkTypes():void {
-        _tabAmbar.filter = null;
-        _tabSklad.filter = null;
-        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
-        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
-        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
-        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
-        switch (_type) {
-            case AMBAR:
-                _mainSprite.addChild(_tabAmbar);
-                _tabAmbar.x = -205 - _mainSprite.x;
-                _tabAmbar.y = _defaultY - _mainSprite.y;
-                _tabAmbar.isTouchable = false;
-                _source.addChildAt(_tabSklad, _source.getChildIndex(_mainSprite)-1);
-                _tabSklad.x = -75;
-                _tabSklad.y = _defaultY + 10;
-                _tabSklad.isTouchable = true;
-                _tabSklad.filter = ManagerFilters.SHADOW;
-                _birka.updateText(String(g.managerLanguage.allTexts[132]));
-                _txtBtnShowUpdate.text = String(g.managerLanguage.allTexts[459]);
-                break;
-            case SKLAD:
-                _mainSprite.addChild(_tabSklad);
-                _tabSklad.x = -75 - _mainSprite.x;
-                _tabSklad.y = _defaultY - _mainSprite.y;
-                _tabSklad.isTouchable = false;
-                _source.addChildAt(_tabAmbar, _source.getChildIndex(_mainSprite)-1);
-                _tabAmbar.x = -205;
-                _tabAmbar.y = _defaultY + 10;
-                _tabAmbar.isTouchable = true;
-                _tabAmbar.filter = ManagerFilters.SHADOW;
-                _birka.updateText(String(g.managerLanguage.allTexts[133]));
-                _txtBtnShowUpdate.text = String(g.managerLanguage.allTexts[460]);
-                break;
-        }
+    private function checkUpdateBtn():void {
+        if (_uItem1.isFull && _uItem2.isFull && _uItem3.isFull) _btnMakeUpgrade.setEnabled = true;
+            else _btnMakeUpgrade.setEnabled = false;
     }
 
-    private function fillItems():void {
+    private function onTabClick():void {
+        _isAmbar = !_isAmbar;
+        g.user.isAmbar = _isAmbar;
+        _tabs.activate(_isAmbar);
+        if (_isAmbar) _txtWindowName.text = g.managerLanguage.allTexts[132];
+            else _txtWindowName.text = g.managerLanguage.allTexts[133];
+        updateCells();
+        updateForUpdates();
+    }
+
+    private function fillCells():void {
         var cell:AmbarCell;
-        try {
-            var arr:Array;
-            if (_type == AMBAR) arr = g.userInventory.getResourcesForAmbar();
-                else arr = g.userInventory.getResourcesForSklad();
-            arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-            for (var i:int = 0; i < arr.length; i++) {
-                cell = new AmbarCell(arr[i]);
-                _arrCells.push(cell);
-                _scrollSprite.addNewCell(cell.source);
-            }
-        } catch(e:Error) {
-            Cc.error('WOAmbar fillItems:: error ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woAmbar');
+        var arr:Array;
+        if (_isAmbar) arr = g.userInventory.getResourcesForAmbar();
+            else arr = g.userInventory.getResourcesForSklad();
+        arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
+        for (var i:int = 0; i < arr.length; i++) {
+            cell = new AmbarCell(arr[i]);
+            _arrCells.push(cell);
+            _scrollSprite.addNewCell(cell.source);
         }
     }
 
-    private function unfillItems():void {
+    private function clearCells():void {
         if (_scrollSprite)_scrollSprite.resetAll();
         for (var i:int = 0; i < _arrCells.length; i++) {
-            _arrCells[i].deleteIt();
+            (_arrCells[i] as AmbarCell).deleteIt();
         }
         _arrCells.length = 0;
     }
 
-    private function updateItems():void {
-        unfillItems();
-        fillItems();
+    public function updateCells():void {
+        clearCells();
+        fillCells();
         updateProgress();
     }
-
-    public function updateProgress():void {
-        var a:int;
-        _progress.showAmbarIcon(_type == AMBAR);
-        switch (_type) {
-            case AMBAR:
-                a = g.userInventory.currentCountInAmbar;
-                _progress.setProgress(a/g.user.ambarMaxCount);
-                _txtCount.text = String(g.managerLanguage.allTexts[462]) + ' ' + String(a) + '/' + String(g.user.ambarMaxCount);
-                break;
-            case SKLAD:
-                a = g.userInventory.currentCountInSklad;
-                _progress.setProgress(a/g.user.skladMaxCount);
-                _txtCount.text = String(g.managerLanguage.allTexts[462]) + ' ' + String(a) + '/' + String(g.user.skladMaxCount);
-                break;
-        }
-    }
-
-    public function showUpdateState():void {
-        _scrollSprite.source.visible = false;
-        _btnShowUpdate.visible = false;
-        _updateSprite.visible = true;
-        _btnBackFromUpdate.visible = true;
-        updateItemsForUpdate();
-    }
-
-    private function updateItemsForUpdate():void {
+    
+    private function updateForUpdates():void {
         var b:StructureDataBuilding;
-        if (_type == AMBAR) {
+        if (_isAmbar) {
             b = g.allData.getBuildingById(12);
-            _item1.updateIt(b.upInstrumentId1, true);
-            _item2.updateIt(b.upInstrumentId2, true);
-            _item3.updateIt(b.upInstrumentId3, true);
+            _uItem1.updateIt(b.upInstrumentId1, true);
+            _uItem2.updateIt(b.upInstrumentId2, true);
+            _uItem3.updateIt(b.upInstrumentId3, true);
         } else {
             b = g.allData.getBuildingById(13);
-            _item1.updateIt(b.upInstrumentId1, false);
-            _item2.updateIt(b.upInstrumentId2, false);
-            _item3.updateIt(b.upInstrumentId3, false);
-        }
-        checkUpdateBtn();
-    }
-
-    private function showUsualState():void {
-        _scrollSprite.source.visible = true;
-        _btnShowUpdate.visible = true;
-        _updateSprite.visible = false;
-        _btnBackFromUpdate.visible = false;
-    }
-
-    private function checkUpdateBtn():void {
-        if (_item1.isFull && _item2.isFull && _item3.isFull) {
-            _btnMakeUpdate.setEnabled = true;
-        } else {
-            _btnMakeUpdate.setEnabled = false;
+            _uItem1.updateIt(b.upInstrumentId1, false);
+            _uItem2.updateIt(b.upInstrumentId2, false);
+            _uItem3.updateIt(b.upInstrumentId3, false);
         }
     }
 
@@ -375,7 +218,7 @@ public class WOAmbars extends WindowMain {
         var needCountForUpdate:int;
         var st:String;
         var b:StructureDataBuilding;
-        if (_type == AMBAR) {
+        if (_isAmbar) {
             b = g.allData.getBuildingById(12);
             if (!g.userValidates.checkInfo('ambarLevel', g.user.ambarLevel)) return;
             needCountForUpdate = b.startCountInstrumets + b.deltaCountAfterUpgrade * (g.user.ambarLevel - 1);
@@ -387,7 +230,7 @@ public class WOAmbars extends WindowMain {
             g.userValidates.updateInfo('ambarLevel', g.user.ambarLevel);
             st = String(g.managerLanguage.allTexts[458])+ ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
             _progress.setProgress(g.userInventory.currentCountInAmbar / g.user.ambarMaxCount);
-            g.directServer.updateUserAmbar(1, g.user.ambarLevel, g.user.ambarMaxCount, null);
+            g.directServer.updateUserAmbar(1, g.user.ambarLevel, null);
         } else {
             b = g.allData.getBuildingById(13);
             if (!g.userValidates.checkInfo('skladLevel', g.user.skladLevel)) return;
@@ -400,106 +243,167 @@ public class WOAmbars extends WindowMain {
             g.userValidates.updateInfo('skladLevel', g.user.skladLevel);
             st = String(g.managerLanguage.allTexts[458])+ ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
             _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
-            g.directServer.updateUserAmbar(2, g.user.skladLevel, g.user.skladMaxCount, null);
+            g.directServer.updateUserAmbar(2, g.user.skladLevel, null);
         }
         _txtCount.text = st;
-        unfillItems();
-        fillItems();
-        updateItemsForUpdate();
-
-        if (_type == AMBAR) {
-            g.updateAmbarIndicator();
-        }
+        updateCells();
+        if (_isAmbar) g.updateAmbarIndicator();
     }
 
-    public function smallUpdate():void {  // after buy resources for update
-        if (_type == SKLAD) {
-            _txtCount.text = String(g.managerLanguage.allTexts[458]) + ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
-            _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
-            unfillItems();
-            fillItems();
+    public function updateProgress():void {
+        var a:int;
+        _progress.showAmbarIcon(_isAmbar);
+        if (_isAmbar) {
+            a = g.userInventory.currentCountInAmbar;
+            _progress.setProgress(a / g.user.ambarMaxCount);
+            _txtCount.text = String(g.managerLanguage.allTexts[462]) + ' ' + String(a) + '/' + String(g.user.ambarMaxCount);
+        } else {
+            a = g.userInventory.currentCountInSklad;
+            _progress.setProgress(a/g.user.skladMaxCount);
+            _txtCount.text = String(g.managerLanguage.allTexts[462]) + ' ' + String(a) + '/' + String(g.user.skladMaxCount);
         }
     }
 
     override protected function deleteIt():void {
         if (isCashed) return;
-        unfillItems();
-        _tabAmbar.filter = null;
-        _tabSklad.filter = null;
-        _mainSprite.filter = null;
-        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
-        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
-        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
-        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
-        if (_txtAmbar) {
-            _txtAmbar.deleteIt();
-            _txtAmbar = null;
-        }
-        if (_txtSklad) {
-            _txtSklad.deleteIt();
-            _txtSklad = null;
-        }
-        if (_txtCount) {
-            _txtCount.deleteIt();
-            _txtCount = null;
-        }
-        if (_txtBtnShowUpdate) {
-            _txtBtnShowUpdate.deleteIt();
-            _txtBtnShowUpdate = null;
-        }
-        if (_txtBtnBack) {
-            _txtBtnBack.deleteIt();
-            _txtBtnBack = null;
-        }
-        if (_txtNeed) {
-            _txtNeed.deleteIt();
-            _txtNeed = null;
-        }
-        if (_txtBtnUpdate) {
-            _txtBtnUpdate.deleteIt();
-            _txtBtnUpdate = null;
-        }
-        _source.removeChild(_woBG);
-        _woBG.deleteIt();
-        _woBG = null;
-        _tabAmbar.removeChild(_cartonAmbar);
-        _cartonAmbar.deleteIt();
-        _cartonAmbar = null;
-        _tabAmbar.deleteIt();
-        _tabAmbar = null;
-        _tabSklad.removeChild(_cartonSklad);
-        _cartonSklad.deleteIt();
-        _cartonSklad = null;
-        _tabSklad.deleteIt();
-        _tabSklad = null;
-        _source.removeChild(_scrollSprite.source);
-        _scrollSprite.deleteIt();
-        _scrollSprite = null;
+        if (!_source) return;
+        clearCells();
         _source.removeChild(_progress.source);
         _progress.deleteIt();
-        _progress = null;
-        _source.removeChild(_btnShowUpdate);
-        _btnShowUpdate.deleteIt();
-        _btnShowUpdate = null;
-        _updateSprite.removeChild(_item1.source);
-        _updateSprite.removeChild(_item2.source);
-        _updateSprite.removeChild(_item3.source);
-        _item1.deleteIt();
-        _item2.deleteIt();
-        _item3.deleteIt();
-        _item1 = null;
-        _item2 = null;
-        _item3 = null;
-        _source.removeChild(_btnBackFromUpdate);
-        _btnBackFromUpdate.deleteIt();
-        _btnBackFromUpdate = null;
-        _updateSprite.removeChild(_btnMakeUpdate);
-        _btnMakeUpdate.deleteIt();
-        _btnMakeUpdate = null;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
+        _mainPart.removeChild(_scrollSprite.source);
+        _scrollSprite.deleteIt();
+        _mainPart.removeChild(_btnUpgrade);
+        _btnUpgrade.deleteIt();
+        _upgradePart.removeChild(_uItem1.source);
+        _upgradePart.removeChild(_uItem2.source);
+        _upgradePart.removeChild(_uItem3.source);
+        _uItem1.deleteIt();
+        _uItem2.deleteIt();
+        _uItem3.deleteIt();
+        _upgradePart.removeChild(_btnBack);
+        _btnBack.deleteIt();
+        _upgradePart.removeChild(_btnMakeUpgrade);
+        _btnMakeUpgrade.deleteIt();
+        _source.removeChild(_txtWindowName);
+        _txtWindowName.deleteIt();
+        _source.removeChild(_txtCount);
+        _txtCount.deleteIt();
+        _upgradePart.removeChild(_txtNeed);
+        _txtNeed.deleteIt();
+        _tabs.deleteIt();
+        _source.removeChild(_bigYellowBG);
+        _bigYellowBG.deleteIt();
         super.deleteIt();
     }
 }
+}
+
+import manager.ManagerFilters;
+import manager.Vars;
+import starling.display.Image;
+import starling.utils.Color;
+import utils.CSprite;
+import utils.CTextField;
+import windows.WOComponents.YellowBackgroundOut;
+
+internal class AmbarTabs {
+    private var g:Vars = Vars.getInstance();
+    private var _callback:Function;
+    private var _imActiveAmbar:Image;
+    private var _txtActiveAmbar:CTextField;
+    private var _unactiveAmbar:CSprite;
+    private var _txtUnactiveAmbar:CTextField;
+    private var _imActiveSklad:Image;
+    private var _txtActiveSklad:CTextField;
+    private var _unactiveSklad:CSprite;
+    private var _txtUnactiveSklad:CTextField;
+    private var _bg:YellowBackgroundOut;
+
+    public function AmbarTabs(bg:YellowBackgroundOut, f:Function) {
+        _bg = bg;
+        _callback = f;
+        _imActiveAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));
+        _imActiveAmbar.pivotX = _imActiveAmbar.width/2;
+        _imActiveAmbar.pivotY = _imActiveAmbar.height;
+        _imActiveAmbar.x = 203;
+        _imActiveAmbar.y = 10;
+        bg.addChild(_imActiveAmbar);
+        _txtActiveAmbar = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
+        _txtActiveAmbar.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveAmbar.x = 127;
+        _txtActiveAmbar.y = -50;
+        bg.addChild(_txtActiveAmbar);
+
+        _unactiveAmbar = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_small'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveAmbar.addChild(im);
+        _unactiveAmbar.x = 203;
+        _unactiveAmbar.y = 10;
+        bg.addChildAt(_unactiveAmbar, 0);
+        _unactiveAmbar.endClickCallback = onClick;
+        _txtUnactiveAmbar = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
+        _txtUnactiveAmbar.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+        _txtUnactiveAmbar.x = 127;
+        _txtUnactiveAmbar.y = -42;
+        bg.addChild(_txtUnactiveAmbar);
+
+        _imActiveSklad = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));
+        _imActiveSklad.pivotX = _imActiveSklad.width/2;
+        _imActiveSklad.pivotY = _imActiveSklad.height;
+        _imActiveSklad.x = 367;
+        _imActiveSklad.y = 10;
+        bg.addChild(_imActiveSklad);
+        _txtActiveSklad = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
+        _txtActiveSklad.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveSklad.x = 287;
+        _txtActiveSklad.y = -50;
+        bg.addChild(_txtActiveSklad);
+
+        _unactiveSklad = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_small'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveSklad.addChild(im);
+        _unactiveSklad.x = 367;
+        _unactiveSklad.y = 10;
+        bg.addChildAt(_unactiveSklad, 0);
+        _unactiveSklad.endClickCallback = onClick;
+        _txtUnactiveSklad = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
+        _txtUnactiveSklad.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+        _txtUnactiveSklad.x = 287;
+        _txtUnactiveSklad.y = -42;
+        bg.addChild(_txtUnactiveSklad);
+    }
+
+    private function onClick():void { if (_callback!=null) _callback.apply(); }
+
+    public function activate(isAmbar:Boolean):void {
+        _imActiveAmbar.visible = _unactiveSklad.visible = isAmbar;
+        _imActiveSklad.visible = _unactiveAmbar.visible = !isAmbar;
+        _txtActiveAmbar.visible = _txtUnactiveSklad.visible = isAmbar;
+        _txtActiveSklad.visible = _txtUnactiveAmbar.visible = !isAmbar;
+    }
+
+    public function deleteIt():void {
+        _bg.removeChild(_txtActiveAmbar);
+        _bg.removeChild(_txtActiveSklad);
+        _bg.removeChild(_txtUnactiveSklad);
+        _bg.removeChild(_txtUnactiveAmbar);
+        _bg.removeChild(_imActiveAmbar);
+        _bg.removeChild(_imActiveSklad);
+        _bg.removeChild(_unactiveAmbar);
+        _bg.removeChild(_unactiveSklad);
+        _txtActiveAmbar.deleteIt();
+        _txtActiveSklad.deleteIt();
+        _txtUnactiveAmbar.deleteIt();
+        _txtUnactiveSklad.deleteIt();
+        _imActiveAmbar.dispose();
+        _imActiveSklad.dispose();
+        _unactiveAmbar.deleteIt();
+        _unactiveSklad.deleteIt();
+        _bg = null;
+    }
+
 }

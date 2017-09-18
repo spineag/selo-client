@@ -3347,7 +3347,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserAmbar(isAmbar:int, newLevel:int, newMaxCount:int, callback:Function):void {
+    public function updateUserAmbar(isAmbar:int, newLevel:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_AMBAR);
         var variables:URLVariables = new URLVariables();
@@ -3357,8 +3357,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.isAmbar = isAmbar;
         variables.newLevel = newLevel;
-        variables.newMaxCount = newMaxCount;
-        variables.hash = MD5.hash(String(g.user.userId)+String(newLevel)+String(newMaxCount)+SECRET);
+        variables.hash = MD5.hash(String(g.user.userId)+String(newLevel)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
