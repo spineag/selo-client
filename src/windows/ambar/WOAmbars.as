@@ -38,8 +38,11 @@ public class WOAmbars extends WindowMain {
     public function WOAmbars() {
         super();
         _windowType = WindowsManager.WO_AMBAR;
+        if (g.managerResize.stageHeight < 700) _isBigShop = false;
+        else _isBigShop = true;
         _woWidth = 625;
-        _woHeight = 640;
+        if (_isBigShop) _woHeight = 640;
+            else _woHeight = 560;
         _arrCells = [];
 
         _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 133);
@@ -47,10 +50,15 @@ public class WOAmbars extends WindowMain {
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        _bigYellowBG = new YellowBackgroundOut(578, 414);
+        if (_isBigShop) {
+            _bigYellowBG = new YellowBackgroundOut(578, 414);
+            _bigYellowBG.y = -_woHeight / 2 + 133;
+        } else {
+            _bigYellowBG = new YellowBackgroundOut(578, 334);
+            _bigYellowBG.y = -_woHeight / 2 + 133;
+        }
+        _bigYellowBG.x = -_woWidth / 2 + 24;
         _bigYellowBG.source.touchable = true;
-        _bigYellowBG.x = -_woWidth/2 + 24;
-        _bigYellowBG.y = -_woHeight/2 + 133;
         _source.addChild(_bigYellowBG);
         _tabs = new AmbarTabs(_bigYellowBG, onTabClick);
 
@@ -61,12 +69,13 @@ public class WOAmbars extends WindowMain {
         _txtWindowName.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -100;
         if (_isBigShop) _txtWindowName.y = -_woHeight/2 + 25;
-            else _txtWindowName.y = -_woHeight/2 + 27;
+            else _txtWindowName.y = -_woHeight/2 + 25;
         _source.addChild(_txtWindowName);
 
         _progress = new AmbarProgress();
         _progress.source.x = -_woWidth/2 + 242;
-        _progress.source.y = -_woHeight/2 + 580;
+        if (_isAmbar) _progress.source.y = -_woHeight/2 + 580;
+            else _progress.source.y = -_woHeight/2 + 500;
         _source.addChild(_progress.source);
         _progress.showAmbarIcon(true);
 
@@ -74,7 +83,8 @@ public class WOAmbars extends WindowMain {
         _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR);
         _txtCount.alignH = Align.LEFT;
         _txtCount.x = -_woWidth/2 + 22;
-        _txtCount.y = -_woHeight/2 + 595;
+        if (_isAmbar) _txtCount.y = -_woHeight/2 + 595;
+            else _txtCount.y = -_woHeight/2 + 515;
         _source.addChild(_txtCount);
     }
 
@@ -97,18 +107,25 @@ public class WOAmbars extends WindowMain {
         _mainPart = new Sprite();
         _source.addChild(_mainPart);
 
-        _scrollSprite = new DefaultVerticalScrollSprite(480, 370, 121, 121);
-        _scrollSprite.source.x = 49 - _woWidth/2;
-        _scrollSprite.source.y = 159 - _woHeight/2;
+        if (_isBigShop) {
+            _scrollSprite = new DefaultVerticalScrollSprite(480, 370, 121, 121);
+            _scrollSprite.source.y = 159 - _woHeight / 2;
+            _scrollSprite.createScoll(530, 0, 368, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        } else {
+            _scrollSprite = new DefaultVerticalScrollSprite(480, 290, 121, 121);
+            _scrollSprite.source.y = 159 - _woHeight / 2;
+            _scrollSprite.createScoll(530, 0, 288, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        }
+        _scrollSprite.source.x = 49 - _woWidth / 2;
         _mainPart.addChild(_scrollSprite.source);
-        _scrollSprite.createScoll(530, 0, 368, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
 
         _btnUpgrade = new CButton();
         _btnUpgrade.addButtonTexture(110, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
         _btnUpgrade.addTextField(110, 37, 0, 0, g.managerLanguage.allTexts[463]);
         _btnUpgrade.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnUpgrade.x = -_woWidth/2 + 548;
-        _btnUpgrade.y = -_woHeight/2 + 580;
+        if (_isBigShop) _btnUpgrade.y = -_woHeight/2 + 580;
+            else _btnUpgrade.y = -_woHeight/2 + 510;
         _mainPart.addChild(_btnUpgrade);
         _btnUpgrade.clickCallback = function():void {
             _mainPart.visible = false;
@@ -128,7 +145,8 @@ public class WOAmbars extends WindowMain {
         _btnBack.addTextField(110, 37, 0, 0, g.managerLanguage.allTexts[464]);
         _btnBack.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnBack.x = -_woWidth/2 + 548;
-        _btnBack.y = -_woHeight/2 + 580;
+        if (_isBigShop) _btnBack.y = -_woHeight/2 + 580;
+            else _btnBack.y = -_woHeight/2 + 510;
         _upgradePart.addChild(_btnBack);
         _btnBack.clickCallback = function():void {
             _mainPart.visible = true;
@@ -146,14 +164,16 @@ public class WOAmbars extends WindowMain {
         _btnMakeUpgrade.addButtonTexture(138, CButton.BIG_HEIGHT, CButton.GREEN, true);
         _btnMakeUpgrade.addTextField(138, 50, 0, 0, g.managerLanguage.allTexts[463]);
         _btnMakeUpgrade.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btnMakeUpgrade.y = 150;
+        if (_isBigShop) _btnMakeUpgrade.y = 150;
+            else _btnMakeUpgrade.y = 140;
         _upgradePart.addChild(_btnMakeUpgrade);
         _btnMakeUpgrade.clickCallback = onUpdate;
 
         _txtNeed = new CTextField(300,40,String(g.managerLanguage.allTexts[465]));
         _txtNeed.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNeed.x = -150;
-        _txtNeed.y = -160;
+        if (_isBigShop) _txtNeed.y = -160;
+            else _txtNeed.y = -140;
         _upgradePart.addChild(_txtNeed);
     }
 
