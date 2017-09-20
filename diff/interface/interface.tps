@@ -188,12 +188,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>a_tr_blue.png</filename>
             <filename>a_tr_cup_ico.png</filename>
-            <filename>a_tr_gray.png</filename>
-            <filename>a_tr_green.png</filename>
             <filename>a_tr_kor_ico.png</filename>
-            <filename>a_tr_red.png</filename>
             <filename>a_tr_rup_ico.png</filename>
             <filename>add_friend_button.png</filename>
             <filename>animated_decor.png</filename>
@@ -295,7 +291,6 @@
             <filename>order_window_del_clock.png</filename>
             <filename>order_window_del_or.png</filename>
             <filename>order_window_left_top.png</filename>
-            <filename>order_window_left.png</filename>
             <filename>order_window_paket.png</filename>
             <filename>order_window_right_top.png</filename>
             <filename>order_window_right.png</filename>
@@ -350,6 +345,7 @@
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
+            <filename>order_small_bg.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

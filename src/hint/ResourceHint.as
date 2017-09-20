@@ -74,6 +74,7 @@ public class ResourceHint {
     }
 
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,bol:Boolean = false, fabr:Boolean = false):void {
+        if (_id == 0) return;
         _id = _dataId;
         _newX = sX;
         _newY = sY;

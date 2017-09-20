@@ -24,6 +24,7 @@ import windows.dailyGiftWindow.WODailyGift;
 import windows.fabricaWindow.WOFabricDeleteItem;
 import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
 import windows.missYou.WOMissYou;
+import windows.orderWindow.WOOrderNew;
 import windows.partyWindow.WOPartyHelp;
 import windows.partyWindow.WOPartyWindow;
 import windows.fabricaWindow.WOFabrica;
@@ -39,7 +40,6 @@ import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
-import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPapper;
 import windows.partyWindow.WOPartyWindowClose;
 import windows.quest.WOQuest;
@@ -86,7 +86,7 @@ public class WindowsManager {
     public static const WO_WAIT_FREE_CATS:String = 'wait_free_cats';
     public static const WO_NO_PLACES:String = 'no_places';
     public static const WO_NO_RESOURCES:String = 'no_resources';
-    public static const WO_ORDERS:String = 'orders';
+    public static const WO_ORDERS_NEW:String = 'orders_NEW';
     public static const WO_PAPPER:String = 'papper';
     public static const WO_RELOAD_GAME:String = 'reload_game';
     public static const WO_SERVER_ERROR:String = 'server_error';
@@ -233,8 +233,8 @@ public class WindowsManager {
             case WO_PAPPER:
                 wo = new WOPapper();
                 break;
-            case WO_ORDERS:
-                wo = new WOOrder();
+            case WO_ORDERS_NEW:
+                wo = new WOOrderNew();
                 break;
             case WO_TRAIN:
                 wo = new WOTrain();

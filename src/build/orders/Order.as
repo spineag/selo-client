@@ -23,7 +23,6 @@ import tutorial.helpers.HelperReason;
 import tutorial.miniScenes.ManagerMiniScenes;
 
 import windows.WindowsManager;
-import windows.orderWindow.WOOrder;
 
 public class Order extends WorldObject{
     private var _isOnHover:Boolean;
@@ -203,7 +202,7 @@ public class Order extends WorldObject{
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
             }
             hideArrow();
-            g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
+            g.windowsManager.openWindow(WindowsManager.WO_ORDERS_NEW, null);
             if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isMiniSceneBuilding(this)) g.managerMiniScenes.checkMiniSceneCallback();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType');
@@ -228,9 +227,9 @@ public class Order extends WorldObject{
     }
     
     private function showBtnCellArrow():void {
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
-            (g.windowsManager.currentWindow as WOOrder).showBtnSellArrow();
-        }
+//        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS_NEW) {
+//            (g.windowsManager.currentWindow as WOOrderNew).showBtnSellArrow();
+//        }
     }
 
     override public function clearIt():void {

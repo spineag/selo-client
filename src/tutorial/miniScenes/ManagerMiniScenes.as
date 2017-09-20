@@ -19,7 +19,6 @@ import utils.SimpleArrow;
 import utils.Utils;
 import windows.WindowsManager;
 import windows.market.WOMarket;
-import windows.orderWindow.WOOrder;
 import windows.shop_new.WOShopNew;
 
 public class ManagerMiniScenes {
@@ -297,21 +296,21 @@ public class ManagerMiniScenes {
 
     private function buyer_3():void {
         _onShowWindowCallback = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
-            (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(String(g.managerLanguage.allTexts[533]));
-            var ob:Object = (g.windowsManager.currentWindow as WOOrder).getSellBtnProperties();
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
-            _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(ob.x, ob.y + 25);
-            _arrow.activateTimer(100, buyer_4);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS_NEW) {
+//            (g.windowsManager.currentWindow as WOOrderNew).setTextForCustomer(String(g.managerLanguage.allTexts[533]));
+//            var ob:Object = (g.windowsManager.currentWindow as WOOrderNew).getSellBtnProperties();
+//            _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
+//            _arrow.scaleIt(.5);
+//            _arrow.animateAtPosition(ob.x, ob.y + 25);
+//            _arrow.activateTimer(100, buyer_4);
         } else {
             Cc.error('wo_order is not opened');
         }
     }
 
     private function buyer_4():void {
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
-            (g.windowsManager.currentWindow as WOOrder).setTextForCustomer('');
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS_NEW) {
+//            (g.windowsManager.currentWindow as WOOrderNew).setTextForCustomer('');
         }
         _miniSceneCallback = null;
         deleteArrowAndDust();

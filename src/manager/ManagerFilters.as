@@ -35,6 +35,7 @@ public class ManagerFilters {
     public static function get SHADOW_TINY():DropShadowFilter { return new DropShadowFilter(1, 0.8, 0, .5, .5, 0.5); }
     public static function get SHADOW_TOP():DropShadowFilter { return new DropShadowFilter(1, -.8, 0, 1, 1.0, 0.5); }
     public static function get RED_STROKE():GlowFilter { return new GlowFilter(Color.RED, 3); }
+    public static function get BLUE_STROKE():GlowFilter { return new GlowFilter(BLUE_LIGHT_NEW, 3); }
     public static function get YELLOW_STROKE():GlowFilter { return new GlowFilter(Color.YELLOW, 3); }
     public static function get WHITE_STROKE():GlowFilter { return new GlowFilter(Color.WHITE, 3); }
     public static function get BUILD_STROKE():GlowFilter { return new GlowFilter(LIGHT_YELLOW_COLOR, 3); }

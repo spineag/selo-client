@@ -148,12 +148,11 @@ public class MainBottomPanel {
         _source.addChild(_orderBtn);
         _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
         _checkImage.touchable = false;
-        _checkImage.x = -_checkImage.width/2;
-        _checkImage.y = -_checkImage.height/2;
+        _checkImage.alignPivot();
         _checkSprite = new Sprite();
         _checkSprite.addChild(_checkImage);
-        _checkSprite.x = 18 + _checkImage.width/2;
-        _checkSprite.y = 20 + _checkImage.height/2;
+        _checkSprite.x = 15 + _checkImage.width/2;
+        _checkSprite.y = 14 + _checkImage.height/2;
         _orderBtn.addChild(_checkSprite);
         _checkSprite.visible = false;
         _orderBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[476])); };
@@ -376,7 +375,7 @@ public class MainBottomPanel {
                     cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
+                g.windowsManager.openWindow(WindowsManager.WO_ORDERS_NEW, null);
                 g.toolsPanel.hideRepository();
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;

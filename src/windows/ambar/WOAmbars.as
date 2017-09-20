@@ -73,7 +73,7 @@ public class WOAmbars extends WindowMain {
 
         _progress = new AmbarProgress();
         _progress.source.x = -_woWidth/2 + 242;
-        if (_isAmbar) _progress.source.y = -_woHeight/2 + 580;
+        if (_isBigShop) _progress.source.y = -_woHeight/2 + 580;
             else _progress.source.y = -_woHeight/2 + 500;
         _source.addChild(_progress.source);
         _progress.showAmbarIcon(true);
@@ -82,7 +82,7 @@ public class WOAmbars extends WindowMain {
         _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR);
         _txtCount.alignH = Align.LEFT;
         _txtCount.x = -_woWidth/2 + 22;
-        if (_isAmbar) _txtCount.y = -_woHeight/2 + 595;
+        if (_isBigShop) _txtCount.y = -_woHeight/2 + 595;
             else _txtCount.y = -_woHeight/2 + 515;
         _source.addChild(_txtCount);
     }

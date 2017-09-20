@@ -2,32 +2,19 @@
  * Created by user on 7/22/15.
  */
 package windows.orderWindow {
-
 import com.greensock.TweenMax;
-
 import data.BuildType;
-
 import manager.ManagerFilters;
-import order.ManagerOrder;
 import order.OrderItemStructure;
 import manager.Vars;
-
-import starling.animation.Tween;
-
 import starling.display.Image;
-import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CSprite;
 import utils.CTextField;
-import utils.MCScaler;
-import windows.WOComponents.YellowBackgroundOut;
-import windows.WOComponents.WhiteBackgroundIn;
 
 public class WOOrderItem {
     public var source:CSprite;
-    private var _bgCarton:YellowBackgroundOut;
-    private var _bgCartonIn:WhiteBackgroundIn;
+    private var _imBG:Image;
     private var _txtName:CTextField;
     private var _txtXP:CTextField;
     private var _txtCoins:CTextField;
@@ -41,86 +28,86 @@ public class WOOrderItem {
     private var _checkImage:Image;
     private var _clickCallback:Function;
     private var _act:Boolean;
-    private var _wo:WOOrder;
+    private var _wo:WOOrderNew;
     private var _timer:int;
     private var _isHover:Boolean;
-
     private var g:Vars = Vars.getInstance();
 
-    public function WOOrderItem(wo:WOOrder) {
+    public function WOOrderItem(wo:WOOrderNew) {
+        _act = false;
+        _isHover = false;
         _wo = wo;
         source = new CSprite();
-        _bgCarton = new YellowBackgroundOut(112, 90);
-        _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
-        source.addChild(_bgCarton);
-        source.pivotX = source.width/2;
-        source.pivotY = source.height/2;
-        _bgCartonIn = new WhiteBackgroundIn(102, 64);
-        _bgCartonIn.x = 5;
-        _bgCartonIn.y = 21;
-        source.addChild(_bgCartonIn);
-        _bgCarton.touchable = true;
+        source.visible = false;
+        _imBG = new Image(g.allData.atlas['interfaceAtlas'].getTexture('orders_cell'));
+        source.addChild(_imBG);
+        source.alignPivot();
 
         _clockImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wait'));
-        _clockImage.x = 20;
-        _clockImage.y = 5;
+        _clockImage.alignPivot();
+        _clockImage.x = 60;
+        _clockImage.y = 88;
         _clockImage.visible = false;
         source.addChild(_clockImage);
 
         _delImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_or'));
-        _delImage.x = 25;
-        _delImage.y = 10;
+        _delImage.alignPivot();
+        _delImage.x = 60;
+        _delImage.y = 88;
         _delImage.visible = false;
         source.addChild(_delImage);
 
-        _txtName = new CTextField(112, 20, "Васько");
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtName = new CTextField(114, 42, "Васько");
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         source.addChild(_txtName);
 
         _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
-        _starImage.x = 17;
-        _starImage.y = 24;
+        _starImage.alignPivot();
+        _starImage.x = 26;
+        _starImage.y = 110;
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
-        _txtXP = new CTextField(52, 30, "8888");
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
-        else _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtXP.x = 48;
-        _txtXP.y = 26;
+        _txtXP = new CTextField(64, 30, "8888");
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
+            _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+            else _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtXP.alignPivot();
+        _txtXP.x = 68;
+        _txtXP.y = 107;
         source.addChild(_txtXP);
 
         _coinsImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-        _coinsImage.x = 17;
-        _coinsImage.y = 55;
+        _coinsImage.alignPivot();
+        _coinsImage.x = 26;
+        _coinsImage.y = 69;
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
-        _txtCoins = new CTextField(52, 30, "8888");
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
-        else _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCoins.x = 48;
-        _txtCoins.y = 55;
+        _txtCoins = new CTextField(64, 30, "8888");
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
+            _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+            else _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCoins.alignPivot();
+        _txtCoins.x = 68;
+        _txtCoins.y = 65;
         source.addChild(_txtCoins);
-        _act = false;
 
-        source.visible = false;
-        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _checkImage.y = -9;
-        _checkImage.x = -9;
+        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
+        _checkImage.x = 78;
+        _checkImage.y = -15;
         _checkImage.visible = false;
         source.addChild(_checkImage);
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _isHover = false;
     }
     
     public function activateIt(v:Boolean):void {
         if (v) {
-            _bgCarton.filter = null;
-            _bgCarton.filter = ManagerFilters.YELLOW_STROKE;
+            if (_imBG.filter) _imBG.filter.dispose();
+            _imBG.filter = ManagerFilters.BLUE_STROKE;
             _act = true;
         } else {
-            _bgCarton.filter = null;
-            _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
+            if (_imBG.filter) _imBG.filter.dispose();
+            _imBG.filter = ManagerFilters.SHADOW_LIGHT;
             _act = false;
         }
     }
@@ -131,9 +118,9 @@ public class WOOrderItem {
         _clickCallback = f;
         _txtName.text = _order.catOb.name;
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.text = String(_order.xp * g.managerParty.coefficient);
-        else _txtXP.text = String(_order.xp);
+            else _txtXP.text = String(_order.xp);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.text = String(_order.coins * g.managerParty.coefficient);
-        else _txtCoins.text = String(_order.coins);
+            else _txtCoins.text = String(_order.coins);
 
         source.visible = true;
         source.endClickCallback = onClick;
@@ -180,15 +167,15 @@ public class WOOrderItem {
 
     private function onClick():void {
         if (_clickCallback != null) {
-            _clickCallback.apply(null, [this,false]);
+            _clickCallback.apply(null, [this]);
         }
     }
 
     public function clearIt():void {
+        source.filter.dispose();
         source.filter = null;
         _order = null;
         source.endClickCallback = null;
-        _txtCoins.text = '';
         _txtName.text = '';
         _txtCoins.text = '';
         source.visible = false;
@@ -219,9 +206,7 @@ public class WOOrderItem {
             if(_coinsImage) _coinsImage.visible = true;
             if(_starImage) _starImage.visible = true;
             if(_delImage) _delImage.visible = false;
-            if (_clickCallback != null) {
-                _clickCallback.apply(null, [this,false,1]);
-            }
+            if (_clickCallback != null) { _clickCallback.apply(null, [this,1]); }
             updateCheck();
         }
     }
@@ -256,9 +241,7 @@ public class WOOrderItem {
             if(_starImage)_starImage.visible = true;
             if(_delImage)_delImage.visible = false;
             if(_clockImage)_clockImage.visible = false;
-            if (_clickCallback != null) {
-                _clickCallback.apply(null, [this,false,1]);
-            }
+            if (_clickCallback != null) { _clickCallback.apply(null, [this,1]); }
             g.managerOrder.checkForFullOrder();
             if (_checkImage) {
                 var b:Boolean = true;
@@ -288,8 +271,8 @@ public class WOOrderItem {
     private function onHover():void {
         if (_isHover) return;
         _isHover = true;
-        _bgCarton.filter = null;
-        _bgCarton.filter = ManagerFilters.BUTTON_HOVER_FILTER;
+        if (_imBG.filter) _imBG.filter.dispose();
+        _imBG.filter = ManagerFilters.BUTTON_HOVER_FILTER;
         _timer = 3;
         g.gameDispatcher.addEnterFrame(onEnterFram);
     }
@@ -297,11 +280,11 @@ public class WOOrderItem {
     private function onOut():void {
         _isHover = false;
         if (_act) {
-            _bgCarton.filter = null;
-            _bgCarton.filter = ManagerFilters.YELLOW_STROKE;
+            if (_imBG.filter) _imBG.filter.dispose();
+            _imBG.filter = ManagerFilters.BLUE_STROKE;
         } else {
-            _bgCarton.filter = null;
-            _bgCarton.filter = ManagerFilters.SHADOW_LIGHT;
+            if (_imBG.filter) _imBG.filter.dispose();
+            _imBG.filter = ManagerFilters.SHADOW_LIGHT;
         }
         g.gameDispatcher.removeEnterFrame(onEnterFram);
         _timer = 0;
@@ -332,8 +315,9 @@ public class WOOrderItem {
 
     public function deleteIt():void {
         g.hint.hideIt();
-        _starImage.filter = null;
-        _coinsImage.filter = null;
+        if (!source) return;
+        _starImage.filter.dispose();
+        _coinsImage.filter.dispose();
         if (_txtName) {
             source.removeChild(_txtName);
             _txtName.deleteIt();
@@ -351,14 +335,8 @@ public class WOOrderItem {
         }
         _order = null;
         source.filter = null;
-        source.removeChild(_bgCarton);
-        _bgCarton.filter = null;
-        _bgCarton.deleteIt();
-        _bgCarton = null;
-        source.removeChild(_bgCartonIn);
-        _bgCartonIn.filter = null;
-        _bgCartonIn.deleteIt();
-        _bgCarton = null;
+        source.removeChild(_imBG);
+        if (_imBG.filter) _imBG.filter.dispose();
         _clickCallback = null;
         _starImage = null;
         _coinsImage = null;
