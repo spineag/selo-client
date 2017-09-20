@@ -146,7 +146,7 @@ public class MainBottomPanel {
         _orderBtn.x = 192 + _orderBtn.width/2;
         _orderBtn.y = 8 + _orderBtn.height/2;
         _source.addChild(_orderBtn);
-        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
         _checkImage.touchable = false;
         _checkImage.x = -_checkImage.width/2;
         _checkImage.y = -_checkImage.height/2;
@@ -158,7 +158,7 @@ public class MainBottomPanel {
         _checkSprite.visible = false;
         _orderBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[476])); };
         _orderBtn.outCallback = function():void { g.hint.hideIt(); };
-        _orderBtn.clickCallback = function():void {onClick('order')};
+        _orderBtn.clickCallback = function():void { onClick('order') };
 
         _cancelBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
@@ -387,8 +387,7 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                if (g.user.lastVisitAmbar) g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.AMBAR);
-                else g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.SKLAD);
+                g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null);
                 g.toolsPanel.hideRepository();
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;

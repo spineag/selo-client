@@ -126,7 +126,7 @@ public class WOMarketChoose extends WindowMain {
         _callback = callback;
         _activetedItem = params[0];
         _woMarket = params[1];
-        if (g.user.lastVisitAmbar) _type = AMBAR;
+        if (g.user.isAmbar) _type = AMBAR;
         else _type = SKLAD;
         checkTypes();
         fillItems();

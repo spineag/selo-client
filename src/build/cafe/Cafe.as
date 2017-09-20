@@ -243,7 +243,7 @@ public class Cafe extends WorldObject {
     private function onClickMenu():void {
         _csprMenu.filter = null;
         _isHover = false;
-        g.windowsManager.openWindow(WindowsManager.WO_AMBAR,null);
+        g.windowsManager.openWindow(WindowsManager.WO_AMBAR,null,true);
     }
 
     private function onHoverMenu():void {

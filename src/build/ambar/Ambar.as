@@ -87,7 +87,7 @@ public class Ambar extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             onOut();
             g.user.visitAmbar = true;
-            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.AMBAR);
+            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, true);
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')
         }

@@ -39,8 +39,8 @@ public class AmbarCell {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         source.endClickCallback = onClick;
-        var s:WhiteBackgroundIn = new WhiteBackgroundIn(100, 100);
-        source.addChild(s);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_yellow_cell'));
+        source.addChild(im);
 
         _info = info;
         if (!_info) {
@@ -65,18 +65,18 @@ public class AmbarCell {
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ambarCell');
                 return;
             }
-            MCScaler.scale(_image, 90, 90);
-            _image.x = 50 - _image.width/2;
-            _image.y = 50 - _image.height/2;
+            MCScaler.scale(_image, 100, 100);
+            _image.x = 60 - _image.width/2;
+            _image.y = 60 - _image.height/2;
             source.addChild(_image);
         }
 
         _countTxt = new CTextField(80,30,'');
-        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _countTxt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _countTxt.cacheIt = false;
         _countTxt.alignH = Align.RIGHT;
-        _countTxt.x = 15;
-        _countTxt.y = 72;
+        _countTxt.x = 25;
+        _countTxt.y = 82;
         _countTxt.text = String(g.userInventory.getCountResourceById(_data.id));
         source.addChild(_countTxt);
     }
@@ -94,8 +94,7 @@ public class AmbarCell {
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
-        if (!g.resourceHint.isShowed)
-            g.resourceHint.showIt(_data.id,source.x,source.y,source);
+        if (!g.resourceHint.isShowed) g.resourceHint.showIt(_data.id,source.x,source.y,source);
     }
 
     private function onOut():void {

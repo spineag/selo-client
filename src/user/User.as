@@ -33,7 +33,7 @@ public class User extends Someone {
     public var arrTempUsers:Array;     // users that not your friends, but you interact with them
     public var neighbor:NeighborBot;
     public var tutorialStep:int;
-    public var lastVisitAmbar:Boolean;
+    public var isAmbar:Boolean;
     public var lastVisitPlant:int = 1;
     public var cutScenes:Array;
     public var miniScenes:Array;
@@ -74,12 +74,12 @@ public class User extends Someone {
         arrFriends = [];
         arrTempUsers = [];
         arrNoAppFriend = [];
-        lastVisitAmbar = true;
+        isAmbar = true;
         countAwayMouse = 0;
         announcement = false;
     }
 
-    public function set visitAmbar(b:Boolean):void  { lastVisitAmbar = b; }
+    public function set visitAmbar(b:Boolean):void  { isAmbar = b; }
     public function createNeighbor():void { neighbor = new NeighborBot(); }
 
     public function checkMiss():void {

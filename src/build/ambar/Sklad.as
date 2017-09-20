@@ -93,7 +93,7 @@ public class Sklad extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             onOut();
             g.user.visitAmbar = false;
-            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, WOAmbars.SKLAD);
+            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_AMBAR, null, false);
         } else {
             Cc.error('Ambar:: unknown g.toolsModifier.modifierType')
         }

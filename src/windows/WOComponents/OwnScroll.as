@@ -33,13 +33,15 @@ public class OwnScroll {
         _percentCallback = percent;
         _size = h;
         _lineImage = new Image(lineTexture);
-        _isVertical ? _lineImage.height = _size : _lineImage.width = _size;
+        _isVertical ? _lineImage.height = _size-2 : _lineImage.width = _size;
         _lineImage.pivotX = _lineImage.width/2;
 
         _box = new CButton();
-        _box.addDisplayObject(new Image(boxTexture));
-        _box.setPivots();
-        _boxHeight = _box.height;
+        _boxHeight = 28;
+        var im:Image = new Image(boxTexture);
+        im.x = -im.width/2;
+        im.y = -6 - _boxHeight/2;
+        _box.addDisplayObject(im);
         _box.y = _boxHeight/2;
 
         source.addChild(_lineImage);
@@ -65,12 +67,8 @@ public class OwnScroll {
         if (_isVertical) {
             _delta = _globalY - _startDragPoint;
             _box.y = _startDragSourcePoint + _delta;
-            if (_box.y > _size - _boxHeight/2) {
-                _box.y = _size - _boxHeight/2;
-            }
-            if (_box.y < _boxHeight/2) {
-                _box.y = _boxHeight/2;
-            }
+            if (_box.y > _size - _boxHeight/2) _box.y = _size - _boxHeight/2;
+            if (_box.y < _boxHeight/2) _box.y = _boxHeight/2;
             _percent = (_box.y - _boxHeight/2) / (_size - _boxHeight);
         } else {
             // для горизонталього скролла
@@ -83,9 +81,7 @@ public class OwnScroll {
     private function callbackPercent():void {
         _startDragSourcePoint = _box.y;
         _startDragPoint = g.ownMouse.mouseY;
-        _delta = 0;
-//        _delta = 6;
-        _box.y = _startDragSourcePoint + _delta;
+        _box.y = _startDragSourcePoint;
         if (_box.y > _size - _boxHeight/2) _box.y = _size - _boxHeight/2;
         if (_box.y <_boxHeight/2) _box.y = _boxHeight/2;
         _percent = (_box.y - _boxHeight/2) / (_size - _boxHeight);
@@ -95,7 +91,7 @@ public class OwnScroll {
     }
 
     public function resetPosition():void {
-        _box.y = _box.height/2;
+        _box.y = _boxHeight/2;
         _box.x = 0;
     }
 
