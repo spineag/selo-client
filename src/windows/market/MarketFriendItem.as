@@ -34,16 +34,13 @@ public class MarketFriendItem {
     private var _shiftFriend:int;
     private var _txtBtn:CTextField;
     private var _helpIcon:Image;
+    private var imRamka:Image;
     private var g:Vars = Vars.getInstance();
 
     public function MarketFriendItem(f:Someone, wo:WOMarket, _shift:int) {
         _shiftFriend = _shift;
         source = new CSprite();
-        source.x = 218;
-        var bg:Quad = new Quad(100, 102, Color.WHITE);
-        bg.x = 4;
-        bg.y = .5;
-        source.addChild(bg);
+//        source.x = 218;
         _person = f;
         if (!_person) {
             Cc.error('MarketFriendItem:: person == null');
@@ -56,9 +53,9 @@ public class MarketFriendItem {
         } else {
             if (_person.photo) {
                 _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                MCScaler.scale(_ava, 98, 98);
-                _ava.x = 4;
-                _ava.y = 2;
+                MCScaler.scale(_ava, 85, 85);
+                _ava.x = 12;
+                _ava.y = 12;
                 source.addChild(_ava);
                 g.load.loadImage(_person.photo, onLoadPhoto);
             } else {
@@ -68,15 +65,16 @@ public class MarketFriendItem {
         }
         _txtName = new CTextField(100, 30, 'loading...');
         _txtName.needCheckForASCIIChars = true;
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtName.y = 70;
+        _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtName.y = -25;
         if (_person.name) _txtName.text = _person.name;
         source.addChild(_txtName);
         source.endClickCallback = chooseThis;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         visitBtn = new CButton();
-        visitBtn.addButtonTexture(80, 30, CButton.GREEN, true);
+//        visitBtn.addButtonTexture(80, 30, CButton.GREEN, true);
+        visitBtn.addButtonTexture(80, CButton.SMALL_HEIGHT, CButton.GREEN, true);
         _txtBtn = new CTextField(76, 25, String(g.managerLanguage.allTexts[386]));
         _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtBtn.x = 2;
@@ -84,7 +82,7 @@ public class MarketFriendItem {
         visitBtn.addChild(_txtBtn);
         visitBtn.x = 55;
         visitBtn.y = 3;
-        source.addChild(visitBtn);
+//        source.addChild(visitBtn);
         visitBtn.clickCallback = visitPerson;
         visitBtn.visible = false;
 
@@ -95,6 +93,8 @@ public class MarketFriendItem {
             _helpIcon.y = 80;
             source.addChild(_helpIcon);
         }
+        imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
+        source.addChild(imRamka);
     }
 
     private function visitPerson():void {
@@ -140,9 +140,9 @@ public class MarketFriendItem {
 
     private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
-        MCScaler.scale(_ava, 98, 98);
-        _ava.x = 4;
-        _ava.y = 2;
+        MCScaler.scale(_ava, 85, 85);
+        _ava.x = 12;
+        _ava.y = 12;
         if (source) source.addChild(_ava);
         if (visitBtn && source.contains(visitBtn)) source.setChildIndex(visitBtn, source.numChildren-1);
         if (_helpIcon && source.contains(_helpIcon)) source.setChildIndex(_helpIcon, source.numChildren-1);

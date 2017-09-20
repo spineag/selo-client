@@ -25,6 +25,7 @@ import utils.CSprite;
 import utils.CTextField;
 
 import utils.MCScaler;
+import utils.SensibleBlock;
 
 import windows.WOComponents.YellowBackgroundOut;
 import windows.WindowsManager;
@@ -37,6 +38,7 @@ public class WOBuyCouponeItem {
     private var _imageCoupone:Image;
     private var _btn:CButton;
     private var _txtCount:CTextField;
+    private var _txtPlusOne:CTextField;
     private var _txtBtn:CTextField;
     private var _type:int;
     private var g:Vars = Vars.getInstance();
@@ -44,36 +46,45 @@ public class WOBuyCouponeItem {
     public function WOBuyCouponeItem(imageCopone:String, txtItemCoupone:int, txtCostCoupone:int,type:int) {
         try {
             _type = type;
-            _carton = new YellowBackgroundOut(100, 150);
+//            _carton = new YellowBackgroundOut(100, 150);
             _cost = txtCostCoupone;
             _count = txtItemCoupone;
-            _carton.filter = ManagerFilters.SHADOW_LIGHT;
+//            _carton.filter = ManagerFilters.SHADOW_LIGHT;
             source = new Sprite();
-            source.addChild(_carton);
+//            source.addChild(_carton);
             _btn = new CButton();
-            _btn.addButtonTexture(80, 50, CButton.GREEN, true);
-            _txtBtn = new CTextField(50,50,'+' + String(_cost));
-            _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _btn.addButtonTexture(100, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+            _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, CButton.GREEN);
+//            _btn = new CButton();
+//            _btn.addButtonTexture(80, 50, CButton.GREEN, true);
+            _txtBtn = new CTextField(100,100,'+' + String(_cost));
+            _txtBtn.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
 //            txt.x = 5;
-            _btn.addChild(_txtBtn);
+//            _btn.addChild(_txtBtn);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//            MCScaler.scale(im,30,30);
-            im.x = 45;
-            im.y = 10;
-            _btn.addDisplayObject(im);
+            im.alignPivot();
+            var sens:SensibleBlock = new SensibleBlock();
+            sens.textAndImage(_txtBtn,im,100);
+            _btn.addSensBlock(sens,0,18);
             source.addChild(_btn);
+
             _btn.clickCallback = onClick;
             _btn.x = 50;
-            _btn.y = 115;
+            _btn.y = 120;
             _imageCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture(imageCopone));
-            _imageCoupone.x = 30;
-            _imageCoupone.y = 10;
+//            _imageCoupone.x = 30;
+            _imageCoupone.y = -60;
             source.addChild(_imageCoupone);
             _txtCount = new CTextField(50,50,String(_count));
-            _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            _txtCount.x = 23;
-            _txtCount.y = 45;
+            _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW,Color.WHITE);
+            _txtCount.x = 60;
+//            _txtCount.y = -20;
             source.addChild(_txtCount);
+            _txtPlusOne = new CTextField(50,50,'+1');
+            _txtPlusOne.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+            _txtPlusOne.y = 50;
+            _txtPlusOne.x = 20;
+            source.addChild(_txtPlusOne);
         } catch (e:Error) {
             Cc.error('WOBuyCouponeItem error: ' + e.errorID + ' - ' + e.message);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'buyCoupone');
@@ -111,9 +122,12 @@ public class WOBuyCouponeItem {
         source.removeChild(_txtCount);
         _txtCount.dispose();
         _txtCount = null;
-        source.removeChild(_carton);
-        _carton.deleteIt();
-        _carton = null;
+        source.removeChild(_txtPlusOne);
+        _txtPlusOne.dispose();
+        _txtPlusOne = null;
+//        source.removeChild(_carton);
+//        _carton.deleteIt();
+//        _carton = null;
     }
 }
 }

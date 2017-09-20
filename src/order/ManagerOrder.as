@@ -173,7 +173,7 @@ public class ManagerOrder {
         var l:int=1;
         for (var i:int=0; i<_countTimeDelay.length; i++) {
             if (_countTimeDelay[i].level <= g.user.level) {
-                l = _countCellAtLevel[i].delay;
+//                l = _countCellAtLevel[i].delay;
             } else {
                 break;
             }
