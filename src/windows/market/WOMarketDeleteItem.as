@@ -2,6 +2,8 @@
  * Created by user on 5/5/16.
  */
 package windows.market {
+import data.BuildType;
+
 import manager.ManagerFabricaRecipe;
 import manager.ManagerFilters;
 
@@ -98,7 +100,10 @@ public class WOMarketDeleteItem extends WindowMain{
         _data = params[0];
         _count = params[1];
         _cost = params[2];
-        var im:Image = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop));
+        var im:Image;
+        if (_data.buildType == BuildType.PLANT) {
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+        } else im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop));
         im.x = -im.width/2;
         im.y = -im.height/7;
         _source.addChild(im);
@@ -111,7 +116,7 @@ public class WOMarketDeleteItem extends WindowMain{
         txt = new CTextField(333, 100,String(_cost));
         txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         txt.alignH = Align.LEFT;
-        txt.x = -5 - txt.textBounds.width/2;
+        txt.x = - 5 - txt.textBounds.width/2;
         txt.y = 68;
         _source.addChild(txt);
     }

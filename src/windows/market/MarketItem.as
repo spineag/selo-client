@@ -28,6 +28,7 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
+import starling.utils.Align;
 import starling.utils.Color;
 import temp.DropResourceVariaty;
 import tutorial.TutsAction;
@@ -40,6 +41,8 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SensibleBlock;
+
 import windows.WOComponents.WhiteBackgroundIn;
 import windows.WindowsManager;
 
@@ -50,7 +53,7 @@ public class MarketItem {
     private var _countTxt:CTextField;
     private var _txtPlawka:CTextField;
     private var _txtAdditem:CTextField;
-    private var _bg:WhiteBackgroundIn;
+    private var _bg:Image;
     private var quad:Quad;
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
     private var _callback:Function;
@@ -58,8 +61,8 @@ public class MarketItem {
     private var _dataFromServer:StructureMarketItem;
     private var _countResource:int;
     private var _countMoney:int;
-    private var _plawkaSold:Image;
-    private var _plawkaLvl:Image;
+//    private var _plawkaSold:Image;
+//    private var _plawkaLvl:Image;
     private var _plawkaBuy:Image;
     private var _coin:Image;
     private var _plawkaCoins:Sprite;
@@ -88,6 +91,7 @@ public class MarketItem {
     private var _txtBuyCell:CTextField;
     private var _txtGo:CTextField;
     private var _photoUrl:String;
+    private var _ramkAva:Image;
     private var g:Vars = Vars.getInstance();
 
     public function MarketItem(numberCell:int, close:Boolean, wo:WOMarket) {
@@ -98,7 +102,8 @@ public class MarketItem {
         _onHover = false;
         _woWidth = 110;
         _woHeight = 133;
-        _bg = new WhiteBackgroundIn(_woWidth, _woHeight);
+//        _bg = new WhiteBackgroundIn(_woWidth, _woHeight);
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_blue_cell_big'));
         source.addChild(_bg);
         quad = new Quad(_woWidth, _woHeight,Color.WHITE);
         quad.alpha = 0;
@@ -115,35 +120,36 @@ public class MarketItem {
         _txtAdditem.visible = true;
 
         _costTxt = new CTextField(122, 30, '');
-        _costTxt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _costTxt.setFormat(CTextField.BOLD24, 24,ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _costTxt.cacheIt = false;
-        _costTxt.y = 99;
+        _costTxt.y = 148;
         _costTxt.pivotX = _costTxt.width/2;
-        _costTxt.x = _bg.width/2 - 5;
+        _costTxt.x = _bg.width/2 - 15;
 
-        _countTxt = new CTextField(30, 30, ' ');
-        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _countTxt = new CTextField(122, 30, ' ');
+        _countTxt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _countTxt.cacheIt = false;
-        _countTxt.x = 77;
-        _countTxt.y = 3;
+        _countTxt.alignH = Align.RIGHT;
+        _countTxt.x = 23;
+        _countTxt.y = 100;
         source.addChild(_countTxt);
 
         _imageCont = new Sprite();
         source.addChild(_imageCont);
 
-        _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('roadside_shop_tabl'));
-        _plawkaSold.pivotX = _plawkaSold.width/2;
-        _plawkaSold.x = _bg.width/2;
-        _plawkaSold.y = 70;
-        source.addChild(_plawkaSold);
-        _plawkaSold.visible = false;
-
-        _plawkaLvl = new Image(g.allData.atlas['interfaceAtlas'].getTexture('available_on_level'));
-        _plawkaLvl.pivotX = _plawkaLvl.width/2;
-        _plawkaLvl.x = _bg.width/2;
-        source.addChild(_plawkaLvl);
-
-        _plawkaLvl.visible = false;
+//        _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('roadside_shop_tabl'));
+//        _plawkaSold.pivotX = _plawkaSold.width/2;
+//        _plawkaSold.x = _bg.width/2;
+//        _plawkaSold.y = 70;
+//        source.addChild(_plawkaSold);
+//        _plawkaSold.visible = false;
+//
+//        _plawkaLvl = new Image(g.allData.atlas['interfaceAtlas'].getTexture('available_on_level'));
+//        _plawkaLvl.pivotX = _plawkaLvl.width/2;
+//        _plawkaLvl.x = _bg.width/2;
+//        source.addChild(_plawkaLvl);
+//
+//        _plawkaLvl.visible = false;
 
         _txtPlawka = new CTextField(100,60, String(g.managerLanguage.allTexts[389]));
         _txtPlawka.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
@@ -151,17 +157,17 @@ public class MarketItem {
         _txtPlawka.y = 85;
 //        _txtPlawka.x = -30;
         _txtPlawka.visible = false;
-        source.addChild(_txtPlawka);
+//        source.addChild(_txtPlawka);
 
         _plawkaCoins = new Sprite();
         source.addChild(_plawkaCoins);
-        _plawkaBuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
+        _plawkaBuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_blue_cell_big_white'));
         _plawkaBuy.x = 5;
-        _plawkaBuy.y = 100;
+        _plawkaBuy.y = 125;
         _plawkaCoins.addChild(_plawkaBuy);
         _coin  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-        MCScaler.scale(_coin,25,25);
-        _coin.y = 102;
+//        MCScaler.scale(_coin,25,25);
+        _coin.y = 148;
         _coin.x = _bg.width/2 + 15;
         _plawkaCoins.addChild(_coin);
         _plawkaCoins.addChild(_costTxt);
@@ -175,7 +181,7 @@ public class MarketItem {
         _papperBtn.x = 20;
         _papperBtn.y = 10;
         _papperBtn.alpha = 1;
-        source.addChild(_papperBtn);
+//        source.addChild(_papperBtn);
         _papperBtn.clickCallback = onPaper;
         _papperBtn.hoverCallback = function ():void {
             if (_inPapper || isFill == 2) return;
@@ -209,35 +215,38 @@ public class MarketItem {
             g.hint.hideIt();
         };
         _delete.visible = false;
-
+        _ramkAva = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
+        source.addChild(_ramkAva);
+        _ramkAva.y = -_ramkAva.height/2 + 15;
+        _ramkAva.x = _ramkAva.width/4;
+        _ramkAva.visible = false;
         if (_closeCell) {
             buyCont = new Sprite();
             if (numberCell == 5) _countBuyCell = 5;
             else _countBuyCell = (numberCell - 5) * 2 + 5;
             source.addChild(buyCont);
-            _txtBuyNewPlace = new CTextField(100,90,String(g.managerLanguage.allTexts[392]));
-            _txtBuyNewPlace.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            _txtBuyNewPlace.cacheIt = false;
-            _txtBuyNewPlace.x = 5;
-            _txtBuyNewPlace.y = 0;
-            buyCont.addChild(_txtBuyNewPlace);
-            _btnBuyCont = new CButton();
-            _btnBuyCont.addButtonTexture(90,34,CButton.GREEN, true);
-            _txtBuyCell = new CTextField(30,30,String(String(_countBuyCell)));
-            _txtBuyCell.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _txtBuyCell = new CTextField(122,30,String(String(_countBuyCell)));
+            _txtBuyCell.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
             _txtBuyCell.cacheIt = false;
             _txtBuyCell.x = 15;
             _txtBuyCell.y = 3;
-            _btnBuyCont.addChild(_txtBuyCell);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-            im.x = 55;
-            im.y = 6;
-            MCScaler.scale(im,25,25);
-            _btnBuyCont.addChild(im);
-            _btnBuyCont.y = 110;
-            _btnBuyCont.x = 55;
+            im.alignPivot();
+            _btnBuyCont = new CButton();
+            _btnBuyCont.addButtonTexture(100, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+            _btnBuyCont.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            var sens:SensibleBlock = new SensibleBlock();
+            sens.textAndImage(_txtBuyCell,im,100);
+            _btnBuyCont.addSensBlock(sens,0,18);
+//            _btnBuyCont.addChild(im);
+            _btnBuyCont.y = 160;
+            _btnBuyCont.x = 85;
             _btnBuyCont.clickCallback = onClickBuy;
             buyCont.addChild(_btnBuyCont);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_add_button'));
+            im.x = 48;
+            im.y = 50;
+            buyCont.addChild(im);
             _txtAdditem.visible = false;
         } else {
             source.endClickCallback = onClick;
@@ -259,11 +268,11 @@ public class MarketItem {
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
                 return;
             }
-            MCScaler.scale(im, 80, 80);
+//            MCScaler.scale(im, 80, 80);
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;
-            im.x = _bg.width/2 - 10;
-            im.y = _bg.height/2 - 15;
+            im.x = _bg.width/2;
+            im.y = _bg.height/2-8;
             _imageCont.addChild(im);
         } else {
             Cc.error('MarketItem fillIt:: empty _data');
@@ -278,13 +287,13 @@ public class MarketItem {
 
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
-        _coin.y = 102;
-        _coin.x = _bg.width/2 + 15;
+//        _coin.y = 148;
+//        _coin.x = _bg.width/2 + 15;
         _txtPlawka.x = 5;
         _txtPlawka.y = 85;
-        _costTxt.y = 99;
-        _costTxt.pivotX = _costTxt.width/2;
-        _costTxt.x = _bg.width/2 - 5;
+//        _costTxt.y = 147;
+//        _costTxt.pivotX = _costTxt.width/2;
+//        _costTxt.x = _bg.width/2 - 15;
         if (_isUser) {
             visiblePapperTimer();
         }
@@ -438,7 +447,8 @@ public class MarketItem {
                 if (g.tuts.isTuts) return;
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
             } else {
-                if (_plawkaSold.visible == true) return;
+//                if (_plawkaSold.visible == true) return;
+                //Вставить проверку на лвл
                 var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
                     p = new Point(source.x, source.y);
@@ -548,7 +558,7 @@ public class MarketItem {
             showFlyResource(d, _dataFromServer.resourceCount);
             g.managerAchievement.addAll(24,_dataFromServer.cost);
             _plawkaCoins.visible = false;
-            _plawkaSold.visible = true;
+//            _plawkaSold.visible = true;
             _txtPlawka.visible = true;
             _papperBtn.visible = false;
             if (_person == g.user.neighbor) {
@@ -624,8 +634,8 @@ public class MarketItem {
 //        source.removeChild(_ava);
         if (_plawkaBuy) _plawkaBuy.visible = true;
         if (_plawkaCoins) _plawkaCoins.visible = false;
-        if (_plawkaSold) _plawkaSold.visible = false;
-        if (_plawkaLvl) _plawkaLvl.visible = false;
+//        if (_plawkaSold) _plawkaSold.visible = false;
+//        if (_plawkaLvl) _plawkaLvl.visible = false;
         if (_txtPlawka) _txtPlawka.visible = false;
         if (_delete) _delete.visible = false;
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
@@ -640,7 +650,7 @@ public class MarketItem {
             isFill = 2;
             _inPapper = _dataFromServer.inPapper;
             if (_person.userSocialId == g.user.userSocialId) { //sale yours item
-                _plawkaSold.visible = false;
+//                _plawkaSold.visible = false;
                 _txtPlawka.visible = false;
 //                _quadGreen.visible = true;
 //                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
@@ -649,14 +659,14 @@ public class MarketItem {
                 } catch (e:Error) {
                     Cc.error('at showSaleImage');
                 }
-                _plawkaBuy.visible = false;
+//                _plawkaBuy.visible = false;
                 _txtAdditem.visible = false;
             } else { // sale anyway item
                 _txtAdditem.visible = false;
                 fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
                 _plawkaCoins.visible = false;
-                _plawkaLvl.visible = false;
-                _plawkaSold.visible = true;
+//                _plawkaLvl.visible = false;
+//                _plawkaSold.visible = true;
                 _txtPlawka.visible = true;
             }
         } else { //have Item
@@ -672,8 +682,8 @@ public class MarketItem {
             fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
             if (g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel > g.user.level) { //have item but your level so small
                 _plawkaCoins.visible = false;
-                _plawkaLvl.visible = true;
-                _plawkaLvl.y = 50;
+//                _plawkaLvl.visible = true;
+//                _plawkaLvl.y = 50;
                 _txtPlawka.visible = true;
                 _txtPlawka.y = 75;
                 _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel);
@@ -700,40 +710,44 @@ public class MarketItem {
         var im:Image;
         _data = data;
         if(_papperBtn) _papperBtn.visible = false;
-        if (_data) {
-            if (_data.buildType == BuildType.PLANT) {
-                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
-            } else {
-                im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
-            }
-            if (!im) {
-                Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
-                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
-                return;
-            }
-            MCScaler.scale(im, 45, 45);
-            im.x = 2;
-            im.y = 90;
-            if (_imageCont) _imageCont.addChild(im);
-        } else {
-            Cc.error('MarketItem fillIt:: empty _data');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
-            return;
-        }
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
+        im.x = 40;
+        im.y = 75;
+        _imageCont.addChild(im);
+//        if (_data) {
+//            if (_data.buildType == BuildType.PLANT) {
+//                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+//            } else {
+//                im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+//            }
+//            if (!im) {
+//                Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
+//                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
+//                return;
+//            }
+//            MCScaler.scale(im, 45, 45);
+//            im.x = 2;
+//            im.y = 90;
+//            if (_imageCont) _imageCont.addChild(im);
+//        } else {
+//            Cc.error('MarketItem fillIt:: empty _data');
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
+//            return;
+//        }
         if (_txtPlawka) {
             _txtPlawka.visible = true;
             _txtPlawka.y = 45;
         }
         if (_txtAdditem) _txtAdditem.visible = false;
         _countMoney = cost;
-        if (_coin) {
-            _coin.y = 85;
-            _coin.x = _bg.width / 2;
-        }
-        if (_costTxt) {
-            _costTxt.y = 105;
-            _costTxt.x = _bg.width / 2 + 12;
-        }
+//        if (_coin) {
+//            _coin.y = 85;
+//            _coin.x = _bg.width / 2;
+//        }
+//        if (_costTxt) {
+//            _costTxt.y = 105;
+//            _costTxt.x = _bg.width / 2 + 12;
+//        }
         if (_plawkaCoins) _plawkaCoins.visible = true;
         if (_costTxt) _costTxt.text = String(cost);
 //        if (_isUser) {
@@ -761,6 +775,7 @@ public class MarketItem {
         }
         if (_personBuyer && _personBuyer is NeighborBot && !_personBuyerTempItem) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
+            _ramkAva.visible = true;
         } else {
             if (!_imageCont) {
                 Cc.error('MarketItem:: showScaleImage:: no _imageCont');
@@ -769,12 +784,13 @@ public class MarketItem {
             if (!_personBuyer) {
                 _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
                 if (_avaDefault) {
-                    MCScaler.scale(_avaDefault, 75, 75);
-                    _avaDefault.pivotX = _avaDefault.width/2;
-                    _avaDefault.pivotY = _avaDefault.height/2;
-                    _avaDefault.x = _bg.width/2 - 9;
-                    _avaDefault.y = _bg.height/2 - 30;
+                    MCScaler.scale(_avaDefault, 85, 85);
+                    _avaDefault.pivotX = _avaDefault.width / 2;
+                    _avaDefault.pivotY = _avaDefault.height / 2;
+                    _avaDefault.x = _bg.width / 2 - 9;
+                    _avaDefault.y = - 25;
                     _imageCont.addChild(_avaDefault);
+                    _ramkAva.visible = true;
                 } else {
                     Cc.error('MarketItem:: no default_avatar_big');
                 }
@@ -787,12 +803,13 @@ public class MarketItem {
                 if (_personBuyer.photo) {
                     _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
                     if (_avaDefault) {
-                        MCScaler.scale(_avaDefault, 75, 75);
-                        _avaDefault.pivotX = _avaDefault.width/2;
-                        _avaDefault.pivotY = _avaDefault.height/2;
-                        _avaDefault.x = _bg.width/2 - 9;
-                        _avaDefault.y = _bg.height/2 - 30;
+                        MCScaler.scale(_avaDefault, 85, 85);
+                        _avaDefault.pivotX = _avaDefault.width / 2;
+                        _avaDefault.pivotY = _avaDefault.height / 2;
+                        _avaDefault.x = _bg.width / 2 - 9;
+                        _avaDefault.y = - 25;
                         _imageCont.addChild(_avaDefault);
+                        _ramkAva.visible = true;
                     } else {
                         Cc.error('MarketItem:: no default_avatar_big');
                     }
@@ -803,12 +820,13 @@ public class MarketItem {
                     if (t) {
                         _avaDefault = new Image(t);
                         if (_avaDefault) {
-                            MCScaler.scale(_avaDefault, 75, 75);
+                            MCScaler.scale(_avaDefault, 85, 85);
                             _avaDefault.pivotX = _avaDefault.width / 2;
                             _avaDefault.pivotY = _avaDefault.height / 2;
                             _avaDefault.x = _bg.width / 2 - 9;
-                            _avaDefault.y = _bg.height / 2 - 30;
+                            _avaDefault.y = - 25;
                             _imageCont.addChild(_avaDefault);
+                            _ramkAva.visible = true;
                         } else {
                             Cc.error('MarketItem:: no default_avatar_big');
                         }
@@ -949,9 +967,9 @@ public class MarketItem {
         }
         if (tex) {
             _ava = new Image(tex);
-            MCScaler.scale(_ava, 75, 75);
+            MCScaler.scale(_ava, 85, 85);
             if (_bg) _ava.x = _bg.width/2 - _ava.width/2;
-            if (_bg) _ava.y = _bg.height/2 - _ava.height/2 - 20;
+            if (_bg) _ava.y = - 25;
             _imageCont.addChild(_ava);
         } else {
             Cc.error('MarketItem photoFromTexture:: no texture(')
@@ -979,7 +997,7 @@ public class MarketItem {
             buyCont = null;
         }
         source.removeChild(_bg);
-        _bg.deleteIt();
+//        _bg.deleteIt();
         _bg = null;
         _callback = null;
         _data = null;
