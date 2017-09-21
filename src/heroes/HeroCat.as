@@ -410,7 +410,7 @@ public class HeroCat extends BasicCat{
             removeWorker();
         };
         visible = false;
-        (activeRandomWorkBuild as Fabrica).onHeroAnimation(onFinishWork);
+        (activeRandomWorkBuild as Fabrica).onHeroAnimation(onFinishWork, this);
     }
 
 // DELETE

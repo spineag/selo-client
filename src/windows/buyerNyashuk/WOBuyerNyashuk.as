@@ -107,25 +107,23 @@ public class WOBuyerNyashuk extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
             return;
         }
-        var dataResource:Object = {};
+        var dataResource:Object;
         var txt:CTextField =  new CTextField(172,45,String(g.managerLanguage.allTexts[451]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -165;
         txt.y = -120;
         _source.addChild(txt);
         _arrCTex.push(txt);
-        txt =  new CTextField(250,45,String(g.managerLanguage.allTexts[452]));
+        txt = new CTextField(250,45,String(g.managerLanguage.allTexts[452]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -200;
         txt.y = -95;
         _source.addChild(txt);
         _arrCTex.push(txt);
         dataResource = g.allData.getResourceById(_data.resourceId);
-     var im:Image;
-        if (dataResource.buildType == BuildType.PLANT)
-            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(dataResource.imageShop + '_icon'));
-        else
-            im = new Image(g.allData.atlas[dataResource.url].getTexture(dataResource.imageShop));
+        var im:Image;
+        if (dataResource.buildType == BuildType.PLANT) im = new Image(g.allData.atlas['resourceAtlas'].getTexture(dataResource.imageShop + '_icon'));
+            else im = new Image(g.allData.atlas[dataResource.url].getTexture(dataResource.imageShop));
         if (!im) {
             Cc.error('WOPapperItem fillItBot:: no such image: ' + dataResource.imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
@@ -182,7 +180,7 @@ public class WOBuyerNyashuk extends WindowMain{
     private function onClickBuy(noResource:Boolean = false):void {
         var ob:Object = {};
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
-            if (g.tuts.isTuts) {
+            if (!g.tuts.isTuts) {
                 ob.data = g.allData.getResourceById(_data.resourceId);
                 ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
                 ob.dataNyashuk = _data;
@@ -191,7 +189,7 @@ public class WOBuyerNyashuk extends WindowMain{
             } else super.hideIt();
             return;
         }
-        if (!noResource && _data.type == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount &&  !g.userInventory.checkLastResource(_data.resourceId)) {
+        if (!noResource && _data.type == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount && !g.userInventory.checkLastResource(_data.resourceId)) {
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBuy, _data, 'nyashuk', _nyashuk);
             return;

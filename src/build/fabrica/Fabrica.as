@@ -54,9 +54,7 @@ public class Fabrica extends WorldObject {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Fabrica');
             return;
         }
-        if (!_dataBuild.countCell) {
-            _dataBuild.countCell = g.allData.getBuildingById(_dataBuild.id).startCountCell;
-        }
+        if (!_dataBuild.countCell) _dataBuild.countCell = g.allData.getBuildingById(_dataBuild.id).startCountCell;
         _craftSprite = new Sprite();
         if (g.isAway) {
             g.cont.craftAwayCont.addChild(_craftSprite);
@@ -87,8 +85,8 @@ public class Fabrica extends WorldObject {
     private function checkBuildState():void {
         try {
             if (g.isAway) {
-                    _stateBuild = STATE_ACTIVE;
-                    createAnimatedBuild(onCreateBuild);
+                _stateBuild = STATE_ACTIVE;
+                createAnimatedBuild(onCreateBuild);
             } else {
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {
@@ -120,11 +118,13 @@ public class Fabrica extends WorldObject {
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        stopAnimation();
-        if (_source) _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
-        if (_source) _source.registerHitArea(_hitArea);
+        if (_arrList.length) workAloneAnimation();
+            else stopAnimation();
+        if (_source) {
+            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
+            _source.registerHitArea(_hitArea);
+        }
     }
-
 
     public function showShopView():void {
         _buildingBuildSprite.visible = false;
@@ -133,9 +133,7 @@ public class Fabrica extends WorldObject {
 
     public function removeShopView():void {
         if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
+            if (_source.contains(_build)) _source.removeChild(_build);
             while (_build.numChildren) _build.removeChildAt(0);
         }
         _buildingBuildSprite.visible = true;
@@ -153,46 +151,32 @@ public class Fabrica extends WorldObject {
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();
-        if (g.isAway) {
-            g.hint.showIt(_dataBuild.name);
-            return;
-        }
+        if (g.isAway) { g.hint.showIt(_dataBuild.name); return; }
         if (g.tuts.isTuts && !g.tuts.isTutsBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _count = 20;
         if (_stateBuild == STATE_ACTIVE) {
             if (_arrList.length > 0) g.hint.showIt(_dataBuild.name,'fabric',0,_arrList[0].leftTime);
-            else g.hint.showIt(_dataBuild.name);
-
+                else g.hint.showIt(_dataBuild.name);
             if (!_isOnHover && !_arrList.length && _armature) {
                 var fEndOver:Function = function(e:Event=null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-//                    _armature.animation.gotoAndStopByFrame('idle');
-                    _armature.animation.gotoAndPlayByFrame('idle');
+                    _armature.animation.gotoAndStopByFrame('idle');
                 };
                 _armature.addEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 _armature.animation.gotoAndPlayByFrame('over');
             }
-        } else if (_stateBuild == STATE_BUILD) {
-            if (!_isOnHover) {
-                buildingBuildFoundationOver();
-                if (g.tuts.isTuts) return;
-            }
-        } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            if (!_isOnHover) buildingBuildDoneOver();
-        }
+        } else if (_stateBuild == STATE_BUILD) {  if (!_isOnHover) buildingBuildFoundationOver();
+        } else if (_stateBuild == STATE_WAIT_ACTIVATE) { if (!_isOnHover) buildingBuildDoneOver();  }
         if (!_isOnHover) _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         _isOnHover = true;
     }
 
     override public function onOut():void {
         super.onOut();
-        if (g.isAway) {
-            g.hint.hideIt();
-            return;
-        }
+        if (g.isAway) { g.hint.hideIt();  return;  }
         if (_source.filter) _source.filter.dispose();
         _source.filter = null;
         if (g.tuts.isTuts) {
@@ -205,9 +189,8 @@ public class Fabrica extends WorldObject {
     }
 
     public function openFabricaWindow():void {
-        if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_RAW_FABRICA && g.managerHelpers.activeReason.build == this) {
+        if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_RAW_FABRICA && g.managerHelpers.activeReason.build == this)
             g.managerHelpers.onOpenFabricaWithDelay();
-        }
         hideArrow();
         g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this);
     }
@@ -247,9 +230,7 @@ public class Fabrica extends WorldObject {
                 releaseFlip();
                 g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-
             } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
-                // ничего не делаем вообще
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
@@ -274,7 +255,6 @@ public class Fabrica extends WorldObject {
                 Cc.error('Fabrica:: unknown g.toolsModifier.modifierType and convert to NONE');
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 onClick();
-                return;
             }
         } else if (_stateBuild == STATE_BUILD) {
             if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
@@ -288,7 +268,7 @@ public class Fabrica extends WorldObject {
                         g.tuts.checkTutsCallback();
                         g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
                                 _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
-                    } else return;
+                    }
                 } else {
                     g.timerHint.needMoveCenter = true;
                     g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
@@ -372,6 +352,7 @@ public class Fabrica extends WorldObject {
         if (!_arrList.length) return;
         _arrList.sortOn('delayTime', Array.NUMERIC);
         g.gameDispatcher.addToTimer(render);
+        if (_armature) workAloneAnimation();
     }
 
     public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object):void {
@@ -394,6 +375,7 @@ public class Fabrica extends WorldObject {
         g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
         g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.idResource});
         g.managerCats.onStartFabrica(this);
+        workAloneAnimation();
         // animation of uploading resources to fabrica
         var p:Point = new Point(source.x, source.y);
         p = source.parent.localToGlobal(p);
@@ -408,7 +390,7 @@ public class Fabrica extends WorldObject {
     }
 
     public function onGoAway(v:Boolean):void {
-        if (v) startAnimation();
+        if (v && _arrList.length) workAloneAnimation();
         else stopAnimation();
     }
 
@@ -469,10 +451,11 @@ public class Fabrica extends WorldObject {
         g.managerFabricaRecipe.onCraft(item);
     }
 
-    public function onHeroAnimation(f:Function):void {
-        _countAnimation = 5;
+    public function onHeroAnimation(f:Function, cat:HeroCat):void {
+        _countAnimation = 3;
         _callOnRandomWork = f;
         stopAnimation();
+        releaseHeroCatWoman(cat);
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimationHero);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimationHero);
         chooseAnimationHero();
@@ -487,51 +470,27 @@ public class Fabrica extends WorldObject {
                 _callOnRandomWork.apply();
                 _callOnRandomWork = null;
             }
-            if (_arrList.length) startAnimation();
-            else stopAnimation();
-        }
-        _armature.animation.gotoAndPlayByFrame('idle2');
+            if (_arrList.length) workAloneAnimation();
+                else stopAnimation();
+        } else _armature.animation.gotoAndPlayByFrame('idle2');
     }
 
-    public function awayImitationOfWork():void { startAnimation(); }
-
-    private function startAnimation():void {
-        if (!_armature) return;
-        _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
-        _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-        chooseAnimation();
+    public function awayImitationOfWork():void {
+        if (Math.random() > .2) stopAnimation();
+            else workAloneAnimation();
     }
 
     private function stopAnimation():void {
-        if (_armature) _armature.animation.gotoAndStopByFrame('idle');
-        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
-        if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
+        if (!_armature) return;
+        _armature.animation.gotoAndStopByFrame('idle');
+        if ( _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, workAloneAnimation);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, workAloneAnimation);
     }
 
-    private function chooseAnimation(e:Event=null):void {
-//        _countAnimation--;
-//        if (_countAnimation < 0 && !g.isAway) {
-//            stopAnimation();
-//            if (_callOnRandomWork != null) {
-//                _callOnRandomWork.apply();
-//                _callOnRandomWork = null;
-//            }
-//        }
+    private function workAloneAnimation(e:Event=null):void {
         if (!_armature) return;
-        if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
-        if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-//        var k:int = int(Math.random() * 6);
-//        switch (k) {
-//            case 0: _armature.animation.gotoAndPlayByFrame('idle1'); break;
-//            case 1: _armature.animation.gotoAndPlayByFrame('idle1'); break;
-//            case 2: _armature.animation.gotoAndPlayByFrame('idle1'); break;
-//            case 3: _armature.animation.gotoAndPlayByFrame('idle2'); break;
-//            case 4: _armature.animation.gotoAndPlayByFrame('idle3'); break;
-//            case 5:
-//                if (_armature.animation.hasAnimation('idle4')) _armature.animation.gotoAndPlayByFrame('idle4');
-//                else _armature.animation.gotoAndPlayByFrame('idle3');
-//                break;
-//        }
+        if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, workAloneAnimation);
+        if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, workAloneAnimation);
         _armature.animation.gotoAndPlayByFrame('idle1');
     }
 
@@ -614,6 +573,74 @@ public class Fabrica extends WorldObject {
         _armatureOpen = null;
         if (!g.tuts.isTuts) {
             g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
+        }
+    }
+
+    private function releaseHeroCatWoman(cat:HeroCat):void {
+        if (cat.typeMan == BasicCat.MAN) {
+            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133) releaseManBackTexture();
+                else releaseManFrontTexture();
+        } else if (cat.typeMan == BasicCat.WOMAN) {
+            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133) releaseWomanBackTexture();
+                else releaseWomanFrontTexture();
+        }
+    }
+
+    private function releaseManFrontTexture():void {
+        changeTexture("head", "head");
+        changeTexture("body", "body");
+        changeTexture("handLeft", "hand_l");
+        changeTexture("legLeft", "leg_l");
+        changeTexture("handRight", "hand_r");
+        changeTexture("legRight", "leg_r");
+        changeTexture("tail", "tail");
+        if (_dataBuild.id == 10) changeTexture("handRight2", "hand_r");
+        var viyi:Bone = _armature.getBone('viyi');
+        if (viyi) viyi.visible = false;
+    }
+
+    private function releaseManBackTexture():void {
+        changeTexture("head", "head_b");
+        changeTexture("body", "body_b");
+        changeTexture("handLeft", "hand_l_b");
+        changeTexture("legLeft", "leg_l_b");
+        changeTexture("handRight", "hand_r_b");
+        changeTexture("legRight", "leg_r_b");
+        changeTexture("tail", "tail");
+        if (_dataBuild.id == 10) changeTexture("handRight2", "hand_r_b");
+    }
+
+    private function releaseWomanFrontTexture():void {
+        changeTexture("head", "head_w");
+        changeTexture("body", "body_w");
+        changeTexture("handLeft", "hand_w_l");
+        changeTexture("legLeft", "leg_w_r");
+        changeTexture("handRight", "hand_w_r");
+        changeTexture("legRight", "leg_w_r");
+        changeTexture("tail", "tail_w");
+        if (_dataBuild.id == 10) changeTexture("handRight2", "hand_w_r");
+        var viyi:Bone = _armature.getBone('viyi');
+        if (viyi) viyi.visible = true;
+    }
+
+    private function releaseWomanBackTexture():void {
+        changeTexture("head", "head_w_b");
+        changeTexture("body", "body_w_b");
+        changeTexture("handLeft", "hand_w_l_b");
+        changeTexture("legLeft", "leg_w_l_b");
+        changeTexture("handRight", "hand_w_r_b");
+        changeTexture("legRight", "leg_w_r_b");
+        changeTexture("tail", "tail_w");
+    }
+
+    private function changeTexture(oldName:String, newName:String):void {
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
+        if (_armature) var b:Slot = _armature.getSlot(oldName);
+        if (im && b) {
+            b.displayList = null;
+            b.display = im;
+        } else {
+            Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
         }
     }
 
