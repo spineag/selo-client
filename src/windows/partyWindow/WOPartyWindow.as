@@ -200,7 +200,7 @@ public class WOPartyWindow extends WindowMain {
         g.directServer.updateUserParty(st,g.managerParty.userParty.countResource,0,null);
         var p:Point = new Point(0, 0);
         p = _btnLoad.localToGlobal(p);
-        new XPStar(p.x, p.y,_countLoad * g.allData.getResourceById(g.managerParty.idResource).orderXP);
+        new XPStar(p.x, p.y,_countLoad * g.allData.getResourceById(g.managerParty.idResource).orderXPMin);
         g.userInventory.addResource(g.managerParty.idResource, - _countLoad);
         _countLoad =  g.userInventory.getCountResourceById(g.managerParty.idResource);
         _txtCountLoad.text = String(_countLoad);

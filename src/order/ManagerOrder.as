@@ -441,10 +441,10 @@ public class ManagerOrder {
                 }
 
                 if (needs[0]) add_1_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                if (needs[1]) add_2_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                if (needs[2]) add_3_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                if (needs[3]) add_4_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                if (needs[4]) add_5_Item(or, arrOrderType1, arrOrderType3, userLevel);
+                else if (needs[1]) add_2_Item(or, arrOrderType1, arrOrderType3, userLevel);
+                else if (needs[2]) add_3_Item(or, arrOrderType1, arrOrderType3, userLevel);
+                else if (needs[3]) add_4_Item(or, arrOrderType1, arrOrderType3, userLevel);
+                else if (needs[4]) add_5_Item(or, arrOrderType1, arrOrderType3, userLevel);
             }
             
 //            var caveIt:int = 0;
@@ -475,9 +475,9 @@ public class ManagerOrder {
                     r = g.allData.getResourceById(or.resourceIds[k]);
                     if (r) {
                         if (r.orderType == 2) or.addCoupone = true;
-                        i = r.orderPriceMin + int(Math.random()*(r.orderPriceMax - r.orderPriceMin)); // change from r.orderPrice
+                        i = r.orderPriceMin + int(Math.random()*(r.orderPriceMax - r.orderPriceMin));
                         or.coins += i * or.resourceCounts[k];
-                        i = r.orderXPMin + int(Math.random()*(r.orderXPMax - r.orderXPMin));  // change from r.orderXP
+                        i = r.orderXPMin + int(Math.random()*(r.orderXPMax - r.orderXPMin));
                         or.xp += i * or.resourceCounts[k];
                     } else {
                         Cc.error('ManagerOrder::::::: no resource with id: ' + or.resourceCounts[k]);
@@ -850,7 +850,7 @@ public class ManagerOrder {
                 or.resourceIds.push(arrTemp[1]);
                 or.resourceCounts = [1, 1, 1, 1];
             }
-        } else if (userLevel == 12) {
+        } else {
             if (randNumber < .35) {
                 or.resourceIds = getRandomElementsFromIntArray(arProducts, 4);
                 or.resourceCounts = [1, 1, 1, 1];
@@ -887,34 +887,6 @@ public class ManagerOrder {
             or.resourceIds.push(arrTemp[1]);
             or.resourceCounts = [1, 1, 1, 1, 1];
         }
-    }
-
-    private function addNewMiniScenesOrder():void {
-        updateMaxCounts();
-
-        var or:OrderItemStructure = new OrderItemStructure();
-        or.resourceIds = [13];
-        or.resourceCounts = [1];
-        or.addCoupone = false;
-        or.catOb = getFreeCatObj();
-        or.coins = g.allData.getResourceById(or.resourceIds[0]).orderPrice * or.resourceCounts[0];
-        or.xp = g.allData.getResourceById(or.resourceIds[0]).orderXP * or.resourceCounts[0];
-        or.startTime = int(new Date().getTime()/1000);
-        or.placeNumber = 1;
-        _arrOrders.push(or);
-        g.directServer.addUserOrder(or, 0, or.catOb.id, null);
-
-        or = new OrderItemStructure();
-        or.resourceIds = [26];
-        or.resourceCounts = [2];
-        or.addCoupone = false;
-        or.catOb = getFreeCatObj();
-        or.coins = g.allData.getResourceById(or.resourceIds[0]).orderPrice * or.resourceCounts[0];
-        or.xp = g.allData.getResourceById(or.resourceIds[0]).orderXP * or.resourceCounts[0];
-        or.startTime = int(new Date().getTime()/1000);
-        or.placeNumber = 2;
-        _arrOrders.push(or);
-        g.directServer.addUserOrder(or, 0, or.catOb.id, null);
     }
 
     public function getFreeCatObj():Object {
