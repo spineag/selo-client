@@ -61,13 +61,14 @@ public class WOMarketChoose extends WindowMain {
     private var _btnCheck:CButton;
     private var _imCheck:Image;
     private var _bigYellowBG:YellowBackgroundOut;
+    private var _wb:WindowBackgroundNew;
 
     public function WOMarketChoose() {
         super();
         _windowType = WindowsManager.WO_MARKET_CHOOSE;
         _woWidth = 624;
         _woHeight = 575;
-        var _wb:WindowBackgroundNew = new WindowBackgroundNew(275,400,0);
+        _wb = new WindowBackgroundNew(275,400,0);
         _source.addChild(_wb);
         _wb.y = 60;
         _wb.x = 400;
@@ -263,7 +264,7 @@ public class WOMarketChoose extends WindowMain {
     private function createWOElements():void {
 
         _tabAmbar = new AmbarTabs(_bigYellowBG, fAmbar);
-        _tabAmbar.activate(_type);
+        _tabAmbar.activate(_type == AMBAR);
 ////        _cartonAmbar = new YellowBackgroundOut(122, 80);
 //        _tabAmbar.addChild(_cartonAmbar);
 //        var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));

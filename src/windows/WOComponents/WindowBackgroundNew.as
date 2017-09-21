@@ -19,7 +19,6 @@ public class WindowBackgroundNew extends Sprite {
         var im:Image;
         var tex:TextureAtlas = g.allData.atlas['interfaceAtlas'];
         if (w%2) w++;
-        if (hT <= 0) h =h+20;
         if (h%2) h++;
         if (hT%2) hT++;
         var s:Sprite = new Sprite();
@@ -77,32 +76,38 @@ public class WindowBackgroundNew extends Sprite {
             im.tileGrid = im.tileGrid;
             s.addChildAt(im, 0);
         } else {
-            // left bottom
+            // left top
             im = new Image(tex.getTexture('fs_white_panel_corner_bottom'));
+            hT = im.height - 8;
             im.scaleY = -1;
-            im.x = -w / 2 - 9;
-            im.y = -h / 2 - 8;
+            im.x = -w/2 - 9;
+            im.y = -h/2 + hT;
             s.addChild(im);
 
-            // right bottom
+            // right top
             im = new Image(tex.getTexture('fs_white_panel_corner_bottom'));
-            im.scaleX = -1;
-            im.scaleY = -1;
-//            im.x = w/2 + 9;
-//            im.y = -h/3 - 65 ;
-            im.x = -w / 2 + 23;
-            im.y = -h / 2 - 9;
+            im.scale = -1;
+            im.x = w/2 + 9;
+            im.y = -h/2 + hT;
             s.addChild(im);
 
-            //bottom centre
+            //top centre
             im = new Image(tex.getTexture('fs_white_panel_bottom'));
             im.tileGrid = new Rectangle();
             im.scaleY = -1;
             im.width = w - 2 * 23;
-//            im.x = -w/2 + 23;
-//            im.y = -h/3 - 65;
             im.x = -w / 2 + 23;
-            im.y = -h / 2 - 9;
+            im.y = -h/2 + 12;
+            im.tileGrid = im.tileGrid;
+            s.addChild(im);
+
+            //small top centre 2
+            im = new Image(tex.getTexture('fs_white_panel_center'));
+            im.tileGrid = new Rectangle();
+            im.width = w - 2 * 23;
+            im.height = 20;
+            im.x = -w / 2 + 23;
+            im.y = -h/2 + 12;
             im.tileGrid = im.tileGrid;
             s.addChild(im);
         }
@@ -159,13 +164,13 @@ public class WindowBackgroundNew extends Sprite {
         s.addChildAt(im, 0);
 
         var s2:Sprite = new Sprite();
-        s.x = w/2;
-        s.y = h/2;
+        s.x = w/2 + 9;
+        s.y = h/2 + 8;
         s2.addChild(s);
         im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(s2));
         addChild(im);
-        im.x = -w/2;
-        im.y = -h/2;
+        im.x = -w/2 - 9;
+        im.y = -h/2 - 8;
         s.dispose();
     }
 

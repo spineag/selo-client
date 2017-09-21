@@ -55,7 +55,7 @@ public class Consts {
     public static var INQ_DELETE_USER:String = 'a_game/deleteUser.php';
     public static var INQ_ADD_USER_MARKET_ITEM:String = 'a_game/addUserMarketItem.php';
     public static var INQ_GET_USER_MARKET_ITEM:String = 'a_userData/getUserMarketItem.php';
-    public static var INQ_GET_USER_NEIGHBOR_MARKET:String = 'a_game/getUserNeighborMarket.php';
+    public static var INQ_GET_USER_NEIGHBOR_MARKET:String = 'a_userData/getUserNeighborMarket.php';
     public static var INQ_BUY_FROM_MARKET:String = 'a_game/buyFromMarket.php';
     public static var INQ_BUY_FROM_NEIGHBOR_MARKET:String = 'a_game/buyFromNeighborMarket.php';
     public static var INQ_DELETE_USER_MARKET_ITEM:String = 'a_game/deleteUserMarketItem.php';
