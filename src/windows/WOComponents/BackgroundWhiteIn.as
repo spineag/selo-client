@@ -86,7 +86,7 @@ public class BackgroundWhiteIn extends Sprite{
         im.tileGrid = new Rectangle();
         im.width = w - 16;
         im.height = h - 16;
-        im.x = 10;
+        im.x = 8;
         im.y = 10;
         im.tileGrid = im.tileGrid;
         addChildAt(im, 0);

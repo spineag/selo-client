@@ -22,96 +22,69 @@ public class WindowBackgroundNew extends Sprite {
         if (h%2) h++;
         if (hT%2) hT++;
         var s:Sprite = new Sprite();
-        if (hT > 0) {
-            // blue part
-            //top left
-            im = new Image(tex.getTexture('fs_blue_panel_corner_top'));
-            im.x = -w / 2 - 9;
-            im.y = -h / 2 - 8;
-            s.addChild(im);
 
-            // top right
-            im = new Image(tex.getTexture('fs_blue_panel_corner_top'));
-            im.scaleX = -1;
-            im.x = w / 2 + 9;
-            im.y = -h / 2 - 8;
-            s.addChild(im);
-
-            // top centre
-            im = new Image(tex.getTexture('fs_blue_panel_top'));
-            im.tileGrid = new Rectangle();
-            im.width = w - 2 * 23;
-            im.x = -w / 2 + 23;
-            im.y = -h / 2 - 9;
-            im.tileGrid = im.tileGrid;
-            s.addChildAt(im, 0);
-
-            // left centre
-            im = new Image(tex.getTexture('fs_blue_panel_left'));
-            im.tileGrid = new Rectangle();
-            im.height = hT - 25;
-            im.x = -w / 2 - 10;
-            im.y = -h / 2 + 25;
-            im.tileGrid = im.tileGrid;
-            s.addChildAt(im, 0);
-
-            // right centre
-            im = new Image(tex.getTexture('fs_blue_panel_left'));
-            im.scaleX = -1;
-            im.tileGrid = new Rectangle();
-            im.height = hT - 25;
-            im.x = w / 2 + 10;
-            im.y = -h / 2 + 25;
-            im.tileGrid = im.tileGrid;
-            s.addChildAt(im, 0);
-
-            // center
-            im = new Image(tex.getTexture('fs_blue_panel_center'));
-            im.scaleX = -1;
-            im.tileGrid = new Rectangle();
-            im.width = w - 2 * 10;
-            im.height = hT - 11;
-            im.x = -w / 2 + 10;
-            im.y = -h / 2 + 11;
-            im.tileGrid = im.tileGrid;
-            s.addChildAt(im, 0);
-        } else {
-            // left top
-            im = new Image(tex.getTexture('fs_white_panel_corner_bottom'));
-            hT = im.height - 8;
-            im.scaleY = -1;
-            im.x = -w/2 - 9;
-            im.y = -h/2 + hT;
-            s.addChild(im);
-
-            // right top
-            im = new Image(tex.getTexture('fs_white_panel_corner_bottom'));
-            im.scale = -1;
-            im.x = w/2 + 9;
-            im.y = -h/2 + hT;
-            s.addChild(im);
-
-            //top centre
-            im = new Image(tex.getTexture('fs_white_panel_bottom'));
-            im.tileGrid = new Rectangle();
-            im.scaleY = -1;
-            im.width = w - 2 * 23;
-            im.x = -w / 2 + 23;
-            im.y = -h/2 + 12;
-            im.tileGrid = im.tileGrid;
-            s.addChild(im);
-
-            //small top centre 2
-            im = new Image(tex.getTexture('fs_white_panel_center'));
-            im.tileGrid = new Rectangle();
-            im.width = w - 2 * 23;
-            im.height = 20;
-            im.x = -w / 2 + 23;
-            im.y = -h/2 + 12;
-            im.tileGrid = im.tileGrid;
-            s.addChild(im);
+// TOP PART
+        var str:String;
+        if (hT > 0) str = 'fs_blue';
+        else {
+            str = 'fs_white';
+            hT = 10;
         }
-     // milk part
+    // blue part
+        //top left
+        im = new Image(tex.getTexture(str + '_panel_corner_top'));
+        im.x = -w / 2 - 9;
+        im.y = -h / 2 - 8;
+        s.addChild(im);
+
+        // top right
+        im = new Image(tex.getTexture(str + '_panel_corner_top'));
+        im.scaleX = -1;
+        im.x = w / 2 + 9;
+        im.y = -h / 2 - 8;
+        s.addChild(im);
+
+        // top centre
+        if (str == 'fs_blue') im = new Image(tex.getTexture(str + '_panel_top'));
+            else im = new Image(tex.getTexture(str + '_panel_c_top'));
+        im.tileGrid = new Rectangle();
+        im.width = w - 2 * 23;
+        im.x = -w / 2 + 23;
+        im.y = -h / 2 - 9;
+        im.tileGrid = im.tileGrid;
+        s.addChildAt(im, 0);
+
+        // left centre
+        im = new Image(tex.getTexture(str + '_panel_left'));
+        im.tileGrid = new Rectangle();
+        im.height = hT - 25;
+        im.x = -w / 2 - 10;
+        im.y = -h / 2 + 25;
+        im.tileGrid = im.tileGrid;
+        s.addChildAt(im, 0);
+
+        // right centre
+        im = new Image(tex.getTexture(str + '_panel_left'));
+        im.scaleX = -1;
+        im.tileGrid = new Rectangle();
+        im.height = hT - 25;
+        im.x = w / 2 + 10;
+        im.y = -h / 2 + 25;
+        im.tileGrid = im.tileGrid;
+        s.addChildAt(im, 0);
+
+        // center
+        im = new Image(tex.getTexture(str + '_panel_center'));
+        im.scaleX = -1;
+        im.tileGrid = new Rectangle();
+        im.width = w - 2 * 10;
+        im.height = hT - 11;
+        im.x = -w / 2 + 10;
+        im.y = -h / 2 + 11;
+        im.tileGrid = im.tileGrid;
+        s.addChildAt(im, 0);
+
+// MILK BOTTOM PART
         // left bottom
         im = new Image(tex.getTexture('fs_white_panel_corner_bottom'));
         im.x = -w/2 - 9;
