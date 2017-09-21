@@ -2,6 +2,9 @@
  * Created by user on 8/25/15.
  */
 package windows.market {
+import data.BuildType;
+import data.StructureDataResource;
+
 import manager.ManagerFilters;
 import manager.ManagerFilters;
 import manager.Vars;
@@ -10,6 +13,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.ColorMatrixFilter;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import utils.CButton;
@@ -21,47 +25,46 @@ public class CountBlock {
     public var source:Sprite;
     public var _btnMinus:CButton;
     public var _btnPlus:CButton;
-    private var _plawkaBg:Image;
+//    private var _plawkaBg:Image;
     private var _txt:CTextField;
     private var _curCount:int;
     private var _max:int;
     private var _min:int;
     private var _callback:Function;
+    private var _coinIm:Image;
+    private var _imResource:Image;
 
     private var g:Vars = Vars.getInstance();
 
-    public function CountBlock() {
+    public function CountBlock(coin:Boolean = false) {
         var im:Image;
         _curCount = 0;
         source = new Sprite();
         _btnMinus = new CButton();
 
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-        MCScaler.scale(im, 27, 27);
-        _btnMinus.addDisplayObject(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
-        MCScaler.scale(im, 16, 16);
-        im.x = 6;
-        im.y = 10;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_out_button'));
+        MCScaler.scale(im, 50, 50);
         _btnMinus.addDisplayObject(im);
 
         _btnPlus = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-        MCScaler.scale(im, 27, 27);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_add_button'));
+        MCScaler.scale(im, 50, 50);
         _btnPlus.addDisplayObject(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-        MCScaler.scale(im, 16, 16);
-        im.x = 6;
-        im.y = 6;
-        _btnPlus.addDisplayObject(im);
-        _txt = new CTextField(50, 30, '0');
-        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
+        _txt = new CTextField(80, 50, '0');
+        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.LIGHT_BLUE_COLOR);
+        _txt.alignH = Align.LEFT;
+//        _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;
         _btnPlus.clickCallback = onEndPlus;
         _btnMinus.startClickCallback = onStartMinus;
         _btnMinus.clickCallback = onEndMinus;
-//        btnFilter();
+        if (coin) {
+            _coinIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
+            _coinIm.x = -33;
+            _coinIm.y = -15;
+            source.addChild(_coinIm);
+        }
+        btnFilter();
     }
 
     public function btnNull():void {
@@ -79,16 +82,17 @@ public class CountBlock {
     }
 
     public function set setWidth(a:int):void {
-        _plawkaBg.width = a;
-        _plawkaBg.x = -_plawkaBg.width/2 - 58;
-        _plawkaBg.y = -_plawkaBg.height/2 + 4;
-        source.addChild(_plawkaBg);
-        _txt.x = -_txt.width/2 - 57;
+//        _plawkaBg.width = a;
+//        _plawkaBg.x = -_plawkaBg.width/2 - 58;
+//        _plawkaBg.y = -_plawkaBg.height/2 + 4;
+//        source.addChild(_plawkaBg);
+//        _txt.x = -_txt.width/2 - 57;
         _txt.y = -_txt.height/2 + 3;
+        _txt.x = + 10;
         source.addChild(_txt);
-        _btnMinus.x = _plawkaBg.x - _btnMinus.width - 10;
+        _btnMinus.x = -41 - _btnMinus.width;
         _btnMinus.y = -_btnMinus.height/2 + 5;
-        _btnPlus.x = _plawkaBg.x + _plawkaBg.width + 10;
+        _btnPlus.x = 65;
         _btnPlus.y = -_btnPlus.height/2 + 5;
         source.addChild(_btnMinus);
         source.addChild(_btnPlus);
@@ -124,6 +128,25 @@ public class CountBlock {
         timer = 0;
         delta = 0;
         g.gameDispatcher.addEnterFrame(plusRender);
+    }
+
+    public function resourceChoose(id:int):void {
+        var _data:StructureDataResource = g.allData.getResourceById(id);
+        if (_imResource) {
+            _imResource.dispose();
+            _imResource = null;
+        }
+        if (_data) {
+            if (_data.buildType == BuildType.PLANT) {
+                _imResource = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+            } else {
+                _imResource = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+            }
+        }
+        _imResource.x = -33;
+        _imResource.y = -19;
+        MCScaler.scale(_imResource,50,50);
+        source.addChild(_imResource);
     }
 
     private function onEndPlus():void {

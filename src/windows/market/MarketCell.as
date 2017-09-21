@@ -35,10 +35,8 @@ public class MarketCell {
         _cont = new Sprite();
         source.addChild(_cont);
         source.endClickCallback = onClick;
-//        _carton = new WhiteBackgroundIn(100, 100);
-//        _cont.addChild(_carton);
         _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_yellow_cell'));
-        source.addChild(_bg);
+        _cont.addChild(_bg);
 
         _info = info;
         if (!_info) {
@@ -58,7 +56,7 @@ public class MarketCell {
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketCell');
                 return;
             }
-//            MCScaler.scale(_image, 99, 99);
+            MCScaler.scale(_image, 100, 100);
             _image.x = 60 - _image.width/2;
             _image.y = 60 - _image.height/2;
             _cont.addChild(_image);
@@ -68,15 +66,13 @@ public class MarketCell {
             return;
         }
 
-        _countTxt = new CTextField(80,20,String(g.userInventory.getCountResourceById(_data.id)));
-        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _countTxt = new CTextField(80,30,String(g.userInventory.getCountResourceById(_data.id)));
+        _countTxt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _countTxt.cacheIt = false;
         _countTxt.alignH = Align.RIGHT;
-        _countTxt.x = 13;
-        _countTxt.y = 76;
+        _countTxt.x = 25;
+        _countTxt.y = 82;
         _cont.addChild(_countTxt);
-        _cont.x += 2;
-        _cont.y += 2;
     }
 
     public function set clickCallback(f:Function):void {
@@ -100,16 +96,12 @@ public class MarketCell {
     }
 
     public function deleteIt():void {
-//        _cont.removeChild(_carton);
-        _cont.filter = null;
         source.removeChild(_cont);
-//        _carton.deleteIt();
         if (_countTxt) {
             _cont.removeChild(_countTxt);
             _countTxt.deleteIt();
             _countTxt = null;
         }
-//        _carton = null;
         _clickCallback = null;
         _info = null;
         _data = null;
