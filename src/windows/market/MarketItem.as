@@ -43,7 +43,7 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
 
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
 
 public class MarketItem {
@@ -102,7 +102,7 @@ public class MarketItem {
         _onHover = false;
         _woWidth = 110;
         _woHeight = 133;
-//        _bg = new WhiteBackgroundIn(_woWidth, _woHeight);
+//        _bg = new BackgroundWhiteIn(_woWidth, _woHeight);
         _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_blue_cell_big'));
         source.addChild(_bg);
         quad = new Quad(_woWidth, _woHeight,Color.WHITE);

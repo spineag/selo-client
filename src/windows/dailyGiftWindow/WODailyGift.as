@@ -16,8 +16,8 @@ import temp.DropResourceVariaty;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.YellowBackgroundOut;
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundYellowOut;
+import windows.WOComponents.BackgroundWhiteIn;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -44,7 +44,7 @@ public class WODailyGift extends WindowMain {
         _source.addChild(_woBG);
         _cont = new Sprite();
         _source.addChild(_cont);
-        var c:YellowBackgroundOut = new YellowBackgroundOut(735, 485);
+        var c:BackgroundYellowOut = new BackgroundYellowOut(735, 485);
         c.x = -_woWidth/2 + 30;
         c.y = -_woHeight/2 + 30 ;
         _cont.filter = ManagerFilters.SHADOW;
@@ -134,7 +134,7 @@ public class WODailyGift extends WindowMain {
     }
 
     private function createItem(id:int, type:String, count:int, source:Sprite, number:int):void {
-        var bg:WhiteBackgroundIn = new WhiteBackgroundIn(130, 130);
+        var bg:BackgroundWhiteIn = new BackgroundWhiteIn(130, 130);
         source.addChild(bg);
         var im:Image;
 

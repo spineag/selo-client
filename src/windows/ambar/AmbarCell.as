@@ -18,7 +18,7 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
 
 public class AmbarCell {

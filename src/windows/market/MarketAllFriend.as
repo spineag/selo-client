@@ -14,7 +14,7 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
 
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 
 import windows.WOComponents.DefaultVerticalScrollSprite;
 
@@ -24,7 +24,7 @@ public class MarketAllFriend {
     private var _contTouch:CSprite;
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _callback:Function;
-    private var _bg:YellowBackgroundOut;
+    private var _bg:BackgroundYellowOut;
     private var _txtPanel:CTextField;
 
     private var g:Vars = Vars.getInstance();
@@ -60,7 +60,7 @@ public class MarketAllFriend {
             source.y = -75;
 
         }
-        _bg = new YellowBackgroundOut(woWidth, woHeight);
+        _bg = new BackgroundYellowOut(woWidth, woHeight);
         _bg.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(_bg);
         for (var i:int=0; i < _arrFriends.length; i++) {

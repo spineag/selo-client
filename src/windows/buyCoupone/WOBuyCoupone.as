@@ -11,7 +11,7 @@ import utils.CTextField;
 
 import windows.WOComponents.WindowBackground;
 import windows.WOComponents.WindowBackgroundNew;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowMain;
 
 public class WOBuyCoupone extends WindowMain{
@@ -20,7 +20,7 @@ public class WOBuyCoupone extends WindowMain{
     private var _Red:WOBuyCouponeItem;
     private var _Yellow:WOBuyCouponeItem;
     private var _woBG:WindowBackgroundNew;
-    private var _bigYellowBG:YellowBackgroundOut;
+    private var _bigYellowBG:BackgroundYellowOut;
     private var _txt:CTextField;
     private var _txtHave:CTextField;
 
@@ -31,7 +31,7 @@ public class WOBuyCoupone extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        _bigYellowBG = new YellowBackgroundOut(624, 160);
+        _bigYellowBG = new BackgroundYellowOut(624, 160);
         _bigYellowBG.x = -_bigYellowBG.width/2;
         _bigYellowBG.y = -25;
         _source.addChild(_bigYellowBG);

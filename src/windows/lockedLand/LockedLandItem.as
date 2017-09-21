@@ -12,7 +12,7 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
 
 public class LockedLandItem {
@@ -23,7 +23,7 @@ public class LockedLandItem {
     private var _count:int;
     private var _iconCoins:Image;
     private var _galo4ka:Image;
-    private var _bg:WhiteBackgroundIn;
+    private var _bg:BackgroundWhiteIn;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
     private var _txtCount:CTextField;
@@ -32,7 +32,7 @@ public class LockedLandItem {
 
     public function LockedLandItem() {
         source = new Sprite();
-        _bg = new WhiteBackgroundIn(428, 88);
+        _bg = new BackgroundWhiteIn(428, 88);
         source.addChild(_bg);
     }
 

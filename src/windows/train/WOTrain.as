@@ -31,8 +31,8 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 import windows.WOComponents.Birka;
-import windows.WOComponents.YellowBackgroundOut;
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundYellowOut;
+import windows.WOComponents.BackgroundWhiteIn;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -72,10 +72,10 @@ public class WOTrain extends WindowMain {
     private var _lock:int;
     private var _isBigCount:Boolean;
     private var _birka:Birka;
-    private var _rightBlockBG:YellowBackgroundOut;
-    private var _rightBlockCarton:WhiteBackgroundIn;
-    private var _rightBlockCarton2:WhiteBackgroundIn;
-    private var _leftBlockBG:YellowBackgroundOut;
+    private var _rightBlockBG:BackgroundYellowOut;
+    private var _rightBlockCarton:BackgroundWhiteIn;
+    private var _rightBlockCarton2:BackgroundWhiteIn;
+    private var _leftBlockBG:BackgroundYellowOut;
 
     public function WOTrain() {
         super ();
@@ -133,7 +133,7 @@ public class WOTrain extends WindowMain {
         _rightBlock.y = -205;
         _rightBlock.x = 35;
         _source.addChild(_rightBlock);
-        _rightBlockBG = new YellowBackgroundOut(287, 375);
+        _rightBlockBG = new BackgroundYellowOut(287, 375);
         _rightBlockBG.filter = ManagerFilters.SHADOW;
         _rightBlock.addChild(_rightBlockBG);
 
@@ -142,7 +142,7 @@ public class WOTrain extends WindowMain {
         _txtLoad.x = 25;
         _txtLoad.y = 5;
         _rightBlock.addChild(_txtLoad);
-        _rightBlockCarton = new WhiteBackgroundIn(267, 68);
+        _rightBlockCarton = new BackgroundWhiteIn(267, 68);
         _rightBlockCarton.y = 250;
         _rightBlockCarton.x = 10;
         _rightBlock.addChild(_rightBlockCarton);
@@ -228,7 +228,7 @@ public class WOTrain extends WindowMain {
         _txtC.y = 283;
         _rightBlock.addChild(_txtC);
 
-        _rightBlockCarton2 = new WhiteBackgroundIn(90, 90);
+        _rightBlockCarton2 = new BackgroundWhiteIn(90, 90);
         _rightBlockCarton2.x = 20;
         _rightBlockCarton2.y = 70;
         _rightBlock.addChild(_rightBlockCarton2);
@@ -236,7 +236,7 @@ public class WOTrain extends WindowMain {
 
     private function createLeftBlock():void {
         _leftBlock = new Sprite();
-        _leftBlockBG = new YellowBackgroundOut(324, 432);
+        _leftBlockBG = new BackgroundYellowOut(324, 432);
         _leftBlockBG.filter = ManagerFilters.SHADOW;
         _leftBlock.addChild(_leftBlockBG);
         _leftBlock.y = -205;

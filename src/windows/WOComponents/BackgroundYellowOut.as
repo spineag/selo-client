@@ -16,11 +16,11 @@ import starling.textures.TextureAtlas;
 
 import utils.DrawToBitmap;
 
-public class YellowBackgroundOut extends Sprite{
+public class BackgroundYellowOut extends Sprite{
     private var g:Vars = Vars.getInstance();
     private var _source:Sprite;
 
-    public function YellowBackgroundOut(w:int, h:int) {
+    public function BackgroundYellowOut(w:int, h:int) {
         var im:Image;
         var tex:TextureAtlas = g.allData.atlas['interfaceAtlas'];
         _source = new Sprite();

@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/selo-client/diff/interface/interface.tps</string>
+        <string>/Users/andy/Documents/505farm/selo/client/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,8 +43,6 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -175,16 +173,14 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trimMargin</key>
-            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -195,6 +191,10 @@
             <filename>add_friend_button.png</filename>
             <filename>animated_decor.png</filename>
             <filename>available_on_level.png</filename>
+            <filename>backgroundMilkIn</filename>
+            <filename>backgroundNew</filename>
+            <filename>backgroundWhiteIn</filename>
+            <filename>backgroundYellowOut</filename>
             <filename>baloon_1.png</filename>
             <filename>baloon_2.png</filename>
             <filename>baloon_3.png</filename>
@@ -288,6 +288,7 @@
             <filename>op_bt_z_in.png</filename>
             <filename>op_bt_z_out_off.png</filename>
             <filename>op_bt_z_out.png</filename>
+            <filename>order_small_bg.png</filename>
             <filename>order_window_decline.png</filename>
             <filename>order_window_del_clock.png</filename>
             <filename>order_window_del_or.png</filename>

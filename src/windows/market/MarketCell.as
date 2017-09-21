@@ -14,7 +14,7 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
 
 public class MarketCell {
@@ -26,7 +26,7 @@ public class MarketCell {
     private var _countTxt:CTextField;
     private var g:Vars = Vars.getInstance();
     private var _clickCallback:Function;
-//    private var _carton:WhiteBackgroundIn;
+//    private var _carton:BackgroundWhiteIn;
     private var _bg:Image;
 
     public function MarketCell(info:Object) {

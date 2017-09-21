@@ -4,7 +4,7 @@
 package windows.shop_new {
 import manager.Vars;
 import starling.display.Sprite;
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundWhiteIn;
 
 public class DecorShopNewFilter {
     public static const FILTER_OTHER:int = 0;
@@ -18,7 +18,7 @@ public class DecorShopNewFilter {
     private var g:Vars = Vars.getInstance();
     private var _wo:WOShopNew;
     private var _source:Sprite;
-    private var _bg:WhiteBackgroundIn;
+    private var _bg:BackgroundWhiteIn;
     private var _arrBtns:Array;
     private var _activeBtn:FilterButtonItem;
     private var _isBigShop:Boolean;
@@ -27,8 +27,8 @@ public class DecorShopNewFilter {
         _isBigShop = isBigShop;
         _wo = w;
         _source = new Sprite();
-        if (_isBigShop) _bg = new WhiteBackgroundIn(160, 450);
-        else _bg = new WhiteBackgroundIn(160, 300);
+        if (_isBigShop) _bg = new BackgroundWhiteIn(160, 450);
+        else _bg = new BackgroundWhiteIn(160, 300);
         _source.addChild(_bg);
         _arrBtns = [];
         createBtns();

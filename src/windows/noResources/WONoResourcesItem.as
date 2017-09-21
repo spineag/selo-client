@@ -21,8 +21,8 @@ import utils.CTextField;
 
 import utils.MCScaler;
 
-import windows.WOComponents.YellowBackgroundOut;
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundYellowOut;
+import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
 
 public class WONoResourcesItem {

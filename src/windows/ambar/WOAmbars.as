@@ -11,7 +11,7 @@ import utils.CButton;
 import utils.CTextField;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackgroundNew;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -19,7 +19,7 @@ public class WOAmbars extends WindowMain {
     private var _isAmbar:Boolean;
     private var _isBigShop:Boolean = true;
     private var _txtWindowName:CTextField;
-    private var _bigYellowBG:YellowBackgroundOut;
+    private var _bigYellowBG:BackgroundYellowOut;
     private var _tabs:AmbarTabs;
     private var _progress:AmbarProgress;
     private var _arrCells:Array;
@@ -51,10 +51,10 @@ public class WOAmbars extends WindowMain {
         _callbackClickBG = hideIt;
 
         if (_isBigShop) {
-            _bigYellowBG = new YellowBackgroundOut(578, 414);
+            _bigYellowBG = new BackgroundYellowOut(578, 414);
             _bigYellowBG.y = -_woHeight / 2 + 133;
         } else {
-            _bigYellowBG = new YellowBackgroundOut(578, 334);
+            _bigYellowBG = new BackgroundYellowOut(578, 334);
             _bigYellowBG.y = -_woHeight / 2 + 133;
         }
         _bigYellowBG.x = -_woWidth / 2 + 24;
@@ -323,7 +323,7 @@ import starling.display.Image;
 import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 
 internal class AmbarTabs {
     private var g:Vars = Vars.getInstance();
@@ -336,9 +336,9 @@ internal class AmbarTabs {
     private var _txtActiveSklad:CTextField;
     private var _unactiveSklad:CSprite;
     private var _txtUnactiveSklad:CTextField;
-    private var _bg:YellowBackgroundOut;
+    private var _bg:BackgroundYellowOut;
 
-    public function AmbarTabs(bg:YellowBackgroundOut, f:Function) {
+    public function AmbarTabs(bg:BackgroundYellowOut, f:Function) {
         _bg = bg;
         _callback = f;
         _imActiveAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));
