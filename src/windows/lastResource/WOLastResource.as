@@ -45,20 +45,20 @@ public class WOLastResource extends WindowMain {
         super();
         _windowType = WindowsManager.WO_LAST_RESOURCE;
         _woWidth = 700;
-        _woHeight = 460;
-        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,125);
+        _woHeight = 450;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
         createExitButton(hideIt);
 
-        _txtAhtung = new CTextField(150,50,String(g.managerLanguage.allTexts[425]));
-        _txtAhtung.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtAhtung.x = -75;
-        _txtAhtung.y = -160;
+        _txtAhtung = new CTextField(300,50,String(g.managerLanguage.allTexts[425]));
+        _txtAhtung.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
+        _txtAhtung.x = -150;
+        _txtAhtung.y = -200;
         _source.addChild(_txtAhtung);
         _txt = new CTextField(800,120,String(g.managerLanguage.allTexts[426]));
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW);
         _txt.x = -410;
-        _txt.y = -125;
+        _txt.y = -135;
         _source.addChild(_txt);
         _btnYes = new CButton();
         _btnYes.addButtonTexture(200, CButton.BIG_HEIGHT, CButton.RED, true);
@@ -74,9 +74,9 @@ public class WOLastResource extends WindowMain {
         _btnNo.clickCallback = onClickNo;
 
         _btnYes.x = -150;
-        _btnYes.y = 180;
+        _btnYes.y = 170;
         _btnNo.x = 150;
-        _btnNo.y = 180;
+        _btnNo.y = 170;
         _callbackClickBG = hideIt;
         _arrItems = [];
     }
@@ -105,43 +105,43 @@ public class WOLastResource extends WindowMain {
                 switch (_arrItems.length) {
                     case 1:
                         _arrItems[0].source.x = - item.source.width/4;
-                        _arrItems[0].source.y = 10;
+//                        _arrItems[0].source.y = 10;
                         break;
                     case 2:
                         _arrItems[0].source.x = -200 + 107;
-                        _arrItems[0].source.y =  10;
+//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 227;
-                        _arrItems[1].source.y =  10;
+//                        _arrItems[1].source.y =  10;
                         break;
                     case 3:
                         _arrItems[0].source.x = -200 + 52;
-                        _arrItems[0].source.y =  10;
+//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 167;
-                        _arrItems[1].source.y =  10;
+//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 287;
-                        _arrItems[2].source.y =  10;
+//                        _arrItems[2].source.y =  10;
                         break;
                     case 4:
                         _arrItems[0].source.x = -200 + 39;
-                        _arrItems[0].source.y =  10;
+//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 124;
-                        _arrItems[1].source.y =  10;
+//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 209;
-                        _arrItems[2].source.y =  10;
+//                        _arrItems[2].source.y =  10;
                         _arrItems[3].source.x = -200 + 294;
-                        _arrItems[3].source.y =  10;
+//                        _arrItems[3].source.y =  10;
                         break;
                     case 5:
                         _arrItems[0].source.x = -200 + 27;
-                        _arrItems[0].source.y =  10;
+//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 97;
-                        _arrItems[1].source.y =  10;
+//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 167;
-                        _arrItems[2].source.y =  10;
+//                        _arrItems[2].source.y =  10;
                         _arrItems[3].source.x = -200 + 237;
-                        _arrItems[3].source.y =  10;
+//                        _arrItems[3].source.y =  10;
                         _arrItems[4].source.x = -200 + 307;
-                        _arrItems[4].source.y =  10;
+//                        _arrItems[4].source.y =  10;
                         break;
                 }
                 _btnYes.clickCallback = onClickOrder;
@@ -150,7 +150,7 @@ public class WOLastResource extends WindowMain {
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.id);
                 item.source.x = -25;
-                item.source.y = -20;
+                item.source.y = -30;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickMarket;
@@ -160,7 +160,7 @@ public class WOLastResource extends WindowMain {
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.resourceId);
                 item.source.x = -25;
-                item.source.y = -20;
+                item.source.y = -30;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickNyashuk;
@@ -169,7 +169,7 @@ public class WOLastResource extends WindowMain {
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.id);
                 item.source.x = -25;
-                item.source.y = -20;
+                item.source.y = -30;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickTrainHelp;
@@ -187,43 +187,43 @@ public class WOLastResource extends WindowMain {
                 switch (_arrItems.length) {
                     case 1:
                         _arrItems[0].source.x = - item.source.width/4;
-                        _arrItems[0].source.y = 10;
+//                        _arrItems[0].source.y = 10;
                         break;
                     case 2:
                         _arrItems[0].source.x = -200 + 107;
-                        _arrItems[0].source.y =  10;
+//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 227;
-                        _arrItems[1].source.y =  10;
+//                        _arrItems[1].source.y =  10;
                         break;
                     case 3:
                         _arrItems[0].source.x = -200 + 52;
-                        _arrItems[0].source.y =  10;
+//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 167;
-                        _arrItems[1].source.y =  10;
+//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 287;
-                        _arrItems[2].source.y =  10;
+//                        _arrItems[2].source.y =  10;
                         break;
                     case 4:
                         _arrItems[0].source.x = -200 + 39;
-                        _arrItems[0].source.y =  10;
+//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 124;
-                        _arrItems[1].source.y =  10;
+//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 209;
-                        _arrItems[2].source.y =  10;
+//                        _arrItems[2].source.y =  10;
                         _arrItems[3].source.x = -200 + 294;
-                        _arrItems[3].source.y =  10;
+//                        _arrItems[3].source.y =  10;
                         break;
                     case 5:
                         _arrItems[0].source.x = -200 + 27;
-                        _arrItems[0].source.y =  10;
+//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 97;
-                        _arrItems[1].source.y =  10;
+//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 167;
-                        _arrItems[2].source.y =  10;
+//                        _arrItems[2].source.y =  10;
                         _arrItems[3].source.x = -200 + 237;
-                        _arrItems[3].source.y =  10;
+//                        _arrItems[3].source.y =  10;
                         _arrItems[4].source.x = -200 + 307;
-                        _arrItems[4].source.y =  10;
+//                        _arrItems[4].source.y =  10;
                         break;
                 }
                 _btnYes.clickCallback = onClickFabric;

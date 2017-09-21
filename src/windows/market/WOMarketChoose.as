@@ -17,6 +17,7 @@ import utils.MCScaler;
 import utils.TimeUtils;
 
 import windows.WOComponents.Birka;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.YellowBackgroundOut;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import utils.CButton;
@@ -32,21 +33,19 @@ public class WOMarketChoose extends WindowMain {
     private var _arrCells:Array;
     private var _callback:Function;
     private var _btnSell:CButton;
-    private var _tabAmbar:CSprite;
-    private var _tabSklad:CSprite;
+    private var _tabAmbar:AmbarTabs;
+//    private var _tabSklad:CSprite;
     private var _mainSprite:Sprite;
     private var _type:int;
-    private var _birka:Birka;
     private var _countResourceBlock:CountBlock;
     private var _countMoneyBlock:CountBlock;
     private var _curResourceId:int;
     private var booleanPlus:Boolean;
     private var booleanMinus:Boolean;
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _defaultY:int = -232;
     private var _cartonAmbar:YellowBackgroundOut;
     private var _cartonSklad:YellowBackgroundOut;
-    private var _carton:YellowBackgroundOut;
     private var _activetedItem:MarketItem;
     private var _txtCount:CTextField;
     private var _txtPrice:CTextField;
@@ -61,21 +60,29 @@ public class WOMarketChoose extends WindowMain {
     private var _boolPapper:Boolean;
     private var _btnCheck:CButton;
     private var _imCheck:Image;
+    private var _bigYellowBG:YellowBackgroundOut;
 
     public function WOMarketChoose() {
         super();
         _windowType = WindowsManager.WO_MARKET_CHOOSE;
-        _woWidth = 534;
-        _woHeight = 570;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woWidth = 624;
+        _woHeight = 575;
+        var _wb:WindowBackgroundNew = new WindowBackgroundNew(275,400,0);
+        _source.addChild(_wb);
+        _wb.y = 60;
+        _wb.x = 400;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,104);
         _source.addChild(_woBG);
+        _bigYellowBG = new YellowBackgroundOut(579, 414);
+        _bigYellowBG.y = -_woHeight / 3 + 7;
+        _bigYellowBG.x = -_woWidth / 3 - 80;
+        _source.addChild(_bigYellowBG);
         createExitButton(hideIt);
         booleanPlus = true;
         booleanMinus = true;
         createWOElements();
-        _birka = new Birka(String(g.managerLanguage.allTexts[132]), _source, _woWidth, _woHeight);
         _arrCells = [];
-        _scrollSprite = new DefaultVerticalScrollSprite(405, 303, 101, 101);
+        _scrollSprite = new DefaultVerticalScrollSprite(520, 520, 130, 130);
         _scrollSprite.source.x = 55 - _woWidth/2;
         _scrollSprite.source.y = 107 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
@@ -254,22 +261,24 @@ public class WOMarketChoose extends WindowMain {
     }
 
     private function createWOElements():void {
-        _tabAmbar = new CSprite();
-        _cartonAmbar = new YellowBackgroundOut(122, 80);
-        _tabAmbar.addChild(_cartonAmbar);
-        var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
-        MCScaler.scale(im, 41, 41);
-        im.x = 12;
-        im.y = 1;
-        _tabAmbar.addChild(im);
-        _txtAmbar = new CTextField(90, 40, String(g.managerLanguage.allTexts[132]));
-        _txtAmbar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtAmbar.touchable = true;
-        _txtAmbar.x = 31;
-        _txtAmbar.y = 2;
-        _tabAmbar.addChild(_txtAmbar);
-        _tabAmbar.x = -205;
-        _tabAmbar.y = _defaultY;
+
+        _tabAmbar = new AmbarTabs(_bigYellowBG, fAmbar);
+        _tabAmbar.activate(_type);
+////        _cartonAmbar = new YellowBackgroundOut(122, 80);
+//        _tabAmbar.addChild(_cartonAmbar);
+//        var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture("ambar_icon"));
+//        MCScaler.scale(im, 41, 41);
+//        im.x = 12;
+//        im.y = 1;
+//        _tabAmbar.addChild(im);
+//        _txtAmbar = new CTextField(90, 40, String(g.managerLanguage.allTexts[132]));
+//        _txtAmbar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//        _txtAmbar.touchable = true;
+//        _txtAmbar.x = 31;
+//        _txtAmbar.y = 2;
+//        _tabAmbar.addChild(_txtAmbar);
+//        _tabAmbar.x = -205;
+//        _tabAmbar.y = _defaultY;
         var fAmbar:Function = function():void {
             _type = AMBAR;
             updateItems();
@@ -277,57 +286,55 @@ public class WOMarketChoose extends WindowMain {
             g.user.visitAmbar = true;
         };
         var hAmbar:Function = function():void {
-            _tabAmbar.y = _defaultY + 3;
+//            _tabAmbar.y = _defaultY + 3;
         };
         var oAmbar:Function = function():void {
-            _tabAmbar.y = _defaultY + 10;
+//            _tabAmbar.y = _defaultY + 10;
         };
-        _tabAmbar.endClickCallback = fAmbar;
-        _tabAmbar.hoverCallback = hAmbar;
-        _tabAmbar.outCallback = oAmbar;
+//        _tabAmbar.endClickCallback = fAmbar;
+//        _tabAmbar.hoverCallback = hAmbar;
+//        _tabAmbar.outCallback = oAmbar;
 
-        _tabSklad = new CSprite();
-        _cartonSklad = new YellowBackgroundOut(122, 80);
-        _tabSklad.addChild(_cartonSklad);
-        im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
-        MCScaler.scale(im, 40, 40);
-        im.x = 12;
-        im.y = 2;
-        _tabSklad.addChild(im);
-        _txtSklad = new CTextField(90, 40, String(g.managerLanguage.allTexts[133]));
-        _txtSklad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtSklad.touchable = true;
-        _txtSklad.x = 34;
-        _txtSklad.y = 2;
-        _tabSklad.addChild(_txtSklad);
-        _tabSklad.x = -75;
-        _tabSklad.y = _defaultY;
-        var fSklad:Function = function():void {
-            _type = SKLAD;
-            updateItems();
-            checkTypes();
-            g.user.visitAmbar = false;
-        };
-        var hSklad:Function = function():void {
-            _tabSklad.y = _defaultY + 3;
-        };
-        var oSklad:Function = function():void {
-            _tabSklad.y = _defaultY + 10;
-        };
-        _tabSklad.endClickCallback = fSklad;
-        _tabSklad.hoverCallback = hSklad;
-        _tabSklad.outCallback = oSklad;
+//        _tabSklad = new CSprite();
+//        _cartonSklad = new YellowBackgroundOut(122, 80);
+//        _tabSklad.addChild(_cartonSklad);
+//        im = new Image(g.allData.atlas['iconAtlas'].getTexture("sklad_icon"));
+//        MCScaler.scale(im, 40, 40);
+//        im.x = 12;
+//        im.y = 2;
+//        _tabSklad.addChild(im);
+//        _txtSklad = new CTextField(90, 40, String(g.managerLanguage.allTexts[133]));
+//        _txtSklad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//        _txtSklad.touchable = true;
+//        _txtSklad.x = 34;
+//        _txtSklad.y = 2;
+//        _tabSklad.addChild(_txtSklad);
+//        _tabSklad.x = -75;
+//        _tabSklad.y = _defaultY;
+//        var fSklad:Function = function():void {
+//            _type = SKLAD;
+//            updateItems();
+//            checkTypes();
+//            g.user.visitAmbar = false;
+//        };
+//        var hSklad:Function = function():void {
+//            _tabSklad.y = _defaultY + 3;
+//        };
+//        var oSklad:Function = function():void {
+//            _tabSklad.y = _defaultY + 10;
+//        };
+//        _tabSklad.endClickCallback = fSklad;
+//        _tabSklad.hoverCallback = hSklad;
+//        _tabSklad.outCallback = oSklad;
 
         _mainSprite = new Sprite();
-        _carton = new YellowBackgroundOut(454, 435);
-        _mainSprite.addChild(_carton);
         _mainSprite.filter = ManagerFilters.SHADOW;
         _mainSprite.x = -_woWidth/2 + 43;
         _mainSprite.y = -_woHeight/2 + 96;
 
         _source.addChild(_mainSprite);
 
-        _scrollSprite = new DefaultVerticalScrollSprite(405, 303, 101, 101);
+        _scrollSprite = new DefaultVerticalScrollSprite(520, 520, 130, 130);
         _scrollSprite.source.x = 55 - _woWidth/2;
         _scrollSprite.source.y = 107 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
@@ -335,36 +342,36 @@ public class WOMarketChoose extends WindowMain {
     }
 
     private function checkTypes():void {
-        _tabAmbar.filter = null;
-        _tabSklad.filter = null;
-        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
-        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
-        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
-        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
+//        _tabAmbar.filter = null;
+//        _tabSklad.filter = null;
+//        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
+//        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
+//        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
+//        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
         switch (_type) {
             case AMBAR:
-                _mainSprite.addChild(_tabAmbar);
-                _tabAmbar.x = -205 - _mainSprite.x;
-                _tabAmbar.y = _defaultY - _mainSprite.y;
-                _tabAmbar.isTouchable = false;
-                _source.addChildAt(_tabSklad, _source.getChildIndex(_mainSprite)-1);
-                _tabSklad.x = -75;
-                _tabSklad.y = _defaultY + 10;
-                _tabSklad.isTouchable = true;
-                _tabSklad.filter = ManagerFilters.SHADOW;
-                _birka.updateText(String(g.managerLanguage.allTexts[132]));
+//                _mainSprite.addChild(_tabAmbar);
+//                _tabAmbar.x = -205 - _mainSprite.x;
+//                _tabAmbar.y = _defaultY - _mainSprite.y;
+//                _tabAmbar.isTouchable = false;
+//                _source.addChildAt(_tabSklad, _source.getChildIndex(_mainSprite)-1);
+//                _tabSklad.x = -75;
+//                _tabSklad.y = _defaultY + 10;
+//                _tabSklad.isTouchable = true;
+//                _tabSklad.filter = ManagerFilters.SHADOW;
+//                _birka.updateText(String(g.managerLanguage.allTexts[132]));
                 break;
             case SKLAD:
-                _mainSprite.addChild(_tabSklad);
-                _tabSklad.x = -75 - _mainSprite.x;
-                _tabSklad.y = _defaultY - _mainSprite.y;
-                _tabSklad.isTouchable = false;
-                _source.addChildAt(_tabAmbar, _source.getChildIndex(_mainSprite)-1);
-                _tabAmbar.x = -205;
-                _tabAmbar.y = _defaultY + 10;
-                _tabAmbar.isTouchable = true;
-                _tabAmbar.filter = ManagerFilters.SHADOW;
-                _birka.updateText(String(g.managerLanguage.allTexts[133]));
+//                _mainSprite.addChild(_tabSklad);
+//                _tabSklad.x = -75 - _mainSprite.x;
+//                _tabSklad.y = _defaultY - _mainSprite.y;
+//                _tabSklad.isTouchable = false;
+//                _source.addChildAt(_tabAmbar, _source.getChildIndex(_mainSprite)-1);
+//                _tabAmbar.x = -205;
+//                _tabAmbar.y = _defaultY + 10;
+//                _tabAmbar.isTouchable = true;
+//                _tabAmbar.filter = ManagerFilters.SHADOW;
+//                _birka.updateText(String(g.managerLanguage.allTexts[133]));
                 break;
         }
     }
@@ -589,16 +596,13 @@ public class WOMarketChoose extends WindowMain {
             _txtPrice.deleteIt();
             _txtPrice = null;
         }
-        _tabAmbar.filter = null;
-        _tabSklad.filter = null;
-        _mainSprite.filter = null;
-        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
-        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
-        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
-        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
-        _mainSprite.removeChild(_carton);
-        _carton.deleteIt();
-        _carton = null;
+//        _tabAmbar.filter = null;
+//        _tabSklad.filter = null;
+//        _mainSprite.filter = null;
+//        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
+//        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
+//        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
+//        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
         _source.removeChild(_btnSell);
         _btnSell.deleteIt();
         _btnSell = null;
@@ -611,24 +615,135 @@ public class WOMarketChoose extends WindowMain {
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;
-        _tabAmbar.removeChild(_cartonAmbar);
+//        _tabAmbar.removeChild(_cartonAmbar);
         _cartonAmbar.deleteIt();
         _cartonAmbar = null;
         _tabAmbar.deleteIt();
         _tabAmbar = null;
-        _tabSklad.removeChild(_cartonSklad);
+//        _tabSklad.removeChild(_cartonSklad);
         _cartonSklad.deleteIt();
         _cartonSklad = null;
-        _tabSklad.deleteIt();
-        _tabSklad = null;
+//        _tabSklad.deleteIt();
+//        _tabSklad = null;
         _source.removeChild(_scrollSprite.source);
         _scrollSprite.deleteIt();
         _scrollSprite = null;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
+//        _source.removeChild(_birka);
+//        _birka.deleteIt();
+//        _birka = null;
         super.deleteIt();
     }
 
 }
 }
+
+import manager.ManagerFilters;
+import manager.Vars;
+import starling.display.Image;
+import starling.utils.Color;
+import utils.CSprite;
+import utils.CTextField;
+import windows.WOComponents.YellowBackgroundOut;
+
+internal class AmbarTabs {
+    private var g:Vars = Vars.getInstance();
+    private var _callback:Function;
+    private var _imActiveAmbar:Image;
+    private var _txtActiveAmbar:CTextField;
+    private var _unactiveAmbar:CSprite;
+    private var _txtUnactiveAmbar:CTextField;
+    private var _imActiveSklad:Image;
+    private var _txtActiveSklad:CTextField;
+    private var _unactiveSklad:CSprite;
+    private var _txtUnactiveSklad:CTextField;
+    private var _bg:YellowBackgroundOut;
+
+    public function AmbarTabs(bg:YellowBackgroundOut, f:Function) {
+        _bg = bg;
+        _callback = f;
+        _imActiveAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));
+        _imActiveAmbar.pivotX = _imActiveAmbar.width/2;
+        _imActiveAmbar.pivotY = _imActiveAmbar.height;
+        _imActiveAmbar.x = 203;
+        _imActiveAmbar.y = 10;
+        bg.addChild(_imActiveAmbar);
+        _txtActiveAmbar = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
+        _txtActiveAmbar.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveAmbar.x = 127;
+        _txtActiveAmbar.y = -50;
+        bg.addChild(_txtActiveAmbar);
+
+        _unactiveAmbar = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_small'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveAmbar.addChild(im);
+        _unactiveAmbar.x = 203;
+        _unactiveAmbar.y = 10;
+        bg.addChildAt(_unactiveAmbar, 0);
+        _unactiveAmbar.endClickCallback = onClick;
+        _txtUnactiveAmbar = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
+        _txtUnactiveAmbar.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+        _txtUnactiveAmbar.x = 127;
+        _txtUnactiveAmbar.y = -42;
+        bg.addChild(_txtUnactiveAmbar);
+
+        _imActiveSklad = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));
+        _imActiveSklad.pivotX = _imActiveSklad.width/2;
+        _imActiveSklad.pivotY = _imActiveSklad.height;
+        _imActiveSklad.x = 367;
+        _imActiveSklad.y = 10;
+        bg.addChild(_imActiveSklad);
+        _txtActiveSklad = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
+        _txtActiveSklad.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveSklad.x = 287;
+        _txtActiveSklad.y = -50;
+        bg.addChild(_txtActiveSklad);
+
+        _unactiveSklad = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_small'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveSklad.addChild(im);
+        _unactiveSklad.x = 367;
+        _unactiveSklad.y = 10;
+        bg.addChildAt(_unactiveSklad, 0);
+        _unactiveSklad.endClickCallback = onClick;
+        _txtUnactiveSklad = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
+        _txtUnactiveSklad.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+        _txtUnactiveSklad.x = 287;
+        _txtUnactiveSklad.y = -42;
+        bg.addChild(_txtUnactiveSklad);
+    }
+
+    private function onClick():void { if (_callback!=null) _callback.apply(); }
+
+    public function activate(isAmbar:Boolean):void {
+        _imActiveAmbar.visible = _unactiveSklad.visible = isAmbar;
+        _imActiveSklad.visible = _unactiveAmbar.visible = !isAmbar;
+        _txtActiveAmbar.visible = _txtUnactiveSklad.visible = isAmbar;
+        _txtActiveSklad.visible = _txtUnactiveAmbar.visible = !isAmbar;
+    }
+
+    public function deleteIt():void {
+        _bg.removeChild(_txtActiveAmbar);
+        _bg.removeChild(_txtActiveSklad);
+        _bg.removeChild(_txtUnactiveSklad);
+        _bg.removeChild(_txtUnactiveAmbar);
+        _bg.removeChild(_imActiveAmbar);
+        _bg.removeChild(_imActiveSklad);
+        _bg.removeChild(_unactiveAmbar);
+        _bg.removeChild(_unactiveSklad);
+        _txtActiveAmbar.deleteIt();
+        _txtActiveSklad.deleteIt();
+        _txtUnactiveAmbar.deleteIt();
+        _txtUnactiveSklad.deleteIt();
+        _imActiveAmbar.dispose();
+        _imActiveSklad.dispose();
+        _unactiveAmbar.deleteIt();
+        _unactiveSklad.deleteIt();
+        _bg = null;
+    }
+
+}
+

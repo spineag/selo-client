@@ -89,8 +89,8 @@ public class WOMarket  extends WindowMain {
         _arrItems = [];
         _shopSprite = new Sprite();
         _woWidth = 925;
-        _woHeight = 630;
-        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,125);
+        _woHeight = 615;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,110);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
@@ -103,7 +103,7 @@ public class WOMarket  extends WindowMain {
 //        _source.addChild(_cont);
         var c:YellowBackgroundOut = new YellowBackgroundOut(800, 480);
         c.x = -c.width/2+5;
-        c.y = -_woHeight/2 + 125;
+        c.y = -_woHeight/2 + 108;
 //        _cont.filter = ManagerFilters.SHADOW;
         _source.addChild(c);
 //        _txtAllFriends = new CTextField(96, 24, String(g.managerLanguage.allTexts[399]));
@@ -116,7 +116,7 @@ public class WOMarket  extends WindowMain {
         _contRect = new Sprite();
         _contRect.mask = new Quad(720, 460);
         _contRect.mask.x = -350;
-        _contRect.mask.y = -170;
+        _contRect.mask.y = -190;
 
         _source.addChild(_contRect);
         _contItemCell = new Sprite();
@@ -139,7 +139,7 @@ public class WOMarket  extends WindowMain {
         _leftBtn.addChild(im);
 //        MCScaler.scale(_leftBtn, 40, 40);
         _leftBtn.x = -455;
-        _leftBtn.y = -10;
+        _leftBtn.y = -25;
         _source.addChild(_leftBtn);
         _leftBtn.endClickCallback = onLeft;
         _leftBtn.hoverCallback = function():void { if (_leftBtn.filter == null)_leftBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
@@ -152,16 +152,11 @@ public class WOMarket  extends WindowMain {
         _rightBtn.addChild(im);
 //        MCScaler.scale(_rightBtn, 40, 40);
         _rightBtn.x = 405;
-        _rightBtn.y = -10;
+        _rightBtn.y = -25;
         _source.addChild(_rightBtn);
         _rightBtn.endClickCallback = onRight;
         _rightBtn.hoverCallback = function():void { if (_rightBtn.filter == null) _rightBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
         _rightBtn.outCallback = function():void { if (_rightBtn.filter == ManagerFilters.BUILDING_HOVER_FILTER) _rightBtn.filter = null; };
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
-        MCScaler.scale(im,35,44);
-        im.x = -250;
-        im.y = 165;
-//        _source.addChild(im);
 //        _txtNumberPage = new CTextField(50, 50, '');
 //        _txtNumberPage.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
 //        _txtNumberPage.x = -253;
@@ -246,10 +241,10 @@ public class WOMarket  extends WindowMain {
         }
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
-        _txtName = new CTextField(300, 30, '');
-        _txtName.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtName.y = -260;
-        _txtName.x = -220;
+        _txtName = new CTextField(300, 80, '');
+        _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
+        _txtName.y = -295;
+        _txtName.x = -150;
         _ma = new MarketAllFriend(_arrFriends, this, btnFriend);
         _source.addChild(_ma.source);
     }
@@ -341,25 +336,25 @@ public class WOMarket  extends WindowMain {
             }
 
             if (i+1 <= 4) {
-                item.source.y = -140;
+                item.source.y = -155;
             }  else if (i+1 <= 8) {
-                item.source.y = 90;
+                item.source.y = 75;
             } else if (i+1 <= 12) {
-                item.source.y = -140;
+                item.source.y = -155;
             } else if (i+1 <= 16) {
-                item.source.y = 90;
+                item.source.y = 75;
             } else if (i+1 <= 20) {
-                item.source.y = -140;
+                item.source.y = -155;
             } else if (i+1 <= 24) {
-                item.source.y = 90;
+                item.source.y = 75;
             } else if (i+1 <= 28) {
-                item.source.y = -140;
+                item.source.y = -155;
             } else if (i+1 <= 32) {
-                item.source.y = 90;
+                item.source.y = 75;
             } else if (i+1 <= 36) {
-                item.source.y = -140;
+                item.source.y = -155;
             } else if (i+1 <= 40) {
-                item.source.y = 90;
+                item.source.y = 75;
             }
             _contItemCell.addChild(item.source);
             _arrItems.push(item);
@@ -390,25 +385,25 @@ public class WOMarket  extends WindowMain {
         }
 
         if (_arrItems.length  <= 3) {
-            item.source.y = -140;
+            item.source.y = -155;
         }  else if (_arrItems.length  <= 7) {
-            item.source.y = 90;
+            item.source.y = 75;
         } else if (_arrItems.length  <= 11) {
-            item.source.y = -140;
+            item.source.y = -155;
         } else if (_arrItems.length  <= 15) {
-            item.source.y = 90;
+            item.source.y = 75;
         } else if (_arrItems.length  <= 19) {
-            item.source.y = -140;
+            item.source.y = -155;
         } else if (_arrItems.length  <= 23) {
-            item.source.y = 90;
+            item.source.y = 75;
         } else if (_arrItems.length  <= 27) {
-            item.source.y = -140;
+            item.source.y = -155;
         } else if (_arrItems.length  <= 31) {
-            item.source.y = 90;
+            item.source.y = 75;
         } else if (_arrItems.length  <= 35) {
-            item.source.y = -140;
+            item.source.y = -155;
         } else if (_arrItems.length  <= 39) {
-            item.source.y = 90;
+            item.source.y = 75;
         }
         _contItemCell.addChild(item.source);
         _arrItems.push(item);
@@ -610,14 +605,17 @@ public class WOMarket  extends WindowMain {
                 if (_arrFriends[_shiftFriend].userSocialId == g.visitedUser.userSocialId) {
                     _visitBtn.visible = false;
                     deleteAva();
+                    _txtName.x = -150;
                 }
             } else {
                 if (_arrFriends[_shiftFriend] == g.user) {
                     _visitBtn.visible = false;
                     deleteAva();
+                    _txtName.x = -150;
                 } else {
                     _visitBtn.visible = true;
                     createAva();
+                    _txtName.x = -110;
                 }
             }
             _item.source.x = 10;
@@ -642,14 +640,17 @@ public class WOMarket  extends WindowMain {
                 if (_curUser.userSocialId == g.visitedUser.userSocialId) {
                     _visitBtn.visible = false;
                     deleteAva();
+                    _txtName.x = -150;
                 }
                 else {
                     _visitBtn.visible = true;
                     createAva();
+                    _txtName.x = -110;
                 }
             } else {
                 _visitBtn.visible = true;
                 createAva();
+                _txtName.x = -110;
             }
 //            _source.addChild(_item.source);
             if (_shiftFriend + 2 >= _arrFriends.length) {
@@ -664,19 +665,23 @@ public class WOMarket  extends WindowMain {
                 if (_arrFriends[_shiftFriend] == g.visitedUser) {
                     _visitBtn.visible = false;
                     deleteAva();
+                    _txtName.x = -150;
                 }
                 else {
                     _visitBtn.visible = true;
                     createAva();
+                    _txtName.x = -110;
                 }
             } else {
                 if (_arrFriends[_shiftFriend] == g.user) {
                     _visitBtn.visible = false;
                     deleteAva();
+                    _txtName.x = -150;
                 }
                 else {
                     _item.visitBtn.visible = true;
                     createAva();
+                    _txtName.x = -110;
                 }
             }
             _sprRightFr.addChild(_item.source);
@@ -1029,12 +1034,12 @@ public class WOMarket  extends WindowMain {
     private function photoFromTexture(tex:Texture):void {
         _ava = new Image(tex);
         MCScaler.scale(_ava, 85, 85);
-        _ava.x = -138;
+        _ava.x = -158;
         _ava.y = -295;
         if (_source) _source.addChild(_ava);
         ramkaIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
         ramkaIm.y = -300;
-        ramkaIm.x = -150;
+        ramkaIm.x = -170;
         _source.addChild(ramkaIm);
     }
 }

@@ -26,7 +26,8 @@ public class MarketCell {
     private var _countTxt:CTextField;
     private var g:Vars = Vars.getInstance();
     private var _clickCallback:Function;
-    private var _carton:WhiteBackgroundIn;
+//    private var _carton:WhiteBackgroundIn;
+    private var _bg:Image;
 
     public function MarketCell(info:Object) {
         _clickCallback = null;
@@ -34,8 +35,10 @@ public class MarketCell {
         _cont = new Sprite();
         source.addChild(_cont);
         source.endClickCallback = onClick;
-        _carton = new WhiteBackgroundIn(100, 100);
-        _cont.addChild(_carton);
+//        _carton = new WhiteBackgroundIn(100, 100);
+//        _cont.addChild(_carton);
+        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_yellow_cell'));
+        source.addChild(_bg);
 
         _info = info;
         if (!_info) {
@@ -55,9 +58,9 @@ public class MarketCell {
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketCell');
                 return;
             }
-            MCScaler.scale(_image, 99, 99);
-            _image.x = 50 - _image.width/2;
-            _image.y = 50 - _image.height/2;
+//            MCScaler.scale(_image, 99, 99);
+            _image.x = 60 - _image.width/2;
+            _image.y = 60 - _image.height/2;
             _cont.addChild(_image);
         } else {
             Cc.error('MarketCell:: _data == null');
@@ -97,16 +100,16 @@ public class MarketCell {
     }
 
     public function deleteIt():void {
-        _cont.removeChild(_carton);
+//        _cont.removeChild(_carton);
         _cont.filter = null;
         source.removeChild(_cont);
-        _carton.deleteIt();
+//        _carton.deleteIt();
         if (_countTxt) {
             _cont.removeChild(_countTxt);
             _countTxt.deleteIt();
             _countTxt = null;
         }
-        _carton = null;
+//        _carton = null;
         _clickCallback = null;
         _info = null;
         _data = null;
