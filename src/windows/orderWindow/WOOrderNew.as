@@ -37,19 +37,19 @@ import utils.SensibleBlock;
 import utils.TimeUtils;
 import utils.Utils;
 
-import windows.WOComponents.WhiteBackgroundIn;
+import windows.WOComponents.BackgroundWhiteIn;
 import windows.WOComponents.WindowBackgroundNew;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOOrderNew extends WindowMain {
     private var _txtWindowName:CTextField;
-    private var _bigYellowBG:YellowBackgroundOut;
+    private var _bigYellowBG:BackgroundYellowOut;
     private var _arrOrders:Array;
     private var _arrItems:Array;
     private var _arrResourceItems:Array;
-    private var _bgWhiteIn:WhiteBackgroundIn;
+    private var _bgWhiteIn:BackgroundWhiteIn;
     private var _rightBlock:Sprite;
     private var _btnDel:CButton;
     private var _btnSell:CButton;
@@ -77,7 +77,7 @@ public class WOOrderNew extends WindowMain {
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
 
-        _bigYellowBG = new YellowBackgroundOut(738, 524);
+        _bigYellowBG = new BackgroundYellowOut(738, 524);
         _bigYellowBG.x = -369;
         _bigYellowBG.y = -_woHeight / 2 + 129;
         _source.addChild(_bigYellowBG);
@@ -145,7 +145,7 @@ public class WOOrderNew extends WindowMain {
         var item:WOOrderResourceItem;
         _rightBlock = new Sprite();
         _source.addChild(_rightBlock);
-        _bgWhiteIn = new WhiteBackgroundIn(338, 234);
+        _bgWhiteIn = new BackgroundWhiteIn(338, 234);
         _bgWhiteIn.x = -_woWidth / 2 + 410;
         _bgWhiteIn.y = -_woHeight / 2 + 366;
         _rightBlock.addChild(_bgWhiteIn);

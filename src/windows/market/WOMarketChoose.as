@@ -21,7 +21,7 @@ import utils.TimeUtils;
 
 import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackgroundNew;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import utils.CButton;
 import windows.WOComponents.WindowBackground;
@@ -53,9 +53,9 @@ public class WOMarketChoose extends WindowMain {
     private var _btnPapper:CButton;
     private var _woMarket:WOMarket;
     private var _boolPapper:Boolean;
-    private var _bigYellowBG:YellowBackgroundOut;
+    private var _bigYellowBG:BackgroundYellowOut;
     private var _wb:WindowBackgroundNew;
-    private var _wbYe:YellowBackgroundOut;
+    private var _wbYe:BackgroundYellowOut;
     private var _txtChooseResource:CTextField;
 
     public function WOMarketChoose() {
@@ -67,13 +67,13 @@ public class WOMarketChoose extends WindowMain {
         _wb.y = 20;
         _wb.x = 420;
         _source.addChild(_wb);
-        _wbYe = new YellowBackgroundOut(240, 350);
+        _wbYe = new BackgroundYellowOut(240, 350);
         _wbYe.x = 300;
         _wbYe.y = -160;
         _source.addChild(_wbYe);
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight,104);
         _source.addChild(_woBG);
-        _bigYellowBG = new YellowBackgroundOut(579, 425);
+        _bigYellowBG = new BackgroundYellowOut(579, 425);
         _bigYellowBG.y = -_woHeight / 3 + 6;
         _bigYellowBG.x = -_woWidth / 3 - 82;
         _source.addChild(_bigYellowBG);
@@ -468,7 +468,7 @@ import starling.display.Image;
 import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 
 internal class AmbarTabs {
     private var g:Vars = Vars.getInstance();
@@ -481,9 +481,9 @@ internal class AmbarTabs {
     private var _txtActiveSklad:CTextField;
     private var _unactiveSklad:CSprite;
     private var _txtUnactiveSklad:CTextField;
-    private var _bg:YellowBackgroundOut;
+    private var _bg:BackgroundYellowOut;
 
-    public function AmbarTabs(bg:YellowBackgroundOut, f:Function) {
+    public function AmbarTabs(bg:BackgroundYellowOut, f:Function) {
         _bg = bg;
         _callback = f;
         _imActiveAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));

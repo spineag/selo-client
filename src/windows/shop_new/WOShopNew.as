@@ -11,7 +11,7 @@ import starling.utils.Color;
 import utils.CTextField;
 import utils.Utils;
 import windows.WOComponents.WindowBackgroundNew;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -22,7 +22,7 @@ public class WOShopNew extends WindowMain {
     public static const PLANT:int=4;
     public static const DECOR:int=5;
     
-    private var _bigYellowBG:YellowBackgroundOut;
+    private var _bigYellowBG:BackgroundYellowOut;
     private var _tabs:ShopNewTabs;
     private var _decorFilter:DecorShopNewFilter;
     private var _shopList:ShopNewList;
@@ -48,11 +48,11 @@ public class WOShopNew extends WindowMain {
         _callbackClickBG = onClickExit;
 
         if (_isBigShop) {
-            _bigYellowBG = new YellowBackgroundOut(868, 486);
+            _bigYellowBG = new BackgroundYellowOut(868, 486);
             _bigYellowBG.x = -434;
             _bigYellowBG.y = -185;
         } else {
-            _bigYellowBG = new YellowBackgroundOut(810, 346);
+            _bigYellowBG = new BackgroundYellowOut(810, 346);
             _bigYellowBG.x = -405;
             _bigYellowBG.y = -120;
         }

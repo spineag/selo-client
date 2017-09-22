@@ -31,7 +31,7 @@ import utils.Utils;
 
 import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackgroundNew;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -101,7 +101,7 @@ public class WOMarket  extends WindowMain {
 //        _btnFriends.x = _woWidth/2 - 97;
 //        _btnFriends.y = _woHeight/2 - 58;
 //        _source.addChild(_cont);
-        var c:YellowBackgroundOut = new YellowBackgroundOut(800, 480);
+        var c:BackgroundYellowOut = new BackgroundYellowOut(800, 480);
         c.x = -c.width/2+5;
         c.y = -_woHeight/2 + 108;
 //        _cont.filter = ManagerFilters.SHADOW;
@@ -576,7 +576,7 @@ public class WOMarket  extends WindowMain {
     }
 
     public function createMarketTabBtns(paper:Boolean = false):void {
-//        var c:YellowBackgroundOut;
+//        var c:BackgroundYellowOut;
         if (_arrFriends == null) {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Обнови сиды и сикреты');
             return;

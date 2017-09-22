@@ -27,12 +27,12 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
 
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowsManager;
 
 public class WOBuyCouponeItem {
     public var source:Sprite;
-    private var _carton:YellowBackgroundOut;
+    private var _carton:BackgroundYellowOut;
     private var _cost:int;
     private var _count:int;
     private var _imageCoupone:Image;
@@ -46,7 +46,7 @@ public class WOBuyCouponeItem {
     public function WOBuyCouponeItem(imageCopone:String, txtItemCoupone:int, txtCostCoupone:int,type:int) {
         try {
             _type = type;
-//            _carton = new YellowBackgroundOut(100, 150);
+//            _carton = new BackgroundYellowOut(100, 150);
             _cost = txtCostCoupone;
             _count = txtItemCoupone;
 //            _carton.filter = ManagerFilters.SHADOW_LIGHT;

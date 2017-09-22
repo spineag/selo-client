@@ -3,10 +3,10 @@
  */
 package windows.shop_new {
 
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 
 public class ShopNewTabs {
-    private var _shopBGSource:YellowBackgroundOut;
+    private var _shopBGSource:BackgroundYellowOut;
     private var _callback:Function;
     private var _activeTabNumber:int;
     private var _btn1:TabButton;
@@ -17,7 +17,7 @@ public class ShopNewTabs {
     private var _activeTabButton:TabButton;
     private var _isBigShop:Boolean;
 
-    public function ShopNewTabs(bg:YellowBackgroundOut, f:Function, isBigShop:Boolean) {
+    public function ShopNewTabs(bg:BackgroundYellowOut, f:Function, isBigShop:Boolean) {
         _shopBGSource = bg;
         _callback = f;
         _isBigShop = isBigShop;
@@ -101,7 +101,7 @@ import starling.utils.Color;
 
 import utils.CSprite;
 import utils.CTextField;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 
 internal class TabButton {
     private var g:Vars = Vars.getInstance();
@@ -113,9 +113,9 @@ internal class TabButton {
     private var _callback:Function;
     private var _notif:Sprite;
     private var _notifCount:CTextField;
-    private var _shopBGSource:YellowBackgroundOut;
+    private var _shopBGSource:BackgroundYellowOut;
 
-    public function TabButton(n:int, f:Function, bg:YellowBackgroundOut) {
+    public function TabButton(n:int, f:Function, bg:BackgroundYellowOut) {
         _numberTab = n;
         _callback = f;
         _shopBGSource = bg;

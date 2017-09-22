@@ -17,7 +17,7 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.Birka;
-import windows.WOComponents.YellowBackgroundOut;
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -26,12 +26,12 @@ public class WOBuyCurrency extends WindowMain {
     private var _tabHard:CSprite;
     private var _tabSoft:CSprite;
     private var _woBG:WindowBackground;
-    private var _cartonBG:YellowBackgroundOut;
+    private var _cartonBG:BackgroundYellowOut;
     private var _contCarton:Sprite;
     private var _birka:Birka;
     private var _isHard:Boolean = false;
-    private var _cartonHardTab:YellowBackgroundOut;
-    private var _cartonSoftTab:YellowBackgroundOut;
+    private var _cartonHardTab:BackgroundYellowOut;
+    private var _cartonSoftTab:BackgroundYellowOut;
     private var _contItems:Sprite;
     private var _arrItems:Array;
     private var _defaultY:int;
@@ -51,7 +51,7 @@ public class WOBuyCurrency extends WindowMain {
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        _cartonBG = new YellowBackgroundOut(618, 398);
+        _cartonBG = new BackgroundYellowOut(618, 398);
         _cartonBG.x = -308;
         _cartonBG.y = -166;
         _contCarton.addChild(_cartonBG);
@@ -68,7 +68,7 @@ public class WOBuyCurrency extends WindowMain {
 
     private function createTabs():void {
         _tabHard = new CSprite();
-        _cartonHardTab = new YellowBackgroundOut(255, 80);
+        _cartonHardTab = new BackgroundYellowOut(255, 80);
         _cartonHardTab.touchable = true;
         _tabHard.addChild(_cartonHardTab);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
@@ -87,7 +87,7 @@ public class WOBuyCurrency extends WindowMain {
         _tabHard.outCallback = onOut;
 
         _tabSoft = new CSprite();
-        _cartonSoftTab = new YellowBackgroundOut(255, 80);
+        _cartonSoftTab = new BackgroundYellowOut(255, 80);
         _cartonSoftTab.touchable = true;
         _tabSoft.addChild(_cartonSoftTab);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
