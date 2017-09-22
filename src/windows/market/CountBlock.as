@@ -33,6 +33,7 @@ public class CountBlock {
     private var _callback:Function;
     private var _coinIm:Image;
     private var _imResource:Image;
+    private var _coinBo:Boolean;
 
     private var g:Vars = Vars.getInstance();
 
@@ -58,6 +59,7 @@ public class CountBlock {
         _btnPlus.clickCallback = onEndPlus;
         _btnMinus.startClickCallback = onStartMinus;
         _btnMinus.clickCallback = onEndMinus;
+        _coinBo = coin;
         if (coin) {
             _coinIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
             _coinIm.x = -33;
@@ -82,13 +84,11 @@ public class CountBlock {
     }
 
     public function set setWidth(a:int):void {
-//        _plawkaBg.width = a;
-//        _plawkaBg.x = -_plawkaBg.width/2 - 58;
-//        _plawkaBg.y = -_plawkaBg.height/2 + 4;
-//        source.addChild(_plawkaBg);
-//        _txt.x = -_txt.width/2 - 57;
+//        if (!_coinBo) _txt.x = 30 - _txt.textBounds.width/2;
+        _txt.x =  25 - _txt.textBounds.width/2;
+
+
         _txt.y = -_txt.height/2 + 3;
-        _txt.x = + 10;
         source.addChild(_txt);
         _btnMinus.x = -41 - _btnMinus.width;
         _btnMinus.y = -_btnMinus.height/2 + 5;
@@ -143,7 +143,7 @@ public class CountBlock {
                 _imResource = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
             }
         }
-        _imResource.x = -33;
+        _imResource.x = -35;
         _imResource.y = -19;
         MCScaler.scale(_imResource,50,50);
         source.addChild(_imResource);

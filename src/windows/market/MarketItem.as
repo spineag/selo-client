@@ -79,11 +79,11 @@ public class MarketItem {
     private var _ava:Image;
     private var _avaDefault:Image;
     private var _countBuyCell:int;
-    private var _papperBtn:CButton;
+//    private var _papperBtn:CButton;
     private var _inPapper:Boolean;
     private var _inDelete:Boolean;
     private var _delete:CButton;
-    private var _imCheck:Image;
+//    private var _imCheck:Image;
     private var _btnBuyCont:CButton;
     private var _wo:WOMarket;
     private var _btnGoAwaySaleItem:CButton;
@@ -96,6 +96,7 @@ public class MarketItem {
 
     public function MarketItem(numberCell:int, close:Boolean, wo:WOMarket) {
         _wo = wo;
+        var im:Image;
         _closeCell = close;
         number = numberCell;
         source = new CSprite();
@@ -173,31 +174,30 @@ public class MarketItem {
         _plawkaCoins.addChild(_costTxt);
         _plawkaCoins.visible = false;
 
-        _papperBtn = new CButton();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
-        MCScaler.scale(im,im.height/2+5, im.width/2+5);
-        _papperBtn.addDisplayObject(im);
-        _papperBtn.setPivots();
-        _papperBtn.x = 20;
-        _papperBtn.y = 10;
-        _papperBtn.alpha = 1;
-//        source.addChild(_papperBtn);
-        _papperBtn.clickCallback = onPaper;
-        _papperBtn.hoverCallback = function ():void {
-            if (_inPapper || isFill == 2) return;
-            g.hint.showIt(String(g.managerLanguage.allTexts[390]),'market_paper');
-        };
-        _papperBtn.outCallback = function ():void {
-            g.hint.hideIt();
-        };
-        _papperBtn.visible = false;
+//        _papperBtn = new CButton();
+//        MCScaler.scale(im,im.height/2+5, im.width/2+5);
+//        _papperBtn.addDisplayObject(im);
+//        _papperBtn.setPivots();
+//        _papperBtn.x = 20;
+//        _papperBtn.y = 10;
+//        _papperBtn.alpha = 1;
+////        source.addChild(_papperBtn);
+//        _papperBtn.clickCallback = onPaper;
+//        _papperBtn.hoverCallback = function ():void {
+//            if (_inPapper || isFill == 2) return;
+//            g.hint.showIt(String(g.managerLanguage.allTexts[390]),'market_paper');
+//        };
+//        _papperBtn.outCallback = function ():void {
+//            g.hint.hideIt();
+//        };
+//        _papperBtn.visible = false;
 
-        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _imCheck.x = 8;
-        _imCheck.y = -3;
-        MCScaler.scale(_imCheck,25,25);
-        source.addChild(_imCheck);
-        _imCheck.visible = false;
+//        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+//        _imCheck.x = 8;
+//        _imCheck.y = -3;
+//        MCScaler.scale(_imCheck,25,25);
+//        source.addChild(_imCheck);
+//        _imCheck.visible = false;
 
         _delete = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
@@ -311,10 +311,10 @@ public class MarketItem {
         fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
         g.userInventory.addResource(id, -count);
         if(_dataFromServer.inPapper) {
-            if (_papperBtn) {
-                _papperBtn.visible = true;
-            }
-            if (_imCheck) _imCheck.visible = true;
+//            if (_papperBtn) {
+//                _papperBtn.visible = true;
+//            }
+//            if (_imCheck) _imCheck.visible = true;
             g.directServer.updateMarketPapper(number, true, null);
             _inPapper = true;
         }
@@ -360,9 +360,9 @@ public class MarketItem {
         if (_inPapper) return;
         _inPapper = true;
         _dataFromServer.inPapper = true;
-        _papperBtn.visible = true;
-        _imCheck.visible = true;
-        _papperBtn.alpha = .8;
+//        _papperBtn.visible = true;
+//        _imCheck.visible = true;
+//        _papperBtn.alpha = .8;
         g.managerAchievement.addAll(11,1);
         g.hint.hideIt();
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
@@ -373,25 +373,25 @@ public class MarketItem {
 
     public function visiblePapperTimer():void {
         if (isFill == 0 || isFill == 2) return;
-        if (_inPapper) {
-            if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
-                if (_papperBtn) {
-                    _papperBtn.visible = true;
-                    _papperBtn.alpha = .8;
-                }
-                if (_imCheck) _imCheck.visible = true;
-            } else {
-                if (_papperBtn) {
-                    _papperBtn.visible = false;
-                    _papperBtn.alpha = 1;
-                }
-                _imCheck.visible = false;
-                g.directServer.updateMarketPapper(number, false, null);
-            }
-        } else {
-            _papperBtn.visible = true;
-//            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
-        }
+//        if (_inPapper) {
+//            if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
+//                if (_papperBtn) {
+//                    _papperBtn.visible = true;
+//                    _papperBtn.alpha = .8;
+//                }
+//                if (_imCheck) _imCheck.visible = true;
+//            } else {
+//                if (_papperBtn) {
+//                    _papperBtn.visible = false;
+//                    _papperBtn.alpha = 1;
+//                }
+//                _imCheck.visible = false;
+//                g.directServer.updateMarketPapper(number, false, null);
+//            }
+//        } else {
+//            _papperBtn.visible = true;
+////            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
+//        }
     }
 
     private function onDelete():void {
@@ -416,9 +416,9 @@ public class MarketItem {
     }
 
     private function deleteCallback():void {
-        _papperBtn.visible = false;
-        _imCheck.visible = false;
-        _papperBtn.alpha = 1;
+//        _papperBtn.visible = false;
+//        _imCheck.visible = false;
+//        _papperBtn.alpha = 1;
         _inPapper = false;
         g.userInventory.addMoney(1,-1);
         g.userInventory.addResource(_data.id, _countResource);
@@ -560,7 +560,7 @@ public class MarketItem {
             _plawkaCoins.visible = false;
 //            _plawkaSold.visible = true;
             _txtPlawka.visible = true;
-            _papperBtn.visible = false;
+//            _papperBtn.visible = false;
             if (_person == g.user.neighbor) {
                 g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
                 _dataFromServer.resourceId = -1;
@@ -595,9 +595,9 @@ public class MarketItem {
         _countMoney = 0;
         _countResource = 0;
         _inPapper = false;
-        _papperBtn.visible = false;
-        _imCheck.visible = false;
-        _papperBtn.alpha = 1;
+//        _papperBtn.visible = false;
+//        _imCheck.visible = false;
+//        _papperBtn.alpha = 1;
 
     }
 
@@ -709,7 +709,7 @@ public class MarketItem {
         if (_imageCont) unFillIt();
         var im:Image;
         _data = data;
-        if(_papperBtn) _papperBtn.visible = false;
+//        if(_papperBtn) _papperBtn.visible = false;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
         im.x = 40;
         im.y = 75;
@@ -1007,11 +1007,11 @@ public class MarketItem {
         _personBuyerTempItem = null;
 //        _quadGreen = null;
         _ava = null;
-        if (_papperBtn) {
-            source.removeChild(_papperBtn);
-            _papperBtn.deleteIt();
-            _papperBtn = null;
-        }
+//        if (_papperBtn) {
+//            source.removeChild(_papperBtn);
+//            _papperBtn.deleteIt();
+//            _papperBtn = null;
+//        }
         if (_delete) {
             source.removeChild(_delete);
             _delete.deleteIt();
@@ -1022,7 +1022,7 @@ public class MarketItem {
             _btnGoAwaySaleItem.deleteIt();
             _btnGoAwaySaleItem = null;
         }
-        _imCheck = null;
+//        _imCheck = null;
         if (_costTxt) {
             _plawkaCoins.removeChild(_costTxt);
             _costTxt.deleteIt();
@@ -1054,13 +1054,13 @@ public class MarketItem {
         switch (s) {
             case 'papperIcon':
                 obj = {};
-                p.x = _papperBtn.x - _papperBtn.width/2;
-                p.y = _papperBtn.y - _papperBtn.height/2;
-                p = source.localToGlobal(p);
-                obj.x = p.x;
-                obj.y = p.y;
-                obj.width = _papperBtn.width;
-                obj.height = _papperBtn.height;
+//                p.x = _papperBtn.x - _papperBtn.width/2;
+//                p.y = _papperBtn.y - _papperBtn.height/2;
+//                p = source.localToGlobal(p);
+//                obj.x = p.x;
+//                obj.y = p.y;
+//                obj.width = _papperBtn.width;
+//                obj.height = _papperBtn.height;
                 break;
         }
         return obj;

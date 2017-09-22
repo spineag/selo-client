@@ -12,6 +12,7 @@ import starling.events.Event;
 import starling.filters.BlurFilter;
 import starling.filters.DropShadowFilter;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
@@ -47,8 +48,6 @@ public class WOMarketChoose extends WindowMain {
     private var _woBG:WindowBackgroundNew;
     private var _defaultY:int = -232;
     private var _activetedItem:MarketItem;
-    private var _txtAmbar:CTextField;
-    private var _txtSklad:CTextField;
     private var _imPapper:Image;
     private var _txtPapperBtn:CTextField;
     private var _btnPapper:CButton;
@@ -57,12 +56,13 @@ public class WOMarketChoose extends WindowMain {
     private var _bigYellowBG:YellowBackgroundOut;
     private var _wb:WindowBackgroundNew;
     private var _wbYe:YellowBackgroundOut;
+    private var _txtChooseResource:CTextField;
 
     public function WOMarketChoose() {
         super();
         _windowType = WindowsManager.WO_MARKET_CHOOSE;
         _woWidth = 624;
-        _woHeight = 575;
+        _woHeight = 550;
         _wb = new WindowBackgroundNew(275,400,0);
         _wb.y = 20;
         _wb.x = 420;
@@ -73,8 +73,8 @@ public class WOMarketChoose extends WindowMain {
         _source.addChild(_wbYe);
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight,104);
         _source.addChild(_woBG);
-        _bigYellowBG = new YellowBackgroundOut(579, 414);
-        _bigYellowBG.y = -_woHeight / 3 + 7;
+        _bigYellowBG = new YellowBackgroundOut(579, 425);
+        _bigYellowBG.y = -_woHeight / 3 + 6;
         _bigYellowBG.x = -_woWidth / 3 - 82;
         _source.addChild(_bigYellowBG);
         createExitButton(hideIt);
@@ -82,11 +82,11 @@ public class WOMarketChoose extends WindowMain {
         booleanMinus = true;
         createWOElements();
         _arrCells = [];
-        _scrollSprite = new DefaultVerticalScrollSprite(520, 520, 130, 130);
+        _scrollSprite = new DefaultVerticalScrollSprite(520, 390, 130, 130);
         _scrollSprite.source.x = 55 - _woWidth/2;
         _scrollSprite.source.y = 127 - _woHeight/2;
         _source.addChild(_scrollSprite.source);
-        _scrollSprite.createScoll(423, 0, 303, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        _scrollSprite.createScoll(530, 0, 385, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
 
         _countResourceBlock = new CountBlock();
         _countResourceBlock.setWidth = 50;
@@ -99,6 +99,9 @@ public class WOMarketChoose extends WindowMain {
         _source.addChild(_countMoneyBlock.source);
         _source.addChild(_countResourceBlock.source);
 
+        _countMoneyBlock.source.visible = false;
+        _countResourceBlock.source.visible = false;
+
         _btnSell = new CButton();
         _btnSell.addButtonTexture(145, CButton.BIG_HEIGHT, CButton.GREEN, true);
         _btnSell.addTextField(145, 40, 0, 0, String(g.managerLanguage.allTexts[407]));
@@ -106,8 +109,16 @@ public class WOMarketChoose extends WindowMain {
         _btnSell.x = 425;
         _btnSell.y = 155;
         _source.addChild(_btnSell);
+        _btnSell.visible = false;
         _btnSell.clickCallback = onClickBtnSell;
         _callbackClickBG = onClickExit;
+
+        _txtChooseResource = new CTextField(200,80,String(g.managerLanguage.allTexts[1150]));
+        _txtChooseResource.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//        _txtChooseResource.alignH = Align.RIGHT;
+        _txtChooseResource.x = 321;
+        _txtChooseResource.y = -160;
+        _source.addChild(_txtChooseResource);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -117,9 +128,9 @@ public class WOMarketChoose extends WindowMain {
         _woMarket = params[1];
         if (g.user.isAmbar) _isAmbar = true;
         else _isAmbar = false;
-        checkTypes();
+        _tabs.activate(_isAmbar);
         fillItems();
-        checkPapper();
+//        checkPapper();
         super.showIt();
     }
 
@@ -178,32 +189,10 @@ public class WOMarketChoose extends WindowMain {
         }
     }
 
-    private function onClickCheck():void {
-//        if (_boolPapper) {
-//            _imCheck.visible = false;
-//            _boolPapper = false;
-//        } else {
-//            _imCheck.visible = true;
-//            _boolPapper = true;
-//        }
-    }
-
     private function createWOElements():void {
 
         _tabs = new AmbarTabs(_bigYellowBG, onTabClick);
         _tabs.activate(_isAmbar);
-        var fAmbar:Function = function():void {
-            _type = AMBAR;
-            updateItems();
-            checkTypes();
-            g.user.visitAmbar = true;
-        };
-        var hAmbar:Function = function():void {
-//            _tabAmbar.y = _defaultY + 3;
-        };
-        var oAmbar:Function = function():void {
-//            _tabAmbar.y = _defaultY + 10;
-        };
         _mainSprite = new Sprite();
         _mainSprite.filter = ManagerFilters.SHADOW;
         _mainSprite.x = -_woWidth/2 + 43;
@@ -223,90 +212,18 @@ public class WOMarketChoose extends WindowMain {
         g.user.isAmbar = _isAmbar;
         _tabs.activate(_isAmbar);
         updateCells();
-        updateForUpdates();
     }
 
     public function updateCells():void {
-        clearCells();
+        unfillItems();
         fillItems();
-    }
-
-//    private function fillCells():void {
-//        var cell:MarketCell;
-//        var arr:Array;
-//        if (_isAmbar) arr = g.userInventory.getResourcesForAmbar();
-//        else arr = g.userInventory.getResourcesForSklad();
-//        arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-//        for (var i:int = 0; i < arr.length; i++) {
-//            cell = new MarketCell(arr[i]);
-//            _arrCells.push(cell);
-//            _scrollSprite.addNewCell(cell.source);
-//        }
-//    }
-
-    private function clearCells():void {
-        if (_scrollSprite)_scrollSprite.resetAll();
-        for (var i:int = 0; i < _arrCells.length; i++) {
-            (_arrCells[i] as MarketCell).deleteIt();
-        }
-        _arrCells.length = 0;
-    }
-
-    private function updateForUpdates():void {
-        var b:StructureDataBuilding;
-        if (_isAmbar) {
-            b = g.allData.getBuildingById(12);
-//            _uItem1.updateIt(b.upInstrumentId1, true);
-//            _uItem2.updateIt(b.upInstrumentId2, true);
-//            _uItem3.updateIt(b.upInstrumentId3, true);
-        } else {
-            b = g.allData.getBuildingById(13);
-//            _uItem1.updateIt(b.upInstrumentId1, false);
-//            _uItem2.updateIt(b.upInstrumentId2, false);
-//            _uItem3.updateIt(b.upInstrumentId3, false);
-        }
-    }
-
-    private function checkTypes():void {
-//        _tabAmbar.filter = null;
-//        _tabSklad.filter = null;
-//        if (_source.contains(_tabAmbar)) _source.removeChild(_tabAmbar);
-//        if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
-//        if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
-//        if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
-        switch (_type) {
-            case AMBAR:
-//                _mainSprite.addChild(_tabAmbar);
-//                _tabAmbar.x = -205 - _mainSprite.x;
-//                _tabAmbar.y = _defaultY - _mainSprite.y;
-//                _tabAmbar.isTouchable = false;
-//                _source.addChildAt(_tabSklad, _source.getChildIndex(_mainSprite)-1);
-//                _tabSklad.x = -75;
-//                _tabSklad.y = _defaultY + 10;
-//                _tabSklad.isTouchable = true;
-//                _tabSklad.filter = ManagerFilters.SHADOW;
-//                _birka.updateText(String(g.managerLanguage.allTexts[132]));
-                break;
-            case SKLAD:
-//                _mainSprite.addChild(_tabSklad);
-//                _tabSklad.x = -75 - _mainSprite.x;
-//                _tabSklad.y = _defaultY - _mainSprite.y;
-//                _tabSklad.isTouchable = false;
-//                _source.addChildAt(_tabAmbar, _source.getChildIndex(_mainSprite)-1);
-//                _tabAmbar.x = -205;
-//                _tabAmbar.y = _defaultY + 10;
-//                _tabAmbar.isTouchable = true;
-//                _tabAmbar.filter = ManagerFilters.SHADOW;
-//                _birka.updateText(String(g.managerLanguage.allTexts[133]));
-                break;
-        }
     }
 
     private function fillItems():void {
         var cell:MarketCell;
         try {
             var arr:Array;
-            if (_type == AMBAR) arr = g.userInventory.getResourcesForAmbar();
+            if (_isAmbar) arr = g.userInventory.getResourcesForAmbar();
             else arr = g.userInventory.getResourcesForSklad();
             arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
             for (var i:int = 0; i < arr.length; i++) {
@@ -320,12 +237,19 @@ public class WOMarketChoose extends WindowMain {
             g.windowsManager.uncasheWindow();
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woMarketChoose');
         }
+        if (_arrCells.length > 12) {
+            _scrollSprite.source.x = 40 - _woWidth/2;
+            _scrollSprite.source.y = 127 - _woHeight/2;
+        } else {
+            _scrollSprite.source.x = 55 - _woWidth/2;
+            _scrollSprite.source.y = 127 - _woHeight/2;
+        }
     }
 
     private function unfillItems():void {
-        _scrollSprite.resetAll();
+        if (_scrollSprite)_scrollSprite.resetAll();
         for (var i:int = 0; i < _arrCells.length; i++) {
-            _arrCells[i].deleteIt();
+            (_arrCells[i] as MarketCell).deleteIt();
         }
         _arrCells.length = 0;
     }
@@ -347,8 +271,12 @@ public class WOMarketChoose extends WindowMain {
         _curResourceId = a;
 //        _btnSell.filter = null;
 //        _countResourceBlock.btnNull();
+        _txtChooseResource.text = String(g.managerLanguage.allTexts[1151]);
         _countMoneyBlock.count = 0;
         _countResourceBlock.count = 0;
+        _countMoneyBlock.source.visible = true;
+        _countResourceBlock.source.visible = true;
+        _btnSell.visible = true;
         booleanMinus = true;
         booleanPlus = true;
         _countResourceBlock._btnMinus.setEnabled = true;
@@ -356,9 +284,9 @@ public class WOMarketChoose extends WindowMain {
         _countMoneyBlock._btnPlus.setEnabled = true;
         _countMoneyBlock._btnMinus.setEnabled = true;
 //        _countMoneyBlock.btnNull();
-        for (var i:int = 0; i < _arrCells.length; i++) {
-            _arrCells[i].activateIt(false);
-        }
+//        for (var i:int = 0; i < _arrCells.length; i++) {
+//            _arrCells[i].activateIt(false);
+//        }
         var countRes:int = g.userInventory.getCountResourceById(a);
         var count:int = int(countRes/2 + .5);
         if (countRes > 20) {
@@ -503,14 +431,14 @@ public class WOMarketChoose extends WindowMain {
         if (!_scrollSprite) return;
         unfillItems();
         unfillItems();
-        if (_txtAmbar) {
-            _txtAmbar.deleteIt();
-            _txtAmbar = null;
-        }
-        if (_txtSklad) {
-            _txtSklad.deleteIt();
-            _txtSklad = null;
-        }
+//        if (_txtAmbar) {
+//            _txtAmbar.deleteIt();
+//            _txtAmbar = null;
+//        }
+//        if (_txtSklad) {
+//            _txtSklad.deleteIt();
+//            _txtSklad = null;
+//        }
         _source.removeChild(_btnSell);
         _btnSell.deleteIt();
         _btnSell = null;
