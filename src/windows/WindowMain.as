@@ -26,6 +26,8 @@ import utils.CSprite;
 import utils.Utils;
 
 import windows.WOComponents.WindowBackgroundNew;
+import windows.WindowsManager;
+import windows.market.WOMarketChoose;
 
 public class WindowMain {
     protected var _source:Sprite;
@@ -51,6 +53,7 @@ public class WindowMain {
         _woHeight = 0;
         _woWidth = 0;
         SOUND_OPEN = SoundConst.DEFAULT_WINDOW;
+
     }
 
     public function showItParams(callback:Function, params:Array):void { }
@@ -72,6 +75,9 @@ public class WindowMain {
             g.cont.addGameContListener(false);
             g.cont.windowsCont.addChild(_source);
             TweenMax.to(_source, .3, {y: int(g.managerResize.stageHeight/2), onComplete: onShowingWindow});
+        }
+        if (windowType == 'market_choose') {
+            _source.x = g.managerResize.stageWidth/2 - _woWidth/5;
         }
     }
 

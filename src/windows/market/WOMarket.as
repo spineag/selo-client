@@ -115,7 +115,7 @@ public class WOMarket  extends WindowMain {
         _countPage = 1;
         _contRect = new Sprite();
         _contRect.mask = new Quad(720, 460);
-        _contRect.mask.x = -350;
+        _contRect.mask.x = -360;
         _contRect.mask.y = -190;
 
         _source.addChild(_contRect);
@@ -183,6 +183,7 @@ public class WOMarket  extends WindowMain {
         _visitBtn.y = _woHeight/2;
         _source.addChild(_visitBtn);
         _visitBtn.visible = false;
+        _visitBtn.clickCallback = visitPerson;
 //        _btnPaper = new CButton();
 //        _btnPaper.addButtonTexture(70,30,CButton.GREEN,true);
 //        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -322,16 +323,16 @@ public class WOMarket  extends WindowMain {
                 item.source.x = 180*(_arrItems.length%4) - 358;
                 _countAllPage = 1;
             } else if (i+1 <= 16) {
-                item.source.x = 180*(_arrItems.length%4)+150;
+                item.source.x = 180*(_arrItems.length%4)+362;
                 _countAllPage = 2;
             } else if (i+1 <= 24) {
-                item.source.x = 180*(_arrItems.length%4)+650;
+                item.source.x = 180*(_arrItems.length%4)+1082;
                 _countAllPage = 3;
             } else if (i+1 <= 32) {
-                item.source.x = 180*(_arrItems.length%4)+1150;
+                item.source.x = 180*(_arrItems.length%4)+1802;
                 _countAllPage = 4;
             } else if (i+1 <= 40) {
-                item.source.x = 180*(_arrItems.length%4)+1650;
+                item.source.x = 180*(_arrItems.length%4)+2522;
                 _countAllPage = 5;
             }
 
@@ -371,16 +372,16 @@ public class WOMarket  extends WindowMain {
             item.source.x = 180*(_arrItems.length%4) - 358;
             _countAllPage = 1;
         } else  if (_arrItems.length  <= 15) {
-            item.source.x = 180*(_arrItems.length%4)+150;
+            item.source.x = 180*(_arrItems.length%4)+362;
             _countAllPage = 2;
         } else if (_arrItems.length  <= 23) {
-            item.source.x = 180*(_arrItems.length%4)+650;
+            item.source.x = 180*(_arrItems.length%4)+1082;
             _countAllPage = 3;
         } else if (_arrItems.length  <= 31) {
-            item.source.x = 180*(_arrItems.length%4)+1150;
+            item.source.x = 180*(_arrItems.length%4)+1802;
             _countAllPage = 4;
         } else if (_arrItems.length <= 39) {
-            item.source.x = 180*(_arrItems.length%4)+1650;
+            item.source.x = 180*(_arrItems.length%4)+2522;
             _countAllPage = 5;
         }
 
@@ -458,7 +459,7 @@ public class WOMarket  extends WindowMain {
                 break;
             }
         }
-        new TweenMax(_contItemCell, .5, {x: -_shift * 125});
+        new TweenMax(_contItemCell, .5, {x: -_shift * 180});
         checkArrow();
     }
 
@@ -710,7 +711,7 @@ public class WOMarket  extends WindowMain {
         clearItems();
         _shift = 0;
         if (_contItemCell) {
-            new TweenMax(_contItemCell, .5, {x: -_shift * 125, ease: Linear.easeNone});
+            new TweenMax(_contItemCell, .5, {x: -_shift * 180, ease: Linear.easeNone});
         }
         _countPage = 1;
         _curUser = _person;
@@ -811,7 +812,7 @@ public class WOMarket  extends WindowMain {
         if (_shift > 0) {
             _shift -= 4;
             if (_shift<0) _shift = 0;
-            new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
+            new TweenMax(_contItemCell, .5, {x:-_shift*180, ease:Linear.easeNone ,onComplete: function():void {}});
             _countPage--;
 
         }
@@ -831,7 +832,7 @@ public class WOMarket  extends WindowMain {
         var l:int = _arrItems.length;
         _shift += 4;
         if (_shift + 4 <= l - 1) {
-            new TweenMax(_contItemCell, .5, {x:-_shift*125, ease:Linear.easeNone ,onComplete: function():void {}});
+            new TweenMax(_contItemCell, .5, {x:-_shift*180, ease:Linear.easeNone ,onComplete: function():void {}});
             _countPage++;
         }
         checkArrow();
@@ -1041,6 +1042,12 @@ public class WOMarket  extends WindowMain {
         ramkaIm.y = -300;
         ramkaIm.x = -170;
         _source.addChild(ramkaIm);
+    }
+
+    private function visitPerson():void {
+        if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
+        onClickExit();
+        g.townArea.goAway(_arrFriends[_shiftFriend]);
     }
 }
 }

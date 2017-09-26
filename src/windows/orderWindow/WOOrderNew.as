@@ -159,11 +159,11 @@ public class WOOrderNew extends WindowMain {
             _arrResourceItems.push(item);
         }
 
-        _txtNagrada = new CTextField(90, 30, String(g.managerLanguage.allTexts[363]));
+        _txtNagrada = new CTextField(150, 50, String(g.managerLanguage.allTexts[363]));
         _txtNagrada.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
         _txtNagrada.alignH = Align.LEFT;
         _txtNagrada.x = -_woWidth / 2 + 430;
-        _txtNagrada.y = -_woHeight / 2 + 557;
+        _txtNagrada.y = -_woHeight / 2 + 544;
         _rightBlock.addChild(_txtNagrada);
 
         var t:CTextField = new CTextField(60, 30, '8888');

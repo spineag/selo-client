@@ -52,8 +52,8 @@ public class CountBlock {
         MCScaler.scale(im, 50, 50);
         _btnPlus.addDisplayObject(im);
         _txt = new CTextField(80, 50, '0');
-        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.LIGHT_BLUE_COLOR);
-        _txt.alignH = Align.LEFT;
+        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        _txt.alignH = Align.RIGHT;
 //        _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;
         _btnPlus.clickCallback = onEndPlus;
@@ -62,7 +62,7 @@ public class CountBlock {
         _coinBo = coin;
         if (coin) {
             _coinIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
-            _coinIm.x = -33;
+            _coinIm.x = -35;
             _coinIm.y = -15;
             source.addChild(_coinIm);
         }
@@ -84,9 +84,7 @@ public class CountBlock {
     }
 
     public function set setWidth(a:int):void {
-//        if (!_coinBo) _txt.x = 30 - _txt.textBounds.width/2;
-        _txt.x =  25 - _txt.textBounds.width/2;
-
+        _txt.x = -50+_txt.textBounds.width/2;
 
         _txt.y = -_txt.height/2 + 3;
         source.addChild(_txt);
@@ -112,6 +110,7 @@ public class CountBlock {
     public function set count(a:int):void {
         _curCount = a;
         _txt.text = String(_curCount);
+        _txt.x = -50 + _txt.textBounds.width/2;
     }
 
     public function get count():int {
@@ -143,7 +142,7 @@ public class CountBlock {
                 _imResource = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
             }
         }
-        _imResource.x = -35;
+        _imResource.x = -37;
         _imResource.y = -19;
         MCScaler.scale(_imResource,50,50);
         source.addChild(_imResource);
@@ -161,6 +160,8 @@ public class CountBlock {
             _callback.apply(null, [true]);
         }
         checkPlusBtn();
+//        _txt.x = -50 + _txt.textBounds.width/2;
+
     }
 
     private function plusRender():void {
@@ -172,6 +173,7 @@ public class CountBlock {
                 _curCount = _max;
             }
             _txt.text = String(_curCount);
+            _txt.x = -50 + _txt.textBounds.width/2;
         }
     }
 
@@ -193,6 +195,7 @@ public class CountBlock {
             _callback.apply(null, [false]);
         }
         checkMinusBtn();
+//        _txt.x = -50 + _txt.textBounds.width/2;
     }
 
     private function minusRender():void {
@@ -204,6 +207,7 @@ public class CountBlock {
                 _curCount = _min;
             }
             _txt.text = String(_curCount);
+            _txt.x = -50 + _txt.textBounds.width/2;
         }
     }
 

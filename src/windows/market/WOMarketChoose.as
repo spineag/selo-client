@@ -19,6 +19,8 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 
+import windows.WOComponents.BackgroundWhiteIn;
+
 import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.BackgroundYellowOut;
@@ -57,6 +59,7 @@ public class WOMarketChoose extends WindowMain {
     private var _wb:WindowBackgroundNew;
     private var _wbYe:BackgroundYellowOut;
     private var _txtChooseResource:CTextField;
+    private var _bgWhiteIn:BackgroundWhiteIn;
 
     public function WOMarketChoose() {
         super();
@@ -74,9 +77,13 @@ public class WOMarketChoose extends WindowMain {
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight,104);
         _source.addChild(_woBG);
         _bigYellowBG = new BackgroundYellowOut(579, 425);
-        _bigYellowBG.y = -_woHeight / 3 + 6;
+        _bigYellowBG.y = -_woHeight / 3 + 12;
         _bigYellowBG.x = -_woWidth / 3 - 82;
         _source.addChild(_bigYellowBG);
+        _bgWhiteIn = new BackgroundWhiteIn(205,205);
+        _bgWhiteIn.x = 320;
+        _bgWhiteIn.y = -90;
+        _source.addChild(_bgWhiteIn);
         createExitButton(hideIt);
         booleanPlus = true;
         booleanMinus = true;
@@ -90,12 +97,12 @@ public class WOMarketChoose extends WindowMain {
 
         _countResourceBlock = new CountBlock();
         _countResourceBlock.setWidth = 50;
-        _countResourceBlock.source.x = 410;
-        _countResourceBlock.source.y = -50;
+        _countResourceBlock.source.x = 411;
+        _countResourceBlock.source.y = -30;
         _countMoneyBlock = new CountBlock(true);
         _countMoneyBlock.setWidth = 50;
-        _countMoneyBlock.source.x = 410;
-        _countMoneyBlock.source.y = 40;
+        _countMoneyBlock.source.x = 411;
+        _countMoneyBlock.source.y = 50;
         _source.addChild(_countMoneyBlock.source);
         _source.addChild(_countResourceBlock.source);
 
@@ -115,10 +122,11 @@ public class WOMarketChoose extends WindowMain {
 
         _txtChooseResource = new CTextField(200,80,String(g.managerLanguage.allTexts[1150]));
         _txtChooseResource.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-//        _txtChooseResource.alignH = Align.RIGHT;
         _txtChooseResource.x = 321;
         _txtChooseResource.y = -160;
         _source.addChild(_txtChooseResource);
+
+
     }
 
     override public function showItParams(callback:Function, params:Array):void {

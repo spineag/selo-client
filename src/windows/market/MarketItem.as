@@ -52,7 +52,8 @@ public class MarketItem {
     private var _costTxt:CTextField;
     private var _countTxt:CTextField;
     private var _txtPlawka:CTextField;
-    private var _txtAdditem:CTextField;
+//    private var _txtAdditem:CTextField;
+    private var _btnAdditem:CButton;
     private var _bg:Image;
     private var quad:Quad;
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
@@ -112,13 +113,23 @@ public class MarketItem {
         isFill = 0;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtAdditem = new CTextField(80,70,String(g.managerLanguage.allTexts[388]));
-        _txtAdditem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtAdditem.cacheIt = false;
-        _txtAdditem.x = 15;
-        _txtAdditem.y = 30;
-        source.addChild(_txtAdditem);
-        _txtAdditem.visible = true;
+//        _txtAdditem = new CTextField(80,70,String(g.managerLanguage.allTexts[388]));
+//        _txtAdditem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//        _txtAdditem.cacheIt = false;
+//        _txtAdditem.x = 15;
+//        _txtAdditem.y = 30;
+//        source.addChild(_txtAdditem);
+//        _txtAdditem.visible = true;
+
+        _btnAdditem = new CButton();
+        _btnAdditem.addButtonTexture(115, CButton.BIG_HEIGHT, CButton.YELLOW, true);
+        _btnAdditem.addTextField(115, 40, 0, 0, String(g.managerLanguage.allTexts[388]));
+        _btnAdditem.setTextFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        source.addChild(_btnAdditem);
+        _btnAdditem.visible = true;
+        _btnAdditem.y = 85;
+        _btnAdditem.x = 83;
+        _btnAdditem.clickCallback = onClick;
 
         _costTxt = new CTextField(122, 30, '');
         _costTxt.setFormat(CTextField.BOLD24, 24,ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
@@ -247,7 +258,7 @@ public class MarketItem {
             im.x = 48;
             im.y = 50;
             buyCont.addChild(im);
-            _txtAdditem.visible = false;
+            _btnAdditem.visible = false;
         } else {
             source.endClickCallback = onClick;
         }
@@ -279,7 +290,7 @@ public class MarketItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
             return;
         }
-        _txtAdditem.visible = false;
+        _btnAdditem.visible = false;
         _countResource = count;
         _countMoney = cost;
         _countTxt.text = String(_countResource);
@@ -318,7 +329,7 @@ public class MarketItem {
             g.directServer.updateMarketPapper(number, true, null);
             _inPapper = true;
         }
-        _txtAdditem.visible = false;
+        _btnAdditem.visible = false;
         g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
@@ -339,7 +350,7 @@ public class MarketItem {
         g.userInventory.addMoney(1,-_countBuyCell);
         var f1:Function = function ():void {
             g.user.marketCell++;
-            _txtAdditem.visible = true;
+            _btnAdditem.visible = true;
             source.endClickCallback = onClick;
             _wo.addItemsRefresh();
             _closeCell = false;
@@ -595,6 +606,7 @@ public class MarketItem {
         _countMoney = 0;
         _countResource = 0;
         _inPapper = false;
+        _ramkAva.visible = false;
 //        _papperBtn.visible = false;
 //        _imCheck.visible = false;
 //        _papperBtn.alpha = 1;
@@ -612,8 +624,8 @@ public class MarketItem {
             _countTxt.text = '';
             _countTxt.visible = false;
         }
-        if (_isUser) _txtAdditem.visible = true;
-        else _txtAdditem.visible = false;
+        if (_isUser) _btnAdditem.visible = true;
+        else _btnAdditem.visible = false;
         if (_data) _data = null;
         if (_personBuyerTempItem) _personBuyerTempItem = null;
         if (_btnGoAwaySaleItem) {
@@ -660,9 +672,9 @@ public class MarketItem {
                     Cc.error('at showSaleImage');
                 }
 //                _plawkaBuy.visible = false;
-                _txtAdditem.visible = false;
+                _btnAdditem.visible = false;
             } else { // sale anyway item
-                _txtAdditem.visible = false;
+                _btnAdditem.visible = false;
                 fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
                 _plawkaCoins.visible = false;
 //                _plawkaLvl.visible = false;
@@ -687,7 +699,7 @@ public class MarketItem {
                 _txtPlawka.visible = true;
                 _txtPlawka.y = 75;
                 _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel);
-                _txtAdditem.visible = false;
+                _btnAdditem.visible = false;
                 isFill = 3;
             }
         }
@@ -738,7 +750,7 @@ public class MarketItem {
             _txtPlawka.visible = true;
             _txtPlawka.y = 45;
         }
-        if (_txtAdditem) _txtAdditem.visible = false;
+        if (_btnAdditem) _btnAdditem.visible = false;
         _countMoney = cost;
 //        if (_coin) {
 //            _coin.y = 85;
@@ -922,11 +934,11 @@ public class MarketItem {
 
     public function friendAdd(user:Boolean = false):void {
         if(_closeCell) return;
-        if (!user)_txtAdditem.visible = false;
+        if (!user)_btnAdditem.visible = false;
         else {
             if (isFill == 1 ||  isFill == 2 ) {
-                _txtAdditem.visible = false;
-            } else _txtAdditem.visible = true;
+                _btnAdditem.visible = false;
+            } else _btnAdditem.visible = true;
         }
         _isUser = user;
     }
@@ -1037,11 +1049,6 @@ public class MarketItem {
             source.removeChild(_txtPlawka);
             _txtPlawka.deleteIt();
             _txtPlawka = null;
-        }
-        if (_txtAdditem) {
-            source.removeChild(_txtAdditem);
-            _txtAdditem.deleteIt();
-            _txtAdditem = null;
         }
         _wo = null;
         source.dispose();

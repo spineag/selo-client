@@ -60,9 +60,9 @@ public class OptionPanel {
 
         _contFullScreen = new CSprite();
         _contFullScreen.nameIt = 'contFullScreen';
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_fs_off"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("show_all_button"));
         _contFullScreen.addChild(im);
-        _contFullScreen.y = 115;
+        _contFullScreen.y = 55;
         _source.addChild(_contFullScreen);
         _contFullScreen.hoverCallback = function ():void {
             if (g.tuts.isTuts) return;
@@ -75,11 +75,11 @@ public class OptionPanel {
         _contFullScreen.startClickCallback = function ():void {
             if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
                 _contFullScreen.removeChild(im);
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_fs"));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("show_all_button"));
                 _contFullScreen.addChild(im);
             } else {
                 _contFullScreen.removeChild(im);
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_fs_off"));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("show_all_button"));
                 _contFullScreen.addChild(im);
             }
             onClick('fullscreen');
@@ -88,21 +88,21 @@ public class OptionPanel {
 
         _contScalePlus = new CSprite();
         _contScalePlus.nameIt = 'contScalePlus';
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in_off"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_in_button"));
         _contScalePlus.addChild(im);
-        _contScalePlus.y = 160;
+        _contScalePlus.y = 110;
         _source.addChild(_contScalePlus);
         _contScalePlus.hoverCallback = function ():void {
             if (g.tuts.isTuts) return;
             _contScalePlus.removeChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_in_button"));
             _contScalePlus.addChild(im);
             g.hint.showIt(String(g.managerLanguage.allTexts[489]));
         };
         _contScalePlus.outCallback = function ():void {
             if (g.tuts.isTuts) return;
             _contScalePlus.removeChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in_off"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_in_button"));
             _contScalePlus.addChild(im);
             g.hint.hideIt();
         };
@@ -112,21 +112,21 @@ public class OptionPanel {
 
         _contScaleMinus = new CSprite();
         _contScaleMinus.nameIt = 'contScaleMinus';
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out_off"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_out_button"));
         _contScaleMinus.addChild(im);
-        _contScaleMinus.y = 205;
+        _contScaleMinus.y = 165;
         _source.addChild(_contScaleMinus);
         _contScaleMinus.hoverCallback = function ():void {
             if (g.tuts.isTuts) return;
             _contScaleMinus.removeChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_out_button"));
             _contScaleMinus.addChild(im);
             g.hint.showIt(String(g.managerLanguage.allTexts[490]));
         };
         _contScaleMinus.outCallback = function ():void {
             if (g.tuts.isTuts) return;
             _contScaleMinus.removeChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out_off"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_out_button"));
             _contScaleMinus.addChild(im);
             g.hint.hideIt();
         };
@@ -134,47 +134,47 @@ public class OptionPanel {
             onClick('scale_minus');
         };
 
-        _contScreenShot = new CSprite();
-        _contScreenShot.nameIt = 'contScreenShot';
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_screen"));
-        _contScreenShot.addChild(im);
-        _contScreenShot.y = 149;
-//        _source.addChild(_contScreenShot);
-        _contScreenShot.hoverCallback = function ():void {
-            g.hint.showIt(String(g.managerLanguage.allTexts[491]));
-        };
-        _contScreenShot.outCallback = function ():void {
-            g.hint.hideIt();
-        };
-        _contScreenShot.endClickCallback = function ():void {
-            onClick('screenshot');
-        };
+//        _contScreenShot = new CSprite();
+//        _contScreenShot.nameIt = 'contScreenShot';
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_screen"));
+//        _contScreenShot.addChild(im);
+//        _contScreenShot.y = 149;
+////        _source.addChild(_contScreenShot);
+//        _contScreenShot.hoverCallback = function ():void {
+//            g.hint.showIt(String(g.managerLanguage.allTexts[491]));
+//        };
+//        _contScreenShot.outCallback = function ():void {
+//            g.hint.hideIt();
+//        };
+//        _contScreenShot.endClickCallback = function ():void {
+//            onClick('screenshot');
+//        };
 
-        _contAnim = new CSprite();
-        _contAnim.nameIt = 'contAnim';
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_a_off"));
-        _contAnim.addChild(im);
-        _contAnim.y = 205;
-//        _source.addChild(_contAnim);
-        _contAnim.hoverCallback = function ():void {
-            g.hint.showIt(String(g.managerLanguage.allTexts[492]));
-        };
-        _contAnim.outCallback = function ():void {
-            g.hint.hideIt();
-        };
-        _contAnim.endClickCallback = function ():void {
-            onClick('anim');
-        };
+//        _contAnim = new CSprite();
+//        _contAnim.nameIt = 'contAnim';
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_a_off"));
+//        _contAnim.addChild(im);
+//        _contAnim.y = 205;
+////        _source.addChild(_contAnim);
+//        _contAnim.hoverCallback = function ():void {
+//            g.hint.showIt(String(g.managerLanguage.allTexts[492]));
+//        };
+//        _contAnim.outCallback = function ():void {
+//            g.hint.hideIt();
+//        };
+//        _contAnim.endClickCallback = function ():void {
+//            onClick('anim');
+//        };
 
         _contMusic = new CSprite();
         _contMusic.nameIt = '_contMusic';
         if (g.soundManager.isPlayingMusic) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_on"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_off_button"));
         } else {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_off"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_on_button"));
         }
         _contMusic.addChild(im);
-        _contMusic.y = 250;
+        _contMusic.y = 220;
         _source.addChild(_contMusic);
         _contMusic.hoverCallback = function ():void {
             if (g.soundManager.isPlayingMusic) {
@@ -193,12 +193,12 @@ public class OptionPanel {
         _contSound = new CSprite();
         _contSound.nameIt = 'contSound';
         if (g.soundManager.isPlayingSound) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_on"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("sound_on_button"));
         } else {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_off"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("sound_off_button"));
         }
         _contSound.addChild(im);
-        _contSound.y = 295;
+        _contSound.y = 275;
         _source.addChild(_contSound);
         _contSound.hoverCallback = function ():void {
             if (g.soundManager.isPlayingSound) {

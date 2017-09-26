@@ -56,10 +56,10 @@ public class CouponePanel {
         _source.endClickCallback = onClick;
         _source.addChild(_contClipRect);
         _contClipRect.addChild(_contCoupone);
-        _imCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coupons_icon"));
+        _imCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture("vauchers_icon"));
         _imCoupone.x = 30;
         _imCoupone.y = 30;
-        MCScaler.scale(_imCoupone,69,75);
+//        MCScaler.scale(_imCoupone,69,75);
         _imCoupone.pivotX = _imCoupone.width/2;
         _imCoupone.pivotY = _imCoupone.width/2;
         _source.addChild(_imCoupone);

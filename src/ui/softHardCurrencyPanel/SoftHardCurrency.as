@@ -81,10 +81,13 @@ public class SoftHardCurrency {
 
     private function createPanel(isSoft:Boolean, p:CSprite, f:Function):void {
         var im:Image;
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
-                g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 122);
-        p.addChild(pl);
-        pl.touchable = true;
+//        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
+//                g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 122);
+//        p.addChild(pl);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('progres_bar'));
+
+        im.touchable = true;
+        p.addChild(im);
         if (isSoft) {
             _imCoin = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
             MCScaler.scale(_imCoin, 50, 50);
@@ -103,14 +106,14 @@ public class SoftHardCurrency {
             p.addChild(_imHard);
         }
         var btn:CButton = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-        MCScaler.scale(im, 46, 46);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_button_light'));
+//        MCScaler.scale(im, 46, 46);
         btn.addDisplayObject(im);
         btn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-        MCScaler.scale(im, 24, 24);
-        im.x = im.y = 11;
-        btn.addChild(im);
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+//        MCScaler.scale(im, 24, 24);
+//        im.x = im.y = 11;
+//        btn.addChild(im);
         btn.x = 145 - btn.width/2;
         btn.y = 20;
         p.addChild(btn);

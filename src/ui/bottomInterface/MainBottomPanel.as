@@ -42,10 +42,10 @@ public class MainBottomPanel {
     private var _optionBtn:CSprite;
     private var _cancelBtn:CButton;
     private var _homeBtn:CButton;
-    private var _orderBtn:CButton;
-    private var _ambarBtn:CButton;
-    private var _checkImage:Image;
-    private var _checkSprite:Sprite;
+//    private var _orderBtn:CButton;
+//    private var _ambarBtn:CButton;
+//    private var _checkImage:Image;
+//    private var _checkSprite:Sprite;
     private var _person:Someone;
     private var _ava:Image;
     private var _tutorialCallback:Function;
@@ -67,9 +67,9 @@ public class MainBottomPanel {
         onResizePanelFriend();
         g.cont.interfaceCont.addChild(_friendBoard);
         g.cont.interfaceCont.addChild(_source);
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
-                g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 260);
-        _source.addChild(pl);
+//        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
+//                g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 260);
+//        _source.addChild(pl);
 
         createBtns();
         _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
@@ -91,73 +91,73 @@ public class MainBottomPanel {
         var im:Image;
 
         _toolsBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('map_editor_button'));
         _toolsBtn.addDisplayObject(im);
         _toolsBtn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_tools'));
-        im.x = 6;
-        im.y = 6;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('arrow_icon'));
+        im.x = 19;
+        im.y = 19;
         _toolsBtn.addDisplayObject(im);
-        _toolsBtn.x = 3 + _toolsBtn.width/2;
-        _toolsBtn.y = 8 + _toolsBtn.height/2;
+        _toolsBtn.x = 60 + _toolsBtn.width/2;
+        _toolsBtn.y = -15 + _toolsBtn.height/2;
         _source.addChild(_toolsBtn);
         _toolsBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[478])); };
         _toolsBtn.outCallback = function():void { g.hint.hideIt(); };
         _toolsBtn.clickCallback = function():void {onClick('tools')};
 
         _shopBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_blue'));
         _shopBtn.addDisplayObject(im);
         _shopBtn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_shop'));
-        im.x = 5;
-        im.y = 4;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_icon'));
+        im.x = 10;
+        im.y = 6;
         _shopBtn.addDisplayObject(im);
-        _shopBtn.x = 66 + _shopBtn.width/2;
-        _shopBtn.y = 8 + _shopBtn.height/2;
+        _shopBtn.x = 155 + _shopBtn.width/2;
+        _shopBtn.y = -25 + _shopBtn.height/2;
         _source.addChild(_shopBtn);
         _shopBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[475])); };
         _shopBtn.outCallback = function():void { g.hint.hideIt(); };
         _shopBtn.clickCallback = function():void {onClick('shop')};
 
-        _ambarBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-        _ambarBtn.addDisplayObject(im);
-        _ambarBtn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_stor'));
-        im.x = 5;
-        im.y = 3;
-        _ambarBtn.addDisplayObject(im);
-        _ambarBtn.x = 129 + _ambarBtn.width/2;
-        _ambarBtn.y = 8 + _ambarBtn.height/2;
-        _source.addChild(_ambarBtn);
-        _ambarBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[132]) + "/" + String(g.managerLanguage.allTexts[133])); };
-        _ambarBtn.outCallback = function():void { g.hint.hideIt(); };
-        _ambarBtn.clickCallback = function():void {onClick('ambar')};
+//        _ambarBtn = new CButton();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+//        _ambarBtn.addDisplayObject(im);
+//        _ambarBtn.setPivots();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_stor'));
+//        im.x = 5;
+//        im.y = 3;
+//        _ambarBtn.addDisplayObject(im);
+//        _ambarBtn.x = 129 + _ambarBtn.width/2;
+//        _ambarBtn.y = 8 + _ambarBtn.height/2;
+//        _source.addChild(_ambarBtn);
+//        _ambarBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[132]) + "/" + String(g.managerLanguage.allTexts[133])); };
+//        _ambarBtn.outCallback = function():void { g.hint.hideIt(); };
+//        _ambarBtn.clickCallback = function():void {onClick('ambar')};
 
-        _orderBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-        _orderBtn.addDisplayObject(im);
-        _orderBtn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_order'));
-        im.x = 4;
-        im.y = 0;
-        _orderBtn.addDisplayObject(im);
-        _orderBtn.x = 192 + _orderBtn.width/2;
-        _orderBtn.y = 8 + _orderBtn.height/2;
-        _source.addChild(_orderBtn);
-        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
-        _checkImage.touchable = false;
-        _checkImage.alignPivot();
-        _checkSprite = new Sprite();
-        _checkSprite.addChild(_checkImage);
-        _checkSprite.x = 15 + _checkImage.width/2;
-        _checkSprite.y = 14 + _checkImage.height/2;
-        _orderBtn.addChild(_checkSprite);
-        _checkSprite.visible = false;
-        _orderBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[476])); };
-        _orderBtn.outCallback = function():void { g.hint.hideIt(); };
-        _orderBtn.clickCallback = function():void { onClick('order') };
+//        _orderBtn = new CButton();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+//        _orderBtn.addDisplayObject(im);
+//        _orderBtn.setPivots();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_order'));
+//        im.x = 4;
+//        im.y = 0;
+//        _orderBtn.addDisplayObject(im);
+//        _orderBtn.x = 192 + _orderBtn.width/2;
+//        _orderBtn.y = 8 + _orderBtn.height/2;
+//        _source.addChild(_orderBtn);
+//        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
+//        _checkImage.touchable = false;
+//        _checkImage.alignPivot();
+//        _checkSprite = new Sprite();
+//        _checkSprite.addChild(_checkImage);
+//        _checkSprite.x = 15 + _checkImage.width/2;
+//        _checkSprite.y = 14 + _checkImage.height/2;
+//        _orderBtn.addChild(_checkSprite);
+//        _checkSprite.visible = false;
+//        _orderBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[476])); };
+//        _orderBtn.outCallback = function():void { g.hint.hideIt(); };
+//        _orderBtn.clickCallback = function():void { onClick('order') };
 
         _cancelBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
@@ -198,10 +198,10 @@ public class MainBottomPanel {
 
         _optionBtn = new CSprite();
         _optionBtn.nameIt = 'optionBtn';
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('op_bt_opt'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('options_button'));
         _optionBtn.addChild(im);
-        _optionBtn.x = 214;
-        _optionBtn.y = -70;
+        _optionBtn.x = 205;
+        _optionBtn.y = -80;
         _source.addChild(_optionBtn);
         _optionBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[480])); };
         _optionBtn.outCallback = function():void { g.hint.hideIt(); };
@@ -422,8 +422,8 @@ public class MainBottomPanel {
         _person = person;
         _homeBtn.visible = b;
         _shopBtn.visible = !b;
-        _ambarBtn.visible = !b;
-        _orderBtn.visible = !b;
+//        _ambarBtn.visible = !b;
+//        _orderBtn.visible = !b;
         _toolsBtn.visible = !b;
         _cancelBtn.visible = false;
         removeHelpIcon();
@@ -440,13 +440,13 @@ public class MainBottomPanel {
     }
 
     public function onFullOrder(v:Boolean):void {
-        if (v) {
-            _checkSprite.visible = true;
-            animateCheckSprite1();
-        } else {
-            _checkSprite.visible = false;
-            TweenMax.killTweensOf(_checkSprite);
-        }
+//        if (v) {
+//            _checkSprite.visible = true;
+//            animateCheckSprite1();
+//        } else {
+//            _checkSprite.visible = false;
+//            TweenMax.killTweensOf(_checkSprite);
+//        }
     }
 
     private function friendBoard():void {
@@ -768,10 +768,10 @@ public class MainBottomPanel {
         if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) g.user.villageNotification++;
     }
 
-    private function animateCheckSprite1():void {  TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite2, delay:3}); }
-    private function animateCheckSprite2():void {  TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite3}); }
-    private function animateCheckSprite3():void {  TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite4}); }
-    private function animateCheckSprite4():void {  TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite5}); }
-    private function animateCheckSprite5():void {  TweenMax.to(_checkSprite, .1, {scaleX:1, scaleY:1, onComplete: animateCheckSprite1}); }
+//    private function animateCheckSprite1():void {  TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite2, delay:3}); }
+//    private function animateCheckSprite2():void {  TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite3}); }
+//    private function animateCheckSprite3():void {  TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite4}); }
+//    private function animateCheckSprite4():void {  TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite5}); }
+//    private function animateCheckSprite5():void {  TweenMax.to(_checkSprite, .1, {scaleX:1, scaleY:1, onComplete: animateCheckSprite1}); }
 }
 }
