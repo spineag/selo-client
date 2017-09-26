@@ -91,7 +91,7 @@ public class WindowMain {
         if (g.managerCutScenes.isCutScene) {
             if ((g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET) && _windowType == WindowsManager.WO_MARKET) ||
                 (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && _windowType == WindowsManager.WO_SHOP_NEW) ||
-                (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_PAPPER) && _windowType == WindowsManager.WO_PAPPER) )
+                (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_PAPPER) && _windowType == WindowsManager.WO_PAPER_NEW) )
                 g.managerCutScenes.checkCutSceneCallback();
         }
     }
@@ -113,7 +113,7 @@ public class WindowMain {
             _btnExit = null;
         }
         _callbackClickBG = null;
-        if (_woBGNew) {
+        if (_woBGNew && _source) {
             _source.removeChild(_woBGNew);
             _woBGNew.deleteIt();
         }
