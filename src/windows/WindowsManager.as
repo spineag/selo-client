@@ -25,6 +25,7 @@ import windows.fabricaWindow.WOFabricDeleteItem;
 import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
 import windows.missYou.WOMissYou;
 import windows.orderWindow.WOOrderNew;
+import windows.paper_new.WOPaperNew;
 import windows.partyWindow.WOPartyHelp;
 import windows.partyWindow.WOPartyWindow;
 import windows.fabricaWindow.WOFabrica;
@@ -40,7 +41,6 @@ import windows.noFreeCats.WONoFreeCats;
 import windows.noFreeCats.WOWaitFreeCats;
 import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
-import windows.paperWindow.WOPapper;
 import windows.partyWindow.WOPartyWindowClose;
 import windows.quest.WOQuest;
 import windows.questAward.WOQuestFinishAward;
@@ -87,7 +87,7 @@ public class WindowsManager {
     public static const WO_NO_PLACES:String = 'no_places';
     public static const WO_NO_RESOURCES:String = 'no_resources';
     public static const WO_ORDERS_NEW:String = 'orders_NEW';
-    public static const WO_PAPPER:String = 'papper';
+    public static const WO_PAPER_NEW:String = 'paper_new';
     public static const WO_RELOAD_GAME:String = 'reload_game';
     public static const WO_SERVER_ERROR:String = 'server_error';
     public static const WO_SERVER_CRACK:String = 'server_crack';
@@ -230,9 +230,6 @@ public class WindowsManager {
             case WO_MARKET_DELETE_ITEM:
                 wo = new WOMarketDeleteItem();
                 break;
-            case WO_PAPPER:
-                wo = new WOPapper();
-                break;
             case WO_ORDERS_NEW:
                 wo = new WOOrderNew();
                 break;
@@ -331,6 +328,9 @@ public class WindowsManager {
                 break;
             case WO_TUTORIAL:
                 wo = new WOTutorial();
+                break;
+            case WO_PAPER_NEW:
+                wo = new WOPaperNew();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);
