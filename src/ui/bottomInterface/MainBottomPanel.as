@@ -43,6 +43,7 @@ public class MainBottomPanel {
     private var _cancelBtn:CButton;
     private var _homeBtn:CButton;
 //    private var _orderBtn:CButton;
+    private var _friendBtn:CButton;
 //    private var _ambarBtn:CButton;
 //    private var _checkImage:Image;
 //    private var _checkSprite:Sprite;
@@ -158,6 +159,21 @@ public class MainBottomPanel {
 //        _orderBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[476])); };
 //        _orderBtn.outCallback = function():void { g.hint.hideIt(); };
 //        _orderBtn.clickCallback = function():void { onClick('order') };
+        _friendBtn  = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_blue'));
+        _friendBtn.addDisplayObject(im);
+        _friendBtn.setPivots();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_cats_icon'));
+        im.x = 10;
+        im.y = 6;
+        _friendBtn.addDisplayObject(im);
+        _friendBtn.x = _friendBtn.width/2 + 6;
+        _friendBtn.y = _friendBtn.height/4 + 2;
+        _friendBoard.addChild(_friendBtn);
+        _friendBtn.hoverCallback = function():void {g.hint.showIt(String(g.managerLanguage.allTexts[477]));};
+        _friendBtn.outCallback = function():void { g.hint.hideIt(); };
+        _friendBtn.clickCallback = function():void {onClick('friend')};
+//        _friendBtn.visible = false;
 
         _cancelBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
@@ -200,7 +216,7 @@ public class MainBottomPanel {
         _optionBtn.nameIt = 'optionBtn';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('options_button'));
         _optionBtn.addChild(im);
-        _optionBtn.x = 205;
+        _optionBtn.x = 203;
         _optionBtn.y = -80;
         _source.addChild(_optionBtn);
         _optionBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[480])); };
@@ -330,6 +346,8 @@ public class MainBottomPanel {
                     }
                 }
                 break;
+            case 'friend':
+                break;
             case 'tools':
                 if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.finishLetGoToNeighbor();
                 g.managerHelpers.onUserAction();
@@ -405,7 +423,12 @@ public class MainBottomPanel {
     }
 
     public function showToolsForCutScene():void { onClick('tools'); }
-    public function onResizePanelFriend():void { if (_friendBoard) _friendBoard.x = g.managerResize.stageWidth/2 - 121; }
+    public function onResizePanelFriend():void {
+        if (_friendBoard) {
+//            _friendBoard.x = g.managerResize.stageWidth/2;
+            _friendBoard.y = g.managerResize.stageHeight - 83;
+        }
+    }
 
     public function onResize():void {
         if (!_source) return;
