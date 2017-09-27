@@ -20,7 +20,7 @@ import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOTrainOrder extends WindowMain{
+public class WOTrainWaitBack extends WindowMain{
     private var _btn:CButton;
     private var _contItem:Sprite;
     private var _txtTime:CTextField;
@@ -32,14 +32,14 @@ public class WOTrainOrder extends WindowMain{
     private var _timer:int;
     private var _woBG:WindowBackground;
     private var _callback:Function;
-    private var item1:WOTrainOrderItem;
-    private var item2:WOTrainOrderItem;
-    private var item3:WOTrainOrderItem;
+    private var item1:WOTrainWaitBackItem;
+    private var item2:WOTrainWaitBackItem;
+    private var item3:WOTrainWaitBackItem;
     private var _train:Train;
 
-    public function WOTrainOrder() {
+    public function WOTrainWaitBack() {
         super ();
-        _windowType = WindowsManager.WO_TRAIN_ORDER;
+        _windowType = WindowsManager.WO_TRAIN_WAIT_BACK;
         var im:Image;
         _contItem = new Sprite();
         _woWidth = 500;
@@ -126,17 +126,17 @@ public class WOTrainOrder extends WindowMain{
     }
     
     private function fillList(list:Array):void {
-        item1 = new WOTrainOrderItem();
+        item1 = new WOTrainWaitBackItem();
         item1.fillIt(list[0], 1);
         item1.source.x = -150;
         item1.source.y = -20;
         _contItem.addChild(item1.source);
-        item2 = new WOTrainOrderItem();
+        item2 = new WOTrainWaitBackItem();
         item2.fillIt(list[4], 4);
         item2.source.x = -50;
         item2.source.y = -20;
         _contItem.addChild(item2.source);
-        item3 = new WOTrainOrderItem();
+        item3 = new WOTrainWaitBackItem();
         item3.source.x = 50;
         item3.source.y = -20;
         if (list.length <= 9) item3.fillIt(list[8], 8);
