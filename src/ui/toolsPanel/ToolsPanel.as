@@ -29,8 +29,8 @@ public class ToolsPanel {
     public function ToolsPanel() {
         _source = new Sprite();
         g.cont.interfaceCont.addChildAt(_source, 0);
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
-                g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 204);
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('map_editor_panel_left'), g.allData.atlas['interfaceAtlas'].getTexture('map_editor_panel_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('map_editor_panel_center'), 235);
         _source.addChild(pl);
 
         repositoryBox = new RepositoryBox();
@@ -43,14 +43,16 @@ public class ToolsPanel {
     private function createBtns():void {
         var im:Image;
         _repositoryBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-        _repositoryBtn.addDisplayObject(im);
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+//        _repositoryBtn.addDisplayObject(im);
+
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('inventory_icon'));
+//        im.x = 4;
+//        im.y = 2;
         _repositoryBtn.setPivots();
-        _repositoryBtn.x = 3 + _repositoryBtn.width/2;
-        _repositoryBtn.y = 8 + _repositoryBtn.height/2;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_inv'));
-        im.x = 4;
-        im.y = 2;
+
+        _repositoryBtn.x = 7 + _repositoryBtn.width/2;
+        _repositoryBtn.y = 10 + _repositoryBtn.height/2;
         _repositoryBtn.addDisplayObject(im);
         _source.addChild(_repositoryBtn);
         _repositoryBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[499])); };
@@ -58,14 +60,15 @@ public class ToolsPanel {
         _repositoryBtn.clickCallback = function():void {onClick('repository')};
 
         _flipBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-        _flipBtn.addDisplayObject(im);
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+//        _flipBtn.addDisplayObject(im);
+
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rotate_icon'));
         _flipBtn.setPivots();
-        _flipBtn.x = 66 + _flipBtn.width/2;
-        _flipBtn.y = 8 + _flipBtn.height/2;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_rotate'));
-        im.x = 4;
-        im.y = 4;
+        _flipBtn.x = 70 + _flipBtn.width/2;
+        _flipBtn.y = 10 + _flipBtn.height/2;
+//        im.x = 4;
+//        im.y = 4;
         _flipBtn.addDisplayObject(im);
         _source.addChild(_flipBtn);
         _flipBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[500])); };
@@ -73,14 +76,15 @@ public class ToolsPanel {
         _flipBtn.clickCallback = function():void {onClick('flip')};
 
         _moveBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-        _moveBtn.addDisplayObject(im);
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+//        _moveBtn.addDisplayObject(im);
+
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('move_icon'));
+//        im.x = 5;
+//        im.y = 3;
         _moveBtn.setPivots();
-        _moveBtn.x = 129 + _moveBtn.width/2;
-        _moveBtn.y = 8 + _moveBtn.height/2;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_move'));
-        im.x = 5;
-        im.y = 3;
+        _moveBtn.x = 133 + _moveBtn.width/2;
+        _moveBtn.y = 10 + _moveBtn.height/2;
         _moveBtn.addDisplayObject(im);
         _source.addChild(_moveBtn);
         _moveBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[501])); };
@@ -96,18 +100,18 @@ public class ToolsPanel {
 
     public function onResize():void {
         if (!_source) return;
-        if (_source.visible) _source.x = g.managerResize.stageWidth - 480;
+        if (_source.visible) _source.x = g.managerResize.stageWidth - 405;
             else _source.x = g.managerResize.stageWidth - 271;
         if (repositoryBox.source.visible) repositoryBox.source.y = g.managerResize.stageHeight - 83;
             else repositoryBox.source.y = g.managerResize.stageHeight + 10;
         repositoryBox.source.x = g.managerResize.stageWidth - 740;
-        _source.y = g.managerResize.stageHeight - 83;
+        _source.y = g.managerResize.stageHeight - 87;
     }
 
     public function showIt(time:Number=.5, delay:Number = .2):void {
         _source.visible = true;
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, time, {x:g.managerResize.stageWidth - 480, ease:Back.easeOut, delay:delay});
+        new TweenMax(_source, time, {x:g.managerResize.stageWidth - 405, ease:Back.easeOut, delay:delay});
     }
 
     public function hideIt(time:Number=.5):void {

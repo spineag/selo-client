@@ -47,18 +47,17 @@ public class XPPanel {
         _source = new CSprite();
         _source.nameIt = 'xpPanel';
         g.cont.interfaceCont.addChild(_source);
-        var pl:HorizontalPlawka = new HorizontalPlawka(null, g.allData.atlas['interfaceAtlas'].getTexture('xp_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 163);
-        _source.addChild(pl);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('progres_bar'));
+        _source.addChild(im);
         _bar = new ProgressBarComponent(g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_left'), g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_center'),
                 g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_right'), 150);
         _bar.x = 9;
         _bar.y = 3;
         _source.addChild(_bar);
-        _imageStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
-        MCScaler.scale(_imageStar, 60, 60);
+        _imageStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
+        MCScaler.scale(_imageStar, _imageStar.height -10, _imageStar.width -10);
         _imageStar.x = -10;
-        _imageStar.y = 5;
+        _imageStar.y = 10;
         _imageStar.pivotX = _imageStar.width/2;
         _imageStar.pivotY = _imageStar.height/2;
         _source.addChild(_imageStar);

@@ -57,7 +57,7 @@ public class FriendItem {
         _ava.x = 5;
         _ava.y = 18;
         source.addChildAt(_ava,0);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friends_panel_bt_fr"));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friend_frame"));
         source.addChildAt(im,1);
         _preloader = new FlashAnimatedPreloader();
         _preloader.source.x = 30;
@@ -80,7 +80,7 @@ public class FriendItem {
                 }
             }
         }
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_icon"));
         MCScaler.scale(im,30,30);
         im.x = 35;
         im.y = 41;
@@ -98,7 +98,7 @@ public class FriendItem {
         if (_person is NeighborBot) txtLvl.text = '60';
         _txtName = new CTextField(64, 30, "");
         _txtName.needCheckForASCIIChars = true;
-        _txtName.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
+        _txtName.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtName.y = -5;
         if (_person.name) {
             setName(_person.name);

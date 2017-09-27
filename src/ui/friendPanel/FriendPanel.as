@@ -68,8 +68,14 @@ public class FriendPanel {
         _source = new Sprite();
         onResize();
         g.cont.interfaceCont.addChild(_source);
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_left'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_right'), 465);
+        var pl:HorizontalPlawka;
+        pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_center'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_right'), 110);
+        pl.x = 454;
+        pl.y = -3;
+        _source.addChild(pl);
+        pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_center'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_right'), 465);
         _source.addChild(pl);
         _mask = new Sprite();
         _mask.x = 105;
@@ -189,13 +195,13 @@ public class FriendPanel {
 
     private function createAddFriendBtn():void {
         _addFriendsBtn = new CButton();
-        var st:String = 'friends_panel_bt_add';
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'Invite_friends_eng';
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//        var st:String = 'friends_panel_bt_add';
+//        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'Invite_friends_eng';
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame'));
         _addFriendsBtn.addDisplayObject(im);
         _addFriendsBtn.setPivots();
-        _addFriendsBtn.x = 5 + _addFriendsBtn.width/2;
-        _addFriendsBtn.y = 4 + _addFriendsBtn.height/2;
+        _addFriendsBtn.x = 468 + _addFriendsBtn.width/2;
+        _addFriendsBtn.y = 15 + _addFriendsBtn.height/2;
         _source.addChild(_addFriendsBtn);
        _addFriendsBtn.clickCallback = inviteFriends;
     }
@@ -208,15 +214,15 @@ public class FriendPanel {
 
     public function onResize():void {
         if (!_source) return;
-        _source.x = g.managerResize.stageWidth - 740;
-        if (_source.visible) _source.y = g.managerResize.stageHeight - 89;
-        else _source.y = g.managerResize.stageHeight + 100;
+        _source.x = 120;
+        if (_source.visible) _source.y = g.managerResize.stageHeight -105;
+        else _source.y = g.managerResize.stageHeight + 213;
     }
 
     public function showIt():void {
         _source.visible  = true;
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, .5, {y:g.managerResize.stageHeight - 89, ease:Back.easeOut, delay:.2});
+        new TweenMax(_source, .5, {y:g.managerResize.stageHeight - 105, ease:Back.easeOut, delay:.2});
     }
 
     public function hideIt(quick:Boolean = false, time:Number = .5):void {
@@ -422,7 +428,7 @@ public class FriendPanel {
         for (var i:int = 0; i < _arrNeighborFriends.length; i++) {
             item = new FriendItem(_arrNeighborFriends[i],i,false);
             _arrItems.push(item);
-            item.source.x = i*66;
+            item.source.x = i*85;
             item.source.y = -1;
             _cont.addChild(item.source);
         }
@@ -449,7 +455,7 @@ public class FriendPanel {
             for (i = 0; i < _arrNeighborFriends.length; i++) {
                 item = new FriendItem(_arrNeighborFriends[i], i,false);
                 _arrItems.push(item);
-                item.source.x = i * 66;
+                item.source.x = i * 85;
                 item.source.y = -1;
                 _cont.addChild(item.source);
             }
@@ -483,7 +489,7 @@ public class FriendPanel {
             for (i= 0; i < _arrNeighborFriends.length; i++) {
                 item = new FriendItem(_arrNeighborFriends[i],i,false);
                 _arrItems.push(item);
-                item.source.x = i*66;
+                item.source.x = i*85;
                 item.source.y = -1;
                 _cont.addChild(item.source);
             }
@@ -509,7 +515,7 @@ public class FriendPanel {
         for (i= 0; i < l; i++) {
             item = new FriendItem(_arrFriends[i],i);
             _arrItems.push(item);
-            item.source.x = i*66;
+            item.source.x = i*85;
             item.source.y = -1;
             _cont.addChild(item.source);
         }
@@ -543,7 +549,7 @@ public class FriendPanel {
 //            if(_arrFriends[_shift+i] is NeighborBot){
 //            }
             _arrItems.unshift(item);
-            item.source.x = 66 * (_shift + i);
+            item.source.x = 85 * (_shift + i);
             item.source.y = -1;
             _cont.addChild(item.source);
         }
@@ -568,7 +574,7 @@ public class FriendPanel {
         for (var i:int=0; i<newCount; i++) {
             if (_arrFriends[_shift + 4 + i]) {
                 item = new FriendItem(_arrFriends[_shift + 5 + i],_shift + 5 + i);
-                item.source.x = 66 * (_shift + 5 + i);
+                item.source.x = 85 * (_shift + 5 + i);
                 _cont.addChild(item.source);
                 _arrItems.push(item);
             }
@@ -587,7 +593,7 @@ public class FriendPanel {
 
     private function animList(callback:Function = null):void {
         var tween:Tween = new Tween(_cont, .5);
-        tween.moveTo(-_shift*66, _cont.y);
+        tween.moveTo(-_shift*85, _cont.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
             if (callback != null) callback.apply();
@@ -659,7 +665,7 @@ public class FriendPanel {
                 item = new FriendItem(_arrFriends[i]);
                 if (item.source) {
                     _arrItems.push(item);
-                    item.source.x = i * 66;
+                    item.source.x = i * 85;
                     item.source.y = -1;
                     _cont.addChild(item.source);
                 }

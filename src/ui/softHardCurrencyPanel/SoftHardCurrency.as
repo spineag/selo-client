@@ -64,18 +64,21 @@ public class SoftHardCurrency {
         };
         createPanel(true, _contSoft, onClickSoft);
         createPanel(false, _contHard, onClickHard);
-        _txtSoft =  new CTextField(120, 38, '00');
-        _txtSoft.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtSoft =  new CTextField(120, 50, '00');
+        _txtSoft.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_TXT_UI, Color.WHITE);
         _contSoft.addChild(_txtSoft);
-        _txtHard =  new CTextField(120, 38, '00');
-        _txtHard.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtHard =  new CTextField(120, 50, '00');
+        _txtHard.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_TXT_UI, Color.WHITE);
         _contHard.addChild(_txtHard);
 
         _source.addChild(_contSoft);
-        _contHard.y = 56;
+//        _contHard.y = 56;
         _source.addChild(_contHard);
         _source.x = 35;
         _source.y = 15;
+        _contSoft.x = 180;
+        _txtHard.y = -8;
+        _txtSoft.y = -8;
         g.cont.interfaceCont.addChild(_source);
     }
 
@@ -114,7 +117,7 @@ public class SoftHardCurrency {
 //        MCScaler.scale(im, 24, 24);
 //        im.x = im.y = 11;
 //        btn.addChild(im);
-        btn.x = 145 - btn.width/2;
+        btn.x = 158 - btn.width/2;
         btn.y = 20;
         p.addChild(btn);
         btn.clickCallback = f;

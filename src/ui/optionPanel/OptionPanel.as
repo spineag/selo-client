@@ -62,7 +62,7 @@ public class OptionPanel {
         _contFullScreen.nameIt = 'contFullScreen';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("show_all_button"));
         _contFullScreen.addChild(im);
-        _contFullScreen.y = 55;
+        _contFullScreen.y = 45;
         _source.addChild(_contFullScreen);
         _contFullScreen.hoverCallback = function ():void {
             if (g.tuts.isTuts) return;
@@ -90,7 +90,7 @@ public class OptionPanel {
         _contScalePlus.nameIt = 'contScalePlus';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_in_button"));
         _contScalePlus.addChild(im);
-        _contScalePlus.y = 110;
+        _contScalePlus.y = 100;
         _source.addChild(_contScalePlus);
         _contScalePlus.hoverCallback = function ():void {
             if (g.tuts.isTuts) return;
@@ -114,7 +114,7 @@ public class OptionPanel {
         _contScaleMinus.nameIt = 'contScaleMinus';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_out_button"));
         _contScaleMinus.addChild(im);
-        _contScaleMinus.y = 165;
+        _contScaleMinus.y = 155;
         _source.addChild(_contScaleMinus);
         _contScaleMinus.hoverCallback = function ():void {
             if (g.tuts.isTuts) return;
@@ -174,7 +174,7 @@ public class OptionPanel {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_on_button"));
         }
         _contMusic.addChild(im);
-        _contMusic.y = 220;
+        _contMusic.y = 210;
         _source.addChild(_contMusic);
         _contMusic.hoverCallback = function ():void {
             if (g.soundManager.isPlayingMusic) {
@@ -198,7 +198,7 @@ public class OptionPanel {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("sound_off_button"));
         }
         _contSound.addChild(im);
-        _contSound.y = 275;
+        _contSound.y = 265;
         _source.addChild(_contSound);
         _contSound.hoverCallback = function ():void {
             if (g.soundManager.isPlayingSound) {
@@ -219,7 +219,7 @@ public class OptionPanel {
         _source.visible = true;
         var tween:Tween = new Tween(_source, 0.2);
         _source.x = g.managerResize.stageWidth;
-        tween.moveTo(_source.x - 58, _source.y);
+        tween.moveTo(_source.x - 70, _source.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
 
@@ -229,7 +229,7 @@ public class OptionPanel {
 
     public function hideIt():void {
         var tween:Tween = new Tween(_source, 0.2);
-        tween.moveTo(_source.x + 58, _source.y);
+        tween.moveTo(_source.x + 70, _source.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
             _source.visible = false;
