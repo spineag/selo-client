@@ -15,7 +15,7 @@ import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOTrainSend extends WindowMain {
+public class WOTrainSendForce extends WindowMain {
     private var _woBG:WindowBackground;
     private var _btnYes:CButton;
     private var _btnNo:CButton;
@@ -26,9 +26,9 @@ public class WOTrainSend extends WindowMain {
     private var _txtYes:CTextField;
     private var _txtNo:CTextField;
 
-    public function WOTrainSend() {
+    public function WOTrainSendForce() {
         super();
-        _windowType = WindowsManager.WO_TRAIN_SEND;
+        _windowType = WindowsManager.WO_TRAIN_SEND_FORCE;
         _woWidth = 460;
         _woHeight = 308;
         _woBG = new WindowBackground(_woWidth, _woHeight);

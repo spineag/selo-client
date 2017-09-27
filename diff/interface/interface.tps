@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/selo-client/diff/interface/interface.tps</string>
+        <string>/Users/andy/Documents/505farm/selo/client/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,8 +43,6 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -175,16 +173,14 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trimMargin</key>
-            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -194,7 +190,6 @@
         <array>
             <filename>add_friend_button.png</filename>
             <filename>animated_decor.png</filename>
-            <filename>available_on_level.png</filename>
             <filename>backgroundMilkIn</filename>
             <filename>backgroundNew</filename>
             <filename>backgroundWhiteIn</filename>
@@ -203,7 +198,6 @@
             <filename>baloon_2.png</filename>
             <filename>baloon_3.png</filename>
             <filename>baloon_4.png</filename>
-            <filename>basket_big.png</filename>
             <filename>best_price_eng.png</filename>
             <filename>best_price.png</filename>
             <filename>bg</filename>
@@ -213,7 +207,6 @@
             <filename>birka_t.png</filename>
             <filename>blue_coupone.png</filename>
             <filename>bonus.png</filename>
-            <filename>bottom_newspaper.png</filename>
             <filename>bt_close.png</filename>
             <filename>button_yel_left_mini.png</filename>
             <filename>button_yel_left.png</filename>
@@ -222,7 +215,6 @@
             <filename>cat_icon.png</filename>
             <filename>cat_shadow.png</filename>
             <filename>cave</filename>
-            <filename>centre_newspaper.png</filename>
             <filename>checkbox.png</filename>
             <filename>circle.png</filename>
             <filename>coins_back.png</filename>
@@ -274,25 +266,21 @@
             <filename>new_button_medium</filename>
             <filename>new_button_small</filename>
             <filename>new_m.png</filename>
+            <filename>new_ui</filename>
             <filename>new_window</filename>
             <filename>newspaper_icon_small.png</filename>
             <filename>nyash_blue.png</filename>
             <filename>nyash_red.png</filename>
+            <filename>options</filename>
             <filename>order_small_bg.png</filename>
             <filename>order_window_decline.png</filename>
             <filename>order_window_del_clock.png</filename>
             <filename>order_window_del_or.png</filename>
-            <filename>order_window_left_top.png</filename>
-            <filename>order_window_paket.png</filename>
-            <filename>order_window_right_top.png</filename>
-            <filename>order_window_right.png</filename>
             <filename>orders_babble.png</filename>
             <filename>orders_cell.png</filename>
-            <filename>particle_yelow.png</filename>
             <filename>particles</filename>
             <filename>plawka7.png</filename>
             <filename>plus_button.png</filename>
-            <filename>product_particle.png</filename>
             <filename>production</filename>
             <filename>progress_bar_center.png</filename>
             <filename>progress_bar_left.png</filename>
@@ -301,6 +289,8 @@
             <filename>radio</filename>
             <filename>red_coupone.png</filename>
             <filename>red_m_big.png</filename>
+            <filename>Red_packet_closed.png</filename>
+            <filename>Red_packet_open.png</filename>
             <filename>red_tile.png</filename>
             <filename>refresh_icon.png</filename>
             <filename>roadside_shop_tabl.png</filename>
@@ -318,6 +308,7 @@
             <filename>silo_yellow_cell.png</filename>
             <filename>star_medium.png</filename>
             <filename>star_particle.png</filename>
+            <filename>star_small_new.png</filename>
             <filename>star_small.png</filename>
             <filename>star.png</filename>
             <filename>storage_window_prl_c.png</filename>
@@ -326,18 +317,18 @@
             <filename>storage_window_scr_c.png</filename>
             <filename>storage_window_scr_line.png</filename>
             <filename>top_eng.png</filename>
-            <filename>top_newspaper.png</filename>
             <filename>top_sells.png</filename>
+            <filename>train</filename>
             <filename>trash.png</filename>
             <filename>tutorial_arrow_pink.png</filename>
             <filename>tutorial_nyam.png</filename>
             <filename>ui</filename>
+            <filename>vaucher.png</filename>
             <filename>visitor_window_back.png</filename>
             <filename>wait.png</filename>
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
-            <filename>new_ui</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

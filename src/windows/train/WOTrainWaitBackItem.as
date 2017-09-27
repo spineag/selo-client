@@ -18,7 +18,7 @@ import utils.MCScaler;
 
 import windows.WindowsManager;
 
-public class WOTrainOrderItem {
+public class WOTrainWaitBackItem {
     public var source:CSprite;
     private var _im:Image;
     private var _index:int;
@@ -26,7 +26,7 @@ public class WOTrainOrderItem {
     private var _onHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
-    public function WOTrainOrderItem() {
+    public function WOTrainWaitBackItem() {
         source = new CSprite();
         source.hoverCallback = onHover;
         source.outCallback = onOut;
@@ -37,18 +37,18 @@ public class WOTrainOrderItem {
         _index = i;
         _info = t;
         if (!t) {
-            Cc.error('WOTrainOrderItem fillIt:: trainCell==null');
+            Cc.error('WOTrainWaitBackItem fillIt:: trainCell==null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
         if (!g.allData.getResourceById(_info.id)) {
-            Cc.error('WOTrainOrderItem fillIt:: getResourceById(_info.id)==null for: ' + _info.id);
+            Cc.error('WOTrainWaitBackItem fillIt:: getResourceById(_info.id)==null for: ' + _info.id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
         _im = _info.getImage();
         if (!_im) {
-            Cc.error('WOTrainOrderItem fillIt:: no such image: ' + g.allData.getResourceById(_info.id).imageShop);
+            Cc.error('WOTrainWaitBackItem fillIt:: no such image: ' + g.allData.getResourceById(_info.id).imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
