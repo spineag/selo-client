@@ -269,7 +269,7 @@ public class Train extends WorldObject{
                     if (_stateBuild == Train.STATE_READY) {
                         g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this as Train, _stateBuild, _counter);
                     } else {
-                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, null, list, this as Train, _counter);
+                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_WAIT_BACK, null, list, this as Train, _counter);
                     }
                 } else {
                     var f1:Function = function(ob:Object, t:Train):void {
@@ -277,7 +277,7 @@ public class Train extends WorldObject{
                         if (_stateBuild == Train.STATE_READY) {
                             g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, t, _stateBuild, _counter);
                         } else {
-                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, t, _counter);
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_WAIT_BACK, backTrain, list, t, _counter);
                         }
                     };
                     g.directServer.getTrainPack(g.visitedUser.userSocialId, f1,this);
@@ -317,7 +317,7 @@ public class Train extends WorldObject{
                         g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
                         if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_OPEN_TRAIN)) g.managerCutScenes.checkCutSceneCallback();
                     } else {
-                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
+                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_WAIT_BACK, backTrain, list, this, _counter);
                     }
                 } else {
                     onOut();
@@ -327,7 +327,7 @@ public class Train extends WorldObject{
                             g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, t, _stateBuild, _counter);
                             if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_OPEN_TRAIN)) g.managerCutScenes.checkCutSceneCallback();
                         } else {
-                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, t, _counter);
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_WAIT_BACK, backTrain, list, t, _counter);
                         }
                     };
                     g.directServer.getTrainPack(g.user.userSocialId, f2,this);
@@ -533,7 +533,7 @@ public class Train extends WorldObject{
                 g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_READY;
                 arriveTrain();
-                g.windowsManager.hideWindow(WindowsManager.WO_TRAIN_ORDER);
+                g.windowsManager.hideWindow(WindowsManager.WO_TRAIN_WAIT_BACK);
             } else {
                 Cc.error('renderTrainWork:: wrong _stateBuild: ' + _stateBuild);
             }
