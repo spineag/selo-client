@@ -123,6 +123,7 @@ public class MainBottomPanel {
         _shopBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[475])); };
         _shopBtn.outCallback = function():void { g.hint.hideIt(); };
         _shopBtn.clickCallback = function():void {onClick('shop')};
+
         _friendBtn  = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_blue'));
         _friendBtn.addDisplayObject(im);
@@ -143,8 +144,8 @@ public class MainBottomPanel {
         _cancelBtn.addDisplayObject(im);
         _cancelBtn.setPivots();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cencel_icon'));
-        im.x = 19;
-        im.y = 19;
+        im.x = 14;
+        im.y = 12;
         _cancelBtn.addDisplayObject(im);
         _cancelBtn.x = 60 + _cancelBtn.width/2;
         _cancelBtn.y = -15 + _cancelBtn.height/2;
@@ -155,25 +156,40 @@ public class MainBottomPanel {
         _cancelBtn.visible = false;
 
         _homeBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_home'));
-        im.width = 260;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_blue'));
         _homeBtn.addDisplayObject(im);
         _homeBtn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_home'));
-        im.x = 60;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('home_icon'));
+        im.x = 7;
         im.y = 6;
         _homeBtn.addDisplayObject(im);
-        _txtHome = new CTextField(100, 70, String(g.managerLanguage.allTexts[988]));
-        _txtHome.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-        _txtHome.x = 105;
-        _homeBtn.addChild(_txtHome);
-        _homeBtn.x = _homeBtn.width/2;
-        _homeBtn.y = 2 + _homeBtn.height/2;
+        _homeBtn.x = 155 + _homeBtn.width/2;
+        _homeBtn.y = -25 + _homeBtn.height/2;
         _source.addChild(_homeBtn);
-        _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])) };
-        _homeBtn.outCallback = function():void { g.hint.hideIt() };
+        _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])); };
+        _homeBtn.outCallback = function():void { g.hint.hideIt(); };
         _homeBtn.clickCallback = function():void {onClick('door')};
         _homeBtn.visible = false;
+//        _homeBtn = new CButton();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_home'));
+//        im.width = 260;
+//        _homeBtn.addDisplayObject(im);
+//        _homeBtn.setPivots();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_home'));
+//        im.x = 60;
+//        im.y = 6;
+//        _homeBtn.addDisplayObject(im);
+//        _txtHome = new CTextField(100, 70, String(g.managerLanguage.allTexts[988]));
+//        _txtHome.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+//        _txtHome.x = 105;
+//        _homeBtn.addChild(_txtHome);
+//        _homeBtn.x = _homeBtn.width/2;
+//        _homeBtn.y = 2 + _homeBtn.height/2;
+//        _source.addChild(_homeBtn);
+//        _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])) };
+//        _homeBtn.outCallback = function():void { g.hint.hideIt() };
+//        _homeBtn.clickCallback = function():void {onClick('door')};
+//        _homeBtn.visible = false;
 
         _optionBtn = new CSprite();
         _optionBtn.nameIt = 'optionBtn';
@@ -427,14 +443,16 @@ public class MainBottomPanel {
         _toolsBtn.visible = !b;
         _cancelBtn.visible = false;
         removeHelpIcon();
-        if(b) {
-            while (_friendBoard.numChildren) {
-                _friendBoard.removeChildAt(0);
-            }
-            friendBoard();
-        } else {
-            while (_friendBoard.numChildren) {
-                _friendBoard.removeChildAt(0);
+        if (_friendBoard) {
+            if (b) {
+                while (_friendBoard.numChildren) {
+                    _friendBoard.removeChildAt(0);
+                }
+                friendBoard();
+            } else {
+                while (_friendBoard.numChildren) {
+                    _friendBoard.removeChildAt(0);
+                }
             }
         }
     }

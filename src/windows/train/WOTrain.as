@@ -570,7 +570,7 @@ public class WOTrain extends WindowMain {
         if (!b) {
             if (_lock == 0 || !_isBigCount && _lock <= 3) {
                 super.hideIt();
-                g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain, _build);
+//                g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain, _build);
                 return;
             }
         }

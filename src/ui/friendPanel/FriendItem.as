@@ -53,9 +53,9 @@ public class FriendItem {
         source = new CSprite();
         source.nameIt = 'friendPanel';
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-        MCScaler.scale(_ava, 50, 50);
-        _ava.x = 5;
-        _ava.y = 18;
+        MCScaler.scale(_ava, 60, 60);
+        _ava.x = 10;
+        _ava.y = 8;
         source.addChildAt(_ava,0);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friend_frame"));
         source.addChildAt(im,1);
@@ -81,25 +81,26 @@ public class FriendItem {
             }
         }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_icon"));
-        MCScaler.scale(im,30,30);
+        MCScaler.scale(im,45,45);
         im.x = 35;
         im.y = 41;
         source.addChild(im);
 
         txtLvl = new CTextField(40, 18, "");
-        txtLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txtLvl.setFormat(CTextField.BOLD18, 16, 0xff7a3f, Color.WHITE);
         txtLvl.cacheIt = false;
         txtLvl.text = '1';
         txtLvl.text = String(_person.level);
-        txtLvl.x = 31;
-        txtLvl.y = 47;
+        txtLvl.x = 38;
+        txtLvl.y = 53;
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
         if (_person is NeighborBot) txtLvl.text = '60';
         _txtName = new CTextField(64, 30, "");
         _txtName.needCheckForASCIIChars = true;
-        _txtName.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtName.y = -5;
+        _txtName.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtName.y = -15;
+        _txtName.x = 8;
         if (_person.name) {
             setName(_person.name);
         } else {
@@ -197,10 +198,10 @@ public class FriendItem {
         }
         if (!tex) return;
         _ava = new Image(tex);
-        MCScaler.scale(_ava, 50, 50);
-        _ava.x = 5;
-        _ava.y = 18;
-        if (source) source.addChildAt(_ava,1);
+        MCScaler.scale(_ava, 60, 60);
+        _ava.x = 10;
+        _ava.y = 8;
+        if (source) source.addChildAt(_ava,0);
 //        source.addChildAt(_ava,1);
     }
 
