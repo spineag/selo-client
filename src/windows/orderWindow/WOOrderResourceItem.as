@@ -16,6 +16,7 @@ public class WOOrderResourceItem {
     public var source:CSprite;
     private var _check:Image;
     private var _countTxt:CTextField;
+    private var _countTxtNeed:CTextField;
     private var _image:Image;
     private var _id:int;
     private var _onHover:Boolean;
@@ -37,6 +38,12 @@ public class WOOrderResourceItem {
         _countTxt.y = 12;
         _countTxt.x = -27;
         source.addChild(_countTxt);
+        _countTxtNeed = new CTextField(80, 40, "10/10");
+        _countTxtNeed.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
+        _countTxtNeed.alignH = Align.RIGHT;
+        _countTxtNeed.y = 12;
+        _countTxtNeed.x = -27;
+        source.addChild(_countTxtNeed);
         source.hoverCallback = onHover;
         source.outCallback = outCallback;
         source.visible = false;

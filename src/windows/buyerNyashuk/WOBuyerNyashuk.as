@@ -45,29 +45,38 @@ public class WOBuyerNyashuk extends WindowMain{
 //        _source.addChild(im);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-        var btn:CButton = new CButton();
-        btn.addButtonTexture(172, 45, CButton.GREEN, true);
-        var txt:CTextField =  new CTextField(172,45,String(g.managerLanguage.allTexts[448]));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        btn.addChild(txt);
-        btn.x = 120;
+        var btn:CButton;
+        btn = new CButton();
+        btn.addButtonTexture(150, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[448]));
+        btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        btn.x = 180;
         btn.y = _woHeight / 2 - 40;
         btn.clickCallback = onClickBuy;
         _source.addChild(btn);
         _arrCTex.push(btn);
-        _arrCTex.push(txt);
 
         btn = new CButton();
-        btn.addButtonTexture(172, 45, CButton.RED, true);
-        txt =  new CTextField(172,45,String(g.managerLanguage.allTexts[449]));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
-        btn.addChild(txt);
+        btn.addButtonTexture(150, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[1155]));
+        btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
+//        btn.x = 120;
+        btn.y = _woHeight / 2 - 40;
+        btn.clickCallback = onClickExit;
+        _source.addChild(btn);
+        _arrCTex.push(btn);
+
+        btn = new CButton();
+        btn.addButtonTexture(150, CButton.BIG_HEIGHT, CButton.RED, true);
+        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[449]));
+        btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.RED_COLOR);
         btn.clickCallback = onClickDelete;
-        btn.x = - 120;
+        btn.x = - 180;
         btn.y = _woHeight / 2 - 40;
         _source.addChild(btn);
         _arrCTex.push(btn);
-        _arrCTex.push(txt);
+
+        var txt:CTextField;
         txt =  new CTextField(_woWidth,_woHeight,String(g.managerLanguage.allTexts[450]));
         txt.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
         txt.x = -_woWidth/2;
@@ -86,13 +95,13 @@ public class WOBuyerNyashuk extends WindowMain{
             case 1:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('nyash_blue'));
                 im.x = 110;
-                im.y = -20;
+                im.y = -45;
                 _source.addChild(im);
                 break;
             case 2:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('nyash_red'));
                 im.x = 110;
-                im.y = -20;
+                im.y = -45;
                 _source.addChild(im);
                 break;
         }
@@ -154,29 +163,30 @@ public class WOBuyerNyashuk extends WindowMain{
         _arrCTex.push(txt);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tutorial_arrow_pink'));
         MCScaler.scale(im, im.height -50, im.width -50);
-        im.x = -120;
+        im.x = -140;
 //        im.y = -45;
         _source.addChild(im);
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
-        im.x = -20;
-        im.y = -50;
+        im.x = -50;
+//        im.y = -4;
         _source.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_level_icon'));
-        im.x = -20;
-        im.y = -10;
+        im.x = 45;
+        im.y = -5;
         _source.addChild(im);
 
         txt = new CTextField(100,50,_data.cost);
         txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        txt.y = -55;
-        txt.x = 10;
+        txt.x = -30;
+        txt.y = -7;
         _source.addChild(txt);
         _arrCTex.push(txt);
+
         txt = new CTextField(100,50,_data.xp);
         txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        txt.x = 10;
-        txt.y = -10;
+        txt.x = 55;
+        txt.y = -7;
         _source.addChild(txt);
         _arrCTex.push(txt);
     }
