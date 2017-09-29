@@ -169,7 +169,7 @@ public class XPPanel {
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
-        tween.scaleTo(0.6);
+        tween.scaleTo(1);
         g.starling.juggler.add(tween);
     }
 }

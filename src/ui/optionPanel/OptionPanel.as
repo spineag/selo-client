@@ -296,10 +296,10 @@ public class OptionPanel {
                 g.soundManager.enabledMusic(!g.soundManager.isPlayingMusic);
                 g.directServer.updateUserMusic(null);
                 if (g.soundManager.isPlayingMusic) {
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_on"));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_on_button"));
                     g.soundManager.playMusic();
                 } else {
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_m_off"));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_off_button"));
                 }
                 _contMusic.addChild(im);
                 break;
@@ -308,9 +308,9 @@ public class OptionPanel {
                 g.soundManager.enabledSound(!g.soundManager.isPlayingSound);
                 g.directServer.updateUserSound(null);
                 if (g.soundManager.isPlayingSound) {
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_on"));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("sound_on_button"));
                 } else {
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_s_off"));
+                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("sound_off_button"));
                 }
                 _contSound.addChild(im);
                 break;

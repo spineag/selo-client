@@ -23,7 +23,7 @@ public class WOAmbarFilled extends WindowMain {
 
     private var _btn:CButton;
     private var _woBG:WindowBackgroundNew;
-    private var _imageAmbar:Image;
+//    private var _imageAmbar:Image;
     private var _txtBtn:CTextField;
     private var _txtAmbarFilled:CTextField;
     private var _txtWhatDo:CTextField;
@@ -61,11 +61,11 @@ public class WOAmbarFilled extends WindowMain {
         _btn.addChild(_txtBtn);
         _btn.y = 170;
         _source.addChild(_btn);
-        _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("storage_window_pr"));
-        _imageAmbar.x = -160;
-        _imageAmbar.y = 60;
-        _imageAmbar.touchable = false;
-        MCScaler.scale(_imageAmbar,49,320);
+//        _imageAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture("storage_window_pr"));
+//        _imageAmbar.x = -160;
+//        _imageAmbar.y = 60;
+//        _imageAmbar.touchable = false;
+//        MCScaler.scale(_imageAmbar,49,320);
 //        _txtAmbarFilled = new CTextField(220,50,"");
 //        _txtAmbarFilled.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAmbarFilled = new CTextField(400,50,'');
@@ -75,10 +75,10 @@ public class WOAmbarFilled extends WindowMain {
         _txtAmbarFilled.touchable = false;
         _source.addChild(_txtAmbarFilled);
 
-        _txtWhatDo = new CTextField(400,50,'');
+        _txtWhatDo = new CTextField(450,150,"");
         _txtWhatDo.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
-        _txtWhatDo.x = -210;
-        _txtWhatDo.y = -110;
+        _txtWhatDo.x = -230;
+        _txtWhatDo.y = -140;
         _txtWhatDo.touchable = false;
         _source.addChild(_txtWhatDo);
 
@@ -88,11 +88,11 @@ public class WOAmbarFilled extends WindowMain {
         _txtCount.y = 16;
         _txtCount.touchable = false;
 //        _source.addChild(_txtCount);
-        _source.addChild(_imageAmbar);
+//        _source.addChild(_imageAmbar);
         _bar = new ProgressBarComponent(g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_l'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('storage_window_prl_r'), 308);
-        _bar.x = _imageAmbar.x + 5;
-        _bar.y = _imageAmbar.y + 9;
+//        _bar.x = _imageAmbar.x + 5;
+//        _bar.y = _imageAmbar.y + 9;
 //        _source.addChild(_bar);
     }
 
@@ -108,18 +108,18 @@ public class WOAmbarFilled extends WindowMain {
             _txtAmbarFilled.text = String(g.managerLanguage.allTexts[457]);
             _txtBtn.text = String(g.managerLanguage.allTexts[459]);
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
-            _txtWhatDo.text = String(g.managerLanguage.allTexts[457]);
+            _txtWhatDo.text = String(g.managerLanguage.allTexts[1152]);
         } else {
             _txtCount.text = String(g.managerLanguage.allTexts[458]) + " " + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
             _txtAmbarFilled.text = String(g.managerLanguage.allTexts[461]);
             _txtBtn.text = String(g.managerLanguage.allTexts[460]);
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
-            _txtWhatDo.text = String(g.managerLanguage.allTexts[457]);
+            _txtWhatDo.text = String(g.managerLanguage.allTexts[1153]);
         }
         _bar.progress = 1;
 //        MCScaler.scale(_imAmbarSklad, 60, 60);
         _imAmbarSklad.x = -_imAmbarSklad.width/2;
-        _imAmbarSklad.y = _imageAmbar.y - 60;
+//        _imAmbarSklad.y = _imageAmbar.y - 60;
         _source.addChild(_imAmbarSklad);
         super.showIt();
     }

@@ -21,27 +21,28 @@ import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOBuyerNyashuk extends WindowMain{
 
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _data:Object;
     private var _nyashuk:BuyerNyashuk;
     private var _arrCTex:Array;
 
     public function WOBuyerNyashuk() {
         _windowType = WindowsManager.WO_BUYER_NYASHUK;
-        _woWidth = 550;
+        _woWidth = 650;
         _woHeight = 400;
         _arrCTex = [];
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('visitor_window_back'));
-        im.x = -_woWidth/2 - 2.5;
-        im.y = -_woHeight/2 - 7;
-        _source.addChild(im);
+//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('visitor_window_back'));
+//        im.x = -_woWidth/2 - 2.5;
+//        im.y = -_woHeight/2 - 7;
+//        _source.addChild(im);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         var btn:CButton = new CButton();
@@ -68,7 +69,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _arrCTex.push(btn);
         _arrCTex.push(txt);
         txt =  new CTextField(_woWidth,_woHeight,String(g.managerLanguage.allTexts[450]));
-        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
+        txt.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
         txt.x = -_woWidth/2;
         txt.y = -_woHeight+50;
         _source.addChild(txt);
@@ -84,13 +85,13 @@ public class WOBuyerNyashuk extends WindowMain{
         switch (params[0]) {
             case 1:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('nyash_blue'));
-                im.x = 20;
+                im.x = 110;
                 im.y = -20;
                 _source.addChild(im);
                 break;
             case 2:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('nyash_red'));
-                im.x = 20;
+                im.x = 110;
                 im.y = -20;
                 _source.addChild(im);
                 break;
@@ -108,18 +109,18 @@ public class WOBuyerNyashuk extends WindowMain{
             return;
         }
         var dataResource:Object;
-        var txt:CTextField =  new CTextField(172,45,String(g.managerLanguage.allTexts[451]));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        var txt:CTextField =  new CTextField(350,50,String(g.managerLanguage.allTexts[451]) + ' '+ String(g.managerLanguage.allTexts[452]));
+        txt.setFormat(CTextField.BOLD24, 24,ManagerFilters.BLUE_LIGHT_NEW);
         txt.x = -165;
-        txt.y = -120;
+        txt.y = -90;
         _source.addChild(txt);
         _arrCTex.push(txt);
-        txt = new CTextField(250,45,String(g.managerLanguage.allTexts[452]));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -200;
-        txt.y = -95;
-        _source.addChild(txt);
-        _arrCTex.push(txt);
+//        txt = new CTextField(250,45,String(g.managerLanguage.allTexts[452]));
+//        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//        txt.x = -200;
+//        txt.y = -95;
+//        _source.addChild(txt);
+//        _arrCTex.push(txt);
         dataResource = g.allData.getResourceById(_data.resourceId);
         var im:Image;
         if (dataResource.buildType == BuildType.PLANT) im = new Image(g.allData.atlas['resourceAtlas'].getTexture(dataResource.imageShop + '_icon'));
@@ -129,48 +130,51 @@ public class WOBuyerNyashuk extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
             return;
         }
-        MCScaler.scale(im,70,70);
-        im.x = -170;
-        im.y = -60;
+//        MCScaler.scale(im,70,70);
+        im.x = -250;
+        im.y = -30;
         _source.addChild(im);
 
-        txt = new CTextField(40,40,"/" + _data.resourceCount);
-        txt.x = - 135;
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txt = new CTextField(100,100,"/" + _data.resourceCount);
+        txt.y = 35;
+        txt.x = - 205;
+        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         txt.alignH = Align.LEFT;
         _source.addChild(txt);
         _arrCTex.push(txt);
-        txt = new CTextField(40,40,String(g.userInventory.getCountResourceById(_data.resourceId)));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        if (g.userInventory.getCountResourceById(_data.resourceId) >= _data.resourceCount) txt.changeTextColor = ManagerFilters.LIGHT_GREEN_COLOR;
+
+        txt = new CTextField(100,100,String(g.userInventory.getCountResourceById(_data.resourceId)));
+        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW,Color.WHITE);
+        if (g.userInventory.getCountResourceById(_data.resourceId) >= _data.resourceCount) txt.changeTextColor = ManagerFilters.BLUE_LIGHT_NEW;
         else txt.changeTextColor = ManagerFilters.ORANGE_COLOR;
-        txt.x = - 179;
+        txt.x = - 310;
+        txt.y = 35;
         txt.alignH = Align.RIGHT;
         _source.addChild(txt);
         _arrCTex.push(txt);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tutorial_arrow_pink'));
         MCScaler.scale(im, im.height -50, im.width -50);
-        im.x = -95;
-        im.y = -45;
+        im.x = -120;
+//        im.y = -45;
         _source.addChild(im);
 
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
         im.x = -20;
         im.y = -50;
         _source.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_level_icon'));
         im.x = -20;
         im.y = -10;
         _source.addChild(im);
 
-        txt = new CTextField(40,40,_data.cost);
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt = new CTextField(100,50,_data.cost);
+        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         txt.y = -55;
         txt.x = 10;
         _source.addChild(txt);
         _arrCTex.push(txt);
-        txt = new CTextField(40,40,_data.xp);
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt = new CTextField(100,50,_data.xp);
+        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         txt.x = 10;
         txt.y = -10;
         _source.addChild(txt);
