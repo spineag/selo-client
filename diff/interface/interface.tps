@@ -289,8 +289,6 @@
             <filename>radio</filename>
             <filename>red_coupone.png</filename>
             <filename>red_m_big.png</filename>
-            <filename>Red_packet_closed.png</filename>
-            <filename>Red_packet_open.png</filename>
             <filename>red_tile.png</filename>
             <filename>refresh_icon.png</filename>
             <filename>roadside_shop_tabl.png</filename>
@@ -329,6 +327,7 @@
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
+            <filename>fabrica</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
