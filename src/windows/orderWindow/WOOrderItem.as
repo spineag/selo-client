@@ -107,7 +107,6 @@ public class WOOrderItem {
             _act = true;
         } else {
             if (_imBG.filter) _imBG.filter.dispose();
-            _imBG.filter = ManagerFilters.SHADOW_LIGHT;
             _act = false;
         }
     }
@@ -284,7 +283,6 @@ public class WOOrderItem {
             _imBG.filter = ManagerFilters.BLUE_STROKE;
         } else {
             if (_imBG.filter) _imBG.filter.dispose();
-            _imBG.filter = ManagerFilters.SHADOW_LIGHT;
         }
         g.gameDispatcher.removeEnterFrame(onEnterFram);
         _timer = 0;

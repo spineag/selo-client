@@ -79,12 +79,12 @@ public class TrainCell {
             p.y = g.managerResize.stageHeight/2;
         }
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(p.x, p.y, countXP * g.managerParty.coefficient);
-        else new XPStar(p.x, p.y, countXP);
+            else new XPStar(p.x, p.y, countXP);
         var prise:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) prise.count = countMoney * g.managerParty.coefficient;
-        else prise.count = countMoney;
+            else prise.count = countMoney;
         new DropItem(p.x, p.y, prise);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.TRAIN) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         _isFull = true;
