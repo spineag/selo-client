@@ -5,121 +5,212 @@ package windows.train {
 import build.train.Train;
 import data.BuildType;
 import data.DataMoney;
-
 import flash.geom.Point;
-
-import manager.ManagerFabricaRecipe;
 import manager.ManagerFilters;
-
 import resourceItem.DropItem;
-
 import social.SocialNetworkEvent;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-
 import user.Someone;
-
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SensibleBlock;
 import utils.TimeUtils;
+
+import windows.WOComponents.BackgroundMilkIn;
 import windows.WOComponents.Birka;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.BackgroundWhiteIn;
-import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
+import windows.orderWindow.WOOrderNew;
+import windows.tipsWindow.WOTipsItem;
 
 public class WOTrain extends WindowMain {
-    public static var CELL_RED:int = 1;
+    public static var CELL_RED:int = 3;
     public static var CELL_GREEN:int = 2;
-    public static var CELL_BLUE:int = 3;
-    public static var CELL_GRAY:int = 4;
+    public static var CELL_WHITE:int = 1;
 
-    private var _woBG:WindowBackground;
-    private var _rightBlock:Sprite;
-    private var _leftBlock:Sprite;
     private var _arrItems:Array;
-    private var _btnSend:CButton;
+    private var _yellowBG:BackgroundYellowOut;
+    private var _milkBG:BackgroundMilkIn;
+    private var _txtWindowName:CTextField;
+    private var _txt1:CTextField;
+    private var _txt2:CTextField;
+    private var _txt3:CTextField;
+    private var _txt4:CTextField;
+    private var _btnSendBasket:CButton;
     private var _btnLoad:CButton;
     private var _btnHelp:CButton;
-    private var _txtHelp:CTextField;
-    private var _activeItemIndex: int;
-    private var _build:Train;
-    private var _txt:CTextField;
-    private var _txtCounter:CTextField;
-    private var _txtLoad:CTextField;
-    private var _counter:int;
-    private var _idFree:int;
-    private var _countFree:int;
-    private var _txtCostItem:CTextField;
-    private var _txtXpItem:CTextField;
-    private var _txtCostAll:CTextField;
-    private var _txtXpAll:CTextField;
-    private var _txtSend:CTextField;
-    private var _txtPrise:CTextField;
-    private var _txtLoad2:CTextField;
-    private var _txtC:CTextField;
-    private var _txtNeed:CTextField;
-    public var _imageItem:Image;
-    private var _lock:int;
+    private var _txtTimer:CTextField;
+    private var _sensXPItem:SensibleBlock;
+    private var _sensMoneyItem:SensibleBlock;
+    private var _sensXP:SensibleBlock;
+    private var _sensMoney:SensibleBlock;
+    private var _sensCoupone:SensibleBlock;
+    private var _imResource:Image;
+    private var _activeItemIndex:int;
+    private var _train:Train;
+    private var _timer:int;
     private var _isBigCount:Boolean;
-    private var _birka:Birka;
-    private var _rightBlockBG:BackgroundYellowOut;
-    private var _rightBlockCarton:BackgroundWhiteIn;
-    private var _rightBlockCarton2:BackgroundWhiteIn;
-    private var _leftBlockBG:BackgroundYellowOut;
+    private var _countNotFullItems:int;
 
     public function WOTrain() {
         super ();
         _windowType = WindowsManager.WO_TRAIN;
-        _woWidth = 727;
-        _woHeight = 529;
+        _woWidth = 972;
+        _woHeight = 714;
         _activeItemIndex = -1;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
-        _source.addChild(_woBG);
+        _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 109);
+        _source.addChild(_woBGNew);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-        createRightBlock();
-        createLeftBlock();
+        _yellowBG = new BackgroundYellowOut(932, 564);
+        _yellowBG.x = - 468;
+        _yellowBG.y = -_woHeight/2 + 128;
+        _source.addChild(_yellowBG);
+        _milkBG = new BackgroundMilkIn(282, 278);
+        _milkBG.x = -_woWidth/2 + 651;
+        _milkBG.y = -_woHeight/2 + 223;
+        _source.addChild(_milkBG);
+        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[293]);
+        _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtWindowName.x = -150;
+        _txtWindowName.y = -_woHeight/2 + 35;
+        _source.addChild(_txtWindowName);
+
         _arrItems = [];
-        addItems();
+        createItems();
+        _txt1 = new CTextField(400,50,String(g.managerLanguage.allTexts[296]));
+        _txt1.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txt1.alignPivot();
+        _txt1.x = -_woWidth/2 + 335;
+        _txt1.y = -_woHeight/2 + 156;
+        _source.addChild(_txt1);
+        _txt2 = new CTextField(220,30,String(g.managerLanguage.allTexts[297]));
+        _txt2.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txt2.alignPivot();
+        _txt2.x = -_woWidth/2 + 790;
+        _txt2.y = -_woHeight/2 + 144;
+        _source.addChild(_txt2);
+        _txt3 = new CTextField(280,40,String(g.managerLanguage.allTexts[295]));
+        _txt3.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txt3.alignPivot();
+        _txt3.x = -_woWidth/2 + 796;
+        _txt3.y = -_woHeight/2 + 523;
+        _source.addChild(_txt3);
+        _txt4 = new CTextField(280,60,String(g.managerLanguage.allTexts[299]));
+        _txt4.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txt4.alignPivot();
+        _txt4.x = -_woWidth/2 + 794;
+        _txt4.y = -_woHeight/2 + 276;
 
-        _btnSend = new CButton();
-        _btnSend.addButtonTexture(120, 40, CButton.GREEN, true);
-        _btnSend.x = _woWidth/2 - 180;
-        _btnSend.y = 205;
-        _txtSend = new CTextField(89,62,String(g.managerLanguage.allTexts[292]));
-        _txtSend.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtSend.x = 5;
-        _txtSend.y = -12;
-        _btnSend.addChild(_txtSend);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
-        im.y = -15;
-        im.x = 88;
-        _btnSend.addDisplayObject(im);
-        _source.addChild(_btnSend);
-        _btnSend.setEnabled = false;
+        _source.addChild(_txt4);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock'));
+        im.alignPivot();
+        im.x = -_woWidth/2 + 730;
+        im.y = -_woHeight/2 + 190;
+        _source.addChild(im);
+        _txtTimer = new CTextField(300, 50, '');
+        _txtTimer.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txtTimer.alignPivot();
+        _txtTimer.x = -_woWidth/2 + 827;
+        _txtTimer.y = -_woHeight/2 + 185;
+        _source.addChild(_txtTimer);
 
-        _txt = new CTextField(150, 40, '');
-        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txt.x = 120;
-        _txt.y = 110;
-        _source.addChild(_txt);
-        _txtCounter = new CTextField(150, 40, '');
-        _txtCounter.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtCounter.x = 110;
-        _txtCounter.y = 130;
-        _source.addChild(_txtCounter);
-        _callbackClickBG = hideIt;
-        _birka = new Birka(String(g.managerLanguage.allTexts[293]), _source, _woWidth, _woHeight);
+        _btnSendBasket = new CButton();
+        _btnSendBasket.addButtonTexture(150, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnSendBasket.x = -_woWidth/2 + 800;
+        _btnSendBasket.y = -_woHeight/2 + 638;
+        _source.addChild(_btnSendBasket);
+        _btnSendBasket.addTextField(90, 50, 3, 0, g.managerLanguage.allTexts[292]);
+        _btnSendBasket.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('basket_send'));
+        im.alignPivot();
+        im.x = 134;
+        im.y = 19;
+        _btnSendBasket.addDisplayObject(im);
+        _btnSendBasket.setEnabled = false;
+        _btnSendBasket.clickCallback = sendFullTrain;
+
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rug'));
+        im.x = -_woWidth/2 + 676;
+        im.y = -_woHeight/2 + 340;
+        _source.addChild(im);
+        _btnLoad = new CButton();
+        _btnLoad.addButtonTexture(90, CButton.SMALL_HEIGHT, CButton.GREEN, true);
+        _btnLoad.x = -_woWidth/2 + 736;
+        _btnLoad.y = -_woHeight/2 + 405;
+        _btnLoad.addTextField(90, 30, 0, 0, g.managerLanguage.allTexts[294]);
+        _btnLoad.setTextFormat(CTextField.BOLD24, 21, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _btnLoad.clickCallback = onResourceLoad;
+        _source.addChild(_btnLoad);
+        _btnHelp = new CButton();
+        _btnHelp.addButtonTexture(228, CButton.MEDIUM_HEIGHT, CButton.BLUE, true);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ask_button'));
+        im.alignPivot();
+        im.x = 5;
+        im.y = 20;
+        _btnHelp.addDisplayObject(im);
+        _btnHelp.addTextField(180, 34, 47, 0, g.managerLanguage.allTexts[301]);
+        _btnHelp.setTextFormat(CTextField.BOLD24, 21, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _btnHelp.x = -_woWidth/2 + 803;
+        _btnHelp.y = -_woHeight/2 + 463;
+        _source.addChild(_btnHelp);
+        _btnHelp.clickCallback = wantHelpClick;
+
+        _sensMoneyItem = new SensibleBlock();
+        var t:CTextField = new CTextField(60, 30, '8888');
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        MCScaler.scale(im, 30, 30);
+        _sensMoneyItem.imageAndText(im, t, 110, 10);
+        _sensMoneyItem.x = -_woWidth / 2 + 800;
+        _sensMoneyItem.y = -_woHeight / 2 + 382;
+        _source.addChild(_sensMoneyItem);
+        _sensXPItem = new SensibleBlock();
+        t = new CTextField(60, 30, '8888');
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small_new'));
+        MCScaler.scale(im, 36, 36);
+        _sensXPItem.imageAndText(im, t, 110, 7);
+        _sensXPItem.x = -_woWidth / 2 + 800;
+        _sensXPItem.y = -_woHeight / 2 + 340;
+        _source.addChild(_sensXPItem);
+
+        _sensXP = new SensibleBlock();
+        t = new CTextField(60, 30, '8888');
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small_new'));
+        MCScaler.scale(im, 36, 36);
+        _sensXP.imageAndText(im, t, 110, 2);
+        _sensXP.x = -_woWidth / 2 + 660;
+        _sensXP.y = -_woHeight / 2 + 554;
+        _source.addChild(_sensXP);
+        _sensMoney = new SensibleBlock();
+        t = new CTextField(60, 30, '8888');
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        MCScaler.scale(im, 30, 30);
+        _sensMoney.imageAndText(im, t, 110, 5);
+        _sensMoney.x = -_woWidth / 2 + 755;
+        _sensMoney.y = -_woHeight / 2 + 554;
+        _source.addChild(_sensMoney);
+        _sensCoupone = new SensibleBlock();
+        t = new CTextField(60, 30, '1');
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('vaucher'));
+        MCScaler.scale(im, 30, 30);
+        _sensCoupone.imageAndText(im, t, 110, 2);
+        _sensCoupone.x = -_woWidth / 2 + 835;
+        _sensCoupone.y = -_woHeight / 2 + 554;
+        _source.addChild(_sensCoupone);
     }
 
     private function onClickExit(e:Event=null):void {
@@ -127,152 +218,37 @@ public class WOTrain extends WindowMain {
         super.hideIt();
     }
 
-    private function createRightBlock():void {
-        var im:Image;
-        _rightBlock = new Sprite();
-        _rightBlock.y = -205;
-        _rightBlock.x = 35;
-        _source.addChild(_rightBlock);
-        _rightBlockBG = new BackgroundYellowOut(287, 375);
-        _rightBlockBG.filter = ManagerFilters.SHADOW;
-        _rightBlock.addChild(_rightBlockBG);
-
-        _txtLoad = new CTextField(240, 50, '');
-        _txtLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtLoad.x = 25;
-        _txtLoad.y = 5;
-        _rightBlock.addChild(_txtLoad);
-        _rightBlockCarton = new BackgroundWhiteIn(267, 68);
-        _rightBlockCarton.y = 250;
-        _rightBlockCarton.x = 10;
-        _rightBlock.addChild(_rightBlockCarton);
-
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
-        im.y = 325;
-        im.x = 20;
-        _rightBlock.addChild(im);
-        if (!g.isAway) {
-            _btnLoad = new CButton();
-            _btnLoad.addButtonTexture(130, 36, CButton.RED, true);
-            _txtLoad2 = new CTextField(130, 36, String(g.managerLanguage.allTexts[294]));
-            _txtLoad2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
-            _txtLoad2.y = -2;
-            _btnLoad.addChild(_txtLoad2);
-            _btnLoad.x = 200;
-            _btnLoad.y = 150;
-            _rightBlock.addChild(_btnLoad);
+    private function createItems():void {
+        var item:WOTrainItem;
+        for (var i:int = 0; i < 12; i++) {
+            item = new WOTrainItem(int(i/4) + 1, i);
+            item.source.x = -_woWidth/2 + 110 + i%4 * 146;
+            item.source.y = -_woHeight/2 + 325 + int(i/4) * 152;
+            _source.addChild(item.source);
+            _arrItems.push(item);
         }
-        _txtPrise = new CTextField(240,50,String(g.managerLanguage.allTexts[295]));
-        _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtPrise.y = 240;
-        _txtPrise.x = 23;
-        _rightBlock.addChild(_txtPrise);
-
-        _txtCostItem = new CTextField(50,40,'-3');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostItem.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
-        else _txtCostItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCostItem.x = 236;
-        _txtCostItem.y = 75;
-        _txtCostItem.alignH = Align.LEFT;
-        _txtXpItem = new CTextField(50,40,'-3');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtXpItem.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
-        else _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtXpItem.x = 165;
-        _txtXpItem.y = 75;
-        _txtXpItem.alignH = Align.LEFT;
-        _txtCostAll = new CTextField(50,40,'-5');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostAll.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
-        else _txtCostAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCostAll.x = 160;
-        _txtCostAll.y = 275;
-        _txtCostAll.alignH = Align.LEFT;
-        _txtXpAll = new CTextField(50,40,'-5');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtXpAll.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
-        else _txtXpAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtXpAll.x = 75;
-        _txtXpAll.y = 275;
-        _txtXpAll.alignH = Align.LEFT;
-
-        _rightBlock.addChild(_txtCostItem);
-        _rightBlock.addChild(_txtXpItem);
-        _rightBlock.addChild(_txtCostAll);
-        _rightBlock.addChild(_txtXpAll);
-
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
-        im.x = 45;
-        im.y = 280;
-//        MCScaler.scale(im,27,27);
-        _rightBlock.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-        im.x = 125;
-        im.y = 279;
-//        MCScaler.scale(im,30,30);
-        _rightBlock.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_cup_ico'));
-        im.x = 205;
-        im.y = 283;
-        _rightBlock.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
-        im.x = 130;
-        im.y = 80;
-//        MCScaler.scale(im,27,27);
-        _rightBlock.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-        im.x = 200;
-        im.y = 80;
-//        MCScaler.scale(im,30,30);
-        _rightBlock.addChild(im);
-        _txtC = new CTextField(20,20,'1');
-        _txtC.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtC.x = 225;
-        _txtC.y = 283;
-        _rightBlock.addChild(_txtC);
-
-        _rightBlockCarton2 = new BackgroundWhiteIn(90, 90);
-        _rightBlockCarton2.x = 20;
-        _rightBlockCarton2.y = 70;
-        _rightBlock.addChild(_rightBlockCarton2);
-    }
-
-    private function createLeftBlock():void {
-        _leftBlock = new Sprite();
-        _leftBlockBG = new BackgroundYellowOut(324, 432);
-        _leftBlockBG.filter = ManagerFilters.SHADOW;
-        _leftBlock.addChild(_leftBlockBG);
-        _leftBlock.y = -205;
-        _leftBlock.x = -int(_woWidth/2) + 40;
-        _source.addChild(_leftBlock);
-        _txtNeed = new CTextField(200,30,String(g.managerLanguage.allTexts[296]));
-        _txtNeed.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtNeed.y = 13;
-        _txtNeed.x = 60;
-        _leftBlock.addChild(_txtNeed);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         if (!g.userValidates.checkInfo('level', g.user.level)) return;
         var list:Array = params[0];
-        _build = params[1];
-        _counter = params[3];
-        _txt.text = String(g.managerLanguage.allTexts[297]);
+        _train = params[1];
+        _timer = params[3];
         _isBigCount = list.length > 9;
-        var type:int;
         for (var i:int = 0; i < list.length; i++) {
-            if (_isBigCount) type = int(i / 4);
-            else type = int(i / 3);
-            (_arrItems[i] as WOTrainItem).fillIt(list[i], i, type + 1);
-            (_arrItems[i] as WOTrainItem).clickCallback = onItemClick;
-        }
-        if (!_isBigCount) {
-            (_arrItems[9] as WOTrainItem).fillIt(null, 9, CELL_GRAY);
-            (_arrItems[10] as WOTrainItem).fillIt(null, 10, CELL_GRAY);
-            (_arrItems[11] as WOTrainItem).fillIt(null, 11, CELL_GRAY);
+            if (!_isBigCount && i%4==3) {
+                (_arrItems[i] as WOTrainItem).activateIt(false);
+                continue;
+            }
+            (_arrItems[i] as WOTrainItem).fillIt(list[i], onItemClick);
         }
         checkSocialInfoForArray();
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostAll.text = String(_build.allCoinsCount * g.managerParty.coefficient);
-        else _txtCostAll.text = String(_build.allCoinsCount);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtXpAll.text = String(_build.allXPCount * g.managerParty.coefficient);
-        else _txtXpAll.text = String(_build.allXPCount);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+            _sensMoney.updateText(String(_train.allCoinsCount * g.managerParty.coefficient));
+            else _sensMoney.updateText(String(_train.allCoinsCount));
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+            _sensXP.updateText(String(_train.allXPCount * g.managerParty.coefficient));
+            else _sensXP.updateText(String(_train.allXPCount));
 
         var num:int = 0;
         if (!g.managerCutScenes.isCutScene) {
@@ -285,228 +261,174 @@ public class WOTrain extends WindowMain {
         }
         onItemClick(num);
         checkBtn();
-        _txtCounter.text = TimeUtils.convertSecondsForHint(_counter);
+        _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         g.gameDispatcher.addToTimer(checkCounter);
         super.showIt();
     }
-    
-    private function checkCounter():void {
-        _counter--;
-        _txtCounter.text = TimeUtils.convertSecondsForHint(_counter);
-    }
 
-    private function addItems():void {
-        var item:WOTrainItem;
-        for (var i:int = 0; i < 12; i++) {
-            item = new WOTrainItem();
-            item.source.x = i%3 * 100 - 310;
-            if(i >= 9) {
-              item.source.y = 110;
-            } else if (i >= 6) {
-                item.source.y = 20;
-            } else if (i >= 3) {
-                item.source.y = -70;
-            } else {
-                item.source.y = -160;
-            }
-            _source.addChild(item.source);
-            _arrItems.push(item);
-        }
+    private function checkCounter():void {
+        _timer--;
+        _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
     }
 
     private function onItemClick(k:int):void {
         _activeItemIndex = k;
         var countWantHelp:int = 0;
-        if (_btnLoad) _btnLoad.visible = true;
-//        _btnHelp.visible = true;
+        _btnLoad.visible = true;
         for (var i:int = 0; i<_arrItems.length; i++) {
-            (_arrItems[i] as WOTrainItem).activateIt(false);
+            (_arrItems[i] as WOTrainItem).addFilterOnClick(false);
             if ((_arrItems[i] as WOTrainItem).needHelp) countWantHelp++;
         }
-        (_arrItems[_activeItemIndex] as WOTrainItem).activateIt(true);
-        if ((_arrItems[k] as WOTrainItem).isResourceLoaded) {
-            if (_btnLoad) _btnLoad.visible = false;
-//            _btnHelp.visible = false;
-            if (_txtLoad) _txtLoad.text = String(g.managerLanguage.allTexts[298]);
+        (_arrItems[_activeItemIndex] as WOTrainItem).addFilterOnClick(true);
+        if ((_arrItems[_activeItemIndex] as WOTrainItem).isResourceLoaded) {
+            _btnLoad.visible = false;
+            _btnHelp.visible = false;
+            _txt4.text = String(g.managerLanguage.allTexts[298]);
         } else {
-            if (_txtLoad) _txtLoad.text = String(g.managerLanguage.allTexts[299]);
-            if ((_arrItems[k] as WOTrainItem).canFull()) {
-                if (_btnLoad) _btnLoad.clickCallback = onResourceLoad;
-            } else  {
-                if (_btnLoad) _btnLoad.clickCallback = onClickBuy;
-               _idFree = (_arrItems[k] as WOTrainItem).idFree;
-               _countFree = (_arrItems[k] as WOTrainItem).countFree;
-            }
+            _txt4.text = String(g.managerLanguage.allTexts[299]);
+            _btnLoad.visible = true;
+            _btnHelp.visible = true;
         }
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostItem.text = String(_arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient);
-        else _txtCostItem.text = String(_arrItems[_activeItemIndex].countCoins);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)  _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
-        else  _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+            _sensMoneyItem.updateText(String(_arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient));
+            else _sensMoneyItem.updateText(String(_arrItems[_activeItemIndex].countCoins));
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+            _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient));
+            else  _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP));
 
-        if (_imageItem) {
-            _rightBlock.removeChild(_imageItem);
-            _imageItem.filter = null;
-            _imageItem.dispose();
-            _imageItem = null;
+        if (_imResource) {
+            _source.removeChild(_imResource);
+            _imResource.dispose();
+            _imResource = null;
         }
-        _imageItem = _arrItems[_activeItemIndex].currentImage();
-        MCScaler.scale(_imageItem, 80, 80);
-        _imageItem.x = 65 - _imageItem.width/2;
-        _imageItem.y = 115 - _imageItem.height/2;
-        _rightBlock.addChild(_imageItem);
-            if (g.isAway) {
-                if (_arrItems[k].needHelp && int(_arrItems[k].idWhoHelp) <= 0) {
-                    if (!_btnHelp) {
-                        _btnHelp = new CButton();
-                        _btnHelp.addButtonTexture(240, 52, CButton.GREEN, true);
-                        _btnHelp.x = 143;
-                        _btnHelp.y = 210;
-                        _rightBlock.addChild(_btnHelp);
-                        _txtHelp = new CTextField(240, 52, String(g.managerLanguage.allTexts[300]));
-                        _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-                        _btnHelp.addChild(_txtHelp);
-                        _btnHelp.clickCallback = giftHelpClick;
-                    }
-                    return;
+        _imResource = (_arrItems[_activeItemIndex] as WOTrainItem).currentImage();
+        MCScaler.scale(_imResource, 80, 80);
+        _imResource.alignPivot();
+        _imResource.x = 737 - _woWidth/2;
+        _imResource.y = 348 - _woHeight/2;
+        _source.addChild(_imResource);
+        if (g.isAway) {
+            if (_arrItems[k].needHelp && int(_arrItems[k].idWhoHelp) <= 0) {
+                _btnHelp.visible = true;
+                return;
+            } else _btnHelp.visible = false;
+        }
+        if (!_arrItems[k].needHelp) {
+            if (!_arrItems[k].isResourceLoaded) {
+                _btnHelp.visible = true;
+                if (countWantHelp >= 3) {
+                    _btnHelp.text = g.managerLanguage.allTexts[301] + ' (3/3)';
+                    _btnHelp.setEnabled = false;
                 } else {
-                    if (_btnHelp) {
-                        _rightBlock.removeChild(_btnHelp);
-                        _btnHelp.deleteIt();
-                        _btnHelp = null;
-                    }
-                    return;
+                    _btnHelp.text = g.managerLanguage.allTexts[301] + ' (' + String(countWantHelp) + '/3)';
+                    _btnHelp.setEnabled = true;
                 }
-            }
-            if (!_arrItems[k].needHelp) {
-                if (!_btnHelp && !_arrItems[k].isResourceLoaded) {
-                    _btnHelp = new CButton();
-                    _btnHelp.addButtonTexture(240, 52, CButton.GREEN, true);
-                    var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
-                    im.y = -10;
-                    im.touchable = false;
-                    _btnHelp.addDisplayObject(im);
-                    _btnHelp.x = 143;
-                    _btnHelp.y = 210;
-                    _rightBlock.addChild(_btnHelp);
-                    if (countWantHelp >= 3) {
-                        _txtHelp = new CTextField(240, 52, String(g.managerLanguage.allTexts[301]) + ' (3/3)');
-                        _btnHelp.setEnabled = false;
-                    } else {
-                        _txtHelp = new CTextField(240, 52, String(g.managerLanguage.allTexts[301]) + ' (' + countWantHelp + '/3)');
-                        _btnHelp.setEnabled = true;
-                    }
-                    _txtHelp.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-                    _btnHelp.addChild(_txtHelp);
-                    _txtHelp.x = 18;
-                    _btnHelp.clickCallback = wantHelpClick;
-                } else {
-                    if (_arrItems[k].isResourceLoaded && _btnHelp) {
-                        _rightBlock.removeChild(_btnHelp);
-                        _btnHelp.deleteIt();
-                        _btnHelp = null;
-                    }
-                }
-            } else {
-                if (_btnHelp) {
-                    _rightBlock.removeChild(_btnHelp);
-                    _btnHelp.deleteIt();
-                    _btnHelp = null;
-                }
-            }
+                _btnHelp.clickCallback = wantHelpClick;
+            } else _btnHelp.visible = false;
+        } else {
+            _btnHelp.visible = false;
+        }
+
     }
 
-    private function giftHelpClick(lastResource:Boolean = false):void {
+    private function releaseAwayHelp(lastResource:Boolean = false):void {
         var obj:Object;
         if (lastResource) {
-            if (_btnHelp) {
-                _rightBlock.removeChild(_btnHelp);
-                _btnHelp.deleteIt();
-                _btnHelp = null;
-            }
-            g.directServer.updateTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
-            if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
-            else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
+            _btnHelp.visible = false;
+            g.directServer.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
+            if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+                new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient);
+                else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP);
             obj = {};
             obj.id = DataMoney.SOFT_CURRENCY;
-            if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
-            else obj.count = _arrItems[_activeItemIndex].countCoins;
+            if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+                obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins * g.managerParty.coefficient;
+                else obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins;
             new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
-            g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
+            g.userInventory.addResource((_arrItems[_activeItemIndex] as WOTrainItem).idFree, - (_arrItems[_activeItemIndex] as WOTrainItem).countFree);
             g.managerAchievement.addAll(19,1);
-            _arrItems[_activeItemIndex].fullItHelp();
+            (_arrItems[_activeItemIndex] as WOTrainItem).fullItHelp();
             updateItems();
         } else {
-            if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree) {
-                if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) == _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
-                        && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
+            if (g.userInventory.getCountResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree) >= (_arrItems[_activeItemIndex] as WOTrainItem).countFree) {
+                if (g.userInventory.getCountResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree) == (_arrItems[_activeItemIndex] as WOTrainItem).countFree
+                        && g.allData.getResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree).buildType == BuildType.PLANT &&
+                        !g.userInventory.checkLastResource((_arrItems[_activeItemIndex] as WOTrainItem).idFree)) {
                     g.windowsManager.cashWindow = this;
                     super.hideIt();
-                    g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, giftHelpClick, g.allData.getResourceById(_arrItems[_activeItemIndex].idFree), 'trainHelp');
+                    g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, releaseAwayHelp, g.allData.getResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree), 'trainHelp');
                     return;
                 }
-                if (_btnHelp) {
-                    _rightBlock.removeChild(_btnHelp);
-                    _btnHelp.deleteIt();
-                    _btnHelp = null;
-                }
-                g.directServer.updateTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
-                else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
+                _btnHelp.visible = false;
+                g.directServer.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+                    new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient);
+                    else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP);
                 obj = {};
                 obj.id = DataMoney.SOFT_CURRENCY;
-                obj.count = _arrItems[_activeItemIndex].countCoins;
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
-                else obj.count = _arrItems[_activeItemIndex].countCoins;
+                obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins;
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+                    obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins * g.managerParty.coefficient;
+                    else obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins;
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
-                g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
+                g.userInventory.addResource((_arrItems[_activeItemIndex] as WOTrainItem).idFree, - (_arrItems[_activeItemIndex] as WOTrainItem).countFree);
                 g.managerAchievement.addAll(19,1);
                 _arrItems[_activeItemIndex].fullItHelp();
                 updateItems();
-            }  else if (_arrItems[_activeItemIndex].countFree > g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)) {
+            }  else if ((_arrItems[_activeItemIndex] as WOTrainItem).countFree > g.userInventory.getCountResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree)) {
                 g.windowsManager.cashWindow = this;
                 super.hideIt();
                 obj = {};
-                obj.id = _arrItems[_activeItemIndex].idFree;
-                obj.count = _arrItems[_activeItemIndex].countFree;
-                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, giftHelpClick, 'trainHelp', obj);
+                obj.id = (_arrItems[_activeItemIndex] as WOTrainItem).idFree;
+                obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countFree;
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, releaseAwayHelp, 'trainHelp', obj);
             }
         }
     }
 
     private function wantHelpClick():void {
-        if (_btnHelp) {
-            _rightBlock.removeChild(_btnHelp);
-            _btnHelp.deleteIt();
-            _btnHelp = null;
+        if (g.isAway) {
+            releaseAwayHelp();
+        } else {
+            _btnHelp.visible = false;
+            _train.needHelp(true, _activeItemIndex);
+            (_arrItems[_activeItemIndex] as WOTrainItem).onClickHelpMePls(true);
+            g.directServer.updateUserTrainPackNeedHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), null);
         }
-        _build.needHelp(true, _activeItemIndex);
-        _arrItems[_activeItemIndex].onClickHelpMePls(true);
-        g.directServer.updateUserTrainPackNeedHelp(_arrItems[_activeItemIndex].trainDbId, null);
     }
 
     private function onResourceLoad(lastResource:Boolean = false):void {
         if (_activeItemIndex == -1) return;
-        if (!lastResource && _arrItems[_activeItemIndex].countFree == g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)
-                && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
+        if ((_arrItems[_activeItemIndex] as WOTrainItem).countFree > g.userInventory.getCountResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree)) {
+            if (g.managerCutScenes.isCutScene) return;
+            var ob:Object = {};
+            ob.data = g.allData.getResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree);
+            ob.count = (_arrItems[_activeItemIndex] as WOTrainItem).countFree - g.userInventory.getCountResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree);
             g.windowsManager.cashWindow = this;
             super.hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onResourceLoad, {id: _arrItems[_activeItemIndex].idFree}, 'market');
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onResourceLoad, 'train', ob);
             return;
         }
-        if (_arrItems[_activeItemIndex].canFull) {
-            _arrItems[_activeItemIndex].fullIt();
+        if (!lastResource && _arrItems[_activeItemIndex].countFree == g.userInventory.getCountResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree)
+                && g.allData.getResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree).buildType == BuildType.PLANT &&
+                !g.userInventory.checkLastResource((_arrItems[_activeItemIndex] as WOTrainItem).idFree)) {
+            g.windowsManager.cashWindow = this;
+            super.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onResourceLoad, {id: (_arrItems[_activeItemIndex] as WOTrainItem).idFree}, 'market');
+            return;
         }
-        _arrItems[_activeItemIndex].onClickHelpMePls(false);
-        g.directServer.updateTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,'0', null);
-        _build.needHelp(false, _activeItemIndex);
+        if ((_arrItems[_activeItemIndex] as WOTrainItem).canFull()) (_arrItems[_activeItemIndex] as WOTrainItem).fullIt();
+        (_arrItems[_activeItemIndex] as WOTrainItem).onClickHelpMePls(false);
+        g.directServer.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId),'0', null);
+        _train.needHelp(false, _activeItemIndex);
         var b:Boolean = true;
         for (var i:int = 0; i < _arrItems.length; i ++) {
-            if (_arrItems[i].needHelp) {
+            if ((_arrItems[i] as WOTrainItem).needHelp) {
                 b = false;
                 break;
             }
         }
-        if (b) _build.showBubleHelp(false);
+        if (b) _train.showBubleHelp(false);
         updateItems();
         _btnLoad.visible = false;
         checkBtn();
@@ -514,176 +436,27 @@ public class WOTrain extends WindowMain {
 
     private function updateItems():void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateIt();
+            (_arrItems[i] as WOTrainItem).updateIt();
         }
-    }
-
-    private function onClickBuy():void {
-        if (g.managerCutScenes.isCutScene) return;
-        var ob:Object = {};
-        ob.data = g.allData.getResourceById(_idFree);
-        ob.count = _countFree - g.userInventory.getCountResourceById(_idFree);
-        g.windowsManager.cashWindow = this;
-        super.hideIt();
-        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onResourceLoad, 'train', ob);
     }
 
     private function checkBtn():void {
-        if (g.isAway) {
-            _btnSend.visible = false;
-            return;
+        if (g.isAway) { _btnSendBasket.setEnabled = false;  return; }
+        _countNotFullItems = 0;
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            if (!_isBigCount && i%4==3) continue;
+            if (!(_arrItems[i] as WOTrainItem).isResourceLoaded) _countNotFullItems++;
         }
-        _btnSend.visible = true;
-        _btnSend.clickCallback = null;
-        var i:int;
-        _lock = 0;
-        var b:Boolean = false;
-        for (i = 0; i<_arrItems.length; i++) {
-            if (_arrItems[i].needHelp) b = true;
-            if (!_isBigCount && i == 9 || !_isBigCount && i == 10 || !_isBigCount && i == 11){
-                _lock++;
-            } else if (_arrItems[i].isResourceLoaded) {
-                _lock++;
-            }
-        }
-
-            if (_lock >= _arrItems.length || _lock == 0 && !b || !_isBigCount && _lock <= 3 && !b) {
-            _btnSend.setEnabled = true;
-        } else {
-            _btnSend.setEnabled = false;
-            return;
-        }
-        for (i = 0; i<_arrItems.length; i++) {
-            b = false;
-            if (_arrItems[i].isResourceLoaded) {
-                b = true;
-            }
-        }
-        if (b) (_build as Train).trainFull = true;
-
-        _btnSend.setEnabled = true;
-        _btnSend.clickCallback = fullTrain;
+        if (_countNotFullItems == 0 || !_isBigCount && _countNotFullItems == 9 || _isBigCount && _countNotFullItems == 12) _btnSendBasket.setEnabled = true;
+            else _btnSendBasket.setEnabled = false;
+        if (_countNotFullItems == 0) (_train as Train).setTrainFull = true;
     }
 
-    private function fullTrain(b:Boolean = false):void {
+    private function sendFullTrain(b:Boolean = false):void {
         if (g.managerCutScenes.isCutScene) return;
-        if (!b) {
-            if (_lock == 0 || !_isBigCount && _lock <= 3) {
-                super.hideIt();
-//                g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain, _build);
-                return;
-            }
-        }
-        (_build as Train).fullTrain(b);
+        if (!_isBigCount && _countNotFullItems == 9 || _isBigCount && _countNotFullItems == 12) (_train as Train).fullTrain(false);
+            else if (_countNotFullItems == 0) (_train as Train).fullTrain(true);
         super.hideIt();
-    }
-
-    public function clearItems():void {
-        for (var i:int = 0; i<_arrItems.length; i++) {
-            _arrItems[i].clearIt();
-        }
-    }
-
-    override protected function deleteIt():void {
-        if (isCashed) return;
-        g.gameDispatcher.removeFromTimer(checkCounter);
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _source.removeChild(_arrItems[i].source);
-            _arrItems[i].deleteIt();
-        }
-
-         if (_txt) {
-             _source.removeChild(_txt);
-             _txt.deleteIt();
-             _txt = null;
-         }
-        if (_txtCounter) {
-            _source.removeChild(_txtCounter);
-            _txtCounter.deleteIt();
-            _txtCounter = null;
-        }
-        if (_txtLoad) {
-            _rightBlock.removeChild(_txtLoad);
-            _txtLoad.deleteIt();
-            _txtLoad = null;
-        }
-        if (_txtCostItem) {
-            _rightBlock.removeChild(_txtCostItem);
-            _txtCostItem.deleteIt();
-            _txtCostItem = null;
-        }
-        if (_txtXpItem) {
-            _rightBlock.removeChild(_txtXpItem);
-            _txtXpItem.deleteIt();
-            _txtXpItem = null;
-        }
-        if (_txtCostAll) {
-            _rightBlock.removeChild(_txtCostAll);
-            _txtCostAll.deleteIt();
-            _txtCostAll = null;
-        }
-        if (_txtXpAll) {
-            _rightBlock.removeChild(_txtXpAll);
-            _txtXpAll.deleteIt();
-            _txtXpAll = null;
-        }
-        if (_txtSend) {
-            _btnSend.removeChild(_txtSend);
-            _txtSend.deleteIt();
-            _txtSend = null;
-        }
-        if (_txtPrise) {
-            _rightBlock.removeChild(_txtPrise);
-            _txtPrise.deleteIt();
-            _txtPrise = null;
-        }
-        if (_txtLoad2) {
-            _btnLoad.removeChild(_txtLoad2);
-            _txtLoad2.deleteIt();
-            _txtLoad2 = null;
-        }
-        if (_txtC) {
-            _rightBlock.removeChild(_txtC);
-            _txtC.deleteIt();
-            _txtC = null;
-        }
-        if (_txtNeed) {
-            _leftBlock.removeChild(_txtNeed);
-            _txtNeed.deleteIt();
-            _txtNeed = null;
-        }
-        _rightBlock.removeChild(_rightBlockBG);
-        _rightBlockBG.deleteIt();
-        _rightBlockBG = null;
-        _rightBlock.removeChild(_rightBlockCarton);
-        _rightBlockCarton.deleteIt();
-        _rightBlockCarton = null;
-        _rightBlock.removeChild(_rightBlockCarton2);
-        _rightBlockCarton2.deleteIt();
-        _rightBlockCarton2 = null;
-        _leftBlock.removeChild(_leftBlockBG);
-        _leftBlockBG.deleteIt();
-        _leftBlockBG = null;
-        _arrItems.length = 0;
-        _build = null;
-        _source.removeChild(_woBG);
-        _woBG.deleteIt();
-        _woBG = null;
-        _source.removeChild(_btnSend);
-        _btnSend.deleteIt();
-        _btnSend = null;
-        if (_btnLoad) _rightBlock.removeChild(_btnLoad);
-        if (_btnLoad) _btnLoad.deleteIt();
-        if (_btnLoad) _btnLoad = null;
-//        _rightBlock.removeChild(_btnHelp);
-//        _btnHelp.deleteIt();
-//        _btnHelp = null;
-        _rightBlock = null;
-        _leftBlock = null;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
-        super.deleteIt();
     }
 
     public function getBoundsProperties(type:String):Object {
@@ -691,40 +464,40 @@ public class WOTrain extends WindowMain {
         var p:Point = new Point();
         switch (type) {
             case 'firstItem':
-                p.x = _arrItems[0].source.x;
-                p.y = _arrItems[0].source.y;
+                p.x = -_woWidth/2 + 40;
+                p.y = -_woHeight/2 + 207;
                 p = _source.localToGlobal(p);
                 obj.x = p.x;
                 obj.y = p.y;
-                obj.width = _arrItems[0].source.width;
-                obj.height = _arrItems[0].source.height;
+                obj.width = 138;
+                obj.height = 123;
                 break;
             case 'loadBtn':
-                p.x = _btnLoad.x - _btnLoad.width/2;
-                p.y = _btnLoad.y - _btnLoad.height/2;
-                p = _rightBlock.localToGlobal(p);
-                obj.x = p.x;
-                obj.y = p.y - 3;
-                obj.width = _btnLoad.width;
-                obj.height = _btnLoad.height;
-                break;
-            case 'priseCont':
-                p.x = _txtCostItem.x + _txtCostItem.width;
-                p.y = _txtCostItem.y + _txtCostItem.height/2;
-                p = _rightBlock.localToGlobal(p);
-                obj.x = p.x - 50;
-                obj.y = p.y - 2;
-                obj.width = 1;
-                obj.height = 1;
-                break;
-            case 'mainLoadBtn':
-                p.x = _btnSend.x - _btnSend.width/2 + 10;
-                p.y = _btnSend.y - _btnSend.height/2;
+                p.x = -_woWidth/2 + 687;
+                p.y = -_woHeight/2 + 386;
                 p = _source.localToGlobal(p);
                 obj.x = p.x;
-                obj.y = p.y - 5;
-                obj.width = _btnSend.width;
-                obj.height = _btnSend.height;
+                obj.y = p.y;
+                obj.width = 92;
+                obj.height = 36;
+                break;
+            case 'priseCont':
+                p.x = -_woWidth/2 + 667;
+                p.y = -_woHeight/2 + 541;
+                p = _source.localToGlobal(p);
+                obj.x = p.x;
+                obj.y = p.y;
+                obj.width = 247;
+                obj.height = 48;
+                break;
+            case 'mainLoadBtn':
+                p.x = -_woWidth/2 + 721;
+                p.y = -_woHeight/2 + 588;
+                p = _source.localToGlobal(p);
+                obj.x = p.x;
+                obj.y = p.y;
+                obj.width = 166;
+                obj.height = 82;
                 break;
         }
         return obj;
@@ -752,6 +525,50 @@ public class WOTrain extends WindowMain {
         for (var i:int = 0; i < _arrItems.length; i++) {
             if (int(_arrItems[i].idWhoHelp) != 0)  (_arrItems[i] as WOTrainItem).updateAvatar();
         }
+    }
+
+    override protected function deleteIt():void {
+        if (isCashed) return;
+        g.gameDispatcher.removeFromTimer(checkCounter);
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _source.removeChild(_arrItems[i].source);
+            (_arrItems[i] as WOTrainItem).deleteIt();
+        }
+        _arrItems.length = 0;
+        _train = null;
+        _source.removeChild(_sensCoupone);
+        _sensCoupone.deleteIt();
+        _source.removeChild(_sensMoney);
+        _sensMoney.deleteIt();
+        _source.removeChild(_sensMoneyItem);
+        _sensMoneyItem.deleteIt();
+        _source.removeChild(_sensXP);
+        _sensXP.deleteIt();
+        _source.removeChild(_sensXPItem);
+        _sensXPItem.deleteIt();
+        _source.removeChild(_txt1);
+        _txt1.deleteIt();
+        _source.removeChild(_txt2);
+        _txt2.deleteIt();
+        _source.removeChild(_txt3);
+        _txt3.deleteIt();
+        _source.removeChild(_txt4);
+        _txt4.deleteIt();
+        _source.removeChild(_txtTimer);
+        _txtTimer.deleteIt();
+        _source.removeChild(_txtWindowName);
+        _txtWindowName.deleteIt();
+        _source.removeChild(_btnLoad);
+        _btnLoad.deleteIt();
+        _source.removeChild(_btnSendBasket);
+        _btnSendBasket.deleteIt();
+        _source.removeChild(_btnHelp);
+        _btnHelp.deleteIt();
+        _source.removeChild(_milkBG);
+        _milkBG.deleteIt();
+        _source.removeChild(_yellowBG);
+        _yellowBG.deleteIt();
+        super.deleteIt();
     }
 
 }

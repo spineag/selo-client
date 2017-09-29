@@ -173,7 +173,6 @@ public class MarketHint {
             g.cont.hintCont.addChild(_source);
             return;
         }
-
         for (var i:int=0; i<objTrees.length; i++) {
             if (_dataId == objTrees[i].craftIdResource) {
                 _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
@@ -206,7 +205,6 @@ public class MarketHint {
                 return;
             }
         }
-
         for (i=0; i<objCave.length; i++) {
             if (_dataId == int(objCave[i])) {
                 _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
@@ -239,7 +237,6 @@ public class MarketHint {
                 return;
             }
         }
-
         if (objRecipes[_dataId]) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);
@@ -248,7 +245,8 @@ public class MarketHint {
             _txtName.text = String(g.allData.getResourceById(_dataId).name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
+            if (g.allData.getBuildingById(objRecipes[_dataId].buildingId)) _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
+                else _txtText.text = String(g.managerLanguage.allTexts[611]) + ' UNKNOWN BUILDING';
             _txtText.x = -100;
             _txtText.y = 5;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
@@ -270,7 +268,6 @@ public class MarketHint {
             g.cont.hintCont.addChild(_source);
             return;
         }
-
         if (objAnimals[_dataId]) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);

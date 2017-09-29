@@ -74,7 +74,7 @@ public class Train extends WorldObject{
     private function onOpenTrain(value:Boolean):void { g.directServer.addUserTrain(onAddUserTrain); }
     private function onUpdate():void { g.directServer.getTrainPack(g.user.userSocialId, fillList); }
     private function startRenderTrainWork():void { g.gameDispatcher.addToTimer(render); }
-    public function set trainFull(b:Boolean):void { _fullTrain = b; }
+    public function set setTrainFull(b:Boolean):void { _fullTrain = b; }
 
     public function fillFromServer(ob:Object):void {
         if (!g.isAway) {

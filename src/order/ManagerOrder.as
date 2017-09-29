@@ -487,7 +487,7 @@ public class ManagerOrder {
             if (or.xp == 0) or.xp = or.resourceCounts[0] * 2;
             or.startTime = int(new Date().getTime() / 1000);
             if (place == -1) or.placeNumber = getFreePlace();
-            else or.placeNumber = place;
+                else or.placeNumber = place;
             or.delOb = del;
             _arrOrders.push(or);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
@@ -497,6 +497,7 @@ public class ManagerOrder {
 
     private function getRandomIntElementFromArray(ar:Array):int { return ar[int(Math.random()*ar.length)]; }
     private function getRandomIntBetween(aMin:int, aMax:int):int { return aMin + int(Math.random()* (aMax-aMin)); }
+
     private function getRandomElementsFromIntArray(ar:Array, n:int):Array {
         var arr:Array = [];
         var arr2:Array = ar.slice();
@@ -877,7 +878,7 @@ public class ManagerOrder {
             or.resourceIds = getRandomElementsFromIntArray(arProducts, 5);
             or.resourceCounts = [1, 1, 1, 1, 1];
         } else if (randNumber < .55) {
-            or.resourceIds = getRandomElementsFromIntArray(arProducts, 5);
+            or.resourceIds = getRandomElementsFromIntArray(arProducts, 4);
             or.resourceIds.push(getRandomIntElementFromArray(arPlants));
             or.resourceCounts = [1, 1, 1, 1, 1];
         } else {

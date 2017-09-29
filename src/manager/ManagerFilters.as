@@ -11,6 +11,7 @@ import starling.utils.Color;
 public class ManagerFilters {
     public static var BROWN_COLOR:int = 0x995f31;
     public static var ORANGE_COLOR:int = 0xd06d0a; 
+    public static var LIGHT_ORANGE_COLOR:int = 0xff8b02;
     public static var RED_COLOR:int = 0xEE0014;
     public static var PINK_COLOR:int = 0xD51B6F;
     public static var LIGHT_GREEN_COLOR:int = 0x40f61c;
@@ -36,6 +37,7 @@ public class ManagerFilters {
     public static function get SHADOW_TINY():DropShadowFilter { return new DropShadowFilter(1, 0.8, 0, .5, .5, 0.5); }
     public static function get SHADOW_TOP():DropShadowFilter { return new DropShadowFilter(1, -.8, 0, 1, 1.0, 0.5); }
     public static function get RED_STROKE():GlowFilter { return new GlowFilter(Color.RED, 3); }
+    public static function get LIGHT_ORANGE_STROKE():GlowFilter { return new GlowFilter(LIGHT_ORANGE_COLOR, 3); }
     public static function get BLUE_STROKE():GlowFilter { return new GlowFilter(BLUE_LIGHT_NEW, 3); }
     public static function get YELLOW_STROKE():GlowFilter { return new GlowFilter(Color.YELLOW, 3); }
     public static function get WHITE_STROKE():GlowFilter { return new GlowFilter(Color.WHITE, 3); }

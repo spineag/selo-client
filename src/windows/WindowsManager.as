@@ -55,7 +55,6 @@ import windows.starterPackWindow.WOStarterPack;
 import windows.tipsWindow.WOTips;
 import windows.train.WOTrain;
 import windows.train.WOTrainWaitBack;
-import windows.train.WOTrainSendForce;
 import windows.tutorial.WOTutorial;
 import windows.wallPost.PostDoneOrder;
 import windows.wallPost.PostDoneTrain;
@@ -95,7 +94,6 @@ public class WindowsManager {
     public static const WO_SHOP_NEW:String = 'shop_new';
     public static const WO_TRAIN:String = 'train';
     public static const WO_TRAIN_WAIT_BACK:String = 'train_order';
-    public static const WO_TRAIN_SEND_FORCE:String = 'train_send';
     public static const WO_CHEST:String = 'chest';
     public static const WO_INVITE_FRIENDS:String = 'invite_friends';
     public static const WO_INVITE_FRIENDS_VIRAL_INFO:String = 'invite_friends_viral_info';
@@ -238,9 +236,6 @@ public class WindowsManager {
                 break;
             case WO_TRAIN_WAIT_BACK:
                 wo = new WOTrainWaitBack();
-                break;
-            case WO_TRAIN_SEND_FORCE:
-                wo = new WOTrainSendForce();
                 break;
             case WO_SHOP_NEW:
                 wo = new WOShopNew();

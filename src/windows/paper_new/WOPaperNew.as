@@ -169,7 +169,8 @@ public class WOPaperNew extends WindowMain {
     private function checkArrows():void {
         _leftArrow.visible = _curPage > 1;
         _rightArrow.visible = _curPage < _maxPage;
-        _txtPage.text = String(_curPage) + '/' + String(_maxPage);
+        if (_maxPage > 0) _txtPage.text = String(_curPage) + '/' + String(_maxPage);
+            else _txtPage.text = '0/0';
     }
 
     public function startPapperTimer():void {
@@ -280,7 +281,6 @@ public class WOPaperNew extends WindowMain {
     }
 
     private function onClickExit():void {
-
         super.hideIt();
     }
 
