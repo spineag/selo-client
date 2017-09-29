@@ -56,9 +56,11 @@ public class ManagerAnimal {
     }
 
     public function onGoAwayCats(v:Boolean):void {
-       for (var i:int=0; i<_arrAnimals.length; i++) {
-           (_arrAnimals[i] as Animal).onGoAway(v);
-       }
+        if (_arrAnimals) {
+            for (var i:int = 0; i < _arrAnimals.length; i++) {
+                (_arrAnimals[i] as Animal).onGoAway(v);
+            }
+        }
     }
 
     public function onFarmStartMove(farmDbId:int):void {

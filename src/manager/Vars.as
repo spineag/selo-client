@@ -344,9 +344,9 @@ public class Vars {
         xpPanel = new XPPanel();
         couponePanel = new CouponePanel();
         softHardCurrency = new SoftHardCurrency();
+        friendPanel = new FriendPanel();
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
-        friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
         testerPanel =new TesterPanelTop();
 

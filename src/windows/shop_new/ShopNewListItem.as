@@ -83,7 +83,7 @@ public class ShopNewListItem {
         _txtName.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _source.addChild(_txtName);
         _txtCount = new CTextField(54, 24, '');
-        _txtCount.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txtCount.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txtCount.alignH = HorizontalAlign.RIGHT;
         _txtCount.x = 91;
         _txtCount.y = 155;

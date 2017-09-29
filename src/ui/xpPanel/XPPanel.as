@@ -47,30 +47,29 @@ public class XPPanel {
         _source = new CSprite();
         _source.nameIt = 'xpPanel';
         g.cont.interfaceCont.addChild(_source);
-        var pl:HorizontalPlawka = new HorizontalPlawka(null, g.allData.atlas['interfaceAtlas'].getTexture('xp_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 163);
-        _source.addChild(pl);
-        _bar = new ProgressBarComponent(g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_left'), g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_right'), 150);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('progres_bar'));
+        _source.addChild(im);
+        _bar = new ProgressBarComponent(g.allData.atlas['interfaceAtlas'].getTexture('xp_line_progres_bar_center'), g.allData.atlas['interfaceAtlas'].getTexture('xp_line_progres_bar_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('xp_line_pr_bar_right'), 150);
         _bar.x = 9;
         _bar.y = 3;
         _source.addChild(_bar);
-        _imageStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
-        MCScaler.scale(_imageStar, 60, 60);
-        _imageStar.x = -10;
-        _imageStar.y = 5;
+        _imageStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
+//        MCScaler.scale(_imageStar, _imageStar.height -10, _imageStar.width -10);
+        _imageStar.x = -7;
+        _imageStar.y = 19;
         _imageStar.pivotX = _imageStar.width/2;
         _imageStar.pivotY = _imageStar.height/2;
         _source.addChild(_imageStar);
         _txtLevel = new CTextField(60, 60, '55');
-        _txtLevel.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtLevel.x = -30;
+        _txtLevel.setFormat(CTextField.BOLD24, 24, 0xff7a3f, Color.WHITE);
+        _txtLevel.x = -38;
         _txtLevel.y = -12;
         _source.addChild(_txtLevel);
-        _txtXPCount = new CTextField(123, 30, '0');
-        _txtXPCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtXPCount.x = 35;
-        _txtXPCount.y = 4;
+        _txtXPCount = new CTextField(123, 50, '0');
+        _txtXPCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_TXT_UI, Color.WHITE);
+        _txtXPCount.x = 25;
+        _txtXPCount.y = -6;
         _source.addChild(_txtXPCount);
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;

@@ -48,7 +48,7 @@ public class ShopNewList {
         _txtPages = new CTextField(120, 30, '0/0');
         _txtPages.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
         _txtPages.cacheIt = false;
-        if (_isBigShop) _txtPages.y = 325;
+        if (_isBigShop) _txtPages.y = 300;
             else _txtPages.y = 180;
         _txtPages.x = -60;
         _woSource.addChild(_txtPages);

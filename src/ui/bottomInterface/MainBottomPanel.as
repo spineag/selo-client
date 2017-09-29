@@ -35,6 +35,8 @@ import windows.shop_new.WOShopNew;
 
 public class MainBottomPanel {
     private var _source:Sprite;
+
+    private var _friendSpr:Sprite;
     private var _friendBoard:Sprite;
     private var _friendBoardHelpInfo:Image;
     private var _shopBtn:CButton;
@@ -42,11 +44,9 @@ public class MainBottomPanel {
     private var _optionBtn:CSprite;
     private var _cancelBtn:CButton;
     private var _homeBtn:CButton;
-//    private var _orderBtn:CButton;
     private var _friendBtn:CButton;
-//    private var _ambarBtn:CButton;
-//    private var _checkImage:Image;
-//    private var _checkSprite:Sprite;
+    private var _boolTools:Boolean;
+    private var _boolFriend:Boolean;
     private var _person:Someone;
     private var _ava:Image;
     private var _tutorialCallback:Function;
@@ -58,15 +58,19 @@ public class MainBottomPanel {
     public var _questBuilId:int = 0;
     private var _typeHelp:int = 0;
     private var _btnPlusMinus:CButton;
+    private var _imArrow:Image;
+
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
         _questBoolean = false;
         _source = new Sprite();
+        _boolTools = false;
+        _boolFriend = false;
         onResize();
-        _friendBoard = new Sprite();
+        _friendSpr = new Sprite();
         onResizePanelFriend();
-        g.cont.interfaceCont.addChild(_friendBoard);
+        g.cont.interfaceCont.addChild(_friendSpr);
         g.cont.interfaceCont.addChild(_source);
 //        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
 //                g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 260);
@@ -74,14 +78,14 @@ public class MainBottomPanel {
 
         createBtns();
         _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
-        MCScaler.scale(_imNotification,25,25);
-        _imNotification.x = 40;
-        _imNotification.y = -5;
+//        MCScaler.scale(_imNotification,33,33);
+        _imNotification.x = -5;
+        _imNotification.y = -20;
         _shopBtn.addChild(_imNotification);
-        _txtNotification = new CTextField(30,20,'');
-        _txtNotification.setFormat(CTextField.BOLD18, 14, Color.WHITE);
-        _txtNotification.x = 38;
-        _txtNotification.y = -4;
+        _txtNotification = new CTextField(60,60,'');
+        _txtNotification.setFormat(CTextField.BOLD24, 24, Color.WHITE);
+        _txtNotification.x = -17;
+        _txtNotification.y = -33;
         _shopBtn.addChild(_txtNotification);
         _imNotification.visible = false;
         _txtNotification.visible = false;
@@ -90,15 +94,14 @@ public class MainBottomPanel {
 
     private function createBtns():void {
         var im:Image;
-
         _toolsBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('map_editor_button'));
         _toolsBtn.addDisplayObject(im);
         _toolsBtn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('arrow_icon'));
-        im.x = 19;
-        im.y = 19;
-        _toolsBtn.addDisplayObject(im);
+        _imArrow = new Image(g.allData.atlas['interfaceAtlas'].getTexture('arrow_icon'));
+        _imArrow.x = 19;
+        _imArrow.y = 19;
+        _toolsBtn.addDisplayObject(_imArrow);
         _toolsBtn.x = 60 + _toolsBtn.width/2;
         _toolsBtn.y = -15 + _toolsBtn.height/2;
         _source.addChild(_toolsBtn);
@@ -121,44 +124,6 @@ public class MainBottomPanel {
         _shopBtn.outCallback = function():void { g.hint.hideIt(); };
         _shopBtn.clickCallback = function():void {onClick('shop')};
 
-//        _ambarBtn = new CButton();
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-//        _ambarBtn.addDisplayObject(im);
-//        _ambarBtn.setPivots();
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_stor'));
-//        im.x = 5;
-//        im.y = 3;
-//        _ambarBtn.addDisplayObject(im);
-//        _ambarBtn.x = 129 + _ambarBtn.width/2;
-//        _ambarBtn.y = 8 + _ambarBtn.height/2;
-//        _source.addChild(_ambarBtn);
-//        _ambarBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[132]) + "/" + String(g.managerLanguage.allTexts[133])); };
-//        _ambarBtn.outCallback = function():void { g.hint.hideIt(); };
-//        _ambarBtn.clickCallback = function():void {onClick('ambar')};
-
-//        _orderBtn = new CButton();
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
-//        _orderBtn.addDisplayObject(im);
-//        _orderBtn.setPivots();
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_order'));
-//        im.x = 4;
-//        im.y = 0;
-//        _orderBtn.addDisplayObject(im);
-//        _orderBtn.x = 192 + _orderBtn.width/2;
-//        _orderBtn.y = 8 + _orderBtn.height/2;
-//        _source.addChild(_orderBtn);
-//        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
-//        _checkImage.touchable = false;
-//        _checkImage.alignPivot();
-//        _checkSprite = new Sprite();
-//        _checkSprite.addChild(_checkImage);
-//        _checkSprite.x = 15 + _checkImage.width/2;
-//        _checkSprite.y = 14 + _checkImage.height/2;
-//        _orderBtn.addChild(_checkSprite);
-//        _checkSprite.visible = false;
-//        _orderBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[476])); };
-//        _orderBtn.outCallback = function():void { g.hint.hideIt(); };
-//        _orderBtn.clickCallback = function():void { onClick('order') };
         _friendBtn  = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_blue'));
         _friendBtn.addDisplayObject(im);
@@ -169,55 +134,69 @@ public class MainBottomPanel {
         _friendBtn.addDisplayObject(im);
         _friendBtn.x = _friendBtn.width/2 + 6;
         _friendBtn.y = _friendBtn.height/4 + 2;
-        _friendBoard.addChild(_friendBtn);
+        _friendSpr.addChild(_friendBtn);
         _friendBtn.hoverCallback = function():void {g.hint.showIt(String(g.managerLanguage.allTexts[477]));};
         _friendBtn.outCallback = function():void { g.hint.hideIt(); };
         _friendBtn.clickCallback = function():void {onClick('friend')};
-//        _friendBtn.visible = false;
 
         _cancelBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('map_editor_button'));
         _cancelBtn.addDisplayObject(im);
         _cancelBtn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_canc'));
-        im.x = 4;
-        im.y = 3;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cencel_icon'));
+        im.x = 14;
+        im.y = 12;
         _cancelBtn.addDisplayObject(im);
-        _cancelBtn.x = 3 + _cancelBtn.width/2;
-        _cancelBtn.y = 8 + _cancelBtn.height/2;
+        _cancelBtn.x = 60 + _cancelBtn.width/2;
+        _cancelBtn.y = -15 + _cancelBtn.height/2;
         _source.addChild(_cancelBtn);
-        _cancelBtn.hoverCallback = function():void {g.hint.showIt(String(g.managerLanguage.allTexts[477]));};
+        _cancelBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[477])); };
         _cancelBtn.outCallback = function():void { g.hint.hideIt(); };
         _cancelBtn.clickCallback = function():void {onClick('cancel')};
         _cancelBtn.visible = false;
 
         _homeBtn = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_home'));
-        im.width = 260;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_blue'));
         _homeBtn.addDisplayObject(im);
         _homeBtn.setPivots();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_home'));
-        im.x = 60;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('home_icon'));
+        im.x = 7;
         im.y = 6;
         _homeBtn.addDisplayObject(im);
-        _txtHome = new CTextField(100, 70, String(g.managerLanguage.allTexts[988]));
-        _txtHome.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-        _txtHome.x = 105;
-        _homeBtn.addChild(_txtHome);
-        _homeBtn.x = _homeBtn.width/2;
-        _homeBtn.y = 2 + _homeBtn.height/2;
+        _homeBtn.x = 155 + _homeBtn.width/2;
+        _homeBtn.y = -25 + _homeBtn.height/2;
         _source.addChild(_homeBtn);
-        _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])) };
-        _homeBtn.outCallback = function():void { g.hint.hideIt() };
+        _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])); };
+        _homeBtn.outCallback = function():void { g.hint.hideIt(); };
         _homeBtn.clickCallback = function():void {onClick('door')};
         _homeBtn.visible = false;
+//        _homeBtn = new CButton();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_home'));
+//        im.width = 260;
+//        _homeBtn.addDisplayObject(im);
+//        _homeBtn.setPivots();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_home'));
+//        im.x = 60;
+//        im.y = 6;
+//        _homeBtn.addDisplayObject(im);
+//        _txtHome = new CTextField(100, 70, String(g.managerLanguage.allTexts[988]));
+//        _txtHome.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+//        _txtHome.x = 105;
+//        _homeBtn.addChild(_txtHome);
+//        _homeBtn.x = _homeBtn.width/2;
+//        _homeBtn.y = 2 + _homeBtn.height/2;
+//        _source.addChild(_homeBtn);
+//        _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])) };
+//        _homeBtn.outCallback = function():void { g.hint.hideIt() };
+//        _homeBtn.clickCallback = function():void {onClick('door')};
+//        _homeBtn.visible = false;
 
         _optionBtn = new CSprite();
         _optionBtn.nameIt = 'optionBtn';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('options_button'));
         _optionBtn.addChild(im);
         _optionBtn.x = 203;
-        _optionBtn.y = -80;
+        _optionBtn.y = -90;
         _source.addChild(_optionBtn);
         _optionBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[480])); };
         _optionBtn.outCallback = function():void { g.hint.hideIt(); };
@@ -347,6 +326,13 @@ public class MainBottomPanel {
                 }
                 break;
             case 'friend':
+                if (_boolFriend == true) {
+                    _boolFriend = false;
+                    g.friendPanel.showIt();
+                } else {
+                    _boolFriend = true;
+                    g.friendPanel.hideIt();
+                }
                 break;
             case 'tools':
                 if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.finishLetGoToNeighbor();
@@ -363,11 +349,18 @@ public class MainBottomPanel {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                g.friendPanel.hideIt();
-                g.toolsPanel.showIt();
-                _toolsBtn.visible = false;
-                _cancelBtn.visible = true;
-                g.toolsPanel.hideRepository();
+                if (_boolTools == false) {
+                    _boolTools = true;
+                    g.toolsPanel.showIt();
+                    _imArrow.scaleX = -1;
+                    _imArrow.x = 77;
+                } else {
+                    _boolTools = false;
+                    g.toolsPanel.hideIt();
+                    _imArrow.scaleX = 1;
+                    _imArrow.x = 19;
+                }
+//                g.toolsPanel.hideRepository();
                 break;
             case 'option':
                 g.managerHelpers.onUserAction();
@@ -424,9 +417,9 @@ public class MainBottomPanel {
 
     public function showToolsForCutScene():void { onClick('tools'); }
     public function onResizePanelFriend():void {
-        if (_friendBoard) {
-//            _friendBoard.x = g.managerResize.stageWidth/2;
-            _friendBoard.y = g.managerResize.stageHeight - 83;
+        if (_friendSpr) {
+//            _friendSpr.x = g.managerResize.stageWidth/2;
+            _friendSpr.y = g.managerResize.stageHeight - 83;
         }
     }
 
@@ -438,7 +431,7 @@ public class MainBottomPanel {
 
     public function cancelBoolean(b:Boolean):void {
         _cancelBtn.visible = b;
-        _toolsBtn.visible = !b;
+//        _toolsBtn.visible = !b;
     }
 
     public function doorBoolean(b:Boolean,person:Someone = null):void {
@@ -450,14 +443,16 @@ public class MainBottomPanel {
         _toolsBtn.visible = !b;
         _cancelBtn.visible = false;
         removeHelpIcon();
-        if(b) {
-            while (_friendBoard.numChildren) {
-                _friendBoard.removeChildAt(0);
-            }
-            friendBoard();
-        } else {
-            while (_friendBoard.numChildren) {
-                _friendBoard.removeChildAt(0);
+        if (_friendBoard) {
+            if (b) {
+                while (_friendBoard.numChildren) {
+                    _friendBoard.removeChildAt(0);
+                }
+                friendBoard();
+            } else {
+                while (_friendBoard.numChildren) {
+                    _friendBoard.removeChildAt(0);
+                }
             }
         }
     }

@@ -23,6 +23,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Color;
 
 import tutorial.TutsAction;
 import tutorial.miniScenes.ManagerMiniScenes;
@@ -62,17 +63,25 @@ public class FriendPanel {
     private var _activeTabType:int;
     private var _helpIcon:Image;
     private var _arrNeighborFriends:Array;
+    private var _tabs:FriendTabs;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
         _source = new Sprite();
         onResize();
         g.cont.interfaceCont.addChild(_source);
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_left'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_right'), 465);
+        var pl:HorizontalPlawka;
+        pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_center'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_right'), 110);
+        pl.x = 454;
+        pl.y = -3;
         _source.addChild(pl);
+        pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_center'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_right'), 465);
+        _source.addChild(pl);
+        _tabs = new FriendTabs(pl, onTabClick);
         _mask = new Sprite();
-        _mask.x = 105;
+        _mask.x = 75;
         _mask.y = 7;
         _cont = new Sprite();
         _mask.mask = new Quad(328, 90);
@@ -92,6 +101,7 @@ public class FriendPanel {
 
     private function createTabs():void {
         _activeTabType = TYPE_NORMAL;
+        _tabs.activate(_activeTabType);
         _tab1 = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
         im.x = 20;
@@ -103,7 +113,7 @@ public class FriendPanel {
         txt.y = -23;
         _tab1.addChild(txt);
         _tab1.endClickCallback = onTab1Click;
-        _source.addChild(_tab1);
+//        _source.addChild(_tab1);
 
         _tab2 = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
@@ -121,7 +131,7 @@ public class FriendPanel {
         _helpIcon.x = 128;
         _helpIcon.y = -25;
         _tab2.addChild(_helpIcon);
-        _source.addChildAt(_tab2, 0);
+//        _source.addChildAt(_tab2, 0);
         _tab2.endClickCallback = onTab2Click;
         _helpIcon.visible = false;
 //        if (g.user.isTester) {
@@ -136,9 +146,19 @@ public class FriendPanel {
             txt.y = -23;
             _tab3.addChild(txt);
             _tab3.x = 240;
-            _source.addChildAt(_tab3, 0);
+//            _source.addChildAt(_tab3, 0);
             _tab3.endClickCallback = onTab3Click;
 //        }
+    }
+
+    private function onTabClick(active:int):void {
+        if (active == 1) {
+            onTab1Click();
+        } else if (active == 2) {
+            onTab2Click();
+        } else {
+            onTab3Click();
+        }
     }
 
     private function onTab1Click():void {
@@ -147,11 +167,12 @@ public class FriendPanel {
         else {
             _shift = 0;
             animList();
-            if (_tab3) _source.setChildIndex(_tab3, 0);
-
-            _source.setChildIndex(_tab2, 0);
-            _source.setChildIndex(_tab1, 3);
+//            if (_tab3) _source.setChildIndex(_tab3, 0);
+//
+//            _source.setChildIndex(_tab2, 0);
+//            _source.setChildIndex(_tab1, 3);
             _activeTabType = TYPE_NORMAL;
+            _tabs.activate(_activeTabType);
             fillFriends();
             checkArrows();
         }
@@ -163,10 +184,11 @@ public class FriendPanel {
         else {
             _shift = 0;
             animList();
-            if (_tab3) _source.setChildIndex(_tab3, 0);
-            _source.setChildIndex(_tab1, 0);
-            _source.setChildIndex(_tab2, 3);
+//            if (_tab3) _source.setChildIndex(_tab3, 0);
+//            _source.setChildIndex(_tab1, 0);
+//            _source.setChildIndex(_tab2, 3);
             _activeTabType = TYPE_NEED_HELP;
+            _tabs.activate(_activeTabType);
             fillFriends();
             checkArrows();
         }
@@ -178,10 +200,11 @@ public class FriendPanel {
         else {
             _shift = 0;
             animList();
-            _source.setChildIndex(_tab1, 0);
-            _source.setChildIndex(_tab2, 0);
-            if (_tab3) _source.setChildIndex(_tab3, 3);
+//            _source.setChildIndex(_tab1, 0);
+//            _source.setChildIndex(_tab2, 0);
+//            if (_tab3) _source.setChildIndex(_tab3, 3);
             _activeTabType = TYPE_NEIGHBOR;
+            _tabs.activate(_activeTabType);
             fillFriends();
             checkArrows();
         }
@@ -189,13 +212,15 @@ public class FriendPanel {
 
     private function createAddFriendBtn():void {
         _addFriendsBtn = new CButton();
-        var st:String = 'friends_panel_bt_add';
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'Invite_friends_eng';
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//        var st:String = 'friends_panel_bt_add';
+//        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'Invite_friends_eng';
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame'));
         _addFriendsBtn.addDisplayObject(im);
         _addFriendsBtn.setPivots();
-        _addFriendsBtn.x = 5 + _addFriendsBtn.width/2;
-        _addFriendsBtn.y = 4 + _addFriendsBtn.height/2;
+        _addFriendsBtn.x = 468 + _addFriendsBtn.width/2;
+        _addFriendsBtn.y = 15 + _addFriendsBtn.height/2;
+        _addFriendsBtn.addTextField(79, 76, 0, 25, String(g.managerLanguage.allTexts[415]));
+        _addFriendsBtn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _source.addChild(_addFriendsBtn);
        _addFriendsBtn.clickCallback = inviteFriends;
     }
@@ -208,15 +233,15 @@ public class FriendPanel {
 
     public function onResize():void {
         if (!_source) return;
-        _source.x = g.managerResize.stageWidth - 740;
-        if (_source.visible) _source.y = g.managerResize.stageHeight - 89;
-        else _source.y = g.managerResize.stageHeight + 100;
+        _source.x = 95;
+        if (_source.visible) _source.y = g.managerResize.stageHeight -105;
+        else _source.y = g.managerResize.stageHeight + 213;
     }
 
     public function showIt():void {
         _source.visible  = true;
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, .5, {y:g.managerResize.stageHeight - 89, ease:Back.easeOut, delay:.2});
+        new TweenMax(_source, .5, {y:g.managerResize.stageHeight - 105, ease:Back.easeOut, delay:.2});
     }
 
     public function hideIt(quick:Boolean = false, time:Number = .5):void {
@@ -233,7 +258,7 @@ public class FriendPanel {
     private function createArrows():void {
         if (!_leftArrow) {
             _leftArrow = new CButton();
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('arrow_friends_left'));
             _leftArrow.addDisplayObject(im);
             _leftArrow.setPivots();
             _leftArrow.x = 78 + _leftArrow.width / 2;
@@ -244,7 +269,7 @@ public class FriendPanel {
 
         if (!_rightArrow) {
             _rightArrow = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('arrow_friends_left'));
             im.scaleX = -1;
             _rightArrow.addDisplayObject(im);
             _rightArrow.setPivots();
@@ -422,8 +447,8 @@ public class FriendPanel {
         for (var i:int = 0; i < _arrNeighborFriends.length; i++) {
             item = new FriendItem(_arrNeighborFriends[i],i,false);
             _arrItems.push(item);
-            item.source.x = i*66;
-            item.source.y = -1;
+            item.source.x = i*85;
+            item.source.y = 8;
             _cont.addChild(item.source);
         }
         checkSocialInfoForArray();
@@ -449,8 +474,8 @@ public class FriendPanel {
             for (i = 0; i < _arrNeighborFriends.length; i++) {
                 item = new FriendItem(_arrNeighborFriends[i], i,false);
                 _arrItems.push(item);
-                item.source.x = i * 66;
-                item.source.y = -1;
+                item.source.x = i * 85;
+                item.source.y = 8;
                 _cont.addChild(item.source);
             }
             checkSocialInfoForArray();
@@ -483,8 +508,8 @@ public class FriendPanel {
             for (i= 0; i < _arrNeighborFriends.length; i++) {
                 item = new FriendItem(_arrNeighborFriends[i],i,false);
                 _arrItems.push(item);
-                item.source.x = i*66;
-                item.source.y = -1;
+                item.source.x = i*85;
+                item.source.y = 8;
                 _cont.addChild(item.source);
             }
             checkSocialInfoForArray();
@@ -509,8 +534,8 @@ public class FriendPanel {
         for (i= 0; i < l; i++) {
             item = new FriendItem(_arrFriends[i],i);
             _arrItems.push(item);
-            item.source.x = i*66;
-            item.source.y = -1;
+            item.source.x = i*85;
+            item.source.y = 8;
             _cont.addChild(item.source);
         }
     }
@@ -543,8 +568,8 @@ public class FriendPanel {
 //            if(_arrFriends[_shift+i] is NeighborBot){
 //            }
             _arrItems.unshift(item);
-            item.source.x = 66 * (_shift + i);
-            item.source.y = -1;
+            item.source.x = 85 * (_shift + i);
+            item.source.y = 8;
             _cont.addChild(item.source);
         }
 
@@ -568,7 +593,8 @@ public class FriendPanel {
         for (var i:int=0; i<newCount; i++) {
             if (_arrFriends[_shift + 4 + i]) {
                 item = new FriendItem(_arrFriends[_shift + 5 + i],_shift + 5 + i);
-                item.source.x = 66 * (_shift + 5 + i);
+                item.source.x = 85 * (_shift + 5 + i);
+                item.source.y = 8;
                 _cont.addChild(item.source);
                 _arrItems.push(item);
             }
@@ -587,7 +613,7 @@ public class FriendPanel {
 
     private function animList(callback:Function = null):void {
         var tween:Tween = new Tween(_cont, .5);
-        tween.moveTo(-_shift*66, _cont.y);
+        tween.moveTo(-_shift*85, _cont.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
             if (callback != null) callback.apply();
@@ -659,8 +685,8 @@ public class FriendPanel {
                 item = new FriendItem(_arrFriends[i]);
                 if (item.source) {
                     _arrItems.push(item);
-                    item.source.x = i * 66;
-                    item.source.y = -1;
+                    item.source.x = i * 85;
+                    item.source.y = 8;
                     _cont.addChild(item.source);
                 }
             }
@@ -688,4 +714,154 @@ public class FriendPanel {
         }
     }
 }
+}
+
+
+
+import manager.ManagerFilters;
+import manager.Vars;
+import starling.display.Image;
+import starling.utils.Color;
+import utils.CSprite;
+import utils.CTextField;
+import windows.WOComponents.BackgroundYellowOut;
+import windows.WOComponents.HorizontalPlawka;
+
+internal class FriendTabs {
+    private var g:Vars = Vars.getInstance();
+    private var _callback:Function;
+    private var _imActiveFriend:Image;
+    private var _txtActiveFriend:CTextField;
+    private var _unactiveFriend:CSprite;
+//    private var _txtUnactiveFriend:CTextField;
+    private var _imActiveNeedHelp:Image;
+    private var _txtActiveNeedHelp:CTextField;
+    private var _unactiveNeedHelp:CSprite;
+//    private var _txtUnactiveNeedHelp:CTextField;
+    private var _imActiveNeighbors:Image;
+    private var _txtActiveNeighbors:CTextField;
+    private var _unactiveNeighbors:CSprite;
+    private var _bg:HorizontalPlawka;
+
+    public function FriendTabs(bg:HorizontalPlawka, f:Function) {
+        _bg = bg;
+        _callback = f;
+        _imActiveFriend = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab_light'));
+        _imActiveFriend.pivotX = _imActiveFriend.width/2;
+        _imActiveFriend.pivotY = _imActiveFriend.height;
+        _imActiveFriend.x = 100;
+        _imActiveFriend.y = 15;
+        bg.addChild(_imActiveFriend);
+        _txtActiveFriend = new CTextField(154, 48, g.managerLanguage.allTexts[485]);
+        _txtActiveFriend.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveFriend.x = 16;
+        _txtActiveFriend.y = -32;
+        bg.addChild(_txtActiveFriend);
+
+        _unactiveFriend = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_tab'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveFriend.addChild(im);
+        _unactiveFriend.x = 100;
+        _unactiveFriend.y = 18;
+        bg.addChildAt(_unactiveFriend, 0);
+        _unactiveFriend.endClickCallback = onClickFriend;
+//        _txtUnactiveFriend = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
+//        _txtUnactiveFriend.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+//        _txtUnactiveFriend.x = 127;
+//        _txtUnactiveFriend.y = -42;
+//        bg.addChild(_txtUnactiveFriend);
+
+        _imActiveNeedHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab_light'));
+        _imActiveNeedHelp.pivotX = _imActiveNeedHelp.width/2;
+        _imActiveNeedHelp.pivotY = _imActiveNeedHelp.height;
+        _imActiveNeedHelp.x = 224;
+        _imActiveNeedHelp.y = 15;
+        bg.addChild(_imActiveNeedHelp);
+        _txtActiveNeedHelp = new CTextField(154, 48, g.managerLanguage.allTexts[486]);
+        _txtActiveNeedHelp.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveNeedHelp.x = 150;
+        _txtActiveNeedHelp.y = -32;
+        bg.addChild(_txtActiveNeedHelp);
+
+        _unactiveNeedHelp = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_tab'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveNeedHelp.addChild(im);
+        _unactiveNeedHelp.x = 224;
+        _unactiveNeedHelp.y = 18;
+        bg.addChildAt(_unactiveNeedHelp, 0);
+        _unactiveNeedHelp.endClickCallback = onClickNeedHelp;
+//        _txtUnactiveNeedHelp = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
+//        _txtUnactiveNeedHelp.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+//        _txtUnactiveNeedHelp.x = 287;
+//        _txtUnactiveNeedHelp.y = -42;
+//        bg.addChild(_txtUnactiveNeedHelp);
+
+        _imActiveNeighbors = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab_light'));
+        _imActiveNeighbors.pivotX = _imActiveNeighbors.width/2;
+        _imActiveNeighbors.pivotY = _imActiveNeighbors.height;
+        _imActiveNeighbors.x = 348;
+        _imActiveNeighbors.y = 15;
+        bg.addChild(_imActiveNeighbors);
+        _txtActiveNeighbors = new CTextField(154, 48, g.managerLanguage.allTexts[1030]);
+        _txtActiveNeighbors.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveNeighbors.x = 268;
+        _txtActiveNeighbors.y = -32;
+        bg.addChild(_txtActiveNeighbors);
+
+        _unactiveNeighbors = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_tab'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveNeighbors.addChild(im);
+        _unactiveNeighbors.x = 348;
+        _unactiveNeighbors.y = 18;
+        bg.addChildAt(_unactiveNeighbors, 0);
+        _unactiveNeighbors.endClickCallback = onClickNeighbors;
+    }
+
+    private function onClickFriend():void { if (_callback!=null) _callback.apply(null, [1]); }
+    private function onClickNeedHelp():void { if (_callback!=null) _callback.apply(null, [2]); }
+    private function onClickNeighbors():void { if (_callback!=null) _callback.apply(null, [3]); }
+
+    public function activate(isFriend:int):void {
+        if (isFriend == 1) {
+            _unactiveNeedHelp.visible = _unactiveNeighbors.visible = _imActiveFriend.visible = true;
+            _imActiveNeighbors.visible = _imActiveNeedHelp.visible =  _unactiveFriend.visible = false
+        } else if (isFriend == 2) {
+            _unactiveFriend.visible = _unactiveNeighbors.visible = _imActiveNeedHelp.visible = true;
+            _imActiveNeighbors.visible = _imActiveFriend.visible =  _unactiveNeedHelp.visible = false
+        } else {
+            _unactiveFriend.visible = _unactiveNeedHelp.visible = _imActiveNeighbors.visible = true;
+            _imActiveFriend.visible = _imActiveNeedHelp.visible =  _unactiveNeighbors.visible = false
+        }
+//        _imActiveFriend.visible = _unactiveNeedHelp.visible = isAmbar;
+//        _imActiveNeedHelp.visible = _unactiveFriend.visible = !isAmbar;
+//        _txtActiveFriend.visible = _txtUnactiveNeedHelp.visible = isAmbar;
+//        _txtActiveNeedHelp.visible = _txtUnactiveFriend.visible = !isAmbar;
+    }
+
+    public function deleteIt():void {
+        _bg.removeChild(_txtActiveFriend);
+        _bg.removeChild(_txtActiveNeedHelp);
+//        _bg.removeChild(_txtUnactiveNeedHelp);
+//        _bg.removeChild(_txtUnactiveFriend);
+        _bg.removeChild(_imActiveFriend);
+        _bg.removeChild(_imActiveNeedHelp);
+        _bg.removeChild(_unactiveFriend);
+        _bg.removeChild(_unactiveNeedHelp);
+        _txtActiveFriend.deleteIt();
+        _txtActiveNeedHelp.deleteIt();
+//        _txtUnactiveFriend.deleteIt();
+//        _txtUnactiveNeedHelp.deleteIt();
+        _imActiveFriend.dispose();
+        _imActiveNeedHelp.dispose();
+        _unactiveFriend.deleteIt();
+        _unactiveNeedHelp.deleteIt();
+        _bg = null;
+    }
+
 }
