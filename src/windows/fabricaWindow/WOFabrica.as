@@ -42,6 +42,7 @@ public class WOFabrica extends WindowMain {
     private var _cont:Sprite;
     private var _isAnim:Boolean;
     private var _listCont:Sprite;
+    private var _imWhite:Image;
 
     public function WOFabrica() {
         super();
@@ -69,9 +70,13 @@ public class WOFabrica extends WindowMain {
         createArrows();
         _listCont = new Sprite();
         _listCont.x = -_woWidth/2 + 135;
-        _listCont.y = -_woHeight/2 + 240;
+        _listCont.y = -_woHeight/2 + 280;
         _source.addChild(_listCont);
         _list = new WOFabricaWorkList(_listCont, this);
+        _imWhite = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_white_panel'));
+        _imWhite.pivotX = _imWhite.width/2;
+        _imWhite.y = -20;
+        _source.addChildAt(_imWhite, 1);
     }
 
     private function createArrows():void {
@@ -111,6 +116,11 @@ public class WOFabrica extends WindowMain {
         _txtWindowName.text = _fabrica.dataBuild.name;
         checkArrows();
         super.showIt();
+        _source.alpha = 0;
+        _source.scale = .1;
+        _source.x = params[3].x;
+        _source.y = params[3].y;
+        TweenMax.to(_source, .3, {alpha:1, scale:1, x: int(g.managerResize.stageWidth/2), y: int(g.managerResize.stageHeight/2), onComplete: onShowingWindow});
     }
 
     private function fillFabricaItems():void {

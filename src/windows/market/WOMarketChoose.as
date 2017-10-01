@@ -140,6 +140,7 @@ public class WOMarketChoose extends WindowMain {
         fillItems();
 //        checkPapper();
         super.showIt();
+        _source.x -= 125;
     }
 
     private function checkPapper():void {

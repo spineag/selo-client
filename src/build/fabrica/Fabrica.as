@@ -192,7 +192,9 @@ public class Fabrica extends WorldObject {
         if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_RAW_FABRICA && g.managerHelpers.activeReason.build == this)
             g.managerHelpers.onOpenFabricaWithDelay();
         hideArrow();
-        g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this);
+        var p:Point = new Point();
+        p = _source.localToGlobal(p);
+        g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this, p);
     }
 
     private function onClick():void {

@@ -70,18 +70,16 @@ public class WindowMain {
         _isShowed = true;
         if (_source) {
             createBlackBG();
-            _source.x = int(g.managerResize.stageWidth/2);
-            _source.y = int(-g.managerResize.stageHeight/2);
             g.cont.addGameContListener(false);
             g.cont.windowsCont.addChild(_source);
+            if (_windowType == WindowsManager.WO_FABRICA) return;
+            _source.x = int(g.managerResize.stageWidth/2);
+            _source.y = int(-g.managerResize.stageHeight/2);
             TweenMax.to(_source, .3, {y: int(g.managerResize.stageHeight/2), onComplete: onShowingWindow});
-        }
-        if (windowType == 'market_choose') {
-            _source.x = g.managerResize.stageWidth/2 - _woWidth/5;
         }
     }
 
-    private function onShowingWindow():void {
+    protected function onShowingWindow():void {
         if (onWoShowCallback != null) {
             onWoShowCallback.apply();
             onWoShowCallback = null;
