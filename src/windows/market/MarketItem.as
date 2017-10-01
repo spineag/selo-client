@@ -52,7 +52,6 @@ public class MarketItem {
     private var _costTxt:CTextField;
     private var _countTxt:CTextField;
     private var _txtPlawka:CTextField;
-//    private var _txtAdditem:CTextField;
     private var _btnAdditem:CButton;
     private var _bg:Image;
     private var quad:Quad;
@@ -62,8 +61,6 @@ public class MarketItem {
     private var _dataFromServer:StructureMarketItem;
     private var _countResource:int;
     private var _countMoney:int;
-//    private var _plawkaSold:Image;
-//    private var _plawkaLvl:Image;
     private var _plawkaBuy:Image;
     private var _coin:Image;
     private var _plawkaCoins:Sprite;
@@ -80,15 +77,11 @@ public class MarketItem {
     private var _ava:Image;
     private var _avaDefault:Image;
     private var _countBuyCell:int;
-//    private var _papperBtn:CButton;
     private var _inPapper:Boolean;
-    private var _inDelete:Boolean;
     private var _delete:CButton;
-//    private var _imCheck:Image;
     private var _btnBuyCont:CButton;
     private var _wo:WOMarket;
     private var _btnGoAwaySaleItem:CButton;
-    private var _txtBuyNewPlace:CTextField;
     private var _txtBuyCell:CTextField;
     private var _txtGo:CTextField;
     private var _photoUrl:String;
@@ -104,7 +97,6 @@ public class MarketItem {
         _onHover = false;
         _woWidth = 110;
         _woHeight = 133;
-//        _bg = new BackgroundWhiteIn(_woWidth, _woHeight);
         _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_blue_cell_big'));
         source.addChild(_bg);
         quad = new Quad(_woWidth, _woHeight,Color.WHITE);
@@ -113,14 +105,6 @@ public class MarketItem {
         isFill = 0;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-//        _txtAdditem = new CTextField(80,70,String(g.managerLanguage.allTexts[388]));
-//        _txtAdditem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-//        _txtAdditem.cacheIt = false;
-//        _txtAdditem.x = 15;
-//        _txtAdditem.y = 30;
-//        source.addChild(_txtAdditem);
-//        _txtAdditem.visible = true;
-
         _btnAdditem = new CButton();
         _btnAdditem.addButtonTexture(115, CButton.BIG_HEIGHT, CButton.YELLOW, true);
         _btnAdditem.addTextField(115, 40, 0, 0, String(g.managerLanguage.allTexts[388]));
@@ -148,29 +132,11 @@ public class MarketItem {
 
         _imageCont = new Sprite();
         source.addChild(_imageCont);
-
-//        _plawkaSold = new Image(g.allData.atlas['interfaceAtlas'].getTexture('roadside_shop_tabl'));
-//        _plawkaSold.pivotX = _plawkaSold.width/2;
-//        _plawkaSold.x = _bg.width/2;
-//        _plawkaSold.y = 70;
-//        source.addChild(_plawkaSold);
-//        _plawkaSold.visible = false;
-//
-//        _plawkaLvl = new Image(g.allData.atlas['interfaceAtlas'].getTexture('available_on_level'));
-//        _plawkaLvl.pivotX = _plawkaLvl.width/2;
-//        _plawkaLvl.x = _bg.width/2;
-//        source.addChild(_plawkaLvl);
-//
-//        _plawkaLvl.visible = false;
-
         _txtPlawka = new CTextField(100,60, String(g.managerLanguage.allTexts[389]));
         _txtPlawka.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
         _txtPlawka.cacheIt = false;
         _txtPlawka.y = 85;
-//        _txtPlawka.x = -30;
         _txtPlawka.visible = false;
-//        source.addChild(_txtPlawka);
-
         _plawkaCoins = new Sprite();
         source.addChild(_plawkaCoins);
         _plawkaBuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_blue_cell_big_white'));
@@ -178,43 +144,16 @@ public class MarketItem {
         _plawkaBuy.y = 125;
         _plawkaCoins.addChild(_plawkaBuy);
         _coin  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-//        MCScaler.scale(_coin,25,25);
         _coin.y = 148;
         _coin.x = _bg.width/2 + 15;
         _plawkaCoins.addChild(_coin);
         _plawkaCoins.addChild(_costTxt);
         _plawkaCoins.visible = false;
-
-//        _papperBtn = new CButton();
-//        MCScaler.scale(im,im.height/2+5, im.width/2+5);
-//        _papperBtn.addDisplayObject(im);
-//        _papperBtn.setPivots();
-//        _papperBtn.x = 20;
-//        _papperBtn.y = 10;
-//        _papperBtn.alpha = 1;
-////        source.addChild(_papperBtn);
-//        _papperBtn.clickCallback = onPaper;
-//        _papperBtn.hoverCallback = function ():void {
-//            if (_inPapper || isFill == 2) return;
-//            g.hint.showIt(String(g.managerLanguage.allTexts[390]),'market_paper');
-//        };
-//        _papperBtn.outCallback = function ():void {
-//            g.hint.hideIt();
-//        };
-//        _papperBtn.visible = false;
-
-//        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-//        _imCheck.x = 8;
-//        _imCheck.y = -3;
-//        MCScaler.scale(_imCheck,25,25);
-//        source.addChild(_imCheck);
-//        _imCheck.visible = false;
-
         _delete = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('trash'));
         _delete.addDisplayObject(im);
         _delete.setPivots();
-        _delete.x = 15;
+        _delete.x = 25;
         _delete.y = 110;
         source.addChild(_delete);
         _delete.clickCallback = onDelete;

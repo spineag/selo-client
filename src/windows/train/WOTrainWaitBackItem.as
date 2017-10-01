@@ -21,6 +21,7 @@ import windows.WindowsManager;
 public class WOTrainWaitBackItem {
     public var source:CSprite;
     private var _im:Image;
+    private var _imBg:Image;
     private var _index:int;
     private var _info:TrainCell;
     private var _onHover:Boolean;
@@ -46,19 +47,26 @@ public class WOTrainWaitBackItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
+        if (i <= 3) {
+            _imBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('White_packet_open'));
+
+        } else if (i <= 8) {
+            _imBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('Green_packet_open'));
+
+        } else {
+            _imBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('Red_packet_open'));
+        }
+        source.addChild(_imBg);
         _im = _info.getImage();
         if (!_im) {
             Cc.error('WOTrainWaitBackItem fillIt:: no such image: ' + g.allData.getResourceById(_info.id).imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
-        var _bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_green'));
-        _bg.width = 100;
-        source.addChild(_bg);
-        MCScaler.scale(_im, 80, 80);
-        _im.x = 50 - _im.width/2;
-        _im.y = 45 - _im.height/2;
+        _im.x = 60 - _im.width/2;
+        _im.y = 35 - _im.height/2;
         source.addChild(_im);
+
     }
     
     private function onHover():void {

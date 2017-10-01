@@ -85,7 +85,7 @@ public class WOTrainItem {
 //        if (int(_info.helpId) != 0) return;   ????
         _txtCount.text = String(g.userInventory.getCountResourceById(_dataResource.id)) + '/' + String(_info.count);
        _imResource = currentImage();
-        MCScaler.scale(_imResource, 80, 80);
+//        MCScaler.scale(_imResource, 80, 80);
         _imResource.alignPivot();
         _imResource.y = - 62;
         _source.addChild(_imResource);

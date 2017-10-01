@@ -50,7 +50,7 @@ public class WONoResources extends WindowMain {
     public function WONoResources() {
         super();
         _windowType = WindowsManager.WO_NO_RESOURCES;
-        _woWidth = 840;
+        _woWidth = 780;
         _woHeight = 455;
         _arrItems = [];
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
@@ -67,7 +67,7 @@ public class WONoResources extends WindowMain {
         _text = new CTextField(800, 150, String(g.managerLanguage.allTexts[374]));
         _text.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW);
 //        _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
-        _text.x = -(_text.textBounds.width/2 + 25);
+        _text.x = -(_text.textBounds.width/2 + 30);
         _text.y = -155;
         _source.addChild(_text);
 
@@ -104,7 +104,7 @@ public class WONoResources extends WindowMain {
         _callbackBuy = callback;
         _text.text = String(g.managerLanguage.allTexts[374]);
 //        _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
-        _text.x = -(_text.textBounds.width/2 + 25);
+        _text.x = -(_text.textBounds.width/2 + 30);
         switch (params[0]) {
             case 'animal':
                 _countOfResources = 1;
@@ -164,7 +164,7 @@ public class WONoResources extends WindowMain {
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
                 _text.text = String(g.managerLanguage.allTexts[374]);
 //                _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
-                _text.x = -(_text.textBounds.width/2 + 25);
+                _text.x = -(_text.textBounds.width/2 + 30);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
                     Cc.error('hard currency can"t be in woNoResourceWindow');
                     g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
