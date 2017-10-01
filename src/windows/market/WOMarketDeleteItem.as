@@ -66,7 +66,6 @@ public class WOMarketDeleteItem extends WindowMain{
 //        im.x = 150;
 //        im.y = 1;
 //        MCScaler.scale(im,30,30);
-        im.alignPivot();
         var sensi:SensibleBlock = new SensibleBlock();
         sensi.textAndImage(_txtBtn,im,265);
         _b.addSensBlock(sensi,0,25);

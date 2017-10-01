@@ -75,7 +75,6 @@ public class WindowBackgroundNew extends Sprite {
 
         // center
         im = new Image(tex.getTexture(str + '_panel_center'));
-        im.scaleX = -1;
         im.tileGrid = new Rectangle();
         im.width = w - 2 * 10;
         im.height = hT - 11;

@@ -27,6 +27,7 @@ public class SensibleBlock extends Sprite {
         _im = im;
         _delta = delta;
         _width = w;
+        _im.alignPivot();
         var wT:int = t.textBounds.width;
         _tempSprite = new Sprite();
         t.alignH = Align.RIGHT;

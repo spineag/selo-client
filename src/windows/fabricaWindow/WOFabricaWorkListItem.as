@@ -33,7 +33,10 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SensibleBlock;
 import utils.TimeUtils;
+
+import windows.WOComponents.WOSimpleButtonTexture;
 
 import windows.WindowsManager;
 
@@ -53,12 +56,8 @@ public class WOFabricaWorkListItem {
     private var _btnSkip:CButton;
     private var _txtSkip:CTextField;
     private var _txtForce:CTextField;
-    private var txtPropose:CTextField;
-    private var txtPropose2:CTextField;
-    private var _proposeBtn:CButton;
     private var _skipCallback:Function;
     private var _skipSmallCallback:Function;
-    private var _rubinSmall:Image;
     private var _txt:CTextField;
     private var _priceSkip:int;
     private var _armatureBoom:Armature;
@@ -66,82 +65,74 @@ public class WOFabricaWorkListItem {
     private var _number:int;
     private var _woFabrica:WOFabrica;
     private var _isHover:Boolean;
+    private var _proposeBtn:CButton;
+    private var _sensPropose:SensibleBlock;
 
-    public function WOFabricaWorkListItem(type:String = 'small', number:int = 0, woFabrica:WOFabrica = null) {
+    public function WOFabricaWorkListItem(type:String, number:int, woFabrica:WOFabrica) {
         _type = type;
         _source = new CSprite();
         _number = number;
         _woFabrica = woFabrica;
         _isHover = false;
-        _txtNumberCreate = new CTextField(20,20," ");
+        _txtNumberCreate = new CTextField(30,30," ");
         if (type == SMALL_CELL) {
-            _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
-            MCScaler.scale(_bg, 50, 50);
-            _txtNumberCreate.setFormat(CTextField.BOLD18, 13, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_y_cell_s'));
+            _txtNumberCreate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         } else {
-            _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-            _txtNumberCreate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_y_cell_b'));
+            _txtNumberCreate.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
         }
+        _bg.x = -12;
+        _bg.y = -12;
         _source.addChild(_bg);
 
         if (type == SMALL_CELL) {
+            _txtNumberCreate.x = 55;
+            _txtNumberCreate.y = 55;
             _source.visible = false;
-            _txt = new CTextField(42, 30, String(g.managerLanguage.allTexts[430]));
-            _txt.setFormat(CTextField.BOLD18, 15, ManagerFilters.LIGHT_BROWN);
-            _txt.x = 5;
-            _txt.y = 5;
+            _txt = new CTextField(85, 80, String(g.managerLanguage.allTexts[430]));
+            _txt.setFormat(CTextField.BOLD18, 15, ManagerFilters.BLUE_COLOR);
             _source.addChild(_txt);
             _source.endClickCallback = onClick;
-        }
-        if (_type == BIG_CELL) {
+        } else if (_type == BIG_CELL) {
+            _txtNumberCreate.x = 75;
+            _txtNumberCreate.y = 95;
             _timerBlock = new Sprite();
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_clock'));
-            im.x = 13;
-            im.y = -20;
-            _timerBlock.addChild(im);
-            _txtTimer = new CTextField(78, 33, ' ');
-            _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE);
+            var t:Sprite = new WOSimpleButtonTexture(111, CButton.SMALL_HEIGHT, CButton.BLUE);
+            _timerBlock.addChild(t);
+            _txtTimer = new CTextField(111, 30, ' ');
+            _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
             _txtTimer.cacheIt = false;
-            _txtTimer.x = 13;
-            _txtTimer.y = -22;
             _timerBlock.addChild(_txtTimer);
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
-            _txt = new CTextField(100, 90, String(g.managerLanguage.allTexts[431]));
-            _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.LIGHT_BROWN);
-            _txt.x = 2;
-            _txt.y = 5;
+            _txt = new CTextField(110, 170, String(g.managerLanguage.allTexts[431]));
+            _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
             _source.addChild(_txt);
 
             _btnSkip = new CButton();
-            _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
+            _btnSkip.addButtonTexture(111, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
             _txtSkip = new CTextField(60,28,"25");
             _txtSkip.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtSkip.x = 19;
             _txtSkip.y = 13;
             _btnSkip.addChild(_txtSkip);
-            _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-            _rubinSmall.x = 83;
-            _rubinSmall.y = 5;
-            _btnSkip.addChild(_rubinSmall);
-            _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
-            _btnSkip.x = 52;
-            _btnSkip.y = 117;
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+            im.alignPivot();
+            im.x = 93;
+            im.y = 21;
+            _btnSkip.addChild(im);
+            _btnSkip.x = 55;
+            _btnSkip.y = 160;
             _txtForce = new CTextField(90,20,String(g.managerLanguage.allTexts[432]));
             _txtForce.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            if (g.user.language == ManagerLanguage.ENGLISH) {
-                _txtForce.x = 3;
-                _txtForce.y = -3;
-            } else {
-                _txtForce.x = 0;
-                _txtForce.y = -3;
-            }
+            if (g.user.language == ManagerLanguage.ENGLISH) _txtForce.x = 3;
+            _txtForce.y = -3;
             _btnSkip.addChild(_txtForce);
             _source.addChild(_btnSkip);
             _btnSkip.visible = false;
             _btnSkip.clickCallback = makeSkip;
         }
-        _txt.alpha = .7;
     }
 
     private function onClick():void {
@@ -149,7 +140,7 @@ public class WOFabricaWorkListItem {
             g.hint.hideIt();
             g.windowsManager.hideWindow(WindowsManager.WO_FABRICA);
             g.windowsManager.cashWindow = _woFabrica;
-            g.windowsManager.openWindow(WindowsManager.WO_FABRIC_DELETE_ITEM,makeSkipSmall);
+            g.windowsManager.openWindow(WindowsManager.WO_FABRIC_DELETE_ITEM, makeSkipSmall);
         }
     }
 
@@ -167,9 +158,7 @@ public class WOFabricaWorkListItem {
         }
     }
 
-    public function get source():Sprite {
-        return _source;
-    }
+    public function get source():Sprite { return _source; }
 
     public function fillData(resource:ResourceItem, buy:Boolean = false):void {
         _resource = resource;
@@ -180,14 +169,10 @@ public class WOFabricaWorkListItem {
         }
         if (_type == BIG_CELL) {
             _btnSkip.visible = true;
-            if (g.tuts.isTuts)  _txtSkip.text = String(0);  // no for new tuts
-            else {
-                _txtSkip.text = String(g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard));
-                _priceSkip = g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard);
-            }
+            _txtSkip.text = String(g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard));
+            _priceSkip = g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard);
         }
         fillIcon(_resource.imageShop, buy);
-        _source.visible = true;
     }
 
     private function fillIcon(s:String, buy:Boolean = false):void {
@@ -210,7 +195,6 @@ public class WOFabricaWorkListItem {
             }
         };
         if (buy) {
-
             _armatureBoom = g.allData.factory['explode_gray_fabric'].buildArmature("expl_fabric");
             (_armatureBoom.display as StarlingArmatureDisplay).x = _bg.width / 2;
             (_armatureBoom.display as StarlingArmatureDisplay).y = _bg.height;
@@ -225,28 +209,22 @@ public class WOFabricaWorkListItem {
         }
 
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
+        _icon.alignPivot();
         if (_type == BIG_CELL) {
             MCScaler.scale(_icon, 85, 100);
-            _icon.x = int(53 - _icon.width/2);
-            _icon.y = int(53 - _icon.height/2);
+            _icon.x = 57;
+            _icon.y = 83;
         } else {
-
-            MCScaler.scaleWithMatrix(_icon, 44, 44);
-            _icon.x = int(23 - _icon.width/2);
-            _icon.y = int(22 - _icon.height/2);
+            MCScaler.scale(_icon, 74, 74);
+            _icon.x = 43;
+            _icon.y = 43;
         }
         var r:StructureDataRecipe = g.allData.getRecipeByResourceId(_resource.resourceID);
-        if ( r && r.numberCreate > 1) {
-            _txtNumberCreate.text = String(r.numberCreate);
-        } else _txtNumberCreate.text = " ";
+        if ( r && r.numberCreate > 1) _txtNumberCreate.text = String(r.numberCreate);
+            else _txtNumberCreate.text = " ";
 
         _source.addChildAt(_icon,1);
-        if (_type == BIG_CELL) {
-            _txtNumberCreate.x = 75;
-            _txtNumberCreate.y = 70;
-        } else {
-            _txtNumberCreate.x = 27;
-            _txtNumberCreate.y = 25;
+        if (_type != BIG_CELL) {
             _source.hoverCallback =  function():void {
                 if (_isHover) return;
                 _isHover = true;
@@ -263,9 +241,7 @@ public class WOFabricaWorkListItem {
         _txt.visible = false;
     }
 
-import com.junkbyte.console.Cc;
-
-public function destroyTimer():void {
+    public function destroyTimer():void {
         g.gameDispatcher.removeFromTimer(render);
         _timerFinishCallback = null;
         _txtTimer.text = '';
@@ -304,57 +280,49 @@ public function destroyTimer():void {
 
     public function showBuyPropose(buyCount:int, callback:Function):void {
         if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
-        if (_type == SMALL_CELL) {
-            _source.visible = true;
-            _txt.visible = false;
-            if (_proposeBtn) return;
-            _proposeBtn = new CButton();
-            txtPropose = new CTextField(46, 28, "+");
-            txtPropose.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            txtPropose.touchable = true;
-            _proposeBtn.addChild(txtPropose);
-            txtPropose2 = new CTextField(46, 28, String(buyCount));
-            txtPropose2.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
-            txtPropose2.touchable = true;
-            txtPropose2.y = 20;
-            txtPropose2.x = -10;
-            _proposeBtn.addChild(txtPropose2);
-            _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-            MCScaler.scale(_rubinSmall, 20, 20);
-            _rubinSmall.x = 23;
-            _rubinSmall.y = 23;
-            _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
-            _proposeBtn.addChild(_rubinSmall);
-            _source.addChild(_proposeBtn);
-            var f1:Function = function ():void {
-                _proposeBtn.filter = null;
-                if (g.user.hardCurrency >= buyCount) {
-                    if (callback != null) {
-                        callback.apply();
-                    }
-                    unfillIt();
-                    _txt.visible = true;
-                    _source.visible = true;
-                    var p:Point = new Point(_source.width / 2, _source.height / 2);
-                    p = _source.localToGlobal(p);
-                    new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
-                    g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
-                } else {
-//                    g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
-                    g.windowsManager.closeAllWindows();
-                    g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+        if (_type != SMALL_CELL) return;
+        _source.visible = true;
+        _txt.visible = false;
+        if (_proposeBtn) return;
+        _proposeBtn = new CButton();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_button_light'));
+        im.alignPivot();
+        _proposeBtn.addDisplayObject(im);
+        _proposeBtn.x = 42;
+        _proposeBtn.y = 30;
+        _source.addChild(_proposeBtn);
+
+        _sensPropose = new SensibleBlock();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+        MCScaler.scale(im, 26, 26);
+        var t:CTextField = new CTextField(60, 30, String(buyCount));
+        t.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _sensPropose.textAndImage(t, im, 85, 25);
+        _sensPropose.y = 67;
+        _source.addChild(_sensPropose);
+
+        var f1:Function = function ():void {
+            _proposeBtn.filter = null;
+            g.hint.hideIt();
+            if (g.user.hardCurrency >= buyCount) {
+                if (callback != null) {
+                    callback.apply();
                 }
-            };
-            _proposeBtn.clickCallback = f1;
-            _proposeBtn.hoverCallback = function():void {
-                _proposeBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-                    g.hint.showIt(String(g.managerLanguage.allTexts[434]));
-            };
-            _proposeBtn.outCallback = function():void {
-                _proposeBtn.filter = null;
-                g.hint.hideIt();
-            };
-        }
+                unfillIt();
+                _txt.visible = true;
+                _source.visible = true;
+                var p:Point = new Point(_source.width / 2, _source.height / 2);
+                p = _source.localToGlobal(p);
+                new RawItem(p, g.allData.atlas['interfaceAtlas'].getTexture('rubins'), buyCount, 0);
+                g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -buyCount);
+            } else {
+                g.windowsManager.closeAllWindows();
+                g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            }
+        };
+        _proposeBtn.clickCallback = f1;
+        _proposeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[434])); };
+        _proposeBtn.outCallback = function():void { g.hint.hideIt(); };
     }
 
     public function removePropose():void {
@@ -428,6 +396,11 @@ public function destroyTimer():void {
                 _proposeBtn.deleteIt();
                 _proposeBtn = null;
             }
+            if (_sensPropose) {
+                _source.removeChild(_sensPropose);
+                _sensPropose.deleteIt();
+                _sensPropose = null;
+            }
         } else {
             _txtSkip.text = '';
             _btnSkip.visible = false;
@@ -436,6 +409,7 @@ public function destroyTimer():void {
     }
 
     public function deleteIt():void {
+        g.gameDispatcher.removeFromTimer(render);
         if (_armatureBoom) {
             WorldClock.clock.remove(_armatureBoom);
             _source.removeChild(_armatureBoom.display as StarlingArmatureDisplay);
@@ -445,16 +419,6 @@ public function destroyTimer():void {
             _source.removeChild(_txt);
             _txt.deleteIt();
             _txt = null;
-        }
-        if (txtPropose) {
-            if (_proposeBtn) _proposeBtn.removeChild(txtPropose);
-            txtPropose.deleteIt();
-            txtPropose = null;
-        }
-        if (txtPropose2) {
-            if (_proposeBtn)_proposeBtn.removeChild(txtPropose2);
-            txtPropose2.deleteIt();
-            txtPropose2 = null;
         }
         if (_txtSkip) {
             if (_btnSkip) _btnSkip.removeChild(_txtSkip);
@@ -481,21 +445,21 @@ public function destroyTimer():void {
             _proposeBtn.deleteIt();
             _proposeBtn = null;
         }
+        if (_sensPropose) {
+            _source.removeChild(_sensPropose);
+            _sensPropose.deleteIt();
+            _sensPropose = null;
+        }
         if (_btnSkip) {
             _source.removeChild(_btnSkip);
             _btnSkip.deleteIt();
             _btnSkip = null;
         }
-
-        if (_rubinSmall) _rubinSmall.filter = null;
-        g.gameDispatcher.removeFromTimer(render);
         _source.dispose();
         _source = null;
         _timerFinishCallback = null;
         _skipCallback = null;
-        if (_resource) {
-            _resource = null;
-        }
+        _resource = null;
     }
 
 }

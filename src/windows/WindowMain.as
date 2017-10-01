@@ -43,8 +43,8 @@ public class WindowMain {
     protected var SOUND_OPEN:int = 0;
     protected var onWoShowCallback:Function;
     protected var _woBGNew:WindowBackgroundNew;
+    protected var _blackAlpha:Number = .5;    
     public var isCashed:Boolean = false;
-    
 
     public function WindowMain() {
         _source = new Sprite();
@@ -161,9 +161,8 @@ public class WindowMain {
         g.cont.windowsCont.addChildAt(_black, 0);
         _black.alpha = .0;
         _black.endClickCallback = onBGClick;
-        var c:Number = .5;
-        if (g.tuts && g.tuts.isTuts) c = .7;
-        TweenMax.to(_black, .2, {alpha:c});
+        if (_blackAlpha && g.tuts && g.tuts.isTuts) _blackAlpha = .7;
+        if (_blackAlpha) TweenMax.to(_black, .2, {alpha:_blackAlpha});
     }
 
     private function removeBlackBG():void {

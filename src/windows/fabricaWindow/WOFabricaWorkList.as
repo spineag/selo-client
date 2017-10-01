@@ -11,7 +11,6 @@ import windows.WindowsManager;
 
 public class WOFabricaWorkList {
     public var maxCount:int;
-    [ArrayElementType('windows.fabricaWindow.WOFabricaWorkListItem')]
     private var _arrItems:Array;
     public var arrRecipes:Array;
     private var _parent:Sprite;
@@ -30,15 +29,13 @@ public class WOFabricaWorkList {
 
     private function createItems():void {
         var item:WOFabricaWorkListItem;
-        item = new WOFabricaWorkListItem(WOFabricaWorkListItem.BIG_CELL,0, _woFabrica);
-        item.source.x = -165;
-        item.source.y = 50;
+        item = new WOFabricaWorkListItem(WOFabricaWorkListItem.BIG_CELL, 0, _woFabrica);
         _parent.addChild(item.source);
         _arrItems.push(item);
         for (var i:int = 0; i < 8; i++) {
-            item = new WOFabricaWorkListItem('small',i+1, _woFabrica);
-            item.source.x = -50 + (i%4)*55;
-            item.source.y = 50 + int(i/4)*53;
+            item = new WOFabricaWorkListItem(WOFabricaWorkListItem.SMALL_CELL, i+1, _woFabrica);
+            item.source.x = 120 + (i%4)*94;
+            item.source.y = int(i/4)*94;
             _parent.addChild(item.source);
             _arrItems.push(item);
         }
@@ -46,14 +43,12 @@ public class WOFabricaWorkList {
 
     public function fillIt(arrCurList:Array, fabrica:Fabrica):void {
         try {
-            for (var i:int = 0; i < arrCurList.length; i++) {
-                addResource(arrCurList[i]);
-            }
+            for (var i:int = 0; i < arrCurList.length; i++) { addResource(arrCurList[i]); }
             _fabrica = fabrica;
             maxCount = _fabrica.dataBuild.countCell;
             if (maxCount < 9) {
                 var price:int = 6 + (maxCount - g.allData.getBuildingById(_fabrica.dataBuild.id).startCountCell)*3;
-                _arrItems[maxCount].showBuyPropose(price, onBuyNewCell);
+                (_arrItems[maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);
             }
             for (i=1; i<maxCount; i++) {
                 _arrItems[i].source.visible = true;
@@ -65,7 +60,7 @@ public class WOFabricaWorkList {
     }
     
     public function butNewCellFromWO():void {
-        _arrItems[maxCount].removePropose();
+        (_arrItems[maxCount] as WOFabricaWorkListItem).removePropose();
         onBuyNewCell();
     }
 
@@ -83,7 +78,7 @@ public class WOFabricaWorkList {
         var ar:Array = arrRecipes.slice(1); // don't use first recipe, because it was just skipped
         arrRecipes.length = 0;
         for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].unfillIt();
+            (_arrItems[i] as WOFabricaWorkListItem).unfillIt();
         }
         fillIt(ar, _fabrica);
     }
@@ -94,46 +89,38 @@ public class WOFabricaWorkList {
         var ar:Array = arrRecipes.slice();
         arrRecipes.length = 0;
         for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].unfillIt();
+            (_arrItems[i] as WOFabricaWorkListItem).unfillIt();
         }
         fillIt(ar, _fabrica);
     }
 
-    public function get isFull():Boolean {
-        return arrRecipes.length >= maxCount;
-    }
-
-    public function get priceForNewCell():int {
-        return 6 + (maxCount - g.allData.getBuildingById(_fabrica.dataBuild.id).startCountCell)*3;
-    }
+    public function get isFull():Boolean { return arrRecipes.length >= maxCount; }
+    public function get priceForNewCell():int { return 6 + (maxCount - g.allData.getBuildingById(_fabrica.dataBuild.id).startCountCell)*3; }
+    private function activateTimer():void { (_arrItems[0] as WOFabricaWorkListItem).activateTimer(onFinishTimer); }
 
     public function addResource(resource:ResourceItem, buy:Boolean = false):void {
-        _arrItems[arrRecipes.length].fillData(resource, buy);
+        (_arrItems[arrRecipes.length] as WOFabricaWorkListItem).fillData(resource, buy);
         arrRecipes.push(resource);
         if (arrRecipes.length == 1) {
             activateTimer();
-            _arrItems[0].skipCallback = onSkip;
+            (_arrItems[0] as WOFabricaWorkListItem).skipCallback = onSkip;
         } else {
             for (var i:int = 1; i < arrRecipes.length; i++) {
-                _arrItems[i].skipSmallCallback = onSkipSmall;
+                (_arrItems[i] as WOFabricaWorkListItem).skipSmallCallback = onSkipSmall;
             }
         }
-    }
-
-    private function activateTimer():void {
-        _arrItems[0].activateTimer(onFinishTimer);
     }
 
     private function onFinishTimer():void {
         var i:int;
         for (i=0; i<_arrItems.length; i++) {
-            _arrItems[i].unfillIt();
+            (_arrItems[i] as WOFabricaWorkListItem).unfillIt();
             visibleSource();
         }
         arrRecipes.shift();
         if (arrRecipes.length) {
             for (i=0; i<arrRecipes.length; i++) {
-                _arrItems[i].fillData(arrRecipes[i]);
+                (_arrItems[i] as WOFabricaWorkListItem).fillData(arrRecipes[i]);
             }
             activateTimer();
         }
@@ -142,7 +129,7 @@ public class WOFabricaWorkList {
     private function visibleSource():void {
         if (maxCount < 9) {
             var price:int = 6 + (maxCount - g.allData.getBuildingById(_fabrica.dataBuild.id).startCountCell)*3;
-            _arrItems[maxCount].showBuyPropose(price, onBuyNewCell);
+            (_arrItems[maxCount] as WOFabricaWorkListItem).showBuyPropose(price, onBuyNewCell);
         }
         for (var i:int=1; i<maxCount; i++) {
             _arrItems[i].source.visible = true;
@@ -153,7 +140,7 @@ public class WOFabricaWorkList {
         arrRecipes.length = 0;
         for (var i:int = 0; i < _arrItems.length; i++) {
             _parent.removeChild(_arrItems[i].source);
-            _arrItems[i].deleteIt();
+            (_arrItems[i] as WOFabricaWorkListItem).deleteIt();
         }
         _arrItems.length = 0;
         _fabrica = null;
@@ -161,11 +148,8 @@ public class WOFabricaWorkList {
     }
 
     public function getSkipBtnProperties():Object {
-        if (_arrItems.length) {
-            return _arrItems[0].getSkipBtnProperties();
-        } else {
-            return {};
-        }
+        if (_arrItems.length)  return (_arrItems[0] as WOFabricaWorkListItem).getSkipBtnProperties();
+        else return {};
     }
 }
 }

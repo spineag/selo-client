@@ -242,7 +242,6 @@ public class MarketItem {
             _txtBuyCell.x = 15;
             _txtBuyCell.y = 3;
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-            im.alignPivot();
             _btnBuyCont = new CButton();
             _btnBuyCont.addButtonTexture(100, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
             _btnBuyCont.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);

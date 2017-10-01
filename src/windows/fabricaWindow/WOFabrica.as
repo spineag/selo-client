@@ -4,13 +4,26 @@
  */
 package windows.fabricaWindow {
 import build.fabrica.Fabrica;
+
+import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import flash.geom.Rectangle;
+
+import manager.ManagerFilters;
+
 import resourceItem.ResourceItem;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
+
+import utils.CButton;
+import utils.CTextField;
+
 import windows.WOComponents.Birka;
+import windows.WOComponents.WindowBackgroundFabrica;
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -18,28 +31,68 @@ public class WOFabrica extends WindowMain {
     private var _list:WOFabricaWorkList;
     private var _arrFabricaItems:Array;
     private var _callbackOnClick:Function;
-    private var _topBG:Sprite;
+    private var _topBG:WindowBackgroundFabrica;
     private var _shift:int;
-    private var _arrShiftBtns:Array;
     private var _arrAllRecipes:Array;
-    private var _bottomBG:Sprite;
     private var _fabrica:Fabrica;
-    private var _birka:Birka;
+    private var _txtWindowName:CTextField;
+    private var _leftArrow:CButton;
+    private var _rightArrow:CButton;
+    private var _mask:Sprite;
+    private var _cont:Sprite;
+    private var _isAnim:Boolean;
+    private var _listCont:Sprite;
 
     public function WOFabrica() {
         super();
         _windowType = WindowsManager.WO_FABRICA;
-        _arrShiftBtns = [];
-        _woHeight = 455;
-        _woWidth = 580;
-        _birka = new Birka(String(g.managerLanguage.allTexts[429]), _source, 455, 580);
-        _birka.flipIt();
-        _birka.source.rotation = Math.PI/2;
+        _woHeight = 532;
+        _woWidth = 746;
+        _blackAlpha = 0;
+        _shift = 0;
         _callbackClickBG = onClickExit;
-        createTopBG();
-        createBottomBG();
-        createFabricaItems();
-        _list = new WOFabricaWorkList(_source,this);
+        _topBG = new WindowBackgroundFabrica(526, 164, 54);
+        _topBG.y = -_woHeight/2 + 120;
+        _source.addChild(_topBG);
+        _txtWindowName = new CTextField(300, 50, '');
+        _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtWindowName.x = -150;
+        _txtWindowName.y = -_woHeight/2 + 32;
+        _source.addChild(_txtWindowName);
+        _mask = new Sprite();
+        _mask.mask = new Quad(524,100);
+        _mask.x = -272;
+        _mask.y = -_woHeight/2 + 88;
+        _cont = new Sprite();
+        _mask.addChild(_cont);
+        _source.addChild(_mask);
+        createArrows();
+        _listCont = new Sprite();
+        _listCont.x = -_woWidth/2 + 135;
+        _listCont.y = -_woHeight/2 + 240;
+        _source.addChild(_listCont);
+        _list = new WOFabricaWorkList(_listCont, this);
+    }
+
+    private function createArrows():void {
+        _leftArrow = new CButton();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_arrow_red'));
+        im.alignPivot();
+        _leftArrow.addChild(im);
+        _leftArrow.clickCallback = onClickLeft;
+        _leftArrow.x = -_woWidth/2 + 84;
+        _leftArrow.y = -_woHeight/2 + 148;
+        _source.addChild(_leftArrow);
+
+        _rightArrow = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_arrow_red'));
+        im.scaleX = -1;
+        im.alignPivot();
+        _rightArrow.addChild(im);
+        _rightArrow.clickCallback = onClickRight;
+        _rightArrow.x = _woWidth/2 - 84;
+        _rightArrow.y = -_woHeight/2 + 148;
+        _source.addChild(_rightArrow);
     }
 
     private function onClickExit(e:Event = null):void {
@@ -54,73 +107,47 @@ public class WOFabrica extends WindowMain {
         _arrAllRecipes = params[0];
         _shift = 0;
         fillFabricaItems();
-        createShiftBtns();
-        if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
         _list.fillIt(params[1], _fabrica);
-        _birka.updateText(_fabrica.dataBuild.name);
-        _birka.source.x = 270 - _birka.bg.height;
-        showAnimateFabricaItems();
+        _txtWindowName.text = _fabrica.dataBuild.name;
+        checkArrows();
         super.showIt();
     }
 
-    private function createFabricaItems():void {
+    private function fillFabricaItems():void {
         var item:WOItemFabrica;
         _arrFabricaItems = [];
-        for (var i:int = 0; i < 5; i++) {
+        for (var i:int=0; i<_arrAllRecipes.length; i++) {
             item = new WOItemFabrica();
-            item.setCoordinates(-_woWidth/2 + 70 + i*107, -_woHeight/2 + 115);
-            _source.addChild(item.source);
+            item.fillData(_arrAllRecipes[i], onItemClick);
+            item.setCoordinates(58 + i*106, 54);
+            _cont.addChild(item.source);
             _arrFabricaItems.push(item);
         }
     }
-    
-    private function fillFabricaItems():void {
-        var arr:Array = [];
-        for (var i:int=0; i<5; i++) {
-            if (_arrAllRecipes[_shift*5 + i]) {
-                arr.push(_arrAllRecipes[_shift*5 + i]);
-            } else {
-                break;
-            }
-        }
-        for (i=0; i<arr.length; i++) {
-            if (arr[i].blockByLevel - 1 <= g.user.level)
-             _arrFabricaItems[i].fillData(arr[i], onItemClick);
-        }
+
+    private function onClickLeft():void {
+        if (_isAnim) return;
+        _shift -= 4;
+        if (_shift < 0) _shift = 0;
+        _isAnim = true;
+        TweenMax.to(_cont, .3, {x: -_shift*106, onComplete: function():void {_isAnim = false; checkArrows();} });
     }
 
-    private function showAnimateFabricaItems():void {
-        var delay:Number = .1;
-        for (var i:int = 0; i < _arrFabricaItems.length; i++) {
-            (_arrFabricaItems[i] as WOItemFabrica).showAnimateIt(delay);
-            delay += .1;
-        }
+    private function onClickRight():void {
+        if (_isAnim) return;
+        _shift += 4;
+        if (_shift > _arrFabricaItems.length - 4) _shift = _arrFabricaItems.length - 4;
+        _isAnim = true;
+        TweenMax.to(_cont, .3, {x: -_shift*106, onComplete: function():void {_isAnim = false; checkArrows();} });
     }
 
-    private function animateChangeFabricaItems():void {
-        var arr:Array = [];
-        for (var i:int=0; i<5; i++) {
-            if (_arrAllRecipes[_shift*5 + i]) {
-                arr.push(_arrAllRecipes[_shift*5 + i]);
-            } else {
-                break;
-            }
-        }
-        var delay:Number = .1;
-        for (i = 0; i < _arrFabricaItems.length; i++) {
-            if (arr[i]) {
-                (_arrFabricaItems[i] as WOItemFabrica).showChangeAnimate(delay, arr[i], onItemClick);
-            } else {
-                (_arrFabricaItems[i] as WOItemFabrica).showChangeAnimate(delay, null, null);
-            }
-            delay += .1;
-        }
+    private function checkArrows():void {
+        _leftArrow.visible = _shift > 0;
+        _rightArrow.visible = _shift < _arrFabricaItems.length - 4;
     }
 
-    private function onBuyResource(obj:Object, lastRes:Boolean = false):void {
-//        super.showIt();
-        onItemClick(obj, lastRes);
-    }
+    public function getSkipBtnProperties():Object { return _list.getSkipBtnProperties(); }
+    private function onBuyResource(obj:Object, lastRes:Boolean = false):void { onItemClick(obj, lastRes); }
 
     private function onItemClick(dataRecipe:Object, lastRes:Boolean = false):void {
         var obj:Object;
@@ -186,103 +213,10 @@ public class WOFabrica extends WindowMain {
     }
 
     private function onBuyNewCellFromWO():void { // or skip first cell if we can't buy cell
-        if (_fabrica.dataBuild.countCell >= 9) {
-            _list.onSkip();
-        } else {
-            _list.butNewCellFromWO();
-        }
+        if (_fabrica.dataBuild.countCell >= 9)  _list.onSkip();
+        else  _list.butNewCellFromWO();
     }
 
-    private function createTopBG():void {
-        _topBG = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_l'));
-        _topBG.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_r'));
-        im.x = _woWidth - im.width;
-        _topBG.addChild(im);
-        for (var i:int=0; i<10; i++) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_c'));
-            im.x = 50*(i+1);
-            _topBG.addChildAt(im, 0);
-        }
-        _topBG.x = -_woWidth/2;
-        _topBG.y = -_woHeight/2 + 80;
-        _source.addChild(_topBG);
-    }
-
-    private function createShiftBtns():void {
-        var item:WOFabricNumber;
-        var n:int = 0;
-        var i:int;
-        for (i = 0; i < _arrAllRecipes.length; i++) {
-            if (_arrAllRecipes[i].blockByLevel <= g.user.level) n++;
-        }
-        if ( n > 5 && n <= 10) {
-            for (i= 0; i < 2; i++) {
-                item = new WOFabricNumber(i+1);
-                item.source.x = -_woWidth / 2 + 220 + i * (42);
-                item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,1);
-                _arrShiftBtns.push(item);
-                item.source.endClickParams = i + 1;
-                item.source.endClickCallback = activateShiftBtn;
-            }
-        } else if (n > 10 && n <= 15) {
-            for (i= 0; i < 3; i++) {
-                item = new WOFabricNumber(i+1);
-                item.source.x = -_woWidth / 2 + 220 + i * (42);
-                item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,1);
-                _arrShiftBtns.push(item);
-                item.source.endClickParams = i + 1;
-                item.source.endClickCallback = activateShiftBtn;
-            }
-        } else if (n > 15 && n <= 20) {
-            for (i= 0; i < 4; i++) {
-                item = new WOFabricNumber(i+1);
-                item.source.x = -_woWidth / 2 + 220 + i * (42);
-                item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,1);
-                _arrShiftBtns.push(item);
-                item.source.endClickParams = i + 1;
-                item.source.endClickCallback = activateShiftBtn;
-            }
-        }
-    }
-
-    private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
-        for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _arrShiftBtns[i].source.y = -_woHeight/2 + 117;
-        }
-
-        _arrShiftBtns[n-1].source.y += 8;
-        _shift = n-1;
-        if (needUpdate) {
-            animateChangeFabricaItems();
-        }
-    }
-
-    private function createBottomBG():void {
-        _bottomBG = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_box_l'));
-        _bottomBG.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_box_r'));
-        im.x = 374 - im.width;
-        _bottomBG.addChild(im);
-        for (var i:int=0; i<6; i++) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_box_c'));
-            im.x = 50*(i+1);
-            _bottomBG.addChildAt(im, 0);
-        }
-        _bottomBG.x = -_bottomBG.width/2;
-        _bottomBG.y = -_woHeight/2 + 260;
-        _source.addChild(_bottomBG);
-    }
-
-    public function getSkipBtnProperties():Object {
-        return _list.getSkipBtnProperties();
-    }
-    
     public function addArrowForPossibleRawItems(id:int = 0):void {
         for (var i:int=0; i<_arrFabricaItems.length; i++) {
             if (_arrFabricaItems[i].dataRecipe && _arrFabricaItems[i].dataRecipe.idResource == id || id == 0)(_arrFabricaItems[i] as WOItemFabrica).addArrowIfPossibleToRaw();
@@ -290,12 +224,7 @@ public class WOFabrica extends WindowMain {
     }
 
     override protected function deleteIt():void {
-        for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _source.removeChild(_arrShiftBtns[i].source);
-            _arrShiftBtns[i].deleteIt();
-        }
-        _arrShiftBtns.length = 0;
-        for (i = 0; i < _arrFabricaItems.length; i++) {
+        for (var i:int = 0; i < _arrFabricaItems.length; i++) {
             _source.removeChild(_arrFabricaItems[i].source);
             _arrFabricaItems[i].deleteIt();
         }
@@ -304,7 +233,6 @@ public class WOFabrica extends WindowMain {
         _list = null;
         _fabrica = null;
         _topBG = null;
-        _bottomBG = null;
         _callbackOnClick = null;
         _arrAllRecipes.length = 0;
         super.deleteIt();

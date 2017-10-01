@@ -432,7 +432,6 @@ public class ShopNewListItem {
             if (!_data.currency || _data.currency[0] == DataMoney.SOFT_CURRENCY) {
                 _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-                im.alignPivot();
                 MCScaler.scale(im, 24, 24);
                 t = new CTextField(90, 30, String(_costCount));
                 t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
@@ -442,7 +441,6 @@ public class ShopNewListItem {
             } else if (_data.currency[0] == DataMoney.HARD_CURRENCY) {
                 _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-                im.alignPivot();
                 MCScaler.scale(im, 24, 24);
                 t = new CTextField(90, 30, String(_costCount));
                 t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
@@ -510,7 +508,6 @@ public class ShopNewListItem {
             case DataMoney.YELLOW_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone')); break;
             case DataMoney.GREEN_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone')); break;
         }
-        im.alignPivot();
         MCScaler.scale(im, 24, 24);
         var t:CTextField = new CTextField(90, 33, String(cost));
         t.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);

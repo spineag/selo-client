@@ -20,7 +20,6 @@ import tutorial.managerCutScenes.ManagerCutScenes;
 import windows.WOComponents.Birka;
 import windows.WindowMain;
 import windows.WindowsManager;
-import windows.fabricaWindow.WOFabricNumber;
 
 public class WOBuyPlant extends WindowMain {
     private var _ridge:Ridge;
@@ -66,7 +65,6 @@ public class WOBuyPlant extends WindowMain {
             return;
         }
         updatePlantArray();
-        createShiftBtns();
         activateShiftBtn(g.user.lastVisitPlant, false);
         fillPlantItems();
         showAnimatePlantItems();
@@ -177,47 +175,6 @@ public class WOBuyPlant extends WindowMain {
             item.setCoordinates(-_woWidth/2 + 70 + i*107, -_woHeight/2 + 115);
             _source.addChild(item.source);
             _arrPlantItems.push(item);
-        }
-    }
-
-    private function createShiftBtns():void {
-        var item:WOFabricNumber;
-        var n:int = 0;
-        var i:int;
-        _arrShiftBtns = [];
-        for (i = 0; i < _arrAllPlants.length; i++) {
-            if (_arrAllPlants[i].blockByLevel <= g.user.level) n++;
-        }
-        if ( n > 5 && n <= 10) {
-            for (i= 0; i < 2; i++) {
-                item = new WOFabricNumber(i+1);
-                item.source.x = -_woWidth / 2 + 180 + i * (42);
-                item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,0);
-                _arrShiftBtns.push(item);
-                item.source.endClickParams = i + 1;
-                item.source.endClickCallback = activateShiftBtn;
-            }
-        } else if (n > 10 && n <= 15) {
-            for (i= 0; i < 3; i++) {
-                item = new WOFabricNumber(i+1);
-                item.source.x = -_woWidth / 2 + 180 + i * (42);
-                item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,0);
-                _arrShiftBtns.push(item);
-                item.source.endClickParams = i + 1;
-                item.source.endClickCallback = activateShiftBtn;
-            }
-        } else if (n > 15 && n <= 20) {
-            for (i= 0; i < 4; i++) {
-                item = new WOFabricNumber(i+1);
-                item.source.x = -_woWidth / 2 + 180 + i * (42);
-                item.source.y = -_woHeight / 2 + 117;
-                _source.addChildAt(item.source,0);
-                _arrShiftBtns.push(item);
-                item.source.endClickParams = i + 1;
-                item.source.endClickCallback = activateShiftBtn;
-            }
         }
     }
 

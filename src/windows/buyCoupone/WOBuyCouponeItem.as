@@ -62,7 +62,6 @@ public class WOBuyCouponeItem {
 //            txt.x = 5;
 //            _btn.addChild(_txtBtn);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-            im.alignPivot();
             var sens:SensibleBlock = new SensibleBlock();
             sens.textAndImage(_txtBtn,im,100);
             _btn.addSensBlock(sens,0,18);
