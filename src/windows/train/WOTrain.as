@@ -10,9 +10,7 @@ import manager.ManagerFilters;
 import resourceItem.DropItem;
 import social.SocialNetworkEvent;
 import starling.display.Image;
-import starling.display.Sprite;
 import starling.events.Event;
-import starling.utils.Align;
 import starling.utils.Color;
 import ui.xpPanel.XPStar;
 import user.Someone;
@@ -21,16 +19,11 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
 import utils.TimeUtils;
-
 import windows.WOComponents.BackgroundMilkIn;
-import windows.WOComponents.Birka;
 import windows.WOComponents.BackgroundYellowOut;
-import windows.WOComponents.BackgroundWhiteIn;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
-import windows.orderWindow.WOOrderNew;
-import windows.tipsWindow.WOTipsItem;
 
 public class WOTrain extends WindowMain {
     public static var CELL_RED:int = 3;

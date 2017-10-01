@@ -473,14 +473,14 @@ public class Train extends WorldObject{
         }
     }
 
-    public function fullTrain(free:Boolean):void {
+    public function fullTrain(full:Boolean):void {
         g.directServer.releaseUserTrainPack(_train_db_id, onReleasePack);
-        if (free){
+        if (!full){
             onOut();
             return;
         }
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp * g.managerParty.coefficient);
-        else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp);
+            else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp);
         var prise:Object = {};
         var priseCoupone:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;

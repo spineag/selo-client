@@ -234,9 +234,10 @@ public class WOFabrica extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (!_source) return;
         for (var i:int = 0; i < _arrFabricaItems.length; i++) {
             _source.removeChild(_arrFabricaItems[i].source);
-            _arrFabricaItems[i].deleteIt();
+            (_arrFabricaItems[i] as WOItemFabrica).deleteIt();
         }
         _arrFabricaItems.length = 0;
         if (_list) _list.deleteIt();
@@ -245,6 +246,12 @@ public class WOFabrica extends WindowMain {
         _topBG = null;
         _callbackOnClick = null;
         _arrAllRecipes.length = 0;
+        _source.removeChild(_leftArrow);
+        _leftArrow.deleteIt();
+        _source.removeChild(_rightArrow);
+        _rightArrow.deleteIt();
+        _source.removeChild(_txtWindowName);
+        _txtWindowName.deleteIt();
         super.deleteIt();
     }
 }
