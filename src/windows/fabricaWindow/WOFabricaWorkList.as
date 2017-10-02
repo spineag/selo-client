@@ -30,12 +30,13 @@ public class WOFabricaWorkList {
     private function createItems():void {
         var item:WOFabricaWorkListItem;
         item = new WOFabricaWorkListItem(WOFabricaWorkListItem.BIG_CELL, 0, _woFabrica);
+        item.source.y = 25;
         _parent.addChild(item.source);
         _arrItems.push(item);
         for (var i:int = 0; i < 8; i++) {
             item = new WOFabricaWorkListItem(WOFabricaWorkListItem.SMALL_CELL, i+1, _woFabrica);
             item.source.x = 120 + (i%4)*94;
-            item.source.y = int(i/4)*94;
+            item.source.y = 25 + int(i/4)*94;
             _parent.addChild(item.source);
             _arrItems.push(item);
         }

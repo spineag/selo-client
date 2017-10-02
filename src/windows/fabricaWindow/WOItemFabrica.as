@@ -73,7 +73,7 @@ public class WOItemFabrica {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woItemFabrica');
             return;
         }
-        MCScaler.scale(_icon, 80, 80);
+//        MCScaler.scale(_icon, 80, 80);
         _icon.alignPivot();
         source.addChild(_icon);
         if (_maxAlpha) source.isTouchable = source.visible = true;

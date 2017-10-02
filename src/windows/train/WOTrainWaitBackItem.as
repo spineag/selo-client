@@ -63,7 +63,7 @@ public class WOTrainWaitBackItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
-        _im.x = 60 - _im.width/2;
+        _im.x = 65 - _im.width/2;
         _im.y = 35 - _im.height/2;
         source.addChild(_im);
 

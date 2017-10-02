@@ -62,7 +62,7 @@ public class WOFabrica extends WindowMain {
         _source.addChild(_txtWindowName);
         _mask = new Sprite();
         _mask.mask = new Quad(524,100);
-        _mask.x = -272;
+        _mask.x = -268;
         _mask.y = -_woHeight/2 + 88;
         _cont = new Sprite();
         _mask.addChild(_cont);

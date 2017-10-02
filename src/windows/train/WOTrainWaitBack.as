@@ -55,11 +55,13 @@ public class WOTrainWaitBack extends WindowMain{
         _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
 //        _btn.addButtonTexture(172, 50, CButton.GREEN, true);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
-        im.y = 10;
-        im.x = 125;
+        im.alignPivot();
+
+//        im.y = 10;
+//        im.x = 125;
 //        _btn.addDisplayObject(im);
-        _txtNow = new CTextField(100,50,String(g.managerLanguage.allTexts[302]) + 30);
-        _txtNow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtNow = new CTextField(100,50,String(g.managerLanguage.allTexts[302]) + ' ' + 30);
+        _txtNow.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _txtNow.x = 5;
 //        _btn.addChild(_txtNow);
 //        _txtCost = new CTextField(50,50,"30");
@@ -69,39 +71,39 @@ public class WOTrainWaitBack extends WindowMain{
 
         var sens:SensibleBlock;
         sens = new SensibleBlock();
-        sens.textAndImage(_txtNow,im,152);
-        _btn.addSensBlock(sens,0,18);
-        _btn.y = 170;
+        sens.textAndImage(_txtNow,im,172);
+        _btn.addSensBlock(sens,0,25);
+        _btn.y = 180;
         _btn.clickCallback = onClickBtn;
         _source.addChild(_btn);
 
-        _txtArrive = new CTextField(300,50,String(g.managerLanguage.allTexts[303]));
-        _txtArrive.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtArrive.x = -150;
-        _txtArrive.y = -145;
+        _txtArrive = new CTextField(500,50,String(g.managerLanguage.allTexts[303]));
+        _txtArrive.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtArrive.x = -255;
+        _txtArrive.y = -190;
         _source.addChild(_txtArrive);
 
         _txtNext = new CTextField(150,50,String(g.managerLanguage.allTexts[304]));
-        _txtNext.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtNext.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
         _txtNext.x = -80;
-        _txtNext.y = -60;
+        _txtNext.y = -20;
         _source.addChild(_txtNext);
 
-        _txtTime2 = new CTextField(300,50,String(g.managerLanguage.allTexts[305]));
-        _txtTime2 .setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTime2 = new CTextField(500,50,String(g.managerLanguage.allTexts[305]));
+        _txtTime2 .setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
         _txtTime2.cacheIt = false;
-        _txtTime2 .x = -150;
+        _txtTime2 .x = -250;
         _txtTime2 .y = -120;
         _source.addChild(_txtTime2);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
-        im.x = -55;
-        im.y = -80;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock'));
+        im.x = -70;
+        im.y = -70;
         _source.addChild(im);
         _txtTime = new CTextField(120,50,"");
-        _txtTime.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTime.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtTime.alignH = Align.LEFT;
         _txtTime.x = -15;
-        _txtTime.y = -85;
+        _txtTime.y = -70;
         _source.addChild(_txtTime);
     }
 
@@ -138,16 +140,16 @@ public class WOTrainWaitBack extends WindowMain{
         item1 = new WOTrainWaitBackItem();
         item1.fillIt(list[0], 1);
         item1.source.x = -225;
-//        item1.source.y = -20;
+        item1.source.y = 20;
         _contItem.addChild(item1.source);
         item2 = new WOTrainWaitBackItem();
         item2.fillIt(list[4], 4);
         item2.source.x = -70;
-//        item2.source.y = -0;
+        item2.source.y = 20;
         _contItem.addChild(item2.source);
         item3 = new WOTrainWaitBackItem();
         item3.source.x = 90;
-//        item3.source.y = -20;
+        item3.source.y = 20;
         if (list.length <= 9) item3.fillIt(list[8], 8);
             else item3.fillIt(list[9], 9);
         _contItem.addChild(item3.source);
