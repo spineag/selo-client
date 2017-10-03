@@ -96,8 +96,13 @@ public class WOBuyCurrency extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (!_source) return;
         deleteLists();
-
+        _source.removeChild(_txtWindowName);
+        _txtWindowName.deleteIt();
+        _tabs.deleteIt();
+        _source.removeChild(_bigYellowBG);
+        _bigYellowBG.deleteIt();
         super.deleteIt();
     }
 
