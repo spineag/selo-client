@@ -39,15 +39,17 @@ public class Hint {
     public function Hint() {
         source = new Sprite();
         _txtHint = new CTextField(150,20,"");
-        _txtHint.setFormat(CTextField.MEDIUM18, 15,ManagerFilters.BLUE_COLOR);
+        _txtHint.setFormat(CTextField.BOLD18, 16,ManagerFilters.BLUE_COLOR);
         _txtHintTime = new CTextField(150,20,"");
-        _txtHintTime.setFormat(CTextField.MEDIUM18, 15, ManagerFilters.BLUE_COLOR);
+        _txtHintTime.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BLUE_COLOR);
         _txtHintTime.cacheIt = false;
         source.touchable = false;
         _isShow = false;
     }
 
     public function showIt(st:String, type:String = 'none', newX:int = 0, time:int = 0):void {
+        if(_isShow) return;
+        _isShow = true;
         _fabric = false;
         _catXp = false;
         _tips = false;
@@ -87,50 +89,42 @@ public class Hint {
         _type = type;
         _newX = newX;
 
-        var rectangle:Rectangle;
+        var rectangle:Rectangle = _txtHint.textBounds;
         if (!_catXp )  {
-            rectangle = _txtHint.textBounds;
-            _txtHint.x = 0;
+            _txtHint.x = 3;
             _txtHint.width = rectangle.width + 20;
-//            var tween:Tween = new Tween(source, 0.1);
-//            tween.scaleTo(1);
-//            tween.onComplete = function ():void {
-//                g.starling.juggler.remove(tween);
-//            };
-//            g.starling.juggler.add(tween);
-        } else {
+        } else _txtHint.width = 150;
 
-            _txtHint.width = 150;
-        }
-        rectangle = _txtHint.textBounds;
-
-        _txtHint.height = int(rectangle.height) + 10;
         if (_fabric) {
-            _txtHintTime.height = int(rectangle.height) + 10;
+            if (rectangle.height <= 42 - 30) rectangle.height = 12;
+                else if (rectangle.height <= 67 - 30) rectangle.height = 47;
+//            _txtHintTime.height = int(rectangle.height) + 10;
             _txtHintTime.x = 0;
-            _txtHintTime.y = 20;
+            _txtHintTime.y = 33;
             _txtHintTime.width = int(rectangle.width) + 20;
+        } else {
+            if (rectangle.height <= 42) rectangle.height = 42;
+                else if (rectangle.height <= 67-10) rectangle.height = 57;
         }
+        _txtHint.height = int(rectangle.height) - 6;
         if (source.numChildren) {
             while (source.numChildren) source.removeChildAt(0);
         }
         var bg:HintBackground;
-        if (_fabric) bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 30);
-        else bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 12);
+        if (_fabric) bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 10);
+            else bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height));
         if (_catXp) {
-            if (g.user.language == ManagerLanguage.ENGLISH) _txtHint.x = int(bg.x) +2;
+            if (g.user.language == ManagerLanguage.ENGLISH) _txtHint.x = int(bg.x) + 2;
             else _txtHint.x = int(bg.x) + 8;
 
         }
         source.addChild(bg);
         source.addChild(_txtHint);
         if (_fabric) source.addChild(_txtHintTime);
-        if(_isShow) return;
-        _isShow = true;
         g.cont.hintCont.addChild(source);
         if (_tips) {
             source.x = g.ownMouse.mouseX;
-             source.y = int(g.managerResize.stageHeight - source.height) - 100;
+            source.y = int(g.managerResize.stageHeight - source.height) - 100;
         } else g.gameDispatcher.addEnterFrame(onEnterFrame);
 //        source.scaleX = source.scaleY = 0;
 //        tween = new Tween(source, 0.4);

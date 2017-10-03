@@ -145,9 +145,9 @@ public class LevelUpHint {
                     || b.buildType == BuildType.CAVE || b.buildType == BuildType.PAPER || b.buildType == BuildType.TRAIN) {
                 _txtName.text = String(b.name);
                 _txtName.x = -100;
-                _txtName.y = 25;
+                _txtName.y = 32;
                 wName = _txtName.textBounds.width + 40;
-                bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                bg = new HintBackground(wName, 67, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 g.cont.hintCont.addChild(_source);
@@ -159,7 +159,7 @@ public class LevelUpHint {
             _txtText.x = -100;
             _txtText.y = -5;
             wName = _txtText.textBounds.width + 40;
-            bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            bg = new HintBackground(wName, 67, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtText);
             g.cont.hintCont.addChild(_source);

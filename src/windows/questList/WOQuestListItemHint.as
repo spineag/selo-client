@@ -26,7 +26,7 @@ public class WOQuestListItemHint {
         _txtName = new CTextField(200, 30, _quest.questName);
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         var w:int = _txtName.textBounds.width + 20;
-        _bgTop = new HintBackground(w, 36, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _bgTop = new HintBackground(w, 42, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _bgTop.y = -40;
         _txtName.y = -94;
         _txtName.x = -100;
@@ -53,7 +53,7 @@ public class WOQuestListItemHint {
 
         w = _sp.width + 20;
         if (w < 70) w = 70;
-        _bgBottom = new HintBackground(w, 60, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+        _bgBottom = new HintBackground(w, 67, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
         _bgBottom.y = 40;
         _source.addChildAt(_bgBottom, 0);
     }

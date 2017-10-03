@@ -24,7 +24,7 @@ import hint.LevelUpHint;
 import hint.MarketHint;
 import hint.ResourceHint;
 import hint.TreeHint;
-import hint.fabricHint.FabricHint;
+import hint.FabricHint;
 import hint.Hint;
 import hint.MouseHint;
 import hint.TimerHint;

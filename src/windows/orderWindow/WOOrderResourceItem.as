@@ -91,10 +91,11 @@ public class WOOrderResourceItem {
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
-        g.resourceHint.showIt(_id,source.x,source.y,source);
+        g.resourceHint.showIt(_id, source.x - source.width/2, source.y - source.height/2, source);
     }
 
     private function outCallback():void {
+        if (!_onHover) return;
         _onHover = false;
         g.resourceHint.hideIt();
     }
