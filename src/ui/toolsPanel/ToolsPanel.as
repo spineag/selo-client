@@ -140,6 +140,11 @@ public class ToolsPanel {
                 break;
             case 'move':
                 if (g.managerCutScenes.isCutScene) return;
+                if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsModifier.cancelMove();
+                    return;
+                }
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();
@@ -153,6 +158,11 @@ public class ToolsPanel {
                 break;
             case 'flip':
                 if (g.managerCutScenes.isCutScene) return;
+                if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.toolsModifier.cancelMove();
+                    return;
+                }
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();

@@ -14,6 +14,7 @@ import mouse.ToolsModifier;
 import starling.animation.Tween;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.styles.DistanceFieldStyle;
 
@@ -79,7 +80,15 @@ public class SoftHardCurrency {
         _contSoft.x = 180;
         _txtHard.y = -8;
         _txtSoft.y = -8;
+        _txtSoft.alignH = Align.LEFT;
+        _txtHard.alignH = Align.LEFT;
+        _txtSoft.x = 60 - _txtSoft.textBounds.width/2;
+        _txtHard.x = 60 - _txtHard.textBounds.width/2;
         g.cont.interfaceCont.addChild(_source);
+//        var q:Quad = new Quad(5,5,Color.BLACK);
+//        q.x = 65;
+//        _contHard.addChild(q);
+
     }
 
     private function createPanel(isSoft:Boolean, p:CSprite, f:Function):void {

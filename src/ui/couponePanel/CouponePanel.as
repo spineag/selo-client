@@ -30,6 +30,7 @@ import windows.WindowsManager;
 public class CouponePanel {
     private var _source:CSprite;
     private var _imCoupone:Image;
+    private var _imCouponePlashka:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -40,14 +41,22 @@ public class CouponePanel {
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _source.endClickCallback = onClick;
-        _imCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture("vauchers_icon"));
+        _imCouponePlashka = new Image(g.allData.atlas['interfaceAtlas'].getTexture("vauchers_pt_2_icon"));
+        _imCouponePlashka.x = 75;
+        _imCouponePlashka.y = 47;
+        _imCouponePlashka.pivotX = _imCouponePlashka.width/2;
+        _imCouponePlashka.pivotY = _imCouponePlashka.width/2;
+        _source.addChild(_imCouponePlashka);
+
+        _imCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture("vauchers_pt_1_icon"));
         _imCoupone.x = 30;
         _imCoupone.y = 30;
-        _source.x = 50;
-        _source.y = 110;
+        _source.x = 30;
+        _source.y = 80;
         _imCoupone.pivotX = _imCoupone.width/2;
         _imCoupone.pivotY = _imCoupone.width/2;
         _source.addChild(_imCoupone);
+
         if (g.user.level < 11) _source.visible = false;
         else _source.visible = true;
     }

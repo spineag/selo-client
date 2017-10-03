@@ -68,7 +68,7 @@ public class XPPanel {
         _source.addChild(_txtLevel);
         _txtXPCount = new CTextField(123, 50, '0');
         _txtXPCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_TXT_UI, Color.WHITE);
-        _txtXPCount.x = 25;
+        _txtXPCount.x = 13;
         _txtXPCount.y = -6;
         _source.addChild(_txtXPCount);
         _source.hoverCallback = onHover;
