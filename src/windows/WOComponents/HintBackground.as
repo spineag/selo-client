@@ -65,8 +65,10 @@ public class HintBackground extends Sprite {
         } else {
             var im:Image;
             var h:int = 29;
-            if (typeTriangle == SMALL_TRIANGLE) im = new Image(te.getTexture('center_part_top_b_hint'));
-            else if (typeTriangle == LONG_TRIANGLE) im = new Image(te.getTexture('center_part_top_m_hint'));
+            if (typeTriangle == SMALL_TRIANGLE) {
+                im = new Image(te.getTexture('center_part_top_s_hint'));
+                h = 23;
+            } else if (typeTriangle == LONG_TRIANGLE) im = new Image(te.getTexture('center_part_top_m_hint'));
             else if (typeTriangle == BIG_TRIANGLE) im = new Image(te.getTexture('center_part_top_b_hint'));
             im.pivotX = im.width/2;
             im.pivotY = im.height;
