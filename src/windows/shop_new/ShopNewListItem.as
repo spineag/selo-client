@@ -433,20 +433,24 @@ public class ShopNewListItem {
                 _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
                 MCScaler.scale(im, 24, 24);
-                t = new CTextField(90, 30, String(_costCount));
-                t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                t = new CTextField(90, 36, String(_costCount));
+                if (g.user.softCurrencyCount >= _costCount)t.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                else t.setFormat(CTextField.BOLD24, 24, ManagerFilters.RED_TXT_NEW, Color.WHITE);
+//                t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
-                _btn.addSensBlock(sens,0,18);
+                _btn.addSensBlock(sens,0,16);
             } else if (_data.currency[0] == DataMoney.HARD_CURRENCY) {
                 _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
                 MCScaler.scale(im, 24, 24);
-                t = new CTextField(90, 30, String(_costCount));
-                t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                t = new CTextField(90, 36, String(_costCount));
+                if (g.user.hardCurrency >= _costCount)t.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                else t.setFormat(CTextField.BOLD24, 24, ManagerFilters.RED_TXT_NEW, Color.WHITE);
+//                t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
-                _btn.addSensBlock(sens,0,18);
+                _btn.addSensBlock(sens,0,16);
             } else {
                 _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.GREEN, true);
                 if (_data.currency.length == 1) {

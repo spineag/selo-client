@@ -153,7 +153,7 @@ public class WOFabrica extends WindowMain {
 
     private function checkArrows():void {
         _leftArrow.visible = _shift > 0;
-        _rightArrow.visible = _shift < _arrFabricaItems.length - 4;
+        _rightArrow.visible = _shift < _arrFabricaItems.length - 5;
     }
 
     public function getSkipBtnProperties():Object { return _list.getSkipBtnProperties(); }

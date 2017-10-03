@@ -140,7 +140,7 @@ public class WOFabricaWorkListItem {
             g.hint.hideIt();
             g.windowsManager.hideWindow(WindowsManager.WO_FABRICA);
             g.windowsManager.cashWindow = _woFabrica;
-            g.windowsManager.openWindow(WindowsManager.WO_FABRIC_DELETE_ITEM, makeSkipSmall);
+            g.windowsManager.openWindow(WindowsManager.WO_FABRIC_DELETE_ITEM, makeSkipSmall,_resource);
         }
     }
 

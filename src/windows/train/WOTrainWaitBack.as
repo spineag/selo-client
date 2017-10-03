@@ -86,7 +86,7 @@ public class WOTrainWaitBack extends WindowMain{
         _txtNext = new CTextField(150,50,String(g.managerLanguage.allTexts[304]));
         _txtNext.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
         _txtNext.x = -80;
-        _txtNext.y = -20;
+        _txtNext.y = -25;
         _source.addChild(_txtNext);
 
         _txtTime2 = new CTextField(500,50,String(g.managerLanguage.allTexts[305]));
@@ -140,16 +140,16 @@ public class WOTrainWaitBack extends WindowMain{
         item1 = new WOTrainWaitBackItem();
         item1.fillIt(list[0], 1);
         item1.source.x = -225;
-        item1.source.y = 20;
+        item1.source.y = 30;
         _contItem.addChild(item1.source);
         item2 = new WOTrainWaitBackItem();
         item2.fillIt(list[4], 4);
         item2.source.x = -70;
-        item2.source.y = 20;
+        item2.source.y = 30;
         _contItem.addChild(item2.source);
         item3 = new WOTrainWaitBackItem();
         item3.source.x = 90;
-        item3.source.y = 20;
+        item3.source.y = 30;
         if (list.length <= 9) item3.fillIt(list[8], 8);
             else item3.fillIt(list[9], 9);
         _contItem.addChild(item3.source);

@@ -161,11 +161,13 @@ public class ToolsModifier {
                  _mouseIcon.scaleX = _mouseIcon.scaleY = 1;
                  return;
              case MOVE:
-                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_move'));
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('move_icon'));
+                 MCScaler.scale(im,im.height-10,im.width-10);
                  if (im) _mouseIcon.addChild(im);
                  break;
              case FLIP:
-                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_rotate'));
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rotate_icon'));
+                 MCScaler.scale(im,im.height-10,im.width-10);
                  if (im) _mouseIcon.addChild(im);
                 break;
              case DELETE:
@@ -173,7 +175,8 @@ public class ToolsModifier {
                  if (im) _mouseIcon.addChild(im);
                 break;
              case INVENTORY:
-                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tools_panel_bt_inv'));
+                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('inventory_icon'));
+                 MCScaler.scale(im,im.height-10,im.width-10);
                  if (im) _mouseIcon.addChild(im);
                 break;
              case GRID_DEACTIVATED:

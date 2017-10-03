@@ -73,11 +73,11 @@ public class FriendPanel {
         var pl:HorizontalPlawka;
         pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_center'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_center'),
                 g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_right'), 110);
-        pl.x = 474;
+        pl.x = 494;
         pl.y = -3;
         _source.addChild(pl);
         pl = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_center'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_right'), 485);
+                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_right'), 505);
         _source.addChild(pl);
         _tabs = new FriendTabs(pl, onTabClick);
         _mask = new Sprite();
@@ -217,7 +217,7 @@ public class FriendPanel {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame'));
         _addFriendsBtn.addDisplayObject(im);
         _addFriendsBtn.setPivots();
-        _addFriendsBtn.x = 488 + _addFriendsBtn.width/2;
+        _addFriendsBtn.x = 508 + _addFriendsBtn.width/2;
         _addFriendsBtn.y = 15 + _addFriendsBtn.height/2;
         _addFriendsBtn.addTextField(79, 76, 0, 25, String(g.managerLanguage.allTexts[415]));
         _addFriendsBtn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -261,8 +261,8 @@ public class FriendPanel {
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('arrow_friends_left'));
             _leftArrow.addDisplayObject(im);
             _leftArrow.setPivots();
-            _leftArrow.x = 78 + _leftArrow.width / 2;
-            _leftArrow.y = 15 + _leftArrow.height / 2;
+            _leftArrow.x = 15 + _leftArrow.width / 2;
+            _leftArrow.y = 19 + _leftArrow.height / 2;
             _source.addChild(_leftArrow);
             _leftArrow.clickCallback = onLeftClick;
         }
@@ -273,8 +273,8 @@ public class FriendPanel {
             im.scaleX = -1;
             _rightArrow.addDisplayObject(im);
             _rightArrow.setPivots();
-            _rightArrow.x = 485 - _rightArrow.width / 2;
-            _rightArrow.y = 15 + _rightArrow.height / 2;
+            _rightArrow.x = 497 - _rightArrow.width / 2;
+            _rightArrow.y = 19 + _rightArrow.height / 2;
             _source.addChild(_rightArrow);
             _rightArrow.clickCallback = onRightClick;
         }
@@ -315,7 +315,6 @@ public class FriendPanel {
             }
         }
        _arrNeighborFriends = arr;
-        createArrows();
     }
 
     public function updateFriendsPanel():void {
@@ -357,14 +356,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(64, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 4;
-            txt.y = 12;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 217 + bt.width / 2;
-            bt.y = 15 + bt.height / 2;
+            bt.x = 208 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
 
@@ -375,14 +374,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 4;
-            txt.y = 12;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 303 + bt.width / 2;
-            bt.y = 15 +  bt.height / 2;
+            bt.x = 291 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
 
@@ -393,14 +392,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 4;
-            txt.y = 12;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 389 + bt.width / 2;
-            bt.y = 15 + bt.height / 2;
+            bt.x = 375 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
         } else if (_arrFriends.length == 1) {
@@ -412,14 +411,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 4;
-            txt.y = 12;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 303 + bt.width / 2;
-            bt.y = 15 + bt.height / 2;
+            bt.x = 291 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
 
@@ -430,14 +429,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 4;
-            txt.y = 12;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 369 + bt.width / 2;
-            bt.y = 15 + bt.height / 2;
+            bt.x = 375 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
         } else if (_arrFriends.length == 2) {
@@ -449,14 +448,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 4;
-            txt.y = 12;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 369 + bt.width / 2;
-            bt.y = 15 + bt.height / 2;
+            bt.x = 375 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
         }
@@ -476,7 +475,7 @@ public class FriendPanel {
         for (var i:int = 0; i < _arrNeighborFriends.length; i++) {
             item = new FriendItem(_arrNeighborFriends[i],i,false);
             _arrItems.push(item);
-            item.source.x = i*85;
+            item.source.x = i*82;
             item.source.y = 8;
             _cont.addChild(item.source);
         }
@@ -503,7 +502,7 @@ public class FriendPanel {
             for (i = 0; i < _arrNeighborFriends.length; i++) {
                 item = new FriendItem(_arrNeighborFriends[i], i,false);
                 _arrItems.push(item);
-                item.source.x = i * 85;
+                item.source.x = i * 82;
                 item.source.y = 8;
                 _cont.addChild(item.source);
             }
@@ -537,7 +536,7 @@ public class FriendPanel {
             for (i= 0; i < _arrNeighborFriends.length; i++) {
                 item = new FriendItem(_arrNeighborFriends[i],i,false);
                 _arrItems.push(item);
-                item.source.x = i*85;
+                item.source.x = i*82;
                 item.source.y = 8;
                 _cont.addChild(item.source);
             }
@@ -563,7 +562,7 @@ public class FriendPanel {
         for (i= 0; i < l; i++) {
             item = new FriendItem(_arrFriends[i],i);
             _arrItems.push(item);
-            item.source.x = i*85;
+            item.source.x = i*82;
             item.source.y = 8;
             _cont.addChild(item.source);
         }
@@ -597,7 +596,7 @@ public class FriendPanel {
 //            if(_arrFriends[_shift+i] is NeighborBot){
 //            }
             _arrItems.unshift(item);
-            item.source.x = 85 * (_shift + i);
+            item.source.x = 82 * (_shift + i);
             item.source.y = 8;
             _cont.addChild(item.source);
         }
@@ -622,7 +621,7 @@ public class FriendPanel {
         for (var i:int=0; i<newCount; i++) {
             if (_arrFriends[_shift + 4 + i]) {
                 item = new FriendItem(_arrFriends[_shift + 5 + i],_shift + 5 + i);
-                item.source.x = 85 * (_shift + 5 + i);
+                item.source.x = 82 * (_shift + 5 + i);
                 item.source.y = 8;
                 _cont.addChild(item.source);
                 _arrItems.push(item);
@@ -642,7 +641,7 @@ public class FriendPanel {
 
     private function animList(callback:Function = null):void {
         var tween:Tween = new Tween(_cont, .5);
-        tween.moveTo(-_shift*85, _cont.y);
+        tween.moveTo(-_shift*82, _cont.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
             if (callback != null) callback.apply();
@@ -714,7 +713,7 @@ public class FriendPanel {
                 item = new FriendItem(_arrFriends[i]);
                 if (item.source) {
                     _arrItems.push(item);
-                    item.source.x = i * 85;
+                    item.source.x = i * 82;
                     item.source.y = 8;
                     _cont.addChild(item.source);
                 }

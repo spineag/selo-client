@@ -55,16 +55,16 @@ public class DropDecor {
         _source.y = globalY;
         g.cont.animationsResourceCont.addChild(_source);
         
-        if (g.friendPanel.isShowed) {
-            g.friendPanel.hideIt(false, .2);
-            g.bottomPanel.cancelBoolean(true);
-            g.toolsPanel.showIt(.2, 0);
-            g.toolsPanel.repositoryBox.showIt(.2, .2);
-        } else if (g.toolsPanel.isShowed) {
-            if (!g.toolsPanel.repositoryBox.isShowed) {
-                g.toolsPanel.repositoryBox.showIt(.2);
-            }
-        }
+//        if (g.friendPanel.isShowed) {
+//            g.friendPanel.hideIt(false, .2);
+//            g.bottomPanel.cancelBoolean(true);
+//            g.toolsPanel.showIt(.2, 0);
+//            g.toolsPanel.repositoryBox.showIt(.2, .2);
+//        } else if (g.toolsPanel.isShowed) {
+//            if (!g.toolsPanel.repositoryBox.isShowed) {
+//                g.toolsPanel.repositoryBox.showIt(.2);
+//            }
+//        }
 
         var obj:Object = g.toolsPanel.repositoryBox.moveToItemWithID(_data.id);
         var arrDBids:Array = [];

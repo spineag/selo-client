@@ -72,10 +72,10 @@ public class WOTrain extends WindowMain {
         _milkBG.x = -_woWidth/2 + 651;
         _milkBG.y = -_woHeight/2 + 223;
         _source.addChild(_milkBG);
-        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[293]);
+        _txtWindowName = new CTextField(300, 70, g.managerLanguage.allTexts[293]);
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -150;
-        _txtWindowName.y = -_woHeight/2 + 35;
+        _txtWindowName.y = -_woHeight/2 + 20;
         _source.addChild(_txtWindowName);
 
         _arrItems = [];
@@ -160,7 +160,7 @@ public class WOTrain extends WindowMain {
 
         _sensMoneyItem = new SensibleBlock();
         var t:CTextField = new CTextField(60, 30, '8888');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(im, 30, 30);
         _sensMoneyItem.imageAndText(im, t, 110, 10);
@@ -169,7 +169,7 @@ public class WOTrain extends WindowMain {
         _source.addChild(_sensMoneyItem);
         _sensXPItem = new SensibleBlock();
         t = new CTextField(60, 30, '8888');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small_new'));
         MCScaler.scale(im, 36, 36);
         _sensXPItem.imageAndText(im, t, 110, 7);
@@ -179,7 +179,7 @@ public class WOTrain extends WindowMain {
 
         _sensXP = new SensibleBlock();
         t = new CTextField(60, 30, '8888');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small_new'));
         MCScaler.scale(im, 36, 36);
         _sensXP.imageAndText(im, t, 110, 2);
@@ -188,7 +188,7 @@ public class WOTrain extends WindowMain {
         _source.addChild(_sensXP);
         _sensMoney = new SensibleBlock();
         t = new CTextField(60, 30, '8888');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(im, 30, 30);
         _sensMoney.imageAndText(im, t, 110, 5);
@@ -197,7 +197,7 @@ public class WOTrain extends WindowMain {
         _source.addChild(_sensMoney);
         _sensCoupone = new SensibleBlock();
         t = new CTextField(60, 30, '1');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('vaucher'));
         MCScaler.scale(im, 30, 30);
         _sensCoupone.imageAndText(im, t, 110, 2);

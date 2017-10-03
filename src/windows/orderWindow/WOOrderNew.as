@@ -82,10 +82,10 @@ public class WOOrderNew extends WindowMain {
         _bigYellowBG.y = -_woHeight / 2 + 129;
         _source.addChild(_bigYellowBG);
 
-        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[362]);
+        _txtWindowName = new CTextField(300, 70, g.managerLanguage.allTexts[362]);
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -150;
-        _txtWindowName.y = -_woHeight / 2 + 50;
+        _txtWindowName.y = -_woHeight / 2 + 25;
         _source.addChild(_txtWindowName);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_small_bg'));
