@@ -5,12 +5,9 @@ package windows.market {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import flash.display.Bitmap;
-
 import manager.ManagerFilters;
 import media.SoundConst;
-
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 import starling.animation.Tween;
@@ -28,8 +25,6 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 import utils.Utils;
-
-import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.WindowBackground;
@@ -177,7 +172,7 @@ public class WOMarket  extends WindowMain {
         _contPaper.addChild(im);
 //         =
         _visitBtn = new CButton();
-        _visitBtn.addButtonTexture(160, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+        _visitBtn.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);
         _visitBtn.addTextField(160, 53, -5,-10, String(g.managerLanguage.allTexts[386]));
         _visitBtn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _visitBtn.y = _woHeight/2;

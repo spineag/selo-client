@@ -77,7 +77,7 @@ public class WOPaperNew extends WindowMain {
         _txtTimer.y = -_woHeight/2 + 588;
         _ims.addChild(_txtTimer);
         _btnRefresh = new CButton();
-        _btnRefresh.addButtonTexture(160, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+        _btnRefresh.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);
         _btnRefresh.addTextField(120, 37, 2, 0, g.managerLanguage.allTexts[359] + ' 1');
         _btnRefresh.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -91,7 +91,7 @@ public class WOPaperNew extends WindowMain {
         _source.addChild(_btnRefresh);
         _btnRefresh.clickCallback = refreshIt;
         _btnRefreshFree = new CButton();
-        _btnRefreshFree.addButtonTexture(140, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+        _btnRefreshFree.addButtonTexture(140, CButton.HEIGHT_41, CButton.GREEN, true);
         _btnRefreshFree.addTextField(140, 37, 0, 0, g.managerLanguage.allTexts[359]);
         _btnRefreshFree.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnRefreshFree.x = -_woWidth/2 + 585;

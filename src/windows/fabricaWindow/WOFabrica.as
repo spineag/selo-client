@@ -4,25 +4,17 @@
  */
 package windows.fabricaWindow {
 import build.fabrica.Fabrica;
-
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-
-import flash.geom.Rectangle;
-
 import manager.ManagerFilters;
-
 import resourceItem.ResourceItem;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
-
 import utils.CButton;
 import utils.CTextField;
-
-import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackgroundFabrica;
 import windows.WindowMain;
 import windows.WindowsManager;

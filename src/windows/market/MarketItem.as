@@ -106,7 +106,7 @@ public class MarketItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _btnAdditem = new CButton();
-        _btnAdditem.addButtonTexture(115, CButton.BIG_HEIGHT, CButton.YELLOW, true);
+        _btnAdditem.addButtonTexture(115, CButton.HEIGHT_55, CButton.YELLOW, true);
         _btnAdditem.addTextField(115, 40, 0, 0, String(g.managerLanguage.allTexts[388]));
         _btnAdditem.setTextFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         source.addChild(_btnAdditem);
@@ -182,7 +182,7 @@ public class MarketItem {
             _txtBuyCell.y = 3;
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             _btnBuyCont = new CButton();
-            _btnBuyCont.addButtonTexture(100, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+            _btnBuyCont.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
             _btnBuyCont.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             var sens:SensibleBlock = new SensibleBlock();
             sens.textAndImage(_txtBuyCell,im,100);

@@ -8,16 +8,12 @@ import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
 import manager.ManagerFilters;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
-
-import windows.WOComponents.Birka;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.HintBackground;
 import windows.WOComponents.WindowBackground;
@@ -31,7 +27,6 @@ public class WOLockedLand extends WindowMain {
     private var _btnOpen:CButton;
     private var _woBG:WindowBackground;
     private var _armature:Armature;
-    private var _birka:Birka;
     private var _pl:HintBackground;
     private var _bgC:BackgroundYellowOut;
     private var _txtInfo:CTextField;
@@ -47,7 +42,6 @@ public class WOLockedLand extends WindowMain {
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        _birka = new Birka(String(g.managerLanguage.allTexts[417]), _source, _woWidth, _woHeight);
 
         _bgC = new BackgroundYellowOut(460, 320);
         _bgC.filter =  ManagerFilters.SHADOW;
@@ -204,9 +198,6 @@ public class WOLockedLand extends WindowMain {
         _source.removeChild(_pl);
         _pl.deleteIt();
         _pl = null;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
         _source.removeChild(_bgC);
         _bgC.deleteIt();
         _bgC = null;

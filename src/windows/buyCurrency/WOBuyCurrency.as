@@ -4,107 +4,49 @@
 package windows.buyCurrency {
 import data.DataMoney;
 import manager.ManagerFilters;
-
 import media.SoundConst;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
-import starling.filters.DropShadowFilter;
-import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import windows.WOComponents.Birka;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOBuyCurrency extends WindowMain {
-    private var _tabHard:CSprite;
-    private var _tabSoft:CSprite;
-    private var _woBG:WindowBackground;
-    private var _cartonBG:BackgroundYellowOut;
-    private var _contCarton:Sprite;
-    private var _birka:Birka;
     private var _isHard:Boolean = false;
-    private var _cartonHardTab:BackgroundYellowOut;
-    private var _cartonSoftTab:BackgroundYellowOut;
-    private var _contItems:Sprite;
     private var _arrItems:Array;
-    private var _defaultY:int;
-    private var _txtRubins:CTextField;
-    private var _txtCoins:CTextField;
+    private var _txtWindowName:CTextField;
+    private var _tabs:MoneyTabs;
+    private var _bigYellowBG:BackgroundYellowOut;
 
     public function WOBuyCurrency() {
         super();
         SOUND_OPEN = SoundConst.OPEN_CURRENCY_WINDOW;
-        _defaultY = -234;
         _windowType = WindowsManager.WO_BUY_CURRENCY;
-        _woWidth = 700;
-        _woHeight = 560;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
-        _source.addChild(_woBG);
-        _contCarton = new Sprite();
+        _woWidth = 856;
+        _woHeight = 762;
+        _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 108);
+        _source.addChild(_woBGNew);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        _cartonBG = new BackgroundYellowOut(618, 398);
-        _cartonBG.x = -308;
-        _cartonBG.y = -166;
-        _contCarton.addChild(_cartonBG);
-        _contCarton.filter = ManagerFilters.SHADOW;
-        _source.addChild(_contCarton);
+        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[453]);
+        _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtWindowName.x = -150;
+        _txtWindowName.y = -_woHeight/2 + 23;
+        _source.addChild(_txtWindowName);
 
-        _contItems = new Sprite();
-        _contItems.x = -305;
-        _contItems.y = -167;
-        _source.addChild(_contItems);
-
-        _birka = new Birka(String(g.managerLanguage.allTexts[453]), _source, 700, 560);
-    }
-
-    private function createTabs():void {
-        _tabHard = new CSprite();
-        _cartonHardTab = new BackgroundYellowOut(255, 80);
-        _cartonHardTab.touchable = true;
-        _tabHard.addChild(_cartonHardTab);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        _txtRubins = new CTextField(160, 67, String(g.managerLanguage.allTexts[326]));
-        _txtRubins.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtRubins.x = 85;
-        _tabHard.addChild(_txtRubins);
-        _tabHard.x = -289;
-        _tabHard.y = _defaultY;
-        MCScaler.scale(im, 55, 55);
-        im.x = 27;
-        im.y = 9;
-        _tabHard.addChild(im);
-        _tabHard.endClickCallback = onClick;
-        _tabHard.hoverCallback = onHover;
-        _tabHard.outCallback = onOut;
-
-        _tabSoft = new CSprite();
-        _cartonSoftTab = new BackgroundYellowOut(255, 80);
-        _cartonSoftTab.touchable = true;
-        _tabSoft.addChild(_cartonSoftTab);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
-        _txtCoins = new CTextField(160, 67, String(g.managerLanguage.allTexts[325]));
-        _txtCoins.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtCoins.x = 85;
-        _txtCoins.touchable = false;
-        _tabSoft.addChild(_txtCoins);
-        _tabSoft.x = -9;
-        _tabSoft.y = _defaultY;
-        MCScaler.scale(im, 55, 55);
-        im.x = 27;
-        im.y = 9;
-        _tabSoft.addChild(im);
-        _tabSoft.endClickCallback = onClick;
-        _tabSoft.hoverCallback = onHover;
-        _tabSoft.outCallback = onOut;
+        _bigYellowBG = new BackgroundYellowOut(804, 558);
+        _bigYellowBG.y = -_woHeight / 2 + 176;
+        _bigYellowBG.x = -402;
+        _bigYellowBG.source.touchable = true;
+        _source.addChild(_bigYellowBG);
+        _tabs = new MoneyTabs(_bigYellowBG, onTabClick);
     }
 
     private function createLists():void {
@@ -123,16 +65,24 @@ public class WOBuyCurrency extends WindowMain {
         arrInfo.sortOn('count', Array.NUMERIC);
         for (i=0; i< arrInfo.length; i++) {
             item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, arrInfo[i].bonus, arrInfo[i].cost, arrInfo[i].id, arrInfo[i].sale);
-            item.source.x = 13;
-            item.source.y = 12 + i*64;
-            _contItems.addChild(item.source);
+            item.source.x = -_woWidth/2 + 57 + (i%3)*260;
+            if (i<3) item.source.y = -_woHeight/2 + 204;
+                else item.source.y = -_woHeight/2 + 468;
+            _source.addChild(item.source);
             _arrItems.push(item);
         }
     }
 
+    private function onTabClick():void {
+        _isHard = !_isHard;
+        _tabs.activate(!_isHard);
+        deleteLists();
+        createLists();
+    }
+
     private function deleteLists():void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            _contItems.removeChild(_arrItems[i].source);
+            _source.removeChild(_arrItems[i].source);
             (_arrItems[i] as WOBuyCurrencyItem).deleteIt();
         }
         _arrItems.length = 0;
@@ -140,89 +90,127 @@ public class WOBuyCurrency extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         _isHard = params[0];
-        createTabs();
-        fillTabs();
+        _tabs.activate(!_isHard);
         createLists();
         super.showIt();
     }
 
-    private function fillTabs():void {
-        if (_isHard) {
-            _contCarton.addChild(_tabHard);
-            _tabHard.isTouchable = false;
-            _tabHard.y = _defaultY;
-            _source.addChildAt(_tabSoft, _source.getChildIndex(_contCarton)-1);
-            _tabSoft.filter = ManagerFilters.SHADOW;
-            _tabSoft.isTouchable = true;
-            _tabSoft.y = _defaultY + 10;
-        } else {
-            _source.addChildAt(_tabHard, _source.getChildIndex(_contCarton)-1);
-            _tabHard.isTouchable = true;
-            _tabHard.filter = ManagerFilters.SHADOW;
-            _tabHard.y = _defaultY + 10;
-            _contCarton.addChild(_tabSoft);
-            _tabSoft.isTouchable = false;
-            _tabSoft.y = _defaultY;
-        }
-    }
-
-    private function onClick():void {
-        deleteLists();
-        _tabHard.filter = null;
-        _tabSoft.filter = null;
-        if (_contCarton.contains(_tabHard)) _contCarton.removeChild(_tabHard);
-        if (_contCarton.contains(_tabSoft)) _contCarton.removeChild(_tabSoft);
-        if (_source.contains(_tabHard)) _source.removeChild(_tabHard);
-        if (_source.contains(_tabSoft)) _source.removeChild(_tabSoft);
-        _isHard = !_isHard;
-        fillTabs();
-        createLists();
-    }
-
-    private function onHover():void {
-        if (_isHard) {
-            _tabSoft.y = _defaultY + 3;
-        } else {
-            _tabHard.y = _defaultY + 3;
-        }
-    }
-
-    private function onOut():void {
-        if (_isHard) {
-            _tabSoft.y = _defaultY + 10;
-        } else {
-            _tabHard.y = _defaultY + 10;
-        }
-    }
-
     override protected function deleteIt():void {
         deleteLists();
-        _tabHard.filter = null;
-        _tabSoft.filter = null;
-        _contCarton.filter = null;
-        if (_contCarton.contains(_tabHard)) _contCarton.removeChild(_tabHard);
-        if (_contCarton.contains(_tabSoft)) _contCarton.removeChild(_tabSoft);
-        if (_source.contains(_tabHard)) _source.removeChild(_tabHard);
-        if (_source.contains(_tabSoft)) _source.removeChild(_tabSoft);
-        _tabHard.deleteIt();
-        _tabHard = null;
-        _txtRubins.deleteIt();
-        _txtRubins = null;
-        _txtCoins.deleteIt();
-        _txtCoins = null;
-        _tabSoft.deleteIt();
-        _tabSoft = null;
-        _source.removeChild(_woBG);
-        _woBG.deleteIt();
-        _woBG = null;
-        _contCarton.removeChild(_cartonBG);
-        _cartonBG.deleteIt();
-        _cartonBG = null;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
+
         super.deleteIt();
     }
 
 }
 }
+
+import manager.ManagerFilters;
+import manager.Vars;
+import starling.display.Image;
+import starling.utils.Color;
+import utils.CSprite;
+import utils.CTextField;
+import windows.WOComponents.BackgroundYellowOut;
+
+internal class MoneyTabs {
+    private var g:Vars = Vars.getInstance();
+    private var _callback:Function;
+    private var _imActiveSoft:Image;
+    private var _txtActiveSoft:CTextField;
+    private var _unactiveSoft:CSprite;
+    private var _txtUnactiveSoft:CTextField;
+    private var _imActiveHard:Image;
+    private var _txtActiveHard:CTextField;
+    private var _unactiveHard:CSprite;
+    private var _txtUnactiveHard:CTextField;
+    private var _bg:BackgroundYellowOut;
+
+    public function MoneyTabs(bg:BackgroundYellowOut, f:Function) {
+        _bg = bg;
+        _callback = f;
+        _imActiveSoft = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_tab_big'));
+        _imActiveSoft.pivotX = _imActiveSoft.width/2;
+        _imActiveSoft.pivotY = _imActiveSoft.height;
+        _imActiveSoft.x = 230;
+        _imActiveSoft.y = 11;
+        bg.addChild(_imActiveSoft);
+        _txtActiveSoft = new CTextField(330, 48, g.managerLanguage.allTexts[325]);
+        _txtActiveSoft.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveSoft.x = 69;
+        _txtActiveSoft.y = -50;
+        bg.addChild(_txtActiveSoft);
+
+        _unactiveSoft = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_tab_small'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveSoft.addChild(im);
+        _unactiveSoft.x = 230;
+        _unactiveSoft.y = 13;
+        bg.addChildAt(_unactiveSoft, 0);
+        _unactiveSoft.endClickCallback = onClick;
+        _txtUnactiveSoft = new CTextField(330, 48, g.managerLanguage.allTexts[325]);
+        _txtUnactiveSoft.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+        _txtUnactiveSoft.x = 69;
+        _txtUnactiveSoft.y = -42;
+        bg.addChild(_txtUnactiveSoft);
+
+        _imActiveHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_tab_big'));
+        _imActiveHard.pivotX = _imActiveHard.width/2;
+        _imActiveHard.pivotY = _imActiveHard.height;
+        _imActiveHard.x = 578;
+        _imActiveHard.y = 11;
+        bg.addChild(_imActiveHard);
+        _txtActiveHard = new CTextField(330, 48, g.managerLanguage.allTexts[326]);
+        _txtActiveHard.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtActiveHard.x = 412;
+        _txtActiveHard.y = -50;
+        bg.addChild(_txtActiveHard);
+
+        _unactiveHard = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_tab_small'));
+        im.pivotX = im.width/2;
+        im.pivotY = im.height;
+        _unactiveHard.addChild(im);
+        _unactiveHard.x = 578;
+        _unactiveHard.y = 13;
+        bg.addChildAt(_unactiveHard, 0);
+        _unactiveHard.endClickCallback = onClick;
+        _txtUnactiveHard = new CTextField(330, 48, g.managerLanguage.allTexts[326]);
+        _txtUnactiveHard.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+        _txtUnactiveHard.x = 412;
+        _txtUnactiveHard.y = -42;
+        bg.addChild(_txtUnactiveHard);
+    }
+
+    private function onClick():void { if (_callback!=null) _callback.apply(); }
+
+    public function activate(isSoft:Boolean):void {
+        _imActiveSoft.visible = _unactiveHard.visible = isSoft;
+        _imActiveHard.visible = _unactiveSoft.visible = !isSoft;
+        _txtActiveSoft.visible = _txtUnactiveHard.visible = isSoft;
+        _txtActiveHard.visible = _txtUnactiveSoft.visible = !isSoft;
+    }
+
+    public function deleteIt():void {
+        _bg.removeChild(_txtActiveSoft);
+        _bg.removeChild(_txtActiveHard);
+        _bg.removeChild(_txtUnactiveHard);
+        _bg.removeChild(_txtUnactiveSoft);
+        _bg.removeChild(_imActiveSoft);
+        _bg.removeChild(_imActiveHard);
+        _bg.removeChild(_unactiveSoft);
+        _bg.removeChild(_unactiveHard);
+        _txtActiveSoft.deleteIt();
+        _txtActiveHard.deleteIt();
+        _txtUnactiveSoft.deleteIt();
+        _txtUnactiveHard.deleteIt();
+        _imActiveSoft.dispose();
+        _imActiveHard.dispose();
+        _unactiveSoft.deleteIt();
+        _unactiveHard.deleteIt();
+        _bg = null;
+    }
+
+}
+

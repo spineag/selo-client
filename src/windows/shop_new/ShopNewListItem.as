@@ -422,7 +422,7 @@ public class ShopNewListItem {
         }
         _btn = new CButton();
         if (_isFromInventory) {
-            _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.ORANGE, true);
+            _btn.addButtonTexture(152, CButton.HEIGHT_32, CButton.ORANGE, true);
             _btn.addTextField(152, 30, 0, 0, String(g.managerLanguage.allTexts[344]) + ': ' + String(g.userInventory.decorInventory[_data.id].count));
             _btn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
         } else {
@@ -430,7 +430,7 @@ public class ShopNewListItem {
             var t:CTextField;
             var sens:SensibleBlock;
             if (!_data.currency || _data.currency[0] == DataMoney.SOFT_CURRENCY) {
-                _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.GREEN, true);
+                _btn.addButtonTexture(152, CButton.HEIGHT_32, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
                 MCScaler.scale(im, 24, 24);
                 t = new CTextField(90, 36, String(_costCount));
@@ -441,7 +441,7 @@ public class ShopNewListItem {
                 sens.textAndImage(t,im,152);
                 _btn.addSensBlock(sens,0,16);
             } else if (_data.currency[0] == DataMoney.HARD_CURRENCY) {
-                _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.GREEN, true);
+                _btn.addButtonTexture(152, CButton.HEIGHT_32, CButton.GREEN, true);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
                 MCScaler.scale(im, 24, 24);
                 t = new CTextField(90, 36, String(_costCount));
@@ -452,7 +452,7 @@ public class ShopNewListItem {
                 sens.textAndImage(t,im,152);
                 _btn.addSensBlock(sens,0,16);
             } else {
-                _btn.addButtonTexture(152, CButton.SMALL_HEIGHT, CButton.GREEN, true);
+                _btn.addButtonTexture(152, CButton.HEIGHT_32, CButton.GREEN, true);
                 if (_data.currency.length == 1) {
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 152);
                     _btn.addSensBlock(sens,0,18);
@@ -471,7 +471,7 @@ public class ShopNewListItem {
                     im.y = 5;
                     _btn.addChild(im);
                     _additionalCoupones = new Sprite();
-                    _additionalCoupones.addChild(new WOSimpleButtonTexture(152, CButton.BIG_HEIGHT, CButton.GREEN));
+                    _additionalCoupones.addChild(new WOSimpleButtonTexture(152, CButton.HEIGHT_55, CButton.GREEN));
                     sens = createSensBlockForCoupone(_data.currency[0], _data.cost[0], 76);
                     sens.x = 5;
                     sens.y = 15;

@@ -35,17 +35,13 @@ import windows.WindowsManager;
 
 public class WOBuyCurrencyItem {
     public var source:Sprite;
-    private var _bg:Sprite;
     private var _btn:CButton;
-    private var _txtBtn:CTextField;
     private var _txtCount:CTextField;
-    private var _im:Image;
-    private var _action:Sprite;
+//    private var _action:Sprite;
     private var _currency:int;
     private var _countGameMoney:int;
     private var _packId:int;
     private var g:Vars = Vars.getInstance();
-    private var _arrCTex:Array;
     private var _isActiveClick:Boolean;
 
     public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:Number, packId:int, sale:int) {
@@ -53,141 +49,103 @@ public class WOBuyCurrencyItem {
         _currency = currency;
         _packId = packId;
         _countGameMoney = count;
-        _arrCTex = [];
         source = new Sprite();
-        _bg = new Sprite();
-        _bg.touchable = false;
-        _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_l'));
-        _bg.addChild(_im);
-        _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_r'));
-        _im.x = 593 - _im.width;
-        _bg.addChild(_im);
-        _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_c'));
-        _im.tileGrid = new Rectangle();
-        _im.width = 477 + 2;
-        _im.x = 58 - 1;
-        _bg.addChildAt(_im, 0);
-        _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_c'));
-        _im.tileGrid = new Rectangle();
-        _im.width = 477 + 6;
-        _im.x = 58 - 3;
-        _im.height -=2;
-        _im.y = 1;
-        _bg.addChildAt(_im, 0);
-        source.addChild(_bg);
-
-        if (_currency == DataMoney.HARD_CURRENCY) {
-            _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
-        } else {
-            _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
-        }
-        MCScaler.scale(_im, 38, 38);
-        _im.x = 15;
-        _im.y = 9;
-        _im.filter = ManagerFilters.SHADOW_TINY;
-        source.addChild(_im);
-        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) _txtCount = new CTextField(135, 52, String(count - sale));
-        else  _txtCount = new CTextField(135, 52, String(count));
-        _txtCount.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCount.alignH = Align.LEFT;
-        _txtCount.x = 70;
-        _txtCount.y = 4;
-        source.addChild(_txtCount);
-        var txt:CTextField;
-        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) {
-            txt = new CTextField(135, 52, '+ ' + String(sale));
-            txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.RED_COLOR);
-            txt.alignH = Align.LEFT;
-            txt.x = 70 + _txtCount.textBounds.width + 5;
-            txt.y = 4;
-            source.addChild(txt);
-            _arrCTex.push(txt);
-        }
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_cell'));
+        im.x = -2;
+        im.y = -1;
+        source.addChild(im);
         _btn = new CButton();
-        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        var valuta:String;
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            valuta = ' '+ String(g.managerLanguage.allTexts[330]);
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            valuta = ' ' + String(g.managerLanguage.allTexts[328]);
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
-            valuta = ' USD';
-        }
-        _txtBtn = new CTextField(120, 30, String(cost) + valuta);
-        _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtBtn.y = 6;
-        _btn.addChild(_txtBtn);
-        _btn.x = 493;
-        _btn.y = 31;
+        _btn.addButtonTexture(230, CButton.HEIGHT_32, CButton.GREEN, true);
+        _btn.x = 116;
+        _btn.y = 240;
         source.addChild(_btn);
-        _action = new Sprite();
-        var im:Image;
-        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale_icon'));
-            _action.addChild(im);
-            txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[454]));
-            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PINK_COLOR);
-            txt.y = 12;
-            _action.addChild(txt);
-            _arrCTex.push(txt);
-            source.addChild(_action);
-            _action.x = 350;
-        } else {
-            if (bonus[0] == 1) {
-                if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
-                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_eng'));
-                im.x = 280;
-                source.addChild(im);
-            } else if (bonus[0] == 2) {
-                if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
-                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_eng'));
-                im.x = 280;
-                source.addChild(im);
-            }
-            if (bonus[1] > 0) {
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bonus'));
-                _action.addChild(im);
-                txt = new CTextField(60, 30, bonus[1] + '%');
-                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-                txt.y = 5;
-                _action.addChild(txt);
-                txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[354]));
-                txt.y = 20;
-                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-                _arrCTex.push(txt);
-                _action.addChild(txt);
-                source.addChild(_action);
-                _action.x = 350;
-            }
-        }
+        var valuta:String;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) valuta = ' '+ String(g.managerLanguage.allTexts[330]);
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)  valuta = ' ' + String(g.managerLanguage.allTexts[328]);
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) valuta = ' USD';
+        _btn.addTextField(230, 31, 0, 0, String(cost) + ' ' + valuta);
+        _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
 
+        _txtCount = new CTextField(230, 38, String(count));
+        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) _txtCount.text = String(count - sale);
+        _txtCount.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        source.addChild(_txtCount);
+//        var txt:CTextField;
+//        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) {
+//            txt = new CTextField(135, 52, '+ ' + String(sale));
+//            txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.RED_COLOR);
+//            txt.alignH = Align.LEFT;
+//            txt.x = 70 + _txtCount.textBounds.width + 5;
+//            txt.y = 4;
+//            source.addChild(txt);
+//            _arrCTex.push(txt);
+//        }
+
+//        _action = new Sprite();
+//        var im:Image;
+//        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) {
+//            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale_icon'));
+//            _action.addChild(im);
+//            txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[454]));
+//            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PINK_COLOR);
+//            txt.y = 12;
+//            _action.addChild(txt);
+//            _arrCTex.push(txt);
+//            source.addChild(_action);
+//            _action.x = 350;
+//        } else {
+//            if (bonus[0] == 1) {
+//                if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
+//                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_eng'));
+//                im.x = 280;
+//                source.addChild(im);
+//            } else if (bonus[0] == 2) {
+//                if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
+//                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_eng'));
+//                im.x = 280;
+//                source.addChild(im);
+//            }
+//            if (bonus[1] > 0) {
+//                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bonus'));
+//                _action.addChild(im);
+//                txt = new CTextField(60, 30, bonus[1] + '%');
+//                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+//                txt.y = 5;
+//                _action.addChild(txt);
+//                txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[354]));
+//                txt.y = 20;
+//                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+//                _arrCTex.push(txt);
+//                _action.addChild(txt);
+//                source.addChild(_action);
+//                _action.x = 350;
+//            }
+//        }
         _btn.clickCallback = onClick;
+        addIcon();
     }
 
-    public function deleteIt():void {
-        _im.filter = null;
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-        source.removeChild(_btn);
-        _btn.deleteIt();
-        _btn = null;
-        source.dispose();
-        source = null;
-        _txtCount.deleteIt();
-        _txtCount = null;
-        for (var i:int = 0; i <_arrCTex.length; i++) {
-            _arrCTex[i].deleteIt();
-            _arrCTex[i] = null;
+    private function addIcon():void {
+        var st:String;
+        switch (_packId) {
+            case 1: st = 'bank_rubins_1'; break;
+            case 2: st = 'bank_rubins_2'; break;
+            case 3: st = 'bank_rubins_3'; break;
+            case 4: st = 'bank_rubins_4'; break;
+            case 5: st = 'bank_rubins_5'; break;
+            case 6: st = 'bank_rubins_6'; break;
+            case 7: st = 'bank_coins_1'; break;
+            case 8: st = 'bank_coins_2'; break;
+            case 9: st = 'bank_coins_3'; break;
+            case 10: st = 'bank_coins_4'; break;
+            case 11: st = 'bank_coins_5'; break;
+            case 12: st = 'bank_coins_6'; break;
         }
-        _txtBtn.deleteIt();
-        _txtBtn = null;
-        while (_action.numChildren) {
-            _action.removeChildAt(0);
-        }
-        _action.dispose();
-        _action = null;
-        g = null;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+        im.alignPivot();
+        im.x = 117;
+        im.y = 135;
+        source.addChild(im);
     }
 
     private function onClick():void {
@@ -197,10 +155,7 @@ public class WOBuyCurrencyItem {
             onBuy();
             g.socialNetwork.showOrderWindow({id: _packId});
         } else {
-            if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
-                g.optionPanel.makeFullScreen();
-//                g.windowsManager.hideWindow(WindowsManager.WO_BUY_CURRENCY); ??
-            }
+            if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) g.optionPanel.makeFullScreen();
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
@@ -235,10 +190,29 @@ public class WOBuyCurrencyItem {
         var obj:Object;
         obj = {};
         obj.count = _countGameMoney;
-        var p:Point = new Point(0, 0);
-        p = _im.localToGlobal(p);
+        var p:Point = new Point(120, 150);
+        p = source.localToGlobal(p);
         obj.id =  _currency;
         new DropItem(p.x + 30, p.y + 30, obj);
+    }
+
+    public function deleteIt():void {
+        if (!source) return;
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
+        source.removeChild(_btn);
+        _btn.deleteIt();
+        source.removeChild(_txtCount);
+        _txtCount.deleteIt();
+//        while (_action.numChildren) {
+//            _action.removeChildAt(0);
+//        }
+//        _action.dispose();
+//        _action = null;
+        g = null;
+        source.dispose();
+        source = null;
     }
 }
 }

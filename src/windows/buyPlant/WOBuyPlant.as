@@ -3,28 +3,16 @@
  */
 package windows.buyPlant {
 import build.ridge.Ridge;
-
 import com.greensock.TweenMax;
-import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.StructureDataResource;
-
-import flash.geom.Point;
-
 import media.SoundConst;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
-
-import tutorial.managerCutScenes.ManagerCutScenes;
-
 import utils.CButton;
-
 import windows.WOComponents.BackgroundPlant;
-
-import windows.WOComponents.Birka;
 import windows.WindowMain;
 import windows.WindowsManager;
 

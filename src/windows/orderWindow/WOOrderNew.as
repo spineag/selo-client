@@ -186,7 +186,7 @@ public class WOOrderNew extends WindowMain {
         _rightBlock.addChild(_sensXP);
 
         _btnSell = new CButton();
-        _btnSell.addButtonTexture(144, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+        _btnSell.addButtonTexture(144, CButton.HEIGHT_41, CButton.GREEN, true);
         _btnSell.x = -_woWidth / 2 + 674;
         _btnSell.y = -_woHeight / 2 + 628;
         _btnSell.addTextField(144, 35, 0, 0, g.managerLanguage.allTexts[366]);
@@ -234,7 +234,7 @@ public class WOOrderNew extends WindowMain {
         _rightBlockTimer.addChild(_txtTimer);
 
         _btnSkipDelete = new CButton();
-        _btnSkipDelete.addButtonTexture(200, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnSkipDelete.addButtonTexture(200, CButton.HEIGHT_55, CButton.GREEN, true);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         MCScaler.scale(im, 30, 30);
         im.x = 165;

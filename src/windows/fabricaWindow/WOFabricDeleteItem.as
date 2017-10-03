@@ -48,7 +48,7 @@ public class WOFabricDeleteItem extends WindowMain{
         _source.addChild(_txt);
         _callbackClickBG = onClickExit;
         _b = new CButton();
-        _b.addButtonTexture(210, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _b.addButtonTexture(210, CButton.HEIGHT_55, CButton.GREEN, true);
         _b.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_b);
         _b.y = 125;

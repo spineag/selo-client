@@ -55,7 +55,7 @@ public class WOMarketDeleteItem extends WindowMain{
         _source.addChild(_txt);
         _callbackClickBG = onClickExit;
         _b = new CButton();
-        _b.addButtonTexture(265, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _b.addButtonTexture(265, CButton.HEIGHT_55, CButton.GREEN, true);
         _b.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_b);
         _txtBtn = new CTextField(200, 34, String(g.managerLanguage.allTexts[410]));

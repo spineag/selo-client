@@ -53,7 +53,7 @@ public class WOBuyCouponeItem {
             source = new Sprite();
 //            source.addChild(_carton);
             _btn = new CButton();
-            _btn.addButtonTexture(100, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+            _btn.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
             _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, CButton.GREEN);
 //            _btn = new CButton();
 //            _btn.addButtonTexture(80, 50, CButton.GREEN, true);

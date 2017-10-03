@@ -3,11 +3,8 @@
  */
 package windows.quest {
 import com.junkbyte.console.Cc;
-
 import flash.display.Bitmap;
-
 import manager.ManagerFilters;
-
 import quest.ManagerQuest;
 import quest.QuestStructure;
 import starling.display.Image;
@@ -15,8 +12,6 @@ import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CTextField;
 import utils.MCScaler;
-
-import windows.WOComponents.Birka;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
@@ -24,7 +19,6 @@ import windows.WindowsManager;
 
 public class WOQuest extends WindowMain{
     private var _woBG:WindowBackground;
-    private var _birka:Birka;
     private var _bgC:BackgroundYellowOut;
     private var _quest:QuestStructure;
     private var _txtName:CTextField;
@@ -42,7 +36,6 @@ public class WOQuest extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        _birka = new Birka(String(g.managerLanguage.allTexts[623]), _source, _woWidth, _woHeight);
 
         _bgC = new BackgroundYellowOut(480, 240);
         _bgC.filter =  ManagerFilters.SHADOW;
@@ -133,7 +126,6 @@ public class WOQuest extends WindowMain{
             _txtDescription.deleteIt();
             _txtDescription = null;
         }
-        _birka.deleteIt();
         _award.deleteIt();
         _questItem.deleteIt();
         if (_bgC) {

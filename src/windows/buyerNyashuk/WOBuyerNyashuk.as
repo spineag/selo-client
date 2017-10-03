@@ -47,7 +47,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _callbackClickBG = onClickExit;
         var btn:CButton;
         btn = new CButton();
-        btn.addButtonTexture(150, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        btn.addButtonTexture(150, CButton.HEIGHT_55, CButton.GREEN, true);
         btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[448]));
         btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
         btn.x = 180;
@@ -57,7 +57,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _arrCTex.push(btn);
 
         btn = new CButton();
-        btn.addButtonTexture(150, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        btn.addButtonTexture(150, CButton.HEIGHT_55, CButton.GREEN, true);
         btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[1155]));
         btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
 //        btn.x = 120;
@@ -67,7 +67,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _arrCTex.push(btn);
 
         btn = new CButton();
-        btn.addButtonTexture(150, CButton.BIG_HEIGHT, CButton.RED, true);
+        btn.addButtonTexture(150, CButton.HEIGHT_55, CButton.RED, true);
         btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[449]));
         btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.RED_COLOR);
         btn.clickCallback = onClickDelete;

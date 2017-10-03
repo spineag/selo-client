@@ -98,7 +98,7 @@ public class WOFabricaWorkListItem {
             _txtNumberCreate.x = 75;
             _txtNumberCreate.y = 95;
             _timerBlock = new Sprite();
-            var t:Sprite = new WOSimpleButtonTexture(111, CButton.SMALL_HEIGHT, CButton.BLUE);
+            var t:Sprite = new WOSimpleButtonTexture(111, CButton.HEIGHT_32, CButton.BLUE);
             _timerBlock.addChild(t);
             _txtTimer = new CTextField(111, 30, ' ');
             _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -111,7 +111,7 @@ public class WOFabricaWorkListItem {
             _source.addChild(_txt);
 
             _btnSkip = new CButton();
-            _btnSkip.addButtonTexture(111, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+            _btnSkip.addButtonTexture(111, CButton.HEIGHT_41, CButton.GREEN, true);
             _txtSkip = new CTextField(60,28,"25");
             _txtSkip.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtSkip.x = 19;

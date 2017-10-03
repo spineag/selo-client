@@ -3,12 +3,8 @@
  */
 package windows.tipsWindow {
 import manager.ManagerFilters;
-import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CTextField;
-
-import windows.WOComponents.Birka;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackground;
@@ -20,7 +16,6 @@ public class WOTips  extends WindowMain {
     private var _carton:BackgroundYellowOut;
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _arrTips:Array;
-    private var _birka:Birka;
     private var _txtList:CTextField;
 
     public function WOTips() {
@@ -48,7 +43,6 @@ public class WOTips  extends WindowMain {
         _scrollSprite.createScoll(440, 0, 400, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         _source.addChild(_scrollSprite.source);
         createExitButton(hideIt);
-        _birka = new Birka(String(g.managerLanguage.allTexts[311]), _source, _woWidth, _woHeight);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -92,9 +86,6 @@ public class WOTips  extends WindowMain {
             _txtList = null;
         }
         _arrTips.length = 0;
-        _source.removeChild(_birka);
-        _birka.deleteIt();
-        _birka = null;
         _source.removeChild(_carton);
         _carton.deleteIt();
         _carton = null;

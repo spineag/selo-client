@@ -106,11 +106,11 @@ internal class FilterButtonItem {
         _filterID = id;
         _btn = new CButton();
         if (isBigShop) {
-            _btn.addButtonTexture(120, CButton.MEDIUM_HEIGHT, CButton.YELLOW, true);
+            _btn.addButtonTexture(120, CButton.HEIGHT_41, CButton.YELLOW, true);
             _txt = new CTextField(120, 35, '');
             _txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BROWN_COLOR);
         } else {
-            _btn.addButtonTexture(120, CButton.MEDIUM_HEIGHT, CButton.YELLOW, true);
+            _btn.addButtonTexture(120, CButton.HEIGHT_41, CButton.YELLOW, true);
             _txt = new CTextField(120, 35, '');
             _txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BROWN_COLOR);
         }

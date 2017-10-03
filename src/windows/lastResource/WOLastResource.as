@@ -61,13 +61,13 @@ public class WOLastResource extends WindowMain {
         _txt.y = -135;
         _source.addChild(_txt);
         _btnYes = new CButton();
-        _btnYes.addButtonTexture(200, CButton.BIG_HEIGHT, CButton.RED, true);
+        _btnYes.addButtonTexture(200, CButton.HEIGHT_55, CButton.RED, true);
         _btnYes.addTextField(200, 40, 0, 0, String(g.managerLanguage.allTexts[308]));
         _btnYes.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.RED_COLOR);
         _source.addChild(_btnYes);
 
         _btnNo = new CButton();
-        _btnNo.addButtonTexture(200, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnNo.addButtonTexture(200, CButton.HEIGHT_55, CButton.GREEN, true);
         _btnNo.addTextField(200, 40, 0, 0, String(g.managerLanguage.allTexts[309]));
         _btnNo.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_btnNo);
