@@ -51,34 +51,14 @@ public class WOFabricDeleteItem extends WindowMain{
         _b.addButtonTexture(210, CButton.BIG_HEIGHT, CButton.GREEN, true);
         _b.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_b);
-//        _b = new CButton();
-//        _b.addButtonTexture(210, 34, CButton.GREEN, true);
-//        _source.addChild(_b);
-//        _txtBtn = new CTextField(200, 34, String(g.managerLanguage.allTexts[410]));
-//        _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-//        _b.addChild(_txtBtn);
-//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//        im.x = 150;
-//        im.y = 1;
-//        MCScaler.scale(im,30,30);
-//        _b.addChild(im);
         _b.y = 125;
-
         _txtBtn = new CTextField(210, 34, String(g.managerLanguage.allTexts[410]));
         _txtBtn.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
-//        _b.addChild(_txtBtn);
-
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//        im.x = 150;
-//        im.y = 1;
-//        MCScaler.scale(im,30,30);
         var sensi:SensibleBlock = new SensibleBlock();
         sensi.textAndImage(_txtBtn,im,210);
-        _b.addSensBlock(sensi,0,25);
-//        _b.addChild(im);
-//        _b.y = 190;
+        _b.addSensBlock(sensi,0,20);
         _b.clickCallback = onClick;
-//        _b.addChild(_txtBtn);
     }
 
     private function onClickExit(e:Event=null):void {

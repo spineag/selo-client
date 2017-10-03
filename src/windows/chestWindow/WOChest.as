@@ -17,6 +17,8 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SensibleBlock;
+
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -59,16 +61,15 @@ public class WOChest  extends WindowMain{
             _armature.animation.gotoAndPlayByFrame('idle_1');
         } else {
             _btnOpen = new CButton();
-            _btnOpen.addButtonTexture(160, 40, CButton.GREEN, true);
+            _btnOpen.addButtonTexture(160, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+            _btnOpen.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
             MCScaler.scale(im, 35, 35);
-            im.x = 120;
-            im.y = 4;
-            _btnOpen.addChild(im);
             _txtBtn = new CTextField(116,30,String(g.managerLanguage.allTexts[442]) + String(ManagerChest.COST_OPEN));
             _txtBtn.setFormat(CTextField.BOLD18, 18 , Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            _txtBtn.y = 5;
-            _btnOpen.addChild(_txtBtn);
+            var sensi:SensibleBlock = new SensibleBlock();
+            sensi.textAndImage(_txtBtn,im,160);
+            _btnOpen.addSensBlock(sensi,0,20);
             _btnOpen.clickCallback = onClickOpen;
             _source.addChild(_btnOpen);
             _btnOpen.y = 190;

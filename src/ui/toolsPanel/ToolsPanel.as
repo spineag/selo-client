@@ -125,14 +125,18 @@ public class ToolsPanel {
             case 'repository':
                 if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR)
                         && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) return;
-                if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+                if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();
+                    return;
                 }
-                if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
-                    if (repositoryBox.isShowed) hideRepository();
-                    else repositoryBox.showIt();
-                }
+                else  g.toolsModifier.modifierType = ToolsModifier.INVENTORY;
+
+
+//                if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
+//                    if (repositoryBox.isShowed) hideRepository();
+//                    else repositoryBox.showIt();
+//                }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 if (_cutSceneCallback != null) {
                     _cutSceneCallback.apply();
