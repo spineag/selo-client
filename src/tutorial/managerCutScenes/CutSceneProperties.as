@@ -75,12 +75,6 @@ public class CutSceneProperties {
         _prop.push(obj);
 
         obj = {};
-        obj.reason = ManagerCutScenes.REASON_OPEN_WO_PLANT;
-        obj.level = 10;
-        obj.text = String(g.managerLanguage.allTexts[529]);
-        _prop.push(obj);
-
-        obj = {};
         obj.reason = ManagerCutScenes.REASON_ADD_TO_PAPPER;
         obj.level = 4;
         obj.text = String(g.managerLanguage.allTexts[530]);

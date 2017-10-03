@@ -244,21 +244,20 @@
             <filename>empty_green_tile.png</filename>
             <filename>empty_red_tile.png</filename>
             <filename>exclamation_point.png</filename>
+            <filename>fabrica</filename>
             <filename>friend_board.png</filename>
             <filename>friends_panel_ar.png</filename>
-            <filename>friends_panel_bt_add.png</filename>
             <filename>fs_blue_cell_big_white.png</filename>
             <filename>fs_blue_cell_big.png</filename>
             <filename>fs_friend_panel.png</filename>
             <filename>green_coupone.png</filename>
             <filename>green_tile.png</filename>
-            <filename>hint</filename>
             <filename>hint_arrow.png</filename>
+            <filename>hint_new</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
             <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
-            <filename>Invite_friends_eng.png</filename>
             <filename>main_quest_icon.png</filename>
             <filename>minus.png</filename>
             <filename>neighbor.jpg</filename>
@@ -279,6 +278,7 @@
             <filename>orders_babble.png</filename>
             <filename>orders_cell.png</filename>
             <filename>particles</filename>
+            <filename>plant_wo</filename>
             <filename>plawka7.png</filename>
             <filename>plus_button.png</filename>
             <filename>production</filename>
@@ -327,7 +327,6 @@
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
-            <filename>fabrica</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

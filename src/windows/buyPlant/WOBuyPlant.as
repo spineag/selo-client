@@ -3,6 +3,8 @@
  */
 package windows.buyPlant {
 import build.ridge.Ridge;
+
+import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.StructureDataResource;
@@ -12,10 +14,15 @@ import flash.geom.Point;
 import media.SoundConst;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
 
 import tutorial.managerCutScenes.ManagerCutScenes;
+
+import utils.CButton;
+
+import windows.WOComponents.BackgroundPlant;
 
 import windows.WOComponents.Birka;
 import windows.WindowMain;
@@ -24,28 +31,38 @@ import windows.WindowsManager;
 public class WOBuyPlant extends WindowMain {
     private var _ridge:Ridge;
     private var _callback:Function;
-    private var _topBG:Sprite;
+    private var _bgPlant:BackgroundPlant;
     private var _shift:int;
-    private var _arrShiftBtns:Array;
     private var _arrPlantItems:Array;
     private var _arrAllPlants:Array;
-    private var _birka:Birka;
+    private var _leftArrow:CButton;
+    private var _rightArrow:CButton;
+    private var _cont:Sprite;
+    private var _mask:Sprite;
+    private var _isAnim:Boolean;
 
     public function WOBuyPlant() {
         super();
-        _windowType = WindowsManager.WO_BUY_PLANT;
-        _woWidth = 580;
-        _woHeight = 134;
-        createBG();
-        createPlantItems();
-        _callbackClickBG = onClickExit;
+        _blackAlpha = 0;
+        _isAnim = false;
         _arrAllPlants = [];
-
-        _birka = new Birka(String(g.managerLanguage.allTexts[445]), _source, 455, 580);
-        _birka.flipIt();
-        _birka.source.rotation = Math.PI/2;
-        _birka.source.x = 80;
-        _birka.source.y = 150;
+        _arrPlantItems = [];
+        _windowType = WindowsManager.WO_BUY_PLANT;
+        _woWidth = 592;
+        _woHeight = 120;
+        _bgPlant = new BackgroundPlant(_woWidth, _woHeight);
+        _bgPlant.x = -_woWidth/2;
+        _bgPlant.y = -_woHeight/2;
+        _source.addChild(_bgPlant);
+        _callbackClickBG = onClickExit;
+        _mask = new Sprite();
+        _mask.mask = new Quad(_woWidth, _woHeight);
+        _cont = new Sprite();
+        _mask.addChild(_cont);
+        _mask.x = -_woWidth/2;
+        _mask.y = -_woHeight/2;
+        _source.addChild(_mask);
+        createArrows();
     }
 
     private function onClickExit(e:Event=null):void {
@@ -58,78 +75,38 @@ public class WOBuyPlant extends WindowMain {
         if (!g.userValidates.checkInfo('level', g.user.level)) return;
         _ridge = params[0];
         _callback = callback;
-        if (!_ridge) {
-            hideIt();
-            Cc.error('WOBuyPlant showItWithParams: ridge == null');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyPlant');
-            return;
-        }
-        updatePlantArray();
-        activateShiftBtn(g.user.lastVisitPlant, false);
+        fillPlantArray();
         fillPlantItems();
-        showAnimatePlantItems();
+        checkArrows();
         super.showIt();
-        g.managerCutScenes.isWOPlantCutSceneAvailable();
     }
 
-    private function updatePlantArray():void {
+    private function fillPlantArray():void {
         _arrAllPlants.length = 0;
         var arR:Array = g.allData.resource;
         for (var i:int = 0; i < arR.length; i++) {
             if (arR[i].buildType == BuildType.PLANT && arR[i].blockByLevel <= g.user.level + 1) {
-                if (arR[i].id != 168) _arrAllPlants.push(arR[i]);
-                else if (g.userTimer.partyToEndTimer > 0) _arrAllPlants.push(arR[i]);
+//                if (arR[i].id != 168) _arrAllPlants.push(arR[i]);
+//                else if (g.userTimer.partyToEndTimer > 0) _arrAllPlants.push(arR[i]);
+                _arrAllPlants.push(arR[i]);
             }
         }
         _arrAllPlants.sortOn('blockByLevel', Array.NUMERIC);
     }
 
     private function fillPlantItems():void {
-        var arr:Array = [];
-        for (var i:int=0; i<5; i++) {
-            if (_arrAllPlants[_shift*5 + i]) {
-                arr.push(_arrAllPlants[_shift*5 + i]);
-            } else {
-                break;
-            }
-        }
-        for (i=0; i<arr.length; i++) {
-            if (arr[i].blockByLevel <= g.user.level + 1)
-                _arrPlantItems[i].fillData(arr[i], onClickItem);
-        }
-    }
-
-    private function showAnimatePlantItems():void {
-        var delay:Number = .1;
-        for (var i:int = 0; i < _arrPlantItems.length; i++) {
-            _arrPlantItems[i].showAnimateIt(delay);
-            delay += .1;
-        }
-    }
-
-    private function animateChangePlantItems():void {
-        var arr:Array = [];
-        for (var i:int=0; i<5; i++) {
-            if (_arrAllPlants[_shift*5 + i]) {
-                arr.push(_arrAllPlants[_shift*5 + i]);
-            } else {
-                break;
-            }
-        }
-        var delay:Number = .1;
-        for (i = 0; i < _arrPlantItems.length; i++) {
-            if (arr[i]) {
-                _arrPlantItems[i].showChangeAnimate(delay, arr[i], onClickItem);
-            } else {
-                _arrPlantItems[i].showChangeAnimate(delay, null, null);
-            }
-            delay += .1;
+        var item:WOBuyPlantItem;
+        for (var i:int=0; i<_arrAllPlants.length; i++) {
+            item = new WOBuyPlantItem();
+            item.setCoordinates(66 + i*116, 60);
+            _cont.addChild(item.source);
+            _arrPlantItems.push(item);
+            item.fillData(_arrAllPlants[i], onClickItem);
         }
     }
 
     private function onClickItem(d:StructureDataResource, r:Ridge = null,calllback:Function = null):void {
         if (g.userInventory.getCountResourceById(d.id) <= 0) {
-//            g.windowsManager.cashWindow = this;
             var ob:Object = {};
             ob.data = d;
             ob.count = 1;
@@ -147,91 +124,63 @@ public class WOBuyPlant extends WindowMain {
             _callback.apply();
             _callback = null;
         }
-        if (_birka )super.hideIt();
+        super.hideIt();
     }
 
-    private function createBG():void {
-        _topBG = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_l'));
-        _topBG.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_r'));
-        im.x = _woWidth - im.width;
-        _topBG.addChild(im);
-        for (var i:int=0; i<10; i++) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_line_c'));
-            im.x = 50*(i+1);
-            _topBG.addChildAt(im, 0);
-        }
-        _topBG.x = -_woWidth/2;
-        _topBG.y = -_woHeight/2 + 80;
-        _source.addChild(_topBG);
+    private function createArrows():void {
+        _leftArrow = new CButton();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_arrow_red'));
+        im.alignPivot();
+        _leftArrow.addChild(im);
+        _leftArrow.clickCallback = onClickLeft;
+        _leftArrow.x = -_woWidth/2 - 25;
+        _leftArrow.y = 0;
+        _source.addChild(_leftArrow);
+
+        _rightArrow = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_arrow_red'));
+        im.scaleX = -1;
+        im.alignPivot();
+        _rightArrow.addChild(im);
+        _rightArrow.clickCallback = onClickRight;
+        _rightArrow.x = _woWidth/2 + 25;
+        _rightArrow.y = 0;
+        _source.addChild(_rightArrow);
     }
 
-    private function createPlantItems():void {
-        var item:WOBuyPlantItem;
-        _arrPlantItems = [];
-        for (var i:int = 0; i < 5; i++) {
-            item = new WOBuyPlantItem();
-            item.setCoordinates(-_woWidth/2 + 70 + i*107, -_woHeight/2 + 115);
-            _source.addChild(item.source);
-            _arrPlantItems.push(item);
-        }
+    private function onClickLeft():void {
+        if (_isAnim) return;
+        _shift -= 5;
+        if (_shift < 0) _shift = 0;
+        _isAnim = true;
+        TweenMax.to(_cont, .3, {x: -_shift*116, onComplete: function():void {_isAnim = false; checkArrows();} });
     }
 
-    private function activateShiftBtn(n:int, needUpdate:Boolean = true):void {
-        if (g.managerCutScenes.isCutScene) {
-            if (g.managerCutScenes.curCutSceneProperties.reason == ManagerCutScenes.REASON_OPEN_WO_PLANT && n == 2) {
-                g.managerCutScenes.checkCutSceneCallback();
-            } else return;
-        }
-        g.user.lastVisitPlant = n;
-        if (needUpdate && _shift == n-1) return;
-        for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _arrShiftBtns[i].source.y = -_woHeight/2 + 117;
-        }
-        if (_arrShiftBtns[n-1]) _arrShiftBtns[n-1].source.y += 8;
-        _shift = n-1;
-        if (needUpdate) {
-            animateChangePlantItems();
-        }
+    private function onClickRight():void {
+        if (_isAnim) return;
+        _shift += 5;
+        if (_shift > _arrPlantItems.length - 5) _shift = _arrPlantItems.length - 5;
+        _isAnim = true;
+        TweenMax.to(_cont, .3, {x: -_shift*116, onComplete: function():void {_isAnim = false; checkArrows();} });
+    }
+
+    private function checkArrows():void {
+        _leftArrow.visible = _shift > 0;
+        _rightArrow.visible = _shift < _arrPlantItems.length - 5;
     }
 
     override protected function deleteIt():void {
-        for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            _source.removeChild(_arrShiftBtns[i].source);
-            _arrShiftBtns[i].deleteIt();
-        }
-        _arrShiftBtns.length = 0;
-        for (i = 0; i < _arrPlantItems.length; i++) {
+        if (!_source) return;
+        for (var i:int = 0; i < _arrPlantItems.length; i++) {
             _source.removeChild(_arrPlantItems[i].source);
-            _arrPlantItems[i].deleteIt();
+            (_arrPlantItems[i] as WOBuyPlantItem).deleteIt();
         }
         _arrAllPlants.length = 0;
         _arrPlantItems.length = 0;
         _callback = null;
         _ridge = null;
-        if (_source)_source.removeChild(_birka);
-        if (_source)_birka.deleteIt();
-        if (_source)_birka = null;
         super.deleteIt();
     }
 
-    public function getBoundsProperties(s:String):Object {
-        var obj:Object;
-        var p:Point = new Point();
-        switch (s) {
-            case 'secondTab':
-                if (_arrShiftBtns[1]) {
-                    obj = {};
-                    p.x = _arrShiftBtns[1].source.x + _arrShiftBtns[1].source.width/2;
-                    p.y = _arrShiftBtns[1].source.y + _arrShiftBtns[1].source.height + 10;
-                    p = _source.localToGlobal(p);
-                    obj.x = p.x;
-                    obj.y = p.y;
-                }
-                break;
-        }
-        return obj;
-    }
 }
 }

@@ -33,7 +33,6 @@ public class ManagerCutScenes {
 
     public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
     public static const REASON_OPEN_TRAIN:int = 2;  // use if user open Train, cap
-    public static const REASON_OPEN_WO_PLANT:int = 3;  // реализуем, когда юзер впервые открыл окно покупки растений, когда уже появилась вторая вкладка
     public static const REASON_ADD_TO_PAPPER:int = 4;  
 
     public static const ID_ACTION_SHOW_MARKET:int = 0;
@@ -641,39 +640,6 @@ public class ManagerCutScenes {
         isCutScene = false;
     }
 
-    public function isWOPlantCutSceneAvailable():void {
-        if (!_properties || !_properties[7] || _properties[7].level > g.user.level || g.user.cutScenes[7]) return;
-        _curCutScenePropertie = _properties[7];
-        Utils.createDelay(.7, releaseWOPlant);
-    }
-
-
-    private function releaseWOPlant():void {
-        onStartMiniScenes();
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_BUY_PLANT) {
-            isCutScene = true;
-            var ob:Object = (g.windowsManager.currentWindow as WOBuyPlant).getBoundsProperties('secondTab');
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
-            _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(ob.x, ob.y);
-            _airBubble = new AirTextBubble();
-            _airBubble.showIt(_curCutScenePropertie.text, g.cont.popupCont, ob.x + 70, ob.y);
-            _cutSceneCallback = onWoPlant;
-        } else {
-            isCutScene = false;
-        }
-    }
-
-    private function onWoPlant():void {
-        _cutSceneCallback = null;
-        deleteDust();
-        deleteArrow();
-        deleteAirBubble();
-        g.user.cutScenes[7] = 1;
-        isCutScene = false;
-        saveUserCutScenesData();
-    }
-
     private function releaseAddToPapper(it:MarketItem):void {
         onStartMiniScenes();
         _cutSceneStep = 1;
@@ -802,10 +768,6 @@ public class ManagerCutScenes {
                     deleteAirBubble();
                     onAddToPapper();
                 }
-            } else if (_curCutScenePropertie.reason == REASON_OPEN_WO_PLANT) {
-                deleteArrow();
-                deleteAirBubble();
-                releaseWOPlant();
             } else {
                 var ob:Object;
                 switch (_curCutScenePropertie.id_action) {

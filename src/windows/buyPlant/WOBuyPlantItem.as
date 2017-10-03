@@ -28,7 +28,6 @@ import windows.WindowsManager;
 
 public class WOBuyPlantItem {
     public var source:CSprite;
-    private var _bg:Image;
     private var _icon:Image;
     private var _dataPlant:StructureDataResource;
     private var _clickCallback:Function;
@@ -44,22 +43,16 @@ public class WOBuyPlantItem {
     public function WOBuyPlantItem() {
         source = new CSprite();
         source.nameIt = 'woBuyPlantItem';
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-        source.addChild(_bg);
-        source.pivotX = source.width/2;
-        source.pivotY = source.height;
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtNumber = new CTextField(40,30,'');
+        _txtNumber = new CTextField(40,30,'888');
         _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNumber.alignH = Align.RIGHT;
-        _txtNumber.x = 52;
-        _txtNumber.y = 68;
+        _txtNumber.x = 0;
+        _txtNumber.y = 10;
         source.addChild(_txtNumber);
         _isOnHover = false;
-        source.isTouchable = false;
-        source.visible = false;
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -77,19 +70,12 @@ public class WOBuyPlantItem {
         }
         _clickCallback = f;
         if (_dataPlant.blockByLevel == g.user.level + 1) _maxAlpha = .5;
-        else if (_dataPlant.blockByLevel <= g.user.level) _maxAlpha = 1;
-        else {
-            _maxAlpha = 0;
-            Cc.error("Warning woBuyPlantItem filldata:: _dataPlant.blockByLevel > g.user.level + 1");
-        }
+            else if (_dataPlant.blockByLevel <= g.user.level) _maxAlpha = 1;
+            else _maxAlpha = 0;
+        source.alpha = _maxAlpha;
         fillIcon(_dataPlant.imageShop);
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
-        if (_countPlants <= 0) _txtNumber.changeTextColor = ManagerFilters.ORANGE_COLOR;
-        else _txtNumber.changeTextColor = Color.WHITE;
-        if (_maxAlpha == 1) {
-            _txtNumber.text = String(_countPlants);
-            _txtNumber.visible = true;
-        } else _txtNumber.visible = false;
+        _txtNumber.text = String(_countPlants);
         if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE && g.tuts.isTutsResource(_dataPlant.id)) addArrow();
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PLANT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PLANT)
             && g.managerQuest.activeTask.resourceId == _dataPlant.id) addArrow(3);
@@ -108,93 +94,22 @@ public class WOBuyPlantItem {
             return;
         }
         MCScaler.scale(_icon, 80, 80);
-        _icon.x = _bg.width/2 - _icon.width/2;
-        _icon.y = _bg.height/2 - _icon.height/2;
-        source.addChildAt(_icon,1);
-        if (g.user.fabricItemNotification.length > 0) {
-            var arr:Array = g.user.fabricItemNotification;
-            var im:Image;
-            for (var i:int = 0; i < arr.length; i++){
-                if (arr[i].id == _dataPlant.id) {
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
-                    im.x = _icon.width - im.width/2 + 3;
-                    im.y = _icon.y -14;
-                    source.addChild(im);
-//                    g.user.fabricItemNotification.splice(i);
-                }
-            }
-        }
-    }
-
-    public function showAnimateIt(delay:Number):void {
-        source.y = _defaultY - 35;
-        source.scaleX = source.scaleY = .9;
-        source.alpha = 0;
-        if (_maxAlpha > 0) {
-            source.isTouchable = true;
-            source.visible = true;
-        } else {
-            source.isTouchable = false;
-            source.visible = false;
-        }
-        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
-    }
-
-    public function showChangeAnimate(d:Number, ob:StructureDataResource, f:Function):void {
-        if (_dataPlant) {
-            TweenMax.to(source, .3, {scaleX:.9, scaleY:.9, alpha:0, y: _defaultY - 35, onComplete: onChangeAnimationComplete, delay: d, onCompleteParams: [0, ob, f]});
-        } else {
-            onChangeAnimationComplete(.3 + d, ob, f);
-        }
-    }
-
-    private function onChangeAnimationComplete(d:Number, ob:StructureDataResource, f:Function):void {
-        if (_dataPlant) {
-            unfillIt();
-            _dataPlant = null;
-            source.alpha = 0;
-        }
-        if (ob) {
-            fillData(ob, f);
-            if (_maxAlpha > 0) {
-                _maxAlpha = 1;
-                source.scaleX = 0;
-                source.scaleY = 0;
-                source.y = _defaultY - 35;
-                source.alpha = 0;
-                source.isTouchable = true;
-                source.visible = true;
-            } else {
-                source.isTouchable = false;
-                source.visible = false;
-            }
-            if (_dataPlant.blockByLevel == g.user.level + 1) {
-                _maxAlpha = .5;
-            } else if (_dataPlant.blockByLevel <= g.user.level) {
-                _maxAlpha = 1;
-            } else {
-                _maxAlpha = 0;
-                Cc.error("Warning woBuyPlantItem filldata:: _dataPlant.blockByLevel > g.user.level + 1");
-            }
-            TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d});
-        } else {
-            source.isTouchable = false;
-            source.visible = false;
-        }
-    }
-
-    private function unfillIt():void {
-        removeArrow();
-        if (_icon) {
-            source.removeChild(_icon);
-            _icon = null;
-        }
-        _countPlants = 0;
-        _dataPlant = null;
-        _clickCallback = null;
-        source.filter = null;
-        source.alpha = .5;
-        _txtNumber.text = '';
+        _icon.alignPivot();
+        source.addChildAt(_icon,0);
+        if (_maxAlpha == .5) _icon.filter = ManagerFilters.DISABLE_FILTER;
+//        if (g.user.fabricItemNotification.length > 0) {
+//            var arr:Array = g.user.fabricItemNotification;
+//            var im:Image;
+//            for (var i:int = 0; i < arr.length; i++){
+//                if (arr[i].id == _dataPlant.id) {
+//                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+//                    im.x = _icon.width - im.width/2 + 3;
+//                    im.y = _icon.y -14;
+//                    source.addChild(im);
+////                    g.user.fabricItemNotification.splice(i);
+//                }
+//            }
+//        }
     }
 
     private function onClick():void {
@@ -224,7 +139,6 @@ public class WOBuyPlantItem {
         if (_isOnHover) return;
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
         source.filter = ManagerFilters.YELLOW_STROKE;
-//        if (g.tuts.isTuts) return;
         _isOnHover = true;
         g.resourceHint.hideIt();
         g.resourceHint.showIt(_dataPlant.id, source.x, 48, source, true);
@@ -252,6 +166,7 @@ public class WOBuyPlantItem {
     }
 
     public function deleteIt():void {
+        if (!source) return;
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
         removeArrow();
