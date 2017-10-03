@@ -356,14 +356,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(64, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 10;
-            txt.y = -27;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 214 + bt.width / 2;
-            bt.y = bt.height / 2 - 12;
+            bt.x = 208 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
 
@@ -374,14 +374,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 10;
-            txt.y = -27;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 297 + bt.width / 2;
-            bt.y = bt.height / 2 - 12;
+            bt.x = 291 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
 
@@ -392,14 +392,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 10;
-            txt.y = -27;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 381 + bt.width / 2;
-            bt.y = bt.height / 2 - 12;
+            bt.x = 375 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
         } else if (_arrFriends.length == 1) {
@@ -411,14 +411,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 10;
-            txt.y = -27;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 297 + bt.width / 2;
-            bt.y = bt.height / 2 - 12;
+            bt.x = 291 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
 
@@ -429,14 +429,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 10;
-            txt.y = -27;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 381 + bt.width / 2;
-            bt.y = bt.height / 2 - 12;
+            bt.x = 375 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
         } else if (_arrFriends.length == 2) {
@@ -448,14 +448,14 @@ public class FriendPanel {
             bt.addDisplayObject(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
             bt.addDisplayObject(im);
-            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[415]));
+            txt = new CTextField(79, 76, String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 10;
-            txt.y = -27;
+//            txt.x = -2;
+            txt.y = -39;
             bt.addChild(txt);
             bt.setPivots();
-            bt.x = 381 + bt.width / 2;
-            bt.y = bt.height / 2 - 12;
+            bt.x = 375 + bt.width / 2;
+            bt.y = bt.height / 2 - 24;
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
         }

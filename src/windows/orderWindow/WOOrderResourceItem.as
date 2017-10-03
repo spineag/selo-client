@@ -36,13 +36,13 @@ public class WOOrderResourceItem {
         _countTxt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
         _countTxt.alignH = Align.RIGHT;
         _countTxt.y = 12;
-        _countTxt.x = -27;
+        _countTxt.x = -14 - _countTxt.textBounds.width/2;
         source.addChild(_countTxt);
         _countTxtNeed = new CTextField(80, 40, "10/10");
         _countTxtNeed.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
         _countTxtNeed.alignH = Align.RIGHT;
         _countTxtNeed.y = 12;
-        _countTxtNeed.x = -27;
+        _countTxtNeed.x = -24;
         source.addChild(_countTxtNeed);
         source.hoverCallback = onHover;
         source.outCallback = outCallback;
@@ -77,7 +77,11 @@ public class WOOrderResourceItem {
         _image.alignPivot();
         source.addChildAt(_image, 0);
         var curCount:int = g.userInventory.getCountResourceById(id);
-        _countTxt.text = String(curCount) + '/' + String(count);
+        _countTxt.text = String(curCount);
+        _countTxtNeed.text = '/' + String(count);
+        if (curCount >= count) {
+            _countTxt.changeTextColor = ManagerFilters.BLUE_COLOR;
+        } else  _countTxt.changeTextColor = ManagerFilters.RED_TXT_NEW;
         _check.visible = curCount >= count;
         source.visible = true;
     }

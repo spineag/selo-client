@@ -29,6 +29,7 @@ public class ManagerFilters {
     public static var WINDOW_STROKE_BLUE_COLOR:int = 0x32627b;
     public static var BLUE_LIGHT_NEW:int = 0x45abd5;
     public static var BLUE_TXT_UI:int = 0x43788f;
+    public static var RED_TXT_NEW:int = 0xe02500;
 
     public function ManagerFilters() {}
 
