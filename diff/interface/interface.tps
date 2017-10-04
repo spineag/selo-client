@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.7.1</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/selo/client/diff/interface/interface.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,6 +43,8 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
+        <key>atfCompressData</key>
+        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -173,14 +175,16 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
-            <key>innerPadding</key>
-            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
+            <key>trimMargin</key>
+            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <key>tracerTolerance</key>
+            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -188,7 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>add_friend_button.png</filename>
             <filename>animated_decor.png</filename>
             <filename>backgroundMilkIn</filename>
             <filename>backgroundNew</filename>
@@ -210,27 +213,12 @@
             <filename>cat_icon.png</filename>
             <filename>cat_shadow.png</filename>
             <filename>cave</filename>
-            <filename>checkbox.png</filename>
-            <filename>circle.png</filename>
-            <filename>coins_back.png</filename>
             <filename>coins_medium.png</filename>
             <filename>coins_small.png</filename>
             <filename>coins.png</filename>
             <filename>coupons_icon.png</filename>
-            <filename>cross.png</filename>
             <filename>currency_buy_window.png</filename>
-            <filename>cursor_basket.png</filename>
-            <filename>cursor_circle_1_eng.png</filename>
-            <filename>cursor_circle_1.png</filename>
-            <filename>cursor_circle_2_eng.png</filename>
-            <filename>cursor_circle_2.png</filename>
-            <filename>cursor_circle_3_eng.png</filename>
-            <filename>cursor_circle_3.png</filename>
-            <filename>cursor_circle.png</filename>
-            <filename>cursor_clock.png</filename>
             <filename>cursor_fertilizer.png</filename>
-            <filename>cursor_number_circle.png</filename>
-            <filename>cursor_sickle.png</filename>
             <filename>decor_cell.png</filename>
             <filename>default_avatar_big.png</filename>
             <filename>done_icon.png</filename>
@@ -238,14 +226,12 @@
             <filename>empty_red_tile.png</filename>
             <filename>exclamation_point.png</filename>
             <filename>fabrica</filename>
-            <filename>friend_board.png</filename>
             <filename>friends_panel_ar.png</filename>
             <filename>fs_blue_cell_big_white.png</filename>
             <filename>fs_blue_cell_big.png</filename>
             <filename>fs_friend_panel.png</filename>
             <filename>green_coupone.png</filename>
             <filename>green_tile.png</filename>
-            <filename>hint_arrow.png</filename>
             <filename>hint_new</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
@@ -270,8 +256,6 @@
             <filename>orders_cell.png</filename>
             <filename>particles</filename>
             <filename>plant_wo</filename>
-            <filename>plawka7.png</filename>
-            <filename>plus_button.png</filename>
             <filename>progress_bar_center.png</filename>
             <filename>progress_bar_left.png</filename>
             <filename>progress_bar_right.png</filename>
@@ -281,7 +265,6 @@
             <filename>red_m_big.png</filename>
             <filename>red_tile.png</filename>
             <filename>refresh_icon.png</filename>
-            <filename>roadside_shop_tabl.png</filename>
             <filename>rubins_medium.png</filename>
             <filename>rubins_small.png</filename>
             <filename>rubins.png</filename>
@@ -308,7 +291,6 @@
             <filename>tutorial_arrow_pink.png</filename>
             <filename>tutorial_nyam.png</filename>
             <filename>vaucher.png</filename>
-            <filename>visitor_window_back.png</filename>
             <filename>wait.png</filename>
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>

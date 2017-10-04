@@ -211,7 +211,7 @@ public class WOFabricaWorkListItem {
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
         _icon.alignPivot();
         if (_type == BIG_CELL) {
-            MCScaler.scale(_icon, 85, 100);
+//            MCScaler.scale(_icon, 85, 100);
             _icon.x = 57;
             _icon.y = 83;
         } else {

@@ -62,12 +62,12 @@ public class WOFabrica extends WindowMain {
         createArrows();
         _listCont = new Sprite();
         _listCont.x = -_woWidth/2 + 135;
-        _listCont.y = -_woHeight/2 + 280;
+        _listCont.y = -_woHeight/2 + 320;
         _source.addChild(_listCont);
         _list = new WOFabricaWorkList(_listCont, this);
         _imWhite = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_white_panel'));
         _imWhite.pivotX = _imWhite.width/2;
-        _imWhite.y = -20;
+        _imWhite.y = 20;
         _source.addChildAt(_imWhite, 1);
     }
 
