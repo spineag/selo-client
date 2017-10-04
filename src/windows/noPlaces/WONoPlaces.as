@@ -14,7 +14,10 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SensibleBlock;
+
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -26,7 +29,7 @@ public class WONoPlaces extends WindowMain {
     private var _txtCost:CTextField;
     private var _txtAdd:CTextField;
 //    private var _txtButton:TextField;
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _price:int;
     private var _cost:int;
     private var _buyCallback:Function;
@@ -38,42 +41,66 @@ public class WONoPlaces extends WindowMain {
     public function WONoPlaces() {
         super();
         _windowType = WindowsManager.WO_NO_PLACES;
-        _woWidth = 400;
-        _woHeight = 380;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woWidth = 450;
+        _woHeight = 400;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
         SOUND_OPEN = SoundConst.WO_AHTUNG;
 
-        _btn = new CButton();
-        _btn.addButtonTexture(220, 40, CButton.GREEN, true);
-        _btn.y = 120;
-        _source.addChild(_btn);
-        _btn.clickCallback = onClick;
-        _txtName = new CTextField(300,30,String(g.managerLanguage.allTexts[376]));
-        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtName.x = -150;
-        _txtName.y = -150;
+
+
+//        _btn = new CButton();
+//        _btn.addButtonTexture(220, 40, CButton.GREEN, true);
+//        _btn.y = 120;
+//        _source.addChild(_btn);
+//        _btn.clickCallback = onClick;
+        _txtName = new CTextField(350,70,String(g.managerLanguage.allTexts[376]));
+        _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtName.x = -180;
+        _txtName.y = -160;
         _source.addChild(_txtName);
-        _txtText = new CTextField(350,70,"");
-        _txtText.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtText = new CTextField(450,70,"");
+        _txtText.setFormat(CTextField.BOLD24, 24,  ManagerFilters.BLUE_LIGHT_NEW);
         _source.addChild(_txtText);
 
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_medium"));
-        MCScaler.scale(im,32,32);
-        im.x = 178;
-        im.y = 6;
-        _btn.addChild(im);
-        im.filter = ManagerFilters.SHADOW_TINY;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
+//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_medium"));
+//        MCScaler.scale(im,32,32);
+//        im.x = 178;
+//        im.y = 6;
+//        _btn.addChild(im);
+//        im.filter = ManagerFilters.SHADOW_TINY;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("plants_factory_y_cell_s"));
         im.x = -50;
-        im.y = -50;
-        _txtCost = new CTextField(200,50,"");
-        _txtCost.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtCost.x = -8;
-        _txtCost.y = -5;
-        _btn.addChild(_txtCost);
+        im.y = -5;
+        _source.addChild(im);
+//        _txtCost = new CTextField(200,50,"");
+//        _txtCost.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//        _txtCost.x = -8;
+//        _txtCost.y = -5;
+//        _btn.addChild(_txtCost);
+
+
+
+
+        _btn = new CButton();
+        _btn.addButtonTexture(220, CButton.HEIGHT_41, CButton.GREEN, true);
+        _btn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _source.addChild(_btn);
+        _txtCost = new CTextField(220, 38, '');
+        _txtCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
+//        MCScaler.scale(im,32,32);
+//        var sensi:SensibleBlock = new SensibleBlock();
+//        sensi.textAndImage(_txtCost,im,220);
+//        _btn.addSensBlock(sensi,0,20);
+//        _btn.x = 20;
+        _btn.y = 160;
+        _btn.clickCallback = onClick;
+
+
+
         _source.addChild(im);
         _txtAdd = new CTextField(100,100,"");
         _txtAdd.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -81,7 +108,7 @@ public class WONoPlaces extends WindowMain {
         _txtIcon = new CTextField(80,200,String(g.managerLanguage.allTexts[377]));
         _txtIcon.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txtIcon.x = -37;
-        _txtIcon.y = -102;
+        _txtIcon.y = -57;
         _source.addChild(_txtIcon);
         _txtIcon.visible = false;
     }
@@ -103,8 +130,8 @@ public class WONoPlaces extends WindowMain {
             _txtText.text = String(g.managerLanguage.allTexts[378]);
             _imageItem = new Image(g.allData.atlas[g.allData.getResourceById(params[1]).url].getTexture(g.allData.getResourceById(params[1]).imageShop));
             MCScaler.scale(_imageItem,80,80);
-            _imageItem.x = -40;
-            _imageItem.y = -40;
+            _imageItem.x = -35;
+            _imageItem.y = 10;
             _source.addChild(_imageItem);
             _source.addChild(_txtAdd);
             _last = true;
@@ -112,9 +139,9 @@ public class WONoPlaces extends WindowMain {
             _txtCost.text = String(String(g.managerLanguage.allTexts[379]) + " " + String(g.managerLanguage.allTexts[329]) + '  ' + _price);
             _txtAdd.text = String(g.managerLanguage.allTexts[379]);
             _txtAdd.x = -47;
-            _txtAdd.y = -15;
-            _txtText.x = -175;
-            _txtText.y = -118;
+            _txtAdd.y = 30;
+            _txtText.x = -220;
+            _txtText.y = -80;
             _txtIcon.visible = false;
 //            _txtButton.text = 'Ускорить за '
         } else {
@@ -124,11 +151,16 @@ public class WONoPlaces extends WindowMain {
             _txtAdd.x = -47;
             _txtAdd.y = -50;
             _txtAdd.text = String(g.managerLanguage.allTexts[381]);
-            _txtText.x = -170;
-            _txtText.y = -118;
+            _txtText.x = -220;
+            _txtText.y = -80;
 //            _txtButton.text = 'Добавить ячейку за '
             _txtIcon.visible = true;
         }
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
+        MCScaler.scale(im,32,32);
+        var sensi:SensibleBlock = new SensibleBlock();
+        sensi.textAndImage(_txtCost,im,220);
+        _btn.addSensBlock(sensi,0,20);
         super.showIt();
     }
 
