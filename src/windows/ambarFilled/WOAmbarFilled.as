@@ -45,7 +45,7 @@ public class WOAmbarFilled extends WindowMain {
 
 
         _btn = new CButton();
-        _btn.addButtonTexture(200, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btn.addButtonTexture(200, CButton.HEIGHT_55, CButton.GREEN, true);
 //        _btn.addTextField(200, 40, 0, 0, String(g.managerLanguage.allTexts[308]));
         _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.LIGHT_GREEN_COLOR);
 //        _source.addChild(_btn);

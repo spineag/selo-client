@@ -3,21 +3,17 @@
  */
 package windows.questList {
 import com.greensock.TweenMax;
-
 import quest.QuestStructure;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import utils.CButton;
-import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOQuestList extends WindowMain{
     private var _woBG:WindowBackground;
-    private var _birka:Birka;
     private var _items:Array;
     private var _cont:Sprite;
     private var _maskedContainer:Sprite;
@@ -36,12 +32,6 @@ public class WOQuestList extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _callbackClickBG = hideIt;
-
-        _birka = new Birka(g.managerLanguage.allTexts[623], _source, _woWidth, _woHeight);
-        _birka.flipItY();
-        _birka.source.rotation = Math.PI/2;
-        _birka.source.x = 40;
-        _birka.source.y = -75;
 
         _maskedContainer = new Sprite();
         _maskedContainer.mask = new Quad(360, 150);
@@ -146,11 +136,6 @@ public class WOQuestList extends WindowMain{
             _source.removeChild(_rightArrow);
             _rightArrow.deleteIt();
             _rightArrow = null;
-        }
-        if (_birka) {
-            _source.removeChild(_birka);
-            _birka.deleteIt();
-            _birka = null;
         }
         super.deleteIt();
     }

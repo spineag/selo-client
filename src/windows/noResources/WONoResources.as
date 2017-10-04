@@ -72,7 +72,7 @@ public class WONoResources extends WindowMain {
         _source.addChild(_text);
 
         _btnBuy = new CButton();
-        _btnBuy.addButtonTexture(265, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnBuy.addButtonTexture(265, CButton.HEIGHT_55, CButton.GREEN, true);
 //        _btnBuy.addTextField(210, 34, 0, 0, String(g.managerLanguage.allTexts[375]));
         _btnBuy.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnBuy.x = 0;

@@ -61,7 +61,7 @@ public class WOChest  extends WindowMain{
             _armature.animation.gotoAndPlayByFrame('idle_1');
         } else {
             _btnOpen = new CButton();
-            _btnOpen.addButtonTexture(160, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+            _btnOpen.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);
             _btnOpen.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
             MCScaler.scale(im, 35, 35);

@@ -25,14 +25,14 @@ public class WOSimpleButtonTexture  extends Sprite {
         var s:Sprite = new Sprite();
 
         if (w%2) w++;
-        if (h!=CButton.SMALL_HEIGHT && h!=CButton.MEDIUM_HEIGHT && h!=CButton.BIG_HEIGHT) {
+        if (h!=CButton.HEIGHT_32 && h!=CButton.HEIGHT_41 && h!=CButton.HEIGHT_55) {
             Cc.error('For buttons WOSimpleButtonTexture use only HEIGHT = {SMALL=32, MEDIUM=41 or BIG=55}');
-            if (h<35) h = CButton.SMALL_HEIGHT;
-            else if (h<44) h = CButton.MEDIUM_HEIGHT;
-            else h=CButton.BIG_HEIGHT;
+            if (h<35) h = CButton.HEIGHT_32;
+            else if (h<44) h = CButton.HEIGHT_41;
+            else h=CButton.HEIGHT_55;
         }
 
-        if (h == CButton.SMALL_HEIGHT) {
+        if (h == CButton.HEIGHT_32) {
             switch (_type) {
                 case CButton.GREEN: imLeft = 'green_button_s_L'; imCenter = 'green_button_s_C'; break;
                 case CButton.RED: imLeft = 'red_button_s_L'; imCenter = 'red_button_s_C'; break;
@@ -42,7 +42,7 @@ public class WOSimpleButtonTexture  extends Sprite {
             }
             dX = -1;
             dY = -1;
-        } else if (h == CButton.MEDIUM_HEIGHT) {
+        } else if (h == CButton.HEIGHT_41) {
             switch (_type) {
                 case CButton.GREEN: imLeft = 'green_button_m_L'; imCenter = 'green_button_m_C'; break;
                 case CButton.RED: imLeft = 'red_button_m_L'; imCenter = 'red_button_m_C'; break;
@@ -52,7 +52,7 @@ public class WOSimpleButtonTexture  extends Sprite {
             }
             dX = -5;
             dY = -6;
-        } else if (h == CButton.BIG_HEIGHT) {
+        } else if (h == CButton.HEIGHT_55) {
             switch (_type) {
                 case CButton.GREEN: imLeft = 'green_button_b_L'; imCenter = 'green_button_b_C'; break;
                 case CButton.RED: imLeft = 'red_button_b_L'; imCenter = 'red_button_b_C'; break;

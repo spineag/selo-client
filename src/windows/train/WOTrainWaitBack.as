@@ -51,7 +51,7 @@ public class WOTrainWaitBack extends WindowMain{
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         _btn = new CButton();
-        _btn.addButtonTexture(172, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btn.addButtonTexture(172, CButton.HEIGHT_55, CButton.GREEN, true);
         _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
 //        _btn.addButtonTexture(172, 50, CButton.GREEN, true);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));

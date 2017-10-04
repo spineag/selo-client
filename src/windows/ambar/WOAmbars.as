@@ -119,7 +119,7 @@ public class WOAmbars extends WindowMain {
         _mainPart.addChild(_scrollSprite.source);
 
         _btnUpgrade = new CButton();
-        _btnUpgrade.addButtonTexture(110, CButton.MEDIUM_HEIGHT, CButton.GREEN, true);
+        _btnUpgrade.addButtonTexture(110, CButton.HEIGHT_41, CButton.GREEN, true);
         _btnUpgrade.addTextField(110, 37, 0, 0, g.managerLanguage.allTexts[463]);
         _btnUpgrade.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnUpgrade.x = -_woWidth/2 + 548;
@@ -140,7 +140,7 @@ public class WOAmbars extends WindowMain {
         _upgradePart.visible = false;
 
         _btnBack = new CButton();
-        _btnBack.addButtonTexture(110, CButton.MEDIUM_HEIGHT, CButton.BLUE, true);
+        _btnBack.addButtonTexture(110, CButton.HEIGHT_41, CButton.BLUE, true);
         _btnBack.addTextField(110, 37, 0, 0, g.managerLanguage.allTexts[464]);
         _btnBack.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnBack.x = -_woWidth/2 + 548;
@@ -160,7 +160,7 @@ public class WOAmbars extends WindowMain {
         _upgradePart.addChild(_uItem3.source);
 
         _btnMakeUpgrade = new CButton();
-        _btnMakeUpgrade.addButtonTexture(138, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnMakeUpgrade.addButtonTexture(138, CButton.HEIGHT_55, CButton.GREEN, true);
         _btnMakeUpgrade.addTextField(138, 50, 0, 0, g.managerLanguage.allTexts[463]);
         _btnMakeUpgrade.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         if (_isBigShop) _btnMakeUpgrade.y = 150;

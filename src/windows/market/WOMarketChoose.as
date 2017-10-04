@@ -1,39 +1,22 @@
 package windows.market {
 import com.junkbyte.console.Cc;
 import data.BuildType;
-import data.StructureDataBuilding;
-
 import manager.ManagerFilters;
-import manager.ManagerLanguage;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.filters.BlurFilter;
-import starling.filters.DropShadowFilter;
-import starling.text.TextField;
-import starling.utils.Align;
 import starling.utils.Color;
-import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
-import utils.TimeUtils;
-
 import windows.WOComponents.BackgroundWhiteIn;
-
-import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import utils.CButton;
-import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOMarketChoose extends WindowMain {
-    public static const AMBAR:int = 1;
-    public static const SKLAD:int = 2;
-
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _arrCells:Array;
     private var _callback:Function;
@@ -48,7 +31,6 @@ public class WOMarketChoose extends WindowMain {
     private var booleanPlus:Boolean;
     private var booleanMinus:Boolean;
     private var _woBG:WindowBackgroundNew;
-    private var _defaultY:int = -232;
     private var _activetedItem:MarketItem;
     private var _imPapper:Image;
     private var _txtPapperBtn:CTextField;
@@ -110,7 +92,7 @@ public class WOMarketChoose extends WindowMain {
         _countResourceBlock.source.visible = false;
 
         _btnSell = new CButton();
-        _btnSell.addButtonTexture(145, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnSell.addButtonTexture(145, CButton.HEIGHT_55, CButton.GREEN, true);
         _btnSell.addTextField(145, 40, 0, 0, String(g.managerLanguage.allTexts[407]));
         _btnSell.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnSell.x = 425;

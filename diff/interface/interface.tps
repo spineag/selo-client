@@ -198,13 +198,8 @@
             <filename>baloon_2.png</filename>
             <filename>baloon_3.png</filename>
             <filename>baloon_4.png</filename>
-            <filename>best_price_eng.png</filename>
-            <filename>best_price.png</filename>
+            <filename>bank</filename>
             <filename>bg</filename>
-            <filename>birka_c.png</filename>
-            <filename>birka_cat.png</filename>
-            <filename>birka_d.png</filename>
-            <filename>birka_t.png</filename>
             <filename>blue_coupone.png</filename>
             <filename>bonus.png</filename>
             <filename>bt_close.png</filename>
@@ -218,8 +213,6 @@
             <filename>checkbox.png</filename>
             <filename>circle.png</filename>
             <filename>coins_back.png</filename>
-            <filename>coins_icon.png</filename>
-            <filename>coins_market.png</filename>
             <filename>coins_medium.png</filename>
             <filename>coins_small.png</filename>
             <filename>coins.png</filename>
@@ -270,9 +263,7 @@
             <filename>newspaper_icon_small.png</filename>
             <filename>nyash_blue.png</filename>
             <filename>nyash_red.png</filename>
-            <filename>options</filename>
             <filename>order_small_bg.png</filename>
-            <filename>order_window_decline.png</filename>
             <filename>order_window_del_clock.png</filename>
             <filename>order_window_del_or.png</filename>
             <filename>orders_babble.png</filename>
@@ -281,7 +272,6 @@
             <filename>plant_wo</filename>
             <filename>plawka7.png</filename>
             <filename>plus_button.png</filename>
-            <filename>production</filename>
             <filename>progress_bar_center.png</filename>
             <filename>progress_bar_left.png</filename>
             <filename>progress_bar_right.png</filename>
@@ -292,7 +282,6 @@
             <filename>red_tile.png</filename>
             <filename>refresh_icon.png</filename>
             <filename>roadside_shop_tabl.png</filename>
-            <filename>rubins_icon.png</filename>
             <filename>rubins_medium.png</filename>
             <filename>rubins_small.png</filename>
             <filename>rubins.png</filename>
@@ -314,13 +303,10 @@
             <filename>storage_window_prl_r.png</filename>
             <filename>storage_window_scr_c.png</filename>
             <filename>storage_window_scr_line.png</filename>
-            <filename>top_eng.png</filename>
-            <filename>top_sells.png</filename>
             <filename>train</filename>
             <filename>trash.png</filename>
             <filename>tutorial_arrow_pink.png</filename>
             <filename>tutorial_nyam.png</filename>
-            <filename>ui</filename>
             <filename>vaucher.png</filename>
             <filename>visitor_window_back.png</filename>
             <filename>wait.png</filename>

@@ -28,9 +28,9 @@ public class CButton extends Sprite {
     public static const YELLOW:int = 4;
     public static const BLUE:int = 5;
 
-    public static const BIG_HEIGHT:int = 55;
-    public static const MEDIUM_HEIGHT:int = 41;
-    public static const SMALL_HEIGHT:int = 32;
+    public static const HEIGHT_55:int = 55;
+    public static const HEIGHT_41:int = 41;
+    public static const HEIGHT_32:int = 32;
 
     private var _clickCallback:Function;
     private var _hoverCallback:Function;

@@ -118,7 +118,7 @@ public class WOTrain extends WindowMain {
         _source.addChild(_txtTimer);
 
         _btnSendBasket = new CButton();
-        _btnSendBasket.addButtonTexture(150, CButton.BIG_HEIGHT, CButton.GREEN, true);
+        _btnSendBasket.addButtonTexture(150, CButton.HEIGHT_55, CButton.GREEN, true);
         _btnSendBasket.x = -_woWidth/2 + 800;
         _btnSendBasket.y = -_woHeight/2 + 638;
         _source.addChild(_btnSendBasket);
@@ -137,7 +137,7 @@ public class WOTrain extends WindowMain {
         im.y = -_woHeight/2 + 340;
         _source.addChild(im);
         _btnLoad = new CButton();
-        _btnLoad.addButtonTexture(90, CButton.SMALL_HEIGHT, CButton.GREEN, true);
+        _btnLoad.addButtonTexture(90, CButton.HEIGHT_32, CButton.GREEN, true);
         _btnLoad.x = -_woWidth/2 + 736;
         _btnLoad.y = -_woHeight/2 + 405;
         _btnLoad.addTextField(90, 30, 0, 0, g.managerLanguage.allTexts[294]);
@@ -145,7 +145,7 @@ public class WOTrain extends WindowMain {
         _btnLoad.clickCallback = onResourceLoad;
         _source.addChild(_btnLoad);
         _btnHelp = new CButton();
-        _btnHelp.addButtonTexture(228, CButton.MEDIUM_HEIGHT, CButton.BLUE, true);
+        _btnHelp.addButtonTexture(228, CButton.HEIGHT_41, CButton.BLUE, true);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('ask_button'));
         im.alignPivot();
         im.x = 5;

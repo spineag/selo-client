@@ -29,12 +29,13 @@ public class BuyHint {
     public function showIt(st:int):void {
         _txtHint.text = String(st);
         var rectangle:Rectangle = _txtHint.textBounds;
+        if (rectangle.height <= 42 - 12) rectangle.height = 30;
+            else if (rectangle.height <= 67 - 12) rectangle.height = 55;
         _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(_imCoins,20,20);
         _imCoins.y = 6;
         _txtHint.width = rectangle.width + 20;
         _txtHint.height = rectangle.height + 10;
-//        _txtHint.x = -10;
         _imCoins.x =  _txtHint.width - 5;
         hideIt();
         var bg:HintBackground = new HintBackground(rectangle.width + 42, rectangle.height + 12);
