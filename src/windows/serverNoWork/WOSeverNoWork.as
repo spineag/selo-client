@@ -33,7 +33,7 @@ public class WOSeverNoWork  extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _txtInfo = new CTextField(420,80,String(g.managerLanguage.allTexts[286]));
-        _txtInfo.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtInfo.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtInfo.x = -210;
         _txtInfo.y = -130;
         _source.addChild(_txtInfo);
@@ -48,7 +48,7 @@ public class WOSeverNoWork  extends WindowMain {
         _b.y = 120;
         _source.addChild(_b);
         _txtBtn = new CTextField(200, 34, String(g.managerLanguage.allTexts[281]));
-        _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;

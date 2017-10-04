@@ -41,7 +41,7 @@ public class Hint {
         _txtHint = new CTextField(150,20,"");
         _txtHint.setFormat(CTextField.BOLD18, 16,ManagerFilters.BLUE_COLOR);
         _txtHintTime = new CTextField(150,20,"");
-        _txtHintTime.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BLUE_COLOR);
+        _txtHintTime.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
         _txtHintTime.cacheIt = false;
         source.touchable = false;
         _isShow = false;

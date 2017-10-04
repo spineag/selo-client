@@ -49,7 +49,7 @@ public class WOCave extends WindowMain {
         _arrItems = [];
         for (var i:int = 0; i < 3; i++) {
             item = new CaveItem(this);
-            item.setCoordinates(-_woWidth/2 + 77 + i*107, -_woHeight/2 + 115);
+            item.setCoordinates(-_woWidth/2 + 88 + i*107, -_woHeight/2 + 115);
             _source.addChild(item.source);
             _arrItems.push(item);
         }

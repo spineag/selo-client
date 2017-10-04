@@ -41,7 +41,7 @@ public class WOQuestFinishAward extends WindowMain {
         im.touchable = false;
         _source.addChild(im);
         var txt:CTextField = new CTextField(200, 100, g.managerLanguage.allTexts[626]);
-        txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;
         txt.x = 58 - txt.textBounds.width/2;
         txt.y = -155;
@@ -178,7 +178,7 @@ internal class Item extends Sprite {
         _source = new Sprite();
         _aw = aw;
         _txt = new CTextField(60, 30, String(_aw.countResource));
-        _txt.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -30;
         _txt.y = 35;
         addChild(_txt);

@@ -60,19 +60,12 @@ public class WOMarketDeleteItem extends WindowMain{
         _source.addChild(_b);
         _txtBtn = new CTextField(200, 34, String(g.managerLanguage.allTexts[410]));
         _txtBtn.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
-//        _b.addChild(_txtBtn);
-
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//        im.x = 150;
-//        im.y = 1;
-//        MCScaler.scale(im,30,30);
         var sensi:SensibleBlock = new SensibleBlock();
         sensi.textAndImage(_txtBtn,im,265);
         _b.addSensBlock(sensi,0,25);
-//        _b.addChild(im);
         _b.y = 190;
         _b.clickCallback = onClick;
-//        _b.addChild(_txtBtn);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_blue_cell_big'));
         im.x = -im.width/2;
         im.y = -im.height/4 - 10;
@@ -85,7 +78,6 @@ public class WOMarketDeleteItem extends WindowMain{
         im.x = 20;
         im.y = 94;
         _source.addChild(im);
-
     }
 
     private function onClickExit(e:Event=null):void {

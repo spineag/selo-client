@@ -135,7 +135,7 @@ public class MainBottomPanel {
         _friendBtn.x = _friendBtn.width/2 + 6;
         _friendBtn.y = _friendBtn.height/4 + 2;
         _friendSpr.addChild(_friendBtn);
-        _friendBtn.hoverCallback = function():void {g.hint.showIt(String(g.managerLanguage.allTexts[477]));};
+        _friendBtn.hoverCallback = function():void {g.hint.showIt(String(g.managerLanguage.allTexts[485]));};
         _friendBtn.outCallback = function():void { g.hint.hideIt(); };
         _friendBtn.clickCallback = function():void {onClick('friend')};
 

@@ -44,19 +44,19 @@ public class WOChestYellowItem {
                         im = new Image(g.allData.atlas[g.allData.getResourceById(_data.resource_id).url].getTexture(g.allData.getResourceById(_data.resource_id).imageShop));
                     }
                 _txt = new CTextField(80, 60, '+' + String(_data.resource_count));
-                _txt.setFormat(CTextField.MEDIUM30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
+                _txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
                 break;
 
             case ManagerChest.SOFT_MONEY:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
                 _txt = new CTextField(80, 60, '+' + String(_data.money_count));
-                _txt.setFormat(CTextField.MEDIUM30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
+                _txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
                 break;
 
             case ManagerChest.XP:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
                 _txt = new CTextField(80, 60, '+' + String(_data.xp_count));
-                _txt.setFormat(CTextField.MEDIUM30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
+                _txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
                 break;
         }
         MCScaler.scale(im, 80, 80);

@@ -18,7 +18,7 @@ import windows.WindowsManager;
 
 public class CaveItem {
     public var source:CSprite;
-    private var _bg:Image;
+//    private var _bg:Image;
     private var _icon:Image;
     private var _data:Object;
     private var _clickCallback:Function;
@@ -33,18 +33,17 @@ public class CaveItem {
     public function CaveItem(wo:WOCave) {
         _wo = wo;
         source = new CSprite();
-        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-        source.addChild(_bg);
-        source.pivotX = source.width/2;
-        source.pivotY = source.height;
+//        _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
+//        source.addChild(_bg);
+
         source.endClickCallback = onClick;
         source.hoverCallback = function():void {source.filter = ManagerFilters.YELLOW_STROKE;};
         source.outCallback = function():void {source.filter = null;};
 //        source.hoverCallback = onHover;
 //        source.outCallback = onOut;
-        _txtCount = new CTextField(40,30,'');
-        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtCount.x = 60;
+        _txtCount = new CTextField(90,50,'');
+        _txtCount.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.x = 40;
         _txtCount.y = 68;
         source.addChild(_txtCount);
     }
@@ -77,12 +76,14 @@ public class CaveItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'caveItem');
             return;
         }
-        MCScaler.scale(_icon, 80, 80);
-        _icon.x = _bg.width/2 - _icon.width/2;
-        _icon.y = _bg.height/2 - _icon.height/2;
+//        MCScaler.scale(_icon, 80, 80);
+        _icon.x = 55 - _icon.width/2;
+        _icon.y = 55 - _icon.height/2;
         source.addChild(_icon);
         _countResource = g.userInventory.getCountResourceById(_data.id);
         _txtCount.text = String(_countResource);
+        source.pivotX = source.width/2;
+        source.pivotY = source.height;
     }
 
     public function showAnimateIt(delay:Number):void {

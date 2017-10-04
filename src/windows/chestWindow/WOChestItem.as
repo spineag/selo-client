@@ -69,7 +69,7 @@ public class WOChestItem {
         _source = new Sprite();
         _source.addChild(im);
         _txt = new CTextField(80, 60, '+'+String(obj.count));
-        _txt.setFormat(CTextField.MEDIUM30, 30, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txt.x = 0;
         _txt.y = 5;
         _source.addChild(_txt);

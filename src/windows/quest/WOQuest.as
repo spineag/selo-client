@@ -44,14 +44,14 @@ public class WOQuest extends WindowMain{
         _source.addChild(_bgC);
 
         _txtName = new CTextField(300, 100, '');
-        _txtName.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
+        _txtName.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
         _txtName.x = -150;
         _txtName.y = -295;
         _txtName.touchable = false;
         _source.addChild(_txtName);
 
         _txtDescription = new CTextField(260, 95, '');
-        _txtDescription.setFormat(CTextField.MEDIUM24, 22, ManagerFilters.BLUE_COLOR);
+        _txtDescription.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
         _txtDescription.x = -120;
         _txtDescription.y = -200;
         _txtDescription.touchable = false;
