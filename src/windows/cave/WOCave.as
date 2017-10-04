@@ -3,6 +3,8 @@ package windows.cave {
 import com.junkbyte.console.Cc;
 import starling.display.Image;
 import starling.display.Sprite;
+
+import windows.WOComponents.BackgroundPlant;
 import windows.WOComponents.Birka;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -10,21 +12,26 @@ import windows.WindowsManager;
 public class WOCave extends WindowMain {
     private var _arrItems:Array;
     private var _topBG:Sprite;
-    private var _birka:Birka;
+//    private var _birka:Birka;
+    private var _bgPlant:BackgroundPlant;
 
     public function WOCave() {
         super();
         _windowType = WindowsManager.WO_CAVE;
         _woWidth = 380;
         _woHeight = 134;
-        createBG();
+//        createBG();
+        _bgPlant = new BackgroundPlant(_woWidth, _woHeight);
+        _bgPlant.x = -_woWidth/2;
+        _bgPlant.y = -_woHeight/2;
+        _source.addChild(_bgPlant);
         createCaveItems();
         _callbackClickBG = hideIt;
-        _birka = new Birka(String(g.managerLanguage.allTexts[444]), _source, 455, 580);
-        _birka.flipIt();
-        _birka.source.rotation = Math.PI/2;
-        _birka.source.x = 0;
-        _birka.source.y = 150;
+//        _birka = new Birka(String(g.managerLanguage.allTexts[444]), _source, 455, 580);
+//        _birka.flipIt();
+//        _birka.source.rotation = Math.PI/2;
+//        _birka.source.x = 0;
+//        _birka.source.y = 150;
     }
 
     private function createBG():void {
@@ -85,11 +92,11 @@ public class WOCave extends WindowMain {
             _arrItems[i].deleteIt();
         }
         _arrItems.length = 0;
-        if (_birka) {
-            _source.removeChild(_birka);
-            _birka.deleteIt();
-            _birka = null;
-        }
+//        if (_birka) {
+//            _source.removeChild(_birka);
+//            _birka.deleteIt();
+//            _birka = null;
+//        }
         super.deleteIt();
     }
 }

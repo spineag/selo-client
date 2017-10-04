@@ -326,6 +326,7 @@ public class Ridge extends WorldObject{
             if (_stateRidge == EMPTY) {
                 onOut();
                 if (g.tuts.isTuts && _tutorialCallback != null)  hideArrow();
+                g.cont.moveCenterToXY(_source.x, _source.y - 80);
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
             }
         }

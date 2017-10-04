@@ -84,7 +84,7 @@ public class FriendPanel {
         _mask.x = 50;
         _mask.y = 7;
         _cont = new Sprite();
-        _mask.mask = new Quad(328, 90);
+        _mask.mask = new Quad(410, 90);
         _mask.addChild(_cont);
         createTabs();
         _source.addChild(_mask);

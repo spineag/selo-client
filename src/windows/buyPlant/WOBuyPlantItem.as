@@ -46,10 +46,10 @@ public class WOBuyPlantItem {
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtNumber = new CTextField(40,30,'888');
-        _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtNumber = new CTextField(90,50,'888');
+        _txtNumber.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNumber.alignH = Align.RIGHT;
-        _txtNumber.x = 0;
+        _txtNumber.x = -45;
         _txtNumber.y = 10;
         source.addChild(_txtNumber);
         _isOnHover = false;
@@ -93,7 +93,7 @@ public class WOBuyPlantItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woBuyPlantItem');
             return;
         }
-        MCScaler.scale(_icon, 80, 80);
+//        MCScaler.scale(_icon, 80, 80);
         _icon.alignPivot();
         source.addChildAt(_icon,0);
         if (_maxAlpha == .5) _icon.filter = ManagerFilters.DISABLE_FILTER;
