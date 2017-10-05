@@ -154,18 +154,46 @@ public class OrderCat {
         var st:String;
         var st2:String;
         switch (_catData.color) {
-            case BLACK:  st = '5'; st2 = '_black'; break;
-            case BLUE:   st = '4'; st2 = '_blue'; break;
-            case GREEN:  st = '3'; st2 = '_green'; break;
-            case BROWN:  st = 'br'; st2 = '_brown'; break;
-            case ORANGE: st = '1'; st2 = '_orange'; break;
-            case PINK:   st = '2'; st2 = '_pink'; break;
-            case WHITE:  st = '6'; st2 = '_white';break;
+            case BLACK:
+                if (_catData.isWoman) st = 'black_c_w';
+                else st = 'black_c_m';
+                st2 = '_black';
+                break;
+            case BLUE:
+                if (_catData.isWoman) st = 'blue_c_w';
+                else st = 'blue_c_m';
+                st2 = '_blue';
+                break;
+            case GREEN:
+                if (_catData.isWoman) st = 'green_c_w';
+                else st = 'green_c_m';
+                st2 = '_green';
+                break;
+            case BROWN:
+                if (_catData.isWoman) st = 'brown_c_w';
+                else st = 'brown_c_m';
+                st2 = '_brown';
+                break;
+            case ORANGE:
+                if (_catData.isWoman) st = 'orange_c_w';
+                else st = 'orange_c_m';
+                st2 = '_orange';
+                break;
+            case PINK:
+                if (_catData.isWoman) st = 'pink_c_w';
+                else st = 'pink_c_m';
+                st2 = '_pink';
+                break;
+            case WHITE:
+                if (_catData.isWoman) st = 'white_c_w';
+                else st = 'white_c_m';
+                st2 = '_white';
+                break;
         }
 
         releaseFrontTexture(st);
         releaseBackTexture(st);
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, st+'_head_f', st2, _catData.isWoman);
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, st+'_head_front', st2, _catData.isWoman);
 
         if (!_catData.isWoman) {
             var sl:Slot = armature.getSlot('bant');
@@ -259,24 +287,24 @@ public class OrderCat {
     }
 
     private function releaseFrontTexture(st:String):void {
-        changeTexture("head", st + "_head_f", armature);
-        changeTexture("body", st + "_body_f", armature);
-        changeTexture("handLeft", st + '_lhand_f', armature);
-        changeTexture("handLeft 2copy", st + '_lhand_f', armature);
-        changeTexture("legLeft", st + '_lleg_f', armature);
-        changeTexture("handRight", st + '_rhand_f', armature);
-        changeTexture("legRight", st + '_rleg_f', armature);
-        changeTexture("tail", st + '_tail', armature);
+        changeTexture("head", st + "_head_front", armature);
+        changeTexture("body", st + "_body_front", armature);
+        changeTexture("handLeft", st + '_l_hand_front', armature);
+        changeTexture("handLeft 2copy", st + '_l_hand_front', armature);
+        changeTexture("legLeft", st + '_l_leg_front', armature);
+        changeTexture("handRight", st + '_r_hand_front', armature);
+        changeTexture("legRight", st + '_r_leg_front', armature);
+        changeTexture("tail", st + '_tail_front', armature);
     }
 
     private function releaseBackTexture(st:String):void {
-        changeTexture("head", st + "_head_b", armatureBack);
-        changeTexture("body", st + "_body_b", armatureBack);
-        changeTexture("handLeft", st + '_lhand_b', armatureBack);
-        changeTexture("legLeft", st + '_lleg_b', armatureBack);
-        changeTexture("handRight", st + '_rhand_b', armatureBack);
-        changeTexture("legRight", st + '_rleg_b', armatureBack);
-        changeTexture("tail", st + '_tail', armatureBack);
+        changeTexture("head", st + "_head_back", armatureBack);
+        changeTexture("body", st + "_body_back", armatureBack);
+        changeTexture("handLeft", st + '_l_hand_back', armatureBack);
+        changeTexture("legLeft", st + '_l_leg_back', armatureBack);
+        changeTexture("handRight", st + '_r_hand_back', armatureBack);
+        changeTexture("legRight", st + '_r_leg_back', armatureBack);
+        changeTexture("tail", st + '_tail_front', armatureBack);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {

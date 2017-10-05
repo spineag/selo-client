@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/customisation/customisation.tps</string>
+        <string>/Users/andy/Documents/505farm/selo/client/diff/customisation/customisation.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

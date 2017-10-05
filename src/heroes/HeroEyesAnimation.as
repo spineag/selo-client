@@ -28,7 +28,6 @@ public class HeroEyesAnimation {
         var headBone:Slot = catArmature.getSlot('head');
         headBone.displayList = null;
         _armatureClip = _armatureEyes.display as StarlingArmatureDisplay;
-//        headBone.childArmature = _armatureEyes;
         var sp:Sprite = new Sprite();
         sp.addChild(_armatureClip);
         _armatureClip.x = 17;
@@ -37,19 +36,16 @@ public class HeroEyesAnimation {
 
         var b:Slot;
         var im:Image;
-//        im = fact.getTextureDisplay(path) as Image;
         im = new Image(g.allData.atlas['customisationAtlas'].getTexture(path));
         b = _armatureEyes.getSlot('head');
         b.displayList = null;
         b.display = im;
 
         b = _armatureEyes.getSlot('lid_r');
-//        im = fact.getTextureDisplay('eye/lid_r' + path2) as Image;
         im = new Image(g.allData.atlas['customisationAtlas'].getTexture('lid_r' + path2));
         b.displayList = null;
         b.display = im;
         b = _armatureEyes.getSlot('lid_l');
-//        im = fact.getTextureDisplay('eye/lid_l' + path2) as Image;
         im = new Image(g.allData.atlas['customisationAtlas'].getTexture('lid_l' + path2));
         b.displayList = null;
         b.display = im;

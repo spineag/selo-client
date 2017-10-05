@@ -1,160 +1,250 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:3427d467e7c6e06ab562525a4a1d014f:377bb49482a33965c08945a10becf745:afed83d20ee569361b13668b09d4ff6e$ -->
+<!-- $TexturePacker:SmartUpdate:72b3564aa2701b24a0bb4d537ed3173f:6947a4177c6a23ee0662d785c5c8c330:afed83d20ee569361b13668b09d4ff6e$ -->
 <TextureAtlas imagePath="customisationAtlas.png">
-    <SubTexture name="1_body_b" x="850" y="2" width="17" height="25"/>
-    <SubTexture name="1_body_f" x="869" y="2" width="17" height="25"/>
-    <SubTexture name="1_head_b" x="186" y="2" width="35" height="45"/>
-    <SubTexture name="1_head_f" x="223" y="2" width="35" height="45"/>
-    <SubTexture name="1_lhand_b" x="1006" y="29" width="9" height="17"/>
-    <SubTexture name="1_lhand_f" x="721" y="31" width="11" height="17"/>
-    <SubTexture name="1_lleg_b" x="1272" y="2" width="10" height="15" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="1_lleg_f" x="1273" y="19" width="10" height="15"/>
-    <SubTexture name="1_rhand_b" x="886" y="29" width="10" height="17"/>
-    <SubTexture name="1_rhand_f" x="1006" y="29" width="9" height="17"/>
-    <SubTexture name="1_rleg_b" x="1284" y="2" width="10" height="15"/>
-    <SubTexture name="1_rleg_f" x="1168" y="29" width="11" height="15"/>
-    <SubTexture name="1_tail" x="1459" y="2" width="17" height="10"/>
-    <SubTexture name="2_body_b" x="888" y="2" width="17" height="25"/>
-    <SubTexture name="2_body_f" x="907" y="2" width="17" height="25"/>
-    <SubTexture name="2_head_b" x="260" y="2" width="35" height="45"/>
-    <SubTexture name="2_head_f" x="297" y="2" width="35" height="45"/>
-    <SubTexture name="2_lhand_b" x="1017" y="29" width="9" height="17"/>
-    <SubTexture name="2_lhand_f" x="734" y="31" width="11" height="17"/>
-    <SubTexture name="2_lleg_b" x="1285" y="19" width="10" height="15" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="2_lleg_f" x="1296" y="2" width="10" height="15"/>
-    <SubTexture name="2_rhand_b" x="898" y="29" width="10" height="17"/>
-    <SubTexture name="2_rhand_f" x="1017" y="29" width="9" height="17"/>
-    <SubTexture name="2_rleg_b" x="1297" y="19" width="10" height="15"/>
-    <SubTexture name="2_rleg_f" x="1181" y="28" width="11" height="15"/>
-    <SubTexture name="2_tail" x="1454" y="28" width="17" height="10"/>
-    <SubTexture name="3_body_b" x="926" y="2" width="17" height="25"/>
-    <SubTexture name="3_body_f" x="945" y="2" width="17" height="25"/>
-    <SubTexture name="3_head_b" x="334" y="2" width="35" height="45"/>
-    <SubTexture name="3_head_f" x="371" y="2" width="35" height="45"/>
-    <SubTexture name="3_lhand_b" x="1028" y="29" width="9" height="17"/>
-    <SubTexture name="3_lhand_f" x="747" y="31" width="11" height="17"/>
-    <SubTexture name="3_lleg_b" x="1308" y="2" width="10" height="15" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="3_lleg_f" x="1309" y="19" width="10" height="15"/>
-    <SubTexture name="3_rhand_b" x="910" y="29" width="10" height="17"/>
-    <SubTexture name="3_rhand_f" x="1028" y="29" width="9" height="17"/>
-    <SubTexture name="3_rleg_b" x="1320" y="2" width="10" height="15"/>
-    <SubTexture name="3_rleg_f" x="1221" y="26" width="11" height="15"/>
-    <SubTexture name="3_tail" x="1460" y="14" width="17" height="10"/>
-    <SubTexture name="4_body_b" x="964" y="2" width="17" height="25"/>
-    <SubTexture name="4_body_f" x="983" y="2" width="17" height="25"/>
-    <SubTexture name="4_head_b" x="408" y="2" width="35" height="45"/>
-    <SubTexture name="4_head_f" x="445" y="2" width="35" height="45"/>
-    <SubTexture name="4_lhand_b" x="1039" y="29" width="9" height="17"/>
-    <SubTexture name="4_lhand_f" x="760" y="31" width="11" height="17"/>
-    <SubTexture name="4_lleg_b" x="1321" y="19" width="10" height="15" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="4_lleg_f" x="1332" y="2" width="10" height="15"/>
-    <SubTexture name="4_rhand_b" x="922" y="29" width="10" height="17"/>
-    <SubTexture name="4_rhand_f" x="1039" y="29" width="9" height="17"/>
-    <SubTexture name="4_rleg_b" x="1333" y="19" width="10" height="15"/>
-    <SubTexture name="4_rleg_f" x="1234" y="26" width="11" height="15"/>
-    <SubTexture name="4_tail" x="1478" y="2" width="17" height="10"/>
-    <SubTexture name="5_body_b" x="1002" y="2" width="17" height="25"/>
-    <SubTexture name="5_body_f" x="1021" y="2" width="17" height="25"/>
-    <SubTexture name="5_head_b" x="482" y="2" width="35" height="45"/>
-    <SubTexture name="5_head_f" x="519" y="2" width="35" height="45"/>
-    <SubTexture name="5_lhand_b" x="1050" y="29" width="9" height="17"/>
-    <SubTexture name="5_lhand_f" x="773" y="31" width="11" height="17"/>
-    <SubTexture name="5_lleg_b" x="1344" y="2" width="10" height="15" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="5_lleg_f" x="1345" y="19" width="10" height="15"/>
-    <SubTexture name="5_rhand_b" x="934" y="29" width="10" height="17"/>
-    <SubTexture name="5_rhand_f" x="1050" y="29" width="9" height="17"/>
-    <SubTexture name="5_rleg_b" x="1356" y="2" width="10" height="15"/>
-    <SubTexture name="5_rleg_f" x="1246" y="2" width="11" height="15"/>
-    <SubTexture name="5_tail" x="1473" y="26" width="17" height="10"/>
-    <SubTexture name="6_body_b" x="1040" y="2" width="17" height="25"/>
-    <SubTexture name="6_body_f" x="1059" y="2" width="17" height="25"/>
-    <SubTexture name="6_head_b" x="556" y="2" width="35" height="45"/>
-    <SubTexture name="6_head_f" x="593" y="2" width="35" height="45"/>
-    <SubTexture name="6_lhand_b" x="1061" y="29" width="9" height="17"/>
-    <SubTexture name="6_lhand_f" x="786" y="31" width="11" height="17"/>
-    <SubTexture name="6_lleg_b" x="1357" y="19" width="10" height="15" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="6_lleg_f" x="1368" y="2" width="10" height="15"/>
-    <SubTexture name="6_rhand_b" x="946" y="29" width="10" height="17"/>
-    <SubTexture name="6_rhand_f" x="1061" y="29" width="9" height="17"/>
-    <SubTexture name="6_rleg_b" x="1369" y="19" width="10" height="15"/>
-    <SubTexture name="6_rleg_f" x="1247" y="19" width="11" height="15"/>
-    <SubTexture name="6_tail" x="1479" y="14" width="17" height="10"/>
-    <SubTexture name="bant_1" x="703" y="2" width="28" height="27" frameX="-1" frameY="-3" frameWidth="30" frameHeight="31"/>
-    <SubTexture name="bant_2" x="733" y="2" width="28" height="27" frameX="-1" frameY="-3" frameWidth="30" frameHeight="31"/>
-    <SubTexture name="bant_3" x="763" y="2" width="28" height="27" frameX="-1" frameY="-3" frameWidth="30" frameHeight="31"/>
-    <SubTexture name="bant_4" x="821" y="2" width="27" height="25" frameX="-1" frameY="-4" frameWidth="30" frameHeight="31"/>
-    <SubTexture name="bant_5" x="793" y="2" width="26" height="26" frameX="-4" frameY="0" frameWidth="30" frameHeight="31"/>
-    <SubTexture name="bant_6" x="1192" y="2" width="25" height="22" frameX="-3" frameY="-4" frameWidth="30" frameHeight="31"/>
-    <SubTexture name="bant_7" x="1194" y="26" width="25" height="22" frameX="-3" frameY="-4" frameWidth="30" frameHeight="31"/>
-    <SubTexture name="bant_8" x="1219" y="2" width="25" height="22" frameX="-3" frameY="-4" frameWidth="30" frameHeight="31"/>
-    <SubTexture name="body" x="1078" y="2" width="17" height="25"/>
-    <SubTexture name="body_b" x="1097" y="2" width="17" height="25"/>
-    <SubTexture name="body_w" x="1116" y="2" width="17" height="25"/>
-    <SubTexture name="body_w_b" x="1173" y="2" width="17" height="24" frameX="0" frameY="0" frameWidth="17" frameHeight="25"/>
-    <SubTexture name="br_body_b" x="1135" y="2" width="17" height="25"/>
-    <SubTexture name="br_body_f" x="1154" y="2" width="17" height="25"/>
-    <SubTexture name="br_head_b" x="667" y="2" width="34" height="45" frameX="0" frameY="0" frameWidth="35" frameHeight="45"/>
-    <SubTexture name="br_head_f" x="630" y="2" width="35" height="45"/>
-    <SubTexture name="br_lhand_b" x="1072" y="29" width="9" height="17"/>
-    <SubTexture name="br_lhand_f" x="873" y="29" width="11" height="17"/>
-    <SubTexture name="br_lleg_b" x="1380" y="2" width="10" height="15" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="br_lleg_f" x="1381" y="19" width="10" height="15"/>
-    <SubTexture name="br_rhand_b" x="873" y="29" width="11" height="17"/>
-    <SubTexture name="br_rhand_f" x="1072" y="29" width="9" height="17"/>
-    <SubTexture name="br_rleg_b" x="1392" y="2" width="10" height="15"/>
-    <SubTexture name="br_rleg_f" x="1259" y="2" width="11" height="15"/>
-    <SubTexture name="br_tail" x="1492" y="26" width="17" height="10"/>
-    <SubTexture name="butterfly_blue_1" x="817" y="30" width="12" height="18" frameX="0" frameY="-1" frameWidth="12" frameHeight="19"/>
-    <SubTexture name="butterfly_blue_2" x="1391" y="36" width="4" height="12"/>
-    <SubTexture name="butterfly_pink_1" x="845" y="29" width="12" height="18" frameX="0" frameY="-1" frameWidth="12" frameHeight="19"/>
-    <SubTexture name="butterfly_pink_2" x="1397" y="36" width="4" height="12"/>
-    <SubTexture name="butterfly_yellow_1" x="859" y="29" width="12" height="18" frameX="0" frameY="-1" frameWidth="12" frameHeight="19"/>
-    <SubTexture name="butterfly_yellow_2" x="1403" y="36" width="4" height="12"/>
-    <SubTexture name="cepka" x="1105" y="29" width="17" height="16"/>
-    <SubTexture name="galstuk" x="799" y="30" width="16" height="18"/>
-    <SubTexture name="glas_1" x="1135" y="29" width="31" height="15" frameX="0" frameY="0" frameWidth="31" frameHeight="16"/>
-    <SubTexture name="hand_l" x="958" y="29" width="10" height="17"/>
-    <SubTexture name="hand_l_b" x="1083" y="29" width="9" height="17"/>
-    <SubTexture name="hand_r" x="1094" y="29" width="9" height="17"/>
-    <SubTexture name="hand_r_b" x="970" y="29" width="10" height="17"/>
-    <SubTexture name="hand_w_l" x="982" y="29" width="10" height="17"/>
-    <SubTexture name="hand_w_l_b" x="1124" y="29" width="9" height="16" frameX="0" frameY="0" frameWidth="9" frameHeight="17"/>
-    <SubTexture name="hand_w_r" x="1124" y="29" width="9" height="16" frameX="0" frameY="0" frameWidth="9" frameHeight="17"/>
-    <SubTexture name="hand_w_r_b" x="994" y="29" width="10" height="17"/>
-    <SubTexture name="head _1" x="2" y="2" width="35" height="46"/>
-    <SubTexture name="head" x="39" y="2" width="35" height="46"/>
-    <SubTexture name="head_b" x="76" y="2" width="35" height="46"/>
-    <SubTexture name="head_w" x="113" y="2" width="35" height="46"/>
-    <SubTexture name="head_w_b" x="150" y="2" width="34" height="46" frameX="0" frameY="0" frameWidth="35" frameHeight="46"/>
-    <SubTexture name="leg_l" x="1393" y="19" width="10" height="15"/>
-    <SubTexture name="leg_l_b" x="1404" y="2" width="10" height="15" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="leg_r" x="1260" y="19" width="11" height="15"/>
-    <SubTexture name="leg_r_b" x="1405" y="19" width="10" height="15"/>
-    <SubTexture name="leg_w_l" x="1416" y="2" width="10" height="15"/>
-    <SubTexture name="leg_w_l_b" x="1428" y="2" width="11" height="14" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="leg_w_r" x="1429" y="18" width="11" height="14" frameX="0" frameY="0" frameWidth="11" frameHeight="15"/>
-    <SubTexture name="leg_w_r_b" x="1417" y="19" width="10" height="15"/>
-    <SubTexture name="lid_l" x="1409" y="36" width="7" height="11"/>
-    <SubTexture name="lid_l_black" x="1418" y="36" width="7" height="11"/>
-    <SubTexture name="lid_l_blue" x="1427" y="36" width="7" height="11"/>
-    <SubTexture name="lid_l_brown" x="1441" y="2" width="7" height="11"/>
-    <SubTexture name="lid_l_green" x="1436" y="34" width="7" height="11"/>
-    <SubTexture name="lid_l_orange" x="1442" y="15" width="7" height="11"/>
-    <SubTexture name="lid_l_pink" x="1450" y="2" width="7" height="11"/>
-    <SubTexture name="lid_l_w" x="1445" y="28" width="7" height="11"/>
-    <SubTexture name="lid_l_white" x="1451" y="15" width="7" height="11"/>
-    <SubTexture name="lid_r" x="1247" y="36" width="14" height="12"/>
-    <SubTexture name="lid_r_black" x="1263" y="36" width="14" height="12"/>
-    <SubTexture name="lid_r_blue" x="1279" y="36" width="14" height="12"/>
-    <SubTexture name="lid_r_brown" x="1295" y="36" width="14" height="12"/>
-    <SubTexture name="lid_r_green" x="1311" y="36" width="14" height="12"/>
-    <SubTexture name="lid_r_orange" x="1327" y="36" width="14" height="12"/>
-    <SubTexture name="lid_r_pink" x="1343" y="36" width="14" height="12"/>
-    <SubTexture name="lid_r_w" x="1359" y="36" width="14" height="12"/>
-    <SubTexture name="lid_r_white" x="1375" y="36" width="14" height="12"/>
-    <SubTexture name="necklace" x="703" y="31" width="16" height="17" frameX="-1" frameY="-1" frameWidth="18" frameHeight="18"/>
-    <SubTexture name="sharf" x="831" y="29" width="12" height="19"/>
-    <SubTexture name="tail" x="1473" y="38" width="17" height="10"/>
-    <SubTexture name="tail_w" x="1492" y="38" width="17" height="10"/>
+    <SubTexture name="bant_1" x="184" y="99" width="28" height="27" frameX="-1" frameY="-3" frameWidth="30" frameHeight="31"/>
+    <SubTexture name="bant_2" x="214" y="99" width="28" height="27" frameX="-1" frameY="-3" frameWidth="30" frameHeight="31"/>
+    <SubTexture name="bant_3" x="244" y="98" width="28" height="27" frameX="-1" frameY="-3" frameWidth="30" frameHeight="31"/>
+    <SubTexture name="bant_4" x="770" y="78" width="27" height="25" frameX="-1" frameY="-4" frameWidth="30" frameHeight="31"/>
+    <SubTexture name="bant_5" x="357" y="98" width="26" height="26" frameX="-4" frameY="0" frameWidth="30" frameHeight="31"/>
+    <SubTexture name="bant_6" x="2" y="104" width="25" height="22" frameX="-3" frameY="-4" frameWidth="30" frameHeight="31"/>
+    <SubTexture name="bant_7" x="29" y="104" width="25" height="22" frameX="-3" frameY="-4" frameWidth="30" frameHeight="31"/>
+    <SubTexture name="bant_8" x="56" y="104" width="25" height="22" frameX="-3" frameY="-4" frameWidth="30" frameHeight="31"/>
+    <SubTexture name="black_c_m_body_back" x="274" y="98" width="19" height="27" frameX="-1" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="black_c_m_body_front" x="650" y="88" width="19" height="30" frameX="-1" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="black_c_m_head_back" x="352" y="2" width="35" height="46" frameX="-8" frameY="-3" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="black_c_m_head_front" x="276" y="2" width="36" height="46" frameX="-5" frameY="-3" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="black_c_m_l_hand_back" x="889" y="21" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="black_c_m_l_hand_front" x="171" y="102" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="black_c_m_l_leg_back" x="946" y="87" width="10" height="15"/>
+    <SubTexture name="black_c_m_l_leg_front" x="958" y="70" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="black_c_m_r_hand_back" x="805" y="21" width="10" height="17"/>
+    <SubTexture name="black_c_m_r_hand_front" x="817" y="21" width="10" height="17"/>
+    <SubTexture name="black_c_m_r_leg_back" x="838" y="40" width="11" height="15"/>
+    <SubTexture name="black_c_m_r_leg_front" x="851" y="40" width="11" height="15"/>
+    <SubTexture name="black_c_m_tail_front" x="1005" y="2" width="17" height="10"/>
+    <SubTexture name="black_c_w_body_back" x="584" y="89" width="20" height="30" frameX="0" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="black_c_w_body_front" x="450" y="95" width="20" height="31" frameX="0" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="black_c_w_head_back" x="483" y="48" width="43" height="43" frameX="-5" frameY="-7" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="black_c_w_head_front" x="557" y="2" width="41" height="42" frameX="-3" frameY="-7" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="black_c_w_l_hand_back" x="895" y="2" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="black_c_w_l_hand_front" x="708" y="62" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="black_c_w_l_leg_back" x="969" y="53" width="10" height="15"/>
+    <SubTexture name="black_c_w_l_leg_front" x="977" y="36" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="black_c_w_r_hand_back" x="823" y="2" width="10" height="17"/>
+    <SubTexture name="black_c_w_r_hand_front" x="829" y="21" width="10" height="17"/>
+    <SubTexture name="black_c_w_r_leg_back" x="864" y="40" width="11" height="15"/>
+    <SubTexture name="black_c_w_r_leg_front" x="877" y="40" width="11" height="15"/>
+    <SubTexture name="black_c_w_tail_front" x="1005" y="2" width="17" height="10"/>
+    <SubTexture name="blue_c_m_body_back" x="671" y="86" width="18" height="26" frameX="-2" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="blue_c_m_body_front" x="728" y="30" width="17" height="26" frameX="-2" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="blue_c_m_head_back" x="643" y="2" width="49" height="40" frameX="0" frameY="-9" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="blue_c_m_head_front" x="658" y="44" width="48" height="40" frameX="0" frameY="-9" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="blue_c_m_l_hand_back" x="884" y="57" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="blue_c_m_l_hand_front" x="721" y="62" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="blue_c_m_l_leg_back" x="987" y="19" width="10" height="15"/>
+    <SubTexture name="blue_c_m_l_leg_front" x="993" y="2" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="blue_c_m_r_hand_back" x="835" y="2" width="10" height="17"/>
+    <SubTexture name="blue_c_m_r_hand_front" x="812" y="57" width="10" height="17"/>
+    <SubTexture name="blue_c_m_r_leg_back" x="893" y="111" width="11" height="15"/>
+    <SubTexture name="blue_c_m_r_leg_front" x="906" y="111" width="11" height="15"/>
+    <SubTexture name="blue_c_m_tail_front" x="1024" y="2" width="17" height="10"/>
+    <SubTexture name="blue_c_w_body_back" x="691" y="86" width="18" height="26" frameX="-2" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="blue_c_w_body_front" x="735" y="2" width="17" height="26" frameX="-2" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="blue_c_w_head_back" x="600" y="2" width="41" height="41" frameX="-5" frameY="-8" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="blue_c_w_head_front" x="572" y="46" width="42" height="41" frameX="-3" frameY="-8" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="blue_c_w_l_hand_back" x="890" y="39" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="blue_c_w_l_hand_front" x="734" y="58" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="blue_c_w_l_leg_back" x="958" y="87" width="10" height="15"/>
+    <SubTexture name="blue_c_w_l_leg_front" x="958" y="104" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="blue_c_w_r_hand_back" x="812" y="76" width="10" height="17"/>
+    <SubTexture name="blue_c_w_r_hand_front" x="813" y="95" width="10" height="17"/>
+    <SubTexture name="blue_c_w_r_leg_back" x="912" y="38" width="11" height="15"/>
+    <SubTexture name="blue_c_w_r_leg_front" x="922" y="20" width="11" height="15"/>
+    <SubTexture name="blue_c_w_tail_front" x="1024" y="2" width="17" height="10"/>
+    <SubTexture name="brown_c_m_back_front" x="747" y="30" width="17" height="26" frameX="-2" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="brown_c_m_body_back" x="708" y="34" width="18" height="26" frameX="-2" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="brown_c_m_head_back" x="440" y="49" width="41" height="44" frameX="-2" frameY="-5" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="brown_c_m_head_front" x="513" y="2" width="42" height="43" frameX="-5" frameY="-5" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="brown_c_m_l_hand_back" x="900" y="20" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="brown_c_m_l_hand_front" x="747" y="58" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="brown_c_m_l_leg_back" x="1043" y="2" width="10" height="15"/>
+    <SubTexture name="brown_c_m_l_leg_front" x="928" y="2" width="11" height="15"/>
+    <SubTexture name="brown_c_m_r_hand_back" x="824" y="57" width="10" height="17"/>
+    <SubTexture name="brown_c_m_r_hand_front" x="824" y="76" width="10" height="17"/>
+    <SubTexture name="brown_c_m_r_leg_back" x="906" y="74" width="11" height="15"/>
+    <SubTexture name="brown_c_m_r_leg_front" x="917" y="55" width="11" height="15"/>
+    <SubTexture name="brown_c_m_tail_front" x="1005" y="14" width="17" height="10"/>
+    <SubTexture name="brown_c_w_body_back" x="472" y="95" width="20" height="31" frameX="-1" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="brown_c_w_body_front" x="494" y="93" width="20" height="31" frameX="0" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="brown_c_w_head_back" x="82" y="53" width="46" height="48" frameX="-1" frameY="-2" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="brown_c_w_head_front" x="393" y="50" width="45" height="45" frameX="-2" frameY="-3" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="brown_c_w_l_hand_back" x="906" y="2" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="brown_c_w_l_hand_front" x="760" y="58" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="brown_c_w_l_leg_back" x="1043" y="19" width="10" height="15"/>
+    <SubTexture name="brown_c_w_l_leg_front" x="925" y="37" width="11" height="15"/>
+    <SubTexture name="brown_c_w_r_hand_back" x="825" y="95" width="10" height="17"/>
+    <SubTexture name="brown_c_w_r_hand_front" x="836" y="57" width="10" height="17"/>
+    <SubTexture name="brown_c_w_r_leg_back" x="935" y="19" width="11" height="15"/>
+    <SubTexture name="brown_c_w_r_leg_front" x="941" y="2" width="11" height="15"/>
+    <SubTexture name="brown_c_w_tail_front" x="1005" y="14" width="17" height="10"/>
+    <SubTexture name="butterfly_blue_1" x="115" y="103" width="12" height="18" frameX="0" frameY="-1" frameWidth="12" frameHeight="19"/>
+    <SubTexture name="butterfly_blue_2" x="999" y="19" width="4" height="12"/>
+    <SubTexture name="butterfly_pink_1" x="129" y="103" width="12" height="18" frameX="0" frameY="-1" frameWidth="12" frameHeight="19"/>
+    <SubTexture name="butterfly_pink_2" x="981" y="53" width="4" height="12"/>
+    <SubTexture name="butterfly_yellow_1" x="143" y="102" width="12" height="18" frameX="0" frameY="-1" frameWidth="12" frameHeight="19"/>
+    <SubTexture name="butterfly_yellow_2" x="981" y="67" width="4" height="12"/>
+    <SubTexture name="cepka" x="719" y="110" width="17" height="16"/>
+    <SubTexture name="galstuk" x="97" y="103" width="16" height="18"/>
+    <SubTexture name="glas_1" x="805" y="40" width="31" height="15" frameX="0" frameY="0" frameWidth="31" frameHeight="16"/>
+    <SubTexture name="green_c_m_body_back" x="337" y="98" width="18" height="27" frameX="-2" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="green_c_m_body_front" x="754" y="2" width="17" height="26" frameX="-2" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="green_c_m_head_back" x="356" y="50" width="35" height="46" frameX="-8" frameY="-3" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="green_c_m_head_front" x="314" y="2" width="36" height="46" frameX="-5" frameY="-3" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="green_c_m_l_hand_back" x="884" y="75" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="green_c_m_l_hand_front" x="762" y="106" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="green_c_m_l_leg_back" x="1043" y="36" width="10" height="15"/>
+    <SubTexture name="green_c_m_l_leg_front" x="1008" y="50" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="green_c_m_r_hand_back" x="841" y="21" width="10" height="17"/>
+    <SubTexture name="green_c_m_r_hand_front" x="847" y="2" width="10" height="17"/>
+    <SubTexture name="green_c_m_r_leg_back" x="907" y="91" width="11" height="15"/>
+    <SubTexture name="green_c_m_r_leg_front" x="919" y="72" width="11" height="15"/>
+    <SubTexture name="green_c_m_tail_front" x="1024" y="14" width="17" height="10"/>
+    <SubTexture name="green_c_w_body_back" x="715" y="2" width="18" height="26" frameX="-2" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="green_c_w_body_front" x="751" y="78" width="17" height="26" frameX="-2" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="green_c_w_head_back" x="173" y="51" width="49" height="46" frameX="-2" frameY="-3" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="green_c_w_head_front" x="179" y="2" width="49" height="46" frameX="0" frameY="-3" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="green_c_w_l_hand_back" x="885" y="93" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="green_c_w_l_hand_front" x="773" y="58" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="green_c_w_l_leg_back" x="987" y="62" width="10" height="15"/>
+    <SubTexture name="green_c_w_l_leg_front" x="1020" y="50" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="green_c_w_r_hand_back" x="836" y="76" width="10" height="17"/>
+    <SubTexture name="green_c_w_r_hand_front" x="837" y="95" width="10" height="17"/>
+    <SubTexture name="green_c_w_r_leg_back" x="930" y="54" width="11" height="15"/>
+    <SubTexture name="green_c_w_r_leg_front" x="938" y="36" width="11" height="15"/>
+    <SubTexture name="green_c_w_tail_front" x="1024" y="14" width="17" height="10"/>
+    <SubTexture name="grey_c_m_worker_body_back" x="711" y="82" width="18" height="26" frameX="-2" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="grey_c_m_worker_body_front" x="785" y="30" width="18" height="25" frameX="-1" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="grey_c_m_worker_head_back" x="389" y="2" width="35" height="46" frameX="-8" frameY="-3" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="grey_c_m_worker_head_front" x="318" y="50" width="36" height="46" frameX="-5" frameY="-3" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="grey_c_m_worker_l_hand_back" x="895" y="57" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="grey_c_m_worker_l_hand_front" x="786" y="57" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="grey_c_m_worker_l_leg_back" x="1041" y="53" width="10" height="15"/>
+    <SubTexture name="grey_c_m_worker_l_leg_front" x="948" y="19" width="11" height="15"/>
+    <SubTexture name="grey_c_m_worker_r_hand_back" x="848" y="57" width="10" height="17"/>
+    <SubTexture name="grey_c_m_worker_r_hand_front" x="853" y="21" width="10" height="17"/>
+    <SubTexture name="grey_c_m_worker_r_leg_back" x="954" y="2" width="11" height="15"/>
+    <SubTexture name="grey_c_m_worker_r_leg_front" x="919" y="108" width="11" height="15"/>
+    <SubTexture name="grey_c_m_worker_tail_front" x="1005" y="26" width="17" height="10"/>
+    <SubTexture name="lid_l" x="999" y="62" width="7" height="11"/>
+    <SubTexture name="lid_l_black" x="970" y="70" width="7" height="11"/>
+    <SubTexture name="lid_l_blue" x="1032" y="50" width="7" height="11"/>
+    <SubTexture name="lid_l_brown" x="1032" y="63" width="7" height="11"/>
+    <SubTexture name="lid_l_green" x="999" y="75" width="7" height="11"/>
+    <SubTexture name="lid_l_orange" x="1032" y="76" width="7" height="11"/>
+    <SubTexture name="lid_l_pink" x="999" y="89" width="7" height="11"/>
+    <SubTexture name="lid_l_w" x="1008" y="89" width="7" height="11"/>
+    <SubTexture name="lid_l_white" x="1017" y="89" width="7" height="11"/>
+    <SubTexture name="lid_r" x="671" y="114" width="14" height="12"/>
+    <SubTexture name="lid_r_black" x="687" y="114" width="14" height="12"/>
+    <SubTexture name="lid_r_blue" x="703" y="114" width="14" height="12"/>
+    <SubTexture name="lid_r_brown" x="813" y="114" width="14" height="12"/>
+    <SubTexture name="lid_r_green" x="829" y="114" width="14" height="12"/>
+    <SubTexture name="lid_r_orange" x="845" y="114" width="14" height="12"/>
+    <SubTexture name="lid_r_pink" x="861" y="114" width="14" height="12"/>
+    <SubTexture name="lid_r_w" x="877" y="114" width="14" height="12"/>
+    <SubTexture name="lid_r_white" x="989" y="36" width="14" height="12"/>
+    <SubTexture name="necklace" x="805" y="2" width="16" height="17" frameX="-1" frameY="-1" frameWidth="18" frameHeight="18"/>
+    <SubTexture name="orange_c_m_body_back" x="731" y="82" width="18" height="26" frameX="-2" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="orange_c_m_body_front" x="766" y="30" width="17" height="26" frameX="-2" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="orange_c_m_head_back" x="472" y="2" width="39" height="44" frameX="-7" frameY="-7" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="orange_c_m_head_front" x="616" y="45" width="40" height="41" frameX="-2" frameY="-8" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="orange_c_m_l_hand_back" x="895" y="75" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="orange_c_m_l_hand_front" x="775" y="105" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="orange_c_m_l_leg_back" x="1041" y="70" width="10" height="15"/>
+    <SubTexture name="orange_c_m_l_leg_front" x="1008" y="67" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="orange_c_m_r_hand_back" x="859" y="2" width="10" height="17"/>
+    <SubTexture name="orange_c_m_r_hand_front" x="848" y="76" width="10" height="17"/>
+    <SubTexture name="orange_c_m_r_leg_back" x="920" y="89" width="11" height="15"/>
+    <SubTexture name="orange_c_m_r_leg_front" x="932" y="71" width="11" height="15"/>
+    <SubTexture name="orange_c_m_tail_front" x="1024" y="26" width="17" height="10"/>
+    <SubTexture name="orange_c_w_body_back" x="406" y="97" width="20" height="29" frameX="-1" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="orange_c_w_body_front" x="694" y="2" width="19" height="30" frameX="-1" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="orange_c_w_head_back" x="2" y="2" width="44" height="49" frameX="-4" frameY="0" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="orange_c_w_head_front" x="2" y="53" width="39" height="49" frameX="-5" frameY="0" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="orange_c_w_l_hand_back" x="896" y="93" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="orange_c_w_l_hand_front" x="788" y="105" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="orange_c_w_l_leg_back" x="987" y="79" width="10" height="15"/>
+    <SubTexture name="orange_c_w_l_leg_front" x="1020" y="67" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="orange_c_w_r_hand_back" x="849" y="95" width="10" height="17"/>
+    <SubTexture name="orange_c_w_r_hand_front" x="860" y="57" width="10" height="17"/>
+    <SubTexture name="orange_c_w_r_leg_back" x="943" y="53" width="11" height="15"/>
+    <SubTexture name="orange_c_w_r_leg_front" x="951" y="36" width="11" height="15"/>
+    <SubTexture name="orange_c_w_tail_front" x="1024" y="26" width="17" height="10"/>
+    <SubTexture name="orange_c_w_worker_body_back" x="538" y="92" width="21" height="30" frameX="0" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="orange_c_w_worker_body_front" x="516" y="93" width="20" height="31" frameX="0" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="orange_c_w_worker_head_back" x="230" y="2" width="44" height="46" frameX="-4" frameY="-3" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="orange_c_w_worker_head_front" x="426" y="2" width="44" height="45" frameX="-2" frameY="-4" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="orange_c_w_worker_l_hand_back" x="901" y="38" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="orange_c_w_worker_l_hand_front" x="801" y="97" width="10" height="18" frameX="-1" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="orange_c_w_worker_l_leg_back" x="1041" y="87" width="10" height="15"/>
+    <SubTexture name="orange_c_w_worker_l_leg_front" x="970" y="83" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="orange_c_w_worker_r_hand_back" x="865" y="21" width="10" height="17"/>
+    <SubTexture name="orange_c_w_worker_r_hand_front" x="738" y="110" width="10" height="16" frameX="0" frameY="-1" frameWidth="10" frameHeight="17"/>
+    <SubTexture name="orange_c_w_worker_r_leg_back" x="961" y="19" width="11" height="15"/>
+    <SubTexture name="orange_c_w_worker_r_leg_front" x="967" y="2" width="11" height="15"/>
+    <SubTexture name="orange_c_w_worker_tail_front" x="1005" y="38" width="17" height="10"/>
+    <SubTexture name="pink_c_m_body_back" x="385" y="98" width="19" height="26" frameX="-1" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="pink_c_m_body_front" x="295" y="98" width="19" height="27" frameX="-1" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="pink_c_m_head_back" x="272" y="50" width="44" height="46" frameX="-1" frameY="-3" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="pink_c_m_head_front" x="134" y="2" width="43" height="47" frameX="-2" frameY="-2" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="pink_c_m_l_hand_back" x="911" y="20" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="pink_c_m_l_hand_front" x="792" y="2" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="pink_c_m_l_leg_back" x="970" y="104" width="10" height="15"/>
+    <SubTexture name="pink_c_m_l_leg_front" x="982" y="104" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="pink_c_m_r_hand_back" x="871" y="2" width="10" height="17"/>
+    <SubTexture name="pink_c_m_r_hand_front" x="860" y="76" width="10" height="17"/>
+    <SubTexture name="pink_c_m_r_leg_back" x="932" y="106" width="11" height="15"/>
+    <SubTexture name="pink_c_m_r_leg_front" x="933" y="88" width="11" height="15"/>
+    <SubTexture name="pink_c_m_tail_front" x="1024" y="38" width="17" height="10"/>
+    <SubTexture name="pink_c_w_body_back" x="428" y="97" width="20" height="29" frameX="-1" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="pink_c_w_body_front" x="606" y="89" width="20" height="30" frameX="0" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="pink_c_w_head_back" x="130" y="52" width="41" height="48" frameX="-6" frameY="-7" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="pink_c_w_head_front" x="528" y="47" width="42" height="43" frameX="-3" frameY="-7" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="pink_c_w_l_hand_back" x="917" y="2" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="pink_c_w_l_hand_front" x="799" y="57" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="pink_c_w_l_leg_back" x="994" y="104" width="10" height="15"/>
+    <SubTexture name="pink_c_w_l_leg_front" x="1006" y="104" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="pink_c_w_r_hand_back" x="861" y="95" width="10" height="17"/>
+    <SubTexture name="pink_c_w_r_hand_front" x="872" y="57" width="10" height="17"/>
+    <SubTexture name="pink_c_w_r_leg_back" x="945" y="70" width="11" height="15"/>
+    <SubTexture name="pink_c_w_r_leg_front" x="956" y="53" width="11" height="15"/>
+    <SubTexture name="pink_c_w_tail_front" x="1024" y="38" width="17" height="10"/>
+    <SubTexture name="sharf" x="83" y="103" width="12" height="19"/>
+    <SubTexture name="white_c_m_body_back" x="316" y="98" width="19" height="27" frameX="-1" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="white_c_m_body_front" x="773" y="2" width="17" height="26" frameX="-2" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="white_c_m_head_back" x="48" y="2" width="36" height="49" frameX="-7" frameY="0" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="white_c_m_head_front" x="43" y="53" width="37" height="49" frameX="-5" frameY="0" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="white_c_m_l_hand_back" x="750" y="110" width="10" height="16"/>
+    <SubTexture name="white_c_m_l_hand_front" x="157" y="102" width="12" height="18"/>
+    <SubTexture name="white_c_m_l_leg_back" x="1026" y="89" width="10" height="15"/>
+    <SubTexture name="white_c_m_l_leg_front" x="1018" y="106" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="white_c_m_r_hand_back" x="872" y="76" width="10" height="17"/>
+    <SubTexture name="white_c_m_r_hand_front" x="873" y="95" width="10" height="17"/>
+    <SubTexture name="white_c_m_r_leg_back" x="964" y="36" width="11" height="15"/>
+    <SubTexture name="white_c_m_r_leg_front" x="974" y="19" width="11" height="15"/>
+    <SubTexture name="white_c_m_tail_front" x="989" y="50" width="17" height="10"/>
+    <SubTexture name="white_c_w_body_back" x="561" y="92" width="21" height="30" frameX="0" frameY="-1" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="white_c_w_body_front" x="628" y="88" width="20" height="30" frameX="-1" frameY="0" frameWidth="21" frameHeight="31"/>
+    <SubTexture name="white_c_w_head_back" x="86" y="2" width="46" height="48" frameX="-2" frameY="-3" frameWidth="51" frameHeight="55"/>
+    <SubTexture name="white_c_w_head_front" x="224" y="50" width="46" height="46" frameX="0" frameY="-3" frameWidth="49" frameHeight="50"/>
+    <SubTexture name="white_c_w_l_hand_back" x="906" y="56" width="9" height="16" frameX="-1" frameY="0" frameWidth="10" frameHeight="16"/>
+    <SubTexture name="white_c_w_l_hand_front" x="799" y="77" width="11" height="18" frameX="0" frameY="0" frameWidth="12" frameHeight="18"/>
+    <SubTexture name="white_c_w_l_leg_back" x="1030" y="106" width="10" height="15"/>
+    <SubTexture name="white_c_w_l_leg_front" x="1042" y="104" width="10" height="15" frameX="-1" frameY="0" frameWidth="11" frameHeight="15"/>
+    <SubTexture name="white_c_w_r_hand_back" x="877" y="21" width="10" height="17"/>
+    <SubTexture name="white_c_w_r_hand_front" x="883" y="2" width="10" height="17"/>
+    <SubTexture name="white_c_w_r_leg_back" x="980" y="2" width="11" height="15"/>
+    <SubTexture name="white_c_w_r_leg_front" x="945" y="105" width="11" height="15"/>
+    <SubTexture name="white_c_w_tail_front" x="989" y="50" width="17" height="10"/>
 </TextureAtlas>

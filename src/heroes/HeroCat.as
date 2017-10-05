@@ -63,10 +63,17 @@ public class HeroCat extends BasicCat{
         if (_type == WOMAN) {
             releaseFrontWoman(_animation.catArmature);
             releaseBackWoman(_animation.catBackArmature);
+        } else {
+            releaseFrontMan(_animation.catArmature);
+            releaseBackMan(_animation.catBackArmature);
         }
-        var st2:String = '';
-        if (_type == WOMAN) st2 = '_w';
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, 'head' + st2, st2, _type == WOMAN);
+        var st2:String = 'grey_c_m_worker_head_front';
+        var st3:String = '';
+        if (_type == WOMAN) {
+            st2 = 'orange_c_w_worker_head_front';
+            st3 = '_w';
+        }
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, st2, st3, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
@@ -167,28 +174,46 @@ public class HeroCat extends BasicCat{
         super.sleepAnimation();
     }
 
-//    public function get armatureCatFront():Armature {  return armature; }
-//    public function get armatureCatBack():Armature {  return armatureBack; }
+    private function releaseFrontMan(arma:Armature):void {
+        changeTexture("head", "grey_c_m_worker_head_front", arma);
+        changeTexture("body", "grey_c_m_worker_body_front", arma);
+        changeTexture("handLeft", "grey_c_m_worker_l_hand_front", arma);
+        changeTexture("legLeft", "grey_c_m_worker_l_leg_front", arma);
+        changeTexture("handRight", "grey_c_m_worker_r_hand_front", arma);
+        changeTexture("legRight", "grey_c_m_worker_r_leg_front", arma);
+        changeTexture("tail", "grey_c_m_worker_tail_front", arma);
+        changeTexture("handRight copy", "grey_c_m_worker_r_hand_front", arma);
+    }
+
+    private function releaseBackMan(arma:Armature):void {
+        changeTexture("head", "grey_c_m_worker_head_back", arma);
+        changeTexture("body", "grey_c_m_worker_body_back", arma);
+        changeTexture("handLeft", "grey_c_m_worker_l_leg_back", arma);
+        changeTexture("legLeft", "grey_c_m_worker_l_hand_back", arma);
+        changeTexture("handRight", "grey_c_m_worker_r_hand_back", arma);
+        changeTexture("legRight", "grey_c_m_worker_r_leg_back", arma);
+        changeTexture("tail11", "grey_c_m_worker_tail_front", arma);
+    }
 
     private function releaseFrontWoman(arma:Armature):void {
-        changeTexture("head", "head_w", arma);
-        changeTexture("body", "body_w", arma);
-        changeTexture("handLeft", "hand_w_l", arma);
-        changeTexture("legLeft", "leg_w_l", arma);
-        changeTexture("handRight", "hand_w_r", arma);
-        changeTexture("legRight", "leg_w_r", arma);
-        changeTexture("tail", "tail_w", arma);
-        changeTexture("handRight copy", "hand_w_r", arma);
+        changeTexture("head", "orange_c_w_worker_head_front", arma);
+        changeTexture("body", "orange_c_w_worker_body_front", arma);
+        changeTexture("handLeft", "orange_c_w_worker_l_hand_front", arma);
+        changeTexture("legLeft", "orange_c_w_worker_l_leg_front", arma);
+        changeTexture("handRight", "orange_c_w_worker_r_hand_front", arma);
+        changeTexture("legRight", "orange_c_w_worker_r_leg_front", arma);
+        changeTexture("tail", "orange_c_w_worker_tail_front", arma);
+        changeTexture("handRight copy", "orange_c_w_worker_r_hand_front", arma);
     }
 
     private function releaseBackWoman(arma:Armature):void {
-        changeTexture("head", "head_w_b", arma);
-        changeTexture("body", "body_w_b", arma);
-        changeTexture("handLeft", "hand_w_l_b", arma);
-        changeTexture("legLeft", "leg_w_l_b", arma);
-        changeTexture("handRight", "hand_w_r_b", arma);
-        changeTexture("legRight", "leg_w_r_b", arma);
-        changeTexture("tail11", "tail_w", arma);
+        changeTexture("head", "orange_c_w_worker_head_back", arma);
+        changeTexture("body", "orange_c_w_worker_body_back", arma);
+        changeTexture("handLeft", "orange_c_w_worker_l_hand_back", arma);
+        changeTexture("legLeft", "orange_c_w_worker_l_leg_back", arma);
+        changeTexture("handRight", "orange_c_w_worker_r_hand_back", arma);
+        changeTexture("legRight", "orange_c_w_worker_r_leg_back", arma);
+        changeTexture("tail11", "orange_c_w_worker_tail_front", arma);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {

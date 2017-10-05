@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/customisation_interface/customisation_interface.tps</string>
+        <string>/Users/andy/Documents/505farm/selo/client/diff/customisation_interface/customisation_interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -188,14 +188,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>black_cat</filename>
-            <filename>blue_cat</filename>
-            <filename>brown_cat</filename>
-            <filename>diff</filename>
-            <filename>green_cat</filename>
-            <filename>orange_cat</filename>
-            <filename>pink_cat</filename>
-            <filename>white_cat</filename>
             <filename>lohmatik</filename>
         </array>
         <key>ignoreFileList</key>
