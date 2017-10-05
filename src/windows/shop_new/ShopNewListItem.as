@@ -436,7 +436,6 @@ public class ShopNewListItem {
                 t = new CTextField(90, 36, String(_costCount));
                 if (g.user.softCurrencyCount >= _costCount)t.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 else t.setFormat(CTextField.BOLD24, 24, ManagerFilters.RED_TXT_NEW, Color.WHITE);
-//                t.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 sens = new SensibleBlock();
                 sens.textAndImage(t,im,152);
                 _btn.addSensBlock(sens,0,16);

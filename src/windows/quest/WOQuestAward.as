@@ -41,7 +41,7 @@ public class WOQuestAward {
 //        _source.addChild(q);
 
         _txtAward = new CTextField(176,48,g.managerLanguage.allTexts[363]);
-        _txtAward.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
+        _txtAward.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtAward.y = -3;
         _source.addChild(_txtAward);
 
@@ -125,19 +125,19 @@ internal class Item extends Sprite {
 
         switch (c) {
             case 1: _txt = new CTextField(45, 30, String(aw.countResource));
-                _txt.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.BLUE_COLOR);
+                _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -15;
                 if (im) MCScaler.scale(im, 40, 40);
                 break;
             case 2: _txt = new CTextField(45, 30, String(aw.countResource));
-                _txt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BLUE_COLOR);
+                _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -14;
                 if (im) MCScaler.scale(im, 30, 30);
                 break;
             case 3: _txt = new CTextField(45, 30, String(aw.countResource));
-                _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
+                _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -16;
                 if (im) MCScaler.scale(im, 22, 22);

@@ -139,7 +139,7 @@ public class WODailyBonus extends WindowMain {
         _btnFree = new CButton();
         _btnFree.addButtonTexture(146, 40, CButton.GREEN, true);
         _txtBtnBuy2  = new CTextField(146, 40, String(g.managerLanguage.allTexts[1006]));
-        _txtBtnBuy2.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtBtnBuy2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnFree.addChild(_txtBtnBuy2);
         _btnFree.y = 260;
         _source.addChild(_btnFree);
@@ -147,7 +147,7 @@ public class WODailyBonus extends WindowMain {
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
         _txtBtnBuy = new CTextField(170, 40, String(g.managerLanguage.allTexts[1006]) +  ' 10');
-        _txtBtnBuy.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBtnBuy.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

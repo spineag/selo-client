@@ -50,7 +50,7 @@ public class WOPaperNewItem {
         _source.addChild(im);
 
         _txtSellerName = new CTextField(131, 48, "");
-        _txtSellerName.setFormat(CTextField.MEDIUM24, 21, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txtSellerName.setFormat(CTextField.BOLD24, 21, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txtSellerName.alignH = Align.LEFT;
         _txtSellerName.x = 90;
         _txtSellerName.y = 17;

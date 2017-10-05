@@ -4,19 +4,12 @@
 package windows.lockedLand {
 import build.lockedLand.LockedLand;
 import com.junkbyte.console.Cc;
-import dragonBones.Armature;
-import dragonBones.animation.WorldClock;
-import dragonBones.events.EventObject;
-import dragonBones.starling.StarlingArmatureDisplay;
 import manager.ManagerFilters;
-import starling.display.Sprite;
-import starling.events.Event;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import windows.WOComponents.BackgroundYellowOut;
-import windows.WOComponents.HintBackground;
-import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -25,48 +18,45 @@ public class WOLockedLand extends WindowMain {
     private var _land:LockedLand;
     private var _arrItems:Array;
     private var _btnOpen:CButton;
-    private var _woBG:WindowBackground;
-    private var _armature:Armature;
-    private var _pl:HintBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _bgC:BackgroundYellowOut;
     private var _txtInfo:CTextField;
     private var _txtBtn:CTextField;
+    private var _txtName:CTextField;
 
     public function WOLockedLand() {
         super();
         _windowType = WindowsManager.WO_LOCKED_LAND;
         _arrItems = [];
         _woWidth = 550;
-        _woHeight = 540;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woHeight = 460;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        _bgC = new BackgroundYellowOut(460, 320);
-        _bgC.filter =  ManagerFilters.SHADOW;
-        _bgC.x = -_woWidth/2 + 47;
-        _bgC.y = -_woHeight/2 + 180;
+        _bgC = new BackgroundYellowOut(510, 320);
+        _bgC.x = -_woWidth/2 + 20;
+        _bgC.y = -_woHeight/2 + 115;
         _source.addChild(_bgC);
 
-        _btnOpen = new CButton();
-        _btnOpen.addButtonTexture(158, 46, CButton.GREEN, true);
-        _txtBtn = new CTextField(158,46,String(g.managerLanguage.allTexts[418]));
-        _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
-        _btnOpen.addChild(_txtBtn);
-        _btnOpen.x = 0;
-        _btnOpen.y = -_woHeight/2 + 515;
-        _source.addChild(_btnOpen);
+        _txtName = new CTextField(400, 70, g.managerLanguage.allTexts[1156]);
+        _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtName.x = -205;
+        _txtName.y = -_woHeight / 2 + 25;
+        _source.addChild(_txtName);
 
-        _pl = new HintBackground(310, 97, HintBackground.LONG_TRIANGLE, HintBackground.LEFT_CENTER);
-        _pl.x = -_woWidth/2 + 179;
-        _pl.y = -_woHeight/2 + 109;
-        _pl.addShadow();
-        _source.addChild(_pl);
-        _txtInfo = new CTextField(310,97,String(g.managerLanguage.allTexts[419]));
-        _txtInfo.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
-        _pl.inSprite.addChild(_txtInfo);
-        addAnimation();
+        _btnOpen = new CButton();
+        _btnOpen.addButtonTexture(158, CButton.HEIGHT_41, CButton.GREEN, true);
+        _btnOpen.addTextField(158, 38, 0, 0, String(g.managerLanguage.allTexts[418]));
+        _btnOpen.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _btnOpen.y = 175;
+        _source.addChild(_btnOpen);
+        _txtInfo = new CTextField(500,97,String(g.managerLanguage.allTexts[419]));
+        _txtInfo.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtInfo.x = -255;
+        _txtInfo.y = -125;
+        _source.addChild(_txtInfo);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -84,42 +74,40 @@ public class WOLockedLand extends WindowMain {
         if (_dataLand.friendsCount > 0) {
             item = new LockedLandItem();
             item.fillWithCurrency(_dataLand.currencyCount);
-            item.source.y = -_woHeight/2 + 195;
             item.source.x = -_woWidth/2 + 64;
+            item.source.y = -_woHeight/2 + 175;
             _source.addChild(item.source);
             _arrItems.push(item);
 
             item = new LockedLandItem();
             item.fillWithResource(_dataLand.resourceId, _dataLand.resourceCount);
-            item.source.y = -_woHeight/2 + 300;
-            item.source.x = -_woWidth/2 + 64;
+            item.source.x = -_woWidth/2 + 190;
+            item.source.y = -_woHeight/2 + 175;
             _source.addChild(item.source);
             _arrItems.push(item);
 
             item = new LockedLandItem();
             item.fillWithFriends(_dataLand.friendsCount);
-            item.source.y = -_woHeight/2 + 405;
-            item.source.x = -_woWidth/2 + 64;
+            item.source.x = -_woWidth/2 + 320;
+            item.source.y = -_woHeight/2 + 175;
             _source.addChild(item.source);
             _arrItems.push(item);
         } else {
             item = new LockedLandItem();
             item.fillWithCurrency(_dataLand.currencyCount);
-            item.source.y = -_woHeight/2 + 245;
-            item.source.x = -_woWidth/2 + 64;
+            item.source.x = -_woWidth/2 + 150;
+            item.source.y = -_woHeight/2 + 240;
             _source.addChild(item.source);
             _arrItems.push(item);
 
             item = new LockedLandItem();
             item.fillWithResource(_dataLand.resourceId, _dataLand.resourceCount);
-            item.source.y = -_woHeight/2 + 360;
-            item.source.x = -_woWidth/2 + 64;
+            item.source.x = -_woWidth/2 + 350;
+            item.source.y = -_woHeight/2 + 240;
             _source.addChild(item.source);
             _arrItems.push(item);
         }
         checkBtn();
-        WorldClock.clock.add(_armature);
-        showAnimation();
         super.showIt();
     }
 
@@ -147,31 +135,6 @@ public class WOLockedLand extends WindowMain {
         hideIt();
     }
 
-    private function addAnimation():void {
-        _armature = g.allData.factory['plot_seller'].buildArmature("cat_customer");
-        (_armature.display as StarlingArmatureDisplay).x = -150;
-        (_armature.display as StarlingArmatureDisplay).y = -150;
-        (_armature.display as StarlingArmatureDisplay).scaleX = -1;
-        _source.addChild(_armature.display as StarlingArmatureDisplay);
-    }
-
-    private function showAnimation(e:Event=null):void {
-        if(!_armature) return;
-        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, showAnimation);
-        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, showAnimation);
-
-        _armature.addEventListener(EventObject.COMPLETE, showAnimation);
-        _armature.addEventListener(EventObject.LOOP_COMPLETE, showAnimation);
-        var l:int = int(Math.random()*5);
-        switch (l) {
-            case 0: _armature.animation.gotoAndPlayByFrame('idle1'); break;
-            case 1: _armature.animation.gotoAndPlayByFrame('idle1'); break;
-            case 2: _armature.animation.gotoAndPlayByFrame('hi'); break;
-            case 3: _armature.animation.gotoAndPlayByFrame('idle_2'); break;
-            case 4: _armature.animation.gotoAndPlayByFrame('idle_3'); break;
-        }
-    }
-
     override protected function deleteIt():void {
         if (_txtInfo) {
             _txtInfo.deleteIt();
@@ -187,17 +150,11 @@ public class WOLockedLand extends WindowMain {
             _arrItems[i].deleteIt();
         }
         _arrItems.length = 0;
-        WorldClock.clock.remove(_armature);
-        if (_armature) if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, showAnimation);
-        if (_armature) if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, showAnimation);
-        if (_armature) _source.removeChild(_armature.display as Sprite);
-        if (_armature) _armature = null;
-        _source.removeChild(_btnOpen);
-        _btnOpen.deleteIt();
-        _btnOpen = null;
-        _source.removeChild(_pl);
-        _pl.deleteIt();
-        _pl = null;
+        if (_btnOpen) {
+            _source.removeChild(_btnOpen);
+            _btnOpen.deleteIt();
+            _btnOpen = null;
+        }
         _source.removeChild(_bgC);
         _bgC.deleteIt();
         _bgC = null;

@@ -77,7 +77,7 @@ internal class ItemChest {
         var im:Image = createImage();
         source.addChild(im);
         _txt = new CTextField(80, 60, '+'+String(_data.count));
-        _txt.setFormat(CTextField.MEDIUM30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txt.x = 0;
         _txt.y = 5;
         source.addChild(_txt);

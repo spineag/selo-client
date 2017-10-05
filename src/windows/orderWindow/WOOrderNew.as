@@ -216,7 +216,7 @@ public class WOOrderNew extends WindowMain {
         _rightBlockTimer.addChild(_txtZakazState);
 
         _txtInfo = new CTextField(338, 30, String(g.managerLanguage.allTexts[371]));
-        _txtInfo.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
+        _txtInfo.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtInfo.x = -_woWidth / 2 + 410;
         _txtInfo.y = -_woHeight / 2 + 415;
         _rightBlockTimer.addChild(_txtInfo);

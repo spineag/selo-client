@@ -30,7 +30,7 @@ public class WOTutorial extends WindowMain {
         _callbackClickBG = closeWindow;
 
         _txt = new CTextField(300,100,'');
-        _txt.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -150;
         _txt.y = -210;
         _source.addChild(_txt);
@@ -41,7 +41,7 @@ public class WOTutorial extends WindowMain {
         _source.addChild(_btn);
         _btn.clickCallback = closeWindow;
         var t:CTextField = new CTextField(120, 38, 'Далее');
-        t.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        t.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.addChild(t);
     }
 

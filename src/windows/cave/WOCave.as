@@ -3,19 +3,26 @@ package windows.cave {
 import com.junkbyte.console.Cc;
 import starling.display.Image;
 import starling.display.Sprite;
+
+import windows.WOComponents.BackgroundPlant;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOCave extends WindowMain {
     private var _arrItems:Array;
     private var _topBG:Sprite;
+    private var _bgPlant:BackgroundPlant;
 
     public function WOCave() {
         super();
         _windowType = WindowsManager.WO_CAVE;
         _woWidth = 380;
         _woHeight = 134;
-        createBG();
+//        createBG();
+        _bgPlant = new BackgroundPlant(_woWidth, _woHeight);
+        _bgPlant.x = -_woWidth/2;
+        _bgPlant.y = -_woHeight/2;
+        _source.addChild(_bgPlant);
         createCaveItems();
         _callbackClickBG = hideIt;
     }
@@ -42,7 +49,7 @@ public class WOCave extends WindowMain {
         _arrItems = [];
         for (var i:int = 0; i < 3; i++) {
             item = new CaveItem(this);
-            item.setCoordinates(-_woWidth/2 + 77 + i*107, -_woHeight/2 + 115);
+            item.setCoordinates(-_woWidth/2 + 88 + i*107, -_woHeight/2 + 115);
             _source.addChild(item.source);
             _arrItems.push(item);
         }

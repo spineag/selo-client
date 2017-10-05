@@ -77,7 +77,7 @@ public class RepositoryItem {
         source.addChild(im);
 
         _txtCount = new CTextField(30,20,String(_countDecor));
-        _txtCount.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BROWN_COLOR, Color.WHITE);
+        _txtCount.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR, Color.WHITE);
         _txtCount.x = 30;
         _txtCount.y = 40;
         source.addChild(_txtCount);

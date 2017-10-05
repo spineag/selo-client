@@ -74,8 +74,8 @@ public class ToolsModifier {
         _plantId = -1;
         _txtCount = new CTextField(50,40,"");
         _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
-        _txtCount.x = 21;
-        _txtCount.y = 27;
+        _txtCount.x = 45;
+        _txtCount.y = 50;
     }
 
     public function setTownArray():void {
@@ -190,19 +190,19 @@ public class ToolsModifier {
             case PLANT_SEED_ACTIVE:
             case PLANT_SEED:
                 if (_plantId <= 0) return;
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_pt_1'));
                 _mouseIcon.addChild(im);
                 im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_plantId).imageShop + '_icon'));
                 if (im) {
-                    MCScaler.scale(im, 40, 40);
-                    im.x = 27 - im.width/2;
-                    im.y = 27 - im.height/2;
+                    MCScaler.scale(im, 60, 60);
+                    im.x = 39 - im.width/2;
+                    im.y = 39 - im.height/2;
                     _mouseIcon.addChild(im);
                 }
                 if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
-                var im2:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_number_circle"));
-                im2.x = _mouseIcon.width - 27;
-                im2.y = _mouseIcon.height - 23;
+                var im2:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle_pt_2"));
+                im2.x = _mouseIcon.width - 37;
+                im2.y = _mouseIcon.height - 37;
                 _mouseIcon.addChild(im2);
                 if (_txtCount && !_mouseIcon.contains(_txtCount)) _mouseIcon.addChild(_txtCount);
                 updateCountTxt();
@@ -211,7 +211,7 @@ public class ToolsModifier {
 //                _modifierType = NONE;
                 break;
             case CRAFT_PLANT:
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_sickle'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_pt_1'));
                 break;
         }
         if (im) {

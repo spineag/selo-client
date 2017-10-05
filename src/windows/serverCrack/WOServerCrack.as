@@ -34,7 +34,7 @@ public class WOServerCrack  extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         txt = new CTextField(420,80,String(g.managerLanguage.allTexts[290]));
-        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -210;
         txt.y = -130;
         _source.addChild(txt);
@@ -49,7 +49,7 @@ public class WOServerCrack  extends WindowMain {
         _b.y = 120;
         _source.addChild(_b);
         txt2 = new CTextField(200, 34, String(g.managerLanguage.allTexts[281]));
-        txt2.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt2.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(txt2);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;

@@ -48,11 +48,11 @@ public class FabricHint {
         _source.addChild(_txtName);
 
         _txtTimeCreate = new CTextField(50, 30 ,String(g.managerLanguage.allTexts[990]) + ':');
-        _txtTimeCreate.setFormat(CTextField.REGULAR18, 14, ManagerFilters.BLUE_COLOR);
+        _txtTimeCreate.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
         _txtTimeCreate.x = 10;
         _txtTimeCreate.y = -66;
         _txtOnSklad = new CTextField(100, 30 ,String(g.managerLanguage.allTexts[991]) + ':');
-        _txtOnSklad.setFormat(CTextField.REGULAR18, 14, ManagerFilters.BLUE_COLOR);
+        _txtOnSklad.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
         _txtOnSklad.x = 85;
         _txtOnSklad.y = -66;
         _txtCount = new CTextField(50, 40 ,'');

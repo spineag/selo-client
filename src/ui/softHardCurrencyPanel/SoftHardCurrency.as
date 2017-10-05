@@ -82,8 +82,8 @@ public class SoftHardCurrency {
         _txtSoft.y = -8;
         _txtSoft.alignH = Align.LEFT;
         _txtHard.alignH = Align.LEFT;
-        _txtSoft.x = 60 - _txtSoft.textBounds.width/2;
-        _txtHard.x = 60 - _txtHard.textBounds.width/2;
+        _txtSoft.x = 67 - _txtSoft.textBounds.width/2;
+        _txtHard.x = 67 - _txtHard.textBounds.width/2;
         g.cont.interfaceCont.addChild(_source);
 //        var q:Quad = new Quad(5,5,Color.BLACK);
 //        q.x = 65;
@@ -133,11 +133,13 @@ public class SoftHardCurrency {
     }
 
     public function checkSoft():void {
-       _txtSoft.text =  String(g.user.softCurrencyCount);
+        _txtSoft.text =  String(g.user.softCurrencyCount);
+        _txtSoft.x = 67 - _txtSoft.textBounds.width/2;
     }
 
     public function checkHard():void {
         _txtHard.text =  String(g.user.hardCurrency);
+        _txtHard.x = 67 - _txtHard.textBounds.width/2;
     }
 
     public function getHardCurrencyPoint():Point {

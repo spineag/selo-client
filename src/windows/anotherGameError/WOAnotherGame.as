@@ -30,7 +30,7 @@ public class WOAnotherGame extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         txt = new CTextField(420,130,String(g.managerLanguage.allTexts[456]));
-        txt.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -210;
         txt.y = -150;

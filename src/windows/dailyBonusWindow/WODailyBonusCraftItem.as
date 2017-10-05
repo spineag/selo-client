@@ -71,7 +71,7 @@ public class WODailyBonusCraftItem {
         _source = new Sprite();
         _source.addChild(im);
         txt = new CTextField(80, 60, '+'+String(obj.count));
-        txt.setFormat(CTextField.MEDIUM30, 30, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 0;
         txt.y = 5;
         _source.addChild(txt);

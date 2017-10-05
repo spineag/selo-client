@@ -96,7 +96,7 @@ public class ResourceHint {
         g.starling.juggler.add(tween);
 
         _txtText = new CTextField(200,100,'');
-        _txtText.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BLUE_COLOR);
+        _txtText.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
         _txtText.leading = -2;
         _txtName = new CTextField(200, 30, '');
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);

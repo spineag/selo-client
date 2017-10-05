@@ -45,7 +45,7 @@ public class MouseHint {
     public function MouseHint() {
         _source = new Sprite();
         _isShowed = false;
-//        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle"));
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle_pt_1"));
 //        _source.addChild(_imageBg);
         _imageCont = new Sprite();
         _source.addChild(_imageCont);
@@ -101,34 +101,34 @@ public class MouseHint {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(SERP));
                 _image.x = 7;
                 _image.y = 8;
-                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
-                    else st = 'cursor_circle_2';
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
+//                    else st = 'cursor_circle_2';
+//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
             case CLOCK:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(CLOCK));
                 MCScaler.scale(_image,_image.height-2,_image.width-2);
                 _image.x = 7;
                 _image.y = 12;
-                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_3_eng';
-                    else st = 'cursor_circle_3';
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_3_eng';
+//                    else st = 'cursor_circle_3';
+//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
             case VEDRO:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(VEDRO));
                 _image.x = 7;
                 _image.y = 10;
-                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
-                 else st = 'cursor_circle_2';
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
+//                 else st = 'cursor_circle_2';
+//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
             case KORZINA:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(KORZINA));
                 _image.x = 7;
                 _image.y = 7;
-                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
-                else st = 'cursor_circle_2';
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
+//                else st = 'cursor_circle_2';
+//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
             case ANIMAL:
 //                _imageCircle.visible = true;
@@ -141,9 +141,9 @@ public class MouseHint {
                 MCScaler.scale(_image, 40, 40);
                 _image.x = 6;
                 _image.y = 10;
-                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_1_eng';
-                    else st = 'cursor_circle_1';
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_1_eng';
+//                    else st = 'cursor_circle_1';
+//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
         }
 

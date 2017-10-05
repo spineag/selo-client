@@ -81,7 +81,7 @@ public class LevelUpHint {
         _txtName = new CTextField(200, 30, '');
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtText = new CTextField(200, 100, '');
-        _txtText.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BLUE_COLOR);
+        _txtText.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
         _txtText.leading = -5;
         _txtTime = new CTextField(200,100,'');
         _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);

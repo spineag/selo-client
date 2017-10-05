@@ -71,7 +71,7 @@ public class UpgradeItem {
         _btn.clickCallback = onBuy;
 
         _btnTxt = new CTextField(50,20,'50');
-        _btnTxt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnTxt.x = 11;
         _btnTxt.y = 8;
         _btn.addChild(_btnTxt);

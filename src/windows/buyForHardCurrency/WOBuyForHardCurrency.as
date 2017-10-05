@@ -55,7 +55,7 @@ public class WOBuyForHardCurrency extends WindowMain {
         im.x = -50;
         im.y = -60;
         _txt = new CTextField(300,50,String(g.managerLanguage.allTexts[446]));
-        _txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -150;
         _txt.y = -100;
         _source.addChild(_txt);

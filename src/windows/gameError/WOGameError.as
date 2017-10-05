@@ -32,7 +32,7 @@ public class WOGameError extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _txt = new CTextField(420,80,String(g.managerLanguage.allTexts[289]));
-        _txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.autoScale = true;
         _txt.x = -210;
         _txt.y = -115;
@@ -49,7 +49,7 @@ public class WOGameError extends WindowMain {
         _b.y = 120;
         _source.addChild(_b);
         _txtBtn = new CTextField(210, 34, String(g.managerLanguage.allTexts[281]));
-        _txtBtn.setFormat(CTextField.MEDIUM18, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBtn.setFormat(CTextField.BOLD18, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
