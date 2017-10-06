@@ -135,6 +135,16 @@ public class CTextField extends DisplayObjectContainer {
     public function set format(value:TextFormat):void { _format = value;if (_txt)  _txt.format = _format; }
     public override function set touchable(value:Boolean):void { if (_txt) _txt.touchable = value; super.touchable = value; }
     public function set changeTextColor(color:uint):void { if (_txt) _txt.format.color = color; _format.color = color; }
+    public function set changeTextStroke(color:uint):void {
+        var u:Number = .25;
+        if (_format.size < 17) {         deltaOwnX = -7;  deltaOwnY = -2;  u = .2;
+        } else if (_format.size < 20) {  deltaOwnX = -5;  deltaOwnY = -3;  u = .25;
+        } else if (_format.size <= 24) { deltaOwnX = -5;  deltaOwnY = -3;  u = .3;
+        } else if (_format.size < 32) {  deltaOwnX = -4;  deltaOwnY = -3;  u = .4;
+        } else { deltaOwnX = -2;  u = .5; }
+        _style.setupOutline(u, color);
+        if (_txt) _txt.style = _style;
+    }
     public function set changeSize(v:int):void { if (_txt) _txt.format.size = v; _format.size = v; }
     public function set leading(v:int):void { if (_txt) _txt.format.leading = v; _format.leading = v; }
     public function set border(v:Boolean):void { if (_txt) _txt.border = v; }

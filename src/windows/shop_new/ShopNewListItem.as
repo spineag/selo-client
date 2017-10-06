@@ -499,7 +499,7 @@ public class ShopNewListItem {
         }
         _btn.x = 80;
         _btn.y = 198;
-        _source.addChild(_btn);
+        if (_source)_source.addChild(_btn);
         _btn.clickCallback = onClick;
     }
 

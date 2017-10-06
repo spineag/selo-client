@@ -119,13 +119,8 @@ public class SoftHardCurrency {
         }
         var btn:CButton = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_button_light'));
-//        MCScaler.scale(im, 46, 46);
         btn.addDisplayObject(im);
         btn.setPivots();
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-//        MCScaler.scale(im, 24, 24);
-//        im.x = im.y = 11;
-//        btn.addChild(im);
         btn.x = 158 - btn.width/2;
         btn.y = 20;
         p.addChild(btn);

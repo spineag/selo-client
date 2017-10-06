@@ -45,18 +45,16 @@ public class MouseHint {
     public function MouseHint() {
         _source = new Sprite();
         _isShowed = false;
-        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle_pt_1"));
-//        _source.addChild(_imageBg);
         _imageCont = new Sprite();
         _source.addChild(_imageCont);
 //        _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_number_circle"));
 //        _imageCircle.x = _source.width - 27;
 //        _imageCircle.y = _source.height - 23;
 //        _source.addChild(_imageCircle);
-        _txtCount = new CTextField(30,30,"");
-        _txtCount.setFormat(CTextField.BOLD18, 14, Color.WHITE);
-        _txtCount.x = 31;
-        _txtCount.y = 38;
+        _txtCount = new CTextField(80,50,"");
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE,ManagerFilters.BLUE_COLOR);
+        _txtCount.x = 30;
+        _txtCount.y = 40;
         _source.addChild(_txtCount);
     }
 
@@ -96,54 +94,51 @@ public class MouseHint {
         g.gameDispatcher.addEnterFrame(onEnterFrame);
         onEnterFrame();
         var st:String;
+        _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle_pt_1"));
+        _imageCont.addChild(_imageBg);
         switch (s) {
             case SERP:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(SERP));
-                _image.x = 7;
-                _image.y = 8;
-//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
-//                    else st = 'cursor_circle_2';
-//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+                _image.x = 20;
+                _image.y = 11;
                 break;
             case CLOCK:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(CLOCK));
-                MCScaler.scale(_image,_image.height-2,_image.width-2);
-                _image.x = 7;
-                _image.y = 12;
-//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_3_eng';
-//                    else st = 'cursor_circle_3';
-//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//                MCScaler.scale(_image,_image.height-2,_image.width-2);
+                _image.x = 9;
+                _image.y = 8;
                 break;
             case VEDRO:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(VEDRO));
-                _image.x = 7;
-                _image.y = 10;
-//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
-//                 else st = 'cursor_circle_2';
-//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+                _image.x = 10;
+                _image.y = 12;
                 break;
             case KORZINA:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(KORZINA));
-                _image.x = 7;
-                _image.y = 7;
-//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_2_eng';
-//                else st = 'cursor_circle_2';
-//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+                _image.x = 10;
+                _image.y = 12;
                 break;
             case ANIMAL:
-//                _imageCircle.visible = true;
+                var im2:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle_pt_2"));
+                im2.x = _imageBg.width - 35;
+                im2.y = _imageBg.height - 39;
+                _imageCont.addChild(im2);
+                    if (g.allData.getResourceById(dat.idResourceRaw).buildType == BuildType.PLANT)
+                        _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(dat.idResourceRaw).imageShop + '_icon'));
+                    else
+                        _image = new Image(g.allData.atlas[g.allData.getResourceById(dat.idResourceRaw).url].getTexture(g.allData.getResourceById(dat.idResourceRaw).imageShop));
+                    MCScaler.scale(_image, 55, 55);
+                _image.x = 42 - _image.width/2;
+                _image.y = 39 - _image.height/2;
                 _txtCount.visible = true;
                 _txtCount.text = String(g.userInventory.getCountResourceById(dat.idResourceRaw));
-                if (g.allData.getResourceById(dat.idResourceRaw).buildType == BuildType.PLANT)
-                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(dat.idResourceRaw).imageShop + '_icon'));
-                else
-                    _image = new Image(g.allData.atlas[g.allData.getResourceById(dat.idResourceRaw).url].getTexture(g.allData.getResourceById(dat.idResourceRaw).imageShop));
-                MCScaler.scale(_image, 40, 40);
-                _image.x = 6;
-                _image.y = 10;
-//                if (g.user.language == ManagerLanguage.ENGLISH) st = 'cursor_circle_1_eng';
-//                    else st = 'cursor_circle_1';
-//                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+//                if (g.allData.getResourceById(dat.idResourceRaw).buildType == BuildType.PLANT)
+//                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(dat.idResourceRaw).imageShop + '_icon'));
+//                else
+//                    _image = new Image(g.allData.atlas[g.allData.getResourceById(dat.idResourceRaw).url].getTexture(g.allData.getResourceById(dat.idResourceRaw).imageShop));
+//                MCScaler.scale(_image, 40, 40);
+//                _image.x = 6;
+//                _image.y = 10;
                 break;
         }
 
@@ -155,7 +150,6 @@ public class MouseHint {
             Cc.error('MouseHint checkMouseHint:: no _imageBg for type: ' + s);
             return;
         }
-        _imageCont.addChild(_imageBg);
         _imageCont.addChild(_image);
     }
 }

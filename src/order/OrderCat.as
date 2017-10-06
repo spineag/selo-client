@@ -195,95 +195,95 @@ public class OrderCat {
         releaseBackTexture(st);
         heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, st+'_head_front', st2, _catData.isWoman);
 
-        if (!_catData.isWoman) {
-            var sl:Slot = armature.getSlot('bant');
-            sl.displayList=null;
-        } else changeBant(int(Math.random() * 8 + 1));
-        var okuli:Slot = armature.getSlot('okuli');
-        var sharf:Slot = armature.getSlot('sharf');
-        switch (_catData.id) {
-            case 1:
-                okuli.displayList = null;
-                break;
-            case 2:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 3:
-                okuli.displayList = null;
-                break;
-            case 4:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 5:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 6:
-                okuli.displayList = null;
-                break;
-            case 7:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 8:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 9:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 10:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 11:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 12:
-                okuli.displayList = null;
-                break;
-            case 13:
-                okuli.displayList = null;
-                sharf.displayList = null;
-                break;
-            case 14:
-                sharf.displayList = null;
-                break;
-
-        }
-        if (_catData.png) {
-            var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(_catData.png));
-            var sp:Sprite = new Sprite();
-            if (sharf.displayList.length) {
-                var imOld:DisplayObject = sharf.displayList[0] as DisplayObject;
-                if (imOld) {
-                    im.x = imOld.x + imOld.width/2 - im.width/2;
-                }
-            }
-            sp.addChild(im);
-            sharf.displayList = null;
-            sharf.display = sp;
-        }
+//        if (!_catData.isWoman) {
+////            var sl:Slot = armature.getSlot('bant');
+////            sl.displayList=null;
+//        } else changeBant(int(Math.random() * 8 + 1));
+//        var okuli:Slot = armature.getSlot('okuli');
+//        var sharf:Slot = armature.getSlot('sharf');
+//        switch (_catData.id) {
+//            case 1:
+//                okuli.displayList = null;
+//                break;
+//            case 2:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 3:
+//                okuli.displayList = null;
+//                break;
+//            case 4:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 5:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 6:
+//                okuli.displayList = null;
+//                break;
+//            case 7:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 8:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 9:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 10:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 11:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 12:
+//                okuli.displayList = null;
+//                break;
+//            case 13:
+//                okuli.displayList = null;
+//                sharf.displayList = null;
+//                break;
+//            case 14:
+//                sharf.displayList = null;
+//                break;
+//
+//        }
+//        if (_catData.png) {
+//            var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(_catData.png));
+//            var sp:Sprite = new Sprite();
+//            if (sharf.displayList.length) {
+//                var imOld:DisplayObject = sharf.displayList[0] as DisplayObject;
+//                if (imOld) {
+//                    im.x = imOld.x + imOld.width/2 - im.width/2;
+//                }
+//            }
+//            sp.addChild(im);
+//            sharf.displayList = null;
+//            sharf.display = sp;
+//        }
     }
 
     private function changeBant(n:int):void {
-        bant = n;
-        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture('bant_'+ n));
-        var b:Slot = armature.getSlot('bant');
-        var sp:Sprite = new Sprite();
-        if (b.displayList.length) {
-            var imOld:DisplayObject = b.displayList[0] as DisplayObject;
-            if (imOld) {
-               im.x = imOld.x + imOld.width/2 - im.width/2;
-            }
-        }
-        sp.addChild(im);
-        b.displayList = null;
-        b.display = sp;
+//        bant = n;
+//        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture('bant_'+ n));
+//        var b:Slot = armature.getSlot('bant');
+//        var sp:Sprite = new Sprite();
+//        if (b.displayList.length) {
+//            var imOld:DisplayObject = b.displayList[0] as DisplayObject;
+//            if (imOld) {
+//               im.x = imOld.x + imOld.width/2 - im.width/2;
+//            }
+//        }
+//        sp.addChild(im);
+//        b.displayList = null;
+//        b.display = sp;
     }
 
     private function releaseFrontTexture(st:String):void {
@@ -482,9 +482,6 @@ public class OrderCat {
         if (b) Utils.createDelay(int(Math.random() * 2) + 2,f1);
         else f1();
     }
-
-
-
 
     // --------------- WALKING --------------
 

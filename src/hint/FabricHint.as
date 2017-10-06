@@ -174,14 +174,14 @@ internal class FabricHintItem {
         _txtWhite.setFormat(CTextField.BOLD18, 18,  ManagerFilters.BLUE_COLOR);
         _txtWhite.alignH = Align.LEFT;
         _txtOrange = new CTextField(50,50,'');
-        _txtOrange.setFormat(CTextField.BOLD18, 18, ManagerFilters.ORANGE_COLOR);
+        _txtOrange.setFormat(CTextField.BOLD18, 18, ManagerFilters.RED_TXT_NEW);
         _txtOrange.alignH = Align.LEFT;
         source.addChild(_txtWhite);
         source.addChild(_txtOrange);
         var userCount:int = g.userInventory.getCountResourceById(g.allData.getResourceById(obId).id);
         _txtOrange.text = String(userCount);
         if (userCount >= needCount) _txtOrange.changeTextColor = ManagerFilters.BLUE_COLOR;
-            else _txtOrange.changeTextColor = ManagerFilters.ORANGE_COLOR;
+            else _txtOrange.changeTextColor = ManagerFilters.RED_TXT_NEW;
         _txtOrange.x = 36;
         _txtOrange.y = 55;
         _txtWhite.x = _txtOrange.x + _txtOrange.textBounds.width - 4;
@@ -215,7 +215,7 @@ internal class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.allData.getResourceById(_id).id);
         userCount -= _needCount;
         if (userCount >= _needCount) _txtOrange.changeTextColor = ManagerFilters.GREEN_COLOR;
-            else _txtOrange.changeTextColor = ManagerFilters.ORANGE_COLOR;
+            else _txtOrange.changeTextColor = ManagerFilters.RED_TXT_NEW;
     }
 
     public function deleteIt():void {

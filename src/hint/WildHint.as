@@ -40,8 +40,8 @@ public class WildHint {
     private var _btn:CButton;
     private var _isShowed:Boolean;
     private var _isOnHover:Boolean;
-    private var _circle:Image;
-    private var _bgItem:Image;
+//    private var _circle:Image;
+//    private var _bgItem:Image;
     private var _iconResource:Image;
     private var _txtCount:CTextField;
     private var _txtName:CTextField;
@@ -67,26 +67,26 @@ public class WildHint {
         bg = new HintBackground(120, 125, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(bg);
         _source.addChild(_btn);
-        _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
-        _btn.addDisplayObject(_bgItem);
-        _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-        _txtCount = new CTextField(30,30,"");
-        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+//        _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
+//        _btn.addDisplayObject(_bgItem);
+//        _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
+        _txtCount = new CTextField(80,50,"");
+        _txtCount.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName = new CTextField(120,50,"");
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
 //        _txtName.alignH = Align.LEFT;
         _txtName.x = -60;
-        _txtName.y = -150;
-        _circle.x = int(_bgItem.width/2) - 20;
-        _circle.y = -int(_bgItem.height) - 50;
-        _source.addChild(_circle);
+        _txtName.y = -157;
+//        _circle.x = int(_bgItem.width/2) - 20;
+//        _circle.y = -int(_bgItem.height) - 50;
+//        _source.addChild(_circle);
         _source.addChild(_txtCount);
         _source.addChild(_txtName);
         _btn.clickCallback = onClick;
         _source.outCallback = onOutHint;
         _source.hoverCallback = onHover;
         _btn.x = -33;
-        _btn.y = -_bgItem.height - 35;
+        _btn.y = -115;
     }
 
     public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function,buildType:int = 0):void {
@@ -111,15 +111,22 @@ public class WildHint {
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(idResourceForRemoving).imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
-        _txtCount.x = int(_circle.x) + 3;
-        _txtCount.y = int(_circle.y) + 2;
+        _txtCount.x = -45;
+        _txtCount.y = -68;
+        if (g.userInventory.getCountResourceById(idResourceForRemoving) > 0) {
+            _txtCount.changeTextColor =  Color.WHITE;
+            _txtCount.changeTextStroke = ManagerFilters.BLUE_COLOR;
+        } else {
+            _txtCount.changeTextColor = ManagerFilters.RED_TXT_NEW;
+            _txtCount.changeTextStroke = Color.WHITE;
+        }
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(idResourceForRemoving).imageShop));
         if (!_iconResource) {
             Cc.error('WildHint showIt:: no such image: ' + g.allData.getResourceById(idResourceForRemoving).imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'wildHint');
             return;
         }
-        MCScaler.scale(_iconResource, 60, 60);
+        MCScaler.scale(_iconResource, 65, 65);
         _btn.addChild(_iconResource);
         _source.x = x;
         _source.y = y;

@@ -72,10 +72,10 @@ public class ToolsModifier {
         _modifierType = NONE;
         _mouseIcon = new Sprite();
         _plantId = -1;
-        _txtCount = new CTextField(50,40,"");
-        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
-        _txtCount.x = 45;
-        _txtCount.y = 50;
+        _txtCount = new CTextField(80,50,"");
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE,ManagerFilters.BLUE_COLOR);
+        _txtCount.x = 30;
+        _txtCount.y = 40;
     }
 
     public function setTownArray():void {
@@ -193,17 +193,18 @@ public class ToolsModifier {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_pt_1'));
                 _mouseIcon.addChild(im);
                 im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_plantId).imageShop + '_icon'));
+
+                if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
+                var im2:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle_pt_2"));
+                im2.x = _mouseIcon.width - 35;
+                im2.y = _mouseIcon.height - 39;
+                _mouseIcon.addChild(im2);
                 if (im) {
-                    MCScaler.scale(im, 60, 60);
+                    MCScaler.scale(im, 50, 50);
                     im.x = 39 - im.width/2;
                     im.y = 39 - im.height/2;
                     _mouseIcon.addChild(im);
                 }
-                if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
-                var im2:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_circle_pt_2"));
-                im2.x = _mouseIcon.width - 37;
-                im2.y = _mouseIcon.height - 37;
-                _mouseIcon.addChild(im2);
                 if (_txtCount && !_mouseIcon.contains(_txtCount)) _mouseIcon.addChild(_txtCount);
                 updateCountTxt();
                 break;
