@@ -77,33 +77,33 @@ public class WOTrainWaitBack extends WindowMain{
         _btn.clickCallback = onClickBtn;
         _source.addChild(_btn);
 
-        _txtArrive = new CTextField(500,50,String(g.managerLanguage.allTexts[303]));
+        _txtArrive = new CTextField(400,50,String(g.managerLanguage.allTexts[303]));
         _txtArrive.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-        _txtArrive.x = -255;
+        _txtArrive.x = -200;
         _txtArrive.y = -190;
         _source.addChild(_txtArrive);
 
-        _txtNext = new CTextField(150,50,String(g.managerLanguage.allTexts[304]));
+        _txtNext = new CTextField(200,40,String(g.managerLanguage.allTexts[304]));
         _txtNext.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
-        _txtNext.x = -80;
-        _txtNext.y = -25;
+        _txtNext.x = -100;
+        _txtNext.y = -30;
         _source.addChild(_txtNext);
 
         _txtTime2 = new CTextField(500,50,String(g.managerLanguage.allTexts[305]));
         _txtTime2 .setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
         _txtTime2.cacheIt = false;
         _txtTime2 .x = -250;
-        _txtTime2 .y = -120;
+        _txtTime2 .y = -122;
         _source.addChild(_txtTime2);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock'));
         im.x = -70;
-        im.y = -70;
+        im.y = -75;
         _source.addChild(im);
         _txtTime = new CTextField(120,50,"");
         _txtTime.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtTime.alignH = Align.LEFT;
         _txtTime.x = -15;
-        _txtTime.y = -70;
+        _txtTime.y = -80;
         _source.addChild(_txtTime);
     }
 

@@ -146,11 +146,11 @@ public class Order extends WorldObject{
         var myPattern:RegExp = /count/;
         var str:String =  String(g.managerLanguage.allTexts[342]);
         if (_stateBuild == STATE_UNACTIVE) {
-            if (g.user.level < 3) {
+            if (g.user.level < int(_dataBuild.blockByLevel)) {
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,String(String(str.replace(myPattern, String(3)))));
+                new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
             } else {
                 _stateBuild = STATE_ACTIVE;
                 if (_topOpen) _topOpen.visible = true;
@@ -196,7 +196,7 @@ public class Order extends WorldObject{
                 new FlyMessage(p,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
                 return;
             }
-            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == 3) return;
+            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == _dataBuild.blockByLevel) return;
             onOut();
             if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
@@ -212,7 +212,7 @@ public class Order extends WorldObject{
     private function onOpenOrder(e:Event=null):void {
         if (_topOpen) _topOpen.visible = false;
         if (_boomOpen) _boomOpen.visible = false;
-        if (g.managerMiniScenes.isMiniScene && g.user.level == 3) {
+        if (g.managerMiniScenes.isMiniScene && g.user.level == _dataBuild.blockByLevel) {
             g.managerMiniScenes.checkMiniSceneCallback();
         } else {
             g.managerOrder.checkOrders();

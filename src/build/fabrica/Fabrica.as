@@ -306,7 +306,6 @@ public class Fabrica extends WorldObject {
             g.timerHint.canHide = true;
             g.timerHint.hideArrow();
             g.timerHint.hideIt(true);
-
             g.timerHint.canHide = false;
             g.timerHint.addArrow();
             g.tuts.checkTutsCallback();
@@ -532,6 +531,11 @@ public class Fabrica extends WorldObject {
             g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[0].resourceID});
             craftResource(_arrList.shift());
+            if (!_arrList.length) {
+                g.managerCats.onFinishFabrica(this);
+                _countAnimation = 0;
+                chooseAnimationHero();
+            }
         } else {
             Cc.error('Fabrica skipRecipe:: _arrList[0] == null');
         }

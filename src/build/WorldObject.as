@@ -204,6 +204,11 @@ public class WorldObject {
             _arrow = null;
         }
     }
+    
+    public function get hasArrow():Boolean {
+        if (_arrow) return true;
+        else return false;
+    }
 
     public function clearIt():void {
 //        if (_isoView) {

@@ -72,7 +72,6 @@ public class WindowMain {
             createBlackBG();
             g.cont.addGameContListener(false);
             g.cont.windowsCont.addChild(_source);
-            if (_windowType == WindowsManager.WO_FABRICA) return;
             _source.x = int(g.managerResize.stageWidth/2);
             _source.y = int(-g.managerResize.stageHeight/2);
             TweenMax.to(_source, .3, {y: int(g.managerResize.stageHeight/2), onComplete: onShowingWindow});

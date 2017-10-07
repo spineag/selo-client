@@ -89,7 +89,7 @@ public class ManagerCats {
     }
 
     public function onStartRidge(r:Ridge):void {
-        if (_arrRidge.indexOf(r) > 0) return;
+        if (_arrRidge.indexOf(r) > -1) return;
         _arrRidge.push(r);
     }
 
@@ -99,7 +99,7 @@ public class ManagerCats {
     }
 
     public function onStartFabrica(f:Fabrica):void {
-        if (_arrFabrica.indexOf(f) > 0) return;
+        if (_arrFabrica.indexOf(f) > -1) return;
         _arrFabrica.push(f);
     }
 
@@ -109,7 +109,7 @@ public class ManagerCats {
     }
 
     public function onStartFarm(f:Farm):void {
-        if (_arrFarm.indexOf(f) > 0) return;
+        if (_arrFarm.indexOf(f) > -1) return;
         _arrFarm.push(f);
     }
 

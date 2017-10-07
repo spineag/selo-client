@@ -32,17 +32,17 @@ public class WOOrderResourceItem {
         source.addChild(_check);
         _check.visible = false;
 
-        _countTxt = new CTextField(80, 40, "10/10");
+        _countTxt = new CTextField(80, 40, "10");
         _countTxt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
         _countTxt.alignH = Align.RIGHT;
         _countTxt.y = 12;
-        _countTxt.x = -14 - _countTxt.textBounds.width/2;
+        _countTxt.x = -53;
         source.addChild(_countTxt);
-        _countTxtNeed = new CTextField(80, 40, "10/10");
+        _countTxtNeed = new CTextField(80, 40, "/10");
         _countTxtNeed.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
-        _countTxtNeed.alignH = Align.RIGHT;
+        _countTxtNeed.alignH = Align.LEFT;
         _countTxtNeed.y = 12;
-        _countTxtNeed.x = -24;
+        _countTxtNeed.x = 27;
         source.addChild(_countTxtNeed);
         source.hoverCallback = onHover;
         source.outCallback = outCallback;
@@ -73,7 +73,7 @@ public class WOOrderResourceItem {
         _id = id;
         if (obj.buildType == BuildType.PLANT) _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon'));
             else _image = new Image(g.allData.atlas[obj.url].getTexture(obj.imageShop));
-        MCScaler.scale(_image, 85, 85);
+        MCScaler.scale(_image, 80, 80);
         _image.alignPivot();
         source.addChildAt(_image, 0);
         var curCount:int = g.userInventory.getCountResourceById(id);

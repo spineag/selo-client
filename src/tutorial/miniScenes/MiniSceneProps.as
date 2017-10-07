@@ -21,7 +21,7 @@ public class MiniSceneProps {
         obj.id = 1;
         obj.prevId = 0; // prev mini scene id
         obj.reason = ManagerMiniScenes.OPEN_ORDER;
-        obj.level = 3;
+        obj.level = 4;
         obj.text = String(g.managerLanguage.allTexts[534]);
         _prop.push(obj);
 
@@ -29,7 +29,7 @@ public class MiniSceneProps {
         obj.id = 2;
         obj.prevId = 1; //
         obj.reason = ManagerMiniScenes.BUY_ORDER;
-        obj.level = 3;
+        obj.level = 4;
         obj.text = String(g.managerLanguage.allTexts[535]);
         _prop.push(obj);
 

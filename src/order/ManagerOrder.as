@@ -2,12 +2,16 @@
  * Created by andy on 11/14/15.
  */
 package order {
+import build.fabrica.Fabrica;
+
 import manager.*;
 
 import build.orders.Order;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.StructureDataResource;
+
+import resourceItem.ResourceItem;
 
 import social.SocialNetworkSwitch;
 import tutorial.TutsAction;
@@ -183,22 +187,28 @@ public class ManagerOrder {
 
     private function addNewFastOrder():Object {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FABRICA);
+        var arrTemp:Array;
         var i:int = 0;
         var j:int = 0;
         var time:int = 0;
         var ob:Object;
         var arrResource:Array = g.userInventory.getResourceforTypetoOrder(BuildType.RESOURCE);
         var resource:Boolean = false;
+        var r:StructureDataResource;
+        var ri:ResourceItem;
         if (arrResource == null || arrResource.length <= 0) {
             if (g.user.level <= 5) time = 60;
             else if (g.user.level <= 6) time = 120;
             else time = 240;
             for (i = 0; i < arr.length; i++) {
-                if (arr[i].arrList.length > 0) {
-                    for (j = 0; j < arr[i].arrList.length; j++) {
-                        if (arr[i].arrList[j].resourceID != 21 && arr[i].arrList[j].resourceID != 25 && arr[i].arrList[j].resourceID != 27 && arr[i].arrList[j].resourceID != 29 && arr[i].arrList[j].leftTime <= time) {
+                arrTemp = (arr[i] as Fabrica).arrList;
+                if (arrTemp.length > 0) {
+                    for (j = 0; j < arrTemp.length; j++) {
+                        ri = arrTemp[j];
+                        r = g.allData.getResourceById(ri.resourceID);
+                        if (r.orderType == 1 && ri.leftTime <= time) {
                             ob = {};
-                            ob.id = arr[i].arrList[j].resourceID;
+                            ob.id = ri.resourceID;
                             ob.count = 1;
                             resource = true;
                             trace ('Ресурс готовится на фабрике но при этом подходит по времени для ордера ' + "id " + ob.id + ' count ' + ob.count);
@@ -206,10 +216,13 @@ public class ManagerOrder {
                         }
                     }
                 } else if (arr[i].arrCrafted.length > 0) {
-                    for (j = 0; j < arr[i].arrCrafted.length; j++) {
-                        if (arr[i].arrCrafted[j].resourceId != 21 && arr[i].arrCrafted[j].resourceId != 25 && arr[i].arrCrafted[j].resourceId != 27 && arr[i].arrCrafted[j].resourceId != 29) {
+                    arrTemp = (arr[i] as Fabrica).arrCrafted;
+                    for (j = 0; j < arrTemp.length; j++) {
+                        ri = arrTemp[j];
+                        r = g.allData.getResourceById(ri.resourceID);
+                        if (r.orderType > 0) {
                             ob = {};
-                            ob.id = arr[i].arrCrafted[j].resourceId;
+                            ob.id = arrTemp[j].resourceId;
                             ob.count = 1;
                             resource = true;
                             trace ('Ресурс приготовлен но не забарн из фабрике ' + "id " + ob.id + ' count ' + ob.count);
@@ -223,8 +236,9 @@ public class ManagerOrder {
                 var countAnimalWhoAccept:int = 0;
                 for (i = 0; i < arr.length; i++) {
                     if (arr[i].arrAnimals.length > 0) {
-                        for (j = 0; j < arr[i].arrAnimals.length; j++) {
-                            if (arr[i].arrAnimals[j].state > 1 && arr[i].arrAnimals[j].timeToEnd <= time) {
+                        arrTemp = arr[i].arrAnimals;
+                        for (j = 0; j < arrTemp.length; j++) {
+                            if (arrTemp[j].state > 1 && arrTemp[j].timeToEnd <= time) {
                                 countAnimalWhoAccept ++;
                             }
                         }
@@ -335,12 +349,12 @@ public class ManagerOrder {
             } else {
                 var arR:Array = g.allData.resource;
                 for (i = 0; i < arR.length; i++) {
-                    if (arR[i].blockByLevel <= userLevel) {
-                        if (arR[i].orderType == 1 || arR[i].orderType == 2) {
+                    if ((arR[i] as StructureDataResource).blockByLevel <= userLevel) {
+                        if ((arR[i] as StructureDataResource).orderType == 1 || (arR[i] as StructureDataResource).orderType == 2) {
                             arrOrderType1.push(arR[i].id);
 //                        } else if (arR[i].orderType == 2) {
 //                            arrOrderType2.push(arR[i].id);
-                        } else if (arR[i].orderType == 3) {
+                        } else if ((arR[i] as StructureDataResource).orderType == 3) {
                             arrOrderType3.push(arR[i].id);
                         }
                     }

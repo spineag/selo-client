@@ -226,6 +226,7 @@ public class WOFabrica extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (isCashed) return;
         if (!_source) return;
         for (var i:int = 0; i < _arrFabricaItems.length; i++) {
             _source.removeChild(_arrFabricaItems[i].source);

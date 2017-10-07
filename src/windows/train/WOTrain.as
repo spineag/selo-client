@@ -122,7 +122,7 @@ public class WOTrain extends WindowMain {
         _btnSendBasket.x = -_woWidth/2 + 800;
         _btnSendBasket.y = -_woHeight/2 + 638;
         _source.addChild(_btnSendBasket);
-        _btnSendBasket.addTextField(90, 50, 3, 0, g.managerLanguage.allTexts[292]);
+        _btnSendBasket.addTextField(92, 50, 6, 0, g.managerLanguage.allTexts[292]);
         _btnSendBasket.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('basket_send'));
         im.alignPivot();
