@@ -15,9 +15,9 @@ import windows.fabricaWindow.WOFabrica;
 import windows.shop_new.WOShopNew;
 
 public class ManagerHelpers {
-    private const MAX_SECONDS:int = 12;
-    private const LOW_SECONDS:int = 10;
-    private const MEMIUM_SECONDS:int = 12;
+    private const MAX_SECONDS:int = 60;
+    private const LOW_SECONDS:int = 25;
+    private const MEMIUM_SECONDS:int = 40;
     private var _countSeconds:int;
     private var _isActiveHelper:Boolean;
     private var _isCheckingForHelper:Boolean;
@@ -105,7 +105,7 @@ public class ManagerHelpers {
 
     private function onTimer():void {
         _countSeconds++;
-        if ((g.user.level == 2 && _countSeconds >= 2) || (g.user.level == 4 && _countSeconds >= 5) ||(g.user.level < 4 && _countSeconds >= LOW_SECONDS) || (g.user.level == 5 && _countSeconds >= MEMIUM_SECONDS) || _countSeconds >= MAX_SECONDS) {
+        if ((g.user.level == 2 && _countSeconds >= LOW_SECONDS) || (g.user.level == 4 && _countSeconds >= LOW_SECONDS) ||(g.user.level < 4 && _countSeconds >= LOW_SECONDS) || (g.user.level == 5 && _countSeconds >= MEMIUM_SECONDS) || _countSeconds >= MAX_SECONDS) {
             _countSeconds = 0;
             if (g.tuts.isTuts) return;
             if (g.managerCutScenes.isCutScene) return;
