@@ -105,7 +105,7 @@ public class MarketHint {
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtText = new CTextField(200,100,'');
         _txtText.setFormat(CTextField.BOLD18, 12, ManagerFilters.BLUE_COLOR);
-        _txtText.leading = -5;
+        _txtText.leading = -1;
         _txtCount = new CTextField(30,30,'');
         _txtCount.setFormat(CTextField.BOLD18, 14, ManagerFilters.LIGHT_BLUE_COLOR);
         _txtSklad = new CTextField(70,20,'');
@@ -240,7 +240,7 @@ public class MarketHint {
         if (objRecipes[_dataId]) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);
-            _imageItem.y = 70;
+            _imageItem.y = 74;
             _imageItem.x = 15;
             _txtName.text = String(g.allData.getResourceById(_dataId).name);
             _txtName.x = -100;
@@ -248,13 +248,13 @@ public class MarketHint {
             if (g.allData.getBuildingById(objRecipes[_dataId].buildingId)) _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
                 else _txtText.text = String(g.managerLanguage.allTexts[611]) + ' UNKNOWN BUILDING';
             _txtText.x = -100;
-            _txtText.y = 5;
+            _txtText.y = 7;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
             _txtCount.x = 35;
-            _txtCount.y = 70;
+            _txtCount.y = 74;
             _txtSklad.text = String(g.managerLanguage.allTexts[612]);
-            _txtSklad.x = -50;
-            _txtSklad.y = 75;
+            _txtSklad.x = -54;
+            _txtSklad.y = 79;
             wText = int(_txtText.textBounds.width + 20);
             wName = int(_txtName.textBounds.width + 40);
             if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);

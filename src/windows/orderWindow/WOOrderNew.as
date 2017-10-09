@@ -86,6 +86,7 @@ public class WOOrderNew extends WindowMain {
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -150;
         _txtWindowName.y = -_woHeight / 2 + 25;
+        _txtWindowName.letterSpacing = 20;
         _source.addChild(_txtWindowName);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_small_bg'));
@@ -154,7 +155,7 @@ public class WOOrderNew extends WindowMain {
         for (var i:int = 0; i < 6; i++) {
             item = new WOOrderResourceItem();
             item.source.x = -_woWidth / 2 + 465 + (i % 3) * 108;
-            item.source.y = -_woHeight / 2 + 406 + int(i / 3) * 94;
+            item.source.y = -_woHeight / 2 + 410 + int(i / 3) * 90;
             _rightBlock.addChild(item.source);
             _arrResourceItems.push(item);
         }
@@ -171,8 +172,8 @@ public class WOOrderNew extends WindowMain {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(im, 30, 30);
         _sensCoin = new SensibleBlock();
-        _sensCoin.imageAndText(im, t, 95, 10);
-        _sensCoin.x = -_woWidth / 2 + 530;
+        _sensCoin.imageAndText(im, t, 95, 5);
+        _sensCoin.x = -_woWidth / 2 + 540;
         _sensCoin.y = -_woWidth / 2 + 607;
         _rightBlock.addChild(_sensCoin);
         t = new CTextField(60, 30, '8888');
@@ -180,8 +181,8 @@ public class WOOrderNew extends WindowMain {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         MCScaler.scale(im, 30, 30);
         _sensXP = new SensibleBlock();
-        _sensXP.imageAndText(im, t, 95, 10);
-        _sensXP.x = -_woWidth / 2 + 630;
+        _sensXP.imageAndText(im, t, 95, 5);
+        _sensXP.x = -_woWidth / 2 + 633;
         _sensXP.y = -_woWidth / 2 + 607;
         _rightBlock.addChild(_sensXP);
 
@@ -209,7 +210,7 @@ public class WOOrderNew extends WindowMain {
         _source.addChild(_rightBlockTimer);
         _rightBlockTimer.visible = false;
 
-        _txtZakazState = new CTextField(338, 30, String(g.managerLanguage.allTexts[368]));
+        _txtZakazState = new CTextField(338, 30, String(g.managerLanguage.allTexts[369]));
         _txtZakazState.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _txtZakazState.x = -_woWidth / 2 + 410;
         _txtZakazState.y = -_woHeight / 2 + 380;

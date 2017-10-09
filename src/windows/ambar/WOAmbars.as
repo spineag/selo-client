@@ -265,6 +265,7 @@ public class WOAmbars extends WindowMain {
             g.directServer.updateUserAmbar(2, g.user.skladLevel, null);
         }
         _txtCount.text = st;
+        updateForUpdates();
         updateCells();
         if (_isAmbar) g.updateAmbarIndicator();
     }

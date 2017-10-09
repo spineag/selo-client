@@ -147,6 +147,7 @@ public class CTextField extends DisplayObjectContainer {
     }
     public function set changeSize(v:int):void { if (_txt) _txt.format.size = v; _format.size = v; }
     public function set leading(v:int):void { if (_txt) _txt.format.leading = v; _format.leading = v; }
+    public function set letterSpacing (v:int):void { if (_txt) _txt.format.letterSpacing = v; _format.letterSpacing = v; }
     public function set border(v:Boolean):void { if (_txt) _txt.border = v; }
 
     public function set cacheIt(v:Boolean):void {

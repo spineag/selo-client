@@ -24,21 +24,6 @@ public class UserInventory {
     public function get decorInventory():Object { return _decorInventory; }
     public function getDecorInventory(id:int):Boolean { if (_decorInventory[id]) return true;  else return false; }
 
-    public function getResourceforTypetoOrder(type:int):Array {
-        var arr:Array = [];
-        var ob:Object;
-        for(var id:String in _inventoryResource) {
-            if (g.allData.getResourceById(int(id)).buildType == type && int(id) != 21 && int(id) != 25 && int(id) != 27 && int(id) != 29 && _inventoryResource[id] > 0) {
-                ob = {};
-                ob.id = id;
-                ob.count = _inventoryResource[id];
-                arr.push(ob);
-            }
-        }
-        if (arr.length > 0) return arr;
-        else return null;
-    }
-
     public function addToDecorInventory(id:int, dbId:int, updateInventory:Boolean = true):void {
         if (_decorInventory[id]) {
             _decorInventory[id].count++;
@@ -171,6 +156,23 @@ public class UserInventory {
             count += arr[i].count;
         }
         return count;
+    }
+
+    public function getResourceforTypetoOrder(type:int):Array {
+        var arr:Array = [];
+        var ob:Object;
+        var r:StructureDataResource;
+        for(var id:String in _inventoryResource) {
+            r = g.allData.getResourceById(int(id));
+            if (r.buildType == type && _inventoryResource[id] > 0 && r.orderType > 0) {
+                ob = {};
+                ob.id = id;
+                ob.count = _inventoryResource[id];
+                arr.push(ob);
+            }
+        }
+        if (arr.length > 0) return arr;
+        else return null;
     }
 
     public function addMoney(typeCurrency:int, count:int, needSendToServer:Boolean = true):void {

@@ -120,6 +120,7 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 1;
         _action = TutsAction.CRAFT_RIDGE;
         _cat.setPosition(new Point((_tutorialObjects[0] as Ridge).posX-2, (_tutorialObjects[0] as Ridge).posY+2));
+        g.cont.moveCenterToPos((_tutorialObjects[0] as Ridge).posX, (_tutorialObjects[0] as Ridge).posY, false, .5);
         _cat.addToMap();
         _cat.flipIt(false);
         _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
@@ -131,14 +132,20 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 2;
         if (_tutorialObjects.length) {
             var r:Ridge = _tutorialObjects[0] as Ridge;
-            g.cont.moveCenterToPos(r.posX, r.posY, false, .5);
-            r.showArrow();
+            var hasArrow:Boolean = false;
+            for (var i:int=0; i<_tutorialObjects.length; i++) {
+                if ((_tutorialObjects[i] as Ridge).hasArrow) {
+                    hasArrow = true;
+                    break;
+                }
+            }
+            if (!hasArrow) r.showArrow();
             r.tutorialCallback = subStep3_3;
         } else subStep3_4();
     }
 
     private function subStep3_3(r:Ridge):void {
-        _tutorialObjects.removeAt(0);
+        _tutorialObjects.removeAt(_tutorialObjects.indexOf(r));
         subStep3_2();
     }
     

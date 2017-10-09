@@ -29,7 +29,7 @@ public class CutSceneProperties {
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 5;
+        obj.level = 7;
         obj.id_action = ManagerCutScenes.ID_ACTION_SHOW_PAPPER;
         obj.text = String(g.managerLanguage.allTexts[518]);
         _prop.push(obj);

@@ -171,8 +171,10 @@ public class WOOrderItem {
     }
 
     public function clearIt():void {
-        source.filter.dispose();
+        if (source) source.filter.dispose();
         source.filter = null;
+        if (_imBG.filter) _imBG.filter.dispose();
+        _imBG.filter = null;
         _order = null;
         source.endClickCallback = null;
         _txtName.text = '';
