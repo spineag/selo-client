@@ -43,7 +43,7 @@ public class ProgressBarComponent extends Sprite {
         var w:Number = percent*_maxWidth;
         _imCenter.width = w;
         _imCenter.tileGrid = _imCenter.tileGrid;
-        _right.x = w + 9;
+        _right.x = w + 8;
         if (w == 0) {
             _left.visible = false;
             _center.visible = false;

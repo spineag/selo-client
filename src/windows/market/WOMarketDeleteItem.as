@@ -38,20 +38,20 @@ public class WOMarketDeleteItem extends WindowMain{
 
     public function WOMarketDeleteItem() {
         _windowType = WindowsManager.WO_MARKET_DELETE_ITEM;
-        _woWidth = 750;
-        _woHeight = 520;
+        _woWidth = 660;
+        _woHeight = 480;
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _txtInfo = new CTextField(800, 150,String(g.managerLanguage.allTexts[408]));
         _txtInfo.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW);
-        _txtInfo.x = -395;
-        _txtInfo.y = -190;
+        _txtInfo.x = -400;
+        _txtInfo.y = -180;
         _source.addChild(_txtInfo);
         _txt = new CTextField(800,50,String(g.managerLanguage.allTexts[409]));
         _txt.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
         _txt.x = -410;
-        _txt.y = -230;
+        _txt.y = -210;
         _source.addChild(_txt);
         _callbackClickBG = onClickExit;
         _b = new CButton();
@@ -64,7 +64,7 @@ public class WOMarketDeleteItem extends WindowMain{
         var sensi:SensibleBlock = new SensibleBlock();
         sensi.textAndImage(_txtBtn,im,265);
         _b.addSensBlock(sensi,0,25);
-        _b.y = 190;
+        _b.y = 195;
         _b.clickCallback = onClick;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_blue_cell_big'));
         im.x = -im.width/2;

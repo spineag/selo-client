@@ -50,7 +50,7 @@ public class WONoResources extends WindowMain {
     public function WONoResources() {
         super();
         _windowType = WindowsManager.WO_NO_RESOURCES;
-        _woWidth = 780;
+        _woWidth = 680;
         _woHeight = 455;
         _arrItems = [];
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
@@ -62,39 +62,25 @@ public class WONoResources extends WindowMain {
         _txtNoResource = new CTextField(800, 50, String(g.managerLanguage.allTexts[373]));
         _txtNoResource.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
         _txtNoResource.x = -410;
-        _txtNoResource.y = -200;
+        _txtNoResource.y = -185;
         _source.addChild(_txtNoResource);
-        _text = new CTextField(800, 150, String(g.managerLanguage.allTexts[374]));
-        _text.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW);
-//        _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
+        _text = new CTextField(620, 220, String(g.managerLanguage.allTexts[374]));
+        _text.setFormat(CTextField.BOLD30, 28, ManagerFilters.BLUE_LIGHT_NEW);
         _text.x = -(_text.textBounds.width/2 + 30);
-        _text.y = -155;
+        _text.y = -175;
         _source.addChild(_text);
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(265, CButton.HEIGHT_55, CButton.GREEN, true);
-//        _btnBuy.addTextField(210, 34, 0, 0, String(g.managerLanguage.allTexts[375]));
         _btnBuy.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnBuy.x = 0;
         _btnBuy.y = 170;
         _source.addChild(_btnBuy);
-//        _txtHardCost = new CTextField(180, 34, String(g.managerLanguage.allTexts[375]));
-//        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-//        _btnBuy.addChild(_txtHardCost);
         _imRubin = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _imRubin.alignPivot();
         MCScaler.scale(_imRubin, 25, 25);
-//        _txtHardCost = new CTextField(90, 39, String(g.managerLanguage.allTexts[375]));
         _txtHardCost = new CTextField(265, 80, String(''));
         _txtHardCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
-//        _sensi = new SensibleBlock();
-//        _sensi.textAndImage(_txtHardCost,_imRubin,152);
-//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//        MCScaler.scale(im, 25, 25);
-//        im.x = 180;
-//        im.y = 4;
-//        _btnBuy.addChild(im);
-//        im.filter = ManagerFilters.SHADOW_TINY;
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -122,7 +108,7 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.idResourceRaw, _countOfResources);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 5;
+                item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickAnimal;
@@ -149,7 +135,7 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.id, _countOfResources);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 15;
+                item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickTrainHelp;
@@ -179,7 +165,7 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithMoney(_countOfResources);
                 item.source.x = - item.source.width/2;
-                item.source.y = 5;
+                item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickMoney;
@@ -189,7 +175,7 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 5;
+                item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
@@ -264,7 +250,7 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 5;
+                item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
@@ -286,7 +272,7 @@ public class WONoResources extends WindowMain {
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
                 item.source.x =  - item.source.width/2;
-                item.source.y = 5;
+                item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
@@ -319,7 +305,7 @@ public class WONoResources extends WindowMain {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, 1);
             im.source.x =  - im.source.width/2;
-            im.source.y = 5;
+            im.source.y = 8;
             _source.addChild(im.source);
             _arrItems.push(im);
             _countCost = int(_data.priceHard)*_countOfResources;
@@ -338,7 +324,7 @@ public class WONoResources extends WindowMain {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, _countOfResources);
             im.source.x =  - im.source.width/2;
-            im.source.y = 5;
+            im.source.y = 8;
             _source.addChild(im.source);
             _arrItems.push(im);
             _countCost = int(_data.priceHard) * _countOfResources;
@@ -362,7 +348,7 @@ public class WONoResources extends WindowMain {
                     im = new WONoResourcesItem();
                     im.fillWithResource(_data.ingridientsId[i], _data.ingridientsCount[i] - countR);
                     _countCost += g.allData.getResourceById(_data.ingridientsId[i]).priceHard * (_data.ingridientsCount[i] - countR);
-                    im.source.y = 5;
+                    im.source.y = 8;
                     _source.addChild(im.source);
                     _arrItems.push(im);
                 }

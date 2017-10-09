@@ -189,7 +189,7 @@ public class UserTimer {
                 }
             }
         }
-      var pl:int = _arrOrderItem[i].placeNumber;
+      if (_arrOrderItem[i]) var pl:int = _arrOrderItem[i].placeNumber;
         _arrOrderItem[i] = null;
         var arr:Array = g.managerOrder.arrOrders.slice();
         for (i = 0; i < arr.length; i++) {

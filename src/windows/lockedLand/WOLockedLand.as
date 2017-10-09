@@ -53,7 +53,7 @@ public class WOLockedLand extends WindowMain {
         _btnOpen.y = 175;
         _source.addChild(_btnOpen);
         _txtInfo = new CTextField(500,97,String(g.managerLanguage.allTexts[419]));
-        _txtInfo.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtInfo.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtInfo.x = -255;
         _txtInfo.y = -125;
         _source.addChild(_txtInfo);
