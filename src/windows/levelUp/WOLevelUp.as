@@ -378,8 +378,8 @@ public class WOLevelUp extends WindowMain {
                 objDataLevel.currency = arR[i].currency;
                 objDataLevel.costDefault = arR[i].costDefault;
                 objDataLevel.costMax = arR[i].costMax;
-                objDataLevel.orderPrice = arR[i].orderPrice;
-                objDataLevel.orderXP = arR[i].orderXP;
+                objDataLevel.orderPrice = arR[i].orderPriceMin;
+                objDataLevel.orderXP = arR[i].orderXPMin;
                 objDataLevel.visitorPrice = arR[i].visitorPrice;
                 objDataLevel.buildType = arR[i].buildType;
                 objDataLevel.placeBuild = arR[i].placeBuild;
