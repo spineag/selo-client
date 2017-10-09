@@ -21,16 +21,17 @@ import windows.WindowsManager;
 
 public class FabricHint {
     private var _txtName:CTextField;
-    private var _txtTimeCreate:CTextField;
-    private var _txtOnSklad:CTextField;
-    private var _txtCount:CTextField;
-    private var _txtTime:CTextField;
+//    private var _txtTimeCreate:CTextField;
+//    private var _txtOnSklad:CTextField;
+//    private var _txtCount:CTextField;
+//    private var _txtTime:CTextField;
     private var _source:Sprite;
     private var _arrCells:Array;
     private var _contImage:Sprite;
     private var _data:Object;
     private var _newX:int;
     private var _newY:int;
+    private var _bigTxt:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -47,28 +48,34 @@ public class FabricHint {
         _txtName.x = 10;
         _source.addChild(_txtName);
 
-        _txtTimeCreate = new CTextField(50, 30 ,String(g.managerLanguage.allTexts[990]) + ':');
-        _txtTimeCreate.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
-        _txtTimeCreate.x = 10;
-        _txtTimeCreate.y = -66;
-        _txtOnSklad = new CTextField(100, 30 ,String(g.managerLanguage.allTexts[991]) + ':');
-        _txtOnSklad.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
-        _txtOnSklad.x = 85;
-        _txtOnSklad.y = -66;
-        _txtCount = new CTextField(50, 40 ,'');
-        _txtCount.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
-        _txtCount.alignH = Align.LEFT;
-        _txtCount.x = 173;
-        _txtCount.y = -72;
-        _txtTime = new CTextField(100, 40 ,'');
-        _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
-        _txtTime.alignH = Align.LEFT;
-        _txtTime.x = 58;
-        _txtTime.y = -72;
-        _source.addChild(_txtTimeCreate);
-        _source.addChild(_txtOnSklad);
-        _source.addChild(_txtCount);
-        _source.addChild(_txtTime);
+//        _txtTimeCreate = new CTextField(50, 30 ,String(g.managerLanguage.allTexts[990]) + ':');
+//        _txtTimeCreate.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
+//        _txtTimeCreate.x = 8;
+//        _txtTimeCreate.y = -66;
+//        _txtOnSklad = new CTextField(100, 30 ,String(g.managerLanguage.allTexts[991]) + ':');
+//        _txtOnSklad.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
+//        _txtOnSklad.x = 87;
+//        _txtOnSklad.y = -66;
+//        _txtCount = new CTextField(50, 40 ,'');
+//        _txtCount.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
+//        _txtCount.alignH = Align.LEFT;
+//        _txtCount.x = 171;
+//        _txtCount.y = -72;
+//        _txtTime = new CTextField(40, 23 ,'');
+//        _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
+//        _txtTime.alignH = Align.LEFT;
+//        _txtTime.border = true;
+//        _txtTime.x = 58;
+//        _txtTime.y = -72;
+//        _source.addChild(_txtTimeCreate);
+//        _source.addChild(_txtOnSklad);
+//        _source.addChild(_txtCount);
+//        _source.addChild(_txtTime);
+        _bigTxt = new CTextField(190, 22, '');
+        _bigTxt.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
+        _bigTxt.x = 6;
+        _bigTxt.y = -65;
+        _source.addChild(_bigTxt);
 
         _contImage = new Sprite();
         _contImage.y = 50;
@@ -84,8 +91,11 @@ public class FabricHint {
         if (_data && g.allData.getResourceById(_data.idResource)) {
             _txtName.text = String(g.allData.getResourceById(int(_data.idResource)).name);
             _txtName.visible = false;
-            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_data.idResource).buildTime);
-            _txtCount.text = String(g.userInventory.getCountResourceById(_data.idResource));
+            var st:String = String(g.managerLanguage.allTexts[990]) + ': ' + String(TimeUtils.convertSecondsForHint(g.allData.getResourceById(_data.idResource).buildTime)) +
+                    '   ' + String(g.managerLanguage.allTexts[991]) + ': ' + String(g.userInventory.getCountResourceById(_data.idResource));
+//            _txtTime.text = String(TimeUtils.convertSecondsForHint(g.allData.getResourceById(_data.idResource).buildTime));
+//            _txtCount.text = String(g.userInventory.getCountResourceById(_data.idResource));
+            _bigTxt.text = st;
             createList();
             _source.x = _newX + 50;
             _source.y = _newY + 80;
@@ -139,7 +149,8 @@ public class FabricHint {
            (_arrCells[i] as FabricHintItem).deleteIt();
         }
         _arrCells.length = 0;
-        _txtCount.text = _txtName.text = _txtTime.text = '';
+//        _txtCount.text = _txtName.text = _txtTime.text = '';
+        _bigTxt.text = '';
     }
 }
 }
@@ -171,10 +182,10 @@ internal class FabricHintItem {
         _needCount = needCount;
         _id = obId;
         _txtWhite = new CTextField(50,50,String("/" + String(_needCount)));
-        _txtWhite.setFormat(CTextField.BOLD18, 18,  ManagerFilters.BLUE_COLOR);
+        _txtWhite.setFormat(CTextField.BOLD18, 16,  ManagerFilters.BLUE_COLOR);
         _txtWhite.alignH = Align.LEFT;
         _txtOrange = new CTextField(50,50,'');
-        _txtOrange.setFormat(CTextField.BOLD18, 18, ManagerFilters.RED_TXT_NEW);
+        _txtOrange.setFormat(CTextField.BOLD18, 16, ManagerFilters.RED_TXT_NEW);
         _txtOrange.alignH = Align.LEFT;
         source.addChild(_txtWhite);
         source.addChild(_txtOrange);

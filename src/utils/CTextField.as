@@ -133,6 +133,10 @@ public class CTextField extends DisplayObjectContainer {
     public function set style(value:MeshStyle):void { if (_txt) _txt.style = value; }
     public function get format():TextFormat { return _format; }
     public function set format(value:TextFormat):void { _format = value;if (_txt)  _txt.format = _format; }
+    public function set changeSize(v:int):void { if (_txt) _txt.format.size = v; _format.size = v; }
+    public function set leading(v:int):void { if (_txt) _txt.format.leading = v; _format.leading = v; }
+    public function set letterSpacing (v:int):void { if (_txt) _txt.format.letterSpacing = v; _format.letterSpacing = v; }
+    public function set border(v:Boolean):void { if (_txt) _txt.border = v; }
     public override function set touchable(value:Boolean):void { if (_txt) _txt.touchable = value; super.touchable = value; }
     public function set changeTextColor(color:uint):void { if (_txt) _txt.format.color = color; _format.color = color; }
     public function set changeTextStroke(color:uint):void {
@@ -145,10 +149,6 @@ public class CTextField extends DisplayObjectContainer {
         _style.setupOutline(u, color);
         if (_txt) _txt.style = _style;
     }
-    public function set changeSize(v:int):void { if (_txt) _txt.format.size = v; _format.size = v; }
-    public function set leading(v:int):void { if (_txt) _txt.format.leading = v; _format.leading = v; }
-    public function set letterSpacing (v:int):void { if (_txt) _txt.format.letterSpacing = v; _format.letterSpacing = v; }
-    public function set border(v:Boolean):void { if (_txt) _txt.border = v; }
 
     public function set cacheIt(v:Boolean):void {
         _cacheIt = v;

@@ -151,7 +151,7 @@ public class WOItemFabrica {
 
     private function addArrow(t:Number=0):void {
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
-        _arrow.animateAtPosition(source.width/2, 0);
+        _arrow.animateAtPosition(0, -50);
         _arrow.scaleIt(.5);
         if (t>0) _arrow.activateTimer(t, removeArrow);
     }

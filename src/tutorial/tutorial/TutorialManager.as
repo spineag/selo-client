@@ -249,7 +249,7 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 1;
         _cat.idleAnimation();
         _action = TutsAction.BUY_ANIMAL;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep6_2, 0, '', 'main_panel_bt_shop');
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep6_2, 0, '', 'shop_icon');
         g.bottomPanel.tutorialCallback = subStep6_2;
         addBlackUnderInterface();
         var ob:Object = g.bottomPanel.getShopButtonProperties();
@@ -459,7 +459,7 @@ public class TutorialManager extends IManagerTutorial{
         } else {
             _action = TutsAction.BUY_FABRICA;
             addBlackUnderInterface();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep10_1, 0, '', 'main_panel_bt_shop');
+            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep10_1, 0, '', 'shop_icon');
             g.bottomPanel.tutorialCallback = subStep10_1;
             var ob:Object = g.bottomPanel.getShopButtonProperties();
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
@@ -706,7 +706,7 @@ public class TutorialManager extends IManagerTutorial{
         } else {
             _action = TutsAction.BUY_FABRICA;
             addBlackUnderInterface();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep15_1, 0, '', 'main_panel_bt_shop');
+            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep15_1, 0, '', 'shop_icon');
             g.bottomPanel.tutorialCallback = subStep15_1;
             var ob:Object = g.bottomPanel.getShopButtonProperties();
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
@@ -760,7 +760,7 @@ public class TutorialManager extends IManagerTutorial{
         _action = TutsAction.NEW_RIDGE;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TextsTutorial()).objText;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep16_2, 0, '', 'main_panel_bt_shop');
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep16_2, 0, '', 'shop_icon');
         addBlackUnderInterface();
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
@@ -826,9 +826,12 @@ public class TutorialManager extends IManagerTutorial{
         }
         _tutorialObjects = [];
         var ar:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
-        for (var i:int=ar.length-1; i<=0; i--) {
+        ar.sortOn('dbBuildingId');
+        ar.reverse();
+        for (var i:int=0; i<ar.length; i++) {
             if ((ar[i] as Ridge).isFreeRidge) {
                 _tutorialObjects.push(ar[i]);
+                if (_tutorialObjects.length >= 3) break;
             }
         }
         if (!_tutorialObjects.length) {
@@ -841,7 +844,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep17_1():void {
         _subStep = 1;
-        _action = TutsAction.PLANT_RIDGE;
+        _action = TutsAction.PLANT_RIDGE_2;
         Utils.createDelay(1, subStep17_2);
     }
 
@@ -857,8 +860,9 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep17_3(r:Ridge):void {
         r.hideArrow();
-        _tutorialObjects.removeAt(0);
-        subStep17_4();
+        _tutorialObjects.removeAt(_tutorialObjects.indexOf(r));
+        if (_tutorialObjects.length) subStep17_2();
+            else subStep17_4();
     }
 
     private function subStep17_4():void {

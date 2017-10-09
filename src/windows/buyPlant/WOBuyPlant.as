@@ -44,11 +44,11 @@ public class WOBuyPlant extends WindowMain {
         _source.addChild(_bgPlant);
         _callbackClickBG = onClickExit;
         _mask = new Sprite();
-        _mask.mask = new Quad(_woWidth, _woHeight);
+        _mask.mask = new Quad(_woWidth, _woHeight + 150);
         _cont = new Sprite();
         _mask.addChild(_cont);
         _mask.x = -_woWidth/2;
-        _mask.y = -_woHeight/2;
+        _mask.y = -_woHeight/2 - 150;
         _source.addChild(_mask);
         createArrows();
     }
@@ -86,7 +86,7 @@ public class WOBuyPlant extends WindowMain {
         var item:WOBuyPlantItem;
         for (var i:int=0; i<_arrAllPlants.length; i++) {
             item = new WOBuyPlantItem();
-            item.setCoordinates(66 + i*116, 60);
+            item.setCoordinates(66 + i*116, 60 + 150);
             _cont.addChild(item.source);
             _arrPlantItems.push(item);
             item.fillData(_arrAllPlants[i], onClickItem);

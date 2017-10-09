@@ -77,6 +77,7 @@ public class WOBuyPlantItem {
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
         _txtNumber.text = String(_countPlants);
         if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE && g.tuts.isTutsResource(_dataPlant.id)) addArrow();
+        if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE_2) addArrow();
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PLANT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PLANT)
             && g.managerQuest.activeTask.resourceId == _dataPlant.id) addArrow(3);
     }
@@ -116,7 +117,7 @@ public class WOBuyPlantItem {
         if (g.managerCutScenes.isCutScene) return;
         if (!_dataPlant) return;
         if (_dataPlant.blockByLevel > g.user.level) return;
-        if (g.tuts.isTuts && !g.tuts.isTutsResource(_dataPlant.id)) return;
+        if (g.tuts.isTuts && g.tuts.action != TutsAction.PLANT_RIDGE_2 && !g.tuts.isTutsResource(_dataPlant.id)) return;
         g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         source.filter = null;
         g.resourceHint.hideIt();
@@ -141,7 +142,7 @@ public class WOBuyPlantItem {
         source.filter = ManagerFilters.YELLOW_STROKE;
         _isOnHover = true;
         g.resourceHint.hideIt();
-        g.resourceHint.showIt(_dataPlant.id, source.x, 48, source, true);
+        g.resourceHint.showIt(_dataPlant.id, source.x, 48 - 150, source, true);
     }
 
     private function onOut():void {
@@ -153,7 +154,7 @@ public class WOBuyPlantItem {
     private function addArrow(t:Number=0):void {
         removeArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
-        _arrow.animateAtPosition(source.width/2, 0);
+        _arrow.animateAtPosition(0, -50);
         _arrow.scaleIt(.5);
         if (t > 0) _arrow.activateTimer(t, removeArrow);
     }
