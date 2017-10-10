@@ -53,9 +53,9 @@ public class WOFabrica extends WindowMain {
         _txtWindowName.y = -_woHeight/2 + 32;
         _source.addChild(_txtWindowName);
         _mask = new Sprite();
-        _mask.mask = new Quad(524,100);
+        _mask.mask = new Quad(524,100 + 150);
         _mask.x = -268;
-        _mask.y = -_woHeight/2 + 88;
+        _mask.y = -_woHeight/2 + 88 - 150;
         _cont = new Sprite();
         _mask.addChild(_cont);
         _source.addChild(_mask);
@@ -121,7 +121,7 @@ public class WOFabrica extends WindowMain {
         for (var i:int=0; i<_arrAllRecipes.length; i++) {
             item = new WOItemFabrica();
             item.fillData(_arrAllRecipes[i], onItemClick);
-            item.setCoordinates(58 + i*106, 54);
+            item.setCoordinates(58 + i*106, 54 - 150);
             _cont.addChild(item.source);
             _arrFabricaItems.push(item);
         }

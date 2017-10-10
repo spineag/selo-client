@@ -27,5 +27,6 @@ public class TutsAction {
    public static const TAKE_CHEST:int = 24;
    public static const REMOVE_WILD:int = 25;
    public static const NYASHIK:int= 26;
+   public static const PLANT_RIDGE_2:int = 27;
 }
 }

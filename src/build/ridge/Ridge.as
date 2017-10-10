@@ -271,7 +271,7 @@ public class Ridge extends WorldObject{
             lastBuyResource = true;
             _source.filter = null;
             plantThePlant();
-            if (g.tuts.isTuts && g.tuts.action == TutsAction.PLANT_RIDGE) {
+            if (g.tuts.isTuts && (g.tuts.action == TutsAction.PLANT_RIDGE || g.tuts.action == TutsAction.PLANT_RIDGE_2)) {
                 if (_tutorialCallback != null) {
                     _tutorialCallback.apply(null, [this]);
                 }
@@ -296,6 +296,8 @@ public class Ridge extends WorldObject{
         if (g.tuts.isTuts) {
             if (g.tuts.action == TutsAction.PLANT_RIDGE && g.tuts.isTutsBuilding(this) && _tutorialCallback != null) {
                 g.tuts.checkTutsCallback();
+            } else if (g.tuts.action == TutsAction.PLANT_RIDGE_2 && g.tuts.isTutsBuilding(this) && _tutorialCallback != null) {
+
             } else if (g.tuts.action == TutsAction.NEW_RIDGE) {
 //                if (g.selectedBuild != this) return;
             } else if (!g.tuts.isTutsBuilding(this) || _tutorialCallback == null) return;
@@ -348,7 +350,7 @@ public class Ridge extends WorldObject{
         g.toolsModifier.plantId = _dataPlant.id;
         g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
         g.managerPlantRidge.checkFreeRidges();
-        if (g.tuts.isTuts && g.tuts.action == TutsAction.PLANT_RIDGE) {
+        if (g.tuts.isTuts && (g.tuts.action == TutsAction.PLANT_RIDGE || g.tuts.action == TutsAction.PLANT_RIDGE_2)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);
             }
