@@ -27,18 +27,19 @@ public class XPStar {
         if (xp > 5) {
             for (i = 0; i < 5; i++ ) {
                 var f1:Function = function ():void {
-                    item = new XPStarItem(_x,_y,1,endFly);
+                    if (i == 4) item = new XPStarItem(_x,_y,xp-4,endFly);
+                    else item = new XPStarItem(_x,_y,1,endFly);
                     _source.addChild(item.source);
                 };
-                Utils.createDelay(Math.random(),f1)
+                Utils.createDelay(Math.random(),f1);
             }
-        } else if (xp <= 5){
+        } else if (xp <= 5) {
             for (i = 0; i < xp; i++ ) {
                 var f2:Function = function ():void {
                     item = new XPStarItem(_x,_y,1,endFly);
                     _source.addChild(item.source);
                 };
-               Utils.createDelay(Math.random(),f2)
+               Utils.createDelay(Math.random(),f2);
             }
         }
         g.cont.animationsResourceCont.addChild(_source);
