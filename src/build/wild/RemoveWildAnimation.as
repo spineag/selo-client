@@ -62,6 +62,7 @@ public class RemoveWildAnimation {
                 _armature = g.allData.factory['tools'].buildArmature("jackhammer");
                 break;
         }
+        if (!_armature) return;
         WorldClock.clock.add(_armature);
         (_armature.display as StarlingArmatureDisplay).x = _x;
         (_armature.display as StarlingArmatureDisplay).y = _y;
@@ -70,6 +71,7 @@ public class RemoveWildAnimation {
     }
 
     private function playIt(e:Event=null):void {
+        if (!_armature) return;
         if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, playIt);
         if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, playIt);
 
