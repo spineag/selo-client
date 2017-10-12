@@ -986,11 +986,11 @@ public class WOMarket  extends WindowMain {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (_arrFriends[_shiftFriend].photo) {
-                _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                MCScaler.scale(_ava, 85, 85);
-                _ava.x = 12;
-                _ava.y = 12;
-                _source.addChild(_ava);
+//                _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+//                MCScaler.scale(_ava, 85, 85);
+//                _ava.x = 12;
+//                _ava.y = 12;
+//                _source.addChild(_ava);
                 g.load.loadImage(_arrFriends[_shiftFriend].photo, onLoadPhoto);
             } else {
                 g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);

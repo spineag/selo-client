@@ -93,8 +93,6 @@ public class FabricHint {
             _txtName.visible = false;
             var st:String = String(g.managerLanguage.allTexts[990]) + ': ' + String(TimeUtils.convertSecondsForHint(g.allData.getResourceById(_data.idResource).buildTime)) +
                     '   ' + String(g.managerLanguage.allTexts[991]) + ': ' + String(g.userInventory.getCountResourceById(_data.idResource));
-//            _txtTime.text = String(TimeUtils.convertSecondsForHint(g.allData.getResourceById(_data.idResource).buildTime));
-//            _txtCount.text = String(g.userInventory.getCountResourceById(_data.idResource));
             _bigTxt.text = st;
             createList();
             _source.x = _newX + 50;
@@ -149,7 +147,6 @@ public class FabricHint {
            (_arrCells[i] as FabricHintItem).deleteIt();
         }
         _arrCells.length = 0;
-//        _txtCount.text = _txtName.text = _txtTime.text = '';
         _bigTxt.text = '';
     }
 }
@@ -162,7 +159,6 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Align;
-import starling.utils.Color;
 import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
@@ -171,7 +167,7 @@ internal class FabricHintItem {
     public var source:Sprite;
     private var _image:Image;
     private var _txtOrange:CTextField;
-    private var _txtWhite:CTextField;
+    private var _txtBlue:CTextField;
     private var _needCount:int;
     private var _id:int;
     private var _txtPlus:CTextField;
@@ -181,22 +177,25 @@ internal class FabricHintItem {
         source = new Sprite();
         _needCount = needCount;
         _id = obId;
-        _txtWhite = new CTextField(50,50,String("/" + String(_needCount)));
-        _txtWhite.setFormat(CTextField.BOLD18, 16,  ManagerFilters.BLUE_COLOR);
-        _txtWhite.alignH = Align.LEFT;
+        _txtBlue = new CTextField(50,50,String("/" + String(_needCount)));
+        _txtBlue.setFormat(CTextField.BOLD18, 14,  ManagerFilters.BLUE_COLOR);
+        _txtBlue.alignH = Align.LEFT;
         _txtOrange = new CTextField(50,50,'');
-        _txtOrange.setFormat(CTextField.BOLD18, 16, ManagerFilters.RED_TXT_NEW);
-        _txtOrange.alignH = Align.LEFT;
-        source.addChild(_txtWhite);
+        _txtOrange.setFormat(CTextField.BOLD18, 14, ManagerFilters.RED_TXT_NEW);
+        _txtOrange.alignH = Align.RIGHT;
+        source.addChild(_txtBlue);
         source.addChild(_txtOrange);
         var userCount:int = g.userInventory.getCountResourceById(g.allData.getResourceById(obId).id);
         _txtOrange.text = String(userCount);
         if (userCount >= needCount) _txtOrange.changeTextColor = ManagerFilters.BLUE_COLOR;
             else _txtOrange.changeTextColor = ManagerFilters.RED_TXT_NEW;
-        _txtOrange.x = 36;
+        var wOrange:int = _txtOrange.textBounds.width;
+        var wBlue:int = _txtBlue.textBounds.width;
+        wOrange = (wOrange - wBlue)/2;
+        _txtOrange.x = 1 + wOrange;
         _txtOrange.y = 55;
-        _txtWhite.x = _txtOrange.x + _txtOrange.textBounds.width - 4;
-        _txtWhite.y = 55;
+        _txtBlue.x = 51 + wOrange;
+        _txtBlue.y = 55;
         if (!g.allData.getResourceById(obId)) {
             Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHintItem');
@@ -233,8 +232,8 @@ internal class FabricHintItem {
         if (!source) return;
         source.removeChild(_txtOrange);
         _txtOrange.deleteIt();
-        source.removeChild(_txtWhite);
-        _txtWhite.deleteIt();
+        source.removeChild(_txtBlue);
+        _txtBlue.deleteIt();
         if (_txtPlus) {
             source.removeChild(_txtPlus);
             _txtPlus.deleteIt();

@@ -51,7 +51,7 @@ public class TimerHint {
         _source.nameIt = 'timerHint';
         _isOnHover = false;
         _isShow = false;
-        _bg = new HintBackground(188, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _bg = new HintBackground(188, 104, HintBackground.BIG_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(_bg);
         _txtCost = new CTextField(50,50,"");
         _txtCost.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
@@ -96,17 +96,9 @@ public class TimerHint {
         _btn.clickCallback = onClickBtn;
     }
 
-    public function set needMoveCenter(v:Boolean):void {
-        _needMoveCenter = v;
-    }
-
-    public function get isShow():Boolean {
-        return _isShow;
-    }
-
-    public function set canHide(v:Boolean):void {
-        _canHide = v;
-    }
+    public function set needMoveCenter(v:Boolean):void { _needMoveCenter = v; }
+    public function get isShow():Boolean { return _isShow; }
+    public function set canHide(v:Boolean):void { _canHide = v; }
 
     public function showIt(height:int,x:int, y:int, timeAll:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false, animal:Boolean = false):void {
         if(_isShow) return;

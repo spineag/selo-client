@@ -142,7 +142,7 @@ public class WOBuyPlantItem {
         source.filter = ManagerFilters.YELLOW_STROKE;
         _isOnHover = true;
         g.resourceHint.hideIt();
-        g.resourceHint.showIt(_dataPlant.id, source.x, 48 - 150, source, true);
+        g.resourceHint.showIt(_dataPlant.id, source.x, 90 + 150, source, true);
     }
 
     private function onOut():void {

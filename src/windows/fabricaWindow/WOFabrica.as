@@ -121,7 +121,7 @@ public class WOFabrica extends WindowMain {
         for (var i:int=0; i<_arrAllRecipes.length; i++) {
             item = new WOItemFabrica();
             item.fillData(_arrAllRecipes[i], onItemClick);
-            item.setCoordinates(58 + i*106, 54 - 150);
+            item.setCoordinates(58 + i*106, 54 + 150);
             _cont.addChild(item.source);
             _arrFabricaItems.push(item);
         }
