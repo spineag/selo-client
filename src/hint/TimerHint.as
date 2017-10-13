@@ -95,17 +95,9 @@ public class TimerHint {
         _btn.outCallback = function():void { g.hint.hideIt(); };
     }
 
-    public function set needMoveCenter(v:Boolean):void {
-        _needMoveCenter = v;
-    }
-
-    public function get isShow():Boolean {
-        return _isShow;
-    }
-
-    public function set canHide(v:Boolean):void {
-        _canHide = v;
-    }
+    public function set needMoveCenter(v:Boolean):void { _needMoveCenter = v; }
+    public function get isShow():Boolean { return _isShow; }
+    public function set canHide(v:Boolean):void { _canHide = v; }
 
     public function showIt(height:int,x:int, y:int, timeAll:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false, animal:Boolean = false):void {
         if(_isShow) return;

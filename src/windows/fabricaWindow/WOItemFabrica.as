@@ -33,8 +33,6 @@ public class WOItemFabrica {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _isOnHover = false;
-        source.isTouchable = false;
-        source.visible = false;
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -51,9 +49,8 @@ public class WOItemFabrica {
             return;
         }
         _clickCallback = f;
-        if (_dataRecipe.blockByLevel == g.user.level + 1) _maxAlpha = .5;
-            else if (_dataRecipe.blockByLevel <= g.user.level) _maxAlpha = 1;
-            else _maxAlpha = 0;
+        if (_dataRecipe.blockByLevel <= g.user.level) _maxAlpha = 1;
+            else _maxAlpha = .5;
         fillIcon(g.allData.getResourceById(_dataRecipe.idResource).imageShop);
         if (g.tuts && g.tuts.action == TutsAction.RAW_RECIPE && g.tuts.isTutsResource(_dataRecipe.id)) addArrow();
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PRODUCT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PRODUCT )
@@ -76,7 +73,6 @@ public class WOItemFabrica {
 //        MCScaler.scale(_icon, 80, 80);
         _icon.alignPivot();
         source.addChild(_icon);
-        if (_maxAlpha) source.isTouchable = source.visible = true;
         source.alpha = _maxAlpha;
 //        if (g.user.fabricItemNotification.length > 0) {
 //            var arr:Array = g.user.fabricItemNotification;

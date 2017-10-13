@@ -34,7 +34,7 @@ public class MarketFriendItem {
     private var _shiftFriend:int;
     private var _txtBtn:CTextField;
     private var _helpIcon:Image;
-    private var imRamka:Image;
+    private var _imRamka:Image;
     private var g:Vars = Vars.getInstance();
 
     public function MarketFriendItem(f:Someone, wo:WOMarket, _shift:int) {
@@ -93,8 +93,8 @@ public class MarketFriendItem {
             _helpIcon.y = 80;
             source.addChild(_helpIcon);
         }
-        imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
-        source.addChild(imRamka);
+        _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
+        source.addChild(_imRamka);
     }
 
     private function visitPerson():void {
@@ -113,8 +113,8 @@ public class MarketFriendItem {
     }
 
     public function get person():Someone { return _person; }
-    private function onHover():void { source.filter = ManagerFilters.BUILD_STROKE; }
-    private function onOut():void { source.filter = null; }
+    private function onHover():void { _imRamka.filter = ManagerFilters.BUILD_STROKE; }
+    private function onOut():void { _imRamka.filter = null; }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
