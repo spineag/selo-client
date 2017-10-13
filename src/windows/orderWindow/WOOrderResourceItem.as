@@ -8,6 +8,8 @@ import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.utils.Align;
+import starling.utils.Color;
+
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
@@ -33,13 +35,13 @@ public class WOOrderResourceItem {
         _check.visible = false;
 
         _countTxt = new CTextField(80, 40, "10");
-        _countTxt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
+        _countTxt.setFormat(CTextField.BOLD24, 22, ManagerFilters.WINDOW_STROKE_BLUE_COLOR,  Color.WHITE);
         _countTxt.alignH = Align.RIGHT;
         _countTxt.y = 12;
         _countTxt.x = -53;
         source.addChild(_countTxt);
         _countTxtNeed = new CTextField(80, 40, "/10");
-        _countTxtNeed.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
+        _countTxtNeed.setFormat(CTextField.BOLD24, 22, ManagerFilters.WINDOW_STROKE_BLUE_COLOR, Color.WHITE);
         _countTxtNeed.alignH = Align.LEFT;
         _countTxtNeed.y = 12;
         _countTxtNeed.x = 27;

@@ -23,6 +23,8 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SensibleBlock;
+
 import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
 
@@ -58,29 +60,33 @@ public class UpgradeItem {
         _contImage.outCallback = onOut;
 
         _txtCount = new CTextField(80,40,'');
-        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_LIGHT_NEW);
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCount.alignH = Align.RIGHT;
         _txtCount.x = -25;
         _txtCount.y = 23;
         source.addChild(_txtCount);
 
         _btn = new CButton();
-        _btn.addButtonTexture(100, 40, CButton.GREEN, true);
+        _btn.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
+//        _btn.addButtonTexture(100, 40, CButton.GREEN, true);
         _btn.y = 90;
         source.addChild(_btn);
         _btn.clickCallback = onBuy;
 
-        _btnTxt = new CTextField(50,20,'50');
-        _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btnTxt.x = 11;
-        _btnTxt.y = 8;
-        _btn.addChild(_btnTxt);
+        _btnTxt = new CTextField(90,50,'50');
+        _btnTxt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//        _btnTxt.x = 11;
+//        _btnTxt.y = 8;
+//        _btn.addChild(_btnTxt);
 
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-        _rubinsSmall.x = 57;
-        _rubinsSmall.y = 4;
-        _btn.addChild(_rubinsSmall);
-        _rubinsSmall.filter = ManagerFilters.SHADOW_TINY;
+//        _rubinsSmall.x = 57;
+//        _rubinsSmall.y = 4;
+//        _btn.addChild(_rubinsSmall);
+        var sens:SensibleBlock = new SensibleBlock();
+        sens.textAndImage(_btnTxt,_rubinsSmall,100);
+        _btn.addSensBlock(sens,0,20);
+//        _rubinsSmall.filter = ManagerFilters.SHADOW_TINY;
 
         _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
         _imGalo4ka.alignPivot();
@@ -154,7 +160,7 @@ public class UpgradeItem {
     private function onHover():void {
         if(_onHover) return;
         _onHover = true;
-        if (!g.resourceHint.isShowed)  g.resourceHint.showIt(_resourceId, source.x - 60, source.y - 60, source, true);
+        if (!g.resourceHint.isShowed) g.resourceHint.showIt(_resourceId, source.x - 60, source.y - 60, source, true);
     }
 
     private function onOut():void {

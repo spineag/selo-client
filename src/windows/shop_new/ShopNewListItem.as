@@ -423,7 +423,7 @@ public class ShopNewListItem {
         _btn = new CButton();
         if (_isFromInventory) {
             _btn.addButtonTexture(152, CButton.HEIGHT_32, CButton.ORANGE, true);
-            _btn.addTextField(152, 30, 0, 0, String(g.managerLanguage.allTexts[344]) + ': ' + String(g.userInventory.decorInventory[_data.id].count));
+            _btn.addTextField(152, 30, 0, 0, String(g.managerLanguage.allTexts[344]) + ' ' + String(g.userInventory.decorInventory[_data.id].count));
             _btn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
         } else {
             var im:Image;

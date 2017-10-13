@@ -55,7 +55,6 @@ public class XPPanel {
         _bar.y = 3;
         _source.addChild(_bar);
         _imageStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
-//        MCScaler.scale(_imageStar, _imageStar.height -10, _imageStar.width -10);
         _imageStar.x = -7;
         _imageStar.y = 19;
         _imageStar.pivotX = _imageStar.width/2;
@@ -63,12 +62,12 @@ public class XPPanel {
         _source.addChild(_imageStar);
         _txtLevel = new CTextField(60, 60, '55');
         _txtLevel.setFormat(CTextField.BOLD24, 24, 0xff7a3f, Color.WHITE);
-        _txtLevel.x = -38;
+        _txtLevel.x = -39;
         _txtLevel.y = -12;
         _source.addChild(_txtLevel);
         _txtXPCount = new CTextField(123, 50, '0');
         _txtXPCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_TXT_UI, Color.WHITE);
-        _txtXPCount.x = 13;
+        _txtXPCount.x = 15;
         _txtXPCount.y = -6;
         _source.addChild(_txtXPCount);
         _source.hoverCallback = onHover;
@@ -116,9 +115,6 @@ public class XPPanel {
             g.directServer.updateUserLevel(null);
             g.userInventory.addNewElementsAfterGettingNewLevel();
 
-//            if (g.user.level == 5 && g.socialNetworkID != SocialNetworkSwitch.SN_FB_ID) {
-//                g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
-//            } else if (g.user.level == 7 && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
             if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
             if (g.user.level == 4 || g.user.level == 5) g.managerMiniScenes.checkDeleteMiniScene();
             if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])
@@ -151,7 +147,7 @@ public class XPPanel {
 
     public function checkXP():void{
         _bar.progress = ((_countXP)/_maxXP)*.9 + .1; // get 10% for better view
-        _txtXPCount.text = String(_countXP);
+        _txtXPCount.text = String(_countXP) + '/' + _maxXP;
         _txtLevel.text = String(g.user.level);
     }
 

@@ -101,10 +101,10 @@ public class MarketHint {
         };
         g.starling.juggler.add(tween);
 
-        _txtName = new CTextField(200,30,'');
-        _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+        _txtName = new CTextField(200,50,'');
+        _txtName.setFormat(CTextField.BOLD24, 24,Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtText = new CTextField(200,100,'');
-        _txtText.setFormat(CTextField.BOLD18, 12, ManagerFilters.BLUE_COLOR);
+        _txtText.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txtText.leading = -1;
         _txtCount = new CTextField(30,30,'');
         _txtCount.setFormat(CTextField.BOLD18, 14, ManagerFilters.LIGHT_BLUE_COLOR);
@@ -114,32 +114,48 @@ public class MarketHint {
         if (g.allData.getResourceById(_dataId).buildType == BuildType.PLANT) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop + '_icon'));
             MCScaler.scale(_imageItem,30,30);
-            _imageItem.y = 70;
-            _imageItem.x = 10;
-            _txtName.text = g.allData.getResourceById(_dataId).name;
-            _txtName.x = -100;
-            _txtName.y = 20;
-            _txtText.text = String(g.managerLanguage.allTexts[608]);
-            _txtText.x = -100;
-            _txtText.y = 5;
-            _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
-            _txtCount.x = 30;
-            _txtCount.y = 70;
-            _txtSklad.text = String(g.managerLanguage.allTexts[612]);
-            _txtSklad.x = -55;
-            _txtSklad.y = 75;
-            _source.x = int(start.x + source.width/2);
-            _source.y = int(start.y + source.height + 5);
-            wText = int(_txtText.textBounds.width + 40);
-            wName = int(_txtName.textBounds.width + 40);
-            if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+
+            if (noResource) {
+                _txtName.text = g.allData.getResourceById(_dataId).name;
+                _txtName.x = -100;
+                _txtName.y = -135;
+                _txtText.text = String(g.managerLanguage.allTexts[608]);
+                _txtText.x = -100;
+                _txtText.y = -114;
+                wText = int(_txtText.textBounds.width + 20);
+                wName = int(_txtName.textBounds.width + 40);
+                if (wText > wName) bg = new HintBackground(wText, 105, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                else bg = new HintBackground(wName, 105, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+            } else {
+                _imageItem.y = 70;
+                _imageItem.x = 10;
+                _txtName.text = g.allData.getResourceById(_dataId).name;
+                _txtName.x = -100;
+                _txtName.y = 20;
+                _txtText.text = String(g.managerLanguage.allTexts[608]);
+                _txtText.x = -100;
+                _txtText.y = 5;
+                _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+                _txtCount.x = 30;
+                _txtCount.y = 70;
+                _txtSklad.text = String(g.managerLanguage.allTexts[612]);
+                _txtSklad.x = -55;
+                _txtSklad.y = 75;
+                _source.x = int(start.x + source.width/2);
+                _source.y = int(start.y + source.height + 5);
+                wText = int(_txtText.textBounds.width + 40);
+                wName = int(_txtName.textBounds.width + 40);
+                if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            }
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.addChild(_imageItem);
-            _source.addChild(_txtCount);
-            _source.addChild(_txtSklad);
+            if (!noResource) {
+                _source.addChild(_imageItem);
+                _source.addChild(_txtCount);
+                _source.addChild(_txtSklad);
+            }
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -242,29 +258,75 @@ public class MarketHint {
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 74;
             _imageItem.x = 15;
-            _txtName.text = String(g.allData.getResourceById(_dataId).name);
-            _txtName.x = -100;
-            _txtName.y = 20;
-            if (g.allData.getBuildingById(objRecipes[_dataId].buildingId)) _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
+            if (noResource) {
+                _txtName.text = String(g.allData.getResourceById(_dataId).name);
+                if (_txtName.textBounds.height >= 40) {
+                    _txtName.x = -100;
+                    _txtName.y = -152;
+                    if (g.allData.getBuildingById(objRecipes[_dataId].buildingId)) _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
+                    else _txtText.text = String(g.managerLanguage.allTexts[611]) + ' UNKNOWN BUILDING';
+                    _txtText.x = -100;
+                    _txtText.y = -120;
+                    wText = int(_txtText.textBounds.width + 20);
+                    wName = int(_txtName.textBounds.width + 40);
+                    if (wText > wName) bg = new HintBackground(wText, 135, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                    else bg = new HintBackground(wName, 135, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                } else {
+                    _txtName.x = -100;
+                    _txtName.y = -135;
+                    if (g.allData.getBuildingById(objRecipes[_dataId].buildingId)) _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
+                    else _txtText.text = String(g.managerLanguage.allTexts[611]) + ' UNKNOWN BUILDING';
+                    _txtText.x = -100;
+                    _txtText.y = -114;
+                    wText = int(_txtText.textBounds.width + 20);
+                    wName = int(_txtName.textBounds.width + 40);
+                    if (wText > wName) bg = new HintBackground(wText, 105, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                    else bg = new HintBackground(wName, 105, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                }
+            }else {
+                _txtName.text = String(g.allData.getResourceById(_dataId).name);
+                _txtName.x = -100;
+                _txtName.y = 20;
+                if (g.allData.getBuildingById(objRecipes[_dataId].buildingId)) _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
                 else _txtText.text = String(g.managerLanguage.allTexts[611]) + ' UNKNOWN BUILDING';
-            _txtText.x = -100;
-            _txtText.y = 7;
-            _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
-            _txtCount.x = 35;
-            _txtCount.y = 74;
-            _txtSklad.text = String(g.managerLanguage.allTexts[612]);
-            _txtSklad.x = -54;
-            _txtSklad.y = 79;
-            wText = int(_txtText.textBounds.width + 20);
-            wName = int(_txtName.textBounds.width + 40);
-            if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                _txtText.x = -100;
+                _txtText.y = 7;
+                _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+                _txtCount.x = 35;
+                _txtCount.y = 74;
+                _txtSklad.text = String(g.managerLanguage.allTexts[612]);
+                _txtSklad.x = -54;
+                _txtSklad.y = 79;
+                wText = int(_txtText.textBounds.width + 20);
+                wName = int(_txtName.textBounds.width + 40);
+                if (wText > wName) bg = new HintBackground(wText, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            }
+//            _txtName.text = String(g.allData.getResourceById(_dataId).name);
+//            _txtName.x = -100;
+//            _txtName.y = 20;
+//            if (g.allData.getBuildingById(objRecipes[_dataId].buildingId)) _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
+//                else _txtText.text = String(g.managerLanguage.allTexts[611]) + ' UNKNOWN BUILDING';
+//            _txtText.x = -100;
+//            _txtText.y = 7;
+//            _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+//            _txtCount.x = 35;
+//            _txtCount.y = 74;
+//            _txtSklad.text = String(g.managerLanguage.allTexts[612]);
+//            _txtSklad.x = -54;
+//            _txtSklad.y = 79;
+//            wText = int(_txtText.textBounds.width + 20);
+//            wName = int(_txtName.textBounds.width + 40);
+//            if (wText > wName) bg = new HintBackground(wText, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+//            else bg = new HintBackground(wName, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.addChild(_imageItem);
-            _source.addChild(_txtCount);
-            _source.addChild(_txtSklad);
+            if (!noResource) {
+                source.addChild(_imageItem);
+                _source.addChild(_txtCount);
+                _source.addChild(_txtSklad);
+            }
             g.cont.hintCont.addChild(_source);
             return;
         }

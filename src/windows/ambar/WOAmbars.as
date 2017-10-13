@@ -168,9 +168,9 @@ public class WOAmbars extends WindowMain {
         _upgradePart.addChild(_btnMakeUpgrade);
         _btnMakeUpgrade.clickCallback = onUpdate;
 
-        _txtNeed = new CTextField(300,40,String(g.managerLanguage.allTexts[465]));
+        _txtNeed = new CTextField(350,55,String(g.managerLanguage.allTexts[465]));
         _txtNeed.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtNeed.x = -150;
+        _txtNeed.x = -175;
         if (_isBigShop) _txtNeed.y = -160;
             else _txtNeed.y = -140;
         _upgradePart.addChild(_txtNeed);

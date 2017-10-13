@@ -97,7 +97,7 @@ public class WONoResourcesItem {
         }
 
         _txtCount = new CTextField(80, 40, String(count));
-        _txtCount.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtCount.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCount.y = 50;
         _txtCount.x = 35;
         source.addChild(_txtCount);
@@ -146,7 +146,7 @@ public class WONoResourcesItem {
     private function timer():void {
         _countTimer--;
         if (_countTimer <= 0) {
-            g.marketHint.showIt(_dataId,source.x,source.y,source,true);
+            g.marketHint.showIt(_dataId,source.x - 27,source.y - 100,source,true);
             g.gameDispatcher.removeFromTimer(timer);
         }
     }

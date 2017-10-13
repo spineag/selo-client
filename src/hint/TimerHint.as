@@ -16,6 +16,7 @@ import starling.utils.Color;
 import tutorial.TutsAction;
 
 import utils.CTextField;
+import utils.SensibleBlock;
 import utils.SimpleArrow;
 import utils.CButton;
 import utils.CSprite;
@@ -51,49 +52,47 @@ public class TimerHint {
         _source.nameIt = 'timerHint';
         _isOnHover = false;
         _isShow = false;
-        _bg = new HintBackground(188, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _bg = new HintBackground(188, 80, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(_bg);
-        _txtCost = new CTextField(50,50,"");
-        _txtCost.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtCost = new CTextField(70,60,"");
+        _txtCost.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtCost.x = 3;
         _txtCost.y = 10;
-        _txtTimer = new CTextField(80,30,"");
-        _txtTimer.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTimer = new CTextField(110,50,"");
+        _txtTimer.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txtTimer.cacheIt = false;
-        _txtTimer.x = -85;
-        _txtTimer.y = -58;
+        _txtTimer.x = -90;
+        _txtTimer.y = -77;
         _txtName = new CTextField(176,50,"");
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -88;
-        _txtName.y = -135;
-        _txtText = new CTextField(86,50,String(g.managerLanguage.allTexts[432]));
-        _txtText.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtText.x = 3;
-        _txtText.y = -17;
-        _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
+        _txtName.y = -110;
+
+        _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock"));
         _imageClock.y = -93;
         _imageClock.x = -63;
 
         _btn = new CButton();
-        _btn.addButtonTexture(90, 45, CButton.GREEN, true);
+        _btn.addButtonTexture(70, CButton.HEIGHT_32, CButton.GREEN, true);
+        _txtCost = new CTextField(50,50,"");
+        _txtCost.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        var sens:SensibleBlock;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-        im.x = 45;
-        im.y = 24;
-        MCScaler.scale(im,25,25);
-
-        _btn.addChild(im);
-        _btn.addChild(_txtCost);
-        _btn.addDisplayObject(_txtText);
-        _btn.y = -60;
-        _btn.x = 36;
+        MCScaler.scale(im,im.height-9, im.width-9);
+        sens = new SensibleBlock();
+        sens.textAndImage(_txtCost,im,60);
+        _btn.addSensBlock(sens,17,18);
+        _btn.y = -50;
+        _btn.x = 50;
         _source.addChild(_btn);
         _source.addChild(_txtName);
-        _source.addChild(_imageClock);
         _source.addChild(_txtTimer);
 
         _source.hoverCallback = onHover;
         _source.outCallback = outHover;
         _btn.clickCallback = onClickBtn;
+        _btn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[432])); };
+        _btn.outCallback = function():void { g.hint.hideIt(); };
     }
 
     public function set needMoveCenter(v:Boolean):void {
@@ -174,7 +173,6 @@ public class TimerHint {
             _needMoveCenter = false;
         }
     }
-
 
     public function hideIt(force:Boolean = false):void {
         if (!_canHide && !force) return;

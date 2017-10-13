@@ -329,6 +329,7 @@ public class Ridge extends WorldObject{
                 onOut();
                 if (g.tuts.isTuts && _tutorialCallback != null)  hideArrow();
                 g.cont.moveCenterToXY(_source.x, _source.y - 80);
+                _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
             }
         }
@@ -350,6 +351,7 @@ public class Ridge extends WorldObject{
         g.toolsModifier.plantId = _dataPlant.id;
         g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
         g.managerPlantRidge.checkFreeRidges();
+        if (_source.filter) _source.filter = null;
         if (g.tuts.isTuts && (g.tuts.action == TutsAction.PLANT_RIDGE || g.tuts.action == TutsAction.PLANT_RIDGE_2)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);

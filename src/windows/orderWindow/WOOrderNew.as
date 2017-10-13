@@ -161,14 +161,14 @@ public class WOOrderNew extends WindowMain {
         }
 
         _txtNagrada = new CTextField(150, 50, String(g.managerLanguage.allTexts[363]));
-        _txtNagrada.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        _txtNagrada.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtNagrada.alignH = Align.LEFT;
         _txtNagrada.x = -_woWidth / 2 + 430;
         _txtNagrada.y = -_woHeight / 2 + 544;
         _rightBlock.addChild(_txtNagrada);
 
         var t:CTextField = new CTextField(60, 30, '8888');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(im, 30, 30);
         _sensCoin = new SensibleBlock();
@@ -177,7 +177,7 @@ public class WOOrderNew extends WindowMain {
         _sensCoin.y = -_woWidth / 2 + 607;
         _rightBlock.addChild(_sensCoin);
         t = new CTextField(60, 30, '8888');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         MCScaler.scale(im, 30, 30);
         _sensXP = new SensibleBlock();
@@ -188,10 +188,10 @@ public class WOOrderNew extends WindowMain {
 
         _btnSell = new CButton();
         _btnSell.addButtonTexture(144, CButton.HEIGHT_41, CButton.GREEN, true);
-        _btnSell.x = -_woWidth / 2 + 674;
+        _btnSell.x = -_woWidth / 2 + 609;
         _btnSell.y = -_woHeight / 2 + 628;
         _btnSell.addTextField(144, 35, 0, 0, g.managerLanguage.allTexts[366]);
-        _btnSell.setTextFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _btnSell.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnSell.clickCallback = sellOrder;
         _rightBlock.addChild(_btnSell);
 
@@ -199,7 +199,7 @@ public class WOOrderNew extends WindowMain {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('trash'));
         im.alignPivot();
         _btnDel.addDisplayObject(im);
-        _btnDel.x = -_woWidth / 2 + 565;
+        _btnDel.x = -_woWidth / 2 + 500;
         _btnDel.y = -_woHeight / 2 + 628;
         _btnDel.clickCallback = deleteOrder;
         _rightBlock.addChild(_btnDel);
@@ -211,24 +211,24 @@ public class WOOrderNew extends WindowMain {
         _rightBlockTimer.visible = false;
 
         _txtZakazState = new CTextField(338, 30, String(g.managerLanguage.allTexts[369]));
-        _txtZakazState.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+        _txtZakazState.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_STROKE_BLUE_COLOR, Color.WHITE);
         _txtZakazState.x = -_woWidth / 2 + 410;
         _txtZakazState.y = -_woHeight / 2 + 380;
         _rightBlockTimer.addChild(_txtZakazState);
 
         _txtInfo = new CTextField(338, 30, String(g.managerLanguage.allTexts[371]));
-        _txtInfo.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+        _txtInfo.setFormat(CTextField.BOLD24, 24, ManagerFilters.WINDOW_STROKE_BLUE_COLOR, Color.WHITE);
         _txtInfo.x = -_woWidth / 2 + 410;
         _txtInfo.y = -_woHeight / 2 + 415;
         _rightBlockTimer.addChild(_txtInfo);
 
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
-        im.x = -_woWidth/2 + 510;
-        im.y = -_woHeight/2 + 470;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock'));
+        im.x = -_woWidth/2 + 495;
+        im.y = -_woHeight/2 + 465;
         _rightBlockTimer.addChild(im);
 
         _txtTimer = new CTextField(120, 100, "00:00:00");
-        _txtTimer.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+        _txtTimer.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_STROKE_BLUE_COLOR, Color.WHITE);
         _txtTimer.alignH = Align.LEFT;
         _txtTimer.x = -_woWidth / 2 + 555;
         _txtTimer.y = -_woHeight / 2 + 440;

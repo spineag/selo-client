@@ -147,14 +147,14 @@ public class WOBuyerNyashuk extends WindowMain{
         txt = new CTextField(100,100,"/" + _data.resourceCount);
         txt.y = 35;
         txt.x = - 205;
-        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;
         _source.addChild(txt);
         _arrCTex.push(txt);
 
         txt = new CTextField(100,100,String(g.userInventory.getCountResourceById(_data.resourceId)));
-        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW,Color.WHITE);
-        if (g.userInventory.getCountResourceById(_data.resourceId) >= _data.resourceCount) txt.changeTextColor = ManagerFilters.BLUE_LIGHT_NEW;
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.userInventory.getCountResourceById(_data.resourceId) >= _data.resourceCount) txt.changeTextColor = Color.WHITE;
         else txt.changeTextColor = ManagerFilters.ORANGE_COLOR;
         txt.x = - 310;
         txt.y = 35;
@@ -177,14 +177,14 @@ public class WOBuyerNyashuk extends WindowMain{
         _source.addChild(im);
 
         txt = new CTextField(100,50,_data.cost);
-        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -30;
         txt.y = -7;
         _source.addChild(txt);
         _arrCTex.push(txt);
 
         txt = new CTextField(100,50,_data.xp);
-        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 55;
         txt.y = -7;
         _source.addChild(txt);

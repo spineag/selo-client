@@ -96,12 +96,12 @@ public class ResourceHint {
         g.starling.juggler.add(tween);
 
         _txtText = new CTextField(200,100,'');
-        _txtText.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
+        _txtText.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txtText.leading = -2;
-        _txtName = new CTextField(200, 30, '');
-        _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
-        _txtTime = new CTextField(80, 50, '');
-        _txtTime.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+        _txtName = new CTextField(200, 50, '');
+        _txtName.setFormat(CTextField.BOLD24, 24,Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTime = new CTextField(100, 50, '');
+        _txtTime.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _txtTime.alignH = Align.LEFT;
         
         if (_fabrickBoo) {
@@ -132,60 +132,90 @@ public class ResourceHint {
         }
         if (g.allData.getResourceById(_id).buildType == BuildType.PLANT) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock"));
-            MCScaler.scale(_imageClock, 30, 30);
-            _imageClock.y = 60;
+            MCScaler.scale(_imageClock, 25, 25);
+            _imageClock.y = 65;
             _txtName.text = String(g.allData.getResourceById(_id).name);
-            _txtName.x = -100;
-            _txtName.y = 20;
+            _txtName.x = -103;
+            _txtName.y = 15;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
-            _txtTime.y = 47;
+            _txtTime.y = 52;
             _txtText.x = -100;
-            _txtText.y = 0;
-            if(_bool) {
+            _txtText.y = 20;
+            if (_bool) {
                 _source.x = int(start.x);
                 _source.y = int(start.y);
-                _txtText.text = String(g.managerLanguage.allTexts[613]);
+//                _txtText.text = String(g.managerLanguage.allTexts[613]);
+                wText = _txtName.textBounds.width + 20;
+                wName = _txtName.textBounds.width + 40;
             } else {
                 _txtText.text = String(g.managerLanguage.allTexts[608]);
                 _source.x = int(start.x + _newSource.width/2);
                 _source.y = int(start.y + _newSource.height) + 5;
+                wText = _txtText.textBounds.width + 20;
+                wName = _txtName.textBounds.width + 40;
             }
-            wText = _txtText.textBounds.width + 20;
-            wName = _txtName.textBounds.width + 40;
-            if (wText > wName) bg = new HintBackground(wText, 70, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 70, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            if (wText > wName) bg = new HintBackground(wText, 80, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 80, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _imageClock.x = -bg.width/2 + (bg.width - (_imageClock.width + _txtTime.textBounds.width + 5))/2;
             _txtTime.x = _imageClock.x +_imageClock.width + 5;
             _source.addChild(bg);
             _source.addChild(_txtName);
-            _source.addChild(_txtText);
-            _source.addChild(_txtTime);
-            _source.addChild(_imageClock);
+            if (!_bool) _source.addChild(_txtText);
+            if (_bool) {
+                _source.addChild(_imageClock);
+                _source.addChild(_txtTime);
+            }
             g.cont.hintCont.addChild(_source);
             return;
         }
         if (g.allData.getResourceById(_id).buildType == BuildType.INSTRUMENT) {
             _txtName.text = String(g.allData.getResourceById(_id).name);
-            _txtName.x = -100;
-            _txtName.y = 20;
+            _txtName.x = -103;
+            _txtName.y = 15;
             _txtName.leading = -5;
             _txtText.text = String(g.allData.getResourceById(_id).opys);
             _txtText.x = -100;
-            _txtText.y = 18;
+            _txtText.y = 22;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (_bool) {
-                if (wText > wName) bg = new HintBackground(wText, 67, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-                else bg = new HintBackground(wName, 67, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                if (wText > wName) {
+                    if (_id == 2 || _id == 3 || _id == 7) {
+                        bg = new HintBackground(wText, 105, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+//                        _txtText.y = 30;
+                        _txtName.x = -100;
+                        _txtName.y = -134;
+                        _txtText.x = -100;
+                        _txtText.y = -118;
+                    } else {
+                        bg = new HintBackground(wText, 85, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                        _txtName.x = -100;
+                        _txtName.y = -115;
+                        _txtText.x = -100;
+                        _txtText.y = -106;
+                    }
+
+                } else {
+                    bg = new HintBackground(wName, 85, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                    _txtName.x = -100;
+                    _txtName.y = -115;
+                    _txtText.x = -100;
+                    _txtText.y = -106;
+                }
                 _source.x = int(start.x + _newSource.width/2);
                 _source.y = int(start.y) + 30;
-                _txtName.x = -100;
-                _txtName.y = -90;
-                _txtText.x = -100;
-                _txtText.y = -90;
+
             } else {
-                if (wText > wName) bg = new HintBackground(wText, 80, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 80, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                if (wText > wName) {
+                    if (_id == 5 || _id == 6 || _id == 125) {
+                        bg = new HintBackground(wText, 114, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                        _txtText.y = 41;
+                    } else if (_id == 2 || _id == 3 || _id == 7) {
+                        bg = new HintBackground(wText, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                        _txtText.y = 30;
+                    } else bg = new HintBackground(wText, 85, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                }
+                else bg = new HintBackground(wName, 85, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             }
             _source.addChild(bg);
             _source.addChild(_txtName);
@@ -200,24 +230,24 @@ public class ResourceHint {
                 MCScaler.scale(_imageClock, 30, 30);
                 _imageClock.y = 70;
                 _txtName.text = String(g.allData.getResourceById(_id).name);
-                _txtName.x = -100;
-                _txtName.y = 20;
+                _txtName.x = -103;
+                _txtName.y = 15;
                 _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
                 _txtTime.y = 57;
                 _txtText.text = String(g.managerLanguage.allTexts[609]) + objTrees[i].name;
                 _txtText.x = -100;
-                _txtText.y = 5;
+                _txtText.y = 20;
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
-                if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                    else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                if (wText > wName) bg = new HintBackground(wText, 80, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, 80, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _imageClock.x = -bg.width/2 + (bg.width - (_imageClock.width + _txtTime.textBounds.width + 5))/2;
                 _txtTime.x = _imageClock.x +_imageClock.width + 5;
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
-                _source.addChild(_txtTime);
-                _source.addChild(_imageClock);
+//                _source.addChild(_txtTime);
+//                _source.addChild(_imageClock);
                 g.cont.hintCont.addChild(_source);
                 return;
             }
@@ -226,15 +256,15 @@ public class ResourceHint {
         for (i=0; i<objCave.length; i++) {
             if (_id == int(objCave[i])) {
                 _txtName.text = String(g.allData.getResourceById(_id).name);
-                _txtName.x = -100;
-                _txtName.y = 20;
+                _txtName.x = -103;
+                _txtName.y = 15;
                 _txtText.text = String(g.managerLanguage.allTexts[610]) ;
                 _txtText.x = -100;
-                _txtText.y = 8;
+                _txtText.y = 35;
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
-                if (wText > wName) bg = new HintBackground(wText, 65, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 67, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                if (wText > wName) bg = new HintBackground(wText, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
@@ -248,8 +278,7 @@ public class ResourceHint {
             MCScaler.scale(_imageClock, 30, 30);
             _imageClock.x = -30;
             _txtName.text = String(g.allData.getResourceById(_id).name);
-            _txtName.x = -100;
-            _txtName.y = 20;
+            _txtName.x = -103;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
             _txtTime.x = 20;
             _txtText.text = String(g.managerLanguage.allTexts[611])  + g.allData.getBuildingById(objRecipes[_id].buildingId).name;
@@ -257,17 +286,29 @@ public class ResourceHint {
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             hText = _txtText.textBounds.height;
-            if ( hText >= 25) {
-                if (wText > wName) bg = new HintBackground(wText, 90, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 90, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                _imageClock.y = 75;
-                _txtTime.y = 65;
-                _txtText.y = 10;
-                _txtTime.x = 0;
-                _imageClock.x = -45;
+            if (hText >= 25) {
+                if (_txtName.textBounds.height >= 40) {
+                    if (wText > wName) bg = new HintBackground(wText, 130, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, 130, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    _imageClock.x = -45;
+                    _imageClock.y = 75;
+                    _txtTime.x = 0;
+                    _txtTime.y = 67;
+                    _txtText.y = 60;
+                    _txtName.y = 27;
+                } else {
+                    if (wText > wName) bg = new HintBackground(wText, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    _imageClock.x = -45;
+                    _imageClock.y = 75;
+                    _txtTime.x = 0;
+                    _txtTime.y = 65;
+                    _txtText.y = 35;
+                    _txtName.y = 15;
+                }
             } else {
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                    else bg = new HintBackground(wName, 85, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _imageClock.y = 60;
                 _txtTime.y = 50;
                 _txtText.y = 0;
@@ -276,8 +317,8 @@ public class ResourceHint {
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.addChild(_txtTime);
-            _source.addChild(_imageClock);
+//            if (!_bool) _source.addChild(_txtTime);
+//            if (!_bool) _source.addChild(_imageClock);
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -288,22 +329,22 @@ public class ResourceHint {
             _imageClock.y = 74;
             _imageClock.x = -30;
             _txtName.text = String(g.allData.getResourceById(_id).name);
-            _txtName.x = -100;
-            _txtName.y = 18;
+            _txtName.x = -103;
+            _txtName.y = 15;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
             _txtTime.y = 62;
             _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_id].buildId).name;
             _txtText.x = -100;
-            _txtText.y = 7;
+            _txtText.y = 34;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
-            if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            if (wText > wName) bg = new HintBackground(wText, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.addChild(_txtTime);
-            _source.addChild(_imageClock);
+//            if (!_bool) _source.addChild(_txtTime);
+//            if (!_bool) _source.addChild(_imageClock);
             g.cont.hintCont.addChild(_source);
             return;
         }

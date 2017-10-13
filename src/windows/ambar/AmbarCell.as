@@ -94,7 +94,10 @@ public class AmbarCell {
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
-        if (!g.resourceHint.isShowed) g.resourceHint.showIt(_data.id,source.x,source.y,source);
+        if (!g.resourceHint.isShowed) {
+            if (_data.buildType == BuildType.RESOURCE) g.resourceHint.showIt(_data.id,source.x,source.y,source,true);
+            else g.resourceHint.showIt(_data.id,source.x,source.y,source);
+        }
     }
 
     private function onOut():void {

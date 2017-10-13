@@ -56,6 +56,7 @@ public class WOBuyPlant extends WindowMain {
     private function onClickExit(e:Event=null):void {
         if (g.tuts.isTuts) return;
         if (g.managerCutScenes.isCutScene) return;
+        _ridge.source.filter = null;
         hideIt();
     }
 

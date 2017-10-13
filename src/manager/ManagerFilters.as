@@ -22,12 +22,12 @@ public class ManagerFilters {
     public static var LIGHT_YELLOW_COLOR:int = 0xeffd98;
     public static var LIGHT_BLUE_COLOR:int = 0x1377ab;
     public static var GRAY_HARD_COLOR:int = 0x444444;
-    public static var BLUE_COLOR:int = 0x0968b1;
+    public static var BLUE_COLOR:int = 0x32627b;
     public static var LIGHT_BROWN:int = 0xa57728;
     public static var PURPLE_COLOR:int = 0xc7006b;
     public static var WINDOW_COLOR_YELLOW:int = 0xffe8a0;
     public static var WINDOW_STROKE_BLUE_COLOR:int = 0x32627b;
-    public static var BLUE_LIGHT_NEW:int = 0x45abd5;
+    public static var BLUE_LIGHT_NEW:int = 0x45abd4;
     public static var BLUE_TXT_UI:int = 0x43788f;
     public static var RED_TXT_NEW:int = 0xe02500;
 
