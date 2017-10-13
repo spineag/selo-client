@@ -15,7 +15,7 @@ import resourceItem.DropItem;
 import starling.text.TextField;
 import starling.utils.Color;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import utils.CButton;
 import utils.CTextField;

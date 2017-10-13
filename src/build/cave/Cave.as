@@ -24,7 +24,7 @@ import resourceItem.ResourceItem;
 import starling.display.Sprite;
 import starling.events.Event;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import windows.WindowsManager;
 
 public class Cave extends WorldObject{

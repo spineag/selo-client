@@ -29,7 +29,7 @@ import starling.events.Event;
 
 import temp.DropResourceVariaty;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import utils.CSprite;
 import utils.IsoUtils;

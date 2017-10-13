@@ -52,7 +52,7 @@ import starling.display.Sprite;
 import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import user.NeighborBot;
 import user.Someone;
 import utils.Utils;

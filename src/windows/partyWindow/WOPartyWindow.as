@@ -15,7 +15,7 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import user.Someone;
 import utils.CButton;
 import utils.CSprite;

@@ -20,7 +20,7 @@ import starling.display.Image;
 
 import tutorial.TutsAction;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import windows.WindowsManager;
 
 public class Wild extends WorldObject{

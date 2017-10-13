@@ -23,7 +23,7 @@ import starling.utils.Color;
 
 import tutorial.TutsAction;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import utils.CButton;
 

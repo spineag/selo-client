@@ -25,7 +25,7 @@ import starling.events.Event;
 
 import temp.DropResourceVariaty;
 import tutorial.managerCutScenes.ManagerCutScenes;
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import utils.CSprite;
 import utils.MCScaler;

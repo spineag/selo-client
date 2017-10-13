@@ -22,7 +22,7 @@ import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
 import tutorial.TutsAction;
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import windows.WindowsManager;
 import windows.shop_new.WOShopNew;
 

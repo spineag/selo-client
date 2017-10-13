@@ -21,7 +21,7 @@ import starling.display.Image;
 
 import temp.DropResourceVariaty;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import windows.WindowsManager;
 

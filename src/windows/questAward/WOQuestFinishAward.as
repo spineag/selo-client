@@ -161,7 +161,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Color;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import utils.CTextField;
 import utils.MCScaler;

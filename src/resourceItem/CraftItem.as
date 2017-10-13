@@ -18,7 +18,7 @@ import starling.utils.Color;
 import utils.CTextField;
 import utils.SimpleArrow;
 import tutorial.TutsAction;
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
