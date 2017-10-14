@@ -114,7 +114,7 @@ public class WOItemFabrica {
         source.filter = ManagerFilters.YELLOW_STROKE;
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
-        if (_dataRecipe.blockByLevel > g.user.level) g.resourceHint.showIt(_dataRecipe.id,source.x - source.width/2, source.y-source.height/2, source, false, true);
+        if (_dataRecipe.blockByLevel > g.user.level) g.resourceHint.showIt(_dataRecipe.id, source.x, source.y + source.height/2, source, false, true);
             else g.fabricHint.showIt(_dataRecipe, pointGlobal.x - source.width/2, pointGlobal.y - source.height);
     }
 

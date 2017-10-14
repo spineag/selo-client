@@ -52,7 +52,7 @@ public class TimerHint {
         _source.nameIt = 'timerHint';
         _isOnHover = false;
         _isShow = false;
-        _bg = new HintBackground(188, 80, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _bg = new HintBackground(188, 80, HintBackground.BIG_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(_bg);
         _txtCost = new CTextField(70,60,"");
         _txtCost.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);

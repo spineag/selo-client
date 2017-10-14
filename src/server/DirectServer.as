@@ -187,7 +187,7 @@ public class DirectServer {
                 if (d.message[i].count_resource) obj.countResource = String(d.message[i].count_resource).split('&');
                 for (k = 0; k < obj.countResource.length; k++) obj.countResource[k] = int(obj.countResource[k]);
                 obj.catCount = int(d.message[i].cat_count);
-                obj.ridgeCount = int(d.message[i].ridge_count);
+//                obj.ridgeCount = int(d.message[i].ridge_count);
                 g.dataLevel.objectLevels[obj.id] = obj;
             }
             if (callback != null) {
@@ -880,7 +880,7 @@ public class DirectServer {
             g.user.blueCouponCount = int(ob.blue_count);
             g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
             g.user.globalXP = int(ob.xp);
-            g.user.allNotification = int(ob.notification_new);
+            g.user.notif.onGetFromServer(ob.notification_new);
             g.user.starterPack = Boolean(int(ob.starter_pack));
             g.user.salePack = Boolean(int(ob.sale_pack));
             g.user.dayDailyGift  = int(ob.day_daily_gift);
@@ -5997,7 +5997,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserNotification(callback:Function):void {
+    public function updateUserNotification(notif:String, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_NOTIFICATION);
         var variables:URLVariables = new URLVariables();
@@ -6005,7 +6005,7 @@ public class DirectServer {
         Cc.ch('server', 'updateUserNotification', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.notificationNew = g.user.allNotification;
+        variables.notificationNew = notif;
         variables.hash = MD5.hash(String(g.user.userId)+String(variables.notificationNew)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;

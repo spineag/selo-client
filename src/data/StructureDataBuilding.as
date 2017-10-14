@@ -311,6 +311,12 @@ public class StructureDataBuilding {
 
         if (ob.daily_bonus) _dailyBonus = Boolean(int(ob.daily_bonus));
     }
+    
+    public function isNewAtLevel(l:int):Boolean {
+        if (!_blockByLevel) return false;
+        if (_blockByLevel.indexOf(l) > -1) return true;
+            else return false;
+    }
 
     public function get blockByLevel():Array{ return _blockByLevel;}
     public function get buildTime():Array{ return _buildTime;}

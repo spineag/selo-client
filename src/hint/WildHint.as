@@ -64,7 +64,7 @@ public class WildHint {
         _btn = new CButton();
         _isShowed = false;
         _isOnHover = false;
-        bg = new HintBackground(120, 125, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        bg = new HintBackground(120, 125, HintBackground.BIG_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(bg);
         _source.addChild(_btn);
 //        _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
@@ -193,22 +193,12 @@ public class WildHint {
         }
     }
 
-    public function set onDelete(f:Function):void {
-        _deleteCallback = f;
-    }
-
-    private function onHover():void {
-        _isOnHover = true;
-    }
-
-
+    public function get isShow():Boolean { return _isShowed; }
+    public function set onDelete(f:Function):void { _deleteCallback = f; }
+    private function onHover():void { _isOnHover = true; }
     private function onOutHint():void {
         _isOnHover = false;
         hideIt();
-    }
-
-    public function get isShow():Boolean {
-        return _isShowed;
     }
 
     public function managerHide(callback:Function = null):void {

@@ -5,7 +5,6 @@ package ui.bottomInterface {
 import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 import com.junkbyte.console.Cc;
-import data.BuildType;
 import flash.display.Bitmap;
 import flash.geom.Point;
 import manager.ManagerFilters;
@@ -27,9 +26,7 @@ import user.Someone;
 import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
-import windows.WOComponents.HorizontalPlawka;
 import windows.WindowsManager;
-import windows.ambar.WOAmbars;
 import windows.shop_new.DecorShopNewFilter;
 import windows.shop_new.WOShopNew;
 
@@ -89,7 +86,7 @@ public class MainBottomPanel {
         _shopBtn.addChild(_txtNotification);
         _imNotification.visible = false;
         _txtNotification.visible = false;
-        notification();
+        updateNotification();
     }
 
     private function createBtns():void {
@@ -731,65 +728,17 @@ public class MainBottomPanel {
         new TweenMax(_source, 1, {y:g.managerResize.stageHeight - 83, ease:Back.easeOut});
     }
 
-    public function notification():void {
-        if (g.user.allNotification == 0 && g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification > 0) {
+    public function updateNotification():void {
+        var c:int = g.user.notif.allNotificationsCount;
+        if (c>0) {
             _imNotification.visible = true;
             _txtNotification.visible = true;
-            g.user.allNotification = g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification;
-            _txtNotification.text = String(g.user.allNotification);
-
-        } else if (g.user.allNotification > 0 && g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification <= 0) {
-            _imNotification.visible = true;
-            _txtNotification.visible = true;
-            _txtNotification.text = String(g.user.allNotification);
-            createNotificateionItem();
+            _txtNotification.text = String(c);
         } else {
             _imNotification.visible = false;
             _txtNotification.visible = false;
         }
     }
 
-    public function updateTextNotification():void {
-        _txtNotification.text = String(g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification);
-        if (g.user.plantNotification + g.user.fabricaNotification + g.user.decorNotification + g.user.villageNotification <= 0) {
-            _imNotification.visible = false;
-            _txtNotification.visible = false;
-            g.user.allNotification = 0;
-            g.directServer.updateUserNotification(null);
-        }
-    }
-
-    private function createNotificateionItem():void {
-        if (g.user.level < 5) return;
-        var i:int;
-        var arR:Array = g.allData.building;
-        for (i = 0; i < arR.length; i++) {
-            if (arR[i].buildType != BuildType.CHEST) {
-                if (arR.buildType == BuildType.TREE || arR.buildType == BuildType.FARM || arR[i].buildType == BuildType.FABRICA) {
-                    for (var k:int = 0; k < arR[i].blockByLevel.length; k++) {
-                        if (g.user.level == arR[i].blockByLevel[k]) {
-                            if (arR[i].buildType == BuildType.TREE) g.user.plantNotification++;
-                            if (arR[i].buildType == BuildType.FARM) g.user.villageNotification++;
-                            if (arR[i].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
-                        }
-                    }
-                } else if (g.user.level == arR[i].blockByLevel) {
-                    if (arR[i].buildType != BuildType.CAVE && arR[i].buildType != BuildType.TRAIN && arR[i].buildType != BuildType.PAPER && arR[i].buildType != BuildType.DAILY_BONUS
-                            && arR[i].buildType != BuildType.ORDER && arR[i].buildType != BuildType.MARKET) {
-                        g.user.decorNotification++;
-                    }
-                }
-            }
-        }
-
-        if (g.dataLevel.objectLevels[g.user.level].catCount > 0) g.user.villageNotification++;
-        if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) g.user.villageNotification++;
-    }
-
-//    private function animateCheckSprite1():void {  TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite2, delay:3}); }
-//    private function animateCheckSprite2():void {  TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite3}); }
-//    private function animateCheckSprite3():void {  TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite4}); }
-//    private function animateCheckSprite4():void {  TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite5}); }
-//    private function animateCheckSprite5():void {  TweenMax.to(_checkSprite, .1, {scaleX:1, scaleY:1, onComplete: animateCheckSprite1}); }
 }
 }

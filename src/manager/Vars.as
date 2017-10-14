@@ -421,6 +421,7 @@ public class Vars {
     }
 
     private function afterLoadAll_4():void {
+        (user as User).notif.onGameLoad();
         if (tuts.isTuts) {
             if ((user as User).tutorialStep > 1) {
                 startPreloader.hideIt();
