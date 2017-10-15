@@ -218,7 +218,7 @@ public class MainBottomPanel {
                     cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                if (g.managerMiniScenes.isMiniScene) deleteArrow();    
+                if (g.miniScenes.isMiniScene) deleteArrow();    
                 g.toolsPanel.hideRepository();
                 var shopTab:int = WOShopNew.VILLAGE;
                 if (g.tuts.isTuts) {
@@ -232,7 +232,7 @@ public class MainBottomPanel {
                 } else if (g.managerCutScenes.isCutScene) {
                     shopTab = WOShopNew.DECOR;
                     g.managerCutScenes.checkCutSceneCallback();
-                } else if (g.managerMiniScenes.isReason(ManagerMiniScenes.BUY_BUILD)) {
+                } else if (g.miniScenes.isReason(ManagerMiniScenes.BUY_BUILD)) {
                     shopTab = WOShopNew.FABRICA;
                 } else if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.user.decorShiftShop = 0;
@@ -332,7 +332,7 @@ public class MainBottomPanel {
                 }
                 break;
             case 'tools':
-                if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.finishLetGoToNeighbor();
+                if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
                 g.managerHelpers.onUserAction();
                 if (g.managerCutScenes.isCutScene)  {
                     if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR)) {
@@ -383,7 +383,7 @@ public class MainBottomPanel {
                     cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
-                g.windowsManager.openWindow(WindowsManager.WO_ORDERS_NEW, null);
+                g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
                 g.toolsPanel.hideRepository();
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;

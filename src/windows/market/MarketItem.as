@@ -425,7 +425,7 @@ public class MarketItem {
                     if (g.tuts.action == TutsAction.VISIT_NEIGHBOR)
                         g.tuts.checkTutsCallback();
                 }
-                if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.BUY_INSTRUMENT)) g.managerMiniScenes.checkMiniSceneCallback();
+                if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.BUY_INSTRUMENT)) g.miniScenes.checkMiniSceneCallback();
 
                 isFill = 2;
                 g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);

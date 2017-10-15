@@ -892,15 +892,15 @@ public class DirectServer {
             if (ob.next_time_invite) g.user.nextTimeInvite = int(ob.next_time_invite);
             if (!g.isDebug) {
                 if (ob.music == '1') g.soundManager.enabledMusic(true);
-                else g.soundManager.enabledMusic(false);
+                    else g.soundManager.enabledMusic(false);
                 if (ob.sound == '1') g.soundManager.enabledSound(true);
-                else g.soundManager.enabledSound(false);
+                    else g.soundManager.enabledSound(false);
             } else {
                 g.soundManager.enabledMusic(false);
                 g.soundManager.enabledSound(false);
             }
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
-            else g.userTimer.timerAtPapper = 300 - (int(new Date().getTime() / 1000) - int(ob.time_paper));
+                else g.userTimer.timerAtPapper = 300 - (int(new Date().getTime() / 1000) - int(ob.time_paper));
             if (g.userTimer.timerAtPapper > 300) g.userTimer.timerAtPapper = 300;
             if (g.userTimer.timerAtPapper > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
 
@@ -909,26 +909,22 @@ public class DirectServer {
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
             if (ob.wall_order_item_time == int(new Date().dateUTC)) g.user.wallOrderItem = false;
-            else g.user.wallOrderItem = true;
+                else g.user.wallOrderItem = true;
 
             if (ob.wall_train_item == int(new Date().dateUTC)) g.user.wallTrainItem = false;
-            else g.user.wallTrainItem = true;
+                else g.user.wallTrainItem = true;
 
             g.user.level = int(ob.level);
             g.userValidates.updateInfo('level', g.user.level);
 
             g.user.checkUserLevel();
-            if (ob.mouse_day) {
-                g.managerMouseHero.fillFromServer(ob.mouse_day, ob.mouse_count);
-            } else {
-                g.user.countAwayMouse = 0;
-            }
+            if (ob.mouse_day) g.managerMouseHero.fillFromServer(ob.mouse_day, ob.mouse_count);
+                else g.user.countAwayMouse = 0;
+
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
             g.managerChest.fillFromServer(ob.chest_day, int(ob.count_chest));
 
-            if (ob.scale) {
-                g.currentGameScale = int(ob.scale) / 100;
-            }
+            if (ob.scale) g.currentGameScale = int(ob.scale) / 100;
             if (ob.cut_scene) {
                 Cc.info('User cutscenes:: ' + ob.cut_scene);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
@@ -937,24 +933,19 @@ public class DirectServer {
                     g.user.cutScenes = Utils.intArray( Utils.convert16to2(ob.cut_scene).split('') );
                     Cc.info('g.user.cutScenes: ' + g.user.cutScenes.join(' - '));
                 }
-            } else {
-                g.user.cutScenes = [];
-            }
-            //            g.user.isOpenOrder = Boolean(ob.open_order == '1');
+            } else g.user.cutScenes = [];
             if (ob.mini_scene) {
                 Cc.info('User miniscenes:: ' + ob.mini_scene);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                     g.user.miniScenes = Utils.intArray( String(ob.mini_scene).split('&') );
-
                 } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
                     g.user.miniScenes = Utils.intArray( Utils.convert16to2(ob.mini_scene).split('') );
                     Cc.info('g.user.miniScenes: ' + g.user.miniScenes.join(' - '));
                 }
                 if (!g.user.miniScenes) g.user.miniScenes = [];
+            } else g.user.miniScenes = [];
+            g.user.miniScenesOrderCats = Utils.intArray( String(ob.order_cat_scene).split('') );
 
-            } else {
-                g.user.miniScenes = [];
-            }
             if (g.user.level <= 3) {
                 if (!g.user.miniScenes.length || g.user.miniScenes[0] == 0)
                     g.user.isOpenOrder = false; // temp
@@ -962,17 +953,13 @@ public class DirectServer {
 
             if (ob.is_tester && int(ob.is_tester) > 0) {
                 g.user.isTester = true;
-                if (int(ob.is_tester) > 1) {
-                    g.user.isMegaTester = true;
-                }
+                if (int(ob.is_tester) > 1) g.user.isMegaTester = true;
             } else {
                 g.user.isMegaTester = false;
                 g.user.isTester = false;
             }
 
-            if (callback != null) {
-                callback.apply();
-            }
+            if (callback != null) callback.apply();
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else if (d.id == 6) {
@@ -4809,7 +4796,6 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('addUserOrder error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
         }
     }
 
@@ -4820,7 +4806,6 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('addUserOrder: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder: wrong JSON:' + String(response));
             return;
         }
@@ -4838,7 +4823,6 @@ public class DirectServer {
         } else {
             Cc.error('addUserOrder: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -5738,6 +5722,51 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('updateUserMiniScenesData: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function updateOrderCatMiniScenesData(st:String):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_ORDER_CAT_MINI_SCENE_DATA);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'updateOrderCatMiniScenesData', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.orderCatScene = st;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.orderCatScene)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateOrderCatMiniScenesData);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateOrderCatMiniScenesData'); });
+        function onCompleteUpdateOrderCatMiniScenesData(e:Event):void { completeUpdateOrderCatMiniScenesData(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateOrderCatMiniScenesData error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateOrderCatMiniScenesData(response:String):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateOrderCatMiniScenesData: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateOrderCatMiniScene: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateOrderCatMiniScenesData OK', 5);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateOrderCatMiniScenesData: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }

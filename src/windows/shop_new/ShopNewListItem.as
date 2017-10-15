@@ -567,7 +567,7 @@ public class ShopNewListItem {
         deleteArrow();
         var i:int;
         if (_isThisItemBlocked) return;
-        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.deleteArrowAndDust();
+        if (g.miniScenes.isMiniScene) g.miniScenes.deleteArrowAndDust();
         var ob:Object;
         if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
                 || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE

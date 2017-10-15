@@ -84,7 +84,7 @@ public class WindowMain {
             onWoShowCallback = null;
         } 
         if (g.tuts.isTuts)  g.tuts.checkTutsCallbackOnShowWindow();
-        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.checkMiniCutSceneCallbackOnShowWindow();
+        if (g.miniScenes.isMiniScene) g.miniScenes.checkMiniCutSceneCallbackOnShowWindow();
         if (g.managerCutScenes.isCutScene) {
             if ((g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET) && _windowType == WindowsManager.WO_MARKET) ||
                 (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && _windowType == WindowsManager.WO_SHOP_NEW) ||
@@ -99,7 +99,7 @@ public class WindowMain {
         g.cont.addGameContListener(true);
         removeBlackBG();
         if (!isCashed) deleteIt();
-        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.checkMiniCutSceneCallbackOnHideWindow();
+        if (g.miniScenes.isMiniScene) g.miniScenes.checkMiniCutSceneCallbackOnHideWindow();
         g.windowsManager.onHideWindow(this);
     }
 

@@ -840,7 +840,7 @@ public class TownArea extends Sprite {
             if (worldObject is Tree) g.directServer.addUserBuilding(worldObject, onAddNewTree);
             if (worldObject is Ridge) g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
             if (worldObject is Farm)  g.managerAnimal.onAddNewFarm(worldObject as Farm);
-            if (worldObject is Fabrica && g.managerMiniScenes.isMiniScene)  g.managerMiniScenes.onPasteFabrica((worldObject as Fabrica).dataBuild.id);
+            if (worldObject is Fabrica && g.miniScenes.isMiniScene)  g.miniScenes.onPasteFabrica((worldObject as Fabrica).dataBuild.id);
             if (g.managerQuest) g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
         } else {
             if (worldObject is DecorFence) g.directServer.userBuildingFlip(worldObject.dbBuildingId, int(worldObject.flip), null);
@@ -1661,7 +1661,7 @@ public class TownArea extends Sprite {
             clearAwayCity();
         } else {
             if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
-            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR))  g.managerMiniScenes.checkMiniSceneCallback();
+            if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR))  g.miniScenes.checkMiniSceneCallback();
             if (g.managerTips) g.managerTips.setUnvisible(true);
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;
@@ -1794,7 +1794,7 @@ public class TownArea extends Sprite {
     }
 
     private function onDeleteAwayPreloader():void {
-        if (g.visitedUser is NeighborBot) g.managerMiniScenes.onGoAwayToNeighbor();
+        if (g.visitedUser is NeighborBot) g.miniScenes.onGoAwayToNeighbor();
     }
 
 

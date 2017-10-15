@@ -28,6 +28,7 @@ public class ManagerMiniScenes {
     public static const GO_NEIGHBOR:int = 4;
     public static const BUY_BUILD:int = 5;
     public static const BUY_INSTRUMENT:int = 6;
+    public static const NEW_ORDER_CAT:int = 7;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -44,11 +45,13 @@ public class ManagerMiniScenes {
     private var _onShowWindowCallback:Function;
     private var _onHideWindowCallback:Function;
     private var _counter:int;
+    private var _oCat:MiniSceneOrderCat;
 
     public function ManagerMiniScenes() {
         _properties = (new MiniSceneProps()).properties;
         _miniSceneBuildings = [];
         _miniSceneResourceIDs = [];
+        _oCat = new MiniSceneOrderCat();
     }
 
     public function isReason(reason:int):Boolean {
@@ -68,20 +71,22 @@ public class ManagerMiniScenes {
         }
     }
 
-    public function checkMiniCutSceneCallbackOnShowWindow():void {
-        if (_onShowWindowCallback != null) {
-            _onShowWindowCallback.apply();
-        }
-    }
+    public function checkMiniCutSceneCallbackOnShowWindow():void { if (_onShowWindowCallback != null) { _onShowWindowCallback.apply(); } }
+    public function checkMiniCutSceneCallbackOnHideWindow():void { if (_onHideWindowCallback != null) { _onHideWindowCallback.apply(); } }
+    private function saveUserMiniScenesData():void { g.directServer.updateUserMiniScenesData(); }
+    public function isMiniSceneResource(id:int):Boolean { return _miniSceneResourceIDs.indexOf(id) > -1; }
+    public function get oCat():MiniSceneOrderCat { return _oCat; }
 
-    public function checkMiniCutSceneCallbackOnHideWindow():void {
-        if (_onHideWindowCallback != null) {
-            _onHideWindowCallback.apply();
-        }
+    public function releaseMiniSceneForOrderCat(cat:OrderCat):void {
+        isMiniScene = true;
+        _curMiniScenePropertie = {};
+        _curMiniScenePropertie.reason = NEW_ORDER_CAT;
+        _oCat.releaseMiniSceneForCat(cat);
     }
-
-    public function isMiniSceneResource(id:int):Boolean {
-        return _miniSceneResourceIDs.indexOf(id) > -1;
+    
+    public function onEndMiniSceneForOrderCat():void {
+        isMiniScene = false;
+        _curMiniScenePropertie = {};
     }
 
     public function checkMiniSceneCallback():void {
@@ -118,10 +123,6 @@ public class ManagerMiniScenes {
             _cutScene.deleteIt();
             _cutScene = null;
         }
-    }
-
-    private function saveUserMiniScenesData():void {
-        g.directServer.updateUserMiniScenesData();
     }
 
     public function updateMiniScenesLengthOnGameStart():void {
@@ -296,7 +297,7 @@ public class ManagerMiniScenes {
 
     private function buyer_3():void {
         _onShowWindowCallback = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS_NEW) {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
 //            (g.windowsManager.currentWindow as WOOrderNew).setTextForCustomer(String(g.managerLanguage.allTexts[533]));
 //            var ob:Object = (g.windowsManager.currentWindow as WOOrderNew).getSellBtnProperties();
 //            _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
@@ -309,7 +310,7 @@ public class ManagerMiniScenes {
     }
 
     private function buyer_4():void {
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS_NEW) {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
 //            (g.windowsManager.currentWindow as WOOrderNew).setTextForCustomer('');
         }
         _miniSceneCallback = null;

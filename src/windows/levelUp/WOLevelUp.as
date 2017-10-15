@@ -514,7 +514,7 @@ public class WOLevelUp extends WindowMain {
             g.tuts.checkTutsCallback();
         }
         g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
-        if (g.user.level == 3 || g.user.level == 4) g.managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
+        if (g.user.level == 3 || g.user.level == 4) g.miniScenes.checkAvailableMiniScenesOnNewLevel();
 
         if (g.user.level == 4) {
             g.managerQuest.addUI();

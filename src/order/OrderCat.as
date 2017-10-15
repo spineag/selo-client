@@ -24,14 +24,20 @@ import utils.Point3D;
 import utils.Utils;
 
 public class OrderCat {
-    public static var BLACK:int = 1;
-    public static var BLUE:int = 2;
-    public static var GREEN:int = 3;
-    public static var ORANGE:int = 4;
-    public static var PINK:int = 5;
-    public static var WHITE:int = 6;
-    public static var BROWN:int = 7;
-    public static var ALL_CAT_COLORS:int = 7;
+    public static var BLACK_MAN:int = 1;
+    public static var BLACK_WOMAN:int = 2;
+    public static var BLUE_MAN:int = 3;
+    public static var BLUE_WOMAN:int = 4;
+    public static var GREEN_MAN:int = 5;
+    public static var GREEN_WOMAN:int = 6;
+    public static var ORANGE_MAN:int = 7;
+    public static var ORANGE_WOMAN:int = 8;
+    public static var PINK_MAN:int = 9;
+    public static var PINK_WOMAN:int = 10;
+    public static var WHITE_MAN:int = 11;
+    public static var WHITE_WOMAN:int = 12;
+    public static var BROWN_MAN:int = 13;
+    public static var BROWN_WOMAN:int = 14;
 
     public static var LONG_OUTTILE_WALKING:int=1;
     public static var SHORT_OUTTILE_WALKING:int=2;
@@ -101,8 +107,9 @@ public class OrderCat {
     public function get dataCatId():int { return _catData.id; }
     public function get typeCat():int { return _catData.color; }
 //    public function get sexCat():Boolean { return _catData.isWoman; }
-//    public function get catData():Object { return _catData; }
+    public function get dataCat():Object { return _catData; }
     public function showForOptimisation(needShow:Boolean):void { if (_source) _source.visible = needShow; }
+    public function get isMiniScene():Boolean { return _catData.isMiniScene; }
 
     public function checkArriveCallback():void {
         if (_arriveCallback != null) {
@@ -154,39 +161,60 @@ public class OrderCat {
         var st:String;
         var st2:String;
         switch (_catData.color) {
-            case BLACK:
-                if (_catData.isWoman) st = 'black_c_w';
-                else st = 'black_c_m';
+            case BLACK_MAN:
+                st = 'black_c_m';
                 st2 = '_black';
                 break;
-            case BLUE:
-                if (_catData.isWoman) st = 'blue_c_w';
-                else st = 'blue_c_m';
+            case BLACK_WOMAN:
+                st = 'black_c_w';
+                st2 = '_black';
+                break;
+            case BLUE_MAN:
+                st = 'blue_c_m';
                 st2 = '_blue';
                 break;
-            case GREEN:
-                if (_catData.isWoman) st = 'green_c_w';
-                else st = 'green_c_m';
+            case BLUE_WOMAN:
+                st = 'blue_c_w';
+                st2 = '_blue';
+                break;
+            case GREEN_MAN:
+                st = 'green_c_m';
                 st2 = '_green';
                 break;
-            case BROWN:
-                if (_catData.isWoman) st = 'brown_c_w';
-                else st = 'brown_c_m';
+            case GREEN_WOMAN:
+                st = 'green_c_w';
+                st2 = '_green';
+                break;
+            case BROWN_MAN:
+                st = 'brown_c_m';
                 st2 = '_brown';
                 break;
-            case ORANGE:
-                if (_catData.isWoman) st = 'orange_c_w';
-                else st = 'orange_c_m';
+            case BROWN_WOMAN:
+                st = 'brown_c_w';
+                st2 = '_brown';
+                break;
+            case ORANGE_MAN:
+                st = 'orange_c_m';
                 st2 = '_orange';
                 break;
-            case PINK:
-                if (_catData.isWoman) st = 'pink_c_w';
-                else st = 'pink_c_m';
+            case ORANGE_WOMAN:
+                st = 'orange_c_w';
+                st2 = '_orange';
+                break;
+            case PINK_MAN:
+                st = 'pink_c_m';
                 st2 = '_pink';
                 break;
-            case WHITE:
-                if (_catData.isWoman) st = 'white_c_w';
-                else st = 'white_c_m';
+            case PINK_WOMAN:
+                st = 'pink_c_w';
+                st2 = '_pink';
+                break;
+            case WHITE_MAN:
+                st = 'white_c_m';
+                st2 = '_white';
+                break;
+            case WHITE_WOMAN:
+                st = 'white_c_w';
                 st2 = '_white';
                 break;
         }

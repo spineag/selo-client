@@ -196,14 +196,14 @@ public class Order extends WorldObject{
                 new FlyMessage(p,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
                 return;
             }
-            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == _dataBuild.blockByLevel) return;
+            if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == _dataBuild.blockByLevel) return;
             onOut();
             if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
             }
             hideArrow();
-            g.windowsManager.openWindow(WindowsManager.WO_ORDERS_NEW, null);
-            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isMiniSceneBuilding(this)) g.managerMiniScenes.checkMiniSceneCallback();
+            g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
+            if (g.miniScenes.isMiniScene && g.miniScenes.isMiniSceneBuilding(this)) g.miniScenes.checkMiniSceneCallback();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType');
         }
@@ -212,8 +212,8 @@ public class Order extends WorldObject{
     private function onOpenOrder(e:Event=null):void {
         if (_topOpen) _topOpen.visible = false;
         if (_boomOpen) _boomOpen.visible = false;
-        if (g.managerMiniScenes.isMiniScene && g.user.level == _dataBuild.blockByLevel) {
-            g.managerMiniScenes.checkMiniSceneCallback();
+        if (g.miniScenes.isMiniScene && g.user.level == _dataBuild.blockByLevel) {
+            g.miniScenes.checkMiniSceneCallback();
         } else {
             g.managerOrder.checkOrders();
         }
@@ -227,7 +227,7 @@ public class Order extends WorldObject{
     }
     
     private function showBtnCellArrow():void {
-//        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS_NEW) {
+//        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
 //            (g.windowsManager.currentWindow as WOOrderNew).showBtnSellArrow();
 //        }
     }

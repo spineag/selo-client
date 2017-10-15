@@ -11,11 +11,16 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.StructureDataResource;
 
+import resourceItem.CraftItem;
+
 import resourceItem.ResourceItem;
 
 import social.SocialNetworkSwitch;
 import tutorial.TutsAction;
 import utils.Utils;
+
+import windows.WindowMain;
+import windows.WindowsManager;
 
 public class ManagerOrder {
     public static const COST_SKIP_WAIT:int = 3;
@@ -218,8 +223,7 @@ public class ManagerOrder {
                 } else if (arr[i].arrCrafted.length > 0) {
                     arrTemp = (arr[i] as Fabrica).arrCrafted;
                     for (j = 0; j < arrTemp.length; j++) {
-                        ri = arrTemp[j];
-                        r = g.allData.getResourceById(ri.resourceID);
+                        r = g.allData.getResourceById((arrTemp[j] as CraftItem).resourceId);
                         if (r.orderType > 0) {
                             ob = {};
                             ob.id = arrTemp[j].resourceId;
@@ -505,7 +509,10 @@ public class ManagerOrder {
             or.delOb = del;
             _arrOrders.push(or);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
-            g.directServer.addUserOrder(or, delay, or.catOb.id, f);
+            g.directServer.addUserOrder(or, delay, or.catOb.id, null);
+            if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
+                if (f != null) f.apply(null, [or]);
+            }
         }
     }
 
@@ -905,6 +912,12 @@ public class ManagerOrder {
     }
 
     public function getFreeCatObj():Object {
+        var d:Object = g.miniScenes.oCat.getNewOrderCatData();
+        if (d) {
+            d.isMiniScene = true;
+            return d;
+        }
+
         var arAllCats:Array = DataOrderCat.getArrByLevel(g.user.level);
         var arIdsNotFree:Array = [];
         for (var i:int=0; i<_arrOrders.length; i++) {
@@ -912,7 +925,6 @@ public class ManagerOrder {
         }
         if (_lastActiveCatId) arIdsNotFree.push(_lastActiveCatId);
         _lastActiveCatId = 0;
-        var d:Object;
         for (i=0; i<arAllCats.length; i++) {
             if (arIdsNotFree.indexOf(arAllCats[i].id) == -1) {
                 d = arAllCats[i];
@@ -951,9 +963,7 @@ public class ManagerOrder {
             }
         }
         if (i == _arrOrders.length) Cc.error('ManagerOrder deleteOrder:: no order');
-//        var pl:int = order.placeNumber;
         g.directServer.deleteUserOrder(or.dbId, null);
-
         addNewOrders(1, COST_SKIP_WAIT, f, or.placeNumber,true);
     }
 
