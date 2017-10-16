@@ -52,8 +52,6 @@ public class TimerHint {
         _source.nameIt = 'timerHint';
         _isOnHover = false;
         _isShow = false;
-        _bg = new HintBackground(188, 80, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-        _source.addChild(_bg);
         _txtCost = new CTextField(70,60,"");
         _txtCost.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtCost.x = 3;
@@ -66,7 +64,6 @@ public class TimerHint {
         _txtName = new CTextField(176,50,"");
         _txtName.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -88;
-        _txtName.y = -110;
 
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock"));
         _imageClock.y = -93;
@@ -104,6 +101,15 @@ public class TimerHint {
         if (timer <=0) return;
         _onOutCallback = out;
         _closeTime = 1;
+        _txtName.text = name;
+        if (_txtName.textBounds.height >= 40) {
+            _bg = new HintBackground(188, 100, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+            _txtName.y = -120;
+        } else {
+            _bg = new HintBackground(188, 80, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+            _txtName.y = -110;
+        }
+        _source.addChildAt(_bg, 0);
         var quad:Quad;
         if (ridge) {
             _quad = new Quad(int(_bg.width), int(_bg.height), Color.WHITE);
@@ -144,7 +150,6 @@ public class TimerHint {
         } else {
             _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
         }
-        _txtName.text = name;
         g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addToTimer(onTimer);
 
@@ -172,7 +177,8 @@ public class TimerHint {
         if (!_isShow) return;
         if (g.tuts.isTuts && g.tuts.action == TutsAction.ANIMAL_SKIP) return;
         if (force) _closeTime = 0;
-            else _closeTime = 1;
+        else _closeTime = 1;
+
         g.gameDispatcher.addToTimer(closeTimer);
     }
 
@@ -199,6 +205,8 @@ public class TimerHint {
                     _isShow = false;
                     g.gameDispatcher.removeFromTimer(onTimer);
                     _source.removeChild(_quad);
+                    _source.removeChild(_bg);
+                    _bg = null;
                     if (g.cont.hintContUnder.contains(_source)) {
                         g.cont.hintContUnder.removeChild(_source);
                     }
@@ -268,6 +276,8 @@ public class TimerHint {
             g.starling.juggler.add(tween);
             g.gameDispatcher.removeFromTimer(closeTimer);
             _isShow = false;
+            _source.removeChild(_bg);
+            _bg = null;
         }
     }
 

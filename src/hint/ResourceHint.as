@@ -120,7 +120,7 @@ public class ResourceHint {
         if (g.allData.getResourceById(_id).blockByLevel > g.user.level) {
             _txtText.text = String(g.managerLanguage.allTexts[607]) + " " + g.allData.getResourceById(_id).blockByLevel + ' ' + String(g.managerLanguage.allTexts[343]);
             _txtText.x = -100;
-            _txtText.y = -10;
+            _txtText.y = -2;
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 67, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);

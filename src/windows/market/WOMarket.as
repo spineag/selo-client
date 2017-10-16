@@ -42,16 +42,12 @@ public class WOMarket  extends WindowMain {
     private var _leftBtn:CSprite;
     private var _rightBtn:CSprite;
     private var _contPaper:Sprite;
-//    private var _btnFriends:CButton;
-//    private var _btnPaper:CButton;
     private var _arrItems:Array;
     private var _arrItemsTemp:Array;
     private var _arrItemsFriend:Array;
     private var _arrFriends:Array;
     private var _txtName:CTextField;
-//    private var _txtNumberPage:CTextField;
     private var _txtTimerPaper:CTextField;
-//    private var _imCheck:Image;
     private var _curUser:Someone;
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
@@ -65,7 +61,6 @@ public class WOMarket  extends WindowMain {
     private var _booleanPaper:Boolean;
     private var _callback:Function;
     private var _timer:int;
-//    private var _txtAllFriends:CTextField;
     private var _txtPaper:CTextField;
     private var _txtToPaper:CTextField;
     private var _sprLeftFr:CSprite;
@@ -91,22 +86,10 @@ public class WOMarket  extends WindowMain {
         _callbackClickBG = onClickExit;
         _source.addChild(_contItem);
         _contItem.filter = ManagerFilters.SHADOW;
-//        _btnFriends = new CButton();
-//        _btnFriends.addButtonTexture(96, 40, CButton.GREEN, true);
-//        _btnFriends.x = _woWidth/2 - 97;
-//        _btnFriends.y = _woHeight/2 - 58;
-//        _source.addChild(_cont);
         var c:BackgroundYellowOut = new BackgroundYellowOut(800, 480);
         c.x = -c.width/2+5;
         c.y = -_woHeight/2 + 108;
-//        _cont.filter = ManagerFilters.SHADOW;
         _source.addChild(c);
-//        _txtAllFriends = new CTextField(96, 24, String(g.managerLanguage.allTexts[399]));
-//        _txtAllFriends.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-//        _txtAllFriends.y = 6;
-//        _btnFriends.addChild(_txtAllFriends);
-//        _source.addChild(_btnFriends);
-//        _btnFriends.clickCallback = btnFriend;
         _countPage = 1;
         _contRect = new Sprite();
         _contRect.mask = new Quad(720, 460);
@@ -122,17 +105,13 @@ public class WOMarket  extends WindowMain {
         _btnRefresh.addChild(ref);
         _btnRefresh.x = -320;
         _btnRefresh.y = 155;
-//        _source.addChild(_btnRefresh);
-//        _btnRefresh.endClickCallback = makeRefresh;
         _btnRefresh.hoverCallback =  function():void { };
         _callbackClickBG = hideIt;
-//        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         _panelBool = false;
 
         _leftBtn = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         _leftBtn.addChild(im);
-//        MCScaler.scale(_leftBtn, 40, 40);
         _leftBtn.x = -455;
         _leftBtn.y = -25;
         _source.addChild(_leftBtn);
@@ -145,18 +124,12 @@ public class WOMarket  extends WindowMain {
         im.scaleX = -1;
         im.x = im.width;
         _rightBtn.addChild(im);
-//        MCScaler.scale(_rightBtn, 40, 40);
         _rightBtn.x = 405;
         _rightBtn.y = -25;
         _source.addChild(_rightBtn);
         _rightBtn.endClickCallback = onRight;
         _rightBtn.hoverCallback = function():void { if (_rightBtn.filter == null) _rightBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
         _rightBtn.outCallback = function():void { if (_rightBtn.filter == ManagerFilters.BUILDING_HOVER_FILTER) _rightBtn.filter = null; };
-//        _txtNumberPage = new CTextField(50, 50, '');
-//        _txtNumberPage.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-//        _txtNumberPage.x = -253;
-//        _txtNumberPage.y = 152;
-//        _source.addChild(_txtNumberPage);
 
         _contPaper = new Sprite();
         _source.addChild(_contPaper);
@@ -170,7 +143,6 @@ public class WOMarket  extends WindowMain {
         im.x = 12;
         im.y = 156;
         _contPaper.addChild(im);
-//         =
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);
         _visitBtn.addTextField(160, 53, -5,-10, String(g.managerLanguage.allTexts[386]));
@@ -179,26 +151,6 @@ public class WOMarket  extends WindowMain {
         _source.addChild(_visitBtn);
         _visitBtn.visible = false;
         _visitBtn.clickCallback = visitPerson;
-//        _btnPaper = new CButton();
-//        _btnPaper.addButtonTexture(70,30,CButton.GREEN,true);
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-////        MCScaler.scale(im,30,30);
-//        im.x = 35;
-//        _btnPaper.addChild(im);
-//        _txtPaper = new CTextField(30,30,'1');
-//        _txtPaper.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-//        _txtPaper.x = 10;
-//        _btnPaper.addChild(_txtPaper);
-//        _btnPaper.x = 153;
-//        _btnPaper.y = 180;
-//        _btnPaper.clickCallback = onClickPaper;
-//        _contPaper.addChild(_btnPaper);
-
-//        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-//        _imCheck.x = 95;
-//        _imCheck.y = 165;
-//        _contPaper.addChild(_imCheck);
-//        _imCheck.visible = false;
 
         _txtToPaper = new CTextField(200,30,String(g.managerLanguage.allTexts[401]));
         _txtToPaper.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -219,11 +171,15 @@ public class WOMarket  extends WindowMain {
         _sprRightFr = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_bg'));
         _sprRightFr.addChild(im);
+        _sprRightFr.endClickCallback = function():void { onChooseFriendOnPanel(_arrFriends[_shiftFriend], _shiftFriend); };
         _source.addChild(_sprLeftFr);
         _sprRightFr.x = _woWidth/2 - 54;
         _sprRightFr.y = 120;
         _sprLeftFr.x = -_woWidth/2 + 54;
         _sprLeftFr.y = 120;
+        _sprLeftFr.endClickCallback = function():void {
+            onChooseFriendOnPanel(_arrFriends[_shiftFriend+1], _shiftFriend+1);
+        };
         _source.addChild(_sprRightFr)
     }
 
@@ -298,7 +254,6 @@ public class WOMarket  extends WindowMain {
 
     private function addItems():void {
         var item:MarketItem;
-//        clearItems();
 
         if (_curUser.marketCell <= 0) {
             _curUser.marketCell = 6;
@@ -504,15 +459,11 @@ public class WOMarket  extends WindowMain {
         g.directServer.skipUserInPaper(null);
         g.gameDispatcher.removeFromTimer(onTimer);
         _txtTimerPaper.text = '';
-//        _btnPaper.visible = false;
         _booleanPaper = true;
         _contPaper.visible = false;
         for (var i:int = 0; i < _curUser.marketItems.length; i++) {
             _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
         }
-//        for (var i:int = 0; i < _arrItems.length; i++) {
-//            _arrItems[i].visiblePapperTimer();
-//        }
     }
 
     public function get booleanPaper():Boolean {
@@ -525,10 +476,6 @@ public class WOMarket  extends WindowMain {
         for (var i:int = 0; i < _curUser.marketItems.length; i++) {
             _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
         }
-//        for (var i:int = 0; i < _arrItems.length; i++) {
-//            _arrItems[i].visiblePapperTimer();
-//        }
-//        checkPapperTimer();
     }
 
     private function checkPapperTimer():void {
@@ -538,11 +485,9 @@ public class WOMarket  extends WindowMain {
             g.gameDispatcher.addToTimer(onTimer);
             _booleanPaper = false;
             _contPaper.visible = true;
-//            _btnPaper.visible = true;
         } else {
             _booleanPaper = true;
             _contPaper.visible = false;
-//            _btnPaper.visible = false;
             _txtTimerPaper.text = '';
             g.gameDispatcher.removeFromTimer(onTimer);
         }
@@ -552,7 +497,6 @@ public class WOMarket  extends WindowMain {
         if (g.userTimer.papperTimerAtMarket > 0) {
             if (_txtTimerPaper) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
         } else {
-//                _btnPaper.visible = false;
                 _booleanPaper = true;
                 _contPaper.visible = false;
                 if (_txtTimerPaper) _txtTimerPaper.text = '';
@@ -561,9 +505,6 @@ public class WOMarket  extends WindowMain {
                     if (_arrItems.length == 0 || _curUser != g.user) break;
                     else _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
                 }
-//            for (var i:int = 0; i < _arrItems.length; i++) {
-//                _arrItems[i].visiblePapperTimer();
-//            }
             }
     }
 
@@ -572,7 +513,6 @@ public class WOMarket  extends WindowMain {
     }
 
     public function createMarketTabBtns(paper:Boolean = false):void {
-//        var c:BackgroundYellowOut;
         if (_arrFriends == null) {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Обнови сиды и сикреты');
             return;
@@ -596,7 +536,6 @@ public class WOMarket  extends WindowMain {
 
         if (_arrFriends.length <= 2) {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
-//            _item.source.y = -180;
             if (g.isAway) {
                 if (_arrFriends[_shiftFriend].userSocialId == g.visitedUser.userSocialId) {
                     _visitBtn.visible = false;
@@ -622,16 +561,13 @@ public class WOMarket  extends WindowMain {
             }
             if (_arrFriends[_shiftFriend + 1] == null && paper)  _item2 = new MarketFriendItem(g.user, this, _shiftFriend + 1);
             else _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
-//            _item2.source.y = 1 * 120 - 177;
             _item2.source.x = -120;
             _item2.source.y = 25;
             _sprLeftFr.addChild(_item2.source);
-//            _item2.source.width = _item2.source.height = 100;
             return;
         }
         if (paper) {
             _item = new MarketFriendItem(_curUser, this, 0);
-//            _item.source.y = -180;
             if (g.visitedUser) {
                 if (_curUser.userSocialId == g.visitedUser.userSocialId) {
                     _visitBtn.visible = false;
@@ -648,13 +584,11 @@ public class WOMarket  extends WindowMain {
                 createAva();
                 _txtName.x = -110;
             }
-//            _source.addChild(_item.source);
             if (_shiftFriend + 2 >= _arrFriends.length) {
                 _shiftFriend = -1;
             }
         } else {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
-//            _item.source.y = -180;
             _item.source.x = 10;
             _item.source.y = 25;
             if (g.isAway) {
@@ -686,16 +620,9 @@ public class WOMarket  extends WindowMain {
             }
         }
         _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
-//        _item2.source.y = 1 * 120 - 177;
         _item2.source.x = -120;
         _item2.source.y = 25;
         _sprLeftFr.addChild(_item2.source);
-//        _item2.source.width = _item2.source.height = 100;
-
-//        _item3 = new MarketFriendItem(_arrFriends[_shiftFriend + 2],this,_shiftFriend + 2);
-//        _item3.source.y = 2 * 120-182;
-//        _source.addChild(_item3.source);
-//        _item3.source.width = _item3.source.height = 100;
     }
 
     public function choosePerson(_person:Someone):void {
@@ -834,7 +761,6 @@ public class WOMarket  extends WindowMain {
     }
 
     public function checkArrow():void {
-//        _txtNumberPage.text = String(_countPage + '/' + _countAllPage);
         if (_shift == 0) {
             if (_leftBtn) _leftBtn.filter = ManagerFilters.DISABLE_FILTER;
         } else {
@@ -932,18 +858,7 @@ public class WOMarket  extends WindowMain {
             _txtName.deleteIt();
             _txtName = null;
         }
-//        if (_txtAllFriends) {
-////            _btnFriends.removeChild(_txtAllFriends);
-//            _txtAllFriends.deleteIt();
-//            _txtAllFriends = null;
-//        }
-//        if (_txtNumberPage) {
-//            _source.removeChild(_txtNumberPage);
-//            _txtNumberPage.deleteIt();
-//            _txtNumberPage = null;
-//        }
         if (_txtPaper) {
-//            _btnPaper.removeChild(_txtPaper);
             _txtPaper.deleteIt();
             _txtPaper = null;
         }
@@ -986,11 +901,6 @@ public class WOMarket  extends WindowMain {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (_arrFriends[_shiftFriend].photo) {
-//                _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-//                MCScaler.scale(_ava, 85, 85);
-//                _ava.x = 12;
-//                _ava.y = 12;
-//                _source.addChild(_ava);
                 g.load.loadImage(_arrFriends[_shiftFriend].photo, onLoadPhoto);
             } else {
                 g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);

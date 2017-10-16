@@ -108,7 +108,7 @@ public class WOTrainItem {
         if (_info.needHelp && !_needHelp && int(_info.helpId) == 0) {
             _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             _needHelp.x = 35;
-            _needHelp.y = -30;
+            _needHelp.y = -95;
             _source.addChild(_needHelp);
         }
     }
@@ -135,7 +135,7 @@ public class WOTrainItem {
             if (!_needHelp) {
                 _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
                 _needHelp.x = 35;
-                _needHelp.y = -30;
+                _needHelp.y = -95;
                 _source.addChild(_needHelp);
             }
         } else {

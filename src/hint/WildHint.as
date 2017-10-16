@@ -73,7 +73,7 @@ public class WildHint {
         _txtCount = new CTextField(80,50,"");
         _txtCount.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName = new CTextField(120,50,"");
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
 //        _txtName.alignH = Align.LEFT;
         _txtName.x = -60;
         _txtName.y = -157;
