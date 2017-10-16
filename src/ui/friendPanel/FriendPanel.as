@@ -585,7 +585,7 @@ public class FriendPanel {
     private function onLeftClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (g.tuts.isTuts) return;
-        if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.finishLetGoToNeighbor();
+        if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
         var newCount:int = 5;
         if (_shift - newCount < 0) newCount = _shift;
         _shift -= newCount;

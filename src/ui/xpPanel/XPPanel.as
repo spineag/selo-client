@@ -72,10 +72,16 @@ public class XPPanel {
         _source.addChild(_txtXPCount);
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
+        _source.endClickCallback = onClick;
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
         _countXP = g.user.xp;
         checkXP();
         onResize();
+    }
+    
+    private function onClick():void {
+        if (!g.isDebug) return;
+        g.user.notif.checkOnNewLevel();
     }
 
     public function onResize():void {
@@ -116,7 +122,7 @@ public class XPPanel {
             g.userInventory.addNewElementsAfterGettingNewLevel();
 
             if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
-            if (g.user.level == 4 || g.user.level == 5) g.managerMiniScenes.checkDeleteMiniScene();
+            if (g.user.level == 4 || g.user.level == 5) g.miniScenes.checkDeleteMiniScene();
             if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])
                 g.managerDailyBonus.generateDailyBonusItems();
             if (g.user.level == 8) {
@@ -133,6 +139,7 @@ public class XPPanel {
             }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
             if (g.managerInviteFriend) g.managerInviteFriend.onUpdateLevel();
+            g.user.notif.checkOnNewLevel();
         } else 
             checkXP();
     }

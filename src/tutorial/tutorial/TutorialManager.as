@@ -436,14 +436,14 @@ public class TutorialManager extends IManagerTutorial{
         _tutorialObjects = [];
         _subStep = 1;
         _action = TutsAction.LEVEL_UP;
+        g.user.tutorialStep = 10;
+        updateTutorialStep();
         _tutorialCallback = subStep9_2;
     }
 
     private function subStep9_2():void {
         _tutorialCallback = null;
         _action = TutsAction.NONE;
-        g.user.tutorialStep = 10;
-        updateTutorialStep();
         initScenes();
     }
 
@@ -681,6 +681,8 @@ public class TutorialManager extends IManagerTutorial{
         _tutorialObjects = [];
         _subStep = 2;
         _action = TutsAction.LEVEL_UP;
+        g.user.tutorialStep = 15;
+        updateTutorialStep();
         _tutorialCallback = subStep14_3;
     }
 
@@ -689,8 +691,6 @@ public class TutorialManager extends IManagerTutorial{
         _tutorialObjects = [];
         _tutorialResourceIDs = [];
         _action = TutsAction.NONE;
-        g.user.tutorialStep = 15;
-        updateTutorialStep();
         initScenes();
     }
 

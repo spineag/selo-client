@@ -18,7 +18,7 @@ import starling.utils.Color;
 
 import temp.DropResourceVariaty;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import utils.CButton;
 

@@ -3,6 +3,8 @@
  */
 package windows.shop_new {
 
+import manager.Vars;
+
 import windows.WOComponents.BackgroundYellowOut;
 
 public class ShopNewTabs {
@@ -16,8 +18,10 @@ public class ShopNewTabs {
     private var _btn5:TabButton;
     private var _activeTabButton:TabButton;
     private var _isBigShop:Boolean;
+    private var g:Vars = Vars.getInstance();
 
     public function ShopNewTabs(bg:BackgroundYellowOut, f:Function, isBigShop:Boolean) {
+        _activeTabNumber = 0;
         _shopBGSource = bg;
         _callback = f;
         _isBigShop = isBigShop;
@@ -30,6 +34,10 @@ public class ShopNewTabs {
     }
 
     public function activateTab(n:int):void {
+        if (n == 5) {
+            g.user.notif.onReleaseDecor();
+            _btn5.delNotif();
+        }
         _activeTabNumber = n;
         switch (n) {
             case 1:
@@ -101,6 +109,8 @@ import starling.utils.Color;
 
 import utils.CSprite;
 import utils.CTextField;
+import utils.MCScaler;
+
 import windows.WOComponents.BackgroundYellowOut;
 
 internal class TabButton {
@@ -112,7 +122,7 @@ internal class TabButton {
     private var _txtNameUnactive:CTextField;
     private var _callback:Function;
     private var _notif:Sprite;
-    private var _notifCount:CTextField;
+    private var _notifTxt:CTextField;
     private var _shopBGSource:BackgroundYellowOut;
 
     public function TabButton(n:int, f:Function, bg:BackgroundYellowOut) {
@@ -149,11 +159,31 @@ internal class TabButton {
         _tabUnactive.addChild(_txtNameUnactive);
 
         switch (n) {
-            case 1: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[347]); break;
-            case 2: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[348]); break;
-            case 3: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[349]); break;
-            case 4: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[350]); break;
-            case 5: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[351]); break;
+            case 1: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[347]);
+                if (g.user.notif.countNewFarm() || g.user.notif.isNewRidge) showNotif(1);
+                break;
+            case 2: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[348]);
+                if (g.user.notif.countNewAnimal()) showNotif(2);
+                break;
+            case 3: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[349]);
+                if (g.user.notif.countNewFabric()) showNotif(3);
+                break;
+            case 4: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[350]);
+                if (g.user.notif.countNewTree()) showNotif(4);
+                break;
+            case 5: _txtNameActive.text = _txtNameUnactive.text = String(g.managerLanguage.allTexts[351]);
+                if (g.user.notif.countNewDecor()) showNotif(5);
+                break;
+        }
+    }
+    
+    public function delNotif():void {
+        if (_notif) {
+            _shopBGSource.source.removeChild(_notif);
+            _notif.removeChild(_notifTxt);
+            _notifTxt.deleteIt();
+            _notif.dispose();
+            _notif = null;
         }
     }
 
@@ -164,13 +194,42 @@ internal class TabButton {
         _tabActive.x = xA - delta;
         _tabActive.visible = isActive;
         _tabUnactive.visible = !isActive;
+        if (_notif) {
+            if (isActive) {
+                _notif.x = xA + 74;
+                _notif.y = -42;
+            } else {
+                _notif.x = xU + 62;
+                _notif.y = -30;
+            }
+        }
     }
 
-    public function updateNotifCount(n:int):void {
-
+    public function showNotif(tabNumber:int):void {
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+        im.alignPivot();
+        MCScaler.scale(im, 30, 30);
+        _notif = new Sprite();
+        _notif.addChild(im);
+        _notifTxt = new CTextField(40, 30, '');
+        _notifTxt.setFormat(CTextField.BOLD18, 14, Color.WHITE);
+        _notifTxt.x = -18;
+        _notifTxt.y = -18;
+        _notif.addChild(_notifTxt);
+        var c:int;
+        switch (tabNumber) {
+            case 1: c = g.user.notif.countNewFarm(); if (g.user.notif.isNewRidge) c++; break;
+            case 2: c = g.user.notif.countNewAnimal(); break;
+            case 3: c = g.user.notif.countNewFabric(); break;
+            case 4: c = g.user.notif.countNewTree(); break;
+            case 5: c = g.user.notif.countNewDecor(); break;
+        }
+        _notifTxt.text = String(c);
+        _shopBGSource.source.addChild(_notif);
     }
 
     public function deleteIt():void {
+        delNotif();
         if (_tabActive) {
             _tabActive.removeChild(_txtNameActive);
             _txtNameActive.deleteIt();

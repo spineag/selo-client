@@ -23,6 +23,7 @@ import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
 import windows.fabricaWindow.WOFabricDeleteItem;
 import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
+import windows.miniSceneOrderCat.WOMiniSceneOrderCat;
 import windows.missYou.WOMissYou;
 import windows.orderWindow.WOOrderNew;
 import windows.paper_new.WOPaperNew;
@@ -85,7 +86,7 @@ public class WindowsManager {
     public static const WO_WAIT_FREE_CATS:String = 'wait_free_cats';
     public static const WO_NO_PLACES:String = 'no_places';
     public static const WO_NO_RESOURCES:String = 'no_resources';
-    public static const WO_ORDERS_NEW:String = 'orders_NEW';
+    public static const WO_ORDERS:String = 'orders_NEW';
     public static const WO_PAPER_NEW:String = 'paper_new';
     public static const WO_RELOAD_GAME:String = 'reload_game';
     public static const WO_SERVER_ERROR:String = 'server_error';
@@ -121,6 +122,7 @@ public class WindowsManager {
     public static const WO_MISS_YOU:String = 'miss_you';
     public static const WO_ANNOUNCEMENT:String = 'announcement';
     public static const WO_TUTORIAL:String = 'tutorial';
+    public static const WO_ORDER_CAT_MINI:String = 'order_cat_mini_scene';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -228,7 +230,7 @@ public class WindowsManager {
             case WO_MARKET_DELETE_ITEM:
                 wo = new WOMarketDeleteItem();
                 break;
-            case WO_ORDERS_NEW:
+            case WO_ORDERS:
                 wo = new WOOrderNew();
                 break;
             case WO_TRAIN:
@@ -326,6 +328,9 @@ public class WindowsManager {
                 break;
             case WO_PAPER_NEW:
                 wo = new WOPaperNew();
+                break;
+            case WO_ORDER_CAT_MINI:
+                wo = new WOMiniSceneOrderCat();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

@@ -27,7 +27,7 @@ public class ManagerAnnouncement {
         g.user.announcement = true;
         g.directServer.onShowAnnouncement();
 //        if (g.managerCutScenes.isCutScene) return;
-//        if (g.managerMiniScenes.isMiniScene) return;
+//        if (g.miniScenes.isMiniScene) return;
 //        if (g.managerQuest) g.managerQuest.showArrowsForAllVisibleIconQuests(3);
     }
 }

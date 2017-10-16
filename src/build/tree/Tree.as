@@ -28,7 +28,7 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Color;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;

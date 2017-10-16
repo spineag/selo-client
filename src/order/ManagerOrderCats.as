@@ -2,15 +2,11 @@
  * Created by user on 2/5/16.
  */
 package order {
-import heroes.*;
-
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
-import manager.AStar.AStar;
 import manager.AStar.DirectWay;
 import manager.Vars;
 import manager.ownError.ErrorConst;
-
 import windows.WindowsManager;
 
 public class ManagerOrderCats {
@@ -24,9 +20,7 @@ public class ManagerOrderCats {
         _arrAwayCats = [];
     }
 
-    public function get arrCats():Array {
-        return _arrCats;
-    }
+    public function get arrCats():Array { return _arrCats; }
 
     public function addCatsOnStartGame():void {
         var arr:Array = g.managerOrder.arrOrders;
@@ -244,6 +238,10 @@ public class ManagerOrderCats {
         cat.runAnimation();
         cat.walkPosition = OrderCat.LONG_OUTTILE_WALKING;
         cat.goCatToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 7, arrivePart1, delay);
+        if (cat.isMiniScene) {
+            if (g.miniScenes.oCat.isCatFree) g.miniScenes.oCat.showCat1();
+            g.miniScenes.releaseMiniSceneForOrderCat(cat);
+        }
     }
 
     private function arrivePart1(cat:OrderCat):void {
@@ -252,15 +250,8 @@ public class ManagerOrderCats {
         var p:Point = new Point(30, 0);
         p = g.matrixGrid.getXYFromIndex(p);
         cat.walkPosition = OrderCat.SHORT_OUTTILE_WALKING;
-        if (g.tuts.isTuts) {
-            cat.runAnimation();
-            cat.goCatToXYPoint(p, 1, arrivePart2, 0);
-        } else {
-//            cat.walkAnimation();
-            cat.runAnimation();
-//            cat.goCatToXYPoint(p, 2, arrivePart2);
-            cat.goCatToXYPoint(p, 1, arrivePart2, 0);
-        }
+        cat.runAnimation();
+        cat.goCatToXYPoint(p, 1, arrivePart2, 0);
     }
 
     private function arrivePart2(cat:OrderCat):void {
@@ -280,6 +271,7 @@ public class ManagerOrderCats {
             cat.walkPosition = OrderCat.STAY_IN_QUEUE;
             cat.sayHIAnimation(onFinishArrive);
             cat.checkArriveCallback();
+            if (cat.isMiniScene) g.miniScenes.oCat.onArriveToOrder();
         }
     }
 

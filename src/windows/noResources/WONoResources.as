@@ -18,7 +18,7 @@ import quest.ManagerQuest;
 
 import resourceItem.DropItem;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import utils.CButton;
 import utils.CTextField;

@@ -109,7 +109,7 @@ public class ManagerHelpers {
             _countSeconds = 0;
             if (g.tuts.isTuts) return;
             if (g.managerCutScenes.isCutScene) return;
-            if (g.managerMiniScenes.isMiniScene) return;
+            if (g.miniScenes.isMiniScene) return;
             if (g.isActiveMapEditor) return;
             if (g.isAway) return;
             if (g.windowsManager.currentWindow) return;

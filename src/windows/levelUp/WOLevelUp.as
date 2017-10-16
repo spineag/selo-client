@@ -229,7 +229,6 @@ public class WOLevelUp extends WindowMain {
             _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
             _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
             MCScaler.scale(_imageHard, 25, 25);
-
             _txtContinue.y = -26;
             _txtHard.x = 93;
             _imageHard.x = 135;
@@ -285,8 +284,6 @@ public class WOLevelUp extends WindowMain {
         createList();
 //        super.showIt();
         _source.y -= 40;
-
-        super.showIt();
     }
 
 
@@ -295,8 +292,8 @@ public class WOLevelUp extends WindowMain {
 //        _txtLevel.text = String(g.user.level);
 //        createList();
 //        onWoShowCallback = onShow;
-////        super.showIt();
 //        _source.y -= 40;
+        super.showIt();
     }
     
     private function onClickNext():void {
@@ -355,7 +352,6 @@ public class WOLevelUp extends WindowMain {
     private function createList():void {
         var arR:Array;
         var objDataLevel:Object;
-        var id:String;
         var arr:Array;
         var im:WOLevelUpItem;
         var i:int;
@@ -394,7 +390,6 @@ public class WOLevelUp extends WindowMain {
             }
         }
         arR = g.allData.building;
-        var arrTempColor:Array = [];
         var b:Boolean = true;
         var j:int = 0;
         for (i = 0; i < arR.length; i++) {
@@ -407,9 +402,6 @@ public class WOLevelUp extends WindowMain {
                             objDataLevel = Utils.objectFromStructureBuildToObject(arR[i]);
                             objDataLevel.priority = 15;
                             arr.push(objDataLevel);
-                            if (arR[i].buildType == BuildType.TREE) g.user.plantNotification++;
-                            if (arR[i].buildType == BuildType.FARM) g.user.villageNotification++;
-                            if (arR[i].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
                         }
                     }
                 } else if (g.user.level == arR[i].blockByLevel && arR[i].visibleAction) {
@@ -418,20 +410,9 @@ public class WOLevelUp extends WindowMain {
                     b = true;
                     if (arR[i].buildType != BuildType.CAVE && arR[i].buildType != BuildType.TRAIN && arR[i].buildType != BuildType.PAPER && arR[i].buildType != BuildType.DAILY_BONUS
                             && arR[i].buildType != BuildType.ORDER && arR[i].buildType != BuildType.MARKET) {
-                        for (j = 0; j < arrTempColor.length; j++) {
-                            if (arrTempColor[j] == arR[i].group) {
-                                b = false;
-                                break;
-                            }
-                        }
-                        if ((arrTempColor.length == 0 && arR[i].group > 0) || (b && arR[i].group > 0)) arrTempColor.push(arR[i].group);
-                        if (b) {
-                            g.user.decorNotification++;
-                        }
                         objDataLevel.priority = 25;
                     } else objDataLevel.priority = 15;
                     if (b) arr.push(objDataLevel);
-//                    arr.push(arR[i]);
                 }
             }
         }
@@ -486,24 +467,6 @@ public class WOLevelUp extends WindowMain {
                 }
             }
         }
-        if (g.dataLevel.objectLevels[g.user.level].catCount > 0) {
-            objDataLevel = {};
-            objDataLevel.catCount = true;
-            objDataLevel.id = -1;
-            objDataLevel.count = g.dataLevel.objectLevels[g.user.level].catCount;
-            objDataLevel.priority = 2;
-            arr.push(objDataLevel);
-            g.user.villageNotification++;
-        }
-        if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
-            objDataLevel = {};
-            objDataLevel.ridgeCount = true;
-//            objDataLevel.id = -2;
-            objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
-            objDataLevel.priority = 5;
-            arr.push(objDataLevel);
-            g.user.villageNotification++;
-        }
         var animal:StructureDataAnimal;
         arr.sortOn("priority", Array.NUMERIC);
         for (i = 0; i < arr.length; i++) {
@@ -512,9 +475,6 @@ public class WOLevelUp extends WindowMain {
                 if (animal) arr.push(animal);
             }
             _arrItems.push(arr[i]);
-            if (_arrItems[i].buildType == BuildType.RESOURCE || _arrItems[i].buildType == BuildType.PLANT) {
-                g.user.fabricItemNotification.push(_arrItems[i]);
-            }
             im = new WOLevelUpItem(arr[i],true, true, 3);
             im.source.x = int(i) * (90);
             _arrCells.push(im);
@@ -532,15 +492,6 @@ public class WOLevelUp extends WindowMain {
         } else if (_arrCells.length == 5) {
             _contImage.x = 3;
         }
-        if (g.user.level >= 3) g.bottomPanel.notification();
-        else {
-            g.user.villageNotification = 0;
-            g.user.decorNotification = 0;
-            g.user.fabricaNotification = 0;
-            g.user.plantNotification = 0;
-            g.user.allNotification = 0;
-        }
-        g.directServer.updateUserNotification(null);
         if (_arrCells.length > 5) {
             _contImage.x = 3;
             _leftArrow.visible = true;
@@ -563,7 +514,7 @@ public class WOLevelUp extends WindowMain {
             g.tuts.checkTutsCallback();
         }
         g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
-        if (g.user.level == 3 || g.user.level == 4) g.managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
+        if (g.user.level == 3 || g.user.level == 4) g.miniScenes.checkAvailableMiniScenesOnNewLevel();
 
         if (g.user.level == 4) {
             g.managerQuest.addUI();

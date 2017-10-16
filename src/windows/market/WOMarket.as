@@ -228,7 +228,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onShow():void {
-        if (_curUser is NeighborBot) Utils.createDelay(.5, g.managerMiniScenes.atNeighborBuyInstrument);
+        if (_curUser is NeighborBot) Utils.createDelay(.5, g.miniScenes.atNeighborBuyInstrument);
     }
 
     private function onClickExit(e:Event=null):void {

@@ -34,14 +34,11 @@ public class User extends Someone {
     public var neighbor:NeighborBot;
     public var tutorialStep:int;
     public var isAmbar:Boolean;
+    public var notif:UserNotification;
     public var lastVisitPlant:int = 1;
     public var cutScenes:Array;
     public var miniScenes:Array;
-    public var villageNotification:int;
-    public var fabricaNotification:int;
-    public var plantNotification:int;
-    public var decorNotification:int;
-    public var allNotification:int;
+    public var miniScenesOrderCats:Array;
     public var arrNoAppFriend:Array;
     public var wallTrainItem:Boolean;
     public var wallOrderItem:Boolean;
@@ -53,7 +50,6 @@ public class User extends Someone {
     public var animalIdArrow:int;
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;
-    public var fabricItemNotification:Array = [];
     public var bornDate:String;
     public var timezone:int = 0;
     public var countAwayMouse:int;
@@ -77,6 +73,7 @@ public class User extends Someone {
         isAmbar = true;
         countAwayMouse = 0;
         announcement = false;
+        notif = new UserNotification();
     }
 
     public function set visitAmbar(b:Boolean):void  { isAmbar = b; }

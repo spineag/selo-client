@@ -76,7 +76,7 @@ public class WOAchievement extends WindowMain{
 
     private function onClickExit(e:Event=null):void {
         if (g.tuts.isTuts) return;
-        g.managerMiniScenes.onHideOrder();
+        g.miniScenes.onHideOrder();
         hideIt();
     }
 

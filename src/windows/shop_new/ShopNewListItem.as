@@ -209,8 +209,8 @@ public class ShopNewListItem {
                     _isThisItemBlocked = true;
                 } else {
                     _txtCount.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
-                    checkNotification(maxCountAtCurrentLevel);
                     createButton();
+                    if (g.user.notif.isNewFabricId(_data.id)) addNotification();
                 }
             }
         } else if (_data.buildType == BuildType.FARM) {
@@ -241,7 +241,7 @@ public class ShopNewListItem {
                 } else {
                     _txtCount.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                     createButton();
-                    checkNotification(maxCountAtCurrentLevel);
+                    if (g.user.notif.isNewFarmId(_data.id)) addNotification();
                 }
             }
         } else if (_data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR ||  _data.buildType == BuildType.DECOR_FULL_FENСE
@@ -272,7 +272,7 @@ public class ShopNewListItem {
                         else _costCount = (arr.length * _data.deltaCost) + int(_data.cost);
                         createButton();
                     } else {
-                        checkNotification(maxCountAtCurrentLevel);
+                        if (g.user.notif.isNewDecorId(_data.id)) addNotification();
                         if (_data.currency[0] == DataMoney.HARD_CURRENCY)  _costCount = _data.cost;
                             else if (_data.currency[0] == DataMoney.SOFT_CURRENCY) {
                                 if (decorMax >= arr.length) _costCount = (decorMax * _data.deltaCost) + int(_data.cost);
@@ -323,8 +323,9 @@ public class ShopNewListItem {
                     } else {
                         _txtCount.text = String(curCount) + '/' + String(maxCount);
                         if (curCount == 0) _costCount = _data.costNew[0];
-                            else _costCount = _data.costNew[curCount];
+                        else _costCount = _data.costNew[curCount];
                         createButton();
+                        if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
                     }
                 }
             }
@@ -357,7 +358,7 @@ public class ShopNewListItem {
                 } else {
                     _txtCount.text = String(curCount) + '/' + String(maxCount);
                     createButton();
-                    checkNotification(maxCountAtCurrentLevel);
+                    if (g.user.notif.isNewTreeId(_data.id)) addNotification();
                 }
             }
         } else if (_data.buildType == BuildType.RIDGE) {
@@ -384,7 +385,7 @@ public class ShopNewListItem {
                 } else {
                     _txtCount.text = String(curCount) + '/' + String(maxCount);
                     createButton();
-                    checkNotification(maxCountAtCurrentLevel);
+                    if (g.user.notif.isNewRidge) addNotification();
                 }
             }
         }
@@ -393,13 +394,12 @@ public class ShopNewListItem {
             else _txtName.text = String(_data.name);
     }
 
-    private function checkNotification(maxCountAtCurrentLevel:int):void {
-        if (g.user.allNotification > 0 && g.user.fabricaNotification > 0 && g.user.level == _data.blockByLevel[maxCountAtCurrentLevel-1]) {
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
-            im.x = 102;
-            _source.addChild(im);
-            if(!g.tuts.isTuts && !g.managerCutScenes.isCutScene) addArrow(3);
-        }
+    private function addNotification():void {
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+        im.x = 126;
+        im.y = -1;
+        _source.addChild(im);
+        if(!g.tuts.isTuts && !g.managerCutScenes.isCutScene) addArrow(3);
     }
 
     private function createHand():void {
@@ -564,13 +564,10 @@ public class ShopNewListItem {
             if (g.tuts.action != TutsAction.BUY_ANIMAL) return;
             if (!g.tuts.isTutsResource(_data.id)) return;
         }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrow();
         var i:int;
         if (_isThisItemBlocked) return;
-        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.deleteArrowAndDust();
+        if (g.miniScenes.isMiniScene) g.miniScenes.deleteArrowAndDust();
         var ob:Object;
         if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
                 || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE
@@ -668,13 +665,13 @@ public class ShopNewListItem {
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
             (build as WorldObject).countShopCost = _costCount;
             g.townArea.startMoveAfterShop(build);
+            g.user.notif.onReleaseRidge();
         } else if (_data.buildType == BuildType.DECOR_TAIL) {
             if (g.tuts.isTuts) return;
             build = g.townArea.createNewBuild(_data);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
             if (_isFromInventory) {
                 g.townArea.startMoveAfterShop(build, true);
                 g.buyHint.hideIt();
@@ -682,6 +679,7 @@ public class ShopNewListItem {
                 (build as WorldObject).countShopCost = _costCount;
                 g.townArea.startMoveAfterShop(build);
             }
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
         } else if (_data.buildType != BuildType.ANIMAL) {
             if (g.tuts.isTuts && g.tuts.action != TutsAction.BUY_FABRICA && g.tuts.action != TutsAction.BUY_FARM) return;
             build = g.townArea.createNewBuild(_data);
@@ -692,8 +690,15 @@ public class ShopNewListItem {
                 var an:StructureDataAnimal = g.allData.getAnimalByFarmId(_data.id);
                 if (an) g.user.animalIdArrow = an.id;
             }
-            if (build is Tree) (build as Tree).showShopView();
-            if (build is Fabrica) (build as Fabrica).showShopView();
+            if (build is Tree) {
+                g.user.notif.onReleaseNewTree(_data.id);
+                (build as Tree).showShopView();
+            }
+            if (build is Fabrica) {
+                g.user.notif.onReleaseNewFabrica(_data.id);
+                (build as Fabrica).showShopView();
+            }
+            if (build is Farm) g.user.notif.onReleaseNewFarm(_data.id);
             if (build is DecorFenceGate) (build as DecorFenceGate).showFullView();
             if (build is DecorFenceArka) (build as DecorFenceArka).showFullView();
             if (build is DecorPostFenceArka) (build as DecorPostFenceArka).showFullView();
@@ -723,8 +728,9 @@ public class ShopNewListItem {
                 curCount += (arrPat[i] as Farm).arrAnimals.length;
             }
             if (curCount == 0) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.costNew[0]));
-            else g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.costNew[curCount]));
+                else g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.costNew[curCount]));
             g.managerQuest.onActionForTaskType(ManagerQuest.BUY_ANIMAL, {id:(_data.id)});
+            g.user.notif.onReleaseNewAnimal(_data.id);
             for (i = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
                     if (g.tuts.isTuts) {

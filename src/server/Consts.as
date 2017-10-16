@@ -100,6 +100,7 @@ public class Consts {
     public static var INQ_UPDATE_MARKET_PAPPER:String = 'a_game/updateMarketPapper.php';
     public static var INQ_UPDATE_USER_CUT_SCENE_DATA:String = 'a_game/updateUserCutScene.php';
     public static var INQ_UPDATE_USER_MINI_SCENE_DATA:String = 'a_game/updateUserMiniScene.php';
+    public static var INQ_UPDATE_ORDER_CAT_MINI_SCENE_DATA:String = 'a_game/updateOrderCatMiniScene.php';
     public static var INQ_ADD_USER_PAPPER_BUY:String = 'a_game/addUserPapperBuy.php';
     public static var INQ_UPDATE_USER_PAPPER_BUY:String = 'a_game/updateUserPapperBuyer.php';
     public static var INQ_GET_USER_PAPPER_BUY:String = 'a_userData/getUserPapperBuy.php';

@@ -14,7 +14,7 @@ import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import wallPost.WALLAnnouncement;
 import wallPost.WALLDoneOrder;

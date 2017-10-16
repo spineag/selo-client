@@ -1,13 +1,11 @@
 /**
  * Created by user on 6/24/15.
  */
-package ui.xpPanel {
+package resourceItem.xp {
+import ui.xpPanel.*;
 
 import manager.Vars;
-
-import starling.display.Image;
 import starling.display.Sprite;
-import utils.CTextField;
 import utils.Utils;
 
 public class XPStar {
@@ -24,22 +22,26 @@ public class XPStar {
         _countInXP = 0;
         var item:XPStarItem;
         var i:int;
-        if (xp > 5) {
-            for (i = 0; i < 5; i++ ) {
-                var f1:Function = function ():void {
-                    if (i == 4) item = new XPStarItem(_x,_y,xp-4,endFly);
-                    else item = new XPStarItem(_x,_y,1,endFly);
+        if (_countXp > 5) {
+            var c:int = _countXp%5;
+            var cd:int = int(_countXp/5);
+            for (i = 0; i < 5; i++) {
+                var f1:Function = function (k:int):void {
+                    if (c>0) {
+                        c--;
+                        item = new XPStarItem(_x, _y, cd + 1, endFly);
+                    } else item = new XPStarItem(_x, _y, cd, endFly);
                     _source.addChild(item.source);
                 };
-                Utils.createDelay(Math.random(),f1);
+                Utils.createDelay(Math.random(), function():void { f1(i); });
             }
-        } else if (xp <= 5) {
-            for (i = 0; i < xp; i++ ) {
+        } else if (_countXp <= 5) {
+            for (i = 0; i < _countXp; i++ ) {
                 var f2:Function = function ():void {
-                    item = new XPStarItem(_x,_y,1,endFly);
+                    item = new XPStarItem(_x, _y, 1, endFly);
                     _source.addChild(item.source);
                 };
-               Utils.createDelay(Math.random(),f2);
+               Utils.createDelay(Math.random(), f2);
             }
         }
         g.cont.animationsResourceCont.addChild(_source);

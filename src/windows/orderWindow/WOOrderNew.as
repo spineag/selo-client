@@ -28,7 +28,7 @@ import starling.utils.Color;
 
 import tutorial.TutsAction;
 
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 
 import utils.CButton;
 import utils.CTextField;
@@ -68,7 +68,7 @@ public class WOOrderNew extends WindowMain {
     private var _txtInfo:CTextField;
 
     public function WOOrderNew() {
-        _windowType = WindowsManager.WO_ORDERS_NEW;
+        _windowType = WindowsManager.WO_ORDERS;
         _woWidth = 780;
         _woHeight = 680;
 
@@ -126,7 +126,7 @@ public class WOOrderNew extends WindowMain {
 
     private function onClickExit(e:Event=null):void {
         if (g.tuts.isTuts) return;
-        g.managerMiniScenes.onHideOrder();
+        g.miniScenes.onHideOrder();
         super.hideIt();
     }
 
@@ -388,40 +388,22 @@ public class WOOrderNew extends WindowMain {
         var prise:Object = {};
         var p1:Point = new Point(134, 147);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) {
-            if (b) {
-                Utils.createDelay(.5, function():void {
-                    _clickItem = true;
-                    p1 = _source.localToGlobal(p1);
-                    new XPStar(p1.x, p1.y, or.xp * g.managerParty.coefficient) });
-            } else {
-                p1 = _source.localToGlobal(p1);
-                new XPStar(p1.x, p1.y, or.xp * g.managerParty.coefficient);
-            }
+            if (b) _clickItem = true;
+            p1 = _source.localToGlobal(p1);
+            new XPStar(p1.x, p1.y, or.xp * g.managerParty.coefficient);
         } else {
-            if (b) {
-                Utils.createDelay(.5, function():void {
-                    _clickItem = true;
-                    p1 = _source.localToGlobal(p1);
-                    new XPStar(p1.x, p1.y, or.xp)});
-            } else {
-                p1 = _source.localToGlobal(p1);
-                new XPStar(p1.x, p1.y, or.xp);
-            }
+            if (b) _clickItem = true; 
+            p1 = _source.localToGlobal(p1);
+            new XPStar(p1.x, p1.y, or.xp);
         }
         var p2:Point = new Point(186, 147);
         prise.id = DataMoney.SOFT_CURRENCY;
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
             prise.count = or.coins * g.managerParty.coefficient;
             else prise.count = or.coins;
-        if (b) {
-            Utils.createDelay(.5, function():void {
-                _clickItem = true;
-                p2 = _source.localToGlobal(p2);
-                new DropItem(p2.x, p2.y, prise) });
-        } else {
+        if (b) _clickItem = true;
             p2 = _source.localToGlobal(p2);
             new DropItem(p2.x, p2.y, prise);
-        }
         if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) 
                 new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
             else if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) 
@@ -451,11 +433,15 @@ public class WOOrderNew extends WindowMain {
         g.managerOrder.cancelAnimateSmallHero();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.tuts.isTuts && g.tuts.action == TutsAction.ORDER) g.tuts.checkTutsCallback();
-            else g.managerMiniScenes.onBuyOrder();
+            else g.miniScenes.onBuyOrder();
         g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
     }
 
-    private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
+import order.OrderItemStructure;
+
+import windows.orderWindow.WOOrderItem;
+
+private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
         if (_isShowed) {
             or.startTime = int(new Date().getTime()/1000) + 6;

@@ -24,7 +24,7 @@ import resourceItem.DropItem;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import utils.CSprite;
 import utils.IsoUtils;
 import utils.Point3D;

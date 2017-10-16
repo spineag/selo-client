@@ -2,44 +2,26 @@
  * Created by user on 6/24/15.
  */
 package resourceItem {
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import data.DataMoney;
-
-import flash.display.StageDisplayState;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
-import social.SocialNetworkSwitch;
-
-import starling.core.Starling;
-
+import resourceItem.money.DropMoney;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.utils.Color;
-
 import temp.DropResourceVariaty;
-
 import utils.CTextField;
-
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class DropItem {
     private var _source:Sprite;
     private var _image:Image;
-
     private var g:Vars = Vars.getInstance();
 
     public function DropItem(_x:int, _y:int, prise:Object, delay:Number = .3, startSize:int = 50) {
@@ -51,31 +33,9 @@ public class DropItem {
         }
 
         _source = new Sprite();
-        var i:int = 0;
-        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION) { // better use DropDecor
-            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).url + '_icon'));
-            endPoint = g.toolsPanel.pointXY();
-            var f4:Function = function (dbId:int):void {
-                g.userInventory.addToDecorInventory(prise.id, dbId);
-            };
-            var f:Function = function ():void {
-                g.directServer.buyAndAddToInventory(prise.id, f4);
-            };
-            for (i = 0; i < prise.count; i++) {
-                f();
-            }
-        } else if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR) { // better use DropDecor
-            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).image +'_icon'));
-            endPoint = g.toolsPanel.pointXY();
-            var f3:Function = function (dbId:int):void {
-                g.userInventory.addToDecorInventory(prise.id, dbId);
-            };
-            var f2:Function = function ():void {
-                g.directServer.buyAndAddToInventory(prise.id, f3);
-            };
-            for (i = 0; i < prise.count; i++) {
-                f2();
-            }
+        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION || prise.type == DropResourceVariaty.DROP_TYPE_DECOR) { // better use DropDecor
+            new DropDecor(_x, _y, g.allData.getBuildingById(prise.id), 100, 100, prise.count);
+            return;
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
             _image = new Image(g.allData.atlas[g.allData.getResourceById(prise.id).url].getTexture(g.allData.getResourceById(prise.id).imageShop));
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
@@ -85,14 +45,11 @@ public class DropItem {
         } else {
             switch (prise.id) {
                 case DataMoney.HARD_CURRENCY:
-                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-                    endPoint = g.softHardCurrency.getHardCurrencyPoint();
-                    break;
+                    new DropMoney(_x, _y, prise.count, DataMoney.HARD_CURRENCY);
+                    return;
                 case DataMoney.SOFT_CURRENCY:
-                    _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-                    endPoint = g.softHardCurrency.getSoftCurrencyPoint();
-                    g.managerAchievement.achievementCountSoft(g.user.softCurrencyCount + prise.count);
-                    break;
+                    new DropMoney(_x, _y, prise.count, DataMoney.SOFT_CURRENCY);
+                    return;
                 case DataMoney.BLUE_COUPONE:
                     _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
                     endPoint = g.couponePanel.getPoint();
@@ -142,12 +99,6 @@ public class DropItem {
                 g.craftPanel.afterFly(item);
             } else {
                 switch (prise.id) {
-                    case DataMoney.HARD_CURRENCY:
-                        g.softHardCurrency.animationBuy(true);
-                        break;
-                    case DataMoney.SOFT_CURRENCY:
-                        g.softHardCurrency.animationBuy(false);
-                        break;
                     case DataMoney.BLUE_COUPONE:
                         g.couponePanel.animationBuy();
                         break;
@@ -161,7 +112,6 @@ public class DropItem {
                         g.couponePanel.animationBuy();
                         break;
                 }
-//                g.userInventory.addMoney(prise.id, prise.count,false);
                 g.userInventory.updateMoneyTxt(prise.id);
                 if (g.managerTips) g.managerTips.calculateAvailableTips();
             }

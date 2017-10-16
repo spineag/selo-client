@@ -132,7 +132,7 @@ public class Vars {
     public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;
     public var managerCutScenes:ManagerCutScenes;
-    public var managerMiniScenes:ManagerMiniScenes;
+    public var miniScenes:ManagerMiniScenes;
     public var managerWallPost:ManagerWallPost;
     public var managerInviteFriend:ManagerInviteFriendViral;
     public var managerTimerSkip:ManagerTimerSkip;
@@ -256,7 +256,7 @@ public class Vars {
             managerWallPost = new ManagerWallPost();
             managerTimerSkip = new ManagerTimerSkip();
             managerMouseHero = new ManagerMouse();
-            managerMiniScenes = new ManagerMiniScenes();
+            miniScenes = new ManagerMiniScenes();
             managerAchievement = new ManagerAchievement();
 
             new ManagerFilters();
@@ -421,6 +421,7 @@ public class Vars {
     }
 
     private function afterLoadAll_4():void {
+        (user as User).notif.onGameLoad();
         if (tuts.isTuts) {
             if ((user as User).tutorialStep > 1) {
                 startPreloader.hideIt();
@@ -433,7 +434,7 @@ public class Vars {
             startPreloader.hideIt();
             startPreloader = null;
             managerCutScenes.checkAvailableCutScenes();
-            managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
+            miniScenes.checkAvailableMiniScenesOnNewLevel();
             var todayDailyGift:Date;
             var today:Date;
                 if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6 && !managerCutScenes.isCutScene) {
@@ -462,7 +463,7 @@ public class Vars {
                Utils.createDelay(5,f1);
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
-            managerMiniScenes.updateMiniScenesLengthOnGameStart();
+            miniScenes.updateMiniScenesLengthOnGameStart();
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();

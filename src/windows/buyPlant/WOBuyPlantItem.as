@@ -80,6 +80,13 @@ public class WOBuyPlantItem {
         if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE_2) addArrow();
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PLANT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PLANT)
             && g.managerQuest.activeTask.resourceId == _dataPlant.id) addArrow(3);
+//        if (g.user.notif.isNewPlantId(_dataPlant.id)) {
+//            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+//            im.alignPivot();
+//            im.x = 30;
+//            im.y = -30;
+//            source.addChild(im);
+//        }
     }
 
     private function fillIcon(s:String):void {
@@ -108,16 +115,9 @@ public class WOBuyPlantItem {
         source.filter = null;
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
+        g.user.notif.onReleaseNewPlant(_dataPlant.id);
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataPlant]);
-        }
-        if (g.user.fabricItemNotification.length > 0) {
-            var arr:Array = g.user.fabricItemNotification;
-            for (var i:int = 0; i < arr.length; i++){
-                if (arr[i].id == _dataPlant.id) {
-                    g.user.fabricItemNotification.splice(i);
-                }
-            }
         }
     }
 

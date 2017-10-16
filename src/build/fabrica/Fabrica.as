@@ -34,7 +34,7 @@ import starling.events.Event;
 import starling.textures.Texture;
 import tutorial.TutsAction;
 import tutorial.helpers.HelperReason;
-import ui.xpPanel.XPStar;
+import resourceItem.xp.XPStar;
 import windows.WindowsManager;
 
 public class Fabrica extends WorldObject {

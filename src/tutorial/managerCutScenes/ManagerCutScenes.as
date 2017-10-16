@@ -73,6 +73,8 @@ public class ManagerCutScenes {
     }
 
     public function checkAvailableCutScenes():void {
+        return;
+        
         if (g.isAway) return;
         var countActions:int = _properties.length;
         var l:int;
@@ -96,6 +98,7 @@ public class ManagerCutScenes {
 
     public function checkCutScene(reason:int):void {
         return;
+        
         if (g.isAway) return;
         if (g.user.level < 5) return;
         var i:int;
@@ -144,6 +147,8 @@ public class ManagerCutScenes {
     }
 
     private function checkTypeFunctions():void {
+        return;
+        
         if (isCutScene) return;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         try {
@@ -195,6 +200,8 @@ public class ManagerCutScenes {
     }
 
     private function releaseMarket():void {
+        return;
+        
         onStartMiniScenes();
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.MARKET);
         if (_cutSceneBuildings.length) {
@@ -244,6 +251,8 @@ public class ManagerCutScenes {
     }
 
     private function releasePapper():void {
+        return;
+        
         onStartMiniScenes();
         if (g.managerTips) g.managerTips.setUnvisible(true);
         _cutSceneStep = 1;
@@ -282,6 +291,8 @@ public class ManagerCutScenes {
     }
 
     private function releaseDecor():void {
+        return;
+        
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseDecor);
@@ -340,6 +351,8 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
+        return;
+        
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseToInventoryDecor);
@@ -403,6 +416,8 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
+        return;
+        
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseFromInventoryDecor);
@@ -477,6 +492,8 @@ public class ManagerCutScenes {
     }
 
     private function releaseAvailableTrain():void {
+        return;
+        
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseAvailableTrain);
@@ -519,6 +536,8 @@ public class ManagerCutScenes {
     }
 
     private function releaseOpenTrain():void {
+        return;
+        
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseOpenTrain);
@@ -641,6 +660,8 @@ public class ManagerCutScenes {
     }
 
     private function releaseAddToPapper(it:MarketItem):void {
+        return;
+        
         onStartMiniScenes();
         _cutSceneStep = 1;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
