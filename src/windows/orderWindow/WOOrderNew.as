@@ -290,6 +290,9 @@ public class WOOrderNew extends WindowMain {
             _rightBlockTimer.visible = false;
             g.gameDispatcher.removeFromTimer(onTimer);
         }
+
+        if (_arrOrders && _arrOrders[item.position -1].delOb == true) _txtZakazState.text = String(g.managerLanguage.allTexts[369]);
+        else _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
     }
 
     private function fillResourceItems(or:OrderItemStructure):void {
@@ -410,23 +413,8 @@ public class WOOrderNew extends WindowMain {
             else if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) 
                 new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
 
-//        if (or.addCoupone) {
-//            var p3:Point = new Point();
-//            p3.x = _btnSell.x + _btnSell.width * 4 / 5;
-//            p3.y = _btnSell.y + _btnSell.height / 2;
-//            prise.id = int(Math.random() * 4) + 3;
-//            prise.count = 1;
-//            if (b) {
-//                Utils.createDelay(.5, function():void {
-//                    _clickItem = true;
-//                    p3 = _source.localToGlobal(p3);
-//                    new DropItem(p3.x, p3.y, prise)});
-//            } else {
-//                p3 = _source.localToGlobal(p3);
-//                new DropItem(p3.x, p3.y, prise);
-//            }
-//        }
         _waitForAnswer = true;
+        _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
         var tOrderItem:WOOrderItem = _activeOrderItem;
         var f:Function = function (ord:OrderItemStructure):void { afterSell(ord, tOrderItem); };
         _arrOrders[_activeOrderItem.position] = null;
@@ -467,6 +455,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         if (_activeOrderItem) {
             g.hint.hideIt();
             _rightBlock.visible = false;
+            _txtZakazState.text = String(g.managerLanguage.allTexts[369]);
             _rightBlockTimer.visible = true;
             setTimerText = g.managerOrder.delayBeforeNextOrder;
             _waitForAnswer = true;

@@ -329,12 +329,21 @@ public class Fabrica extends WorldObject {
         _arrRecipes.length = 0;
         try {
             var arR:Array = g.allData.recipe;
+            var arRA:Array = [];
             for (var i:int = 0; i < arR.length; i++) {
                 if (arR[i].buildingId == _dataBuild.id) {
-                    _arrRecipes.push(arR[i]);
+                    arRA.push(arR[i]);
                 }
             }
-            _arrRecipes.sortOn('blockByLevel', Array.NUMERIC);
+            arRA.sortOn('blockByLevel', Array.NUMERIC);
+            for (i = 0; i < arRA.length; i++) {
+                if (arRA[i].blockByLevel > g.user.level) {
+                    _arrRecipes.push(arRA[i]);
+                    break;
+                } else {
+                    _arrRecipes.push(arRA[i]);
+                }
+            }
         } catch (e:Error) {
             Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabrica update recipe');

@@ -69,7 +69,7 @@ public class WOBuyPlantItem {
             return;
         }
         _clickCallback = f;
-        if (_dataPlant.blockByLevel == g.user.level + 1) _maxAlpha = .5;
+        if (_dataPlant.blockByLevel > g.user.level) _maxAlpha = .5;
             else if (_dataPlant.blockByLevel <= g.user.level) _maxAlpha = 1;
             else _maxAlpha = 0;
         source.alpha = _maxAlpha;
@@ -80,13 +80,6 @@ public class WOBuyPlantItem {
         if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE_2) addArrow();
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PLANT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PLANT)
             && g.managerQuest.activeTask.resourceId == _dataPlant.id) addArrow(3);
-//        if (g.user.notif.isNewPlantId(_dataPlant.id)) {
-//            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
-//            im.alignPivot();
-//            im.x = 30;
-//            im.y = -30;
-//            source.addChild(im);
-//        }
     }
 
     private function fillIcon(s:String):void {

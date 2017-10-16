@@ -74,7 +74,7 @@ public class WOBuyPlant extends WindowMain {
         _arrAllPlants.length = 0;
         var arR:Array = g.allData.resource;
         for (var i:int = 0; i < arR.length; i++) {
-            if (arR[i].buildType == BuildType.PLANT && arR[i].blockByLevel <= g.user.level + 1) {
+            if (arR[i].buildType == BuildType.PLANT ){//&& arR[i].blockByLevel <= g.user.level + 1) {
 //                if (arR[i].id != 168) _arrAllPlants.push(arR[i]);
 //                else if (g.userTimer.partyToEndTimer > 0) _arrAllPlants.push(arR[i]);
                 _arrAllPlants.push(arR[i]);
@@ -85,12 +85,21 @@ public class WOBuyPlant extends WindowMain {
 
     private function fillPlantItems():void {
         var item:WOBuyPlantItem;
-        for (var i:int=0; i<_arrAllPlants.length; i++) {
-            item = new WOBuyPlantItem();
-            item.setCoordinates(66 + i*116, 60 + 150);
-            _cont.addChild(item.source);
-            _arrPlantItems.push(item);
-            item.fillData(_arrAllPlants[i], onClickItem);
+        for (var i:int = 0; i < _arrAllPlants.length; i++) {
+            if (_arrAllPlants[i].blockByLevel > g.user.level) {
+                item = new WOBuyPlantItem();
+                item.setCoordinates(66 + i * 116, 60 + 150);
+                _cont.addChild(item.source);
+                _arrPlantItems.push(item);
+                item.fillData(_arrAllPlants[i], onClickItem);
+                break;
+            } else {
+                item = new WOBuyPlantItem();
+                item.setCoordinates(66 + i * 116, 60 + 150);
+                _cont.addChild(item.source);
+                _arrPlantItems.push(item);
+                item.fillData(_arrAllPlants[i], onClickItem);
+            }
         }
     }
 
