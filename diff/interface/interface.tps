@@ -295,6 +295,7 @@
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
+            <filename>coins_market.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -57,7 +57,7 @@ public class WOFabricDeleteItem extends WindowMain{
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         var sensi:SensibleBlock = new SensibleBlock();
         sensi.textAndImage(_txtBtn,im,210);
-        _b.addSensBlock(sensi,0,20);
+        _b.addSensBlock(sensi,0,28);
         _b.clickCallback = onClick;
     }
 

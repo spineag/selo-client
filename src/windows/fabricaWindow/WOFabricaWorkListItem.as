@@ -213,7 +213,7 @@ public class WOFabricaWorkListItem {
         _icon.alignPivot();
         if (_type == BIG_CELL) {
 //            MCScaler.scale(_icon, 85, 100);
-            _icon.x = 57;
+            _icon.x = 54;
             _icon.y = 83;
         } else {
             MCScaler.scale(_icon, 74, 74);

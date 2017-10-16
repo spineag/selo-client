@@ -547,11 +547,12 @@ public class WOLevelUp extends WindowMain {
             _txtHard.deleteIt();
             _txtHard = null;
         }
-
-        for (var i:int=0; i<_arrCells.length; i++) {
-            _arrCells[i].deleteIt();
+        if (_arrCells) {
+            for (var i:int = 0; i < _arrCells.length; i++) {
+                _arrCells[i].deleteIt();
+            }
+            _arrCells.length = 0;
         }
-        _arrCells.length = 0;
         if (_armature) {
             _source.removeChild(_armature.display as Sprite);
             _armature = null;

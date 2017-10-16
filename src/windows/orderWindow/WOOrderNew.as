@@ -178,8 +178,9 @@ public class WOOrderNew extends WindowMain {
         _rightBlock.addChild(_sensCoin);
         t = new CTextField(60, 30, '8888');
         t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
-        MCScaler.scale(im, 30, 30);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
+        MCScaler.scale(im, 40, 40);
+        im.y = -3;
         _sensXP = new SensibleBlock();
         _sensXP.imageAndText(im, t, 95, 5);
         _sensXP.x = -_woWidth / 2 + 633;

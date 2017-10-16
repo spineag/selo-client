@@ -39,10 +39,6 @@ public class WOBuyerNyashuk extends WindowMain{
         _arrCTex = [];
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
-//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('visitor_window_back'));
-//        im.x = -_woWidth/2 - 2.5;
-//        im.y = -_woHeight/2 - 7;
-//        _source.addChild(im);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         var btn:CButton;
@@ -60,7 +56,6 @@ public class WOBuyerNyashuk extends WindowMain{
         btn.addButtonTexture(150, CButton.HEIGHT_55, CButton.GREEN, true);
         btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[1155]));
         btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
-//        btn.x = 120;
         btn.y = _woHeight / 2 - 40;
         btn.clickCallback = onClickExit;
         _source.addChild(btn);
@@ -121,15 +116,10 @@ public class WOBuyerNyashuk extends WindowMain{
         var txt:CTextField =  new CTextField(350,50,String(g.managerLanguage.allTexts[451]) + ' '+ String(g.managerLanguage.allTexts[452]));
         txt.setFormat(CTextField.BOLD24, 24,ManagerFilters.BLUE_LIGHT_NEW);
         txt.x = -165;
-        txt.y = -90;
+        if (txt.textBounds.height > 40) txt.y = -80;
+        else txt.y = -90;
         _source.addChild(txt);
         _arrCTex.push(txt);
-//        txt = new CTextField(250,45,String(g.managerLanguage.allTexts[452]));
-//        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-//        txt.x = -200;
-//        txt.y = -95;
-//        _source.addChild(txt);
-//        _arrCTex.push(txt);
         dataResource = g.allData.getResourceById(_data.resourceId);
         var im:Image;
         if (dataResource.buildType == BuildType.PLANT) im = new Image(g.allData.atlas['resourceAtlas'].getTexture(dataResource.imageShop + '_icon'));
@@ -139,7 +129,6 @@ public class WOBuyerNyashuk extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woPapperItem');
             return;
         }
-//        MCScaler.scale(im,70,70);
         im.x = -250;
         im.y = -30;
         _source.addChild(im);
@@ -164,12 +153,10 @@ public class WOBuyerNyashuk extends WindowMain{
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('tutorial_arrow_pink'));
         MCScaler.scale(im, im.height -50, im.width -50);
         im.x = -140;
-//        im.y = -45;
         _source.addChild(im);
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
         im.x = -50;
-//        im.y = -4;
         _source.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_level_icon'));
         im.x = 45;

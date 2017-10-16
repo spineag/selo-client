@@ -33,10 +33,10 @@ public class XPStarItem {
         source.y = y;
         if (xp > 1) {
             _txtStar = new CTextField(50,30, '+' + String(xp));
-            _txtStar.setFormat(CTextField.BOLD18, 18, 0xff7a3f, Color.WHITE);
+            _txtStar.setFormat(CTextField.BOLD18, 18, Color.WHITE, 0xff7a3f);
             _txtStar.alignH = Align.LEFT;
-            _txtStar.x = 1;
-            _txtStar.y = -5;
+            _txtStar.x = 3;
+//            _txtStar.y = -14;
             source.addChild(_txtStar);
         }
         startFly();

@@ -93,7 +93,7 @@ public class WOMarketChoose extends WindowMain {
 
         _btnSell = new CButton();
         _btnSell.addButtonTexture(145, CButton.HEIGHT_55, CButton.GREEN, true);
-        _btnSell.addTextField(145, 40, 0, 0, String(g.managerLanguage.allTexts[407]));
+        _btnSell.addTextField(145, 40, 0, 5, String(g.managerLanguage.allTexts[407]));
         _btnSell.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnSell.x = 425;
         _btnSell.y = 155;

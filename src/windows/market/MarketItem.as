@@ -115,6 +115,9 @@ public class MarketItem {
         _btnAdditem.x = 83;
         _btnAdditem.clickCallback = onClick;
 
+        _imageCont = new Sprite();
+        source.addChild(_imageCont);
+
         _costTxt = new CTextField(122, 30, '');
         _costTxt.setFormat(CTextField.BOLD24, 24,ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _costTxt.cacheIt = false;
@@ -130,8 +133,7 @@ public class MarketItem {
         _countTxt.y = 100;
         source.addChild(_countTxt);
 
-        _imageCont = new Sprite();
-        source.addChild(_imageCont);
+
         _txtPlawka = new CTextField(100,60, String(g.managerLanguage.allTexts[389]));
         _txtPlawka.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
         _txtPlawka.cacheIt = false;
@@ -236,13 +238,8 @@ public class MarketItem {
 
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
-//        _coin.y = 148;
-//        _coin.x = _bg.width/2 + 15;
         _txtPlawka.x = 5;
         _txtPlawka.y = 85;
-//        _costTxt.y = 147;
-//        _costTxt.pivotX = _costTxt.width/2;
-//        _costTxt.x = _bg.width/2 - 15;
         if (_isUser) {
             visiblePapperTimer();
         }
@@ -659,51 +656,19 @@ public class MarketItem {
         if (_imageCont) unFillIt();
         var im:Image;
         _data = data;
-//        if(_papperBtn) _papperBtn.visible = false;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
-        im.x = 40;
-        im.y = 75;
+        MCScaler.scale(im,im.height-10,im.width-10);
+        im.x = 33;
+        im.y = 55;
         _imageCont.addChild(im);
-//        if (_data) {
-//            if (_data.buildType == BuildType.PLANT) {
-//                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
-//            } else {
-//                im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
-//            }
-//            if (!im) {
-//                Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
-//                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
-//                return;
-//            }
-//            MCScaler.scale(im, 45, 45);
-//            im.x = 2;
-//            im.y = 90;
-//            if (_imageCont) _imageCont.addChild(im);
-//        } else {
-//            Cc.error('MarketItem fillIt:: empty _data');
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
-//            return;
-//        }
         if (_txtPlawka) {
             _txtPlawka.visible = true;
             _txtPlawka.y = 45;
         }
         if (_btnAdditem) _btnAdditem.visible = false;
         _countMoney = cost;
-//        if (_coin) {
-//            _coin.y = 85;
-//            _coin.x = _bg.width / 2;
-//        }
-//        if (_costTxt) {
-//            _costTxt.y = 105;
-//            _costTxt.x = _bg.width / 2 + 12;
-//        }
         if (_plawkaCoins) _plawkaCoins.visible = true;
         if (_costTxt) _costTxt.text = String(cost);
-//        if (_isUser) {
-//            visiblePapperTimer();
-//        }
-//        _costTxt.text = String(_dataFromServer.cost); ?? double
         if (_dataFromServer.buyerSocialId == '1') {
             _personBuyer = g.user.neighbor;
             _personBuyerTempItem = null;
@@ -738,7 +703,7 @@ public class MarketItem {
                     _avaDefault.pivotX = _avaDefault.width / 2;
                     _avaDefault.pivotY = _avaDefault.height / 2;
                     _avaDefault.x = _bg.width / 2 - 9;
-                    _avaDefault.y = - 25;
+                    _avaDefault.y = 5;
                     _imageCont.addChild(_avaDefault);
                     _ramkAva.visible = true;
                 } else {
@@ -757,7 +722,7 @@ public class MarketItem {
                         _avaDefault.pivotX = _avaDefault.width / 2;
                         _avaDefault.pivotY = _avaDefault.height / 2;
                         _avaDefault.x = _bg.width / 2 - 9;
-                        _avaDefault.y = - 25;
+                        _avaDefault.y = 5;
                         _imageCont.addChild(_avaDefault);
                         _ramkAva.visible = true;
                     } else {
@@ -774,7 +739,7 @@ public class MarketItem {
                             _avaDefault.pivotX = _avaDefault.width / 2;
                             _avaDefault.pivotY = _avaDefault.height / 2;
                             _avaDefault.x = _bg.width / 2 - 9;
-                            _avaDefault.y = - 25;
+                            _avaDefault.y = 5;
                             _imageCont.addChild(_avaDefault);
                             _ramkAva.visible = true;
                         } else {
@@ -793,12 +758,18 @@ public class MarketItem {
         }
 
         _btnGoAwaySaleItem = new CButton();
-        _btnGoAwaySaleItem.addButtonTexture(76, 29, CButton.GREEN, true);
-        _txtGo = new CTextField(70, 30, String(g.managerLanguage.allTexts[386]));
-        _txtGo.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtGo.x = 3;
-        _btnGoAwaySaleItem.addChild(_txtGo);
+        _btnGoAwaySaleItem.addButtonTexture(80, CButton.HEIGHT_32, CButton.GREEN, true);
+        _btnGoAwaySaleItem.addTextField(80, 30, 0, 0, String(g.managerLanguage.allTexts[386]));
+        _btnGoAwaySaleItem.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         source.addChild(_btnGoAwaySaleItem);
+
+//        _btnGoAwaySaleItem = new CButton();
+//        _btnGoAwaySaleItem.addButtonTexture(76, 29, CButton.GREEN, true);
+//        _txtGo = new CTextField(70, 30, String(g.managerLanguage.allTexts[386]));
+//        _txtGo.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//        _txtGo.x = 3;
+//        _btnGoAwaySaleItem.addChild(_txtGo);
+//        source.addChild(_btnGoAwaySaleItem);
 
 //
 //        _btnGoAwaySaleItem = new CButton();
@@ -808,8 +779,8 @@ public class MarketItem {
 ////        txt.y = 5;
 //        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         Cc.info('showScaleImage 19');
-        _btnGoAwaySaleItem.x = 55;
-        _btnGoAwaySaleItem.y = 10;
+        _btnGoAwaySaleItem.x = 82;
+        _btnGoAwaySaleItem.y = -15;
         source.addChild(_btnGoAwaySaleItem);
         _btnGoAwaySaleItem.visible = false;
         var f1:Function = function ():void {

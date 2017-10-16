@@ -5,12 +5,15 @@ package windows.orderWindow {
 import com.greensock.TweenMax;
 import data.BuildType;
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
+
 import order.OrderItemStructure;
 import manager.Vars;
 import starling.display.Image;
 import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
+import utils.MCScaler;
 
 public class WOOrderItem {
     public var source:CSprite;
@@ -61,11 +64,12 @@ public class WOOrderItem {
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         source.addChild(_txtName);
 
-        _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
+        _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
+        MCScaler.scale(_starImage, 40,40);
         _starImage.alignPivot();
         _starImage.x = 26;
         _starImage.y = 110;
-        _starImage.filter = ManagerFilters.SHADOW_TINY;
+//        _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
         _txtXP = new CTextField(64, 30, "8888");
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
@@ -115,7 +119,8 @@ public class WOOrderItem {
         _position = position;
         _order = order;
         _clickCallback = f;
-        _txtName.text = _order.catOb.name;
+        if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
+        else _txtName.text = _order.catOb.nameRU;
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.text = String(_order.xp * g.managerParty.coefficient);
             else _txtXP.text = String(_order.xp);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.text = String(_order.coins * g.managerParty.coefficient);
@@ -128,7 +133,8 @@ public class WOOrderItem {
 
         if (_leftSeconds > 0) {
             if (_order.delOb) {
-                _txtName.visible = false;
+                _txtName.text = String(g.managerLanguage.allTexts[1171]);
+//                _txtName.visible = false;
                 _txtXP.visible = false;
                 _txtCoins.visible = false;
                 _coinsImage.visible = false;
@@ -139,7 +145,8 @@ public class WOOrderItem {
                 _clockImage.visible = false;
                 _delImage.visible = true;
             } else {
-                _txtName.visible = false;
+                _txtName.text = String(g.managerLanguage.allTexts[1171]);
+//                _txtName.visible = false;
                 _txtXP.visible = false;
                 _txtCoins.visible = false;
                 _coinsImage.visible = false;
@@ -153,7 +160,8 @@ public class WOOrderItem {
         } else {
             if (_order.delOb)  _order.delOb = false;
             _leftSeconds = -1;
-            _txtName.visible = true;
+            _txtName.text = _order.catOb.name;
+//            _txtName.visible = true;
             _txtXP.visible = true;
             _txtCoins.visible = true;
             _coinsImage.visible = true;
@@ -201,7 +209,11 @@ public class WOOrderItem {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTime);
             g.managerOrder.checkForFullOrder();
-            if(_txtName) _txtName.visible = true;
+            if(_txtName) {
+                if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
+                else _txtName.text = _order.catOb.nameRU;
+                _txtName.visible = true;
+            }
             if(_txtXP) _txtXP.visible = true;
             if(_txtCoins) _txtCoins.visible = true;
             if(_coinsImage) _coinsImage.visible = true;
@@ -235,7 +247,11 @@ public class WOOrderItem {
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
-            if(_txtName)_txtName.visible = true;
+            if(_txtName) {
+                if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
+                else _txtName.text = _order.catOb.nameRU;
+                _txtName.visible = true;
+            }
             if(_txtXP)_txtXP.visible = true;
             if(_txtCoins)_txtCoins.visible = true;
             if(_coinsImage)_coinsImage.visible = true;
@@ -316,7 +332,7 @@ public class WOOrderItem {
     public function deleteIt():void {
         g.hint.hideIt();
         if (!source) return;
-        _starImage.filter.dispose();
+//        _starImage.filter.dispose();
         _coinsImage.filter.dispose();
         if (_txtName) {
             source.removeChild(_txtName);

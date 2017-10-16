@@ -158,6 +158,9 @@ public class ManagerBuyerNyashuk {
                 if (g.allData.getResourceById(arr[i].id).visitorPrice > 0) arrMax.push(arr[i]);
             }
             ra =  int(Math.random() * arrMin.length);
+            if (_arr && _arr.length > 0) {
+                if (arrMin[ra].id == _arr[0].resourceId)  ra =  int(Math.random() * arrMin.length);
+            }
             ob = {};
             ob.buyerId = 1;
             ob.resourceId = arrMin[ra].id;
@@ -172,6 +175,9 @@ public class ManagerBuyerNyashuk {
             _arr.push(ob);
 
             ra = int(Math.random() * arrMax.length);
+            if (_arr && _arr.length > 0) {
+                if (arrMax[ra].id == _arr[0].resourceId)  ra =  int(Math.random() * arrMax.length);
+            }
             ob = {};
             ob.buyerId = 2;
             ob.resourceId = arrMax[ra].id;
