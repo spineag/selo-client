@@ -279,9 +279,9 @@ public class WOOrderItem {
         g.gameDispatcher.addToTimer(renderLeftTimeOrder);
         g.managerOrder.onSkipTimer(_order);
         if (_order) _order.delOb = false;
-        _checkImage.visible = false;
-        _delImage.visible = false;
-        _clockImage.visible = true;
+        if (_checkImage) _checkImage.visible = false;
+        if (_delImage)_delImage.visible = false;
+        if (_clockImage) _clockImage.visible = true;
         if (_order) _order.startTime = int(new Date().getTime()/1000) + 5;
     }
 
