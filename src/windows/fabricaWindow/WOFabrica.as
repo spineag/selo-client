@@ -44,7 +44,7 @@ public class WOFabrica extends WindowMain {
         _blackAlpha = 0;
         _shift = 0;
         _callbackClickBG = onClickExit;
-        _topBG = new WindowBackgroundFabrica(526, 164, 54);
+        _topBG = new WindowBackgroundFabrica(526, 164, 60);
         _topBG.y = -_woHeight/2 + 120;
         _source.addChild(_topBG);
         _txtWindowName = new CTextField(300, 50, '');
