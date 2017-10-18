@@ -107,7 +107,7 @@ public class WONoResources extends WindowMain {
                 }
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.idResourceRaw, _countOfResources);
-                item.source.x =  - item.source.width/2;
+                item.source.x =  - item.source.width/4;
                 item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
@@ -134,7 +134,7 @@ public class WONoResources extends WindowMain {
                 }
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.id, _countOfResources);
-                item.source.x =  - item.source.width/2;
+                item.source.x =  - item.source.width/4;
                 item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
@@ -250,7 +250,7 @@ public class WONoResources extends WindowMain {
                 _countOfResources = _paramData.count;
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
-                item.source.x =  - item.source.width/2;
+                item.source.x =  - item.source.width/4;
                 item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
@@ -272,7 +272,7 @@ public class WONoResources extends WindowMain {
                 _countOfResources = _paramData.count;
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.data.id, _paramData.count);
-                item.source.x =  - item.source.width/2;
+                item.source.x =  - item.source.width/4;
                 item.source.y = 8;
                 _source.addChild(item.source);
                 _arrItems.push(item);
@@ -305,7 +305,7 @@ public class WONoResources extends WindowMain {
         if (_data.buildType && _data.buildType == BuildType.INSTRUMENT) {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, 1);
-            im.source.x =  - im.source.width/2;
+            im.source.x =  - im.source.width/4;
             im.source.y = 8;
             _source.addChild(im.source);
             _arrItems.push(im);
@@ -324,7 +324,7 @@ public class WONoResources extends WindowMain {
         } else if (_data.buildType && _data.buildType == BuildType.PLANT) {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, _countOfResources);
-            im.source.x =  - im.source.width/2;
+            im.source.x =  - im.source.width/4;
             im.source.y = 8;
             _source.addChild(im.source);
             _arrItems.push(im);

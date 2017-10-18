@@ -50,7 +50,7 @@ public class WOFabrica extends WindowMain {
         _txtWindowName = new CTextField(300, 50, '');
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -150;
-        _txtWindowName.y = -_woHeight/2 + 32;
+        _txtWindowName.y = -_woHeight/2 + 36;
         _source.addChild(_txtWindowName);
         _mask = new Sprite();
         _mask.mask = new Quad(524,100 + 150);

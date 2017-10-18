@@ -305,6 +305,7 @@ public class ShopNewListItem {
 
                     if (maxCount == curCount) {
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
+                            _txtInfo.text =  String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
                             if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                             _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;

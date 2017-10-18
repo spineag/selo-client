@@ -43,11 +43,6 @@ public class WOPaperNewItem {
         _source = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_cell'));
         _source.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
-        MCScaler.scale(im, 74, 70);
-        im.x = 6;
-        im.y = 5;
-        _source.addChild(im);
 
         _txtSellerName = new CTextField(131, 48, "");
         _txtSellerName.setFormat(CTextField.BOLD24, 21, ManagerFilters.BLUE_COLOR, Color.WHITE);
@@ -91,8 +86,12 @@ public class WOPaperNewItem {
         im.x = 200;
         im.y = 131;
         _source.addChild(im);
-
         updatePersonInfo();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
+        MCScaler.scale(im, 74, 70);
+        im.x = 6;
+        im.y = 5;
+        _source.addChild(im);
         if (_data.needHelp > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             MCScaler.scale(_helpIcon, 20, 20);

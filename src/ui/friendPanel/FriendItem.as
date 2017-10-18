@@ -62,7 +62,6 @@ public class FriendItem {
         _preloader = new FlashAnimatedPreloader();
         _preloader.source.x = 30;
         _preloader.source.y = 40;
-//        _preloader.source.scaleX = _preloader.source.scaleY = .7;
         source.addChild(_preloader.source);
         _timer = 5;
         g.gameDispatcher.addToTimer(onTimer);
@@ -113,8 +112,8 @@ public class FriendItem {
             _friendBoardHelpInfo = new CSprite();
             var help:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             MCScaler.scale(help, 20, 20);
-            help.x = 38;
-            help.y = 18;
+            help.x = 44;
+            help.y = 10;
             _friendBoardHelpInfo.addChild(help);
             _friendBoardHelpInfo.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[481])); };
             _friendBoardHelpInfo.outCallback = function():void { g.hint.hideIt(); };
@@ -154,11 +153,6 @@ public class FriendItem {
         Cc.ch('social', 'FriendItem on load photo: ' + _person.photo);
         if (!bitmap) {
             bitmap = g.pBitmaps[_person.photo].create() as Bitmap;
-//            if (_preloader) {
-//                source.removeChild(_preloader.source);
-//                _preloader.deleteIt();
-//                _preloader = null;
-//            }
         }
         if (!bitmap) {
             if (_preloader) {
@@ -202,7 +196,6 @@ public class FriendItem {
         _ava.x = 10;
         _ava.y = 8;
         if (source) source.addChildAt(_ava,0);
-//        source.addChildAt(_ava,1);
     }
 
     private function onTimer():void {
@@ -217,14 +210,6 @@ public class FriendItem {
         }
     }
 
-//    public function newLevel():void {
-//        txtLvl.text = String(_person.level);
-//        txtLvl.x = 36;
-//        txtLvl.y = 50;
-//        source.addChild(txtLvl);
-//        if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
-//        if (_person is NeighborBot) txtLvl.text = '10';
-//    }
 
     public function getItemProperties():Object {
         var ob:Object = {};

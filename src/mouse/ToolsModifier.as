@@ -201,7 +201,7 @@ public class ToolsModifier {
                 _mouseIcon.addChild(im2);
                 if (im) {
                     MCScaler.scale(im, 50, 50);
-                    im.x = 39 - im.width/2;
+                    im.x = 42 - im.width/2;
                     im.y = 39 - im.height/2;
                     _mouseIcon.addChild(im);
                 }

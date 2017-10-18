@@ -21,7 +21,7 @@ public class CutSceneProperties {
         var obj:Object = {};
 
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 5;
+        obj.level = 7;
         obj.id_action = ManagerCutScenes.ID_ACTION_SHOW_MARKET;
         obj.text = String(g.managerLanguage.allTexts[516]);
         obj.text2 = String(g.managerLanguage.allTexts[517]);
@@ -36,28 +36,28 @@ public class CutSceneProperties {
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 6;
+        obj.level = 8;
         obj.id_action = ManagerCutScenes.ID_ACTION_BUY_DECOR;
         obj.text = String(g.managerLanguage.allTexts[519]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 6;
+        obj.level = 8;
         obj.id_action = ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR;
         obj.text = String(g.managerLanguage.allTexts[520]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 6;
+        obj.level = 8;
         obj.id_action = ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR;
         obj.text = String(g.managerLanguage.allTexts[521]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 11;
+        obj.level = 17;
         obj.id_action = ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE;
         obj.text = String(g.managerLanguage.allTexts[522]);
         _prop.push(obj);
@@ -76,7 +76,7 @@ public class CutSceneProperties {
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_ADD_TO_PAPPER;
-        obj.level = 4;
+        obj.level = 7;
         obj.text = String(g.managerLanguage.allTexts[530]);
         obj.text2 = String(g.managerLanguage.allTexts[531]);
         _prop.push(obj);

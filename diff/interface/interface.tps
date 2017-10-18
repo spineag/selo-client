@@ -206,7 +206,6 @@
             <filename>blue_coupone.png</filename>
             <filename>bonus.png</filename>
             <filename>bt_close.png</filename>
-            <filename>button_yel_left_mini.png</filename>
             <filename>button_yel_left.png</filename>
             <filename>carton</filename>
             <filename>cat_blue.png</filename>
@@ -226,7 +225,6 @@
             <filename>empty_red_tile.png</filename>
             <filename>exclamation_point.png</filename>
             <filename>fabrica</filename>
-            <filename>friends_panel_ar.png</filename>
             <filename>fs_blue_cell_big_white.png</filename>
             <filename>fs_blue_cell_big.png</filename>
             <filename>fs_friend_panel.png</filename>
@@ -238,7 +236,6 @@
             <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
             <filename>main_quest_icon.png</filename>
-            <filename>minus.png</filename>
             <filename>neighbor.jpg</filename>
             <filename>new_button_big</filename>
             <filename>new_button_medium</filename>
@@ -269,18 +266,13 @@
             <filename>rubins_small.png</filename>
             <filename>rubins.png</filename>
             <filename>sale_icon.png</filename>
-            <filename>sale.png</filename>
             <filename>server_clock</filename>
             <filename>shop</filename>
-            <filename>shop_window_tr.png</filename>
             <filename>silo_bg_progres_bar_center.png</filename>
             <filename>silo_bg_progres_bar.png</filename>
             <filename>silo_yellow_cell.png</filename>
-            <filename>star_medium.png</filename>
             <filename>star_particle.png</filename>
             <filename>star_small_new.png</filename>
-            <filename>star_small.png</filename>
-            <filename>star.png</filename>
             <filename>storage_window_prl_c.png</filename>
             <filename>storage_window_prl_l.png</filename>
             <filename>storage_window_prl_r.png</filename>

@@ -103,8 +103,8 @@ public class TimerHint {
         _closeTime = 1;
         _txtName.text = name;
         if (_txtName.textBounds.height >= 40) {
-            _bg = new HintBackground(188, 100, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-            _txtName.y = -120;
+            _bg = new HintBackground(188, 105, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+            _txtName.y = -125;
         } else {
             _bg = new HintBackground(188, 80, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
             _txtName.y = -110;

@@ -32,8 +32,9 @@ public class BuyHint {
         if (rectangle.height <= 42 - 12) rectangle.height = 30;
             else if (rectangle.height <= 67 - 12) rectangle.height = 55;
         _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
-        MCScaler.scale(_imCoins,20,20);
-        _imCoins.y = 6;
+        MCScaler.scale(_imCoins,25,25);
+        _imCoins.y = 8;
+        _imCoins.x = -3;
         _txtHint.width = rectangle.width + 20;
         _txtHint.height = rectangle.height + 10;
         _imCoins.x =  _txtHint.width - 5;

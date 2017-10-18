@@ -45,9 +45,6 @@ public class TreeHint {
     private var _contWatering:CButton;
     private var _isOnHover:Boolean;
     private var _isShowed:Boolean;
-    private var _imageCircle:Image;
-    private var _imageBgItem:Image;
-    private var _imageBgItemHelp:Image;
     private var _imageItem:Image;
     private var _imageHelp:Image;
     private var _txtCount:CTextField;
@@ -69,37 +66,26 @@ public class TreeHint {
         _contWatering = new CButton();
         _isShowed = false;
         _isOnHover = false;
-        _bg = new HintBackground(176, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _bg = new HintBackground(180, 140, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(_bg);
 
         _imageHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture("watering_can"));
-        _imageHelp.width = _imageHelp.height = 40;
-        _imageHelp.x = -60;
-        _imageHelp.y = -90;
-        _imageBgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
-        _imageBgItem.y = -100;
-        _imageBgItemHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
-        _imageBgItemHelp.x = -75;
-        _imageBgItemHelp.y = -100;
-        _imageCircle = new Image(g.allData.atlas['interfaceAtlas'].getTexture("cursor_number_circle"));
-        _imageCircle.x = 45;
-        _imageCircle.y = -110;
+        MCScaler.scale(_imageHelp, _imageHelp.height-25, _imageHelp.width-25);
+        _imageHelp.x = -80;
+        _imageHelp.y = -110;
 
         _txtCount = new CTextField(50,50,"");
-        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
-        _txtCount.x = 38;
-        _txtCount.y = -119;
-        _txtName = new CTextField(200,50,"");
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtName.x = -100;
-        _txtName.y = -140;
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCount.x = 17;
+        _txtCount.y = -65;
+        _txtName = new CTextField(176,50,"");
+        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtName.x = -87;
+        _txtName.y = -155;
 
-        _contDelete.addDisplayObject(_imageBgItem);
-        _contWatering.addDisplayObject(_imageBgItemHelp);
         _contWatering.addChild(_imageHelp);
         _source.addChild(_contWatering);
         _source.addChild(_contDelete);
-        _source.addChild(_imageCircle);
         _source.addChild(_txtName);
 
         _source.hoverCallback = onHover;
@@ -160,10 +146,17 @@ public class TreeHint {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');
             return;
         }
-        MCScaler.scale(_imageItem,55,55);
-        _imageItem.y = -95;
-        _imageItem.x = 5;
+        MCScaler.scale(_imageItem,65,65);
+        _imageItem.y = -105;
+        _imageItem.x = 10;
         _txtCount.text = String(g.userInventory.getCountResourceById(data.removeByResourceId));
+        if (g.userInventory.getCountResourceById(data.removeByResourceId) > 0) {
+            _txtCount.changeTextColor =  Color.WHITE;
+            _txtCount.changeTextStroke = ManagerFilters.BLUE_COLOR;
+        } else {
+            _txtCount.changeTextColor = ManagerFilters.RED_TXT_NEW;
+            _txtCount.changeTextStroke = Color.WHITE;
+        }
         _contDelete.addChild(_imageItem);
         _source.addChild(_txtCount);
         g.cont.hintCont.addChild(_source);
@@ -191,7 +184,6 @@ public class TreeHint {
     }
 
     public function managerHide(callback:Function = null):void {
-//        if (_isShowed) {
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);
             tween.onComplete = function ():void {
@@ -210,7 +202,6 @@ public class TreeHint {
             };
             g.starling.juggler.add(tween);
             g.gameDispatcher.removeFromTimer(closeTimer);
-//        }
     }
 
     private function closeTimer():void {
@@ -263,7 +254,6 @@ public class TreeHint {
             }
             _wateringCallback = null;
         }
-
     }
 
     private function onClickWatering():void {
@@ -285,17 +275,21 @@ public class TreeHint {
 
     private function onHoverDelete():void {
         g.hint.showIt(String(g.managerLanguage.allTexts[616]));
+        _imageItem.filter = ManagerFilters.BUILDING_HOVER_FILTER;
     }
 
     private function onOutDelete():void {
         g.hint.hideIt();
+        _imageItem.filter = null;
     }
 
     private function onHoverWatering():void {
         g.hint.showIt(String(g.managerLanguage.allTexts[617]));
+        _imageHelp.filter = ManagerFilters.BUILDING_HOVER_FILTER;
     }
     private function onOutWatering():void {
         g.hint.hideIt();
+        _imageHelp.filter = null;
     }
 }
 }

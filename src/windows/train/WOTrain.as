@@ -101,8 +101,8 @@ public class WOTrain extends WindowMain {
         _txt4 = new CTextField(280,60,String(g.managerLanguage.allTexts[299]));
         _txt4.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txt4.alignPivot();
-        _txt4.x = -_woWidth/2 + 794;
-        _txt4.y = -_woHeight/2 + 276;
+        _txt4.x = -_woWidth/2 + 786;
+        _txt4.y = -_woHeight/2 + 271;
 
         _source.addChild(_txt4);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock'));
