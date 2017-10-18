@@ -69,11 +69,11 @@ public class LockedLandItem {
             _btn = new CButton();
 //            _btnOpen.addTextField(158, 41, 0, 0, String(g.managerLanguage.allTexts[418]));
 //            _btnOpen.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR)
-            _btn.addButtonTexture(120, CButton.HEIGHT_41, CButton.GREEN, true);
-            _btn.addTextField(115, 35, 0, 0, String(g.managerLanguage.allTexts[355]));
+            _btn.addButtonTexture(135, CButton.HEIGHT_41, CButton.GREEN, true);
+            _btn.addTextField(135, 35, 0, 0, String(g.managerLanguage.allTexts[355]));
             _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
             source.addChild(_btn);
-            _btn.x = 20;
+            _btn.x = 25;
             _btn.y = 105;
             var f1:Function = function ():void {
                 g.windowsManager.hideWindow(WindowsManager.WO_LOCKED_LAND);
@@ -129,7 +129,7 @@ public class LockedLandItem {
             _isGood = true;
         } else {
             _btn = new CButton();
-            _btn.addButtonTexture(120, CButton.HEIGHT_41, CButton.GREEN, true);
+            _btn.addButtonTexture(135, CButton.HEIGHT_41, CButton.GREEN, true);
             _btn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
             source.addChild(_btn);
             _txtBtn = new CTextField(120, 38, String(g.managerLanguage.allTexts[355]) + ' ' + String(g.allData.getResourceById(id).priceHard *(count - g.userInventory.getCountResourceById(id))));
@@ -137,9 +137,9 @@ public class LockedLandItem {
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(im,im.height-5,im.width-5);
             var sensi:SensibleBlock = new SensibleBlock();
-            sensi.textAndImage(_txtBtn,im,120);
+            sensi.textAndImage(_txtBtn,im,135);
             _btn.addSensBlock(sensi,0,20);
-            _btn.x = 20;
+            _btn.x = 25;
             _btn.y = 105;
             _btn.clickCallback = buyItem;
             _isGood = false;

@@ -14,6 +14,9 @@ import build.decor.DecorPostFenceArka;
 import build.decor.DecorTail;
 import build.wild.Wild;
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
+
 import flash.geom.Point;
 
 import hint.MouseHint;
@@ -575,11 +578,6 @@ public class ToolsModifier {
             for (j = posX; j < posX + width; j++) {
                 if (i < 0 || j < 0 || i >= 80 || j >= 80) return false;
                 obj = _townMatrix[i][j];
-//                if (g.tuts.isTuts) {
-//                    if (!obj.isTutorialBuilding) {
-//                        return false;
-//                    }
-//                }
                 if (!obj.inGame) return false;
                 if (obj.isFull) return false;
                 if (obj.isBlocked) return false;
@@ -599,6 +597,7 @@ public class ToolsModifier {
                 if (!obj.inGame) return false;
                 if (obj.isBlocked) return false;
                 if (ob.isLockedLand) return false;
+                if (obj.build && obj.build.dataBuild.buildType == BuildType.WILD) return false;
             }
         }
 

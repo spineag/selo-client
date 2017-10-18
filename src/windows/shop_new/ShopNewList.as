@@ -77,7 +77,7 @@ public class ShopNewList {
         _shift = 0;
         _cont.x = 0;
         fillItems(ar);
-        checkArrows();
+        checkArrows(0);
     }
 
     private function clearItems():void {
@@ -199,11 +199,12 @@ public class ShopNewList {
         TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;   checkArrows(); }});
     }
 
-    private function checkArrows():void {
+    private function checkArrows(i:int = 1):void {
         if (_maxShift == 0) _rightArrow.visible = _leftArrow.visible = false;
         else {
             _leftArrow.visible = _shift > 0;
-            _rightArrow.visible = _shift < _maxShift;
+            if (i == 0) _curPage = 0;
+            _rightArrow.visible = (_curPage+i) < _maxPage;
         }
        updateTxtPages();
     }
