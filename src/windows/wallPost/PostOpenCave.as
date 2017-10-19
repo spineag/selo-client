@@ -78,8 +78,7 @@ public class PostOpenCave extends WindowMain {
         _txt2.x = 119;
         _txt2.y = -2;
         _btn.addChild(_txt2);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star_small"));
-        im.filter = ManagerFilters.SHADOW_TINY;
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star_small_new"));
         im.x = 165;
         im.y = 8;
         _btn.addChild(im);
