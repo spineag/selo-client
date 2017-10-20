@@ -33,6 +33,7 @@ public class WOPaperNewItem {
     private var _ava:Image;
     private var _personSeller:Someone;
     private var _helpIcon:Image;
+    private var _ramka:Image;
     private var _wo:WOPaperNew;
     private var _dataResource:StructureDataResource;
 
@@ -87,15 +88,15 @@ public class WOPaperNewItem {
         im.y = 131;
         _source.addChild(im);
         updatePersonInfo();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
-        MCScaler.scale(im, 74, 70);
-        im.x = 6;
-        im.y = 5;
-        _source.addChild(im);
+        _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
+        MCScaler.scale(_ramka, 74, 70);
+        _ramka.x = 6;
+        _ramka.y = 5;
+        _source.addChild(_ramka);
         if (_data.needHelp > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-            MCScaler.scale(_helpIcon, 20, 20);
-            _helpIcon.x = 150;
+//            MCScaler.scale(_helpIcon, 25, 25);
+            _helpIcon.x = 215;
             _helpIcon.y = 2;
             _source.addChild(_helpIcon);
         }
@@ -163,6 +164,7 @@ public class WOPaperNewItem {
         if (!_data) return;
         _data.isOpened = true;
         _source.alpha = .5;
+        _ramka.alpha = .7;
         g.windowsManager.cashWindow = _wo;
         _wo.hideIt();
         _personSeller.idVisitItemFromPaper = _data.resourceId;
