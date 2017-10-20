@@ -34,7 +34,7 @@ public class DropMoney {
                     } else item = new DropMoneyItem(_x, _y, cd, type, endFly);
                     _source.addChild(item.source);
                 };
-                Utils.createDelay(Math.random(), function():void { f1(i); });
+                Utils.createDelay(i*.1, function():void { f1(i); });
             }
         } else if (_count <= 5) {
             for (i = 0; i < _count; i++ ) {
@@ -42,7 +42,7 @@ public class DropMoney {
                     item = new DropMoneyItem(_x, _y, 1, type, endFly);
                     _source.addChild(item.source);
                 };
-                Utils.createDelay(Math.random(), f2);
+                Utils.createDelay(i*.1, f2);
             }
         }
         g.cont.animationsResourceCont.addChild(_source);

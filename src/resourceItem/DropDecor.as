@@ -8,10 +8,14 @@ import com.junkbyte.console.Cc;
 import data.StructureDataBuilding;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.utils.Color;
+
+import utils.AnimationsStock;
 import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
@@ -22,6 +26,7 @@ public class DropDecor {
     private var _count:int;
     private var _txtCount:CTextField;
     private var _source:Sprite;
+    private var _image:Image;
 
     public function DropDecor(globalX:int, globalY:int, data:StructureDataBuilding, w:int, h:int, count:int=1, delay:Number = 0) {
         _source = new Sprite();
@@ -36,13 +41,11 @@ public class DropDecor {
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'dropDecor');
                 return;
             }
-            var im:Image = new Image(texture);
-            MCScaler.scale(im, w, h);
-            im.alignPivot();
-            _source.addChild(im);
-        } else {
-            Cc.error('DropDecor:: no image for decor with id: ' + _data.id);
-        }
+            _image = new Image(texture);
+            MCScaler.scale(_image, w, h);
+            _image.alignPivot();
+            _source.addChild(_image);
+        } else Cc.error('DropDecor:: no image for decor with id: ' + _data.id);
         if (_count > 1) {
             _txtCount =  new CTextField(50,50,'');
             _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -83,6 +86,7 @@ public class DropDecor {
             for (var i:int=0; i<_count; i++) {
                 g.directServer.buyAndAddToInventory(_data.id, f1);
             }
+            deleteIt();
         };
 
         var tempX:int = globalX - 140 + int(Math.random()*140);
@@ -93,7 +97,14 @@ public class DropDecor {
         if (t > 2) t -= .6;
         if (t > 3) t -= 1;
         var scale:Number = _source.scaleX/1.1;
+        AnimationsStock.joggleItBaby(_image, 90, .2, 1);
         new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:obj.point.x, y:obj.point.y}], scaleX:scale, scaleY:scale, delay:delay, ease:Linear.easeOut ,onComplete: f});
+    }
+
+    private function deleteIt():void {
+        if (!_source) return;
+        TweenMax.killTweensOf(_image);
+        _source.dispose();
     }
 }
 }

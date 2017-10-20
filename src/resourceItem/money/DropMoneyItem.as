@@ -20,6 +20,8 @@ import starling.display.Sprite;
 import starling.utils.Align;
 import starling.utils.Color;
 
+import utils.AnimationsStock;
+
 import utils.CTextField;
 import utils.MCScaler;
 
@@ -86,6 +88,7 @@ public class DropMoneyItem {
             endY = source.y - 115;
             plusY = endY + 120;
         }
+        AnimationsStock.joggleItBaby(_image, 90, .3, 1);
         new TweenMax(source, .9, {bezier:[{x: source.x, y: source.y}, {x:endX, y:endY}, {x:plusX, y:plusY}], ease:Linear.easeOut, onComplete: flyItMoney, delay:.3});
     }
 
@@ -95,10 +98,6 @@ public class DropMoneyItem {
             else endPoint = g.softHardCurrency.getSoftCurrencyPoint();
 
         var f1:Function = function():void {
-            while (source.numChildren) {
-                source.removeChildAt(0);
-            }
-            source = null;
             g.softHardCurrency.animationBuy(_type == DataMoney.HARD_CURRENCY);
             g.userInventory.updateMoneyTxt(_type);
             if (g.managerTips) g.managerTips.calculateAvailableTips();
@@ -107,7 +106,6 @@ public class DropMoneyItem {
             }
             deleteIt();
         };
-        g.xpPanel.serverAddXP(_count);
         var tempX:int;
         source.x < endPoint.x ? tempX = source.x + 70 : tempX = source.x - 70;
         var tempY:int = source.y + 30 + int(Math.random()*20);
@@ -121,6 +119,10 @@ public class DropMoneyItem {
 
     private function deleteIt():void {
         if (!source) return;
+        source.removeChild(_image);
+        TweenMax.killTweensOf(_image);
+        _image.dispose();
+        _image = null;
         if (_txtCount) {
             source.removeChild(_txtCount);
             _txtCount.deleteIt();

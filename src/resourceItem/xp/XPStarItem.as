@@ -9,6 +9,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Align;
 import starling.utils.Color;
+
+import utils.AnimationsStock;
 import utils.CTextField;
 
 public class XPStarItem {
@@ -71,6 +73,7 @@ public class XPStarItem {
             endY = source.y - 115;
             plusY = endY + 120;
         }
+        AnimationsStock.joggleItBaby(_image, 90, .2, 1);
         new TweenMax(source, .9, {bezier:[{x: source.x, y: source.y}, {x:endX, y:endY}, {x:plusX, y:plusY}], ease:Linear.easeOut, onComplete: flyItStar, delay:.3});
     }
 
@@ -79,10 +82,6 @@ public class XPStarItem {
         var endY:int = 35;
 
         var f1:Function = function():void {
-            while (source.numChildren) {
-                source.removeChildAt(0);
-            }
-            source = null;
             g.xpPanel.visualAddXP(_xp);
             if (_callback != null) {
                 _callback.apply();
@@ -103,6 +102,12 @@ public class XPStarItem {
 
     private function deleteIt():void {
         if (!source) return;
+        if (_image) {
+            source.removeChild(_image);
+            TweenMax.killTweensOf(_image);
+            _image.dispose();
+            _image = null;
+        }
         if (_txtStar) {
             source.removeChild(_txtStar);
             _txtStar.deleteIt();

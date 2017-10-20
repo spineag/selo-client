@@ -15,6 +15,8 @@ import particle.CraftItemParticle;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Color;
+
+import utils.AnimationsStock;
 import utils.CTextField;
 import utils.SimpleArrow;
 import tutorial.TutsAction;
@@ -106,7 +108,7 @@ public class CraftItem {
     public function get source():CSprite { return _source;}
     public function get resourceId():int { return _resourceItem.resourceID; }
 
-    public function flyIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
+    public function flyIt(xpFly:Boolean = true, bonusDrop:Boolean = true, delay:Number = 0):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         removeAnimIt();
         if (g.tuts.isTuts && (g.tuts.action == TutsAction.ANIMAL_CRAFT || g.tuts.action == TutsAction.FABRICA_CRAFT)) {
@@ -170,14 +172,15 @@ public class CraftItem {
                 g.craftPanel.afterFly(_resourceItem);
         };
         var tempX:int;
-        _source.x < endPoint.x ? tempX = _source.x + 50 : tempX = _source.x - 50;
-        var tempY:int = _source.y + 30 + int(Math.random()*20);
+        _source.x < endPoint.x ? tempX = _source.x - 50 + int(Math.random()*200) : tempX = _source.x + 50 - int(Math.random()*200);
+        var tempY:int = _source.y + 10 + int(Math.random()*40);
         var dist:int = int(Math.sqrt((_source.x - tempX)*(_source.x - tempX) + (_source.y - tempY)*(_source.y - tempY)));
         dist += int(Math.sqrt((tempX - endPoint.x)*(tempX - endPoint.x) + (tempY - endPoint.y)*(tempY - endPoint.y)));
         var t:Number = dist/1000 * 2;
         if (t > 2) t -= .6;
         if (t > 3) t -= 1;
-        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
+        AnimationsStock.joggleItBaby(_image, 90, .2, .95);
+        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay:delay});
         if (xpFly) new XPStar(_source.x,_source.y,_resourceItem.craftXP);
         if (count > 0) {
             _txtNumber.text = '+' + String(count);

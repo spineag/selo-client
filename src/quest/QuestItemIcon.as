@@ -131,7 +131,7 @@ public class QuestItemIcon {
     public function animateOnTaskUpdate():void {
         if (_isAnimate) return;
         _isAnimate = true;
-        if (_im) AnimationsStock.joggleItBaby(_im, 3, function():void { _isAnimate=false; });
+        if (_im) AnimationsStock.joggleItBaby(_im, 3, .2, .5, function():void { _isAnimate=false; });
         if (_imSmall) AnimationsStock.jumpSimple(_imSmall);
     }
     

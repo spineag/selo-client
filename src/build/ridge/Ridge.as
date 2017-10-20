@@ -87,13 +87,9 @@ public class Ridge extends WorldObject{
         _source.addChild(_plantSprite);
     }
 
-    override public function isContDrag():Boolean {
-        return _source.isContDrag;
-    }
-
-    public function addChildPlant(s:Sprite):void {
-        _plantSprite.addChild(s);
-    }
+    public function stopDragMapDuringPlanting(isPlantingNow:Boolean):void { _source.releaseContDrag = !isPlantingNow; }
+    override public function isContDrag():Boolean { return _source.isContDrag; }
+    public function addChildPlant(s:Sprite):void { _plantSprite.addChild(s); }
 
     public function plantThePlant():void {
         g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
@@ -176,8 +172,10 @@ public class Ridge extends WorldObject{
                 g.managerPlantRidge.onCraft(_plant.idFromServer);
                 _plant = null;
             };
-            var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
+            var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 1, null);
             item.flyIt();
+            item = new CraftItem(0, 0, _resourceItem, _plantSprite, 1, f1);
+            item.flyIt(true, false, .1);
             if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level && Math.random() <= .1) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
 
             onOut();
@@ -198,12 +196,10 @@ public class Ridge extends WorldObject{
         if (g.tuts.isTuts) {
             if (_tutorialCallback == null) return;
             if ((g.tuts.action == TutsAction.NEW_RIDGE || g.tuts.action == TutsAction.PLANT_RIDGE) && g.tuts.isTutsBuilding(this)) {
-
+                // nothing
             } else if (!g.tuts.isTutsBuilding(this) || _tutorialCallback == null) return;
         }
-        if (g.isActiveMapEditor || g.isAway){
-            return;
-        }
+        if (g.isActiveMapEditor || g.isAway) return;
         super.onHover();
         _isOnHover = true;
         if (_stateRidge == GROWED) _plant.hoverGrowed();
@@ -286,10 +282,6 @@ public class Ridge extends WorldObject{
         }
     }
 
-    public function stopDragMapDuringPlanting(isPlantingNow:Boolean):void {
-        _source.releaseContDrag = !isPlantingNow;
-    }
-
     public function onEndClick():void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
@@ -340,11 +332,8 @@ public class Ridge extends WorldObject{
     }
 
     public function checkBuildRect(isEmpty:Boolean):void {
-        if (isEmpty) {
-            _rect = _build.getBounds(_build);
-        } else {
-            _rect = _plantSprite.getBounds(_plantSprite);
-        }
+        if (isEmpty) _rect = _build.getBounds(_build);
+        else _rect = _plantSprite.getBounds(_plantSprite);
     }
 
     private function onBuy():void {
@@ -353,18 +342,13 @@ public class Ridge extends WorldObject{
         g.managerPlantRidge.checkFreeRidges();
         if (_source.filter) _source.filter = null;
         if (g.tuts.isTuts && (g.tuts.action == TutsAction.PLANT_RIDGE || g.tuts.action == TutsAction.PLANT_RIDGE_2)) {
-            if (_tutorialCallback != null) {
-                _tutorialCallback.apply(null, [this]);
-            }
+            if (_tutorialCallback != null) _tutorialCallback.apply(null, [this]);
         }
     }
 
     public function updateRidgeHitArea():void {
-        if (_stateRidge == EMPTY) {
-            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild', ManagerHitArea.TYPE_RIDGE);
-        } else {
-            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge), ManagerHitArea.TYPE_RIDGE, 2, 2);
-        }
+        if (_stateRidge == EMPTY) _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild', ManagerHitArea.TYPE_RIDGE);
+        else _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge), ManagerHitArea.TYPE_RIDGE, 2, 2);
         _source.registerHitArea(_hitArea);
     }
 

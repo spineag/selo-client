@@ -2,8 +2,6 @@
  * Created by user on 6/24/15.
  */
 package resourceItem.xp {
-import ui.xpPanel.*;
-
 import manager.Vars;
 import starling.display.Sprite;
 import utils.Utils;
@@ -33,7 +31,7 @@ public class XPStar {
                     } else item = new XPStarItem(_x, _y, cd, endFly);
                     _source.addChild(item.source);
                 };
-                Utils.createDelay(Math.random(), function():void { f1(i); });
+                Utils.createDelay(i*.1, function():void { f1(i); });
             }
         } else if (_countXp <= 5) {
             for (i = 0; i < _countXp; i++ ) {
@@ -41,7 +39,7 @@ public class XPStar {
                     item = new XPStarItem(_x, _y, 1, endFly);
                     _source.addChild(item.source);
                 };
-               Utils.createDelay(Math.random(), f2);
+               Utils.createDelay(i*.1, f2);
             }
         }
         g.cont.animationsResourceCont.addChild(_source);

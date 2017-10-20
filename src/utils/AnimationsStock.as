@@ -7,10 +7,9 @@ import starling.display.DisplayObject;
 
 public class AnimationsStock {
 
-    public static function joggleItBaby(sp:DisplayObject, count:int=3, f:Function=null, firstLeft:Boolean = true, time:Number = .18):void {
+    public static function joggleItBaby(sp:DisplayObject, count:int=3, deltaRotation:Number = .2, die:Number = .5, f:Function=null, firstLeft:Boolean = true, time:Number = .18):void {
         var defaultRotation:Number = sp.rotation;
-        var deltaRotation:Number = .2;
-        var finishF:Function = function():void { 
+        var finishF:Function = function():void {
             sp.rotation = defaultRotation;
             if (f!=null) f.apply(); 
         };
@@ -18,9 +17,9 @@ public class AnimationsStock {
             var onEnd:Function = function ():void {
                 if (!sp) return;
                 count--;
-                if (count <= 0) TweenMax.to(sp, time, {rotation: defaultRotation, onComplete: finishF});
+                if (count <= 0 || defaultRotation < .01) TweenMax.to(sp, time, {rotation: defaultRotation, onComplete: finishF});
                 else {
-                    deltaRotation *= .5;
+                    deltaRotation *= die;
                     f1();
                 }
             };
