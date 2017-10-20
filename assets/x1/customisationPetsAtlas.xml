@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:a0fe5c91ba61808bab24e81ecee66439:e7625495dcd203dc25a16f0c33354baa:250092d47dbc9dc427f0cb38ced79483$ -->
+<TextureAtlas imagePath="customisationPetsAtlas.png">
+    <SubTexture name="Grey_R_leg_big_back" x="447" y="71" width="14" height="25"/>
+    <SubTexture name="Grey_body_big_back" x="575" y="2" width="38" height="36"/>
+    <SubTexture name="Grey_body_big_front" x="1198" y="2" width="35" height="31"/>
+    <SubTexture name="Grey_body_small_back" x="459" y="42" width="26" height="23"/>
+    <SubTexture name="Grey_body_small_front" x="691" y="40" width="25" height="22"/>
+    <SubTexture name="Grey_first_L_leg_big_back" x="1261" y="34" width="12" height="25"/>
+    <SubTexture name="Grey_first_L_leg_big_front_" x="484" y="100" width="15" height="26"/>
+    <SubTexture name="Grey_first_L_leg_small_back" x="1317" y="108" width="9" height="18"/>
+    <SubTexture name="Grey_first_L_leg_small_front" x="1492" y="64" width="11" height="19"/>
+    <SubTexture name="Grey_first_R_leg_big_back" x="917" y="68" width="15" height="24"/>
+    <SubTexture name="Grey_first_R_leg_front" x="563" y="83" width="14" height="27"/>
+    <SubTexture name="Grey_first_R_leg_small_back" x="1533" y="67" width="11" height="17"/>
+    <SubTexture name="Grey_first_R_leg_small_front" x="1086" y="86" width="10" height="20"/>
+    <SubTexture name="Grey_head_big_back" x="170" y="46" width="37" height="45"/>
+    <SubTexture name="Grey_head_big_front" x="88" y="55" width="40" height="43"/>
+    <SubTexture name="Grey_head_small_back" x="339" y="98" width="24" height="28"/>
+    <SubTexture name="Grey_head_small_front" x="405" y="42" width="25" height="27"/>
+    <SubTexture name="Grey_second_L_leg_big_back" x="1275" y="29" width="15" height="25"/>
+    <SubTexture name="Grey_second_L_leg_front" x="915" y="38" width="12" height="27"/>
+    <SubTexture name="Grey_second_L_leg_small_back" x="1546" y="67" width="11" height="18"/>
+    <SubTexture name="Grey_second_L_leg_small_front" x="968" y="68" width="9" height="20"/>
+    <SubTexture name="Grey_second_R_leg_front" x="501" y="100" width="15" height="26"/>
+    <SubTexture name="Grey_second_R_leg_small_back" x="1281" y="108" width="10" height="18"/>
+    <SubTexture name="Grey_second_R_leg_small_front" x="1505" y="46" width="11" height="19"/>
+    <SubTexture name="Grey_tail-end_big_back" x="376" y="42" width="27" height="26"/>
+    <SubTexture name="Grey_tail-end_big_front" x="1543" y="2" width="26" height="35"/>
+    <SubTexture name="Grey_tail-end_small_back" x="673" y="107" width="20" height="19"/>
+    <SubTexture name="Grey_tail-end_small_front" x="405" y="71" width="19" height="25"/>
+    <SubTexture name="Orange_body_big_back" x="615" y="2" width="38" height="36"/>
+    <SubTexture name="Orange_body_big_front" x="1235" y="2" width="35" height="30"/>
+    <SubTexture name="Orange_body_small_back" x="535" y="48" width="26" height="23"/>
+    <SubTexture name="Orange_body_small_front" x="579" y="40" width="26" height="22"/>
+    <SubTexture name="Orange_first_L_leg_big_back" x="1222" y="63" width="12" height="25"/>
+    <SubTexture name="Orange_first_L_leg_big_front" x="929" y="39" width="15" height="27"/>
+    <SubTexture name="Orange_first_L_leg_small_back" x="1509" y="85" width="8" height="18"/>
+    <SubTexture name="Orange_first_L_leg_small_front" x="1518" y="46" width="11" height="19"/>
+    <SubTexture name="Orange_first_R_leg_big_back" x="934" y="68" width="15" height="24"/>
+    <SubTexture name="Orange_first_R_leg_big_front" x="1220" y="35" width="14" height="26"/>
+    <SubTexture name="Orange_first_R_leg_small_back" x="1519" y="86" width="11" height="17"/>
+    <SubTexture name="Orange_first_R_leg_small_front" x="1531" y="46" width="10" height="19"/>
+    <SubTexture name="Orange_head_big_back" x="536" y="2" width="37" height="44"/>
+    <SubTexture name="Orange_head_big_front" x="496" y="2" width="38" height="43"/>
+    <SubTexture name="Orange_head_small_back" x="365" y="98" width="24" height="28"/>
+    <SubTexture name="Orange_head_small_front" x="417" y="98" width="23" height="28"/>
+    <SubTexture name="Orange_second_L_leg_big_back" x="1292" y="29" width="15" height="25"/>
+    <SubTexture name="Orange_second_L_leg_big_front" x="790" y="98" width="12" height="27"/>
+    <SubTexture name="Orange_second_L_leg_small_back" x="1532" y="86" width="11" height="18"/>
+    <SubTexture name="Orange_second_L_leg_small_front" x="1276" y="86" width="9" height="19"/>
+    <SubTexture name="Orange_second_R_leg_big_back" x="1008" y="88" width="14" height="25"/>
+    <SubTexture name="Orange_second_R_leg_big_front" x="1203" y="35" width="15" height="26"/>
+    <SubTexture name="Orange_second_R_leg_small_back" x="1293" y="108" width="10" height="18"/>
+    <SubTexture name="Orange_second_R_leg_small_front" x="1545" y="87" width="11" height="19"/>
+    <SubTexture name="Orange_tail-end_big_back" x="1543" y="39" width="26" height="26"/>
+    <SubTexture name="Orange_tail-end_big_front" x="283" y="86" width="26" height="35"/>
+    <SubTexture name="Orange_tail-end_small_back" x="695" y="107" width="19" height="19"/>
+    <SubTexture name="Orange_tail-end_small_front" x="426" y="71" width="19" height="25"/>
+    <SubTexture name="Pink_body_big_back" x="655" y="2" width="38" height="36"/>
+    <SubTexture name="Pink_body_big_front" x="171" y="93" width="36" height="31"/>
+    <SubTexture name="Pink_body_small_back" x="535" y="73" width="26" height="23"/>
+    <SubTexture name="Pink_body_small_front" x="607" y="40" width="26" height="22"/>
+    <SubTexture name="Pink_first_L_leg_big_back" x="1158" y="96" width="12" height="25"/>
+    <SubTexture name="Pink_first_L_leg_big_front" x="946" y="39" width="15" height="27"/>
+    <SubTexture name="Pink_first_L_leg_small_back" x="1287" y="81" width="9" height="19"/>
+    <SubTexture name="Pink_first_L_leg_small_front" x="1465" y="64" width="11" height="20"/>
+    <SubTexture name="Pink_first_R_leg_big_back" x="1309" y="30" width="15" height="25"/>
+    <SubTexture name="Pink_first_R_leg_big_front" x="963" y="39" width="14" height="27"/>
+    <SubTexture name="Pink_first_R_leg_small_back" x="1558" y="89" width="11" height="17"/>
+    <SubTexture name="Pink_first_R_leg_small_front" x="1559" y="67" width="10" height="20"/>
+    <SubTexture name="Pink_head_big_back" x="130" y="46" width="38" height="45"/>
+    <SubTexture name="Pink_head_big_front" x="209" y="46" width="40" height="43"/>
+    <SubTexture name="Pink_head_small_back" x="391" y="98" width="24" height="28"/>
+    <SubTexture name="Pink_head_small_front" x="432" y="42" width="25" height="27"/>
+    <SubTexture name="Pink_second_L_leg_big_back" x="1326" y="30" width="15" height="25"/>
+    <SubTexture name="Pink_second_L_leg_big_front" x="964" y="91" width="12" height="27"/>
+    <SubTexture name="Pink_second_L_leg_small_back" x="1268" y="108" width="11" height="18"/>
+    <SubTexture name="Pink_second_L_leg_small_front" x="1328" y="106" width="9" height="20"/>
+    <SubTexture name="Pink_second_R_leg_big_back" x="1142" y="68" width="14" height="25"/>
+    <SubTexture name="Pink_second_R_leg_big_front" x="992" y="88" width="14" height="26"/>
+    <SubTexture name="Pink_second_R_leg_small_back" x="1305" y="108" width="10" height="18"/>
+    <SubTexture name="Pink_second_R_leg_small_front" x="1477" y="91" width="11" height="19"/>
+    <SubTexture name="Pink_tail-end_big_back" x="376" y="70" width="27" height="26"/>
+    <SubTexture name="Pink_tail-end_big_front" x="311" y="86" width="26" height="35"/>
+    <SubTexture name="Pink_tail-end_small_back" x="896" y="73" width="19" height="19"/>
+    <SubTexture name="Pink_tail-end_small_front" x="579" y="85" width="19" height="25"/>
+    <SubTexture name="blue_rabbit_body_back" x="773" y="40" width="15" height="21"/>
+    <SubTexture name="blue_rabbit_body_front" x="1098" y="83" width="15" height="20"/>
+    <SubTexture name="blue_rabbit_cheek" x="1525" y="105" width="5" height="5"/>
+    <SubTexture name="blue_rabbit_close_eye_back" x="1033" y="82" width="4" height="4"/>
+    <SubTexture name="blue_rabbit_close_eye_front" x="742" y="120" width="5" height="6"/>
+    <SubTexture name="blue_rabbit_close_eye_left_front" x="1399" y="98" width="4" height="6"/>
+    <SubTexture name="blue_rabbit_ear_right_back" x="535" y="98" width="23" height="14"/>
+    <SubTexture name="blue_rabbit_ear_right_front" x="1025" y="69" width="23" height="11"/>
+    <SubTexture name="blue_rabbit_eye_left_black" x="459" y="67" width="2" height="2"/>
+    <SubTexture name="blue_rabbit_eye_left_front" x="1474" y="86" width="2" height="3"/>
+    <SubTexture name="blue_rabbit_eye_right_front" x="1293" y="76" width="3" height="3"/>
+    <SubTexture name="blue_rabbit_hand_left_back" x="369" y="90" width="5" height="5"/>
+    <SubTexture name="blue_rabbit_hand_left_front" x="734" y="120" width="6" height="6"/>
+    <SubTexture name="blue_rabbit_hand_right_back" x="1025" y="82" width="6" height="4"/>
+    <SubTexture name="blue_rabbit_hand_right_front" x="981" y="119" width="6" height="7"/>
+    <SubTexture name="blue_rabbit_head_back" x="1236" y="54" width="17" height="16"/>
+    <SubTexture name="blue_rabbit_head_front" x="1343" y="45" width="17" height="16"/>
+    <SubTexture name="blue_rabbit_left_ear_back" x="1474" y="46" width="12" height="16"/>
+    <SubTexture name="blue_rabbit_left_ear_front" x="1492" y="85" width="15" height="12"/>
+    <SubTexture name="blue_rabbit_leg_left_back" x="1187" y="89" width="8" height="5"/>
+    <SubTexture name="blue_rabbit_leg_left_front" x="1505" y="105" width="8" height="5"/>
+    <SubTexture name="blue_rabbit_leg_right_back" x="1405" y="91" width="7" height="5"/>
+    <SubTexture name="blue_rabbit_leg_right_front" x="716" y="120" width="7" height="6"/>
+    <SubTexture name="blue_rabbit_tail-end_back" x="1073" y="69" width="16" height="15"/>
+    <SubTexture name="blue_rabbit_tail-end_front" x="698" y="87" width="16" height="18"/>
+    <SubTexture name="brown_deer_body_back" x="130" y="2" width="44" height="42"/>
+    <SubTexture name="brown_deer_body_front" x="406" y="2" width="43" height="38" frameX="-1" frameY="0" frameWidth="44" frameHeight="38"/>
+    <SubTexture name="brown_deer_cheek" x="992" y="116" width="9" height="10" frameX="-4" frameY="-9" frameWidth="17" frameHeight="25"/>
+    <SubTexture name="brown_deer_ear_left_back" x="1362" y="45" width="16" height="16" frameX="0" frameY="-1" frameWidth="16" frameHeight="18"/>
+    <SubTexture name="brown_deer_ear_left_front" x="635" y="64" width="25" height="21" frameX="0" frameY="0" frameWidth="26" frameHeight="21"/>
+    <SubTexture name="brown_deer_ear_right_back" x="2" y="112" width="25" height="14" frameX="-1" frameY="0" frameWidth="26" frameHeight="15"/>
+    <SubTexture name="brown_deer_ear_right_front" x="1076" y="109" width="15" height="17" frameX="0" frameY="-3" frameWidth="15" frameHeight="20"/>
+    <SubTexture name="brown_deer_eye" x="1024" y="117" width="8" height="9"/>
+    <SubTexture name="brown_deer_eye_closed" x="673" y="87" width="23" height="18"/>
+    <SubTexture name="brown_deer_head_back" x="47" y="55" width="39" height="51" frameX="-1" frameY="-2" frameWidth="43" frameHeight="53"/>
+    <SubTexture name="brown_deer_head_front" x="855" y="2" width="35" height="34" frameX="0" frameY="-1" frameWidth="35" frameHeight="35"/>
+    <SubTexture name="brown_deer_horn_front" x="775" y="2" width="38" height="34" frameX="0" frameY="-2" frameWidth="40" frameHeight="36"/>
+    <SubTexture name="brown_deer_leg_first_left_back" x="820" y="94" width="14" height="32"/>
+    <SubTexture name="brown_deer_leg_first_left_front" x="836" y="94" width="14" height="32"/>
+    <SubTexture name="brown_deer_leg_first_right_back" x="852" y="94" width="14" height="32"/>
+    <SubTexture name="brown_deer_leg_first_right_front" x="868" y="94" width="14" height="32"/>
+    <SubTexture name="brown_deer_leg_second_left_back" x="518" y="79" width="15" height="33"/>
+    <SubTexture name="brown_deer_leg_second_left_front" x="563" y="48" width="14" height="33"/>
+    <SubTexture name="brown_deer_leg_second_right_back" x="733" y="85" width="14" height="33"/>
+    <SubTexture name="brown_deer_leg_second_right_front" x="342" y="46" width="15" height="34"/>
+    <SubTexture name="brown_deer_tail-end_back" x="1477" y="112" width="12" height="14"/>
+    <SubTexture name="brown_deer_tail-end_front" x="1491" y="112" width="12" height="14"/>
+    <SubTexture name="coffee_cat_big_cheek" x="1586" y="98" width="7" height="7"/>
+    <SubTexture name="coffee_cat_body_back_big" x="1044" y="2" width="36" height="31"/>
+    <SubTexture name="coffee_cat_body_back_small" x="635" y="40" width="26" height="22"/>
+    <SubTexture name="coffee_cat_body_front_big" x="1272" y="2" width="36" height="25"/>
+    <SubTexture name="coffee_cat_body_front_small" x="56" y="108" width="25" height="18"/>
+    <SubTexture name="coffee_cat_eye" x="1308" y="98" width="6" height="7"/>
+    <SubTexture name="coffee_cat_first_leg_L_big_back" x="1172" y="96" width="12" height="25"/>
+    <SubTexture name="coffee_cat_first_leg_L_big_front" x="978" y="90" width="12" height="27"/>
+    <SubTexture name="coffee_cat_first_leg_L_small_back" x="1422" y="108" width="9" height="18"/>
+    <SubTexture name="coffee_cat_first_leg_L_small_front" x="1372" y="106" width="8" height="20"/>
+    <SubTexture name="coffee_cat_first_leg_R_big_back" x="1186" y="96" width="12" height="25"/>
+    <SubTexture name="coffee_cat_first_leg_R_big_front" x="442" y="98" width="12" height="28"/>
+    <SubTexture name="coffee_cat_first_leg_R_small_back" x="1547" y="108" width="8" height="18"/>
+    <SubTexture name="coffee_cat_first_leg_R_small_front" x="1382" y="106" width="8" height="20"/>
+    <SubTexture name="coffee_cat_head_back_big" x="1446" y="2" width="30" height="42"/>
+    <SubTexture name="coffee_cat_head_back_small" x="1571" y="2" width="22" height="30"/>
+    <SubTexture name="coffee_cat_head_front_big" x="1347" y="2" width="31" height="41"/>
+    <SubTexture name="coffee_cat_head_front_small" x="1571" y="34" width="22" height="30"/>
+    <SubTexture name="coffee_cat_second_leg_L_big_back" x="1158" y="68" width="13" height="26"/>
+    <SubTexture name="coffee_cat_second_leg_L_big_front" x="777" y="98" width="11" height="28"/>
+    <SubTexture name="coffee_cat_second_leg_L_small_back" x="1433" y="108" width="9" height="18"/>
+    <SubTexture name="coffee_cat_second_leg_L_small_front" x="1392" y="106" width="8" height="20"/>
+    <SubTexture name="coffee_cat_second_leg_R_big_back" x="1173" y="68" width="12" height="26"/>
+    <SubTexture name="coffee_cat_second_leg_R_big_front" x="1024" y="88" width="13" height="27"/>
+    <SubTexture name="coffee_cat_second_leg_R_small_back" x="1298" y="76" width="8" height="19"/>
+    <SubTexture name="coffee_cat_second_leg_R_small_front" x="1256" y="106" width="10" height="20"/>
+    <SubTexture name="coffee_cat_small_cheek" x="742" y="64" width="5" height="5"/>
+    <SubTexture name="coffee_cat_tail-end_back_big" x="618" y="110" width="23" height="16"/>
+    <SubTexture name="coffee_cat_tail-end_back_small" x="518" y="114" width="16" height="12"/>
+    <SubTexture name="coffee_cat_tail-end_front_big" x="625" y="87" width="22" height="21"/>
+    <SubTexture name="coffee_cat_tail-end_front_small" x="1058" y="111" width="16" height="15"/>
+    <SubTexture name="coffee_cat_сlosed_eyes_front_big" x="1275" y="56" width="16" height="14"/>
+    <SubTexture name="coffee_cat_сlosed_eyes_front_small" x="1571" y="98" width="13" height="12"/>
+    <SubTexture name="dark_brown_deer_body_back" x="176" y="2" width="44" height="42"/>
+    <SubTexture name="dark_brown_deer_body_front" x="297" y="46" width="43" height="38" frameX="-1" frameY="0" frameWidth="44" frameHeight="38"/>
+    <SubTexture name="dark_brown_deer_cheek" x="1414" y="86" width="9" height="10" frameX="-4" frameY="-9" frameWidth="17" frameHeight="25"/>
+    <SubTexture name="dark_brown_deer_close_eyes_back" x="1405" y="98" width="4" height="6"/>
+    <SubTexture name="dark_brown_deer_close_eyes_front" x="790" y="38" width="23" height="18"/>
+    <SubTexture name="dark_brown_deer_ear_left_back" x="1456" y="46" width="16" height="16" frameX="0" frameY="-1" frameWidth="16" frameHeight="18"/>
+    <SubTexture name="dark_brown_deer_ear_left_front" x="689" y="64" width="24" height="21" frameX="-1" frameY="0" frameWidth="26" frameHeight="21"/>
+    <SubTexture name="dark_brown_deer_ear_right_back" x="29" y="112" width="25" height="14" frameX="-1" frameY="0" frameWidth="26" frameHeight="15"/>
+    <SubTexture name="dark_brown_deer_ear_right_front" x="1397" y="64" width="15" height="16" frameX="0" frameY="-3" frameWidth="15" frameHeight="20"/>
+    <SubTexture name="dark_brown_deer_eye" x="1255" y="61" width="8" height="9"/>
+    <SubTexture name="dark_brown_deer_head_back" x="47" y="2" width="40" height="51" frameX="-1" frameY="-2" frameWidth="43" frameHeight="53"/>
+    <SubTexture name="dark_brown_deer_head_front" x="209" y="91" width="35" height="35"/>
+    <SubTexture name="dark_brown_deer_horn_front" x="815" y="2" width="38" height="34" frameX="0" frameY="-2" frameWidth="40" frameHeight="36"/>
+    <SubTexture name="dark_brown_deer_leg_first_left_back" x="884" y="94" width="14" height="32"/>
+    <SubTexture name="dark_brown_deer_leg_first_left_front" x="900" y="94" width="14" height="32"/>
+    <SubTexture name="dark_brown_deer_leg_first_right_back" x="916" y="94" width="14" height="32"/>
+    <SubTexture name="dark_brown_deer_leg_first_right_front" x="932" y="94" width="14" height="32"/>
+    <SubTexture name="dark_brown_deer_leg_second_left_back" x="716" y="85" width="15" height="33"/>
+    <SubTexture name="dark_brown_deer_leg_second_left_front" x="766" y="63" width="14" height="33"/>
+    <SubTexture name="dark_brown_deer_leg_second_right_back" x="782" y="63" width="14" height="33"/>
+    <SubTexture name="dark_brown_deer_leg_second_right_front" x="749" y="63" width="15" height="33" frameX="0" frameY="-1" frameWidth="15" frameHeight="34"/>
+    <SubTexture name="dark_brown_deer_tail-end_back" x="1505" y="112" width="12" height="14"/>
+    <SubTexture name="dark_brown_deer_tail-end_front" x="1519" y="112" width="12" height="14"/>
+    <SubTexture name="kakako_cat_first_leg_R_big_back" x="1129" y="98" width="12" height="26"/>
+    <SubTexture name="kakako_cat_first_leg_R_big_front" x="456" y="98" width="12" height="28"/>
+    <SubTexture name="kakako_cat_first_leg_R_small_back" x="1343" y="80" width="8" height="19"/>
+    <SubTexture name="kakako_cat_first_leg_R_small_front" x="1339" y="106" width="9" height="20"/>
+    <SubTexture name="kakako_cat_second_leg_R_big_back" x="1242" y="90" width="12" height="25"/>
+    <SubTexture name="kakako_cat_second_leg_R_big_front" x="1115" y="70" width="12" height="27"/>
+    <SubTexture name="kakako_cat_second_leg_R_small_back" x="1557" y="108" width="8" height="18"/>
+    <SubTexture name="kakako_cat_second_leg_R_small_front" x="1308" y="77" width="10" height="19"/>
+    <SubTexture name="kakao_cat_big_cheek" x="1284" y="72" width="7" height="7"/>
+    <SubTexture name="kakao_cat_body_back_big" x="966" y="2" width="37" height="31"/>
+    <SubTexture name="kakao_cat_body_back_small" x="718" y="40" width="25" height="22"/>
+    <SubTexture name="kakao_cat_body_front_big" x="88" y="100" width="35" height="26"/>
+    <SubTexture name="kakao_cat_body_front_small" x="579" y="64" width="26" height="19"/>
+    <SubTexture name="kakao_cat_eye" x="1458" y="86" width="6" height="7"/>
+    <SubTexture name="kakao_cat_first_leg_L_big_back" x="1200" y="94" width="12" height="26"/>
+    <SubTexture name="kakao_cat_first_leg_L_big_front" x="1129" y="69" width="11" height="27"/>
+    <SubTexture name="kakao_cat_first_leg_L_small_back" x="1353" y="80" width="8" height="19"/>
+    <SubTexture name="kakao_cat_first_leg_L_small_front" x="1350" y="106" width="9" height="20"/>
+    <SubTexture name="kakao_cat_head_back_big" x="1380" y="2" width="31" height="42"/>
+    <SubTexture name="kakao_cat_head_back_small" x="1571" y="66" width="22" height="30"/>
+    <SubTexture name="kakao_cat_head_front_big" x="1478" y="2" width="31" height="41"/>
+    <SubTexture name="kakao_cat_head_front_small" x="487" y="47" width="22" height="30"/>
+    <SubTexture name="kakao_cat_second_leg_L_big_back" x="1039" y="82" width="13" height="27"/>
+    <SubTexture name="kakao_cat_second_leg_L_big_front" x="470" y="98" width="12" height="28"/>
+    <SubTexture name="kakao_cat_second_leg_L_small_back" x="1444" y="108" width="9" height="18"/>
+    <SubTexture name="kakao_cat_second_leg_L_small_front" x="1402" y="106" width="8" height="20"/>
+    <SubTexture name="kakao_cat_small_cheek" x="742" y="71" width="5" height="5"/>
+    <SubTexture name="kakao_cat_tail-end_back_big" x="871" y="73" width="23" height="17"/>
+    <SubTexture name="kakao_cat_tail-end_back_small" x="536" y="114" width="16" height="12"/>
+    <SubTexture name="kakao_cat_tail-end_front_big" x="649" y="87" width="22" height="21"/>
+    <SubTexture name="kakao_cat_tail-end_front_small" x="1039" y="111" width="17" height="15"/>
+    <SubTexture name="kakao_cat_сlosed_eyes_big" x="1203" y="63" width="17" height="14"/>
+    <SubTexture name="kakao_cat_сlosed_eyes_small" x="1490" y="99" width="13" height="11"/>
+    <SubTexture name="milk_cat_big_cheek" x="1405" y="82" width="7" height="7"/>
+    <SubTexture name="milk_cat_body_back_big" x="1082" y="2" width="36" height="31"/>
+    <SubTexture name="milk_cat_body_back_small" x="663" y="40" width="26" height="22"/>
+    <SubTexture name="milk_cat_body_front_big" x="1310" y="2" width="35" height="26"/>
+    <SubTexture name="milk_cat_body_front_small" x="715" y="64" width="25" height="19"/>
+    <SubTexture name="milk_cat_eye" x="1458" y="86" width="6" height="7"/>
+    <SubTexture name="milk_cat_first_leg_L_big_back" x="1214" y="94" width="12" height="26"/>
+    <SubTexture name="milk_cat_first_leg_L_big_front" x="749" y="98" width="12" height="28"/>
+    <SubTexture name="milk_cat_first_leg_L_small_back" x="1256" y="86" width="8" height="18"/>
+    <SubTexture name="milk_cat_first_leg_L_small_front" x="1412" y="106" width="8" height="20"/>
+    <SubTexture name="milk_cat_first_leg_R_big_back" x="1478" y="64" width="12" height="25"/>
+    <SubTexture name="milk_cat_first_leg_R_big_front" x="1115" y="99" width="12" height="27"/>
+    <SubTexture name="milk_cat_first_leg_R_small_back" x="1266" y="86" width="8" height="18"/>
+    <SubTexture name="milk_cat_first_leg_R_small_front" x="1361" y="106" width="9" height="20"/>
+    <SubTexture name="milk_cat_head_back_big" x="1511" y="2" width="30" height="42"/>
+    <SubTexture name="milk_cat_head_back_small" x="511" y="47" width="22" height="30"/>
+    <SubTexture name="milk_cat_head_front_big" x="1413" y="2" width="31" height="42"/>
+    <SubTexture name="milk_cat_head_front_small" x="463" y="67" width="22" height="29"/>
+    <SubTexture name="milk_cat_second_leg_L_big_back" x="1143" y="95" width="13" height="26"/>
+    <SubTexture name="milk_cat_second_leg_L_big_front" x="763" y="98" width="12" height="28"/>
+    <SubTexture name="milk_cat_second_leg_L_small_back" x="1455" y="108" width="9" height="18"/>
+    <SubTexture name="milk_cat_second_leg_L_small_front" x="1332" y="79" width="9" height="19"/>
+    <SubTexture name="milk_cat_second_leg_R_big_back" x="1228" y="90" width="12" height="26"/>
+    <SubTexture name="milk_cat_second_leg_R_big_front" x="1054" y="82" width="13" height="27"/>
+    <SubTexture name="milk_cat_second_leg_R_small_back" x="1466" y="108" width="9" height="18"/>
+    <SubTexture name="milk_cat_second_leg_R_small_front" x="1320" y="79" width="10" height="19"/>
+    <SubTexture name="milk_cat_small_cheek" x="742" y="78" width="5" height="5"/>
+    <SubTexture name="milk_cat_tail-end_back_big" x="643" y="110" width="23" height="16"/>
+    <SubTexture name="milk_cat_tail-end_back_small" x="554" y="114" width="16" height="12"/>
+    <SubTexture name="milk_cat_tail-end_front_big" x="600" y="87" width="23" height="21"/>
+    <SubTexture name="milk_cat_tail-end_front_small" x="1343" y="63" width="16" height="15"/>
+    <SubTexture name="milk_cat_сlosed_eyes_big" x="1203" y="79" width="17" height="13"/>
+    <SubTexture name="milk_cat_сlosed_eyes_small" x="1008" y="115" width="14" height="11"/>
+    <SubTexture name="milk_deer_body_back" x="222" y="2" width="44" height="42"/>
+    <SubTexture name="milk_deer_body_front" x="360" y="2" width="44" height="38"/>
+    <SubTexture name="milk_deer_cheek" x="1425" y="86" width="9" height="10" frameX="-4" frameY="-9" frameWidth="17" frameHeight="25"/>
+    <SubTexture name="milk_deer_ear_left_back" x="1293" y="56" width="13" height="18" frameX="0" frameY="0" frameWidth="16" frameHeight="18"/>
+    <SubTexture name="milk_deer_ear_left_front" x="745" y="40" width="26" height="21"/>
+    <SubTexture name="milk_deer_ear_right_back" x="815" y="73" width="26" height="15"/>
+    <SubTexture name="milk_deer_ear_right_front" x="1326" y="57" width="15" height="20"/>
+    <SubTexture name="milk_deer_eye" x="1265" y="61" width="8" height="9"/>
+    <SubTexture name="milk_deer_eyes_closed" x="979" y="69" width="21" height="17" frameX="-1" frameY="-1" frameWidth="23" frameHeight="18"/>
+    <SubTexture name="milk_deer_head_back" x="2" y="2" width="43" height="53"/>
+    <SubTexture name="milk_deer_head_front" x="246" y="91" width="35" height="35"/>
+    <SubTexture name="milk_deer_horn_back" x="1120" y="2" width="37" height="30" frameX="-1" frameY="0" frameWidth="38" frameHeight="31"/>
+    <SubTexture name="milk_deer_horn_front" x="695" y="2" width="38" height="36" frameX="-2" frameY="0" frameWidth="40" frameHeight="36"/>
+    <SubTexture name="milk_deer_leg_first_left_back" x="948" y="94" width="14" height="32"/>
+    <SubTexture name="milk_deer_leg_first_left_front" x="979" y="35" width="14" height="32"/>
+    <SubTexture name="milk_deer_leg_first_right_back" x="995" y="35" width="14" height="32"/>
+    <SubTexture name="milk_deer_leg_first_right_front" x="1011" y="35" width="14" height="32"/>
+    <SubTexture name="milk_deer_leg_second_left_back" x="798" y="58" width="15" height="33"/>
+    <SubTexture name="milk_deer_leg_second_left_front" x="883" y="38" width="14" height="33"/>
+    <SubTexture name="milk_deer_leg_second_right_back" x="899" y="38" width="14" height="33"/>
+    <SubTexture name="milk_deer_leg_second_right_front" x="359" y="46" width="15" height="34"/>
+    <SubTexture name="orange_rabbit_body_back" x="951" y="68" width="15" height="21"/>
+    <SubTexture name="orange_rabbit_body_front" x="1414" y="64" width="15" height="20"/>
+    <SubTexture name="orange_rabbit_cheek" x="1442" y="98" width="5" height="5"/>
+    <SubTexture name="orange_rabbit_close_eye_left_back" x="1255" y="54" width="4" height="4"/>
+    <SubTexture name="orange_rabbit_close_eye_left_front" x="1411" y="98" width="4" height="6"/>
+    <SubTexture name="orange_rabbit_close_eye_right_front" x="973" y="120" width="6" height="6"/>
+    <SubTexture name="orange_rabbit_ear_right_front" x="1050" y="69" width="21" height="11"/>
+    <SubTexture name="orange_rabbit_eye_left_back" x="125" y="100" width="3" height="3"/>
+    <SubTexture name="orange_rabbit_eye_left_front" x="1474" y="86" width="2" height="3"/>
+    <SubTexture name="orange_rabbit_eye_right_front" x="1293" y="76" width="3" height="3"/>
+    <SubTexture name="orange_rabbit_hand_left_back" x="1449" y="98" width="5" height="5"/>
+    <SubTexture name="orange_rabbit_hand_left_front" x="1316" y="100" width="6" height="6"/>
+    <SubTexture name="orange_rabbit_hand_right_back" x="1532" y="106" width="6" height="4"/>
+    <SubTexture name="orange_rabbit_hand_right_front" x="1466" y="86" width="6" height="7"/>
+    <SubTexture name="orange_rabbit_head_back" x="1380" y="46" width="17" height="16"/>
+    <SubTexture name="orange_rabbit_head_front" x="1399" y="46" width="17" height="16"/>
+    <SubTexture name="orange_rabbit_left_ear_back" x="1505" y="67" width="12" height="16"/>
+    <SubTexture name="orange_rabbit_left_ear_front" x="1254" y="72" width="13" height="12"/>
+    <SubTexture name="orange_rabbit_leg_left_back" x="1515" y="105" width="8" height="5"/>
+    <SubTexture name="orange_rabbit_leg_left_front" x="1363" y="96" width="8" height="5"/>
+    <SubTexture name="orange_rabbit_leg_right_back" x="1433" y="98" width="7" height="5"/>
+    <SubTexture name="orange_rabbit_leg_right_front" x="964" y="120" width="7" height="6"/>
+    <SubTexture name="orange_rabbit_right_ear_back" x="572" y="112" width="21" height="14"/>
+    <SubTexture name="orange_rabbit_tail-end_back" x="1361" y="63" width="16" height="15"/>
+    <SubTexture name="orange_rabbit_tail-end_front" x="1093" y="108" width="16" height="18"/>
+    <SubTexture name="pastel_brown_deer_body_back" x="268" y="2" width="44" height="42"/>
+    <SubTexture name="pastel_brown_deer_body_front" x="451" y="2" width="43" height="38" frameX="-1" frameY="0" frameWidth="44" frameHeight="38"/>
+    <SubTexture name="pastel_brown_deer_cheek" x="1436" y="86" width="9" height="10" frameX="-4" frameY="-9" frameWidth="17" frameHeight="25"/>
+    <SubTexture name="pastel_brown_deer_ear_left_back" x="1236" y="72" width="16" height="16" frameX="0" frameY="-1" frameWidth="16" frameHeight="18"/>
+    <SubTexture name="pastel_brown_deer_ear_left_front" x="662" y="64" width="25" height="21" frameX="-1" frameY="0" frameWidth="26" frameHeight="21"/>
+    <SubTexture name="pastel_brown_deer_ear_right_back" x="342" y="82" width="25" height="14" frameX="0" frameY="0" frameWidth="26" frameHeight="15"/>
+    <SubTexture name="pastel_brown_deer_ear_right_front" x="1488" y="45" width="15" height="17" frameX="0" frameY="-3" frameWidth="15" frameHeight="20"/>
+    <SubTexture name="pastel_brown_deer_eyes_closed" x="1236" y="34" width="23" height="18"/>
+    <SubTexture name="pastel_brown_deer_head_back" x="89" y="2" width="39" height="51" frameX="-1" frameY="-2" frameWidth="43" frameHeight="53"/>
+    <SubTexture name="pastel_brown_deer_head_front" x="892" y="2" width="35" height="34" frameX="0" frameY="-1" frameWidth="35" frameHeight="35"/>
+    <SubTexture name="pastel_brown_deer_horn_back" x="1005" y="2" width="37" height="31" frameX="0" frameY="0" frameWidth="38" frameHeight="31"/>
+    <SubTexture name="pastel_brown_deer_horn_front" x="130" y="93" width="39" height="33" frameX="0" frameY="-3" frameWidth="40" frameHeight="36"/>
+    <SubTexture name="pastel_brown_deer_leg_first_left_back" x="1027" y="35" width="14" height="32"/>
+    <SubTexture name="pastel_brown_deer_leg_first_left_front" x="1043" y="35" width="14" height="32"/>
+    <SubTexture name="pastel_brown_deer_leg_first_right_back" x="1059" y="35" width="14" height="32"/>
+    <SubTexture name="pastel_brown_deer_leg_first_right_front" x="1075" y="35" width="14" height="32"/>
+    <SubTexture name="pastel_brown_deer_leg_second_left_back" x="815" y="38" width="15" height="33"/>
+    <SubTexture name="pastel_brown_deer_leg_second_left_front" x="804" y="93" width="14" height="33"/>
+    <SubTexture name="pastel_brown_deer_leg_second_right_back" x="1091" y="35" width="14" height="33"/>
+    <SubTexture name="pastel_brown_deer_leg_second_right_front" x="832" y="38" width="15" height="33" frameX="0" frameY="-1" frameWidth="15" frameHeight="34"/>
+    <SubTexture name="pastel_brown_deer_tail-end_back" x="1533" y="112" width="12" height="14"/>
+    <SubTexture name="pastel_brown_deer_tail-end_front" x="1567" y="112" width="12" height="14"/>
+    <SubTexture name="pastel_brown_eye" x="1298" y="97" width="8" height="9"/>
+    <SubTexture name="pastel_brown_tail-end_back" x="1581" y="112" width="12" height="14"/>
+    <SubTexture name="pastel_brown_tail-end_front" x="1363" y="80" width="12" height="14"/>
+    <SubTexture name="violet_rabbit_body_back" x="1069" y="86" width="15" height="21"/>
+    <SubTexture name="violet_rabbit_body_front" x="1431" y="64" width="15" height="20"/>
+    <SubTexture name="violet_rabbit_cheek" x="1228" y="118" width="5" height="5"/>
+    <SubTexture name="violet_rabbit_close_eye_right_front" x="1417" y="98" width="4" height="6"/>
+    <SubTexture name="violet_rabbit_closed_eye_left_back" x="1324" y="100" width="4" height="4"/>
+    <SubTexture name="violet_rabbit_ear_left_back" x="1519" y="67" width="12" height="17"/>
+    <SubTexture name="violet_rabbit_ear_left_front" x="1269" y="72" width="13" height="12"/>
+    <SubTexture name="violet_rabbit_ear_right_back" x="595" y="112" width="21" height="14"/>
+    <SubTexture name="violet_rabbit_ear_right_front" x="1091" y="70" width="21" height="11"/>
+    <SubTexture name="violet_rabbit_eye_back" x="459" y="67" width="2" height="2"/>
+    <SubTexture name="violet_rabbit_eye_close_left_front" x="369" y="82" width="5" height="6"/>
+    <SubTexture name="violet_rabbit_eye_front" x="83" y="108" width="3" height="3"/>
+    <SubTexture name="violet_rabbit_hand_left_back" x="1235" y="118" width="5" height="5"/>
+    <SubTexture name="violet_rabbit_hand_left_front" x="1391" y="98" width="6" height="6"/>
+    <SubTexture name="violet_rabbit_hand_right_back" x="1287" y="102" width="6" height="4"/>
+    <SubTexture name="violet_rabbit_hand_right_front" x="1373" y="97" width="6" height="7"/>
+    <SubTexture name="violet_rabbit_head_back" x="1418" y="46" width="17" height="16"/>
+    <SubTexture name="violet_rabbit_head_front" x="1437" y="46" width="17" height="16"/>
+    <SubTexture name="violet_rabbit_leg_left_back" x="1381" y="97" width="8" height="5"/>
+    <SubTexture name="violet_rabbit_leg_left_front" x="1423" y="98" width="8" height="5"/>
+    <SubTexture name="violet_rabbit_leg_right_front" x="725" y="120" width="7" height="6"/>
+    <SubTexture name="violet_rabbit_tail-end_back" x="1379" y="64" width="16" height="15"/>
+    <SubTexture name="violet_rabbit_tail-end_front" x="1308" y="57" width="16" height="18"/>
+    <SubTexture name="white_deer_body_back" x="314" y="2" width="44" height="42"/>
+    <SubTexture name="white_deer_body_front" x="251" y="46" width="44" height="38"/>
+    <SubTexture name="white_deer_cheek" x="1447" y="86" width="9" height="10" frameX="-4" frameY="-9" frameWidth="17" frameHeight="25"/>
+    <SubTexture name="white_deer_crown_front" x="487" y="79" width="29" height="19"/>
+    <SubTexture name="white_deer_ear_left_back" x="1187" y="69" width="14" height="18" frameX="0" frameY="0" frameWidth="16" frameHeight="18"/>
+    <SubTexture name="white_deer_ear_left_front" x="607" y="64" width="26" height="21"/>
+    <SubTexture name="white_deer_ear_right_back" x="843" y="73" width="26" height="15"/>
+    <SubTexture name="white_deer_ear_right_front" x="1448" y="64" width="15" height="20"/>
+    <SubTexture name="white_deer_eye" x="1242" y="117" width="8" height="9"/>
+    <SubTexture name="white_deer_eyes_closed_front" x="1002" y="69" width="21" height="17" frameX="-1" frameY="-1" frameWidth="23" frameHeight="18"/>
+    <SubTexture name="white_deer_head_back" x="2" y="57" width="43" height="53"/>
+    <SubTexture name="white_deer_head_front" x="929" y="2" width="35" height="35"/>
+    <SubTexture name="white_deer_horn_back" x="1159" y="2" width="37" height="30" frameX="-1" frameY="0" frameWidth="38" frameHeight="31"/>
+    <SubTexture name="white_deer_horn_front" x="735" y="2" width="38" height="36" frameX="-2" frameY="0" frameWidth="40" frameHeight="36"/>
+    <SubTexture name="white_deer_leg_first_left_back" x="1139" y="34" width="14" height="32"/>
+    <SubTexture name="white_deer_leg_first_left_front" x="1155" y="34" width="14" height="32"/>
+    <SubTexture name="white_deer_leg_first_right_back" x="1171" y="34" width="14" height="32"/>
+    <SubTexture name="white_deer_leg_first_right_front" x="1187" y="35" width="14" height="32"/>
+    <SubTexture name="white_deer_leg_second_left_back" x="849" y="38" width="15" height="33"/>
+    <SubTexture name="white_deer_leg_second_left_front" x="1107" y="35" width="14" height="33"/>
+    <SubTexture name="white_deer_leg_second_right_back" x="1123" y="34" width="14" height="33"/>
+    <SubTexture name="white_deer_leg_second_right_front" x="866" y="38" width="15" height="33" frameX="0" frameY="-1" frameWidth="15" frameHeight="34"/>
+    <SubTexture name="white_deer_tail-end_back" x="1377" y="81" width="12" height="14"/>
+    <SubTexture name="white_deer_tail-end_front" x="1391" y="82" width="12" height="14"/>
+</TextureAtlas>
