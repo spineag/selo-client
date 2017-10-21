@@ -376,6 +376,7 @@
             <filename>statue_cow_icon.png</filename>
             <filename>fireworks_event_icon.png</filename>
             <filename>corn_fabric_icon.png</filename>
+            <filename>pets</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
