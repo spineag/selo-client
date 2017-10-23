@@ -96,6 +96,7 @@ public class WOOrderItem {
         source.addChild(_txtCoins);
 
         _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
+        MCScaler.scale(_checkImage, _checkImage.height-5, _checkImage.width-5);
         _checkImage.x = 78;
         _checkImage.y = -15;
         _checkImage.visible = false;

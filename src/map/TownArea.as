@@ -193,11 +193,21 @@ public class TownArea extends Sprite {
         _zSortCounter = SORT_COUNTER_MAX;
         g.gameDispatcher.addEnterFrame(zSortMain); 
     }
+
+    public function deleteLockedLandTail(posX:int, posY:int):void {
+        for (var i:int =0; i < 10; i++) {
+            for (var j:int = 0; j < 10; j++) {
+                _townMatrix[posY+i][posX+j].isLockedLand = false;
+            }
+        }
+//        _townMatrix[posX][posY].isLockedLand = false;
+        trace(_townMatrix[posX][posY].isLockedLand)
+    }
     
     public function removeTownAreaSortCheking():void { g.gameDispatcher.removeEnterFrame(zSortMain); }
     public function zSort():void { _needTownAreaSort = true; }
 
-    private function zSortMain():void{
+    private function zSortMain():void {
         var isError:Boolean = false;
         if (_needTownAreaSort) {
             _zSortCounter--;
@@ -1267,8 +1277,8 @@ public class TownArea extends Sprite {
                 g.buyHint.hideIt();
                 return;
             }
-
-            g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
+            if (tail.dataBuild.deltaCost && tail.dataBuild.deltaCost > 0 ) g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
+            else g.buyHint.showIt(int(tail.dataBuild.cost), true);
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);

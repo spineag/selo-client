@@ -14,6 +14,8 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 
+import windows.WOComponents.BackgroundWhiteIn;
+
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -21,7 +23,7 @@ import windows.WindowsManager;
 public class WOServerError extends WindowMain {
     private var _txtError:CTextField;
     private var _txtErrorNew:CTextField;
-    private var _woBG:WindowBackground;
+    private var _woBG:BackgroundWhiteIn;
     private var _b:CButton;
     private var txt:CTextField;
     private var txt2:CTextField;
@@ -31,7 +33,7 @@ public class WOServerError extends WindowMain {
         _windowType = WindowsManager.WO_SERVER_ERROR;
         _woWidth = 460;
         _woHeight = 320;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new BackgroundWhiteIn(_woWidth, _woHeight);
         _source.addChild(_woBG);
         txt = new CTextField(420,80,String(g.managerLanguage.allTexts[289]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);

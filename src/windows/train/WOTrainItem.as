@@ -157,7 +157,7 @@ public class WOTrainItem {
     private function onHover():void {
         if (_isHover) return;
         _isHover = true;
-        g.marketHint.showIt(_info.id, _source.x - _source.width/2, _source.y - _source.height, _source);
+        if(!_info.isFull) g.marketHint.showIt(_info.id, _source.x - _source.width/2, _source.y - _source.height, _source);
     }
 
     private function onOut():void {

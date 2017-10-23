@@ -13,6 +13,8 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 
+import windows.WOComponents.BackgroundWhiteIn;
+
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 
@@ -23,13 +25,13 @@ public class WOAnnouncement extends WindowMain {
 //    private var _txt1:CTextField;
 //    private var _txt2:CTextField;
 //    private var _txt3:CTextField;
-    private var _woBG:WindowBackground;
+    private var _woBG:BackgroundWhiteIn;
 
     public function WOAnnouncement() {
         super ();
         _woWidth = 720;
         _woHeight = 534;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new BackgroundWhiteIn(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _url = g.dataPath.getGraphicsPath() + 'announcement/usa_post.png';
     }

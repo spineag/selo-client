@@ -26,12 +26,13 @@ public class BuyHint {
         _open = false;
     }
 
-    public function showIt(st:int):void {
+    public function showIt(st:int, rubi:Boolean = false):void {
         _txtHint.text = String(st);
         var rectangle:Rectangle = _txtHint.textBounds;
         if (rectangle.height <= 42 - 12) rectangle.height = 30;
             else if (rectangle.height <= 67 - 12) rectangle.height = 55;
-        _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        if (!rubi) _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        else _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(_imCoins,25,25);
         _imCoins.y = 8;
         _imCoins.x = -3;

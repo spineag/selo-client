@@ -98,10 +98,14 @@ public class GameHelper {
 
     private function createShowButton():void {
         _btnShow = new CButton();
-        _btnShow.addButtonTexture(126, 40, CButton.RED, true);
-        _txtBtnShow = new CTextField(125, 40, String(g.managerLanguage.allTexts[312]));
-        _txtBtnShow.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
-        _btnShow.addChild(_txtBtnShow);
+        _btnShow.addButtonTexture(126, CButton.HEIGHT_41, CButton.BLUE, true);
+        _btnShow.addTextField(126, 41, 0, -3, String(g.managerLanguage.allTexts[312]));
+        _btnShow.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//        _source.addChild(_btnShow);
+//        _btnShow.addButtonTexture(126, 40, CButton.RED, true);
+//        _txtBtnShow = new CTextField(125, 40, String(g.managerLanguage.allTexts[312]));
+//        _txtBtnShow.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
+//        _btnShow.addChild(_txtBtnShow);
         _btnShow.x = 4;
         _btnShow.y = 52;
         _btnShow.clickCallback = onClickShow;
@@ -110,14 +114,14 @@ public class GameHelper {
 
     private function createCatHead():void {
         _catHead = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_right'));
-        im.scaleX = im.scaleY = .7;
-        _catHead.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_icon'));
+//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_right'));
+//        im.scaleX = im.scaleY = .7;
+//        _catHead.addChild(im);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_icon'));
         im.scaleX = 1.3;
         im.scaleY = 1.3;
-        im.x = 24;
-        im.y = 16;
+        im.x = 3;
+        im.y = 14;
         _catHead.addChild(im);
         _catHead.x = -200;
         _catHead.y = -29;

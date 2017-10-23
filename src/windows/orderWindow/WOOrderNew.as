@@ -204,6 +204,8 @@ public class WOOrderNew extends WindowMain {
         _btnDel.y = -_woHeight / 2 + 628;
         _btnDel.clickCallback = deleteOrder;
         _rightBlock.addChild(_btnDel);
+        _btnDel.hoverCallback = function():void { g.hint.showIt(String((g.managerLanguage.allTexts[1178]))); };
+        _btnDel.outCallback = function():void { g.hint.hideIt(); };
     }
 
     private function createRightBlockTimer():void {

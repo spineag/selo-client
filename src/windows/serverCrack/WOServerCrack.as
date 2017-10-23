@@ -15,13 +15,15 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 
+import windows.WOComponents.BackgroundWhiteIn;
+
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOServerCrack  extends WindowMain {
     private var _txtError:CTextField;
-    private var _woBG:WindowBackground;
+    private var _woBG:BackgroundWhiteIn;
     private var _b:CButton;
     private var txt:CTextField;
     private var txt2:CTextField;
@@ -31,7 +33,7 @@ public class WOServerCrack  extends WindowMain {
         _windowType = WindowsManager.WO_SERVER_CRACK;
         _woWidth = 460;
         _woHeight = 340;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new BackgroundWhiteIn(_woWidth, _woHeight);
         _source.addChild(_woBG);
         txt = new CTextField(420,80,String(g.managerLanguage.allTexts[290]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);

@@ -305,7 +305,7 @@ public class ShopNewListItem {
 
                     if (maxCount == curCount) {
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
-                            _txtInfo.text =  String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
+                            _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
                             if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                             _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
@@ -354,6 +354,7 @@ public class ShopNewListItem {
                     if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
+                    _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
                     _blackPlawka.visible = true;
                     _isThisItemBlocked = true;
                 } else {

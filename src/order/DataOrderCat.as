@@ -117,7 +117,7 @@ public class DataOrderCat {
             color: OrderCat.BLUE_WOMAN,
             isWoman: true,
             nameRU: 'Ленточка',
-            nameENG: 'Ilvie',
+            nameENG: 'Ivie',
             level: 7,
             description: "wazzzzzap",
             txtMiniScene: 1162,

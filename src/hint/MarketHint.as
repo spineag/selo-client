@@ -137,7 +137,7 @@ public class MarketHint {
                 _txtText.y = 15;
                 _txtSklad.text = String(g.managerLanguage.allTexts[612]);//+ ' ' + String(g.userInventory.getCountResourceById(_dataId));
                 _txtSklad.alignH = Align.LEFT;
-                _txtSklad.x = -70;
+                _txtSklad.x = -50;
                 _txtSklad.y = 65;
                 _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
                 _txtCount.alignH = Align.LEFT;
@@ -173,7 +173,7 @@ public class MarketHint {
                 _txtText.y = 32;
                 _txtSklad.text = String(g.managerLanguage.allTexts[612]);
                 _txtSklad.alignH = Align.LEFT;
-                _txtSklad.x = -70;
+                _txtSklad.x = -50;
                 _txtSklad.y = 97;
                 _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
                 _txtCount.alignH = Align.LEFT;
@@ -191,7 +191,7 @@ public class MarketHint {
                 _txtText.y = 23;
                 _txtSklad.text = String(g.managerLanguage.allTexts[612]);
                 _txtSklad.alignH = Align.LEFT;
-                _txtSklad.x = -70;
+                _txtSklad.x = -50;
                 _txtSklad.y = 79;
                 _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
                 _txtCount.alignH = Align.LEFT;
@@ -237,7 +237,7 @@ public class MarketHint {
                     _txtText.y = 15;
                     _txtSklad.text = String(g.managerLanguage.allTexts[612]);
                     _txtSklad.alignH = Align.LEFT;
-                    _txtSklad.x = -70;
+                    _txtSklad.x = -50;
                     _txtSklad.y = 65;
                     _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
                     _txtCount.alignH = Align.LEFT;
@@ -262,36 +262,52 @@ public class MarketHint {
         }
         for (i=0; i<objCave.length; i++) {
             if (_dataId == int(objCave[i])) {
-                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
-                MCScaler.scale(_imageItem,30,30);
-                _imageItem.y = 70;
-                _imageItem.x = 15;
-                _txtName.text = String(g.allData.getResourceById(_dataId).name);
-                _txtName.x = -100;
-                _txtName.y = 20;
-                _txtText.text = String(g.managerLanguage.allTexts[610]);
-                _txtText.x = -100;
-                _txtText.y = 5;
-                _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
-                _txtCount.x = 35;
-                _txtCount.y = 70;
-                _txtSklad.text = String(g.managerLanguage.allTexts[612]);
-                _txtSklad.x = -50;
-                _txtSklad.y = 75;
-                wText = int(_txtText.textBounds.width + 20);
-                wName = int(_txtName.textBounds.width + 40);
-                if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                _source.addChild(bg);
-                _source.addChild(_txtName);
-                _source.addChild(_txtText);
+                if (noResource) {
+                    _txtName.text = g.allData.getResourceById(_dataId).name;
+                    _txtName.x = -100;
+                    _txtName.y = -115;
+                    _txtText.text = String(g.managerLanguage.allTexts[610]);
+                    _txtText.x = -100;
+                    _txtText.y = -104;
+                    wText = int(_txtText.textBounds.width + 20);
+                    wName = int(_txtName.textBounds.width + 40);
+                    if (wText > wName) bg = new HintBackground(wText, 85, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                    else bg = new HintBackground(wName, 85, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                } else {
+                    _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
+                    MCScaler.scale(_imageItem, 30, 30);
+                    _imageItem.y = 70;
+                    _imageItem.x = 15;
+                    _txtName.text = String(g.allData.getResourceById(_dataId).name);
+                    _txtName.x = -100;
+                    _txtName.y = 20;
+                    _txtText.text = String(g.managerLanguage.allTexts[610]);
+                    _txtText.x = -100;
+                    _txtText.y = 5;
+                    _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+                    _txtCount.x = 35;
+                    _txtCount.y = 70;
+                    _txtSklad.text = String(g.managerLanguage.allTexts[612]);
+                    _txtSklad.x = -50;
+                    _txtSklad.y = 75;
+                    wText = int(_txtText.textBounds.width + 20);
+                    wName = int(_txtName.textBounds.width + 40);
+                    if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                }
+                    _source.addChild(bg);
+                    _source.addChild(_txtName);
+                    _source.addChild(_txtText);
 //                _source.addChild(_imageItem);
-                _source.addChild(_txtCount);
-                _source.addChild(_txtSklad);
-                g.cont.hintCont.addChild(_source);
-                return;
+                if (!noResource) {
+                    _source.addChild(_txtCount);
+                    _source.addChild(_txtSklad);
+                }
+                    g.cont.hintCont.addChild(_source);
+                    return;
             }
         }
+
         if (objRecipes[_dataId]) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);
@@ -333,7 +349,7 @@ public class MarketHint {
                     _txtText.y = 59;
                     _txtSklad.text = String(g.managerLanguage.allTexts[612]);
                     _txtSklad.alignH = Align.LEFT;
-                    _txtSklad.x = -67;
+                    _txtSklad.x = -50;
                     _txtSklad.y = 123;
                     _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
                     _txtCount.alignH = Align.LEFT;
@@ -352,7 +368,7 @@ public class MarketHint {
                     _txtText.y = 37;
                     _txtSklad.text = String(g.managerLanguage.allTexts[612]);
                     _txtSklad.alignH = Align.LEFT;
-                    _txtSklad.x = -67;
+                    _txtSklad.x = -50;
                     _txtSklad.y = 105;
                     _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
                     _txtCount.alignH = Align.LEFT;
@@ -368,7 +384,6 @@ public class MarketHint {
             _source.addChild(_txtName);
             _source.addChild(_txtText);
             if (!noResource) {
-//                source.addChild(_imageItem);
                 _source.addChild(_txtCount);
                 _source.addChild(_txtSklad);
             }
@@ -376,32 +391,44 @@ public class MarketHint {
             return;
         }
         if (objAnimals[_dataId]) {
-            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
-            MCScaler.scale(_imageItem,30,30);
-            _imageItem.y = 70;
-            _imageItem.x = 15;
-            _txtName.text = String(g.allData.getResourceById(_dataId).name);
-            _txtName.x = -100;
-            _txtName.y = 20;
-            _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_dataId].buildId).name;
-            _txtText.x = -100;
-            _txtText.y = 5;
-            _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
-            _txtCount.x = 35;
-            _txtCount.y = 70;
-            _txtSklad.text = String(g.managerLanguage.allTexts[612]);
-            _txtSklad.x = -50;
-            _txtSklad.y = 75;
-            wText = int(_txtText.textBounds.width + 20);
-            wName = int(_txtName.textBounds.width + 40);
-            if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            if (noResource) {
+                _txtName.text = g.allData.getResourceById(_dataId).name;
+                _txtName.x = -100;
+                _txtName.y = -115;
+                _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_dataId].buildId).name;
+                _txtText.x = -100;
+                _txtText.y = -104;
+                wText = int(_txtText.textBounds.width + 20);
+                wName = int(_txtName.textBounds.width + 40);
+                if (wText > wName) bg = new HintBackground(wText, 85, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                else bg = new HintBackground(wName, 85, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+            } else {
+                _txtName.text = g.allData.getResourceById(_dataId).name;
+                _txtName.x = -100;
+                _txtName.y = 15;
+                _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_dataId].buildId).name;
+                _txtText.x = -100;
+                _txtText.y = 28;
+                _txtSklad.text = String(g.managerLanguage.allTexts[612]);
+                _txtSklad.alignH = Align.LEFT;
+                _txtSklad.x = -50;
+                _txtSklad.y = 90;
+                _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+                _txtCount.alignH = Align.LEFT;
+                _txtCount.x = _txtSklad.x + _txtSklad.textBounds.width;
+                _txtCount.y = 90;
+                wText = int(_txtText.textBounds.width + 20);
+                wName = int(_txtName.textBounds.width + 40);
+                if (wText > wName) bg = new HintBackground(wText, 111, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 111, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            }
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.addChild(_imageItem);
-            _source.addChild(_txtCount);
-            _source.addChild(_txtSklad);
+            if (!noResource) {
+                _source.addChild(_txtCount);
+                _source.addChild(_txtSklad);
+            }
             g.cont.hintCont.addChild(_source);
             return;
         }

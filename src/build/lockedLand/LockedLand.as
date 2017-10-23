@@ -454,6 +454,7 @@ public class LockedLand extends WorldObject {
         _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
         _armatureOpen.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
         _armatureOpen.animation.gotoAndPlayByFrame("start");
+        g.townArea.deleteLockedLandTail(posX,posY);
     }
 
     private function onEndAnimation():void {
