@@ -108,8 +108,8 @@ public class ManagerBuyerNyashuk {
         for (var i:int=0; i<_arrayNya.length; i++) {
             leftSeconds = _arr[i].startTime - int(new Date().getTime()/1000);
             if (leftSeconds <= 0) {
-                if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(32, 30);
-                else _arrayNya[i].setTailPositions(30, 30);
+                if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(26, 25);
+                else _arrayNya[i].setTailPositions(25, 27);
                 _arrayNya[i].walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
                 _arrayNya[i].setPositionInQueue(r);
                 g.townArea.addBuyerNyashukToCont(_arrayNya[i]);
@@ -432,8 +432,8 @@ public class ManagerBuyerNyashuk {
     }
 
     private function quickArriveNyashuk(nya:BuyerNyashuk):void {
-        if (nya.id == 1) nya.setTailPositions(32, 30);
-        else nya.setTailPositions(30, 30);
+        if (nya.id == 1) nya.setTailPositions(27, 25);
+        else nya.setTailPositions(25, 25);
         g.townArea.addBuyerNyashukToCont(nya);
         g.townArea.addBuyerNyashukToCityObjects(nya);
         nya.flipIt(false);

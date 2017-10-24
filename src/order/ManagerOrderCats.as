@@ -31,7 +31,7 @@ public class ManagerOrderCats {
             leftSeconds = arr[i].startTime - int(new Date().getTime()/1000);
             if (leftSeconds <= 0) {
                 cat = new OrderCat(arr[i].catOb);
-                cat.setTailPositions(30, 25 - r*2);
+                cat.setTailPositions(30, 19 - r*2);
                 cat.walkPosition = OrderCat.STAY_IN_QUEUE;
                 cat.setPositionInQueue(r);
                 g.townArea.addOrderCatToCont(cat);
@@ -286,7 +286,7 @@ public class ManagerOrderCats {
             for (var i:int = 0; i < l; i++) {
                 ob = g.managerOrder.getFreeCatObj();
                 cat = new OrderCat(ob);
-                cat.setTailPositions(30, 25 - i * 2);
+                cat.setTailPositions(30, 19 - i * 2);
                 cat.walkPosition = OrderCat.STAY_IN_QUEUE;
                 cat.setPositionInQueue(i);
                 g.townArea.addOrderCatToCont(cat);

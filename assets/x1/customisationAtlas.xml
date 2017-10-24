@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:35d2936e1ef9e29768bfcc10d38036fd:8ac6210046b8cd77d78adf53a6048c61:afed83d20ee569361b13668b09d4ff6e$ -->
+<!-- $TexturePacker:SmartUpdate:db48e4fb3ba16e6c50ead09ee5f09709:8ac6210046b8cd77d78adf53a6048c61:afed83d20ee569361b13668b09d4ff6e$ -->
 <TextureAtlas imagePath="customisationAtlas.png" width="1142" height="128">
     <SubTexture name="bant_1" x="547" y="96" width="30" height="29" frameX="0" frameY="-2" frameWidth="30" frameHeight="31"/>
     <SubTexture name="bant_2" x="767" y="35" width="30" height="29" frameX="0" frameY="-2" frameWidth="30" frameHeight="31"/>
