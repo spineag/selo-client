@@ -1,5 +1,6 @@
 ﻿package map {
 import additional.buyerNyashuk.BuyerNyashuk;
+import additional.buyerNyashuk.tableNyashuk.TableNyashuk;
 import additional.lohmatik.Lohmatik;
 import additional.mouse.MouseHero;
 import build.TownAreaBuildSprite;
@@ -520,6 +521,14 @@ public class TownArea extends Sprite {
             _cont.addChild(loh.source);
             zSort();
         }
+    }
+
+    public function addTableNyashuk(table:TableNyashuk, posX:int, posY:int):void {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
+            table.source.x = int(p.x);
+            table.source.y = int(p.y);
+            _cont.addChild(table.source);
+            zSort();
     }
 
     public function removeLohmatik(loh:Lohmatik):void {

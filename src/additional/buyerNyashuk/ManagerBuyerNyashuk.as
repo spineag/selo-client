@@ -2,6 +2,8 @@
  * Created by user on 12/14/16.
  */
 package additional.buyerNyashuk {
+import additional.buyerNyashuk.tableNyashuk.TableNyashuk;
+
 import com.junkbyte.console.Cc;
 
 import data.StructureDataResource;
@@ -26,11 +28,17 @@ public class ManagerBuyerNyashuk {
     private var _arrayNya:Array;
     private var _timer:int;
     private var afterNewLvl:Boolean;
-    
+    private var _table1:TableNyashuk;
+    private var _table2:TableNyashuk;
+
     public function ManagerBuyerNyashuk(first:Boolean = false) {
         afterNewLvl = first;
         _arrayNya = [];
         _arr = [];
+        _table1 = new TableNyashuk();
+        g.townArea.addTableNyashuk(_table1, 26, 25);
+        _table2 = new TableNyashuk();
+        g.townArea.addTableNyashuk(_table2,25, 27);
         g.loadAnimation.load('animations_json/x1/red_n', 'red_n', null);
         g.loadAnimation.load('animations_json/x1/blue_n', 'blue_n', null);
         if (!g.tuts.isTuts) g.directServer.getUserPapperBuy(null);
@@ -65,8 +73,15 @@ public class ManagerBuyerNyashuk {
             } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1200) {
                     newBot(false,ar[i]);
                 } else {
-                    if (ar[i].buyer_id == 1) g.userTimer.buyerNyashukBlue((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
-                    else g.userTimer.buyerNyashukRed((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
+                    if (ar[i].buyer_id == 1) {
+                        g.userTimer.buyerNyashukBlue((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
+                        _table1.showTable(true,26, 25);
+
+                    }
+                    else {
+                        g.userTimer.buyerNyashukRed((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
+                        _table2.showTable(true, 25, 27);
+                    }
                 }
             }
         } else newBot(true);
@@ -289,7 +304,6 @@ public class ManagerBuyerNyashuk {
 //            goNyaToPoint(nya, new Point(nya.posX + 1, nya.posY), goAwayPart1,true, nya );
             goAwayPart2(nya);
         } else {
-
             var onFinishArrive:Function = function():void {
                 if (isOrderSelled) {
                     nya.walkPackAnimation();
@@ -311,6 +325,8 @@ public class ManagerBuyerNyashuk {
             nya.flipIt(false);
             nya.showFront(true);
         }
+         if (nya.id == 1)_table1.showTable(true,26, 25);
+        else _table2.showTable(true, 25, 27);
     }
 
     private function goAwayPart1(nya:BuyerNyashuk):void {
@@ -368,6 +384,9 @@ public class ManagerBuyerNyashuk {
     // ------ new Nyashuk arrived --------
     public function getNewNyaForOrder(onArriveCallback:Function = null, ob:Object = null, id:int = 1):BuyerNyashuk{
 //        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return null;
+
+        if (id == 1)_table1.showTable(false,26, 25);
+        else _table2.showTable(false, 25, 27);
         var nya:BuyerNyashuk = new BuyerNyashuk(id, ob, afterNewLvl);
         nya.noClick();
         nya.arriveCallback = onArriveCallback;
@@ -432,8 +451,8 @@ public class ManagerBuyerNyashuk {
     }
 
     private function quickArriveNyashuk(nya:BuyerNyashuk):void {
-        if (nya.id == 1) nya.setTailPositions(27, 25);
-        else nya.setTailPositions(25, 25);
+        if (nya.id == 1) nya.setTailPositions(26, 25);
+        else nya.setTailPositions(25, 27);
         g.townArea.addBuyerNyashukToCont(nya);
         g.townArea.addBuyerNyashukToCityObjects(nya);
         nya.flipIt(false);

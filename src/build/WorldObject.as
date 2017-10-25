@@ -70,13 +70,15 @@ public class WorldObject {
         _build = new Sprite();
         _dataBuild = dataBuildObject;
         _defaultScale = 1;
-        _flip = _dataBuild.isFlip || false;
-        _dataBuild.isFlip = _flip;
+        if (_dataBuild) _flip = _dataBuild.isFlip || false;
+        if (_dataBuild) _dataBuild.isFlip = _flip;
         _sizeX = 0;
         _sizeY = 0;
         _source.woObject = this;
-        _sizeX = _dataBuild.width;
-        _sizeY = _dataBuild.height;
+        if (_dataBuild) _sizeX = _dataBuild.width;
+        else _sizeX = 2;
+        if (_dataBuild) _sizeY = _dataBuild.height;
+        else _sizeY = 2;
     }
 
     public function onOut():void {}

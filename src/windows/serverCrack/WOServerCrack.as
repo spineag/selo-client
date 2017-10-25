@@ -34,6 +34,8 @@ public class WOServerCrack  extends WindowMain {
         _woWidth = 460;
         _woHeight = 340;
         _woBG = new BackgroundWhiteIn(_woWidth, _woHeight);
+        _woBG.x = -_woBG.width/2;
+        _woBG.y = -_woBG.height/2;
         _source.addChild(_woBG);
         txt = new CTextField(420,80,String(g.managerLanguage.allTexts[290]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);

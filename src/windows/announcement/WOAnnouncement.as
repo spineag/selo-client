@@ -32,6 +32,8 @@ public class WOAnnouncement extends WindowMain {
         _woWidth = 720;
         _woHeight = 534;
         _woBG = new BackgroundWhiteIn(_woWidth, _woHeight);
+        _woBG.x = -_woBG.width/2;
+        _woBG.y = -_woBG.height/2;
         _source.addChild(_woBG);
         _url = g.dataPath.getGraphicsPath() + 'announcement/usa_post.png';
     }
