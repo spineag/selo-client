@@ -1155,7 +1155,7 @@ public class TownArea extends Sprite {
                     pasteBuild(build, _x, _y);
                 }
                 showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency, -(build as WorldObject).countShopCost);
-                g.buyHint.hideIt();
+                g.buyHint.showIt((build as WorldObject).countShopCost,true);
                 return;
             } else {
                 if ((build as WorldObject).countShopCost == 0) {

@@ -42,7 +42,7 @@ public class DataOrderCat {
             nameENG: 'Martin',
             level: 6,
             description: "wazzzzzap",
-            txtMinScene: 1161,
+            txtMiniScene: 1161,
             isMiniScene: false
         };
         _arrCats.push(obj);
@@ -146,7 +146,7 @@ public class DataOrderCat {
             nameENG: 'Lexy',
             level: 4,
             description: "wazzzzzap",
-            textMiniScene: 1157,
+            txtMiniScene: 1157,
             isMiniScene: false
         };
         _arrCats.push(obj);
@@ -159,7 +159,7 @@ public class DataOrderCat {
             nameENG: 'Dixie',
             level: 5,
             description: "wazzzzzap",
-            textMiniScene: 1159,
+            txtMiniScene: 1159,
             isMiniScene: false
         };
         _arrCats.push(obj);

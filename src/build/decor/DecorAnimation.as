@@ -469,13 +469,21 @@ public class DecorAnimation extends WorldObject{
 
     private function releaseManFrontTexture(armature:Armature = null):void {
         if (!_armature) return;
-        changeTexture("head", "head",armature);
-        changeTexture("body", "body",armature);
-        changeTexture("handLeft", "hand_l",armature);
-        changeTexture("legLeft", "leg_l",armature);
-        changeTexture("handRight", "hand_r",armature);
-        changeTexture("legRight", "leg_r",armature);
-        changeTexture("tail", "tail",armature);
+        changeTexture("head", "grey_c_m_worker_head_front", armature);
+        changeTexture("body", "grey_c_m_worker_body_front", armature);
+        changeTexture("handLeft", "grey_c_m_worker_l_hand_front", armature);
+        changeTexture("legLeft", "grey_c_m_worker_l_leg_front", armature);
+        changeTexture("handRight", "grey_c_m_worker_r_hand_front", armature);
+        changeTexture("legRight", "grey_c_m_worker_r_leg_front", armature);
+        changeTexture("tail", "grey_c_m_worker_tail_front", armature);
+        changeTexture("handRight copy", "grey_c_m_worker_r_hand_front", armature);
+//        changeTexture("head", "head",armature);
+//        changeTexture("body", "body",armature);
+//        changeTexture("handLeft", "hand_l",armature);
+//        changeTexture("legLeft", "leg_l",armature);
+//        changeTexture("handRight", "hand_r",armature);
+//        changeTexture("legRight", "leg_r",armature);
+//        changeTexture("tail", "tail",armature);
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "hand_r",armature);
         }
@@ -488,13 +496,21 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function releaseManBackTexture(armature:Armature = null):void {
-        changeTexture("head", "head_b",armature);
-        changeTexture("body", "body_b",armature);
-        changeTexture("handLeft", "hand_l_b",armature);
-        changeTexture("legLeft", "leg_l_b",armature);
-        changeTexture("handRight", "hand_r_b",armature);
-        changeTexture("legRight", "leg_r_b",armature);
-        changeTexture("tail", "tail",armature);
+        changeTexture("head", "grey_c_m_worker_head_back", armature);
+        changeTexture("body", "grey_c_m_worker_body_back", armature);
+        changeTexture("handLeft", "grey_c_m_worker_l_leg_back", armature);
+        changeTexture("legLeft", "grey_c_m_worker_l_hand_back", armature);
+        changeTexture("handRight", "grey_c_m_worker_r_hand_back", armature);
+        changeTexture("legRight", "grey_c_m_worker_r_leg_back", armature);
+        changeTexture("tail11", "grey_c_m_worker_tail_front", armature);
+
+//        changeTexture("head", "head_b",armature);
+//        changeTexture("body", "body_b",armature);
+//        changeTexture("handLeft", "hand_l_b",armature);
+//        changeTexture("legLeft", "leg_l_b",armature);
+//        changeTexture("handRight", "hand_r_b",armature);
+//        changeTexture("legRight", "leg_r_b",armature);
+//        changeTexture("tail", "tail",armature);
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "hand_r_b",armature);
         }
@@ -502,13 +518,22 @@ public class DecorAnimation extends WorldObject{
 
     private function releaseWomanFrontTexture(armature:Armature = null):void {
         if (!_armature) return;
-        changeTexture("head", "head_w",armature);
-        changeTexture("body", "body_w",armature);
-        changeTexture("handLeft", "hand_w_l",armature);
-        changeTexture("legLeft", "leg_w_r",armature);
-        changeTexture("handRight", "hand_w_r",armature);
-        changeTexture("legRight", "leg_w_r",armature);
-        changeTexture("tail", "tail_w",armature);
+        changeTexture("head", "orange_c_w_worker_head_front", armature);
+        changeTexture("body", "orange_c_w_worker_body_front", armature);
+        changeTexture("handLeft", "orange_c_w_worker_l_hand_front", armature);
+        changeTexture("legLeft", "orange_c_w_worker_l_leg_front", armature);
+        changeTexture("handRight", "orange_c_w_worker_r_hand_front", armature);
+        changeTexture("legRight", "orange_c_w_worker_r_leg_front", armature);
+        changeTexture("tail", "orange_c_w_worker_tail_front", armature);
+        changeTexture("handRight copy", "orange_c_w_worker_r_hand_front", armature);
+
+//        changeTexture("head", "head_w",armature);
+//        changeTexture("body", "body_w",armature);
+//        changeTexture("handLeft", "hand_w_l",armature);
+//        changeTexture("legLeft", "leg_w_r",armature);
+//        changeTexture("handRight", "hand_w_r",armature);
+//        changeTexture("legRight", "leg_w_r",armature);
+//        changeTexture("tail", "tail_w",armature);
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "hand_w_r",armature);
         }
@@ -521,13 +546,22 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function releaseWomanBackTexture(armature:Armature = null):void {
-        changeTexture("head", "head_w_b",armature);
-        changeTexture("body", "body_w_b",armature);
-        changeTexture("handLeft", "hand_w_l_b",armature);
-        changeTexture("legLeft", "leg_w_l_b");
-        changeTexture("handRight", "hand_w_r_b",armature);
-        changeTexture("legRight", "leg_w_r_b",armature);
-        changeTexture("tail", "tail_w",armature);
+
+        changeTexture("head", "orange_c_w_worker_head_back", armature);
+        changeTexture("body", "orange_c_w_worker_body_back", armature);
+        changeTexture("handLeft", "orange_c_w_worker_l_hand_back", armature);
+        changeTexture("legLeft", "orange_c_w_worker_l_leg_back", armature);
+        changeTexture("handRight", "orange_c_w_worker_r_hand_back", armature);
+        changeTexture("legRight", "orange_c_w_worker_r_leg_back", armature);
+        changeTexture("tail11", "orange_c_w_worker_tail_front", armature);
+
+//        changeTexture("head", "head_w_b",armature);
+//        changeTexture("body", "body_w_b",armature);
+//        changeTexture("handLeft", "hand_w_l_b",armature);
+//        changeTexture("legLeft", "leg_w_l_b");
+//        changeTexture("handRight", "hand_w_r_b",armature);
+//        changeTexture("legRight", "leg_w_r_b",armature);
+//        changeTexture("tail", "tail_w",armature);
     }
 
     private function changeTexture(oldName:String, newName:String,armature:Armature = null):void {

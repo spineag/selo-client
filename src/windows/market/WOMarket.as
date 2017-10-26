@@ -762,14 +762,14 @@ public class WOMarket  extends WindowMain {
 
     public function checkArrow():void {
         if (_shift == 0) {
-            if (_leftBtn) _leftBtn.filter = ManagerFilters.DISABLE_FILTER;
+            if (_leftBtn) _leftBtn.visible = false;
         } else {
-            if (_leftBtn) _leftBtn.filter = null;
+            if (_leftBtn) _leftBtn.visible = true;
         }
         if ((_shift+4)*2 >= _arrItems.length) {
-            if (_rightBtn) _rightBtn.filter = ManagerFilters.DISABLE_FILTER;
+            if (_rightBtn) _rightBtn.visible = false;
         } else {
-            if (_rightBtn) _rightBtn.filter = null;
+            if (_rightBtn) _rightBtn.visible = true;
         }
     }
 

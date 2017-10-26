@@ -171,7 +171,7 @@ public class ResourceHint {
         if (g.allData.getResourceById(_id).buildType == BuildType.INSTRUMENT) {
             _txtName.text = String(g.allData.getResourceById(_id).name);
             _txtName.x = -103;
-            _txtName.y = 15;
+            _txtName.y = 29;
             _txtName.leading = -5;
             _txtText.text = String(g.allData.getResourceById(_id).opys);
             _txtText.x = -100;
@@ -207,15 +207,31 @@ public class ResourceHint {
 
             } else {
                 if (wText > wName) {
-                    if (_id == 5 || _id == 6 || _id == 125) {
-                        bg = new HintBackground(wText, 114, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                        _txtText.y = 41;
-                    } else if (_id == 2 || _id == 3 || _id == 7) {
-                        bg = new HintBackground(wText, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                        _txtText.y = 30;
-                    } else bg = new HintBackground(wText, 85, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    wName = _txtName.textBounds.height + _txtText.textBounds.height + 15;
+//                    if (_id == 5 || _id == 6 || _id == 125) {
+                        bg = new HintBackground(wText, wName, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                        _txtText.alignV = Align.TOP;
+                        _txtName.alignV = Align.TOP;
+                        _txtText.y = _txtName.y +_txtName.textBounds.height;
+//                    } else if (_id == 2 || _id == 3 || _id == 7) {
+//                        bg = new HintBackground(wText, wName, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+//                        _txtText.alignV = Align.TOP;
+//                        _txtName.alignV = Align.TOP;
+//                        _txtText.y = _txtName.y +_txtName.textBounds.height;
+//                    } else {
+//                        bg = new HintBackground(wText, wName, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+//                        _txtText.alignV = Align.TOP;
+//                        _txtName.alignV = Align.TOP;
+//                        _txtText.y = _txtName.y +_txtName.textBounds.height;
+//                    }
                 }
-                else bg = new HintBackground(wName, 85, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else {
+                    wText = _txtName.textBounds.height + _txtText.textBounds.height + 15;
+                    bg = new HintBackground(wName, wText, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    _txtText.alignV = Align.TOP;
+                    _txtName.alignV = Align.TOP;
+                    _txtText.y = _txtName.y +_txtName.textBounds.height;
+                }
             }
             _source.addChild(bg);
             _source.addChild(_txtName);
@@ -324,15 +340,15 @@ public class ResourceHint {
         }
 
         if (objAnimals[_id]) {
-            _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock"));
-            MCScaler.scale(_imageClock, 30, 30);
-            _imageClock.y = 74;
-            _imageClock.x = -30;
+//            _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock"));
+//            MCScaler.scale(_imageClock, 30, 30);
+//            _imageClock.y = 74;
+//            _imageClock.x = -30;
             _txtName.text = String(g.allData.getResourceById(_id).name);
             _txtName.x = -103;
             _txtName.y = 15;
-            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
-            _txtTime.y = 62;
+//            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
+//            _txtTime.y = 62;
             _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_id].buildId).name;
             _txtText.x = -100;
             _txtText.y = 34;
@@ -343,14 +359,11 @@ public class ResourceHint {
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-//            if (!_bool) _source.addChild(_txtTime);
-//            if (!_bool) _source.addChild(_imageClock);
             g.cont.hintCont.addChild(_source);
             return;
         }
         Cc.error('Resource hint:: can"t find for resourceId= ' + _id);
     }
-
 
     public function hideIt():void {
         if (bg) bg.deleteIt();

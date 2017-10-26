@@ -3,6 +3,7 @@ package windows.cave {
 import com.junkbyte.console.Cc;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -32,7 +33,8 @@ public class WOCave extends WindowMain {
         _source.addChild(_bgPlant);
         _txtWindowName = new CTextField(380, 50, String(g.managerLanguage.allTexts[160]));
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-        _txtWindowName.x = -_txtWindowName.textBounds.width-50;
+        if (g.user.language == ManagerLanguage.ENGLISH) _txtWindowName.x = -_txtWindowName.textBounds.width-80;
+        else _txtWindowName.x = -_txtWindowName.textBounds.width-50;
         _txtWindowName.y = -100;
         _source.addChild(_txtWindowName);
         createCaveItems();
