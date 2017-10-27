@@ -17,32 +17,47 @@ import utils.CTextField;
 import windows.WOComponents.BackgroundWhiteIn;
 
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOAnotherGame extends WindowMain {
-    private var _woBG:BackgroundWhiteIn;
-    private var txt:CTextField;
+    private var _woBG:WindowBackgroundNew;
+    private var _txt:CTextField;
+    private var _txtError:CTextField;
+    private var _b:CButton;
 
     public function WOAnotherGame() {
         super();
         _windowType = WindowsManager.WO_SERVER_ERROR;
         _woWidth = 460;
-        _woHeight = 360;
-        _woBG = new BackgroundWhiteIn(_woWidth, _woHeight);
-        _woBG.x = -_woBG.width/2;
-        _woBG.y = -_woBG.height/2;
+        _woHeight = 430;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
-        txt = new CTextField(420,130,String(g.managerLanguage.allTexts[456]));
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.autoScale = true;
-        txt.x = -210;
-        txt.y = -150;
-        txt.touchable = false;
-        _source.addChild(txt);
+        _txt = new CTextField(460,100,String(g.managerLanguage.allTexts[456]));
+        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        _txt.autoScale = true;
+        _txt.x = -230;
+        _txt.y = -110;
+        _txt.touchable = false;
+        _source.addChild(_txt);
+        _txtError = new CTextField(300,70,String(g.managerLanguage.allTexts[283]));
+        _txtError.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtError.x = -160;
+        _txtError.y = -185;
+        _source.addChild(_txtError);
+        _txtError.touchable = false;
+        _b = new CButton();
+        _b.addButtonTexture(210, CButton.HEIGHT_41, CButton.BLUE, true);
+        _b.addTextField(210, 40, 0, -5, String(g.managerLanguage.allTexts[281]));
+        _b.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _source.addChild(_b);
+        _b.clickCallback = onClick;
+
+        _b.y = 175;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
-        im.y = -30;
+        im.y = -5;
         _source.addChild(im);
         SOUND_OPEN = SoundConst.WO_AHTUNG;
     }
@@ -51,12 +66,28 @@ public class WOAnotherGame extends WindowMain {
         super.showIt();
     }
 
+    private function onClick():void {
+        if (g.isDebug) hideIt();
+        else g.socialNetwork.reloadGame();
+    }
+
     override protected function deleteIt():void {
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (_txtError) {
+            _source.removeChild(_txtError);
+            _txtError.deleteIt();
+            _txtError = null;
+        }
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;
-        txt.deleteIt();
-        txt = null;
+        _source.removeChild(_b);
+        _b.deleteIt();
+        _b = null;
         super.deleteIt();
     }
 }

@@ -602,50 +602,86 @@ public class Fabrica extends WorldObject {
     }
 
     private function releaseManFrontTexture():void {
-        changeTexture("head", "head");
-        changeTexture("body", "body");
-        changeTexture("handLeft", "hand_l");
-        changeTexture("legLeft", "leg_l");
-        changeTexture("handRight", "hand_r");
-        changeTexture("legRight", "leg_r");
-        changeTexture("tail", "tail");
+        changeTexture("head", "grey_c_m_worker_head_front");
+        changeTexture("body", "grey_c_m_worker_body_front");
+        changeTexture("handLeft", "grey_c_m_worker_l_hand_front");
+        changeTexture("legLeft", "grey_c_m_worker_l_leg_front");
+        changeTexture("handRight", "grey_c_m_worker_r_hand_front");
+        changeTexture("legRight", "grey_c_m_worker_r_leg_front");
+        changeTexture("tail", "grey_c_m_worker_tail_front");
+        changeTexture("handRight copy", "grey_c_m_worker_r_hand_front");
+
+//        changeTexture("head", "head");
+//        changeTexture("body", "body");
+//        changeTexture("handLeft", "hand_l");
+//        changeTexture("legLeft", "leg_l");
+//        changeTexture("handRight", "hand_r");
+//        changeTexture("legRight", "leg_r");
+//        changeTexture("tail", "tail");
         if (_dataBuild.id == 10) changeTexture("handRight2", "hand_r");
         var viyi:Bone = _armature.getBone('viyi');
         if (viyi) viyi.visible = false;
     }
 
     private function releaseManBackTexture():void {
-        changeTexture("head", "head_b");
-        changeTexture("body", "body_b");
-        changeTexture("handLeft", "hand_l_b");
-        changeTexture("legLeft", "leg_l_b");
-        changeTexture("handRight", "hand_r_b");
-        changeTexture("legRight", "leg_r_b");
-        changeTexture("tail", "tail");
+        changeTexture("head", "grey_c_m_worker_head_back");
+        changeTexture("body", "grey_c_m_worker_body_back");
+        changeTexture("handLeft", "grey_c_m_worker_l_leg_back");
+        changeTexture("legLeft", "grey_c_m_worker_l_hand_back");
+        changeTexture("handRight", "grey_c_m_worker_r_hand_back");
+        changeTexture("legRight", "grey_c_m_worker_r_leg_back");
+        changeTexture("tail11", "grey_c_m_worker_tail_front");
+
+//        changeTexture("head", "head_b");
+//        changeTexture("body", "body_b");
+//        changeTexture("handLeft", "hand_l_b");
+//        changeTexture("legLeft", "leg_l_b");
+//        changeTexture("handRight", "hand_r_b");
+//        changeTexture("legRight", "leg_r_b");
+//        changeTexture("tail", "tail");
         if (_dataBuild.id == 10) changeTexture("handRight2", "hand_r_b");
     }
 
     private function releaseWomanFrontTexture():void {
-        changeTexture("head", "head_w");
-        changeTexture("body", "body_w");
-        changeTexture("handLeft", "hand_w_l");
-        changeTexture("legLeft", "leg_w_r");
-        changeTexture("handRight", "hand_w_r");
-        changeTexture("legRight", "leg_w_r");
-        changeTexture("tail", "tail_w");
+        changeTexture("head", "orange_c_w_worker_head_front");
+        changeTexture("body", "orange_c_w_worker_body_front");
+        changeTexture("handLeft", "orange_c_w_worker_l_hand_front");
+        changeTexture("legLeft", "orange_c_w_worker_l_leg_front");
+        changeTexture("handRight", "orange_c_w_worker_r_hand_front");
+        changeTexture("legRight", "orange_c_w_worker_r_leg_front");
+        changeTexture("tail", "orange_c_w_worker_tail_front");
+        changeTexture("handRight copy", "orange_c_w_worker_r_hand_front");
+
+
+//        changeTexture("head", "head_w");
+//        changeTexture("body", "body_w");
+//        changeTexture("handLeft", "hand_w_l");
+//        changeTexture("legLeft", "leg_w_r");
+//        changeTexture("handRight", "hand_w_r");
+//        changeTexture("legRight", "leg_w_r");
+//        changeTexture("tail", "tail_w");
         if (_dataBuild.id == 10) changeTexture("handRight2", "hand_w_r");
         var viyi:Bone = _armature.getBone('viyi');
         if (viyi) viyi.visible = true;
     }
 
     private function releaseWomanBackTexture():void {
-        changeTexture("head", "head_w_b");
-        changeTexture("body", "body_w_b");
-        changeTexture("handLeft", "hand_w_l_b");
-        changeTexture("legLeft", "leg_w_l_b");
-        changeTexture("handRight", "hand_w_r_b");
-        changeTexture("legRight", "leg_w_r_b");
-        changeTexture("tail", "tail_w");
+
+        changeTexture("head", "orange_c_w_worker_head_back");
+        changeTexture("body", "orange_c_w_worker_body_back");
+        changeTexture("handLeft", "orange_c_w_worker_l_hand_back");
+        changeTexture("legLeft", "orange_c_w_worker_l_leg_back");
+        changeTexture("handRight", "orange_c_w_worker_r_hand_back");
+        changeTexture("legRight", "orange_c_w_worker_r_leg_back");
+        changeTexture("tail11", "orange_c_w_worker_tail_front");
+
+//        changeTexture("head", "head_w_b");
+//        changeTexture("body", "body_w_b");
+//        changeTexture("handLeft", "hand_w_l_b");
+//        changeTexture("legLeft", "leg_w_l_b");
+//        changeTexture("handRight", "hand_w_r_b");
+//        changeTexture("legRight", "leg_w_r_b");
+//        changeTexture("tail", "tail_w");
     }
 
     private function changeTexture(oldName:String, newName:String):void {

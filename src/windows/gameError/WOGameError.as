@@ -23,7 +23,6 @@ public class WOGameError extends WindowMain {
     private var _b:CButton;
     private var _woBG:WindowBackgroundNew;
     private var _txt:CTextField;
-    private var _txtBtn:CTextField;
 
     public function WOGameError() {
         super();
@@ -51,14 +50,7 @@ public class WOGameError extends WindowMain {
         _b.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _source.addChild(_b);
         _b.clickCallback = onClick;
-
-//        _b = new CButton();
-//        _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 175;
-//        _source.addChild(_b);
-//        _txtBtn = new CTextField(210, 34, String(g.managerLanguage.allTexts[281]));
-//        _txtBtn.setFormat(CTextField.BOLD18, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-//        _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
         im.y = -5;
@@ -87,11 +79,6 @@ public class WOGameError extends WindowMain {
             _source.removeChild(_txtError);
             _txtError.deleteIt();
             _txtError = null;
-        }
-        if (_txtBtn) {
-            _b.removeChild(_txtBtn);
-            _txtBtn.deleteIt();
-            _txtBtn = null;
         }
         _source.removeChild(_woBG);
         _woBG.deleteIt();

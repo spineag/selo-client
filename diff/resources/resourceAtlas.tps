@@ -312,6 +312,8 @@
             <filename>part_products/vanllla_ice_cream_icon.png</filename>
             <filename>part_products/winter_hat_icon.png</filename>
             <filename>part_products/wool_icon.png</filename>
+            <filename>part_products/shepherd_pie_icon.png</filename>
+            <filename>part_products/iron_bracelet_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
