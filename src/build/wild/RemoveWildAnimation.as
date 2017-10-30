@@ -61,6 +61,12 @@ public class RemoveWildAnimation {
                 _countPlay = 2;
                 _armature = g.allData.factory['tools'].buildArmature("jackhammer");
                 break;
+            case 47: // dynamite
+                _x = 5 * g.scaleFactor;
+                _y = -23 * g.scaleFactor;
+                _countPlay = 1;
+                _armature = g.allData.factory['tools'].buildArmature("dynamite");
+                break;
         }
         if (!_armature) return;
         WorldClock.clock.add(_armature);

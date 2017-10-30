@@ -326,6 +326,7 @@ public class HeroCat extends BasicCat{
             releaseFrontWoman(_animation.catWorkerArmature);
             if (viyi && viyi.display) viyi.display.visible = true;
         } else {
+            releaseFrontMan(_animation.catWorkerArmature);
             if (viyi && viyi.display) viyi.display.visible = false;
         }
         flipIt(isLeftForFeedAndWatering);
