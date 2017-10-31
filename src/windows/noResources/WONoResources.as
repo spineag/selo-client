@@ -143,7 +143,7 @@ public class WONoResources extends WindowMain {
             case 'money':
                 _countOfResources = _paramData.count;
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
-                _text.text = String(g.managerLanguage.allTexts[374]);
+                _text.text = String(g.managerLanguage.allTexts[1202]);
 //                _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
 //                _text.x = -(_text.textBounds.width/2 + 10);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
@@ -309,6 +309,7 @@ public class WONoResources extends WindowMain {
             im.source.y = 8;
             _source.addChild(im.source);
             _arrItems.push(im);
+            _text.text = String(g.managerLanguage.allTexts[1203]);
             _countCost = int(_data.priceHard)*_countOfResources;
             _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
             if (_sensi) {

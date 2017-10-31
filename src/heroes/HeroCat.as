@@ -188,8 +188,8 @@ public class HeroCat extends BasicCat{
     private function releaseBackMan(arma:Armature):void {
         changeTexture("head", "grey_c_m_worker_head_back", arma);
         changeTexture("body", "grey_c_m_worker_body_back", arma);
-        changeTexture("handLeft", "grey_c_m_worker_l_leg_back", arma);
-        changeTexture("legLeft", "grey_c_m_worker_l_hand_back", arma);
+        changeTexture("legLeft", "grey_c_m_worker_l_leg_back", arma);
+        changeTexture("handLeft", "grey_c_m_worker_l_hand_back", arma);
         changeTexture("handRight", "grey_c_m_worker_r_hand_back", arma);
         changeTexture("legRight", "grey_c_m_worker_r_leg_back", arma);
         changeTexture("tail11", "grey_c_m_worker_tail_front", arma);

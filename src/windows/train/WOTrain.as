@@ -288,7 +288,6 @@ public class WOTrain extends WindowMain {
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
             _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient));
             else  _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP));
-
         if (_imResource) {
             _source.removeChild(_imResource);
             _imResource.dispose();
