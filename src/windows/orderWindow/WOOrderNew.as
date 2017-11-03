@@ -293,8 +293,15 @@ public class WOOrderNew extends WindowMain {
             g.gameDispatcher.removeFromTimer(onTimer);
         }
 
-        if (_arrOrders && _arrOrders[item.position -1].delOb == true) _txtZakazState.text = String(g.managerLanguage.allTexts[369]);
-        else _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
+        for (var i:int = 0; i <_arrOrders.length; i++) {
+            if (_arrOrders[i].placeNumber == item.position && _arrOrders[i].delOb == true) {
+                _txtZakazState.text = String(g.managerLanguage.allTexts[369]);
+                break;
+            } else if (_arrOrders[i].placeNumber == item.position && _arrOrders[i].delOb == false) {
+                _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
+                break;
+            }
+        }
     }
 
     private function fillResourceItems(or:OrderItemStructure):void {
@@ -444,6 +451,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
             }
         }
         updateItemsCheck();
+        super.hideIt();
     }
 
     private function updateItemsCheck():void {
@@ -483,7 +491,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
             }
             orderItem.fillIt(or, or.placeNumber, onItemClick);
             _arrOrders[or.placeNumber] = or;
-            if (_activeOrderItem == orderItem) onItemClick(_activeOrderItem);
+            if (_activeOrderItem == orderItem) onItemClick(_activeOrderItem, -2);
             g.managerOrder.checkForFullOrder();
             g.gameDispatcher.addToTimer(onTimer);
         }

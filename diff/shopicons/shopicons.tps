@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.7.1</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/selo/client/diff/shopicons/shopicons.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/shopicons/shopicons.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,6 +43,8 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
+        <key>atfCompressData</key>
+        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -173,14 +175,16 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
-            <key>innerPadding</key>
-            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
+            <key>trimMargin</key>
+            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <key>tracerTolerance</key>
+            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -271,7 +275,6 @@
             <filename>pie_oven_icon.png</filename>
             <filename>pig_icon.png</filename>
             <filename>pink_fence_icon.png</filename>
-            <filename>pizza_maker_icon.png</filename>
             <filename>pumpkin_1_icon.png</filename>
             <filename>pumpkin_2_icon.png</filename>
             <filename>pumpkin_3_icon.png</filename>
@@ -341,7 +344,6 @@
             <filename>cat_cosmonaut_2_icon.png</filename>
             <filename>easter_bunny_icon.png</filename>
             <filename>easter_chick_icon.png</filename>
-            <filename>easter_gnome_icon.png</filename>
             <filename>easter_tree_icon.png</filename>
             <filename>easter_egg_light_blue_icon.png</filename>
             <filename>easter_egg_pink_icon.png</filename>
@@ -377,6 +379,11 @@
             <filename>fireworks_event_icon.png</filename>
             <filename>corn_fabric_icon.png</filename>
             <filename>pets</filename>
+            <filename>pets_house</filename>
+            <filename>easter_gnome_icon.png</filename>
+            <filename>cake_icon.png</filename>
+            <filename>goat_icon.png</filename>
+            <filename>farm_goat_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

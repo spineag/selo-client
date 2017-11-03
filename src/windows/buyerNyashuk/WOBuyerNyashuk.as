@@ -190,7 +190,7 @@ public class WOBuyerNyashuk extends WindowMain{
             } else super.hideIt();
             return;
         }
-        if (!noResource && _data.type == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount && !g.userInventory.checkLastResource(_data.resourceId)) {
+        if (!noResource && g.allData.getResourceById(_data.resourceId).buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount && !g.userInventory.checkLastResource(_data.resourceId)) {
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBuy, _data, 'nyashuk', _nyashuk);
             return;

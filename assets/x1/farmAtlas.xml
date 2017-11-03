@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:1628edd422019123c285f81b91d25c33:6652837e23b51e68b0ed735d13a8f0f7:be598583fb5193bc69c6356aad498d4a$ -->
-<TextureAtlas imagePath="farmAtlas.png">
-    <SubTexture name="beehive" x="92" y="212" width="77" height="84" frameX="0" frameY="0" frameWidth="81" frameHeight="84"/>
-    <SubTexture name="chicken" x="429" y="211" width="43" height="46" frameX="-4" frameY="0" frameWidth="51" frameHeight="52"/>
-    <SubTexture name="cow" x="2" y="212" width="88" height="85"/>
-    <SubTexture name="farm_bee" x="1314" y="2" width="334" height="173" frameX="-3" frameY="-4" frameWidth="342" frameHeight="180"/>
-    <SubTexture name="farm_chicken" x="1014" y="2" width="298" height="184"/>
-    <SubTexture name="farm_chicken2" x="1014" y="188" width="291" height="112"/>
-    <SubTexture name="farm_cow" x="340" y="2" width="335" height="207" frameX="-1" frameY="0" frameWidth="339" frameHeight="209"/>
-    <SubTexture name="farm_cow2" x="1650" y="2" width="329" height="126" frameX="-5" frameY="0" frameWidth="339" frameHeight="126"/>
-    <SubTexture name="farm_goat" x="308" y="212" width="84" height="47"/>
-    <SubTexture name="farm_pig" x="677" y="2" width="335" height="207" frameX="-1" frameY="0" frameWidth="339" frameHeight="209"/>
-    <SubTexture name="farm_pig2" x="1650" y="130" width="329" height="126" frameX="-5" frameY="0" frameWidth="339" frameHeight="126"/>
-    <SubTexture name="farm_sheep" x="2" y="2" width="336" height="208" frameX="-1" frameY="0" frameWidth="339" frameHeight="209"/>
-    <SubTexture name="farm_sheep2" x="1314" y="177" width="329" height="126" frameX="-5" frameY="0" frameWidth="339" frameHeight="126"/>
-    <SubTexture name="goat" x="394" y="211" width="33" height="47"/>
-    <SubTexture name="pig" x="171" y="212" width="82" height="71"/>
-    <SubTexture name="sheep" x="255" y="212" width="51" height="52"/>
+<!-- $TexturePacker:SmartUpdate:41a5e2ff463dcd9c8e3e9ff0938243b4:6e823efe94eee004dcfa8ad00ad45c3a:be598583fb5193bc69c6356aad498d4a$ -->
+<TextureAtlas imagePath="farmAtlas.png" width="2004" height="340">
+    <SubTexture name="beehive" x="1384" y="188" width="78" height="84" frameX="0" frameY="0" frameWidth="81" frameHeight="84"/>
+    <SubTexture name="chicken" x="1437" y="274" width="45" height="47" frameX="-3" frameY="0" frameWidth="51" frameHeight="52"/>
+    <SubTexture name="cow" x="295" y="213" width="88" height="85"/>
+    <SubTexture name="farm_bee" x="1666" y="2" width="336" height="175" frameX="-2" frameY="-3" frameWidth="342" frameHeight="180"/>
+    <SubTexture name="farm_chicken" x="1366" y="2" width="298" height="184"/>
+    <SubTexture name="farm_chicken2" x="2" y="213" width="291" height="112"/>
+    <SubTexture name="farm_cow" x="342" y="2" width="337" height="208" frameX="0" frameY="0" frameWidth="339" frameHeight="209"/>
+    <SubTexture name="farm_cow2" x="385" y="212" width="331" height="126" frameX="-4" frameY="0" frameWidth="339" frameHeight="126"/>
+    <SubTexture name="farm_goat" x="1020" y="2" width="344" height="206"/>
+    <SubTexture name="farm_goat2" x="1666" y="179" width="330" height="126" frameX="-5" frameY="0" frameWidth="339" frameHeight="126"/>
+    <SubTexture name="farm_pig" x="681" y="2" width="337" height="208" frameX="0" frameY="0" frameWidth="339" frameHeight="209"/>
+    <SubTexture name="farm_pig2" x="718" y="212" width="331" height="126" frameX="-4" frameY="0" frameWidth="339" frameHeight="126"/>
+    <SubTexture name="farm_sheep" x="2" y="2" width="338" height="209" frameX="0" frameY="0" frameWidth="339" frameHeight="209"/>
+    <SubTexture name="farm_sheep2" x="1051" y="210" width="331" height="126" frameX="-4" frameY="0" frameWidth="339" frameHeight="126"/>
+    <SubTexture name="goat" x="1464" y="188" width="69" height="73" frameX="0" frameY="-2" frameWidth="69" frameHeight="75"/>
+    <SubTexture name="pig" x="1484" y="263" width="82" height="71"/>
+    <SubTexture name="sheep" x="1384" y="274" width="51" height="52"/>
 </TextureAtlas>
