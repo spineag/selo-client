@@ -107,7 +107,6 @@ public class ResourceHint {
         if (_fabrickBoo) {
             _txtText.text = String(g.managerLanguage.allTexts[607]) + " " + g.allData.getRecipeById(_id).blockByLevel + ' ' + String(g.managerLanguage.allTexts[343]);
             _txtText.x = -100;
-//            _txtText.y = ;
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 67, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
@@ -144,7 +143,6 @@ public class ResourceHint {
             if (_bool) {
                 _source.x = int(start.x);
                 _source.y = int(start.y);
-//                _txtText.text = String(g.managerLanguage.allTexts[613]);
                 wText = _txtName.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
             } else {
@@ -208,22 +206,10 @@ public class ResourceHint {
             } else {
                 if (wText > wName) {
                     wName = _txtName.textBounds.height + _txtText.textBounds.height + 15;
-//                    if (_id == 5 || _id == 6 || _id == 125) {
                         bg = new HintBackground(wText, wName, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                         _txtText.alignV = Align.TOP;
                         _txtName.alignV = Align.TOP;
                         _txtText.y = _txtName.y +_txtName.textBounds.height;
-//                    } else if (_id == 2 || _id == 3 || _id == 7) {
-//                        bg = new HintBackground(wText, wName, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-//                        _txtText.alignV = Align.TOP;
-//                        _txtName.alignV = Align.TOP;
-//                        _txtText.y = _txtName.y +_txtName.textBounds.height;
-//                    } else {
-//                        bg = new HintBackground(wText, wName, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-//                        _txtText.alignV = Align.TOP;
-//                        _txtName.alignV = Align.TOP;
-//                        _txtText.y = _txtName.y +_txtName.textBounds.height;
-//                    }
                 }
                 else {
                     wText = _txtName.textBounds.height + _txtText.textBounds.height + 15;
@@ -242,14 +228,9 @@ public class ResourceHint {
 
         for (var i:int=0; i<objTrees.length; i++) {
             if (_id == objTrees[i].craftIdResource) {
-                _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock"));
-                MCScaler.scale(_imageClock, 30, 30);
-                _imageClock.y = 70;
                 _txtName.text = String(g.allData.getResourceById(_id).name);
                 _txtName.x = -103;
                 _txtName.y = 15;
-                _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
-                _txtTime.y = 57;
                 _txtText.text = String(g.managerLanguage.allTexts[609]) + objTrees[i].name;
                 _txtText.x = -100;
                 _txtText.y = 20;
@@ -257,13 +238,9 @@ public class ResourceHint {
                 wName = _txtName.textBounds.width + 40;
                 if (wText > wName) bg = new HintBackground(wText, 80, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                     else bg = new HintBackground(wName, 80, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                _imageClock.x = -bg.width/2 + (bg.width - (_imageClock.width + _txtTime.textBounds.width + 5))/2;
-                _txtTime.x = _imageClock.x +_imageClock.width + 5;
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
-//                _source.addChild(_txtTime);
-//                _source.addChild(_imageClock);
                 g.cont.hintCont.addChild(_source);
                 return;
             }
@@ -273,14 +250,26 @@ public class ResourceHint {
             if (_id == int(objCave[i])) {
                 _txtName.text = String(g.allData.getResourceById(_id).name);
                 _txtName.x = -103;
-                _txtName.y = 15;
+                _txtName.y = 29;
                 _txtText.text = String(g.managerLanguage.allTexts[610]) ;
                 _txtText.x = -100;
-                _txtText.y = 35;
+                _txtText.y = 22;
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
-                if (wText > wName) bg = new HintBackground(wText, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 100, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                if (wText > wName) {
+                    wName = _txtName.textBounds.height + _txtText.textBounds.height + 15;
+                    bg = new HintBackground(wText, wName, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    _txtText.alignV = Align.TOP;
+                    _txtName.alignV = Align.TOP;
+                    _txtText.y = _txtName.y +_txtName.textBounds.height;
+                }
+                else {
+                    wText = _txtName.textBounds.height + _txtText.textBounds.height + 15;
+                    bg = new HintBackground(wName, wText, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    _txtText.alignV = Align.TOP;
+                    _txtName.alignV = Align.TOP;
+                    _txtText.y = _txtName.y +_txtName.textBounds.height;
+                }
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
@@ -333,22 +322,14 @@ public class ResourceHint {
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-//            if (!_bool) _source.addChild(_txtTime);
-//            if (!_bool) _source.addChild(_imageClock);
             g.cont.hintCont.addChild(_source);
             return;
         }
 
         if (objAnimals[_id]) {
-//            _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("clock"));
-//            MCScaler.scale(_imageClock, 30, 30);
-//            _imageClock.y = 74;
-//            _imageClock.x = -30;
             _txtName.text = String(g.allData.getResourceById(_id).name);
             _txtName.x = -103;
             _txtName.y = 15;
-//            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
-//            _txtTime.y = 62;
             _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_id].buildId).name;
             _txtText.x = -100;
             _txtText.y = 34;

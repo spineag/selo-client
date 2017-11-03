@@ -31,6 +31,7 @@ import flash.geom.Rectangle;
 
 public class Animal {
     private const WALK_SPEED:int = 20;
+    private const WALK_SPEED_GOAT:int = 8;
     public static var HUNGRY:int = 1;
     public static var WORK:int = 2;
     public static var CRAFT:int = 3;
@@ -122,6 +123,14 @@ public class Animal {
                 walkLabel = 'walk';
                 idleLabels = ['idle_2', 'idle_1'];
                 break;
+            case 8: // goat
+                defaultLabel = 'walk';
+                hungryLabel = 'hungry';
+                feedLabel = 'feed';
+                walkLabel = 'walk';
+                idleLabels = ['idle_2', 'idle_1'];
+                break;
+
         }
     }
 
@@ -512,7 +521,8 @@ public class Animal {
             source.scaleX = 1;
         }
         animation.playIt(walkLabel);
-        new TweenMax(source, dist/WALK_SPEED, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
+        if (_data.id == 8) new TweenMax(source, dist/WALK_SPEED_GOAT, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
+        else new TweenMax(source, dist/WALK_SPEED, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
     }
 
     private function stopAnimation():void {

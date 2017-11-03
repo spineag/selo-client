@@ -257,16 +257,23 @@ public class BuyerNyashuk {
     private var count:int;
     public function idleFrontAnimation():void {
         if (!_armature) return;
-        var r:int = int(Math.random()*4);
+        var r:Number = int(Math.random()*4);
+        r = Math.random();
         _armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
-        switch (r) {
-            case 0: _armature.animation.gotoAndPlayByFrame("idle_1"); break;
-            case 1: _armature.animation.gotoAndPlayByFrame("idle_3"); break;
-            case 2: _armature.animation.gotoAndPlayByFrame("idle_4"); break;
-            case 3: _armature.animation.gotoAndPlayByFrame("idle_6"); break;
-//            case 4: _armature.animation.gotoAndPlayByFrame("idle_5"); break;
-        }
+
+        if (r < .05)  _armature.animation.gotoAndPlayByFrame("idle_4");
+        else if (r < .1) _armature.animation.gotoAndPlayByFrame("idle_5");
+        else if (r < .18) _armature.animation.gotoAndPlayByFrame("idle_3");
+        else if (r < .8) _armature.animation.gotoAndPlayByFrame("idle_2");
+        else _armature.animation.gotoAndPlayByFrame("idle_1");
+//        switch (r) {
+//            case 0: _armature.animation.gotoAndPlayByFrame("idle_1"); break;
+//            case 1: _armature.animation.gotoAndPlayByFrame("idle_3"); break;
+//            case 2: _armature.animation.gotoAndPlayByFrame("idle_4"); break;
+//            case 3: _armature.animation.gotoAndPlayByFrame("idle_5"); break;
+////            case 4: _armature.animation.gotoAndPlayByFrame("idle_5"); break;
+//        }
     }
 
     private function onFinishIdle(e:Event=null):void {
