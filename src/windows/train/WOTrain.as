@@ -413,6 +413,7 @@ public class WOTrain extends WindowMain {
         (_arrItems[_activeItemIndex] as WOTrainItem).onClickHelpMePls(false);
         g.directServer.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId),'0', null);
         _train.needHelp(false, _activeItemIndex);
+        _btnHelp.visible = false;
         var b:Boolean = true;
         for (var i:int = 0; i < _arrItems.length; i ++) {
             if ((_arrItems[i] as WOTrainItem).needHelp) {

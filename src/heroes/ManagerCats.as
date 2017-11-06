@@ -88,6 +88,15 @@ public class ManagerCats {
         else cat.onArrivedCatToFabrica();
     }
 
+    public function arrayCat():void {
+        for (var  i:int = 0; i < _catsArray.length; i++) {
+            if ((_catsArray[i] as HeroCat).decorAnimation != null) {
+                (_catsArray[i] as HeroCat).decorAnimation.forceStopDecorAnimation();
+                break;
+            }
+        }
+    }
+
     public function onStartRidge(r:Ridge):void {
         if (_arrRidge.indexOf(r) > -1) return;
         _arrRidge.push(r);

@@ -34,6 +34,7 @@ public class DecorAnimation extends WorldObject{
     private var  _awayAnimation:Boolean = false;
     private var _catsRunCount:int;
     private var _curLockedLand:LockedLand;
+    private var _catRun:Boolean = false;
 
     public function DecorAnimation(_data:Object) {
         super(_data);
@@ -44,6 +45,7 @@ public class DecorAnimation extends WorldObject{
         _heroCatArray = [];
         _armatureArray = [];
         _decorWork = false;
+        _catRun = false;
         createAnimatedBuild(onCreateBuild);
     }
 
@@ -117,6 +119,7 @@ public class DecorAnimation extends WorldObject{
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
+        var p:Point;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.isActiveMapEditor) {
                 if (_curLockedLand) {
@@ -152,7 +155,7 @@ public class DecorAnimation extends WorldObject{
                 forceStopDecorAnimation();
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
-                var p:Point = new Point(0, 0);
+                p = new Point(0, 0);
                 p = _source.localToGlobal(p);
                 new DropDecor(p.x, p.y, g.allData.getBuildingById(_dataBuild.id), 70, 70,1, 1, true);
                 g.townArea.deleteBuild(this);
@@ -177,12 +180,24 @@ public class DecorAnimation extends WorldObject{
                 return;
             } else if (_decorWork) return;
             if (!g.managerCats.isFreeCat) {
-                var p:Point = new Point(_source.x, _source.y);
-                p = _source.parent.localToGlobal(p);
-                new FlyMessage(p, String(g.managerLanguage.allTexts[619]));
-                return;
+//                p = new Point(_source.x, _source.y);
+//                p = _source.parent.localToGlobal(p);
+                g.managerCats.arrayCat();
+
+                var heroCat:HeroCat;
+                heroCat = g.managerCats.getFreeCatDecor();
+                if (heroCat) {
+                    heroCat.isFree = false;
+                    heroCat.decorAnimation = (this as DecorAnimation);
+                    _heroCatArray.push(heroCat);
+                    _catsRunCount++;
+                    g.managerCats.goCatToPoint(heroCat, new Point(posX, posY), chooseAnimationWithSingleCatOrNoneBefore);
+                }
+//                new FlyMessage(p, String(g.managerLanguage.allTexts[619]));
+//                return;
             }
             _decorWork = true;
+            _catRun = true;
             if (_dataBuild.catNeed) {
                 var count:int  = needCatsCount();
                 var heroCat:HeroCat;
@@ -206,6 +221,8 @@ public class DecorAnimation extends WorldObject{
                         }
                     }
                 } else {
+                    catRunAnimation(true);
+
                     heroCat = g.managerCats.getFreeCatDecor();
                     if (heroCat) {
                         heroCat.isFree = false;
@@ -218,6 +235,22 @@ public class DecorAnimation extends WorldObject{
             } else chooseAnimationWithSingleCatOrNone();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+        }
+    }
+
+    private function catRunAnimation(b:Boolean = false):void {
+        if (b && _catRun) {
+            var fEndOver:Function = function(e:Event=null):void {
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('idle');
+                catRunAnimation(true);
+            };
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('over');
+        } else {
+            _armature.animation.gotoAndPlayByFrame('idle');
         }
     }
 
@@ -318,6 +351,7 @@ public class DecorAnimation extends WorldObject{
 
     private function stopAnimationWithSingleCatOrNone():void {
         if (!_dataBuild) return;
+        catRunAnimation(false);
         if (_armature) {
             _armature.animation.gotoAndPlayByFrame('idle');
             _armature.removeEventListener(EventObject.COMPLETE, chooseAnimationWithSingleCatOrNone);
@@ -332,8 +366,10 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function chooseAnimationWithSingleCatOrNoneBefore(e:Event=null):void {
-        _heroCatArray[0].visible = false;
-        releaseHeroCatManOrWoman(_armature,  _heroCatArray[0]);
+        _catRun = false;
+        catRunAnimation(false);
+        if (_heroCatArray[0]) _heroCatArray[0].visible = false;
+        if (_heroCatArray[0]) releaseHeroCatManOrWoman(_armature,  _heroCatArray[0]);
         chooseAnimationWithSingleCatOrNone();
     }
 

@@ -426,7 +426,7 @@ public class WOOrderNew extends WindowMain {
         _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
         var tOrderItem:WOOrderItem = _activeOrderItem;
         var f:Function = function (ord:OrderItemStructure):void { afterSell(ord, tOrderItem); };
-        for (var i:int = 0; i< _arrOrders.length; i++) {
+        for (i = 0; i< _arrOrders.length; i++) {
             if (_arrOrders[i] && _arrOrders[i].placeNumber == _activeOrderItem.position) {
                 _arrOrders[i] = null;
                 break;
