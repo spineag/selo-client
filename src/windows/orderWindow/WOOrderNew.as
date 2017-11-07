@@ -465,7 +465,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         Utils.createDelay(1,hideIt);
     }
 
-    override  public function hideIt():void {super.hideIt(); }
+    override  public function hideIt():void { super.hideIt(); }
 
 
     private function updateItemsCheck():void {

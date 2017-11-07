@@ -475,6 +475,7 @@ public class Train extends WorldObject{
 
     public function fullTrain(full:Boolean):void {
         g.directServer.releaseUserTrainPack(_train_db_id, onReleasePack);
+        showBubleHelp(false);
         if (!full){
             onOut();
             return;

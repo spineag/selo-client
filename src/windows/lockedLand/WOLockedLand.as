@@ -72,35 +72,35 @@ public class WOLockedLand extends WindowMain {
 
         var item:LockedLandItem;
         if (_dataLand.friendsCount > 0) {
-            item = new LockedLandItem();
+            item = new LockedLandItem(this);
             item.fillWithCurrency(_dataLand.currencyCount);
             item.source.x = -_woWidth/2 + 64;
             item.source.y = -_woHeight/2 + 175;
             _source.addChild(item.source);
             _arrItems.push(item);
 
-            item = new LockedLandItem();
+            item = new LockedLandItem(this);
             item.fillWithResource(_dataLand.resourceId, _dataLand.resourceCount);
             item.source.x = -_woWidth/2 + 190;
             item.source.y = -_woHeight/2 + 175;
             _source.addChild(item.source);
             _arrItems.push(item);
 
-            item = new LockedLandItem();
+            item = new LockedLandItem(this);
             item.fillWithFriends(_dataLand.friendsCount);
             item.source.x = -_woWidth/2 + 320;
             item.source.y = -_woHeight/2 + 175;
             _source.addChild(item.source);
             _arrItems.push(item);
         } else {
-            item = new LockedLandItem();
+            item = new LockedLandItem(this);
             item.fillWithCurrency(_dataLand.currencyCount);
             item.source.x = -_woWidth/2 + 150;
             item.source.y = -_woHeight/2 + 240;
             _source.addChild(item.source);
             _arrItems.push(item);
 
-            item = new LockedLandItem();
+            item = new LockedLandItem(this);
             item.fillWithResource(_dataLand.resourceId, _dataLand.resourceCount);
             item.source.x = -_woWidth/2 + 350;
             item.source.y = -_woHeight/2 + 240;

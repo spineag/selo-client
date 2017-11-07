@@ -94,7 +94,8 @@ public class WOMarketDeleteItem extends WindowMain{
         var im:Image;
         if (_data.buildType == BuildType.PLANT) {
             im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
-        } else im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop));
+        } else if (_data.buildType == BuildType.INSTRUMENT) im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(_data.imageShop));
+        else im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop));
         im.x = -im.width/2;
         im.y = -im.height/7- 10;
         _source.addChild(im);

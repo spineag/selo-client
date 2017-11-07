@@ -2,6 +2,8 @@
  * Created by user on 10/1/15.
  */
 package windows.lockedLand {
+import build.lockedLand.LockedLand;
+
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import manager.ManagerFilters;
@@ -17,6 +19,7 @@ import utils.SensibleBlock;
 
 import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
+import windows.achievementWindow.WOAchievement;
 
 public class LockedLandItem {
     public var source:Sprite;
@@ -32,9 +35,11 @@ public class LockedLandItem {
     private var _txtCount:CTextField;
     private var _txtCountAll:CTextField;
     private var _arrCTex:Array;
+    private var _lockedLand:WOLockedLand;
 
-    public function LockedLandItem() {
+    public function LockedLandItem(land:WOLockedLand) {
         source = new Sprite();
+        _lockedLand = land;
     }
 
     public function fillWithCurrency(count:int):void {

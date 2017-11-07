@@ -503,10 +503,13 @@ public class MarketItem {
             var d:StructureDataResource = g.allData.getResourceById(_dataFromServer.resourceId);
             showFlyResource(d, _dataFromServer.resourceCount);
             g.managerAchievement.addAll(24,_dataFromServer.cost);
-            _plawkaCoins.visible = false;
-//            _plawkaSold.visible = true;
-            _txtPlawka.visible = true;
-//            _papperBtn.visible = false;
+            _plawkaCoins.removeChild(_coin);
+            _costTxt.text = String(g.managerLanguage.allTexts[389]);
+            _costTxt.x = 82;
+            _costTxt.y = 146;
+            g.load.loadImage(g.user.photo, onLoadPhoto);
+            _ramkAva.visible = true;
+            source.filter = ManagerFilters.getButtonDisableFilter();
             if (_person == g.user.neighbor) {
                 g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
                 _dataFromServer.resourceId = -1;
@@ -542,16 +545,11 @@ public class MarketItem {
         _countResource = 0;
         _inPapper = false;
         _ramkAva.visible = false;
-//        _papperBtn.visible = false;
-//        _imCheck.visible = false;
-//        _papperBtn.alpha = 1;
-
     }
 
     public function unFillIt():void {
         if (_closeCell) return;
         clearImageCont();
-//        isFill = 0;
         _countMoney = 0;
         _countResource = 0;
         if (_costTxt) _costTxt.text = '';
@@ -568,21 +566,8 @@ public class MarketItem {
             _btnGoAwaySaleItem.deleteIt();
             _btnGoAwaySaleItem = null;
         }
-//        _quadGreen.visible = false;
-
-//        if (_avaDefault) {
-//            _avaDefault = null;
-//            source.removeChild(_avaDefault);
-//        }
-//
-//        if (_ava) {
-//            _ava = null;
-//        }
-//        source.removeChild(_ava);
         if (_plawkaBuy) _plawkaBuy.visible = true;
         if (_plawkaCoins) _plawkaCoins.visible = false;
-//        if (_plawkaSold) _plawkaSold.visible = false;
-//        if (_plawkaLvl) _plawkaLvl.visible = false;
         if (_txtPlawka) _txtPlawka.visible = false;
         if (_delete) _delete.visible = false;
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
@@ -597,24 +582,43 @@ public class MarketItem {
             isFill = 2;
             _inPapper = _dataFromServer.inPapper;
             if (_person.userSocialId == g.user.userSocialId) { //sale yours item
-//                _plawkaSold.visible = false;
                 _txtPlawka.visible = false;
-//                _quadGreen.visible = true;
-//                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
                 try {
                     showSaleImage(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.cost);
                 } catch (e:Error) {
                     Cc.error('at showSaleImage');
                 }
-//                _plawkaBuy.visible = false;
                 _btnAdditem.visible = false;
             } else { // sale anyway item
-                _btnAdditem.visible = false;
                 fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
-                _plawkaCoins.visible = false;
-//                _plawkaLvl.visible = false;
-//                _plawkaSold.visible = true;
-                _txtPlawka.visible = true;
+                _costTxt.text = String(g.managerLanguage.allTexts[389]);
+                _costTxt.x = 82;
+                _costTxt.y = 146;
+                _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                if (_avaDefault) {
+                    MCScaler.scale(_avaDefault, 85, 85);
+                    _avaDefault.pivotX = _avaDefault.width / 2;
+                    _avaDefault.pivotY = _avaDefault.height / 2;
+                    _avaDefault.x = _bg.width / 2 - 9;
+                    _avaDefault.y = 5;
+                    _imageCont.addChild(_avaDefault);
+                    _ramkAva.visible = true;
+                } else {
+                    Cc.error('MarketItem:: no default_avatar_big');
+                }
+
+                for (var i:int = 0; i < _person.marketItems.length; i++) {
+                    if (number == _person.marketItems[i].numberCell) {
+                        _personBuyer = _person;
+                        if (_person && _person.marketItems[i].buyerSocialId) {
+                            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                            g.socialNetwork.getTempUsersInfoById([_person.marketItems[i].buyerSocialId]);
+                        }
+                        break;
+                    }
+                }
+
+                source.filter = ManagerFilters.getButtonDisableFilter();
             }
         } else { //have Item
             isFill = 1;
@@ -629,8 +633,6 @@ public class MarketItem {
             fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
             if (g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel > g.user.level) { //have item but your level so small
                 _plawkaCoins.visible = false;
-//                _plawkaLvl.visible = true;
-//                _plawkaLvl.y = 50;
                 _txtPlawka.visible = true;
                 _txtPlawka.y = 75;
                 _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel);
@@ -763,21 +765,6 @@ public class MarketItem {
         _btnGoAwaySaleItem.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         source.addChild(_btnGoAwaySaleItem);
 
-//        _btnGoAwaySaleItem = new CButton();
-//        _btnGoAwaySaleItem.addButtonTexture(76, 29, CButton.GREEN, true);
-//        _txtGo = new CTextField(70, 30, String(g.managerLanguage.allTexts[386]));
-//        _txtGo.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-//        _txtGo.x = 3;
-//        _btnGoAwaySaleItem.addChild(_txtGo);
-//        source.addChild(_btnGoAwaySaleItem);
-
-//
-//        _btnGoAwaySaleItem = new CButton();
-//        _btnGoAwaySaleItem.addButtonTexture(70,30,CButton.BLUE, true);
-//        var txt:TextField = new TextField(60,30,'посетить',g.allData.fonts['BloggerBold'], 14, Color.WHITE);
-//        txt.x = 4;
-////        txt.y = 5;
-//        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
         Cc.info('showScaleImage 19');
         _btnGoAwaySaleItem.x = 82;
         _btnGoAwaySaleItem.y = -15;
