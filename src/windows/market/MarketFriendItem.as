@@ -164,6 +164,11 @@ public class MarketFriendItem {
             _txtName.deleteIt();
             _txtName = null;
         }
+        if (_imRamka) {
+            source.removeChild(_imRamka);
+            _imRamka.dispose();
+            _imRamka = null;
+        }
         if (_txtBtn) {
             visitBtn.removeChild(_txtBtn);
             _txtBtn.deleteIt();
