@@ -108,19 +108,19 @@ public class ManagerDailyBonus {
             _arrItems.push(obj);
         }
 
-        obj = {};
-        arr = [1, 5, 6];
-        obj.id = arr[int(Math.random()*arr.length)];
-        obj.count = 1;
-        obj.type = INSTRUMENT;
-        _arrItems.push(obj);
-
-        obj = {};
-        arr = [2, 3, 4, 7, 8, 9];
-        obj.id = arr[int(Math.random()*arr.length)];
-        obj.count = 1;
-        obj.type = INSTRUMENT;
-        _arrItems.push(obj);
+//        obj = {};
+//        arr = [1, 5, 6];
+//        obj.id = arr[int(Math.random()*arr.length)];
+//        obj.count = 1;
+//        obj.type = INSTRUMENT;
+//        _arrItems.push(obj);
+//
+//        obj = {};
+//        arr = [2, 3, 4, 7, 8, 9];
+//        obj.id = arr[int(Math.random()*arr.length)];
+//        obj.count = 1;
+//        obj.type = INSTRUMENT;
+//        _arrItems.push(obj);
     }
 
     public function get dailyBonusItems():Array {

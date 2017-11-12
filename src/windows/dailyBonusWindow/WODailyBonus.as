@@ -21,6 +21,9 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SensibleBlock;
+
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -34,14 +37,23 @@ public class WODailyBonus extends WindowMain {
     private var _isAnimate:Boolean;
     private var _curActivePosition:int;
     private var _namePng:String;
+    private var _woBG:WindowBackgroundNew;
+    private var _txtName:CTextField;
 
     public function WODailyBonus() {
         super();
         _windowType = WindowsManager.WO_DAILY_BONUS;
-        _woWidth = 538;
-        _woHeight = 500;
+        _woWidth = 550;
+        _woHeight = 700;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,110);
+        _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
+        _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[1206]));
+        _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
+        _source.addChild(_txtName);
+        _txtName.x = -230;
+        _txtName.y = -315;
     }
 
     private function onLoad(bitmap:Bitmap):void {
@@ -60,37 +72,33 @@ public class WODailyBonus extends WindowMain {
                 _koleso = new Sprite();
                 _koleso.addChild(im);
                 _koleso.x = 0;
-                _koleso.y = 14;
+                _koleso.y = 24;
                 _source.addChild(_koleso);
-                if (g.user.language == ManagerLanguage.RUSSIAN) {
-                    _namePng = 'qui/wheels_of_fortune_text.png';
-                } else {
-                    _namePng = 'qui/wheels_of_fortune_text_eng.png';
-                }
+                _namePng = 'qui/wheels_of_fortune _str.png';
                 g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
                  break;
-            case 'qui/wheels_of_fortune_text.png':
+            case 'qui/wheels_of_fortune_flag_l.png':
                 im = new Image(tex);
-                im.x = -186;
-                im.y = -284;
+                im.x = -270;
+                im.y = -242;
                 im.touchable = false;
                 _source.addChild(im);
-                _namePng = 'qui/wheels_of_fortune_str.png';
+                _namePng = 'qui/wheels_of_fortune_flag_r.png';
                 g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
                 break;
-            case 'qui/wheels_of_fortune_text_eng.png':
+            case 'qui/wheels_of_fortune_flag_r.png':
                 im = new Image(tex);
-                im.x = -151;
-                im.y = -295;
+                im.x = 88;
+                im.y = -242;
                 im.touchable = false;
                 _source.addChild(im);
-                _namePng = 'qui/wheels_of_fortune_str.png';
+                _namePng = 'qui/wheels_of_fortune_disk.png';
                 g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
                 break;
-            case 'qui/wheels_of_fortune_str.png':
+            case 'qui/wheels_of_fortune _str.png':
                 im = new Image(tex);
                 im.x = -71;
-                im.y = -238;
+                im.y = -233;
                 im.touchable = false;
                 _source.addChild(im);
                 createKoleso();
@@ -109,7 +117,7 @@ public class WODailyBonus extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        _namePng = 'qui/wheels_of_fortune_disk.png';
+        _namePng = 'qui/wheels_of_fortune_flag_l.png';
         g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng, onLoad);
     }
 
@@ -137,24 +145,22 @@ public class WODailyBonus extends WindowMain {
     private function createKoleso():void {
         var im:Image;
         _btnFree = new CButton();
-        _btnFree.addButtonTexture(146, 40, CButton.GREEN, true);
-        _txtBtnBuy2  = new CTextField(146, 40, String(g.managerLanguage.allTexts[1006]));
-        _txtBtnBuy2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _btnFree.addChild(_txtBtnBuy2);
-        _btnFree.y = 260;
+        _btnFree.addButtonTexture(146, CButton.HEIGHT_41, CButton.BLUE, true);
+        _btnFree.addTextField(146, 40, 0, -3, String(g.managerLanguage.allTexts[1006]));
+        _btnFree.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _btnFree.y = 310;
         _source.addChild(_btnFree);
 
+        var sens:SensibleBlock;
         _btnBuy = new CButton();
-        _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
-        _txtBtnBuy = new CTextField(170, 40, String(g.managerLanguage.allTexts[1006]) +  ' 10');
-        _txtBtnBuy.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btnBuy.addChild(_txtBtnBuy);
-        _btnBuy.y = 260;
+        _btnBuy.addButtonTexture(200, CButton.HEIGHT_41, CButton.GREEN, true);
+        _txtBtnBuy = new CTextField(200, 40, String(g.managerLanguage.allTexts[1006]) +  ' 10');
+        _txtBtnBuy.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _btnBuy.y = 310;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//        MCScaler.scale(im, 30, 30);
-        im.x = 163;
-        im.y = 4;
-        _btnBuy.addChild(im);
+        sens = new SensibleBlock();
+        sens.textAndImage(_txtBtnBuy,im,200);
+        _btnBuy.addSensBlock(sens,0,20);
         _source.addChild(_btnBuy);
     }
 
@@ -205,8 +211,8 @@ public class WODailyBonus extends WindowMain {
         g.directServer.useDailyBonus(g.managerDailyBonus.count);
         g.managerAchievement.addAll(21,1);
         _curActivePosition = int(Math.random()*12); // choose random item position as prise
-        var angle:Number = -(Math.PI/6)*_curActivePosition - (3 + int(Math.random()*3))*Math.PI*2;
-        var delta:Number = -Math.PI/9 + Math.random()*Math.PI/6;
+        var angle:Number = -(Math.PI/5)*_curActivePosition + (3 + int(Math.random()*3))*Math.PI*2;
+        var delta:Number = -Math.PI/9 + Math.random()*Math.PI/5;
         TweenMax.to(_koleso, 5, {rotation: angle - delta, ease: Quad.easeInOut, onComplete:completeRotateKoleso, onCompleteParams:[delta]});
         _btnBuy.visible = false;
         _btnFree.visible = false;

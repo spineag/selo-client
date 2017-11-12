@@ -64,9 +64,11 @@ public class MainBottomPanel {
         _source = new Sprite();
         _boolTools = false;
         _boolFriend = false;
+        _friendBoard = new Sprite();
         onResize();
         _friendSpr = new Sprite();
         onResizePanelFriend();
+        g.cont.interfaceCont.addChild(_friendBoard);
         g.cont.interfaceCont.addChild(_friendSpr);
         g.cont.interfaceCont.addChild(_source);
 //        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
@@ -167,26 +169,6 @@ public class MainBottomPanel {
         _homeBtn.outCallback = function():void { g.hint.hideIt(); };
         _homeBtn.clickCallback = function():void {onClick('door')};
         _homeBtn.visible = false;
-//        _homeBtn = new CButton();
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bt_home'));
-//        im.width = 260;
-//        _homeBtn.addDisplayObject(im);
-//        _homeBtn.setPivots();
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt_home'));
-//        im.x = 60;
-//        im.y = 6;
-//        _homeBtn.addDisplayObject(im);
-//        _txtHome = new CTextField(100, 70, String(g.managerLanguage.allTexts[988]));
-//        _txtHome.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-//        _txtHome.x = 105;
-//        _homeBtn.addChild(_txtHome);
-//        _homeBtn.x = _homeBtn.width/2;
-//        _homeBtn.y = 2 + _homeBtn.height/2;
-//        _source.addChild(_homeBtn);
-//        _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])) };
-//        _homeBtn.outCallback = function():void { g.hint.hideIt() };
-//        _homeBtn.clickCallback = function():void {onClick('door')};
-//        _homeBtn.visible = false;
 
         _optionBtn = new CSprite();
         _optionBtn.nameIt = 'optionBtn';
@@ -237,6 +219,7 @@ public class MainBottomPanel {
                 } else if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.user.decorShiftShop = 0;
                     g.user.decorShop = false;
+                    g.user.shopTab = WOShopNew.ANIMAL;
                     if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShopNew.ANIMAL;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FABRICA) shopTab = WOShopNew.FABRICA;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FARM) shopTab = WOShopNew.VILLAGE;
@@ -418,6 +401,7 @@ public class MainBottomPanel {
 //            _friendSpr.x = g.managerResize.stageWidth/2;
             _friendSpr.y = g.managerResize.stageHeight - 83;
         }
+        if (_friendBoard) _friendBoard.x = g.managerResize.stageWidth/2 - 121;
     }
 
     public function onResize():void {
@@ -467,10 +451,13 @@ public class MainBottomPanel {
     private function friendBoard():void {
         var im:Image;
         var txt:CTextField;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_board_yellow_bg'));
+        im.y = 15;
+        _friendBoard.addChild(im);
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-        MCScaler.scale(_ava, 71, 71);
-        _ava.x = 9;
-        _ava.y = 8;
+        MCScaler.scale(_ava, 65, 65);
+        _ava.x = 6;
+        _ava.y = 12;
         _friendBoard.addChild(_ava);
         if (_person is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
@@ -478,26 +465,27 @@ public class MainBottomPanel {
             if (_person.photo) {
                 g.load.loadImage(_person.photo, onLoadPhoto);
             }
-    }
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
+        }
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
+        im.y = 8;
         _friendBoard.addChild(im);
         txt = new CTextField(150,40,'');
         txt.needCheckForASCIIChars = true;
         txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
         txt.text = _person.name;
-        txt.x = 90;
+        txt.x = 50;
         txt.y = 20;
         _friendBoard.addChild(txt);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
-        im.x = 60;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
+        im.x = 50;
         im.y = 50;
         MCScaler.scale(im,45,45);
         _friendBoard.addChild(im);
         txt = new CTextField(50,50,String(_person.level));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16,  0xff7a3f, Color.WHITE);
         if (_person is NeighborBot) txt.text = '60';
-        txt.x = 55;
-        txt.y = 49;
+        txt.x = 48;
+        txt.y = 45;
         _friendBoard.addChild(txt);
         if (_person != g.user.neighbor) {
             var i:int;
@@ -513,14 +501,14 @@ public class MainBottomPanel {
                     if (_person.userSocialId == g.user.arrFriends[i].userSocialId) return;
                 }
                 _btnPlusMinus = new CButton();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_add_button'));
                 MCScaler.scale(im, 27, 27);
                 _btnPlusMinus.addDisplayObject(im);
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-                MCScaler.scale(im, 16, 16);
-                im.x = 6;
-                im.y = 6;
-                _btnPlusMinus.addDisplayObject(im);
+//                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+//                MCScaler.scale(im, 16, 16);
+//                im.x = 6;
+//                im.y = 6;
+//                _btnPlusMinus.addDisplayObject(im);
                 _btnPlusMinus.clickCallback = onClickAddNeighbor;
                 _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1076])) };
                 _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
@@ -531,13 +519,13 @@ public class MainBottomPanel {
                 for (i= 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
                     if (g.friendPanel.arrNeighborFriends[i].userId == _person.userId) {
                         _btnPlusMinus = new CButton();
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_out_button'));
                         MCScaler.scale(im, 27, 27);
                         _btnPlusMinus.addDisplayObject(im);
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
-                        MCScaler.scale(im, 16, 16);
-                        im.x = 6;
-                        im.y = 10;
+//                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
+//                        MCScaler.scale(im, 16, 16);
+//                        im.x = 6;
+//                        im.y = 10;
                         _btnPlusMinus.addDisplayObject(im);
                         _btnPlusMinus.clickCallback = onClickDeleteNeighbor;
                         _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1077])) };
@@ -637,9 +625,9 @@ public class MainBottomPanel {
     private function photoFromTexture(tex:Texture):void {
         if (!tex) return;
         _ava = new Image(tex);
-        MCScaler.scale(_ava,71,71);
-        _ava.x = 9;
-        _ava.y = 8;
+        MCScaler.scale(_ava,65,65);
+        _ava.x = 6;
+        _ava.y = 12;
         _friendBoard.addChild(_ava);
     }
 

@@ -54,7 +54,7 @@ public class WOPaperNewItem {
         _txtResourceName = new CTextField(135, 34, _dataResource.name);
         _txtResourceName.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW);
         _txtResourceName.alignH = Align.RIGHT;
-        _txtResourceName.x = 93;
+        _txtResourceName.x = 88;
         _txtResourceName.y = 88;
         _source.addChild(_txtResourceName);
         _txtCountResource = new CTextField(45, 22, 'x' + String(_data.resourceCount));
@@ -66,7 +66,7 @@ public class WOPaperNewItem {
         _txtPrice = new CTextField(69, 28, String(_data.cost));
         _txtPrice.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
         _txtPrice.alignH = Align.RIGHT;
-        _txtPrice.x = 123;
+        _txtPrice.x = 118;
         _txtPrice.y = 130;
         _source.addChild(_txtPrice);
         _txtClick = new CTextField(222, 28, "Visit market");
@@ -84,7 +84,7 @@ public class WOPaperNewItem {
         _source.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(im, 30, 30);
-        im.x = 200;
+        im.x = 195;
         im.y = 131;
         _source.addChild(im);
         updatePersonInfo();

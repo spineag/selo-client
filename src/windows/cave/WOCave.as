@@ -1,28 +1,42 @@
 
 package windows.cave {
 import com.junkbyte.console.Cc;
+
+import manager.ManagerFilters;
+import manager.ManagerLanguage;
+
 import starling.display.Image;
 import starling.display.Sprite;
 
+import utils.CTextField;
+
 import windows.WOComponents.BackgroundPlant;
+import windows.WOComponents.WindowBackgroundFabrica;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOCave extends WindowMain {
     private var _arrItems:Array;
     private var _topBG:Sprite;
-    private var _bgPlant:BackgroundPlant;
+    private var _bgPlant:WindowBackgroundFabrica;
+    private var _txtWindowName:CTextField;
 
     public function WOCave() {
         super();
         _windowType = WindowsManager.WO_CAVE;
         _woWidth = 380;
-        _woHeight = 134;
+        _woHeight = 200;
 //        createBG();
-        _bgPlant = new BackgroundPlant(_woWidth, _woHeight);
-        _bgPlant.x = -_woWidth/2;
-        _bgPlant.y = -_woHeight/2;
+        _bgPlant = new WindowBackgroundFabrica(_woWidth, _woHeight,60);
+//        _bgPlant.x = -_woWidth/2;
+//        _bgPlant.y = -_woHeight/2;
         _source.addChild(_bgPlant);
+        _txtWindowName = new CTextField(380, 50, String(g.managerLanguage.allTexts[160]));
+        _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        if (g.user.language == ManagerLanguage.ENGLISH) _txtWindowName.x = -_txtWindowName.textBounds.width-80;
+        else _txtWindowName.x = -_txtWindowName.textBounds.width-50;
+        _txtWindowName.y = -100;
+        _source.addChild(_txtWindowName);
         createCaveItems();
         _callbackClickBG = hideIt;
     }
@@ -49,7 +63,7 @@ public class WOCave extends WindowMain {
         _arrItems = [];
         for (var i:int = 0; i < 3; i++) {
             item = new CaveItem(this);
-            item.setCoordinates(-_woWidth/2 + 88 + i*107, -_woHeight/2 + 115);
+            item.setCoordinates(-_woWidth/2 + 84 + i*107, -_woHeight/2 + 180);
             _source.addChild(item.source);
             _arrItems.push(item);
         }

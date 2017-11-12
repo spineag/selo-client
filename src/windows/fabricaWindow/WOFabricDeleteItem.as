@@ -15,7 +15,6 @@ import utils.CButton;
 import utils.CTextField;
 import utils.SensibleBlock;
 
-import windows.WOComponents.WindowBackground;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;

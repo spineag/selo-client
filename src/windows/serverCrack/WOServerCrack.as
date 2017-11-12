@@ -15,47 +15,50 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 
+import windows.WOComponents.BackgroundWhiteIn;
+
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOServerCrack  extends WindowMain {
     private var _txtError:CTextField;
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _b:CButton;
-    private var txt:CTextField;
-    private var txt2:CTextField;
+    private var _txt:CTextField;
 
     public function WOServerCrack() {
         super();
         _windowType = WindowsManager.WO_SERVER_CRACK;
         _woWidth = 460;
-        _woHeight = 340;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woHeight = 430;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
-        txt = new CTextField(420,80,String(g.managerLanguage.allTexts[290]));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -210;
-        txt.y = -130;
-        _source.addChild(txt);
-        _txtError = new CTextField(340,100,String(g.managerLanguage.allTexts[282]));
-        _txtError.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtError.x = -170;
-        _txtError.y = -170;
+        _txt = new CTextField(460,100,String(g.managerLanguage.allTexts[290]));
+        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
+        _txt.autoScale = true;
+        _txt.x = -230;
+        _txt.y = -110;
+        _txt.touchable = false;
+        _source.addChild(_txt);
+        _txtError = new CTextField(300,70,String(g.managerLanguage.allTexts[282]));
+        _txtError.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtError.x = -160;
+        _txtError.y = -185;
         _source.addChild(_txtError);
         _txtError.touchable = false;
         _b = new CButton();
-        _b.addButtonTexture(210, 34, CButton.GREEN, true);
-        _b.y = 120;
+        _b.addButtonTexture(210, CButton.HEIGHT_41, CButton.BLUE, true);
+        _b.addTextField(210, 40, 0, -5, String(g.managerLanguage.allTexts[281]));
+        _b.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _source.addChild(_b);
-        txt2 = new CTextField(200, 34, String(g.managerLanguage.allTexts[281]));
-        txt2.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _b.addChild(txt2);
+        _b.clickCallback = onClick;
+        _b.y = 175;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
-        im.y = -65;
+        im.y = -5;
         _source.addChild(im);
-        _b.clickCallback = onClick;
         SOUND_OPEN = SoundConst.WO_AHTUNG;
     }
 
@@ -73,18 +76,13 @@ public class WOServerCrack  extends WindowMain {
     }
 
     override protected function deleteIt():void {
-        if (txt) {
-            _source.removeChild(txt);
-            txt.deleteIt();
-            txt = null;
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
         }
         if (_txtError) {
             _source.removeChild(_txtError);
-            _txtError.deleteIt();
-            _txtError = null;
-        }
-        if (txt2) {
-            _b.removeChild(_txtError);
             _txtError.deleteIt();
             _txtError = null;
         }

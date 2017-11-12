@@ -1,5 +1,6 @@
 ﻿package map {
 import additional.buyerNyashuk.BuyerNyashuk;
+import additional.buyerNyashuk.tableNyashuk.TableNyashuk;
 import additional.lohmatik.Lohmatik;
 import additional.mouse.MouseHero;
 import additional.pets.PetMain;
@@ -196,11 +197,21 @@ public class TownArea extends Sprite {
         _zSortCounter = SORT_COUNTER_MAX;
         g.gameDispatcher.addEnterFrame(zSortMain); 
     }
+
+    public function deleteLockedLandTail(posX:int, posY:int):void {
+        for (var i:int =0; i < 10; i++) {
+            for (var j:int = 0; j < 10; j++) {
+                _townMatrix[posY+i][posX+j].isLockedLand = false;
+            }
+        }
+//        _townMatrix[posX][posY].isLockedLand = false;
+        trace(_townMatrix[posX][posY].isLockedLand)
+    }
     
     public function removeTownAreaSortCheking():void { g.gameDispatcher.removeEnterFrame(zSortMain); }
     public function zSort():void { _needTownAreaSort = true; }
 
-    private function zSortMain():void{
+    private function zSortMain():void {
         var isError:Boolean = false;
         if (_needTownAreaSort) {
             _zSortCounter--;
@@ -513,6 +524,14 @@ public class TownArea extends Sprite {
             _cont.addChild(loh.source);
             zSort();
         }
+    }
+
+    public function addTableNyashuk(table:TableNyashuk, posX:int, posY:int):void {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
+            table.source.x = int(p.x);
+            table.source.y = int(p.y);
+            _cont.addChild(table.source);
+            zSort();
     }
 
     public function removeLohmatik(loh:Lohmatik):void {
@@ -1156,7 +1175,7 @@ public class TownArea extends Sprite {
                     pasteBuild(build, _x, _y);
                 }
                 showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency, -(build as WorldObject).countShopCost);
-                g.buyHint.hideIt();
+                g.buyHint.showIt((build as WorldObject).countShopCost,true);
                 return;
             } else {
                 if ((build as WorldObject).countShopCost == 0) {
@@ -1287,8 +1306,8 @@ public class TownArea extends Sprite {
                 g.buyHint.hideIt();
                 return;
             }
-
-            g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
+            if (tail.dataBuild.deltaCost && tail.dataBuild.deltaCost > 0 ) g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
+            else g.buyHint.showIt(int(tail.dataBuild.cost), true);
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);

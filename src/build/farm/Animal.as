@@ -31,6 +31,7 @@ import flash.geom.Rectangle;
 
 public class Animal {
     private const WALK_SPEED:int = 20;
+    private const WALK_SPEED_GOAT:int = 8;
     public static var HUNGRY:int = 1;
     public static var WORK:int = 2;
     public static var CRAFT:int = 3;
@@ -122,6 +123,14 @@ public class Animal {
                 walkLabel = 'walk';
                 idleLabels = ['idle_2', 'idle_1'];
                 break;
+            case 8: // goat
+                defaultLabel = 'walk';
+                hungryLabel = 'hungry';
+                feedLabel = 'feed';
+                walkLabel = 'walk';
+                idleLabels = ['idle_2', 'idle_1'];
+                break;
+
         }
     }
 
@@ -242,11 +251,11 @@ public class Animal {
                 return;
             }
         }
-//        if (_data.id == 1) g.soundManager.playSound(SoundConst.CHICKEN_CLICK);
-//        else if (_data.id == 2) g.soundManager.playSound(SoundConst.COW_CLICK);
-//        else if (_data.id == 3) g.soundManager.playSound(SoundConst.PIG_CLICK);
-//        else if (_data.id == 7) g.soundManager.playSound(SoundConst.RAW_SHEEP);
-//        else if (_data.id == 6) g.soundManager.playSound(SoundConst.BEE_CLICK);
+        if (_data.id == 1) g.soundManager.playSound(SoundConst.CHICKEN_CLICK);
+        else if (_data.id == 2) g.soundManager.playSound(SoundConst.COW_CLICK);
+        else if (_data.id == 3) g.soundManager.playSound(SoundConst.PIG_CLICK);
+        else if (_data.id == 7) g.soundManager.playSound(SoundConst.RAW_SHEEP);
+        else if (_data.id == 6) g.soundManager.playSound(SoundConst.BEE_CLICK);
         g.soundManager.playSound(SoundConst.OBJECT_CELL);
         if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
         _timeToEnd = g.allData.getResourceById(_data.idResource).buildTime; // _data.timeCraft; old from data_animal
@@ -511,7 +520,8 @@ public class Animal {
             source.scaleX = 1;
         }
         animation.playIt(walkLabel);
-        new TweenMax(source, dist/WALK_SPEED, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
+        if (_data.id == 8) new TweenMax(source, dist/WALK_SPEED_GOAT, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
+        else new TweenMax(source, dist/WALK_SPEED, {x:p.x, y:p.y, ease:Linear.easeIn ,onComplete: chooseAnimation});
     }
 
     private function stopAnimation():void {

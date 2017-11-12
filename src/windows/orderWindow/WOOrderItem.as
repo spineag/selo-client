@@ -97,6 +97,7 @@ public class WOOrderItem {
         source.addChild(_txtCoins);
 
         _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
+        MCScaler.scale(_checkImage, _checkImage.height-5, _checkImage.width-5);
         _checkImage.x = 78;
         _checkImage.y = -15;
         _checkImage.visible = false;
@@ -107,11 +108,11 @@ public class WOOrderItem {
     
     public function activateIt(v:Boolean):void {
         if (v) {
-            if (_imBG.filter) _imBG.filter.dispose();
+            if (_imBG.filter) _imBG.filter = null;
             _imBG.filter = ManagerFilters.BLUE_STROKE;
             _act = true;
         } else {
-            if (_imBG.filter) _imBG.filter.dispose();
+            if (_imBG.filter) _imBG.filter = null;
             _act = false;
         }
     }
@@ -182,7 +183,7 @@ public class WOOrderItem {
     public function clearIt():void {
         if (source) source.filter.dispose();
         source.filter = null;
-        if (_imBG.filter) _imBG.filter.dispose();
+//        if (_imBG.filter) _imBG.filter.dispose();
         _imBG.filter = null;
         _order = null;
         source.endClickCallback = null;
@@ -289,7 +290,7 @@ public class WOOrderItem {
     private function onHover():void {
         if (_isHover) return;
         _isHover = true;
-        if (_imBG.filter) _imBG.filter.dispose();
+        if (_imBG.filter) _imBG.filter = null;
         _imBG.filter = ManagerFilters.BUTTON_HOVER_FILTER;
         _timer = 3;
         g.gameDispatcher.addEnterFrame(onEnterFram);
@@ -298,10 +299,10 @@ public class WOOrderItem {
     private function onOut():void {
         _isHover = false;
         if (_act) {
-            if (_imBG.filter) _imBG.filter.dispose();
+            if (_imBG.filter) _imBG.filter = null;
             _imBG.filter = ManagerFilters.BLUE_STROKE;
         } else {
-            if (_imBG.filter) _imBG.filter.dispose();
+            if (_imBG.filter) _imBG.filter = null;
         }
         g.gameDispatcher.removeEnterFrame(onEnterFram);
         _timer = 0;
@@ -321,7 +322,7 @@ public class WOOrderItem {
     public function getOrder():OrderItemStructure { return _order; }
     public function animation(delay:Number):void { TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:1, y: source.y, delay:delay}); }
     public function animationHide(delay:Number):void { TweenMax.to(source, .3, {scaleX:0, scaleY:0, alpha:1, y: source.y, delay:delay}); }
-    public function get isClock():Boolean { return _clockImage.visible; } 
+    public function get isClock():Boolean { return _clockImage.visible; }
 
     public function clearItem():void {
         _txtName.text = '';
@@ -353,7 +354,7 @@ public class WOOrderItem {
         _order = null;
         source.filter = null;
         source.removeChild(_imBG);
-        if (_imBG.filter) _imBG.filter.dispose();
+        if (_imBG.filter) _imBG.filter = null;
         _clickCallback = null;
         _starImage = null;
         _coinsImage = null;

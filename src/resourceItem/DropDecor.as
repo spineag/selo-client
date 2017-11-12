@@ -6,6 +6,9 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.StructureDataBuilding;
+
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 import manager.Vars;
 
@@ -28,7 +31,7 @@ public class DropDecor {
     private var _source:Sprite;
     private var _image:Image;
 
-    public function DropDecor(globalX:int, globalY:int, data:StructureDataBuilding, w:int, h:int, count:int=1, delay:Number = 0) {
+    public function DropDecor(globalX:int, globalY:int, data:StructureDataBuilding, w:int, h:int, count:int=1, delay:Number = 0, needAddServer:Boolean = false) {
         _source = new Sprite();
         _count = count;
         _data = data;
@@ -89,8 +92,13 @@ public class DropDecor {
             deleteIt();
         };
 
+        var fNotServer:Function = function ():void {
+            deleteIt();
+        };
+
         var tempX:int = globalX - 140 + int(Math.random()*140);
         var tempY:int = globalY - 40 - int(Math.random()*100);
+        var pointEnd:Object = g.bottomPanel.getShopButtonProperties();
         var dist:int = int(Math.sqrt((globalX - tempX)*(globalX - tempX) + (globalY - tempY)*(globalY - tempY)));
         dist += int(Math.sqrt((tempX - obj.point.x)*(tempX - obj.point.x) + (tempY - obj.point.y)*(tempY - obj.point.y)));
         var t:Number = dist/1000 * 2;
@@ -98,7 +106,8 @@ public class DropDecor {
         if (t > 3) t -= 1;
         var scale:Number = _source.scaleX/1.1;
         AnimationsStock.joggleItBaby(_image, 90, .2, 1);
-        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:obj.point.x, y:obj.point.y}], scaleX:scale, scaleY:scale, delay:delay, ease:Linear.easeOut ,onComplete: f});
+        if (needAddServer)  new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:pointEnd.x, y:pointEnd.y}], scaleX:scale, scaleY:scale, delay:delay, ease:Linear.easeOut ,onComplete: fNotServer});
+        else new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:pointEnd.x + 10, y:pointEnd.y + 10}], scaleX:scale, scaleY:scale, delay:delay, ease:Linear.easeOut ,onComplete: f});
     }
 
     private function deleteIt():void {

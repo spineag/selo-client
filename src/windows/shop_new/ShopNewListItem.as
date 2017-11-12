@@ -310,7 +310,7 @@ public class ShopNewListItem {
 
                     if (maxCount == curCount) {
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
-                            _txtInfo.text =  String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
+                            _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
                             if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                             _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
@@ -359,6 +359,7 @@ public class ShopNewListItem {
                     if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
+                    _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
                     _blackPlawka.visible = true;
                     _isThisItemBlocked = true;
                 } else {
@@ -727,9 +728,9 @@ public class ShopNewListItem {
         }
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE
                 || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) {
-            if (_data.currency == DataMoney.SOFT_CURRENCY) {
-                g.buyHint.showIt(_costCount);
-            }
+            if (_data.currency == DataMoney.SOFT_CURRENCY) g.buyHint.showIt(_costCount);
+            else if (_data.currency == DataMoney.HARD_CURRENCY) g.buyHint.showIt(_costCount,true);
+
         }
         var build:WorldObject;
         if (_data.buildType == BuildType.RIDGE) {

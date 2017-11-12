@@ -237,6 +237,7 @@ public class WOAmbars extends WindowMain {
         var needCountForUpdate:int;
         var st:String;
         var b:StructureDataBuilding;
+
         if (_isAmbar) {
             b = g.allData.getBuildingById(12);
             if (!g.userValidates.checkInfo('ambarLevel', g.user.ambarLevel)) return;
@@ -267,6 +268,8 @@ public class WOAmbars extends WindowMain {
         _txtCount.text = st;
         updateForUpdates();
         updateCells();
+        if (_uItem1.isFull && _uItem2.isFull && _uItem3.isFull) _btnMakeUpgrade.setEnabled = true;
+        else _btnMakeUpgrade.setEnabled = false;
         if (_isAmbar) g.updateAmbarIndicator();
     }
 

@@ -204,6 +204,8 @@ public class WOOrderNew extends WindowMain {
         _btnDel.y = -_woHeight / 2 + 628;
         _btnDel.clickCallback = deleteOrder;
         _rightBlock.addChild(_btnDel);
+        _btnDel.hoverCallback = function():void { g.hint.showIt(String((g.managerLanguage.allTexts[1178]))); };
+        _btnDel.outCallback = function():void { g.hint.hideIt(); };
     }
 
     private function createRightBlockTimer():void {
@@ -291,8 +293,15 @@ public class WOOrderNew extends WindowMain {
             g.gameDispatcher.removeFromTimer(onTimer);
         }
 
-        if (_arrOrders && _arrOrders[item.position -1].delOb == true) _txtZakazState.text = String(g.managerLanguage.allTexts[369]);
-        else _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
+        for (var i:int = 0; i <_arrOrders.length; i++) {
+            if (_arrOrders[i].placeNumber == item.position && _arrOrders[i].delOb == true) {
+                _txtZakazState.text = String(g.managerLanguage.allTexts[369]);
+                break;
+            } else if (_arrOrders[i].placeNumber == item.position && _arrOrders[i].delOb == false) {
+                _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
+                break;
+            }
+        }
     }
 
     private function fillResourceItems(or:OrderItemStructure):void {
@@ -417,7 +426,13 @@ public class WOOrderNew extends WindowMain {
         _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
         var tOrderItem:WOOrderItem = _activeOrderItem;
         var f:Function = function (ord:OrderItemStructure):void { afterSell(ord, tOrderItem); };
-        _arrOrders[_activeOrderItem.position] = null;
+        for (i = 0; i< _arrOrders.length; i++) {
+            if (_arrOrders[i] && _arrOrders[i].placeNumber == _activeOrderItem.position) {
+                _arrOrders[i] = null;
+                break;
+            }
+        }
+
         g.managerOrder.sellOrder(or, f);
         g.managerOrder.cancelAnimateSmallHero();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
@@ -435,14 +450,23 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         if (_isShowed) {
             or.startTime = TimeUtils.currentSeconds + 6;
             orderItem.fillIt(or, or.placeNumber, onItemClick);
-            _arrOrders[or.placeNumber] = or;
+            for (var i:int = 0; _arrOrders.length; i++) {
+                if (_arrOrders[i] == null) {
+                    _arrOrders[i] = or;
+                    break;
+                }
+            }
+//            _arrOrders[or.placeNumber] = or;
             if (_activeOrderItem == orderItem) {
                 onItemClick(_activeOrderItem);
                 _clickItem = false;
             }
         }
-        updateItemsCheck();
+        Utils.createDelay(1,hideIt);
     }
+
+    override  public function hideIt():void { super.hideIt(); }
+
 
     private function updateItemsCheck():void {
         for (var i:int = 0; i < _arrItems.length; i++) {
@@ -459,7 +483,12 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
             _rightBlockTimer.visible = true;
             setTimerText = g.managerOrder.delayBeforeNextOrder;
             _waitForAnswer = true;
-            _arrOrders[_activeOrderItem.position] = null;
+            for (var i:int = 0; _arrOrders.length; i++) {
+                if (_arrOrders[i].placeNumber == _activeOrderItem.position) {
+                    _arrOrders[i] = null;
+                    break;
+                }
+            }
             var tOrderItem:WOOrderItem = _activeOrderItem;
             var f:Function = function (or:OrderItemStructure):void { afterDeleteOrder(or, tOrderItem); };
             g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
@@ -480,8 +509,15 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 }
             }
             orderItem.fillIt(or, or.placeNumber, onItemClick);
-            _arrOrders[or.placeNumber] = or;
-            if (_activeOrderItem == orderItem) onItemClick(_activeOrderItem);
+            _txtZakazState.text = String(g.managerLanguage.allTexts[369]);
+            for (var i:int = 0; _arrOrders.length; i++) {
+                if (_arrOrders[i] == null) {
+                    _arrOrders[i] = or;
+                    break;
+                }
+            }
+
+            if (_activeOrderItem == orderItem) onItemClick(_activeOrderItem, -2);
             g.managerOrder.checkForFullOrder();
             g.gameDispatcher.addToTimer(onTimer);
         }

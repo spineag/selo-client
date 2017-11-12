@@ -94,16 +94,10 @@ public class OptionPanel {
         _source.addChild(_contScalePlus);
         _contScalePlus.hoverCallback = function ():void {
             if (g.tuts.isTuts) return;
-            _contScalePlus.removeChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_in_button"));
-            _contScalePlus.addChild(im);
             g.hint.showIt(String(g.managerLanguage.allTexts[489]));
         };
         _contScalePlus.outCallback = function ():void {
             if (g.tuts.isTuts) return;
-            _contScalePlus.removeChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_in_button"));
-            _contScalePlus.addChild(im);
             g.hint.hideIt();
         };
         _contScalePlus.endClickCallback = function ():void {
@@ -118,53 +112,15 @@ public class OptionPanel {
         _source.addChild(_contScaleMinus);
         _contScaleMinus.hoverCallback = function ():void {
             if (g.tuts.isTuts) return;
-            _contScaleMinus.removeChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_out_button"));
-            _contScaleMinus.addChild(im);
             g.hint.showIt(String(g.managerLanguage.allTexts[490]));
         };
         _contScaleMinus.outCallback = function ():void {
             if (g.tuts.isTuts) return;
-            _contScaleMinus.removeChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_out_button"));
-            _contScaleMinus.addChild(im);
             g.hint.hideIt();
         };
         _contScaleMinus.endClickCallback = function ():void {
             onClick('scale_minus');
         };
-
-//        _contScreenShot = new CSprite();
-//        _contScreenShot.nameIt = 'contScreenShot';
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_screen"));
-//        _contScreenShot.addChild(im);
-//        _contScreenShot.y = 149;
-////        _source.addChild(_contScreenShot);
-//        _contScreenShot.hoverCallback = function ():void {
-//            g.hint.showIt(String(g.managerLanguage.allTexts[491]));
-//        };
-//        _contScreenShot.outCallback = function ():void {
-//            g.hint.hideIt();
-//        };
-//        _contScreenShot.endClickCallback = function ():void {
-//            onClick('screenshot');
-//        };
-
-//        _contAnim = new CSprite();
-//        _contAnim.nameIt = 'contAnim';
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_a_off"));
-//        _contAnim.addChild(im);
-//        _contAnim.y = 205;
-////        _source.addChild(_contAnim);
-//        _contAnim.hoverCallback = function ():void {
-//            g.hint.showIt(String(g.managerLanguage.allTexts[492]));
-//        };
-//        _contAnim.outCallback = function ():void {
-//            g.hint.hideIt();
-//        };
-//        _contAnim.endClickCallback = function ():void {
-//            onClick('anim');
-//        };
 
         _contMusic = new CSprite();
         _contMusic.nameIt = '_contMusic';

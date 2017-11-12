@@ -14,6 +14,8 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 
+import windows.WOComponents.BackgroundWhiteIn;
+
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -21,7 +23,7 @@ import windows.WindowsManager;
 public class WOServerError extends WindowMain {
     private var _txtError:CTextField;
     private var _txtErrorNew:CTextField;
-    private var _woBG:WindowBackground;
+    private var _woBG:BackgroundWhiteIn;
     private var _b:CButton;
     private var txt:CTextField;
     private var txt2:CTextField;
@@ -31,7 +33,9 @@ public class WOServerError extends WindowMain {
         _windowType = WindowsManager.WO_SERVER_ERROR;
         _woWidth = 460;
         _woHeight = 320;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new BackgroundWhiteIn(_woWidth, _woHeight);
+        _woBG.x = -_woBG.width/2;
+        _woBG.y = -_woBG.height/2;
         _source.addChild(_woBG);
         txt = new CTextField(420,80,String(g.managerLanguage.allTexts[289]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -53,12 +57,20 @@ public class WOServerError extends WindowMain {
 
         _txtError.touchable = false;
         _b = new CButton();
-        _b.addButtonTexture(210, 34, CButton.GREEN, true);
-        _b.y = 120;
+        _b.addButtonTexture(210, CButton.HEIGHT_41, CButton.BLUE, true);
+        _b.addTextField(210, 40, 0, -5, String(g.managerLanguage.allTexts[281]));
+        _b.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _source.addChild(_b);
-        txt2 = new CTextField(200, 34, String(g.managerLanguage.allTexts[281]));
-        txt2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _b.addChild(txt2);
+        _b.clickCallback = onClick;
+        _b.y = 120;
+
+//        _b = new CButton();
+//        _b.addButtonTexture(210, 34, CButton.GREEN, true);
+//        _b.y = 120;
+//        _source.addChild(_b);
+//        txt2 = new CTextField(200, 34, String(g.managerLanguage.allTexts[281]));
+//        txt2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//        _b.addChild(txt2);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
         im.y = -50;

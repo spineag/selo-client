@@ -18,6 +18,9 @@ import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
 import mouse.ToolsModifier;
+
+import resourceItem.DropDecor;
+
 import starling.display.Image;
 import starling.events.Event;
 import utils.Utils;
@@ -31,6 +34,7 @@ public class DecorAnimation extends WorldObject{
     private var  _awayAnimation:Boolean = false;
     private var _catsRunCount:int;
     private var _curLockedLand:LockedLand;
+    private var _catRun:Boolean = false;
 
     public function DecorAnimation(_data:Object) {
         super(_data);
@@ -41,6 +45,7 @@ public class DecorAnimation extends WorldObject{
         _heroCatArray = [];
         _armatureArray = [];
         _decorWork = false;
+        _catRun = false;
         createAnimatedBuild(onCreateBuild);
     }
 
@@ -114,6 +119,7 @@ public class DecorAnimation extends WorldObject{
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
+        var p:Point;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.isActiveMapEditor) {
                 if (_curLockedLand) {
@@ -149,6 +155,9 @@ public class DecorAnimation extends WorldObject{
                 forceStopDecorAnimation();
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
+                p = new Point(0, 0);
+                p = _source.localToGlobal(p);
+                new DropDecor(p.x, p.y, g.allData.getBuildingById(_dataBuild.id), 70, 70,1, 1, true);
                 g.townArea.deleteBuild(this);
             } else {
                 if (g.selectedBuild == this) {
@@ -171,12 +180,24 @@ public class DecorAnimation extends WorldObject{
                 return;
             } else if (_decorWork) return;
             if (!g.managerCats.isFreeCat) {
-                var p:Point = new Point(_source.x, _source.y);
-                p = _source.parent.localToGlobal(p);
-                new FlyMessage(p, String(g.managerLanguage.allTexts[619]));
-                return;
+//                p = new Point(_source.x, _source.y);
+//                p = _source.parent.localToGlobal(p);
+                g.managerCats.arrayCat();
+
+                var heroCat:HeroCat;
+                heroCat = g.managerCats.getFreeCatDecor();
+                if (heroCat) {
+                    heroCat.isFree = false;
+                    heroCat.decorAnimation = (this as DecorAnimation);
+                    _heroCatArray.push(heroCat);
+                    _catsRunCount++;
+                    g.managerCats.goCatToPoint(heroCat, new Point(posX, posY), chooseAnimationWithSingleCatOrNoneBefore);
+                }
+//                new FlyMessage(p, String(g.managerLanguage.allTexts[619]));
+//                return;
             }
             _decorWork = true;
+            _catRun = true;
             if (_dataBuild.catNeed) {
                 var count:int  = needCatsCount();
                 var heroCat:HeroCat;
@@ -200,6 +221,8 @@ public class DecorAnimation extends WorldObject{
                         }
                     }
                 } else {
+                    catRunAnimation(true);
+
                     heroCat = g.managerCats.getFreeCatDecor();
                     if (heroCat) {
                         heroCat.isFree = false;
@@ -212,6 +235,22 @@ public class DecorAnimation extends WorldObject{
             } else chooseAnimationWithSingleCatOrNone();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+        }
+    }
+
+    private function catRunAnimation(b:Boolean = false):void {
+        if (b && _catRun) {
+            var fEndOver:Function = function(e:Event=null):void {
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('idle');
+                catRunAnimation(true);
+            };
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('over');
+        } else {
+            _armature.animation.gotoAndPlayByFrame('idle');
         }
     }
 
@@ -312,6 +351,7 @@ public class DecorAnimation extends WorldObject{
 
     private function stopAnimationWithSingleCatOrNone():void {
         if (!_dataBuild) return;
+        catRunAnimation(false);
         if (_armature) {
             _armature.animation.gotoAndPlayByFrame('idle');
             _armature.removeEventListener(EventObject.COMPLETE, chooseAnimationWithSingleCatOrNone);
@@ -326,8 +366,10 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function chooseAnimationWithSingleCatOrNoneBefore(e:Event=null):void {
-        _heroCatArray[0].visible = false;
-        releaseHeroCatManOrWoman(_armature,  _heroCatArray[0]);
+        _catRun = false;
+        catRunAnimation(false);
+        if (_heroCatArray[0]) _heroCatArray[0].visible = false;
+        if (_heroCatArray[0]) releaseHeroCatManOrWoman(_armature,  _heroCatArray[0]);
         chooseAnimationWithSingleCatOrNone();
     }
 
@@ -469,13 +511,21 @@ public class DecorAnimation extends WorldObject{
 
     private function releaseManFrontTexture(armature:Armature = null):void {
         if (!_armature) return;
-        changeTexture("head", "head",armature);
-        changeTexture("body", "body",armature);
-        changeTexture("handLeft", "hand_l",armature);
-        changeTexture("legLeft", "leg_l",armature);
-        changeTexture("handRight", "hand_r",armature);
-        changeTexture("legRight", "leg_r",armature);
-        changeTexture("tail", "tail",armature);
+        changeTexture("head", "grey_c_m_worker_head_front", armature);
+        changeTexture("body", "grey_c_m_worker_body_front", armature);
+        changeTexture("handLeft", "grey_c_m_worker_l_hand_front", armature);
+        changeTexture("legLeft", "grey_c_m_worker_l_leg_front", armature);
+        changeTexture("handRight", "grey_c_m_worker_r_hand_front", armature);
+        changeTexture("legRight", "grey_c_m_worker_r_leg_front", armature);
+        changeTexture("tail", "grey_c_m_worker_tail_front", armature);
+        changeTexture("handRight copy", "grey_c_m_worker_r_hand_front", armature);
+//        changeTexture("head", "head",armature);
+//        changeTexture("body", "body",armature);
+//        changeTexture("handLeft", "hand_l",armature);
+//        changeTexture("legLeft", "leg_l",armature);
+//        changeTexture("handRight", "hand_r",armature);
+//        changeTexture("legRight", "leg_r",armature);
+//        changeTexture("tail", "tail",armature);
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "hand_r",armature);
         }
@@ -488,13 +538,21 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function releaseManBackTexture(armature:Armature = null):void {
-        changeTexture("head", "head_b",armature);
-        changeTexture("body", "body_b",armature);
-        changeTexture("handLeft", "hand_l_b",armature);
-        changeTexture("legLeft", "leg_l_b",armature);
-        changeTexture("handRight", "hand_r_b",armature);
-        changeTexture("legRight", "leg_r_b",armature);
-        changeTexture("tail", "tail",armature);
+        changeTexture("head", "grey_c_m_worker_head_back", armature);
+        changeTexture("body", "grey_c_m_worker_body_back", armature);
+        changeTexture("handLeft", "grey_c_m_worker_l_leg_back", armature);
+        changeTexture("legLeft", "grey_c_m_worker_l_hand_back", armature);
+        changeTexture("handRight", "grey_c_m_worker_r_hand_back", armature);
+        changeTexture("legRight", "grey_c_m_worker_r_leg_back", armature);
+        changeTexture("tail11", "grey_c_m_worker_tail_front", armature);
+
+//        changeTexture("head", "head_b",armature);
+//        changeTexture("body", "body_b",armature);
+//        changeTexture("handLeft", "hand_l_b",armature);
+//        changeTexture("legLeft", "leg_l_b",armature);
+//        changeTexture("handRight", "hand_r_b",armature);
+//        changeTexture("legRight", "leg_r_b",armature);
+//        changeTexture("tail", "tail",armature);
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "hand_r_b",armature);
         }
@@ -502,13 +560,22 @@ public class DecorAnimation extends WorldObject{
 
     private function releaseWomanFrontTexture(armature:Armature = null):void {
         if (!_armature) return;
-        changeTexture("head", "head_w",armature);
-        changeTexture("body", "body_w",armature);
-        changeTexture("handLeft", "hand_w_l",armature);
-        changeTexture("legLeft", "leg_w_r",armature);
-        changeTexture("handRight", "hand_w_r",armature);
-        changeTexture("legRight", "leg_w_r",armature);
-        changeTexture("tail", "tail_w",armature);
+        changeTexture("head", "orange_c_w_worker_head_front", armature);
+        changeTexture("body", "orange_c_w_worker_body_front", armature);
+        changeTexture("handLeft", "orange_c_w_worker_l_hand_front", armature);
+        changeTexture("legLeft", "orange_c_w_worker_l_leg_front", armature);
+        changeTexture("handRight", "orange_c_w_worker_r_hand_front", armature);
+        changeTexture("legRight", "orange_c_w_worker_r_leg_front", armature);
+        changeTexture("tail", "orange_c_w_worker_tail_front", armature);
+        changeTexture("handRight copy", "orange_c_w_worker_r_hand_front", armature);
+
+//        changeTexture("head", "head_w",armature);
+//        changeTexture("body", "body_w",armature);
+//        changeTexture("handLeft", "hand_w_l",armature);
+//        changeTexture("legLeft", "leg_w_r",armature);
+//        changeTexture("handRight", "hand_w_r",armature);
+//        changeTexture("legRight", "leg_w_r",armature);
+//        changeTexture("tail", "tail_w",armature);
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "hand_w_r",armature);
         }
@@ -521,13 +588,22 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function releaseWomanBackTexture(armature:Armature = null):void {
-        changeTexture("head", "head_w_b",armature);
-        changeTexture("body", "body_w_b",armature);
-        changeTexture("handLeft", "hand_w_l_b",armature);
-        changeTexture("legLeft", "leg_w_l_b");
-        changeTexture("handRight", "hand_w_r_b",armature);
-        changeTexture("legRight", "leg_w_r_b",armature);
-        changeTexture("tail", "tail_w",armature);
+
+        changeTexture("head", "orange_c_w_worker_head_back", armature);
+        changeTexture("body", "orange_c_w_worker_body_back", armature);
+        changeTexture("handLeft", "orange_c_w_worker_l_hand_back", armature);
+        changeTexture("legLeft", "orange_c_w_worker_l_leg_back", armature);
+        changeTexture("handRight", "orange_c_w_worker_r_hand_back", armature);
+        changeTexture("legRight", "orange_c_w_worker_r_leg_back", armature);
+        changeTexture("tail11", "orange_c_w_worker_tail_front", armature);
+
+//        changeTexture("head", "head_w_b",armature);
+//        changeTexture("body", "body_w_b",armature);
+//        changeTexture("handLeft", "hand_w_l_b",armature);
+//        changeTexture("legLeft", "leg_w_l_b");
+//        changeTexture("handRight", "hand_w_r_b",armature);
+//        changeTexture("legRight", "leg_w_r_b",armature);
+//        changeTexture("tail", "tail_w",armature);
     }
 
     private function changeTexture(oldName:String, newName:String,armature:Armature = null):void {

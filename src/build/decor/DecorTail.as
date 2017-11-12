@@ -4,9 +4,14 @@
 package build.decor {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
+
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
 import mouse.ToolsModifier;
+
+import resourceItem.DropDecor;
 
 public class DecorTail extends WorldObject{
     public function DecorTail(_data:Object) {
@@ -52,6 +57,9 @@ public class DecorTail extends WorldObject{
             if (!g.selectedBuild) {
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
+                var p:Point = new Point(0, 0);
+                p = _source.localToGlobal(p);
+                new DropDecor(p.x, p.y, g.allData.getBuildingById(_dataBuild.id), 70, 70,1, 1, true);
                 g.townArea.deleteTailBuild(this);
             } else {
                 if (g.selectedBuild == this) {

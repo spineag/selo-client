@@ -55,9 +55,9 @@ public class WOLastResource extends WindowMain {
         _txtAhtung.x = -150;
         _txtAhtung.y = -200;
         _source.addChild(_txtAhtung);
-        _txt = new CTextField(800,120,String(g.managerLanguage.allTexts[426]));
+        _txt = new CTextField(700,120,String(g.managerLanguage.allTexts[426]));
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW);
-        _txt.x = -410;
+        _txt.x = -350;
         _txt.y = -135;
         _source.addChild(_txt);
         _btnYes = new CButton();

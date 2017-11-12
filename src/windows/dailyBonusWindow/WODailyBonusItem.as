@@ -46,73 +46,73 @@ public class WODailyBonusItem {
                 im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(obj.id).imageShop));
                 break;
         }
-        MCScaler.scale(im, 60, 60);
+        MCScaler.scale(im, 95, 95);
         im.x = -im.width/2;
         im.y = -im.height/2;
-        im.filter = ManagerFilters.SHADOW;
+//        im.filter = ManagerFilters.SHADOW;
         _source = new Sprite();
         _source.addChild(im);
 
         switch (index) {
             case 0:
                 _source.x = 0;
-                _source.y = -165;
+                _source.y = -182;
                 break;
             case 1:
-                _source.x = 82;
-                _source.y = -143;
+                _source.x = 110;
+                _source.y = -148;
                 break;
             case 2:
-                _source.x = 143;
-                _source.y = -83;
+                _source.x = 180;
+                _source.y = -60;
                 break;
             case 3:
-                _source.x = 165;
-                _source.y = 0;
+                _source.x = 170;
+                _source.y = 55;
                 break;
             case 4:
-                _source.x = 142;
-                _source.y = 82;
+                _source.x = 110;
+                _source.y = 155;
                 break;
             case 5:
-                _source.x = 82;
-                _source.y = 143;
+                _source.x = 0;
+                _source.y = 190;
                 break;
             case 6:
-                _source.x = 0;
-                _source.y = 164;
+                _source.x = -120;
+                _source.y = 155;
                 break;
             case 7:
-                _source.x = -82;
-                _source.y = 142;
+                _source.x = -175;
+                _source.y = 60;
                 break;
             case 8:
-                _source.x = -143;
-                _source.y = 82;
+                _source.x = -180;
+                _source.y = -60;
                 break;
             case 9:
-                _source.x = -165;
-                _source.y = 0;
+                _source.x = -110;
+                _source.y = -148;
                 break;
             case 10:
-                _source.x = -143;
-                _source.y = -82;
+                _source.x = -180;
+                _source.y = -60;
                 break;
             case 11:
-                _source.x = -82;
-                _source.y = -143;
+                _source.x = -110;
+                _source.y = -148;
                 break;
         }
 
-        _source.rotation = (Math.PI/6)*index;
+        _source.rotation = (Math.PI/5)*index;
         _parent.addChild(_source);
-        if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
-            _txt = new CTextField(60, 40, '+'+String(obj.count));
-            _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            _txt.x = -20;
-            _txt.y = -5;
-            _source.addChild(_txt);
-        }
+//        if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
+//            _txt = new CTextField(60, 40, '+'+String(obj.count));
+//            _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//            _txt.x = -20;
+//            _txt.y = -5;
+//            _source.addChild(_txt);
+//        }
     }
 
     public function deleteIt():void {

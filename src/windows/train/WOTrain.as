@@ -288,7 +288,6 @@ public class WOTrain extends WindowMain {
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
             _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient));
             else  _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP));
-
         if (_imResource) {
             _source.removeChild(_imResource);
             _imResource.dispose();
@@ -414,6 +413,7 @@ public class WOTrain extends WindowMain {
         (_arrItems[_activeItemIndex] as WOTrainItem).onClickHelpMePls(false);
         g.directServer.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId),'0', null);
         _train.needHelp(false, _activeItemIndex);
+        _btnHelp.visible = false;
         var b:Boolean = true;
         for (var i:int = 0; i < _arrItems.length; i ++) {
             if ((_arrItems[i] as WOTrainItem).needHelp) {

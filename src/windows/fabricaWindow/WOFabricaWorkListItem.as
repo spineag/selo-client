@@ -198,10 +198,14 @@ public class WOFabricaWorkListItem {
         };
         if (buy) {
             _armatureBoom = g.allData.factory['explode_gray_fabric'].buildArmature("expl_fabric");
-            (_armatureBoom.display as StarlingArmatureDisplay).x = _bg.width / 2;
-            (_armatureBoom.display as StarlingArmatureDisplay).y = _bg.height;
+
             if (_type == SMALL_CELL) {
+                (_armatureBoom.display as StarlingArmatureDisplay).x = _bg.width / 2 -15;
+                (_armatureBoom.display as StarlingArmatureDisplay).y = _bg.height/2 + 20;
                 (_armatureBoom.display as StarlingArmatureDisplay).scale = .5;
+            } else {
+                (_armatureBoom.display as StarlingArmatureDisplay).x = _bg.width / 2 -15;
+                (_armatureBoom.display as StarlingArmatureDisplay).y = _bg.height/2 + 30;
             }
             WorldClock.clock.add(_armatureBoom);
             _source.addChild(_armatureBoom.display as StarlingArmatureDisplay);
