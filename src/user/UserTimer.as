@@ -7,6 +7,8 @@ import manager.Vars;
 
 import ui.stock.StockPanel;
 
+import utils.TimeUtils;
+
 import windows.WindowsManager;
 
 public class UserTimer {
@@ -108,7 +110,7 @@ public class UserTimer {
     private function partyTimerToStart():void {
         partyToStartTimer--;
         if (partyToStartTimer <= 0) {
-            partyToEnd(g.managerParty.timeToEnd - int(new Date().getTime() / 1000));
+            partyToEnd(g.managerParty.timeToEnd - TimeUtils.currentSeconds);
             g.managerParty.eventOn = true;
             if ( g.managerParty.levelToStart <= g.user.level) {
                 var f:Function = function ():void {
@@ -182,7 +184,7 @@ public class UserTimer {
         var leftSecond:int;
         for (i = 0; i < _arrOrderItem.length; i++) {
             if (_arrOrderItem[i]) {
-                leftSecond = _arrOrderItem[i].startTime - int(new Date().getTime()/1000);
+                leftSecond = _arrOrderItem[i].startTime - TimeUtils.currentSeconds;
                 if (leftSecond <= 0){
                     g.managerOrder.checkForFullOrder();
                         break;

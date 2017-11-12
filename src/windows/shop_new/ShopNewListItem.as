@@ -8,11 +8,16 @@ import build.decor.DecorFenceGate;
 import build.decor.DecorPostFenceArka;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
+import build.petHouse.PetHouse;
 import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import data.StructureDataAnimal;
+import data.StructureDataBuilding;
+import data.StructureDataBuilding;
+import data.StructureDataPet;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
@@ -287,7 +292,7 @@ public class ShopNewListItem {
                 MCScaler.scale(_im, 135, 135);
                 _im.y = 115;
             }
-            var dataFarm:Object = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(_data.buildId));
+            var dataFarm:StructureDataBuilding = g.allData.getBuildingById(_data.buildId);
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
                     _txtInfo.text = String(str.replace(myPattern, String(dataFarm.blockByLevel[0])));
@@ -387,6 +392,78 @@ public class ShopNewListItem {
                     _txtCount.text = String(curCount) + '/' + String(maxCount);
                     createButton();
                     if (g.user.notif.isNewRidge) addNotification();
+                }
+            }
+        } else if (_data.buildType == BuildType.PET) {
+            if (_im) {
+                MCScaler.scale(_im, 135, 135);
+                _im.y = 115;
+            }
+            var dataPetHouse:StructureDataBuilding = g.allData.getBuildingById(_data.houseId);
+            if (dataPetHouse && dataPetHouse.blockByLevel) {
+                if (g.user.level < dataPetHouse.blockByLevel[0]) {
+                    _txtInfo.text = String(str.replace(myPattern, String(dataPetHouse.blockByLevel[0])));
+                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+                    _bg.filter = ManagerFilters.getButtonDisableFilter();
+                    _blackPlawka.visible = true;
+                    _isThisItemBlocked = true;
+                } else {
+                    arr = g.townArea.getCityObjectsById(dataPetHouse.id);
+                    maxCount = arr.length * dataPetHouse.maxAnimalsCount;
+                    curCount = 0;
+                    for (i=0; i<arr.length; i++) {
+                        curCount += (arr[i] as PetHouse).arrPets.length;
+                    }
+                    if (maxCount == curCount) {
+                        if (g.user.level >= dataPetHouse.blockByLevel[arr.length-1]) {
+                            _txtInfo.text =  String(g.managerLanguage.allTexts[345]) + ' ' + String(dataPetHouse.name);
+                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+                            _bg.filter = ManagerFilters.getButtonDisableFilter();
+                            _blackPlawka.visible = true;
+                            _txtCount.text = String(maxCount) + '/' + String(maxCount);
+                            _costCount = 0;
+                            _isThisItemBlocked = true;
+                        } else {
+                            _txtInfo.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataPetHouse.name);
+                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+                            _bg.filter = ManagerFilters.getButtonDisableFilter();
+                            _blackPlawka.visible = true;
+                            if (g.user.isTester) _txtName.text = String(_data.id) +':'+ String(_data.name);
+                            else _txtName.text = String(_data.name);
+                            _isThisItemBlocked = true;
+                        }
+                    } else {
+                        _txtCount.text = String(curCount) + '/' + String(maxCount);
+                        _costCount = _data.costHard;
+                        createButton();
+                        if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
+                    }
+                }
+            }
+        } else if (_data.buildType == BuildType.PET_HOUSE) {
+            if (_im) {
+                MCScaler.scale(_im, 135, 135);
+                _im.y = 115;
+            }
+            if (_data.blockByLevel) {
+                arr = g.townArea.getCityObjectsById(_data.id);
+                curCount = arr.length;
+                for (i = 0; _data.blockByLevel.length; i++) {
+                    if (_data.blockByLevel[i] <= g.user.level) {
+                        maxCountAtCurrentLevel++;
+                    } else break;
+                }
+                maxCount = maxCountAtCurrentLevel;
+                if (curCount >= maxCount) {
+                    _txtInfo.text = g.managerLanguage.allTexts[340];
+                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+                    _bg.filter = ManagerFilters.getButtonDisableFilter();
+                    _blackPlawka.visible = true;
+                    _txtCount.text = String(maxCount) + '/' + String(maxCount);
+                    _isThisItemBlocked = true;
+                } else {
+                    _txtCount.text = String(curCount) + '/' + String(maxCount);
+                    createButton();
                 }
             }
         }
@@ -570,9 +647,10 @@ public class ShopNewListItem {
         if (_isThisItemBlocked) return;
         if (g.miniScenes.isMiniScene) g.miniScenes.deleteArrowAndDust();
         var ob:Object;
-        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
+        if (((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
                 || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE
-                || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) && !_isFromInventory) {
+                || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) && !_isFromInventory) 
+                    || _data.buildType == BuildType.PET) {
             if (g.tuts.isTuts) return;
             if (g.managerCutScenes.isCutScene) {
                 if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && g.managerCutScenes.isCutSceneResource(_data.id)) {
@@ -660,9 +738,7 @@ public class ShopNewListItem {
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
-            if (g.tuts.isTuts && g.tuts.action == TutsAction.NEW_RIDGE) {
-                g.tuts.checkTutsCallback();
-            }
+            if (g.tuts.isTuts && g.tuts.action == TutsAction.NEW_RIDGE) g.tuts.checkTutsCallback();
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
             (build as WorldObject).countShopCost = _costCount;
             g.townArea.startMoveAfterShop(build);
@@ -680,6 +756,21 @@ public class ShopNewListItem {
                 (build as WorldObject).countShopCost = _costCount;
                 g.townArea.startMoveAfterShop(build);
             }
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+        } else if (_data.buildType == BuildType.PET) {
+            for (i = 0; i < _data.currency.length; i++) {
+                g.userInventory.addMoney(_data.currency[i], -_data.cost[i]);
+            }
+            g.managerPets.onBuyNewPet(_data.id);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+        } else if (_data.buildType == BuildType.PET_HOUSE) {
+            if (g.tuts.isTuts) return;
+            build = g.townArea.createNewBuild(_data);
+            g.selectedBuild = build;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            (build as WorldObject).countShopCost = _costCount;
+            g.townArea.startMoveAfterShop(build);
             g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
         } else if (_data.buildType != BuildType.ANIMAL) {
             if (g.tuts.isTuts && g.tuts.action != TutsAction.BUY_FABRICA && g.tuts.action != TutsAction.BUY_FARM) return;

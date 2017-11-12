@@ -2,7 +2,6 @@
  * Created by user on 9/23/15.
  */
 package heroes {
-import build.WorldObject;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.ridge.Ridge;
@@ -13,9 +12,7 @@ import flash.geom.Point;
 import manager.AStar.AStar;
 import manager.Vars;
 import manager.ownError.ErrorConst;
-
 import utils.Utils;
-
 import windows.WindowsManager;
 
 public class ManagerCats {
@@ -185,7 +182,7 @@ public class ManagerCats {
             cat.walkCallback = callback;
             cat.walkCallbackParams = callbackParams;
             var a:AStar = new AStar();
-            a.getPath(cat.posX, cat.posY, p.x, p.y, f1, cat);
+            a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
             Cc.stackch('error', 'ManagerCats goCatToPoint', 10);
@@ -222,7 +219,7 @@ public class ManagerCats {
             cat.walkCallback = callback;
             cat.walkCallbackParams = callbackParams;
             var a:AStar = new AStar();
-            a.getPath(cat.posX, cat.posY, p.x, p.y, f1, cat);
+            a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
             Cc.stackch('error', 'ManagerCats goIdleCatToPoint', 10);

@@ -7,6 +7,9 @@ import flash.geom.Point;
 import manager.AStar.DirectWay;
 import manager.Vars;
 import manager.ownError.ErrorConst;
+
+import utils.TimeUtils;
+
 import windows.WindowsManager;
 
 public class ManagerOrderCats {
@@ -28,7 +31,7 @@ public class ManagerOrderCats {
         var leftSeconds:int;
         var r:int = 0;
         for (var i:int=0; i<arr.length; i++) {
-            leftSeconds = arr[i].startTime - int(new Date().getTime()/1000);
+            leftSeconds = arr[i].startTime - TimeUtils.currentSeconds;
             if (leftSeconds <= 0) {
                 cat = new OrderCat(arr[i].catOb);
                 cat.setTailPositions(30, 25 - r*2);

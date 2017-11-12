@@ -285,7 +285,6 @@ public class Animal {
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
             if (!g.tuts.isTuts) {
                 g.managerAnimal.activeFeedAnimalId = _data.id;
-                if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) trace('kyky');
                 _wasStartActiveFeeding = true;
                 g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
                 source.releaseContDrag = false;

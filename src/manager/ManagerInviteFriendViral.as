@@ -10,6 +10,8 @@ import starling.textures.TextureAtlas;
 
 import ui.inviteFriendPanel.InvitePanelTimer;
 
+import utils.TimeUtils;
+
 import windows.WindowsManager;
 
 public class ManagerInviteFriendViral {
@@ -41,7 +43,7 @@ public class ManagerInviteFriendViral {
     public function updateTimerPanelPosition():void { if (_invitePanelTimer) _invitePanelTimer.updatePosition(); }
 
     private function checkIt():void {
-        if (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < int(new Date().getTime()/1000)) {
+        if (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < TimeUtils.currentSeconds) {
             g.load.loadAtlas('inviteAtlas', 'inviteAtlas', startTimer);
         }
     }
@@ -63,7 +65,7 @@ public class ManagerInviteFriendViral {
         _timerEnd--;
         if (_timerEnd < 0) {
             g.gameDispatcher.removeFromTimer(onTimer);
-            g.directServer.updateUserViralInvite(int(new Date().getTime()/1000) + _timeCancelData, null);
+            g.directServer.updateUserViralInvite(TimeUtils.currentSeconds + _timeCancelData, null);
             onFinishIt();
         }
     }
@@ -77,7 +79,7 @@ public class ManagerInviteFriendViral {
             var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
             obj.id = DataMoney.HARD_CURRENCY;
             new DropItem(p.x + 30, p.y + 30, obj);
-            g.directServer.updateUserViralInvite(int(new Date().getTime()/1000) + _timeCompleteData, null);
+            g.directServer.updateUserViralInvite(TimeUtils.currentSeconds + _timeCompleteData, null);
             onFinishIt();
         }
     }

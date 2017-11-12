@@ -80,7 +80,7 @@ public class ManagerMouse {
                 _mouse.goWithPath(arr, f2);
             };
             var a:AStar = new AStar();
-            a.getPath(_mouse.posX, _mouse.posY, p.x, p.y, f1, _mouse);
+            a.getPath(_mouse.posX, _mouse.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerMouse goIdleMouseToPoint error: ' + e.errorID + ' - ' + e.message);
         }

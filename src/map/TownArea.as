@@ -2,6 +2,8 @@
 import additional.buyerNyashuk.BuyerNyashuk;
 import additional.lohmatik.Lohmatik;
 import additional.mouse.MouseHero;
+import additional.pets.PetMain;
+
 import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.achievement.Achievement;
@@ -27,6 +29,7 @@ import build.market.Market;
 import build.missing.Missing;
 import build.orders.Order;
 import build.paper.Paper;
+import build.petHouse.PetHouse;
 import build.ridge.Ridge;
 import build.train.Train;
 import build.tree.Tree;
@@ -113,7 +116,7 @@ public class TownArea extends Sprite {
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero 
-                        || _cityObjects[i] is BuyerNyashuk) continue;
+                        || _cityObjects[i] is BuyerNyashuk || _cityObjects[i] is PetMain) continue;
                 if (_cityObjects[i].dataBuild.buildType == buildType) ar.push(_cityObjects[i]);
             }
         } catch (e:Error) {
@@ -128,7 +131,7 @@ public class TownArea extends Sprite {
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero 
-                        || _cityObjects[i] is BuyerNyashuk) continue;
+                        || _cityObjects[i] is BuyerNyashuk || _cityObjects[i] is PetMain) continue;
                 if (_cityObjects[i].dataBuild.id == id)  ar.push(_cityObjects[i]);
             }
         } catch (e:Error) {
@@ -516,6 +519,22 @@ public class TownArea extends Sprite {
         if (_cityObjects.indexOf(loh) > -1) _cityObjects.splice(_cityObjects.indexOf(loh), 1);
         if (_cont.contains(loh.source)) _cont.removeChild(loh.source);
     }
+    
+    public function addPet(pet:PetMain):void {
+        if (_cityObjects.indexOf(pet) == -1) _cityObjects.push(pet);
+        if (!_cont.contains(pet.source)) {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(pet.posX, pet.posY));
+            pet.source.x = int(p.x);
+            pet.source.y = int(p.y);
+            _cont.addChild(pet.source);
+            zSort();
+        }
+    }
+
+    public function removePet(pet:PetMain):void {
+        if (_cityObjects.indexOf(pet) > -1) _cityObjects.splice(_cityObjects.indexOf(pet), 1);
+        if (_cont.contains(pet.source)) _cont.removeChild(pet.source);
+    }
 
     public function createNewBuild(_data:Object, dbId:int = 0):WorldObject {
         var build:WorldObject;
@@ -617,6 +636,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.MISSING:
                 if (g.user.isTester) build = new Missing(_data);
+                break;
+            case BuildType.PET_HOUSE:
+                build = new PetHouse(_data);
                 break;
         }
 
@@ -833,10 +855,12 @@ public class TownArea extends Sprite {
         }
         if (isNewAtMap) {
             if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorAnimation
-                    || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate || worldObject is DecorFenceArka || worldObject is DecorPostFenceArka)
+                    || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate || worldObject is DecorFenceArka ||
+                    worldObject is DecorPostFenceArka || worldObject is PetHouse)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
             if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFenceArka || worldObject is DecorFenceArka
-                    || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)  worldObject.addXP(); // ???? its empty function!!!
+                    || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)
+                        worldObject.addXP(); // ???? its empty function!!!
             if (worldObject is Tree) g.directServer.addUserBuilding(worldObject, onAddNewTree);
             if (worldObject is Ridge) g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
             if (worldObject is Farm)  g.managerAnimal.onAddNewFarm(worldObject as Farm);
@@ -858,7 +882,7 @@ public class TownArea extends Sprite {
         }
 
         if (isNewAtMap || updateAfterMove) {
-            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor || worldObject is DecorAnimation) {
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor || worldObject is DecorAnimation || worldObject is PetHouse) {
                 g.managerCats.checkAllCatsAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
                 g.managerLohmatic.checkAllLohAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
             }
@@ -927,8 +951,7 @@ public class TownArea extends Sprite {
             if (build is Tree) (build as Tree).showShopView();
             (build as WorldObject).source.filter = null;
             g.toolsModifier.startMove(build, afterMoveReturn, true);
-
-        } else if (isNewAtMap &&(worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorAnimation)) {
+        } else if (isNewAtMap && (worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorAnimation)) {
             if (g.userInventory.decorInventory[ worldObject.dataBuild.id]) {
                 build = createNewBuild( worldObject.dataBuild);
                 g.selectedBuild = build;
@@ -1021,10 +1044,10 @@ public class TownArea extends Sprite {
 //            g.buyHint.hideIt();
                 return;
             }
-        } else if (isNewAtMap &&(worldObject is DecorFenceGate || worldObject is DecorPostFenceArka || worldObject is DecorFenceArka)) {
+        } else if (isNewAtMap && (worldObject is DecorFenceGate || worldObject is DecorPostFenceArka || worldObject is DecorFenceArka || worldObject is PetHouse)) {
             g.buyHint.hideIt();
         } else if (isNewAtMap && worldObject is DecorTail){
-            Cc.error('TownArea.PasteBuild -- DecorTail wtf you do this');
+            Cc.error('TownArea.PasteBuild -- DecorTail wtf you doing here?');
         }
     }
 
@@ -1118,14 +1141,11 @@ public class TownArea extends Sprite {
             for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
             }
-            if (build is DecorTail) {
-                pasteTailBuild(build as DecorTail, _x, _y);
-            } else {
-                pasteBuild(build, _x, _y);
-            }
+            if (build is DecorTail) pasteTailBuild(build as DecorTail, _x, _y);
+                else pasteBuild(build, _x, _y);
             return;
         } else {
-            if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) {
+            if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) { 
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).countShopCost);
                 if (build is DecorTail) {
                     pasteTailBuild(build as DecorTail, _x, _y);
@@ -1761,7 +1781,6 @@ public class TownArea extends Sprite {
         point.y = 26;
         g.cont.moveCenterToPos(point.x, point.y, true, 2);
 
-
         for (i=0; i<p.userDataCity.objects.length; i++) {
             createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(p.userDataCity.objects[i].buildId)), p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
         }
@@ -1789,14 +1808,26 @@ public class TownArea extends Sprite {
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         startDecorAnimation();
         g.managerMouseHero.addMouse();
-
         g.user.calculateReasonForHelpAway();
     }
 
-    private function onDeleteAwayPreloader():void {
-        if (g.visitedUser is NeighborBot) g.miniScenes.onGoAwayToNeighbor();
+    public function addAwayPet(pet:PetMain):void {
+        if (_cityAwayObjects.indexOf(pet) == -1) _cityAwayObjects.push(pet);
+        if (!_cont.contains(pet.source)) {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(pet.posX, pet.posY));
+            pet.source.x = int(p.x);
+            pet.source.y = int(p.y);
+            _cont.addChild(pet.source);
+            zSort();
+        }
     }
 
+    public function removeAwayPet(pet:PetMain):void {
+        if (_cityAwayObjects.indexOf(pet) > -1) _cityAwayObjects.splice(_cityAwayObjects.indexOf(pet), 1);
+        if (_cont.contains(pet.source)) _cont.removeChild(pet.source);
+    }
+
+    private function onDeleteAwayPreloader():void { if (g.visitedUser is NeighborBot) g.miniScenes.onGoAwayToNeighbor(); }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
         var build:WorldObject;
@@ -2464,7 +2495,8 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is Lohmatik  || _cityAwayObjects[i] is MouseHero) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is Lohmatik  || _cityAwayObjects[i] is MouseHero  
+                        || _cityAwayObjects[i] is PetMain) continue;
                 if (_cityAwayObjects[i].dataBuild.id == id)
                     ar.push(_cityAwayObjects[i]);
             }
@@ -2479,7 +2511,8 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero || _cityAwayObjects[i] is Lohmatik  || _cityAwayObjects[i] is MouseHero) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero || _cityAwayObjects[i] is Lohmatik  
+                        || _cityAwayObjects[i] is MouseHero  || _cityAwayObjects[i] is PetMain) continue;
                 if (_cityAwayObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityAwayObjects[i]);
             }
@@ -2580,54 +2613,19 @@ public class TownArea extends Sprite {
 
 
     // ----------------- ORDER CATS --------------------
-    public function addOrderCatToCont(cat:OrderCat):void {
-        _cont.addChild(cat.source);
-    }
+    public function addOrderCatToCont(cat:OrderCat):void { _cont.addChild(cat.source); }
+    public function removeOrderCatFromCont(cat:OrderCat):void { _cont.removeChild(cat.source); }
+    public function addOrderCatToCityObjects(cat:OrderCat):void { _cityObjects.push(cat); }
+    public function removeOrderCatFromCityObjects(cat:OrderCat):void { if (_cityObjects.indexOf(cat) > -1) _cityObjects.splice(_cityObjects.indexOf(cat), 1); }
+    public function addOrderCatToAwayCityObjects(cat:OrderCat):void { _cityAwayObjects.push(cat); }
+    public function removeOrderCatFromAwayCityObjects(cat:OrderCat):void { if (_cityAwayObjects.indexOf(cat) > -1) _cityObjects.splice(_cityObjects.indexOf(cat), 1); }
 
-    public function removeOrderCatFromCont(cat:OrderCat):void {
-        _cont.removeChild(cat.source);
-    }
-
-    public function addOrderCatToCityObjects(cat:OrderCat):void {
-        _cityObjects.push(cat);
-    }
-
-    public function removeOrderCatFromCityObjects(cat:OrderCat):void {
-        if (_cityObjects.indexOf(cat) > -1) _cityObjects.splice(_cityObjects.indexOf(cat), 1);
-    }
-
-
-    public function addOrderCatToAwayCityObjects(cat:OrderCat):void {
-        _cityAwayObjects.push(cat);
-    }
-
-    public function removeOrderCatFromAwayCityObjects(cat:OrderCat):void {
-        if (_cityAwayObjects.indexOf(cat) > -1) _cityObjects.splice(_cityObjects.indexOf(cat), 1);
-    }
     // ----------------- BUYER NYASHUK --------------------
-    public function addBuyerNyashukToCont(nya:BuyerNyashuk):void {
-        _cont.addChild(nya.source);
-    }
-
-    public function removeBuyerNyashukFromCont(nya:BuyerNyashuk):void {
-        _cont.removeChild(nya.source);
-    }
-
-    public function addBuyerNyashukToCityObjects(nya:BuyerNyashuk):void {
-        _cityObjects.push(nya);
-    }
-
-    public function removeBuyerNyashukFromCityObjects(nya:BuyerNyashuk):void {
-        if (_cityObjects.indexOf(nya) > -1) _cityObjects.splice(_cityObjects.indexOf(nya), 1);
-    }
-
-
-    public function addBuyerNyashukToAwayCityObjects(nya:BuyerNyashuk):void {
-        _cityAwayObjects.push(nya);
-    }
-
-    public function removeBuyerNyashukFromAwayCityObjects(nya:BuyerNyashuk):void {
-        if (_cityAwayObjects.indexOf(nya) > -1) _cityObjects.splice(_cityObjects.indexOf(nya), 1);
-    }
+    public function addBuyerNyashukToCont(nya:BuyerNyashuk):void { _cont.addChild(nya.source); }
+    public function removeBuyerNyashukFromCont(nya:BuyerNyashuk):void { _cont.removeChild(nya.source); }
+    public function addBuyerNyashukToCityObjects(nya:BuyerNyashuk):void { _cityObjects.push(nya); }
+    public function removeBuyerNyashukFromCityObjects(nya:BuyerNyashuk):void { if (_cityObjects.indexOf(nya) > -1) _cityObjects.splice(_cityObjects.indexOf(nya), 1); }
+    public function addBuyerNyashukToAwayCityObjects(nya:BuyerNyashuk):void { _cityAwayObjects.push(nya); }
+    public function removeBuyerNyashukFromAwayCityObjects(nya:BuyerNyashuk):void { if (_cityAwayObjects.indexOf(nya) > -1) _cityObjects.splice(_cityObjects.indexOf(nya), 1); }
 }
 }

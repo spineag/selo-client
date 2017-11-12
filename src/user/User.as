@@ -11,6 +11,8 @@ import manager.Vars;
 
 import social.SocialNetwork;
 
+import utils.TimeUtils;
+
 import windows.shop_new.WOShopNew;
 
 public class User extends Someone {
@@ -80,14 +82,14 @@ public class User extends Someone {
     public function createNeighbor():void { neighbor = new NeighborBot(); }
 
     public function checkMiss():void {
-        if ((int(new Date().getTime() / 1000) - missDate) < 432000) return;
+        if ((TimeUtils.currentSeconds - missDate) < 432000) return;
         g.directServer.getUserMiss(openMiss);
     }
 
     private function openMiss(ob:Object):void {
         var b:Array  = g.townArea.getCityObjectsByType(BuildType.MISSING);
         for (var i:int = 0; i < arrFriends.length; i++) {
-            if ((int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate) >= 604800 && ob.length <= 0) {
+            if ((TimeUtils.currentSeconds -  arrFriends[i].lastVisitDate) >= 604800 && ob.length <= 0) {
                 if (b.length) b[0].visibleBuild(true, arrFriends[i]);
                 break;
             }
@@ -95,7 +97,7 @@ public class User extends Someone {
         if (ob && ob.length > 0) {
             var bool:Boolean = false;
             for (i = 0; i < arrFriends.length; i++) {
-                if ((int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate) >= 604800) {
+                if ((TimeUtils.currentSeconds -  arrFriends[i].lastVisitDate) >= 604800) {
                     for (var j:int = 0; j < ob.length; j++) {
                         if (arrFriends[i].userSocialId == String(ob[j].user_id_miss)) {
                             bool = true;

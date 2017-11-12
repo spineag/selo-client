@@ -96,7 +96,7 @@ public class WOItemFabrica {
 
         g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         source.filter = null;
-        if (_clickCallback != null)  _clickCallback.apply(null, [_dataRecipe]);
+        if (_clickCallback != null) _clickCallback.apply(null, [_dataRecipe]);
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
         if (g.tuts && g.tuts.action == TutsAction.RAW_RECIPE && g.tuts.isTutsResource(_dataRecipe.id)) {

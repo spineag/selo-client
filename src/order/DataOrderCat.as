@@ -193,7 +193,7 @@ public class DataOrderCat {
 
     public static function get arr():Array { return _arrCats; }
 
-    public static function getObjById(id:int):Object {
+    public static function getCatObjById(id:int):Object {
         for (var i:int=0; i<14; i++) {
             if (_arrCats[i].id == id)  return _arrCats[i];
         }

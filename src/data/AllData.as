@@ -20,6 +20,8 @@ public class AllData {
     private var _buildingObj:Object;
     private var _animal:Array;
     private var _animalObj:Object;
+    private var _pet:Array;
+    private var _petObj:Object;
     private var g:Vars = Vars.getInstance();
 
     public function AllData() {
@@ -36,6 +38,8 @@ public class AllData {
         _resourceObj = {};
         _buildingObj = {};
         _animalObj = {};
+        _pet = [];
+        _petObj = {};
     }
 
     public function registerBuilding(b:StructureDataBuilding):void {
@@ -64,6 +68,13 @@ public class AllData {
             _animal.push(b);
             _animalObj[b.id] = b;
         } else Cc.error('registerAnimal id <= 0');
+    }
+
+    public function registerPet(b:StructureDataPet):void {
+        if (b.id > 0) {
+            _pet.push(b);
+            _petObj[b.id] = b;
+        } else Cc.error('registerPet id <= 0');
     }
 
     public function addToDecorGroup(dataDecor:StructureDataBuilding):void {
@@ -185,9 +196,14 @@ public class AllData {
         return null;
     }
 
+    public function getPetById(idPet:int):StructureDataPet {
+        return _petObj[idPet];
+    }
+
     public function get resource():Array { return _resource; }
     public function get recipe():Array { return _recipe; }
     public function get building():Array { return _building; }
     public function get animal():Array { return _animal; }
+    public function get pet():Array { return _pet; }
 }
 }

@@ -41,7 +41,7 @@ public class Lohmatik {
     private var _posY:int = 0;
     private var _isBack:Boolean;
     private var _clickCallback:Function;
-    private var _callbackOnAnimation:Function;
+    private var _callbackOnEndWalk:Function;
     protected var _currentPath:Array;
     private var _hitArea:OwnHitArea;
     private var _scale:Number;
@@ -106,7 +106,7 @@ public class Lohmatik {
         g.soundManager.playSound(SoundConst.TOY_CLICK);
         _source.endClickCallback = null;
         _source.isTouchable = false;
-        _callbackOnAnimation = null;
+        _callbackOnEndWalk = null;
         _build.scale = _scale;
         TweenMax.killTweensOf(_source);
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
@@ -184,12 +184,12 @@ public class Lohmatik {
         }
         _source.deleteIt();
         _source = null;
-        _callbackOnAnimation = null;
+        _callbackOnEndWalk = null;
         _clickCallback = null;
     }
 
     public function idleAnimation(s:String, callbackOnAnimation:Function):void {
-        _callbackOnAnimation = callbackOnAnimation;
+        _callbackOnEndWalk = callbackOnAnimation;
         _armature.animation.gotoAndPlayByFrame(s);
         if (_armature && !_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, onCompleteAnimation);
         if (_armature && !_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
@@ -198,8 +198,8 @@ public class Lohmatik {
     private function onCompleteAnimation(e:Event=null):void {
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
-        if (_callbackOnAnimation != null) {
-            _callbackOnAnimation.apply(null, [this]);
+        if (_callbackOnEndWalk != null) {
+            _callbackOnEndWalk.apply(null, [this]);
         }
     }
 
@@ -217,17 +217,17 @@ public class Lohmatik {
 
     public function goWithPath(arr:Array, callbackOnWalking:Function):void {
         _currentPath = arr;
-        _callbackOnAnimation = callbackOnWalking;
+        _callbackOnEndWalk = callbackOnWalking;
         if (_currentPath.length > 1) {
             _currentPath.shift(); // first element is that point, where we are now
-            gotoPoint(_currentPath.shift(), _callbackOnAnimation);
+            gotoPoint(_currentPath.shift(), _callbackOnEndWalk);
         } else {
             if (_currentPath.length) {
-                gotoPoint(_currentPath.shift(), _callbackOnAnimation);
+                gotoPoint(_currentPath.shift(), _callbackOnEndWalk);
             } else {
-                if (_callbackOnAnimation != null) {
-                    _callbackOnAnimation.apply();
-                    _callbackOnAnimation = null;
+                if (_callbackOnEndWalk != null) {
+                    _callbackOnEndWalk.apply();
+                    _callbackOnEndWalk = null;
                 }
             }
         }

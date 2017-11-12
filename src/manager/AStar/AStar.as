@@ -1,13 +1,9 @@
 package manager.AStar {
-import heroes.BasicCat;
-import heroes.HeroCat;
 import manager.*;
 import build.lockedLand.LockedLand;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
-
 import manager.ownError.ErrorConst;
-
 import starling.display.Image;
 import utils.MCScaler;
 
@@ -23,13 +19,12 @@ public class AStar {
     private var path:Array;
     private var callback:Function;
     private var diagonals:Object;
-    private var _cat:HeroCat;
+//    private var _cat:HeroCat;
     private var bliad:Vars = Vars.getInstance();
 
     public function AStar() {}
 
-    public function getPath(sX:int, sY:int, eX:int, eY:int, f:Function, c:*):void {
-        if (c is HeroCat) _cat = c as HeroCat;
+    public function getPath(sX:int, sY:int, eX:int, eY:int, f:Function):void {
         callback = f;
         startX = sX;
         startY = sY;
@@ -86,11 +81,6 @@ public class AStar {
             bliad.errorManager.onGetError(ErrorConst.AStar, true);
             Cc.error('AStar makeSearch:: curNode == null.');
             Cc.error('sX:'+startX+', sY:'+startY+', eX:'+endX+', eY:'+endY);
-            if (_cat) {
-                Cc.error('g.isAway: ' + bliad.isAway + ' and cat.isAway: ' + _cat.isAwayCat);
-            } else {
-                Cc.error('g.isAway: ' + bliad.isAway + ' for lohmatik');
-            }
             if (callback != null) {
                 callback.apply(null, [[new Point(startX, startY)]]);
             }
@@ -176,7 +166,6 @@ public class AStar {
                 }
                 arr.reverse();
                 callback.apply(null, [arr]);
-                _cat = null;
                 path = [];
                 callback = null;
                 openList = [];

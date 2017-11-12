@@ -42,6 +42,7 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
+import utils.TimeUtils;
 
 import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
@@ -311,7 +312,7 @@ public class MarketItem {
 //        _papperBtn.alpha = .8;
         g.managerAchievement.addAll(11,1);
         g.hint.hideIt();
-        _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
+        _dataFromServer.timeInPapper = TimeUtils.currentSeconds;
 //        _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
 //        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);

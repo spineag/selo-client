@@ -43,8 +43,8 @@ public class WONoResources extends WindowMain {
     private var _paramData:Object;
     private var _txtNoResource:CTextField;
     private var _text:CTextField;
-    private var _nyashuk:BuyerNyashuk;
     private var _sensi:SensibleBlock;
+    private var _params:Array;
     private var _imRubin:Image;
 
     public function WONoResources() {
@@ -85,8 +85,8 @@ public class WONoResources extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         var item:WONoResourcesItem;
+        _params = params;
         _paramData = params[1];
-        if (params[2]) _nyashuk = params[2];
         _callbackBuy = callback;
         _text.text = String(g.managerLanguage.allTexts[374]);
         _text.x = -(_text.textBounds.width/2 + 10);
@@ -95,16 +95,10 @@ public class WONoResources extends WindowMain {
                 _countOfResources = 1;
                 _countCost = g.allData.getResourceById(_paramData.idResourceRaw).priceHard * _countOfResources;
                 _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
-                if (_sensi) {
-                    _sensi.deleteIt();
-                    _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
-                    _btnBuy.addSensBlock(_sensi,0,25);
-                } else {
-                    _sensi = new SensibleBlock();
-                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
-                    _btnBuy.addSensBlock(_sensi,0,25);
-                }
+                if (_sensi) _sensi.deleteIt();
+                _sensi = new SensibleBlock();
+                _sensi.textAndImage(_txtHardCost,_imRubin,265);
+                _btnBuy.addSensBlock(_sensi,0,25);
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.idResourceRaw, _countOfResources);
                 item.source.x =  - item.source.width/4;
@@ -289,6 +283,23 @@ public class WONoResources extends WindowMain {
                     _btnBuy.addSensBlock(_sensi,0,25);
                 }
                 _btnBuy.clickCallback = onClickTrain;
+                break;
+            case 'raw_pet':
+                _countOfResources = 1;
+                _countCost = g.allData.getResourceById(_paramData.pet.petData.eatId).priceHard * _countOfResources;
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
+                if (_sensi) _sensi.deleteIt();
+                _sensi = new SensibleBlock();
+                _sensi.textAndImage(_txtHardCost,_imRubin,265);
+                _btnBuy.addSensBlock(_sensi,0,25);
+                item = new WONoResourcesItem();
+                item.fillWithResource(_paramData.pet.petData.eatId, _countOfResources);
+                item.source.x =  - item.source.width/4;
+                item.source.y = 8;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _btnBuy.clickCallback = onClickRawPet;
+                break;
         }
         super.showIt();
     }
@@ -426,7 +437,7 @@ public class WONoResources extends WindowMain {
         g.directServer.updateUserPapperBuy(_paramData.dataNyashuk.buyerId,0,0,0,0,0,0);
         if (_paramData.dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
         else  g.userTimer.buyerNyashukRed(1200);
-        g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
+        g.managerBuyerNyashuk.onReleaseOrder(_params[2] as BuyerNyashuk, false);
         g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);
         super.hideIt();
     }
@@ -443,6 +454,24 @@ public class WONoResources extends WindowMain {
         _btnBuy.clickCallback = null;
         g.userInventory.addResource(_paramData.idResourceRaw, _countOfResources, callbackServe);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.idResourceRaw, info: _countOfResources});
+        super.hideIt();
+    }
+
+    private function onClickRawPet():void {
+        if (_countCost <= g.user.hardCurrency) g.userInventory.addMoney(_countOfResources, -_countCost);
+        else {
+            _callbackBuy = null;
+            super.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        }
+        _btnBuy.clickCallback = null;
+        g.userInventory.addResource(_paramData.idResourceRaw, _countOfResources, callbackServe);
+        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.idResourceRaw, info: _countOfResources});
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null, [_paramData.pet]);
+            _callbackBuy = null;
+        }
         super.hideIt();
     }
 

@@ -7,6 +7,7 @@ import com.junkbyte.console.Cc;
 import data.StructureDataAnimal;
 
 import data.StructureDataBuilding;
+import data.StructureDataPet;
 
 import flash.events.TimerEvent;
 
@@ -209,6 +210,32 @@ public class Utils {
         newOb.idResourceRaw = oldOb.idResourceRaw;
         newOb.buildType = oldOb.buildType;
         newOb.costNew = oldOb.costNew;
+        return newOb;
+    }
+
+    public static function objectFromStructurePetToObject(oldOb:StructureDataPet):Object {
+        var newOb:Object = {};
+        newOb.id = oldOb.id;
+        newOb.houseId = oldOb.houseId;
+        newOb.name = oldOb.name;
+        newOb.name2 = oldOb.name2;
+        newOb.image = oldOb.shopIcon;
+        newOb.costBlue = oldOb.costBlue;
+        newOb.costRed = oldOb.costRed;
+        newOb.costGreen = oldOb.costGreen;
+        newOb.costYellow = oldOb.costYellow;
+        newOb.eatId = oldOb.eatId;
+        newOb.xp = oldOb.xp;
+        newOb.maxCount = oldOb.maxCount;
+        newOb.blockByLevel = oldOb.blockByLevel;
+        newOb.buildType = oldOb.buildType;
+        newOb.petType = oldOb.petType;
+        newOb.currency = oldOb.currency;
+        newOb.cost = [];
+        if (oldOb.costBlue) newOb.cost.push(oldOb.costBlue);
+        if (oldOb.costRed) newOb.cost.push(oldOb.costRed);
+        if (oldOb.costGreen) newOb.cost.push(oldOb.costGreen);
+        if (oldOb.costYellow) newOb.cost.push(oldOb.costYellow);
         return newOb;
     }
 }

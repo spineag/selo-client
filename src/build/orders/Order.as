@@ -160,6 +160,7 @@ public class Order extends WorldObject{
                 _armature.animation.gotoAndPlayByFrame('top_l');
                 hideArrow();
                 g.directServer.openUserOrder(null);
+                g.user.isOpenOrder = true;
             }
             return;
         }

@@ -82,7 +82,6 @@ public class StructureDataBuilding {
                 }
             }
         }
-//        _name = ob.name;
 
         _name = String(g.managerLanguage.allTexts[int(ob.text_id)]);
         _url = ob.url;
@@ -190,7 +189,6 @@ public class StructureDataBuilding {
             obj.innerX.push(-85 * g.scaleFactor); obj.innerY.push(29 * g.scaleFactor); // line for second part
         }
 
-
         if (_id == 92) {
             _buildType = BuildType.DECOR_FENCE_ARKA;
             obj.innerX = []; obj.innerY = [];
@@ -238,37 +236,16 @@ public class StructureDataBuilding {
         _innerY = obj.innerY;
 
         if (ob.count_cell) _startCountCell = int(ob.count_cell);
-        if (ob.currency) {
-            _currency = String(ob.currency).split('&');
-            for (k = 0; k < _currency.length; k++) _currency[k] = int(_currency[k]);
-        }
-        if (ob.cost) {
-            _cost = [];
-            _cost = String(ob.cost).split('&');
-            for (k = 0; k < _cost.length; k++) _cost[k] = int(_cost[k]);
-        }
+        if (ob.currency) _currency = Utils.intArray(String(ob.currency).split('&'));
+        if (ob.cost) _cost = Utils.intArray(String(ob.cost).split('&'));
         if (ob.delta_cost) _deltaCost = int(ob.delta_cost);
-        if (ob.block_by_level) {
-            _blockByLevel = [];
-           obj.blockByLevel = String(ob.block_by_level).split('&');
-            for (k = 0; k < obj.blockByLevel.length; k++) _blockByLevel[k] = int(obj.blockByLevel[k]);
-        }
+        if (ob.block_by_level) _blockByLevel = Utils.intArray(String(ob.block_by_level).split('&'));
         if (ob.cost_skip) _priceSkipHard = int(ob.cost_skip);
         if (ob.filter) _filterType = int(ob.filter);
-        if (ob.build_time) {
-            _buildTime =[];
-            obj.buildTime = String(ob.build_time).split('&');
-            for (k = 0; k < obj.buildTime.length; k++) _buildTime[k] = int(obj.buildTime[k]);
-        }
+        if (ob.build_time) _buildTime = Utils.intArray(String(ob.build_time).split('&'));
         if (ob.count_unblock) _countUnblock = int(ob.count_unblock);
-
         if (ob.craft_resource_id) _craftIdResource = int(ob.craft_resource_id);
-        if (ob.count_craft_resource) {
-            _countCraftResource = [];
-            obj.countCraftResource = String(ob.count_craft_resource).split('&');
-            for (k = 0; k < obj.countCraftResource.length; k++) _countCraftResource[k] = int(obj.countCraftResource[k]);
-        }
-
+        if (ob.count_craft_resource) _countCraftResource = Utils.intArray(String(ob.count_craft_resource).split('&'));
         if (ob.instrument_id) _removeByResourceId = int(ob.instrument_id);
         if (ob.start_count_resources) _startCountResources = int(ob.start_count_resources);
         if (ob.delta_count_resources) _deltaCountResources = int(ob.delta_count_resources);
@@ -280,25 +257,11 @@ public class StructureDataBuilding {
         if (ob.max_count) _maxAnimalsCount = int(ob.max_count);
         if (ob.image_active) _imageActive = ob.image_active;
         if (ob.cat_need) _catNeed = Boolean(ob.cat_need == '0');  // '0' - is need, '1' - not need
-        if (ob.resource_id) {
-            _idResource = [];
-            obj.idResource = String(ob.resource_id).split('&');
-            for (k = 0; k < obj.idResource.length; k++) _idResource[k] = int(obj.idResource[k]);
-        }
-        if (ob.raw_resource_id) {
-            _idResourceRaw = [];
-            obj.idResourceRaw = String(ob.raw_resource_id).split('&');
-            for (k = 0; k < obj.idResourceRaw.length; k++) _idResourceRaw[k] = int(obj.idResourceRaw[k]);
-        }
-        if (ob.variaty) {
-            _variaty = [];
-            obj.variaty = String(ob.variaty).split('&');
-            for (k = 0; k < obj.variaty.length; k++) _variaty[k] = Number(obj.variaty[k]);
-        }
+        if (ob.resource_id) _idResource = Utils.intArray(String(ob.resource_id).split('&'));
+        if (ob.raw_resource_id) _idResourceRaw = Utils.intArray(String(ob.raw_resource_id).split('&'));
+        if (ob.variaty) _variaty = Utils.intArray(String(ob.variaty).split('&'));
         if (ob.visible) _visibleTester = Boolean(int(ob.visible));
-        if (ob.color && ob.color != 'default') {
-            _color = String(ob.color);
-        }
+        if (ob.color && ob.color != 'default') _color = String(ob.color);
 
         if (ob.group) {
             if (int(ob.group) > 0) {
@@ -307,8 +270,7 @@ public class StructureDataBuilding {
             }
         }
         if (ob.visibleAction || g.user.isTester) _visibleAction = true;
-        else _visibleAction = false;
-
+            else _visibleAction = false;
         if (ob.daily_bonus) _dailyBonus = Boolean(int(ob.daily_bonus));
     }
     

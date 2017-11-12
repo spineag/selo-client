@@ -10,6 +10,8 @@ import starling.textures.Texture;
 
 import starling.textures.TextureAtlas;
 
+import utils.TimeUtils;
+
 import windows.WindowsManager;
 
 public class ManagerSalePack {
@@ -21,7 +23,7 @@ public class ManagerSalePack {
     }
 
     private function startSalePack():void {
-        if (!g.user.salePack && g.userTimer.saleTimerToEnd > 0 && (g.managerSalePack.dataSale.timeToStart  - int(new Date().getTime() / 1000)) <= 0 && g.user.level >= 6) {
+        if (!g.user.salePack && g.userTimer.saleTimerToEnd > 0 && (g.managerSalePack.dataSale.timeToStart  - TimeUtils.currentSeconds) <= 0 && g.user.level >= 6) {
             atlasLoad();
             g.createSaleUi();
         }
@@ -30,7 +32,7 @@ public class ManagerSalePack {
     public function sartAfterSaleTimer():void {
         if (g.userTimer.saleTimerToStart <= 0 && g.user.level >= 6) {
             atlasLoad();
-            g.userTimer.saleToEnd(g.managerSalePack.dataSale.timeToEnd - int(new Date().getTime() / 1000));
+            g.userTimer.saleToEnd(g.managerSalePack.dataSale.timeToEnd - TimeUtils.currentSeconds);
             g.createSaleUi();
         }
     }

@@ -433,7 +433,7 @@ import windows.orderWindow.WOOrderItem;
 private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
         if (_isShowed) {
-            or.startTime = int(new Date().getTime()/1000) + 6;
+            or.startTime = TimeUtils.currentSeconds + 6;
             orderItem.fillIt(or, or.placeNumber, onItemClick);
             _arrOrders[or.placeNumber] = or;
             if (_activeOrderItem == orderItem) {

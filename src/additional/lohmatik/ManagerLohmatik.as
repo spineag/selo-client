@@ -80,7 +80,7 @@ public class ManagerLohmatik {
                 l.goWithPath(arr, f2);
             };
             var a:AStar = new AStar();
-            a.getPath(l.posX, l.posY, p.x, p.y, f1, l);
+            a.getPath(l.posX, l.posY, p.x, p.y, f1);
         } catch (e:Error) {
             Cc.error('ManagerLohmatik goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
         }

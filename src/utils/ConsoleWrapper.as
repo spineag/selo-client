@@ -93,7 +93,7 @@ public class ConsoleWrapper {
         var exporter:ConsoleHtmlExportAddon;
 
         Cc.info("Console:: export log to html.");
-        time = String(Math.round(new Date().getTime() / 1000));
+        time = String(TimeUtils.currentSeconds);
         exporter = new ConsoleHtmlExportAddon(Cc.instance);
         exporter.exportToFile("game_log_" + time + ".html");
     }

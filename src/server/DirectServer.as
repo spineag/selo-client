@@ -2,6 +2,8 @@
  * Created by user on 7/16/15.
  */
 package server {
+import additional.pets.PetMain;
+
 import build.WorldObject;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
@@ -14,6 +16,7 @@ import data.BuildType;
 import data.DataMoney;
 import data.StructureDataAnimal;
 import data.StructureDataBuilding;
+import data.StructureDataPet;
 import data.StructureMarketItem;
 import data.StructureDataRecipe;
 import data.StructureDataResource;
@@ -34,6 +37,8 @@ import mouse.ServerIconMouse;
 import quest.QuestTaskStructure;
 import social.SocialNetworkSwitch;
 import user.Someone;
+
+import utils.TimeUtils;
 import utils.Utils;
 import windows.WindowsManager;
 import com.adobe.crypto.MD5;
@@ -244,6 +249,49 @@ public class DirectServer {
             }
         } else {
             Cc.error('getDataAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getDataPet(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_PET);
+
+        Cc.ch('server', 'start getDataPet', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompletePet);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getDataPet'); });
+        function onCompletePet(e:Event):void { completePet(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataPet error:' + error.errorID);
+        }
+    }
+
+    private function completePet(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataPet: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataPet: wrong JSON:' + String(response));
+            return;
+        }
+        var k:int = 0;
+        if (d.id == 0) {
+            Cc.ch('server', 'getDataPet OK', 5);
+            for (var i:int = 0; i<d.message.length; i++) {
+                g.allData.registerPet( new StructureDataPet(d.message[i]) );
+            }
+            if (callback != null) callback.apply();
+        } else {
+            Cc.error('getDataPet: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
@@ -612,7 +660,7 @@ public class DirectServer {
                 else if (d.message[i].visible == 0 ) {
                     var startDayNumber:int = int(d.message[i].start_action);
                     var endDayNumber:int = int(d.message[i].end_action);
-                    var curDayNumber:int = new Date().getTime()/1000;
+                    var curDayNumber:int = TimeUtils.currentSeconds;
 
                     d.message[i].visibleAction = false;
                     if (startDayNumber == 0 && endDayNumber == 0) {
@@ -632,120 +680,6 @@ public class DirectServer {
                     }
                     g.allData.registerBuilding( new StructureDataBuilding(d.message[i]) );
                 }
-
-//                obj = {};
-//                    obj.id = int(d.message[i].id);
-//                    obj.width = int(d.message[i].width);
-//                    obj.height = int(d.message[i].height);
-//                    if (d.message[i].inner_x) {
-//                        obj.innerX = String(d.message[i].inner_x).split('&');
-//                        if (obj.innerX.length == 1) {
-//                            obj.innerX = int(obj.innerX[0]) * g.scaleFactor;
-//                        } else if (obj.innerX.length) {
-//                            for (k = 0; k < obj.innerX.length; k++) {
-//                                obj.innerX[k] = int(obj.innerX[k]) * g.scaleFactor;
-//                            }
-//                        }
-//                        obj.innerY = String(d.message[i].inner_y).split('&');
-//                        if (obj.innerY.length == 1) {
-//                            obj.innerY = int(obj.innerY[0]) * g.scaleFactor;
-//                        } else if (obj.innerY.length) {
-//                            for (k = 0; k < obj.innerY.length; k++) {
-//                                obj.innerY[k] = int(obj.innerY[k]) * g.scaleFactor;
-//                            }
-//                        }
-//                    }
-//                    obj.name = d.message[i].name;
-//                    obj.url = d.message[i].url;
-//                    obj.image = d.message[i].image;
-//                    obj.xpForBuild = int(d.message[i].xp_for_build);
-//                    obj.buildType = int(d.message[i].build_type);
-//
-//
-//                if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
-//                if (d.message[i].currency) {
-//                    obj.currency = String(d.message[i].currency).split('&');
-//                    for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
-//                }
-//                if (d.message[i].cost) {
-//                    obj.cost = String(d.message[i].cost).split('&');
-//                    for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
-//                }
-//                if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
-//                if (d.message[i].block_by_level) {
-//                    obj.blockByLevel = String(d.message[i].block_by_level).split('&');
-//                    for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
-//                }
-//                if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
-//                if (d.message[i].filter) obj.filterType = int(d.message[i].filter);
-//                if (d.message[i].build_time) {
-//                    obj.buildTime = String(d.message[i].build_time).split('&');
-//                    for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);
-//                }
-//                if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
-//
-//                if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
-//                if (d.message[i].count_craft_resource) {
-//                    obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
-//                    for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
-//                }
-//
-//                if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
-//                if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
-//                if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);
-//                if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
-//                if (d.message[i].delta_count_instruments) obj.deltaCountAfterUpgrade = int(d.message[i].delta_count_instruments);
-//                if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
-//                if (d.message[i].up_instrument_id_2) obj.upInstrumentId2 = int(d.message[i].up_instrument_id_2);
-//                if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
-//                if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
-//                if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
-//                if (d.message[i].cat_need) obj.catNeed = Boolean(int(d.message[i].cat_need));
-//                if (d.message[i].resource_id) {
-//                    obj.idResource = String(d.message[i].resource_id).split('&');
-//                    for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
-//                }
-//                if (d.message[i].raw_resource_id) {
-//                    obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
-//                    for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
-//                }
-//                if (d.message[i].variaty) {
-//                    obj.variaty = String(d.message[i].variaty).split('&');
-//                    for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
-//                }
-//                if (d.message[i].visible) obj.visibleTester = Boolean(int(d.message[i].visible));
-//                if (d.message[i].color) obj.color = String(d.message[i].color);
-//                if (d.message[i].group) {
-//                    if (int(d.message[i].group) > 0) {
-//                        obj.group = int(d.message[i].group);
-//                        g.allData.addToDecorGroup(obj);
-//                    }
-//                }
-//                obj.visibleAction = true;
-//                if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
-//                else if (d.message[i].visible == 0 ) {
-//                    var startDayNumber2:int = int(d.message[i].start_action);
-//                    var endDayNumber2:int = int(d.message[i].end_action);
-//                    var curDayNumber2:int = new Date().getTime()/1000;
-//
-//                    obj.visibleAction = false;
-//                    if (startDayNumber2 == 0 && endDayNumber2 == 0) {
-//                        obj.visibleAction = true;
-//                    } else {
-//                        if (startDayNumber2 != 0 && startDayNumber2 <= curDayNumber2) {
-//                            if (endDayNumber2 > curDayNumber2 || endDayNumber2 == 0) {
-//                                obj.visibleAction = true;
-//                            }
-//                            else {
-//                                obj.visibleAction = false;
-//                            }
-//                        } else if (startDayNumber2 > curDayNumber2) {
-//                            obj.visibleAction = false;
-//                        }
-//
-//                    }
-//                    g.dataBuilding.objectBuilding[obj.id] = obj;
-//                }
             }
             g.allData.sortDecorData();
             if (callback != null) {
@@ -785,7 +719,6 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('authUser error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
         }
     }
 
@@ -809,7 +742,6 @@ public class DirectServer {
         } else {
             Cc.error('authUser: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             if (g.windowsManager)g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'authUser: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -832,7 +764,6 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('userInfo error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
         }
     }
 
@@ -849,7 +780,6 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
-            var i:int;
             Cc.ch('server', 'getUserInfo OK', 5);
             var ob:Object = d.message;
             var check:int = int(ob.ambar_max) + int(ob.sklad_max) + int(ob.ambar_level) + int(ob.sklad_level) + int(ob.hard_count) + int(ob.soft_count) +
@@ -900,7 +830,7 @@ public class DirectServer {
                 g.soundManager.enabledSound(false);
             }
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
-                else g.userTimer.timerAtPapper = 300 - (int(new Date().getTime() / 1000) - int(ob.time_paper));
+                else g.userTimer.timerAtPapper = 300 - TimeUtils.currentSeconds - int(ob.time_paper);
             if (g.userTimer.timerAtPapper > 300) g.userTimer.timerAtPapper = 300;
             if (g.userTimer.timerAtPapper > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
 
@@ -946,10 +876,7 @@ public class DirectServer {
             } else g.user.miniScenes = [];
             g.user.miniScenesOrderCats = Utils.intArray( String(ob.order_cat_scene).split('') );
 
-            if (g.user.level <= 3) {
-                if (!g.user.miniScenes.length || g.user.miniScenes[0] == 0)
-                    g.user.isOpenOrder = false; // temp
-            }
+            g.user.isOpenOrder = Boolean(ob.open_order == '1');
 
             if (ob.is_tester && int(ob.is_tester) > 0) {
                 g.user.isTester = true;
@@ -1364,7 +1291,7 @@ public class DirectServer {
         Cc.ch('server', 'updateUserTimerPaper', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.timePaper = int(new Date().getTime()/1000);
+        variables.timePaper = TimeUtils.currentSeconds;
         variables.hash = MD5.hash(String(g.user.userId)+String(variables.timePaper)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -2540,7 +2467,6 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('GetUserAnimal error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
         }
     }
 
@@ -2551,7 +2477,6 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserAnimal: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserAnimal: wrong JSON:' + String(response));
             return;
         }
@@ -2563,7 +2488,6 @@ public class DirectServer {
             g.managerAnimal = new ManagerAnimal();
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerAnimal.addAnimal(d.message[i]);
-
                 ob = {};
                 ob.animalId = int(d.message[i].animal_id);
                 ob.timeWork = int(d.message[i].time_work);
@@ -2578,7 +2502,6 @@ public class DirectServer {
         } else {
             Cc.error('GetUserAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -7124,9 +7047,9 @@ public class DirectServer {
 
         if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
         for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
-        if ((obj.timeToStart - int(new Date().getTime() / 1000) < 0 && obj.timeToEnd - int(new Date().getTime() / 1000) > 0) || (Boolean(int(d.message.tester)) && g.user.isTester)) {
+        if ((obj.timeToStart - TimeUtils.currentSeconds < 0 && obj.timeToEnd - TimeUtils.currentSeconds > 0) || (Boolean(int(d.message.tester)) && g.user.isTester)) {
             if (Boolean(int(d.message.tester))&& g.user.isTester) g.userTimer.partyToEnd(300);
-            else g.userTimer.partyToEnd(obj.timeToEnd - int(new Date().getTime() / 1000));
+            else g.userTimer.partyToEnd(obj.timeToEnd - TimeUtils.currentSeconds);
             g.managerParty.dataParty = obj;
             g.managerParty.eventOn = true;
             if (obj.levelToStart <= g.user.level) {
@@ -7136,8 +7059,8 @@ public class DirectServer {
                 getUserParty(f);
                 getRatingParty(null);
             }
-        } else if (obj.timeToStart - int(new Date().getTime() / 1000) > 0) {
-            g.userTimer.partyToStart(obj.timeToStart - int(new Date().getTime() / 1000));
+        } else if (obj.timeToStart - TimeUtils.currentSeconds > 0) {
+            g.userTimer.partyToStart(obj.timeToStart - TimeUtils.currentSeconds);
             g.managerParty.dataParty = obj;
             g.managerParty.eventOn = false;
         } else {
@@ -7552,8 +7475,8 @@ public class DirectServer {
         obj.newCost = Number(d.message.new_cost);
         obj.timeToStart = int(d.message.time_to_start);
         obj.timeToEnd = int(d.message.time_to_end);
-        if (!g.user.salePack && (obj.timeToEnd - int(new Date().getTime() / 1000)) > 0 && (obj.timeToStart - int(new Date().getTime() / 1000)) <= 0) g.userTimer.saleToEnd(obj.timeToEnd - int(new Date().getTime() / 1000));
-        else if (obj.timeToStart > 0) g.userTimer.saleToStart(obj.timeToEnd - int(new Date().getTime() / 1000));
+        if (!g.user.salePack && (obj.timeToEnd - TimeUtils.currentSeconds) > 0 && (obj.timeToStart - TimeUtils.currentSeconds) <= 0) g.userTimer.saleToEnd(obj.timeToEnd - TimeUtils.currentSeconds);
+        else if (obj.timeToStart > 0) g.userTimer.saleToStart(obj.timeToEnd - TimeUtils.currentSeconds);
         obj.profit = int(d.message.profit);
 //        obj.name = String(d.message.name);
         obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
@@ -7608,11 +7531,11 @@ public class DirectServer {
             return;
         }
         var b:Boolean = false;
-        if (((int(d.message.time_start) - int(new Date().getTime() / 1000) < 0) && (int(d.message.time_end) - int(new Date().getTime() / 1000) > 0))) {
-            g.userTimer.stockToEnd(int(d.message.time_end) - int(new Date().getTime() / 1000));
+        if (((int(d.message.time_start) - TimeUtils.currentSeconds < 0) && (int(d.message.time_end) - TimeUtils.currentSeconds > 0))) {
+            g.userTimer.stockToEnd(int(d.message.time_end) - TimeUtils.currentSeconds);
             b = true;
-        } else if ((int(d.message.time_start) - int(new Date().getTime() / 1000)) > 0) {
-            g.userTimer.stockToStart(int(d.message.time_start) - int(new Date().getTime() / 1000), int(d.message.time_end) - int(new Date().getTime() / 1000));
+        } else if ((int(d.message.time_start) - TimeUtils.currentSeconds) > 0) {
+            g.userTimer.stockToStart(int(d.message.time_start) - TimeUtils.currentSeconds, int(d.message.time_end) - TimeUtils.currentSeconds);
         }
 
         if (d.id == 0) {
@@ -8696,6 +8619,191 @@ public class DirectServer {
         iconMouse.endConnect();
         if (callback != null) {
             callback.apply();
+        }
+    }
+
+    public function addNewPet(pet:PetMain, petHouseDbId:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_NEW_PET);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addNewPet', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.houseDbId = petHouseDbId;
+        variables.petId = pet.petData.id;
+        variables.hash = MD5.hash(String(g.user.userId)+String(petHouseDbId)+String(variables.petId)+SECRET);
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddNewPet);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('addNewPet'); });
+        function onCompleteAddNewPet(e:Event):void { completeAddNewPet(e.target.data, pet, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addNewPet error:' + error.errorID);
+        }
+    }
+
+    private function completeAddNewPet(response:String, pet:PetMain, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addNewPet: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addNewPet: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'addNewPet OK', 5);
+            pet.dbId = int(d.message);
+            if (callback != null)  callback.apply(null, [true]);
+        } else if (d.id == 13) g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+          else if (d.id == 6) g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+          else {
+            Cc.error('addNewPet: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getUserPet(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_PET);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserPet', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserPet);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserPet'); });
+        function onCompleteGetUserPet(e:Event):void { completeGetUserPet(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserPet error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserPet(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserPet: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserPet: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserPet OK', 5);
+            if (callback != null)
+                callback.apply(null, [d]);
+        } else if (d.id == 13) g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        else {
+            Cc.error('GetUserAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function craftUserPet(pet:PetMain, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CRAFT_USER_PET);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'craftUserPet', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.petDbId = pet.dbId;
+        variables.time = pet.timeEat;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.petDbId)+SECRET);
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteCraftUserPet);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('CraftUserPet'); });
+        function onCompleteCraftUserPet(e:Event):void { completeCraftUserPet(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('CraftUserPet error:' + error.errorID);
+        }
+    }
+
+    private function completeCraftUserPet(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('CraftUserPet: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'CraftUserPet: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'CraftUserPet OK', 5);
+            if (callback != null)
+                callback.apply();
+        } else if (d.id == 13) g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        else {
+            Cc.error('CraftUserAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function rawUserPet(p:PetMain, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RAW_USER_PET);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'rawUserPet', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.petDbId = p.dbId;
+        p.hasNewEat ? variables.hasNewEat = 1 : variables.hasNewEat = 0;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.petDbId)+SECRET);
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteRawUserPet);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('RawUserPet'); });
+        function onCompleteRawUserPet(e:Event):void { completeRawUserPet(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('RawUserPet error:' + error.errorID);
+        }
+    }
+
+    private function completeRawUserPet(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('RawUserPet: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'RawUserPet: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'RawUserPet OK', 5);
+            if (callback != null)
+                callback.apply();
+        } else if (d.id == 13) g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        else {
+            Cc.error('RawUserAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
 

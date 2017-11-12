@@ -227,7 +227,16 @@ public class WOLastResource extends WindowMain {
                         break;
                 }
                 _btnYes.clickCallback = onClickFabric;
-
+                break;
+            case 'raw_pet':
+                item = new WOLastResourceItem();
+                item.fillWithResource(_dataResource.id);
+                item.source.x = -25;
+                item.source.y = -30;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _btnYes.clickCallback = onClickRawPet;
+                break;
         }
         super.showIt();
     }
@@ -235,6 +244,14 @@ public class WOLastResource extends WindowMain {
     private function onClickOrder():void {
         if (_callbackBuy != null) {
             _callbackBuy.apply(null,[true, _dataResource]);
+            _callbackBuy = null;
+        }
+        super.hideIt();
+    }
+
+    private function onClickRawPet():void {
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null,[_dataResource.house, true]);
             _callbackBuy = null;
         }
         super.hideIt();

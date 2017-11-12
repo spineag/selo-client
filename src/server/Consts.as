@@ -6,6 +6,7 @@ public class Consts {
     public static var INQ_TEST_RESPONCE:String = 'test_response.php';
     public static var INQ_DATA_VERSION:String = 'a_gameData/getVersion.php';
     public static var INQ_DATA_ANIMAL:String = 'a_gameData/getDataAnimal.php';
+    public static var INQ_DATA_PET:String = 'a_gameData/getDataPet.php';
     public static var INQ_DATA_BUILDING:String = 'a_gameData/getDataBuilding.php';
     public static var INQ_DATA_LEVEL:String = 'a_gameData/getDataLevel.php';
     public static var INQ_DATA_RECIPE:String = 'a_gameData/getDataRecipe.php';
@@ -158,6 +159,10 @@ public class Consts {
     public static var INQ_NOTIFICATION_FB_MISS:String = 'a_diff/notification_fb_miss.php';
     public static var INQ_NOTIFICATION_VK_MISS:String = 'a_diff/notification_vk_miss.php';
     public static var INQ_SHOW_ANNOUNCEMENT:String = 'a_game/onShowAnnouncement.php';
+    public static var INQ_ADD_NEW_PET:String = 'a_game/addNewPet.php';
+    public static var INQ_GET_USER_PET:String = 'a_userData/getUserPet.php';
+    public static var INQ_CRAFT_USER_PET:String = 'a_game/craftUserPet.php';
+    public static var INQ_RAW_USER_PET:String = 'a_game/rawUserPet.php';
     public static var INQ_FB_FAKE_GET_PROFILE:String = 'fake_social_network/FB_getProfile.php';
     public static var INQ_FB_FAKE_APP_USERS:String = 'fake_social_network/FB_getAppUsers.php';
 }

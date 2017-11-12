@@ -5,24 +5,19 @@ package build.fabrica {
 import analytic.AnalyticManager;
 import build.WorldObject;
 import data.BuildType;
-
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
 import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.HeroCat;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
 import media.SoundConst;
-
 import quest.ManagerQuest;
-
 import resourceItem.CraftItem;
 import com.junkbyte.console.Cc;
 import resourceItem.RawItem;
@@ -387,8 +382,8 @@ public class Fabrica extends WorldObject {
         g.managerCats.onStartFabrica(this);
         workAloneAnimation();
         // animation of uploading resources to fabrica
-        var p:Point = new Point(source.x, source.y);
-        p = source.parent.localToGlobal(p);
+        var p:Point = new Point();
+        p = _source.localToGlobal(p);
         var obj:Object;
         var texture:Texture;
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
@@ -512,6 +507,7 @@ public class Fabrica extends WorldObject {
         _source.touchable = false;
         _arrList.length = 0;
         _arrRecipes.length = 0;
+        _arrCrafted.length = 0;
         super.clearIt();
     }
 

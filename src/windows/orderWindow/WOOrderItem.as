@@ -14,6 +14,7 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.TimeUtils;
 
 public class WOOrderItem {
     public var source:CSprite;
@@ -129,7 +130,7 @@ public class WOOrderItem {
         source.visible = true;
         source.endClickCallback = onClick;
 
-        _leftSeconds = _order.startTime - int(new Date().getTime()/1000);
+        _leftSeconds = _order.startTime - TimeUtils.currentSeconds;
 
         if (_leftSeconds > 0) {
             if (_order.delOb) {
@@ -282,7 +283,7 @@ public class WOOrderItem {
         if (_checkImage) _checkImage.visible = false;
         if (_delImage)_delImage.visible = false;
         if (_clockImage) _clockImage.visible = true;
-        if (_order) _order.startTime = int(new Date().getTime()/1000) + 5;
+        if (_order) _order.startTime = TimeUtils.currentSeconds + 5;
     }
 
     private function onHover():void {

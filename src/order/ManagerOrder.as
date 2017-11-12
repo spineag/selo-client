@@ -17,6 +17,8 @@ import resourceItem.ResourceItem;
 
 import social.SocialNetworkSwitch;
 import tutorial.TutsAction;
+
+import utils.TimeUtils;
 import utils.Utils;
 
 import windows.WindowMain;
@@ -100,9 +102,7 @@ public class ManagerOrder {
             checkForNewCats();
         };
 
-        if (_arrOrders.length < _curMaxCountOrders) {
-            Utils.createDelay(3,f1);
-        }
+        if (_arrOrders.length < _curMaxCountOrders) Utils.createDelay(3,f1);
     }
 
 //    public function addOrderForMiniScenes(onArriveCallback:Function = null):void {
@@ -133,14 +133,14 @@ public class ManagerOrder {
         or.dbId = ob.id;
         or.resourceIds = ob.ids.split('&');
         or.resourceCounts = ob.counts.split('&');
-        if (ob.cat_id == '0') or.catOb = getFreeCatObj();  else or.catOb = DataOrderCat.getObjById(int(ob.cat_id));
+        if (ob.cat_id == '0') or.catOb = getFreeCatObj();  else or.catOb = DataOrderCat.getCatObjById(int(ob.cat_id));
         or.coins = int(ob.coins);
         or.xp = int(ob.xp);
         or.addCoupone = ob.add_coupone == '1';
         or.startTime = int(ob.start_time) || 0;
         or.placeNumber = int(ob.place);
         or.fasterBuy = Boolean(int(ob.faster_buyer));
-        if (or.startTime - int(new Date().getTime()/1000) > 0 ) or.delOb = true;
+        if (or.startTime - TimeUtils.currentSeconds > 0 ) or.delOb = true;
         Utils.intArray(or.resourceCounts);
         Utils.intArray(or.resourceIds);
         _arrOrders.push(or);
@@ -503,7 +503,7 @@ public class ManagerOrder {
                 }
             }
             if (or.xp == 0) or.xp = or.resourceCounts[0] * 2;
-            or.startTime = int(new Date().getTime() / 1000);
+            or.startTime = TimeUtils.currentSeconds;
             if (place == -1) or.placeNumber = getFreePlace();
                 else or.placeNumber = place;
             or.delOb = del;
@@ -924,14 +924,15 @@ public class ManagerOrder {
             if ((_arrOrders[i] as OrderItemStructure).cat) arIdsNotFree.push((_arrOrders[i] as OrderItemStructure).cat.dataCatId);
         }
         if (_lastActiveCatId) arIdsNotFree.push(_lastActiveCatId);
-        _lastActiveCatId = 0;
         for (i=0; i<arAllCats.length; i++) {
             if (arIdsNotFree.indexOf(arAllCats[i].id) == -1) {
                 d = arAllCats[i];
                 break;
             }
         }
+        if (!d && _lastActiveCatId) d = DataOrderCat.getCatObjById(_lastActiveCatId);
         if (!d) d = DataOrderCat.arr[1];
+        _lastActiveCatId = 0;
         return d;
     }
 
@@ -964,7 +965,7 @@ public class ManagerOrder {
         }
         if (i == _arrOrders.length) Cc.error('ManagerOrder deleteOrder:: no order');
         g.directServer.deleteUserOrder(or.dbId, null);
-        addNewOrders(1, COST_SKIP_WAIT, f, or.placeNumber,true);
+        addNewOrders(1, delayBeforeNextOrder, f, or.placeNumber,true);
     }
 
     public function deleteOrderParty(dbId:String, placeNumber:int = 0):void {
@@ -986,6 +987,7 @@ public class ManagerOrder {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == or.dbId) {
                 g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat, true);
+                _lastActiveCatId = _arrOrders[i].cat.dataCatId;
                 _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;
@@ -1013,7 +1015,7 @@ public class ManagerOrder {
            or = _arrOrders[i];
             if (!or || !or.resourceIds || !or.resourceIds.length) continue;
             b = true;
-        if (or.cat != null && or.startTime - int(new Date().getTime() / 1000) <= 0) {
+        if (or.cat != null && or.startTime - TimeUtils.currentSeconds <= 0) {
             for (k = 0; k < or.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(or.resourceIds[k]) < or.resourceCounts[k]) {
                     b = false;

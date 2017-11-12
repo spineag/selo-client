@@ -135,6 +135,10 @@ public class TimeUtils {
 
         return result;
     }
+    
+    public static function get currentSeconds():int {
+        return int(new Date().getTime() / 1000);
+    }
 
 }
 }

@@ -18,6 +18,8 @@ import manager.AStar.DirectWay;
 
 import social.SocialNetworkSwitch;
 
+import utils.TimeUtils;
+
 import windows.WindowsManager;
 
 public class ManagerBuyerNyashuk {
@@ -62,11 +64,11 @@ public class ManagerBuyerNyashuk {
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
 
-            } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1200) {
+            } else if (ar[i].visible == false && (ar[i].time_to_new - TimeUtils.currentSeconds) * (-1) >= 1200) {
                     newBot(false,ar[i]);
                 } else {
-                    if (ar[i].buyer_id == 1) g.userTimer.buyerNyashukBlue((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
-                    else g.userTimer.buyerNyashukRed((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
+                    if (ar[i].buyer_id == 1) g.userTimer.buyerNyashukBlue((ar[i].time_to_new - TimeUtils.currentSeconds) * (-1));
+                    else g.userTimer.buyerNyashukRed((ar[i].time_to_new - TimeUtils.currentSeconds) * (-1));
                 }
             }
         } else newBot(true);
@@ -106,7 +108,7 @@ public class ManagerBuyerNyashuk {
         var leftSeconds:int;
         var r:int = 0;
         for (var i:int=0; i<_arrayNya.length; i++) {
-            leftSeconds = _arr[i].startTime - int(new Date().getTime()/1000);
+            leftSeconds = _arr[i].startTime - TimeUtils.currentSeconds;
             if (leftSeconds <= 0) {
                 if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(32, 30);
                 else _arrayNya[i].setTailPositions(30, 30);
@@ -120,7 +122,17 @@ public class ManagerBuyerNyashuk {
         }
     }
 
-    public function addNyashuksOnTutorial():void {
+import additional.buyerNyashuk.BuyerNyashuk;
+
+import com.junkbyte.console.Cc;
+
+import data.StructureDataResource;
+
+import flash.geom.Point;
+
+import manager.AStar.DirectWay;
+
+public function addNyashuksOnTutorial():void {
         timeToNewNyashuk();
         timeToNewNyashuk();
     }

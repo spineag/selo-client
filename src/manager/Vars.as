@@ -7,6 +7,8 @@ import additional.butterfly.ManagerButterfly;
 import additional.buyerNyashuk.ManagerBuyerNyashuk;
 import additional.lohmatik.ManagerLohmatik;
 import additional.mouse.ManagerMouse;
+import additional.pets.ManagerPets;
+
 import analytic.AnalyticManager;
 import announcement.ManagerAnnouncement;
 import build.TownAreaTouchManager;
@@ -83,6 +85,7 @@ import user.UserInventory;
 import user.UserTimer;
 import user.UserValidateResources;
 import utils.FarmDispatcher;
+import utils.TimeUtils;
 import utils.Utils;
 import windows.WindowsManager;
 import build.WorldObject;
@@ -139,6 +142,7 @@ public class Vars {
     public var managerParty:ManagerPartyNew;
     public var managerSalePack:ManagerSalePack;
     public var managerLanguage:ManagerLanguage;
+    public var managerPets:ManagerPets;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -418,6 +422,7 @@ public class Vars {
         managerVisibleObjects = new ManagerVisibleObjects();
         managerVisibleObjects.checkInStaticPosition();
         gameDispatcher.addNextFrameFunction(afterLoadAll_4);
+        managerPets = new ManagerPets();
     }
 
     private function afterLoadAll_4():void {
@@ -437,7 +442,7 @@ public class Vars {
             miniScenes.checkAvailableMiniScenesOnNewLevel();
             var todayDailyGift:Date;
             var today:Date;
-                if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6 && !managerCutScenes.isCutScene) {
+                if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - TimeUtils.currentSeconds) <= 0 && (user as User).level >= 6 && !managerCutScenes.isCutScene) {
                     windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
                 } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene) {
                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);

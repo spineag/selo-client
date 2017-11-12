@@ -101,7 +101,7 @@ public class WOShopNew extends WindowMain {
             case VILLAGE:
                 arR = g.allData.building;
                 for (i = 0; i < arR.length; i++) {
-                    if (arR[i].buildType == BuildType.RIDGE || arR[i].buildType == BuildType.FARM) {
+                    if (arR[i].buildType == BuildType.RIDGE || arR[i].buildType == BuildType.FARM || arR[i].buildType == BuildType.PET_HOUSE) {
                         arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
                     }
                 }
@@ -110,6 +110,10 @@ public class WOShopNew extends WindowMain {
                 arR = g.allData.animal;
                 for (i = 0; i < arR.length; i++) {
                     arr.push(Utils.objectFromStructureAnimaToObject(arR[i]));
+                }
+                arR = g.allData.pet;
+                for (i = 0; i < arR.length; i++) {
+                    arr.push(Utils.objectFromStructurePetToObject(arR[i]));
                 }
                 break;
             case FABRICA:
