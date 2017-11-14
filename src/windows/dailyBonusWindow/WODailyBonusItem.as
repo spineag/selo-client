@@ -45,6 +45,18 @@ public class WODailyBonusItem {
             case ManagerDailyBonus.INSTRUMENT:
                 im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(obj.id).imageShop));
                 break;
+            case ManagerDailyBonus.GREEN_VOU:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone'));
+                break;
+            case ManagerDailyBonus.BLUE_VOU:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
+                break;
+            case ManagerDailyBonus.YELLOW_VOU:
+                im = new Image(g.allData.atlas['instrumentAtlas'].getTexture('yellow_coupone'));
+                break;
+            case ManagerDailyBonus.PURP_VOU:
+                im = new Image(g.allData.atlas['instrumentAtlas'].getTexture('red_coupone'));
+                break;
         }
         MCScaler.scale(im, 95, 95);
         im.x = -im.width/2;

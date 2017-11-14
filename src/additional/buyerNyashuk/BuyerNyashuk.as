@@ -257,7 +257,7 @@ public class BuyerNyashuk {
     private var count:int;
     public function idleFrontAnimation():void {
         if (!_armature) return;
-        var r:Number = int(Math.random()*4);
+        var r:Number;
         r = Math.random();
         _armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);

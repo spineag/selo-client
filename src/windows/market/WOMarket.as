@@ -173,9 +173,9 @@ public class WOMarket  extends WindowMain {
         _sprRightFr.addChild(im);
         _sprRightFr.endClickCallback = function():void { onChooseFriendOnPanel(_arrFriends[_shiftFriend], _shiftFriend); };
         _source.addChild(_sprLeftFr);
-        _sprRightFr.x = _woWidth/2 - 54;
+        _sprRightFr.x = _woWidth/2 - 64;
         _sprRightFr.y = 120;
-        _sprLeftFr.x = -_woWidth/2 + 54;
+        _sprLeftFr.x = -_woWidth/2 + 64;
         _sprLeftFr.y = 120;
         _sprLeftFr.endClickCallback = function():void {
             onChooseFriendOnPanel(_arrFriends[_shiftFriend+1], _shiftFriend+1);
@@ -656,6 +656,17 @@ public class WOMarket  extends WindowMain {
         if (_curUser == g.user) {
             if (g.userTimer.papperTimerAtMarket > 0) _contPaper.visible = true;
             else _contPaper.visible = false;
+
+            if (ramkaIm) {
+                ramkaIm.dispose();
+                ramkaIm = null;
+                _source.removeChild(ramkaIm);
+            }
+            if (_ava) {
+                _ava.dispose();
+                _ava = null;
+                _source.removeChild(_ava);
+            }
         } else _contPaper.visible = false;
         addItems();
         fillItems();

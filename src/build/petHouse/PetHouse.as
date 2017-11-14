@@ -44,6 +44,7 @@ import tutorial.TutsAction;
 import utils.TimeUtils;
 
 import windows.WindowsManager;
+import windows.shop_new.WOShopNew;
 
 public class PetHouse extends WorldObject {
     private var _isOnHover:Boolean;
@@ -159,6 +160,12 @@ public class PetHouse extends WorldObject {
                     if (g.userInventory.getCountResourceById(p.petData.eatId) <= 0)
                         g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickForRawPet, 'raw_pet', {pet: p});
                     else onClickForRawPet(p);
+                } else {
+                    g.user.decorShiftShop = 0;
+                    g.user.decorShop = false;
+////                    g.user.animalIdArrow = _dataAnimal.id;
+                    g.user.shopTab = WOShopNew.ANIMAL;
+                    g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.ANIMAL);
                 }
             }
         }

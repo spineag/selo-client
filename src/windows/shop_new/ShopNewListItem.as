@@ -242,7 +242,10 @@ public class ShopNewListItem {
                     _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _blackPlawka.visible = true;
                     if (g.user.level < _data.blockByLevel[arr.length]) _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[arr.length])));
-                    else _txtCount.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+                    else {
+                        _txtCount.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
+                        _txtInfo.text = String(g.managerLanguage.allTexts[340]);
+                    }
                 } else {
                     _txtCount.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                     createButton();

@@ -213,10 +213,10 @@ public class MarketHint {
         }
         for (var i:int=0; i<objTrees.length; i++) {
             if (_dataId == objTrees[i].craftIdResource) {
-                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
-                MCScaler.scale(_imageItem,30,30);
-                _imageItem.y = 70;
-                _imageItem.x = 10;
+//                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
+//                MCScaler.scale(_imageItem,30,30);
+//                _imageItem.y = 70;
+//                _imageItem.x = 10;
                 if (noResource) {
                     _txtName.text = g.allData.getResourceById(_dataId).name;
                     _txtName.x = -100;
@@ -252,7 +252,7 @@ public class MarketHint {
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
                 if (!noResource) {
-                    source.addChild(_imageItem);
+//                    source.addChild(_imageItem);
                     _source.addChild(_txtCount);
                     _source.addChild(_txtSklad);
                 }
