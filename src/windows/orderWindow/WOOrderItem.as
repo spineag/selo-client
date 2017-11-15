@@ -117,10 +117,22 @@ public class WOOrderItem {
         }
     }
 
-    public function fillIt(order:OrderItemStructure, position:int, f:Function):void {
+    public function fillIt(order:OrderItemStructure, position:int, f:Function, b:Boolean = false):void {
         _position = position;
         _order = order;
         _clickCallback = f;
+        if (b) {
+            _txtName.text = String(g.managerLanguage.allTexts[1207]);
+            var myPattern:RegExp = /count/;
+            var str:String =  String(g.managerLanguage.allTexts[342]);
+            _txtCoins.text = String(str.replace(myPattern, String(g.managerOrder.countCellAtLevel(position))));
+            source.visible = true;
+            source.filter = ManagerFilters.getButtonDisableFilter();
+            _coinsImage.visible = false;
+            _txtXP.visible = false;
+            _starImage.visible = false;
+            return;
+        }
         if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
         else _txtName.text = _order.catOb.nameRU;
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.text = String(_order.xp * g.managerParty.coefficient);

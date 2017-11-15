@@ -1058,11 +1058,11 @@ public class Tree extends WorldObject {
                         watering.pivotY = watering.height / 2;
                         watering.y = -_source.height / 2 - watering.height - 48;
                         watering.x = -5;
-                    } else if (_dataBuild.id == 153) {
+                    } else if (_dataBuild.id == 153) { // Какао
                         im.y = -_source.height / 2 - im.height - 30;
                         watering.pivotX = watering.width / 2;
                         watering.pivotY = watering.height / 2;
-                        watering.y = -_source.height / 2 - watering.height - 110;
+                        watering.y = -_source.height / 2 - watering.height - 97;
                         watering.x = -10;
                     } else if (_dataBuild.id == 154) {
                         im.y = -_source.height / 2 - im.height - 30;

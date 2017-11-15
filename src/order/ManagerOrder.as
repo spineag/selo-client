@@ -115,6 +115,15 @@ public class ManagerOrder {
 //        checkOrders();
 //    }
 
+    public function countCellAtLevel(r:int):int {
+        for (var i:int = 0; i < _countCellAtLevel.length; i++) {
+            if (_countCellAtLevel[i].count == r) {
+                return _countCellAtLevel[i].level;
+            }
+        }
+        return 0;
+    }
+
     private function checkForNewCats(onArriveCallback:Function = null):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (!_arrOrders[i].cat) {

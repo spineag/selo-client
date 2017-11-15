@@ -262,11 +262,15 @@ public class WOOrderNew extends WindowMain {
     private function fillList():void {
         var maxCount:int = g.managerOrder.maxCountOrders;
         var or:OrderItemStructure;
+        var b:Boolean = false;
         for (var i:int = 0; i < _arrOrders.length; i++) {
             if (i >= maxCount) return;
             or = _arrOrders[i];
             if (or.placeNumber > -1) (_arrItems[i] as WOOrderItem).fillIt(or, or.placeNumber, onItemClick);
                 else Cc.error('WOOrder fillList:: order.placeNumber == -1');
+        }
+        if (_arrOrders.length < 9) {
+            (_arrItems[i] as WOOrderItem).fillIt(null, _arrOrders[i-1].placeNumber+1, null,true);
         }
     }
 
