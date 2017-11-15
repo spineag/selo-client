@@ -191,12 +191,14 @@ public class LoaderManager {
         var fOnLoad:Function = function(smth:*=null):void {
             count--;
             if (count<=0) {
-                g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png' + v].create() as Bitmap), g.pXMLs[st + '.xml' + v]);
-                (g.pBitmaps[st + '.png' + v] as PBitmap).deleteIt();
-                delete  g.pBitmaps[st + '.png' + v];
-                delete  g.pXMLs[st + '.xml' + v];
-                removeByUrl(st + '.png' + v);
-                removeByUrl(st + '.xml' + v);
+                if (!g.allData.atlas[name]) {
+                    g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png' + v].create() as Bitmap), g.pXMLs[st + '.xml' + v]);
+                    (g.pBitmaps[st + '.png' + v] as PBitmap).deleteIt();
+                    delete  g.pBitmaps[st + '.png' + v];
+                    delete  g.pXMLs[st + '.xml' + v];
+                    removeByUrl(st + '.png' + v);
+                    removeByUrl(st + '.xml' + v);
+                }
                 if (f!=null) f.apply(null, params);
             }
         };

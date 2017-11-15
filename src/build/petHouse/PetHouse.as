@@ -94,7 +94,7 @@ public class PetHouse extends WorldObject {
     public function get arrCraftedItems():Array { return _arrCraftedItems; }
     public function get isAnyCrafted():Boolean { return _arrCraftedItems.length > 0; }
     public function get arrPets():Array { return _arrPets; }
-    public function get hasFreePlace():Boolean { return Boolean(_arrPets < _dataBuild.maxAnimalsCount); }
+    public function get hasFreePlace():Boolean { return Boolean(_arrPets.length < _dataBuild.maxAnimalsCount); }
 
     private function getFreeMiska():Miska {
         if (!_miska1.pet) return _miska1;

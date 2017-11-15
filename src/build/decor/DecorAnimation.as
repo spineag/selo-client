@@ -120,6 +120,7 @@ public class DecorAnimation extends WorldObject{
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         var p:Point;
+        var heroCat:HeroCat;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.isActiveMapEditor) {
                 if (_curLockedLand) {
@@ -184,7 +185,6 @@ public class DecorAnimation extends WorldObject{
 //                p = _source.parent.localToGlobal(p);
                 g.managerCats.arrayCat();
 
-                var heroCat:HeroCat;
                 heroCat = g.managerCats.getFreeCatDecor();
                 if (heroCat) {
                     heroCat.isFree = false;
@@ -200,7 +200,6 @@ public class DecorAnimation extends WorldObject{
             _catRun = true;
             if (_dataBuild.catNeed) {
                 var count:int  = needCatsCount();
-                var heroCat:HeroCat;
                 var armature:Armature;
                 _decorAnimation = 0;
                 if (count > 1) {
@@ -222,7 +221,6 @@ public class DecorAnimation extends WorldObject{
                     }
                 } else {
                     catRunAnimation(true);
-
                     heroCat = g.managerCats.getFreeCatDecor();
                     if (heroCat) {
                         heroCat.isFree = false;
