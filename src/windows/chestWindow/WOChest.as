@@ -97,7 +97,7 @@ public class WOChest  extends WindowMain{
 
     override public function hideIt():void {
         g.managerChest.setCount = 1;
-        g.directServer.useChest(g.managerChest.getCount);
+//        g.directServer.useChest(g.managerChest.getCount);
         super.hideIt();
         if (_callback != null) {
             _callback.apply(null,[]);

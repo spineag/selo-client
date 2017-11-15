@@ -21,6 +21,11 @@ public class ManagerChest {
     public static const MAX_CHEST:int = 5;
     public static const COST_OPEN:int = 5;
     public static const XP:int = 6;
+    public static const GREEN_VAU:int = 7;
+    public static const BLUE_VAU:int = 7;
+    public static const YELLOW_VAU:int = 7;
+    public static const PUR_VAU:int = 7;
+
     private var _data:Object;
     private var _count:int;
     private var _chestBuildID:int = -1;
@@ -51,119 +56,77 @@ public class ManagerChest {
         var obj:Object = {};
         var aR:Number = Math.random();
         var iR:Number = Math.random();
+        if (g.user.level < 17) {
+            if (aR <= .30) { // Instrument Upgrade
+                if (iR < .08) obj.id = 2;
+                else if (iR < .33) obj.id = 3;
+                else if (iR < .50) obj.id = 4;
+                else if (iR < .67) obj.id = 7;
+                else if (iR < .75) obj.id = 8;
+                else obj.id = 9;
 
-        if (aR < .2) {
-            if (iR < .16) {
                 obj.count = 1;
-                obj.id = 7;
                 obj.type = INSTRUMENT;
-            } else if (iR <.32) {
+            } else if (aR <= .60) { // Instrument Remove
+                if (iR < .37) obj.id = 1;
+                else if (iR < .45) obj.id = 5;
+                else if (iR < .55) obj.id = 47;
+                else if (iR < .95) obj.id = 124;
+                else obj.id = 125;
+
+                obj.type = INSTRUMENT;
                 obj.count = 1;
-                obj.id = 9;
-                obj.type = INSTRUMENT;
-            } else if (iR < .48){
-                obj.count = 1;
-                obj.id = 2;
-                obj.type = INSTRUMENT;
-            } else if (iR < .64) {
-                obj.count = 1;
-                obj.id = 8;
-                obj.type = INSTRUMENT;
-            } else if (iR < .8) {
-                obj.count = 1;
-                obj.id = 4;
-                obj.type = INSTRUMENT;
-            } else {
-                obj.count = 1;
-                obj.id = 3;
-                obj.type = INSTRUMENT;
-            }
-        } else if (aR < .3) {
-            if (iR < .25) {
-                if (g.userInventory.getCountResourceById(1) > 5 &&  Math.random() < .5) {
-                     obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 1;
-                    obj.type = INSTRUMENT;
-                }
-            } else if (iR <.5) {
-                if (g.userInventory.getCountResourceById(124) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 124;
-                    obj.type = INSTRUMENT;
-                }
-            } else if (iR < .75){
-                if (g.userInventory.getCountResourceById(6) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 6;
-                    obj.type = INSTRUMENT;
-                }
-            } else if (iR < .9) {
-                if (g.userInventory.getCountResourceById(5) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 5;
-                    obj.type = INSTRUMENT;
-                }
-            } else {
-                if (g.userInventory.getCountResourceById(125) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 125;
-                    obj.type = INSTRUMENT;
-                }
-            }
-        } else {
-            if (iR < .7) {
-                obj.count = 100;
+            } else if (aR <= .90) { // Soft
+                obj.count = g.managerDailyBonus.moneyCount / 2.5;
                 obj.id = 0;
                 obj.type = SOFT_MONEY;
-            } else if (iR< .9) {
+            } else { //Hard
+                if (_count) obj.count = 5 + int(Math.random() * 6);
+                else obj.count = 3 + int(Math.random() * 3);
+                obj.id = 0;
+                obj.type = HARD_MONEY;
+            }
+
+        } else {
+            if (aR <= .25) { // Instrument Upgrade
+                if (iR < .25) obj.id = 2;
+                else if (iR < .42) obj.id = 3;
+                else if (iR < .50) obj.id = 4;
+                else if (iR < .58) obj.id = 7;
+                else if (iR < .83) obj.id = 8;
+                else obj.id = 9;
+
                 obj.count = 1;
+                obj.type = INSTRUMENT;
+            } else if (aR <= .55) { // Instrument Remove
+                if (iR < .37) obj.id = 1;
+                else if (iR < .47) obj.id = 5;
+                else if (iR < .52) obj.id = 6;
+                else if (iR < .62) obj.id = 47;
+                else if (iR < .92) obj.id = 124;
+                else obj.id = 125;
+
+                obj.type = INSTRUMENT;
+                obj.count = 1;
+            } else if (aR <= .75) { // Soft
+                obj.count = g.managerDailyBonus.moneyCount / 2.5;
+                obj.id = 0;
+                obj.type = SOFT_MONEY;
+            } else if (aR <= .85) { //Hard
+                if (_count) obj.count = 5 + int(Math.random() * 6);
+                else obj.count = 3 + int(Math.random() * 3);
                 obj.id = 0;
                 obj.type = HARD_MONEY;
-            } else {
-                obj.count = 3;
-                obj.id = 0;
-                obj.type = HARD_MONEY;
+            } else { // Vaucher
+                if (iR <= .35) obj.type = GREEN_VAU;
+                else if (iR < .65) obj.type = BLUE_VAU;
+                else if (iR < .85) obj.type = YELLOW_VAU;
+                else obj.type = PUR_VAU;
+                obj.id = 7;
+                obj.count = 1;
             }
         }
         _data = obj;
-    }
-
-    private function instrumentRandom():Object {
-        var obj:Object = {};
-        var iR:int = Math.random();
-        if (iR < .25) {
-            obj.count = 1;
-            obj.id = 1;
-            obj.type = INSTRUMENT;
-        } else if (iR <.5) {
-            obj.count = 1;
-            obj.id = 124;
-            obj.type = INSTRUMENT;
-        } else if (iR < .75){
-            obj.count = 1;
-            obj.id = 6;
-            obj.type = INSTRUMENT;
-        } else if (iR < .9) {
-            obj.count = 1;
-            obj.id = 5;
-            obj.type = INSTRUMENT;
-        } else {
-            obj.count = 1;
-            obj.id = 125;
-            obj.type = INSTRUMENT;
-        }
-
-        return obj;
     }
 
     public function createChest(away:Boolean = false):void {

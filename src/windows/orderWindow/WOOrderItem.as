@@ -122,10 +122,16 @@ public class WOOrderItem {
         _order = order;
         _clickCallback = f;
         if (b) {
-            _txtName.text = String(g.managerLanguage.allTexts[1207]);
+            _txtName.text = String(g.managerLanguage.allTexts[372]);
             var myPattern:RegExp = /count/;
             var str:String =  String(g.managerLanguage.allTexts[342]);
-            _txtCoins.text = String(str.replace(myPattern, String(g.managerOrder.countCellAtLevel(position))));
+            _txtCoins.deleteIt();
+            _txtCoins = null;
+            _txtCoins = new CTextField(110, 60,  String(str.replace(myPattern, String(g.managerOrder.countCellAtLevel(position)))));
+            _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//            _txtCoins.x = -10;
+            _txtCoins.y = 50;
+            source.addChild(_txtCoins);
             source.visible = true;
             source.filter = ManagerFilters.getButtonDisableFilter();
             _coinsImage.visible = false;
