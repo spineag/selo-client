@@ -679,40 +679,39 @@ public class ShopNewListItem {
                         g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
                         return;
                     }
-                } else if (_data.currency == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _costCount) {
+                } else if ((_data.currency == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _costCount) || (_data.currency == DataMoney.RED_COUPONE && g.user.redCouponCount < _costCount)
+                        || (_data.currency == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _costCount) || (_data.currency == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _costCount) ) {
+                    ob = {};
+                    ob.data = _data;
                     _wo.hideIt();
-                    g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
-                    return;
-                } else if (_data.currency == DataMoney.RED_COUPONE && g.user.redCouponCount < _costCount) {
-                    _wo.hideIt();
-                    g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
-                    return;
-                } else if (_data.currency == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _costCount) {
-                    _wo.hideIt();
-                    g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
-                    return;
-                } else if (_data.currency == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _costCount) {
-                    _wo.hideIt();
-                    g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
+                    g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceVoucherCallback, 'voucher', ob);
                     return;
                 }
             } else {
                 for (i = 0; i < _data.currency.length; i++) {
                     if (_data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _data.cost[i]) {
+                        ob = {};
+                        ob.data = _data;
                         _wo.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceVoucherCallback, 'voucher', ob);
                         return;
                     } else if (_data.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < _data.cost[i]) {
+                        ob = {};
+                        ob.data = _data;
                         _wo.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceVoucherCallback, 'voucher', ob);
                         return;
                     } else if (_data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _data.cost[i]) {
+                        ob = {};
+                        ob.data = _data;
                         _wo.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceVoucherCallback, 'voucher', ob);
                         return;
                     } else if (_data.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _data.cost[i]) {
+                        ob = {};
+                        ob.data = _data;
                         _wo.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_BUY_COUPONE);
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, noResourceVoucherCallback, 'voucher', ob);
                         return;
                     }
                 }
@@ -733,7 +732,6 @@ public class ShopNewListItem {
                 || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) {
             if (_data.currency == DataMoney.SOFT_CURRENCY) g.buyHint.showIt(_costCount);
             else if (_data.currency == DataMoney.HARD_CURRENCY) g.buyHint.showIt(_costCount,true);
-
         }
         var build:WorldObject;
         if (_data.buildType == BuildType.RIDGE) {
@@ -907,6 +905,29 @@ public class ShopNewListItem {
         }
     }
 
+    private function noResourceVoucherCallback(objectCallback:Object = null):void {
+        var i:int = 0;
+        if (objectCallback.buildType == BuildType.PET) {
+            for (i = 0; i < objectCallback.currency.length; i++) {
+                g.userInventory.addMoney(objectCallback.currency[i], -objectCallback.cost[i]);
+            }
+            g.managerPets.onBuyNewPet(objectCallback.id);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+        } else {
+            var build:WorldObject;
+            build = g.townArea.createNewBuild(objectCallback);
+            g.selectedBuild = build;
+            g.bottomPanel.cancelBoolean(true);
+            g.toolsModifier.modifierType = ToolsModifier.MOVE;
+            if (build is DecorFenceGate) (build as DecorFenceGate).showFullView();
+            if (build is DecorFenceArka) (build as DecorFenceArka).showFullView();
+            if (build is DecorPostFenceArka) (build as DecorPostFenceArka).showFullView();
+            (build as WorldObject).countShopCost = objectCallback.cost;
+            g.townArea.startMoveAfterShop(build);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+        }
+    }
+
     public function deleteIt():void {
         if (!_source) return;
         _wo = null;
@@ -922,7 +943,7 @@ public class ShopNewListItem {
         _txtCount.deleteIt();
         _txtName.deleteIt();
         _txtInfo.deleteIt();
-        if (_radioButton) _radioButton.deleteIt()
+        if (_radioButton) _radioButton.deleteIt();
         _source.dispose();
         _source = null;
     }

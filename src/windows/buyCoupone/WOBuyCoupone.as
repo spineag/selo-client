@@ -67,14 +67,14 @@ public class WOBuyCoupone extends WindowMain{
         _Blue.source.x = -115;
         _Blue.source.y = 80;
         _source.addChild(_Blue.source);
-        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,45,DataMoney.YELLOW_COUPONE);
-        _Yellow.source.x = -5;
-        _Yellow.source.y = 80;
-        _source.addChild(_Yellow.source);
-        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount,60,DataMoney.RED_COUPONE);
+        _Red = new WOBuyCouponeItem("red_coupone", g.user.redCouponCount, 45,DataMoney.RED_COUPONE);
         _Red.source.x = 105;
         _Red.source.y = 80;
         _source.addChild(_Red.source);
+        _Yellow = new WOBuyCouponeItem("yellow_coupone", g.user.yellowCouponCount,60,DataMoney.YELLOW_COUPONE);
+        _Yellow.source.x = -5;
+        _Yellow.source.y = 80;
+        _source.addChild(_Yellow.source);
         super.showIt();
     }
 

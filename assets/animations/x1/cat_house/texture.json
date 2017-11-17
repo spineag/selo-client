@@ -1,1 +1,1 @@
-{"name":"cat_house","imagePath":"texture.png","SubTexture":[{"name":"house1","x":0,"height":78,"y":0,"width":70},{"name":"plate","x":72,"height":28,"y":30,"width":38},{"name":"plate_milk","x":72,"height":28,"y":0,"width":38}]}
+{"SubTexture":[{"width":70,"height":78,"y":0,"name":"house1","x":0},{"width":38,"height":28,"y":30,"name":"plate","x":72},{"width":38,"height":28,"y":0,"name":"plate_milk","x":72},{"width":2,"height":2,"y":0,"name":"Символ 1","x":112}],"imagePath":"texture.png","name":"cat_house"}

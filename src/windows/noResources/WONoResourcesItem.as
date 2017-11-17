@@ -5,6 +5,7 @@ package windows.noResources {
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
+import data.DataMoney;
 
 import manager.ManagerFilters;
 
@@ -38,9 +39,6 @@ public class WONoResourcesItem {
 
     public function WONoResourcesItem() {
         source = new CSprite();
-//        var bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
-//        MCScaler.scale(bg,66, 70);
-//        source.addChild(bg);
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _inHover = false;
@@ -105,7 +103,23 @@ public class WONoResourcesItem {
 
     public function fillWithMoney(count:int):void {
         _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-//        MCScaler.scale(_image, 50, 50);
+        _image.x = 33 - _image.width / 2;
+        _image.y = 33 - _image.height / 2;
+        source.addChild(_image);
+
+        _txtCount = new CTextField(80, 40, String(count));
+        _txtCount.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtCount.y = 50;
+        _txtCount.x = 35;
+        source.addChild(_txtCount);
+        _money = true;
+    }
+
+    public function fillWitCoupone(coupone:int, count:int):void {
+        if (coupone == DataMoney.YELLOW_COUPONE) _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone'));
+        else if (coupone == DataMoney.BLUE_COUPONE) _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
+        else if (coupone == DataMoney.GREEN_COUPONE) _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone'));
+        else if (coupone == DataMoney.RED_COUPONE) _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));
         _image.x = 33 - _image.width / 2;
         _image.y = 33 - _image.height / 2;
         source.addChild(_image);
