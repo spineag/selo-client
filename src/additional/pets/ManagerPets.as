@@ -52,7 +52,7 @@ public class ManagerPets {
         var petData:StructureDataPet;
         var pHouse:PetHouse;
         for (var i:int = 0; i < d.message.length; i++) {
-            petData = g.allData.getPetById(int(d.message[i].id));
+            petData = g.allData.getPetById(int(d.message[i].pet_id));
             pHouse = getPetHouseByDbId(petData.houseId, int(d.message[i].house_db_id));
             pet = getNewPetFromData(petData);
             if (pHouse) {
@@ -63,11 +63,10 @@ public class ManagerPets {
                 pet.analyzeTimeEat(int(d.message[i].time_eat));
                 _arrPets.push(pet);
                 var p:Point = new Point(pHouse.posX, pHouse.posY);
-                p = getDirectPointForHouse(p, pHouse.getMiskaForPet(pet).number);
+                p = getDirectPointForHouse(p, pet.positionAtHouse);
                 pet.posX = p.x;
                 pet.posY = p.y;
                 g.townArea.addPet(pet);
-                chooseRandomAct(pet);
             } else Cc.error('no pet house: ' + d.message[i].house_db_id);
         }
     }
@@ -93,8 +92,8 @@ public class ManagerPets {
 
     private function getDirectPointForHouse(p:Point, pos:int):Point {
         switch (pos) {
-            case 1: p.x += 2; break;
-            case 2: p.y += 2; break;
+            case 1: p.y += 2; break;
+            case 2: p.x += 1; p.y += 2; break;
             case 3: p.x += 2; p.y += 2; break;
         }
         return p;
@@ -159,7 +158,7 @@ public class ManagerPets {
         pet.stopAnimation();
         if (pet.petHouse) pet.petHouse.onPetCraftReady(pet);
         var point:Point = new Point(pet.petHouse.posX, pet.petHouse.posY);
-        point = getDirectPointForHouse(point, pet.petHouse.getMiskaForPet(pet).number);
+        point = getDirectPointForHouse(point, pet.positionAtHouse);
         goPetToPoint(pet, point, onPetCraftReadyAtHouse, pet);
 //        if (pet.hasNewEat) pet.petHouse.getMiskaForPet(pet).showEat(true);  ???
 //        else pet.petHouse.getMiskaForPet(pet).showEat(false);
@@ -179,21 +178,29 @@ public class ManagerPets {
         g.directServer.rawUserPet(p, null);
         if (!p.hasNewEat) {
             var f1:Function = function (p:PetMain):void {
-                if (p.hasNewEat) pHouse.getMiskaForPet(p).showEat(true);
-                    else pHouse.getMiskaForPet(p).showEat(false);
-                chooseRandomAct(p);
+                g.townArea.removePet(p);
+                pHouse.showPetAnimateEat(p, onEndAnimationEat);
             };
             var point:Point = new Point(pHouse.posX, pHouse.posY);
-            point = getDirectPointForHouse(point, pHouse.getMiskaForPet(p).number);
+            point = getDirectPointForHouse(point, p.positionAtHouse);
             p.stopAnimation();
             goPetToPoint(p, point, f1);
         }
+    }
+    
+    private function onEndAnimationEat(p:PetMain):void {
+        var point:Point = new Point(p.petHouse.posX, p.petHouse.posY);
+        point = getDirectPointForHouse(point, p.positionAtHouse);
+        p.posX = point.x;
+        p.posY = point.y;
+        g.townArea.addPet(p);
+        chooseRandomAct(p);
     }
 
     public function chooseRandomAct(pet:PetMain):void {
         if (!pet.armature) return;
         if (pet.state == STATE_HUNGRY_WALK || pet.state == STATE_RAW_WALK) {
-            if (Math.random() > .3) {
+            if (Math.random() > .2) {
                 var p:Point = g.townArea.getRandomFreeCell();
                 goPetToPoint(pet, p, chooseRandomAct);
             } else pet.playPlayAnimation(chooseRandomAct);
@@ -204,7 +211,6 @@ public class ManagerPets {
         var f2:Function = function ():void {
             pet.flipIt(false);
             pet.showFront(true);
-//            pet.walkAnimation();
             var fT:Function = pet.walkCallback;
             var arrT:Array = pet.walkCallbackParams;
             pet.walkCallback = null;

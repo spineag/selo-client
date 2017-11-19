@@ -53,6 +53,7 @@ public class PetHouse extends WorldObject {
     private var _miska1:Miska;
     private var _miska2:Miska;
     private var _miska3:Miska;
+    private var _petsCont:Sprite;
 
     public function PetHouse(data:Object) {
         super(data);
@@ -89,12 +90,21 @@ public class PetHouse extends WorldObject {
             _miska2 = new Miska(_armature, 2);
             _miska3 = new Miska(_armature, 3);
         }
+        _petsCont = new Sprite();
+        _source.addChild(_petsCont);
+        _petsCont.touchable = false;
     }
 
     public function get arrCraftedItems():Array { return _arrCraftedItems; }
     public function get isAnyCrafted():Boolean { return _arrCraftedItems.length > 0; }
     public function get arrPets():Array { return _arrPets; }
     public function get hasFreePlace():Boolean { return Boolean(_arrPets.length < _dataBuild.maxAnimalsCount); }
+    public function get innerPetX1():int { return -40 * g.scaleFactor; }
+    public function get innerPetY1():int { return 22 * g.scaleFactor; }
+    public function get innerPetX2():int { return -42 * g.scaleFactor; }
+    public function get innerPetY2():int { return 66 * g.scaleFactor; }
+    public function get innerPetX3():int { return 44 * g.scaleFactor; }
+    public function get innerPetY3():int { return 66 * g.scaleFactor; }
 
     private function getFreeMiska():Miska {
         if (!_miska1.pet) return _miska1;
@@ -163,7 +173,6 @@ public class PetHouse extends WorldObject {
                 } else {
                     g.user.decorShiftShop = 0;
                     g.user.decorShop = false;
-////                    g.user.animalIdArrow = _dataAnimal.id;
                     g.user.shopTab = WOShopNew.ANIMAL;
                     g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.ANIMAL);
                 }
@@ -172,12 +181,12 @@ public class PetHouse extends WorldObject {
     }
 
     private function onClickForRawPet(p:PetMain):void {
-        getMiskaForPet(p).showEat(true);
         if (p.state == ManagerPets.STATE_HUNGRY_WALK) {
             p.state = ManagerPets.STATE_RAW_WALK;
-            p.analyzeTimeEat(TimeUtils.currentSeconds);
             p.hasNewEat = false;
+            p.analyzeTimeEat(TimeUtils.currentSeconds);
         } else if (p.state == ManagerPets.STATE_RAW_WALK) p.hasNewEat = true;
+        getMiskaForPet(p).showEat(true);
         g.managerPets.onRawPet(p, this);
                     // animation of uploading resources to petHouse
         var point:Point = new Point();
@@ -228,7 +237,10 @@ public class PetHouse extends WorldObject {
         }
         _arrPets.push(pet);
         var miska:Miska = getFreeMiska();
-        if (miska) miska.pet = pet;
+        if (miska) {
+            miska.pet = pet;
+            pet.positionAtHouse = miska.number;
+        }
         else Cc.error('no free Miska for pet: ' + pet.petData.id);
     }
 
@@ -282,6 +294,31 @@ public class PetHouse extends WorldObject {
     }
 
     private function stopAnimation():void { _armature.animation.gotoAndStopByFrame('idle'); }
+
+    public function showPetAnimateEat(p:PetMain, f:Function):void {
+        if (_petsCont) {
+            getMiskaForPet(p).showEat(true);
+            switch (p.positionAtHouse) {
+                case 1: p.source.x = p.innerPosX1; p.source.y = p.innerPosY1; p.flipIt(false); break;
+                case 2: if (_dataBuild.maxAnimalsCount == 2) { p.source.x = p.innerPosX2; p.source.y = p.innerPosY2; p.flipIt(true); }
+                        else if (_dataBuild.maxAnimalsCount == 3) { p.source.x = p.innerPosX3; p.source.y = p.innerPosY3; p.flipIt(false); }
+                    break;
+                case 3: p.source.x = p.innerPosX3; p.source.y = p.innerPosY3; p.flipIt(false); break;
+            }
+            _petsCont.addChild(p.source);
+
+            var fEnd:Function = function():void {
+                if (p.hasNewEat) getMiskaForPet(p).showEat(true);
+                    else getMiskaForPet(p).showEat(false);
+                _petsCont.removeChild(p.source);
+                if (f != null) f.apply(null, [p]);
+            };
+            p.eatAnimation(fEnd);
+        } else {
+            Cc.error('no _petsCont for petHouse id: ' + _dataBuild.id);
+            if (f!=null) f.apply(null, [p]);
+        }
+    }
 }
 }
 

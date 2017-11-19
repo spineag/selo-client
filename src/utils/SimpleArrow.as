@@ -60,6 +60,7 @@ public class SimpleArrow {
     }
 
     private function animateAtPostion2():void {
+        if (!_parent) return;
         if (_global) {
             var p:Point = new Point(_startX, _startY);
             p = _parent.localToGlobal(p);

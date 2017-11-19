@@ -50,6 +50,15 @@ public class PetMain {
     protected var _timeLeft:int; // to generate product
     protected var _state:int;
     protected var _hasNewEat:Boolean;
+    protected var _innerPosX1:int;
+    protected var _innerPosY1:int;
+    protected var _innerPosX2:int;
+    protected var _innerPosY2:int;
+    protected var _innerPosX3:int;
+    protected var _innerPosY3:int;
+    protected var _positionAtHouse:int;
+    protected var _defaultScaleX:int = 1;
+    protected var _defaultBackScaleX:int = 1;
     public var walkCallback:Function;
     public var walkCallbackParams:Array;
 
@@ -65,7 +74,7 @@ public class PetMain {
         _petImage.visible = false;
         _petBackImage.visible = false;
         if (g.allData.factory[_petData.url]) createArmature();
-            else  g.loadAnimation.load('animations_json/x1/' + _petData.url, _petData.url, createArmature);
+            else g.loadAnimation.load('animations_json/x1/' + _petData.url, _petData.url, createArmature);
     }
 
     private function createArmature():void {
@@ -103,11 +112,11 @@ public class PetMain {
 
     public function flipIt(v:Boolean):void {
         if (v) {
-            _petImage.scaleX = -1;
-            _petBackImage.scaleX = 1;
+            _petImage.scaleX = -1 * _defaultScaleX;
+            _petBackImage.scaleX = _defaultBackScaleX;
         } else {
-            _petImage.scaleX = 1;
-            _petBackImage.scaleX = -1;
+            _petImage.scaleX = _defaultScaleX;
+            _petBackImage.scaleX = -1 * _defaultBackScaleX;
         }
     }
 
@@ -130,6 +139,14 @@ public class PetMain {
     public function set state(s:int):void { _state = s; }
     public function get hasNewEat():Boolean { return _hasNewEat; }
     public function set hasNewEat(v:Boolean):void { _hasNewEat = v; }
+    public function get innerPosX1():int { return _innerPosX1; }
+    public function get innerPosX2():int { return _innerPosX2; }
+    public function get innerPosX3():int { return _innerPosX3; }
+    public function get innerPosY1():int { return _innerPosY1; }
+    public function get innerPosY2():int { return _innerPosY2; }
+    public function get innerPosY3():int { return _innerPosY3; }
+    public function set positionAtHouse(v:int):void { _positionAtHouse = v; }
+    public function get positionAtHouse():int { return _positionAtHouse; }
 
     public function onGetCraft():void {
         if (_hasNewEat) {
@@ -246,7 +263,7 @@ public class PetMain {
             }
         } else Cc.error('Pet gotoPoint:: wrong front-back logic');
         if (isBack != _isBack) walkAnimation();
-        new TweenMax(_source, koef/4, { x: pXY.x, y: pXY.y, ease: Linear.easeNone, onComplete: f1, onCompleteParams: [callback]});
+        new TweenMax(_source, koef/3, { x: pXY.x, y: pXY.y, ease: Linear.easeNone, onComplete: f1, onCompleteParams: [callback]});
     }
 
     public function showArrow(t:Number = 0):void {
@@ -271,13 +288,16 @@ public class PetMain {
     }
 
     protected function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        return; // temp
-
         var im:Image = new Image(g.allData.atlas['customisationPetsAtlas'].getTexture(newName));
         var b:Slot = arma.getSlot(oldName);
         if (b && im) {
             b.displayList = null;
             b.display = im;
+            if (im.width == 100 && im.height == 100) {
+                Cc.ch('pet', 'probably no im: ' + newName + '  for petId: ' + _petData.id);
+            }
+        } else {
+            if (!b) Cc.ch('pet', 'no slot: ' + oldName + '  for petId: ' + _petData.id);
         }
     }
 
@@ -302,19 +322,18 @@ public class PetMain {
     
     public function walkAnimation():void {
         if (!_armature) return;
-        if (!_isBack) _armature.animation.gotoAndPlayByFrame('Idle01');
-            else _armatureBack.animation.gotoAndPlayByFrame('Idle01');
+        if (!_isBack) _armature.animation.gotoAndPlayByFrame('idle01');
+            else _armatureBack.animation.gotoAndPlayByFrame('idle01');
     }
 
     public function playPlayAnimation(callback:Function):void {  // callback == null  ===  loop == 1000000000
         if (!_armature) return;
-        var n:int = int(Math.random()*3);
+        var n:int = int(Math.random()*2);
         var label:String;
         var pet:PetMain = this;
         switch (n) {
-            case 0: label = 'Idle02'; break;
-            case 1: label = 'Idle03'; break;
-            case 2: label = 'Idle04'; break;
+            case 0: label = 'idle02'; break;
+            case 1: label = 'idle02'; break;  // idle04
         }
         var fEnd:Function = function(e:Event=null):void {
             _armature.removeEventListener(EventObject.COMPLETE, fEnd);
@@ -326,15 +345,34 @@ public class PetMain {
         };
         _armature.addEventListener(EventObject.COMPLETE, fEnd);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
+        
+        if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlayByFrame(label);  // - >> smth wrong with animation
+//        Utils.createDelay(4, fEnd);  // temp fix
+    }
 
-//        _armature.animation.gotoAndPlayByFrame(label);  // - >> smth wrong with animation
-        Utils.createDelay(4, function():void { fEnd(null); } );  // temp fix
+    public function eatAnimation(f:Function):void {
+        var p:PetMain = this;
+        var fEnd:Function = function(e:Event=null):void {
+            _armature.removeEventListener(EventObject.COMPLETE, fEnd);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEnd);
+            stopAnimation();
+            if (f != null) {
+                f.apply(null, [p]);
+            }
+        };
+        _armature.addEventListener(EventObject.COMPLETE, fEnd);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
+
+        if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlayByFrame('idle03');  // --> smth wrong with animation
+//        Utils.createDelay(4, fEnd);  // temp fix
     }
 
     public function stopAnimation():void {
         if (!_armature) return;
-        _armature.animation.gotoAndStopByFrame('Idle01');
-        _armatureBack.animation.gotoAndStopByFrame('Idle01');
+        _armature.animation.gotoAndStopByFrame('idle01');
+        _armatureBack.animation.gotoAndStopByFrame('idle01');
     }
     
 }

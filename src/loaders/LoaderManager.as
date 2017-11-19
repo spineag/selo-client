@@ -185,25 +185,43 @@ public class LoaderManager {
     }
 
     public function loadAtlas(url:String, name:String, f:Function, ...params):void {
-        var count:int = 2;
-        var st:String = g.dataPath.getGraphicsPath() + url;
-        var v:String = g.getVersion(name);
-        var fOnLoad:Function = function(smth:*=null):void {
-            count--;
-            if (count<=0) {
-                if (!g.allData.atlas[name]) {
-                    g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png' + v].create() as Bitmap), g.pXMLs[st + '.xml' + v]);
-                    (g.pBitmaps[st + '.png' + v] as PBitmap).deleteIt();
-                    delete  g.pBitmaps[st + '.png' + v];
-                    delete  g.pXMLs[st + '.xml' + v];
-                    removeByUrl(st + '.png' + v);
-                    removeByUrl(st + '.xml' + v);
+        if (g.allData.atlas[url]) {
+            if (f!=null) f.apply(null, params); 
+            return;
+        }
+
+        if (!additionalQueue[url]) {
+            additionalQueue[url] = new Array();  // первый элемент пропускаем, чтобы не было двойного колбека на него
+            var count:int = 2;
+            var st:String = g.dataPath.getGraphicsPath() + url;
+            var v:String = g.getVersion(name);
+            var fOnLoad:Function = function(smth:*=null):void {
+                count--;
+                if (count<=0) {
+                    if (!g.allData.atlas[name]) {
+                        g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png' + v].create() as Bitmap), g.pXMLs[st + '.xml' + v]);
+                        (g.pBitmaps[st + '.png' + v] as PBitmap).deleteIt();
+                        delete  g.pBitmaps[st + '.png' + v];
+                        delete  g.pXMLs[st + '.xml' + v];
+                        removeByUrl(st + '.png' + v);
+                        removeByUrl(st + '.xml' + v);
+                    }
+                    if (f!=null) f.apply(null, params);
+                    if (additionalQueue[url] && additionalQueue[url].length) {
+                        for (var i:int = 0; i < additionalQueue[url].length; i++) {
+                            if (additionalQueue[url][i].callback != null) {
+                                additionalQueue[url][i].callback.apply(null, additionalQueue[url][i].callbackParams);
+                            }
+                        }
+                    }
+                    if (additionalQueue[url]) additionalQueue[url] = null;
                 }
-                if (f!=null) f.apply(null, params);
-            }
-        };
-        loadImage(st + '.png' + v, fOnLoad);
-        loadXML(st + '.xml' + v, fOnLoad);
+            };
+            loadImage(st + '.png' + v, fOnLoad);
+            loadXML(st + '.xml' + v, fOnLoad);
+        } else {
+            additionalQueue[url].push({callback: f, callbackParams: params});
+        }
     }
 
     public function loadSWFModule(url:String, callback:Function, ...callbackParams):void {

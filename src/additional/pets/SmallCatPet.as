@@ -7,6 +7,11 @@ import data.StructureDataPet;
 public class SmallCatPet  extends PetMain {
     public function SmallCatPet(dPet:StructureDataPet) {
         super(dPet);
+
+        _innerPosX1 = -36 * g.scaleFactor;
+        _innerPosY1 = 46 * g.scaleFactor;
+        _innerPosX2 = 52 * g.scaleFactor;
+        _innerPosY2 = 94 * g.scaleFactor;
     }
 
     override protected function releaseTexture():void {
@@ -44,7 +49,7 @@ public class SmallCatPet  extends PetMain {
                 changeTexture("cheek copy",                              "coffee_cat_small_cheek", _armature);
                 changeTexture("coffee_cat_eye.png",                      "coffee_cat_eye", _armature);
                 changeTexture("coffee_cat_eye.png copy",                 "coffee_cat_eye", _armature);
-                changeTexture("eyes closed",                             "coffee_cat_сlosed_eyes_small", _armature);
+                changeTexture("eyes closed",                             "coffee_cat_сlosed_eyes_front_small", _armature);
                 changeTexture("coffee_cat_head_back_small",              "coffee_cat_head_back_small", _armatureBack);
                 changeTexture("coffee_cat_body_back_small",              "coffee_cat_body_back_small", _armatureBack);
                 changeTexture("coffee_cat_first_leg_R_small_back",       "coffee_cat_first_leg_R_small_back", _armatureBack);
@@ -57,14 +62,14 @@ public class SmallCatPet  extends PetMain {
                 changeTexture("coffee_cat_head_front_small.png",         "milk_cat_head_front_small", _armature);
                 changeTexture("coffee_cat_body_front_small.png",         "milk_cat_body_front_small", _armature);
                 changeTexture("coffee_cat_first_leg_L_small_front.png",  "milk_cat_first_leg_L_small_front", _armature);
-                changeTexture("coffee_cat_second_leg_L_small_front.png", "milk_cat_second_leg_R_small_front", _armature);
+                changeTexture("coffee_cat_second_leg_L_small_front.png", "milk_cat_second_leg_R_small_front", _armature); //
                 changeTexture("coffee_cat_first_leg_R_small_front.png",  "milk_cat_first_leg_R_small_front", _armature);
-                changeTexture("coffee_cat_second_leg_R_small_front.png", "milk_cat_second_leg_L_small_front", _armature);
+                changeTexture("coffee_cat_second_leg_R_small_front.png", "milk_cat_second_leg_L_small_front", _armature); //
                 changeTexture("coffee_cat_tail-end_front_small.png",     "milk_cat_tail-end_front_small", _armature);
                 changeTexture("cheek",                                   "milk_cat_small_cheek", _armature);
                 changeTexture("cheek copy",                              "milk_cat_small_cheek", _armature);
-                changeTexture("coffee_cat_eye.png",                      "milk_cat_eye", _armature);
-                changeTexture("coffee_cat_eye.png copy",                 "milk_cat_eye", _armature);
+                changeTexture("coffee_cat_eye.png",                      "milk_cat_eye", _armature); //
+                changeTexture("coffee_cat_eye.png copy",                 "milk_cat_eye", _armature); //
                 changeTexture("eyes closed",                             "milk_cat_сlosed_eyes_small", _armature);
                 changeTexture("coffee_cat_head_back_small",              "milk_cat_head_back_small", _armatureBack);
                 changeTexture("coffee_cat_body_back_small",              "milk_cat_body_back_small", _armatureBack);
