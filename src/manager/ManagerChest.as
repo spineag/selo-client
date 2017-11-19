@@ -120,8 +120,8 @@ public class ManagerChest {
             } else { // Vaucher
                 if (iR <= .35) obj.type = GREEN_VAU;
                 else if (iR < .65) obj.type = BLUE_VAU;
-                else if (iR < .85) obj.type = YELLOW_VAU;
-                else obj.type = PUR_VAU;
+                else if (iR < .85) obj.type = PUR_VAU;
+                else obj.type = YELLOW_VAU;
                 obj.id = 7;
                 obj.count = 1;
             }

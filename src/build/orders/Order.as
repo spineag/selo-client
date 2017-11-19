@@ -26,7 +26,7 @@ import windows.WindowsManager;
 
 public class Order extends WorldObject{
     private var _isOnHover:Boolean;
-    private var _smallHero:SmallHeroAnimation;
+//    private var _smallHero:SmallHeroAnimation;
     private var _boomOpen:Image;
     private var _topOpen:Image;
 
@@ -44,41 +44,26 @@ public class Order extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        if (!g.user.isOpenOrder && !g.isAway) {
-            _stateBuild = STATE_UNACTIVE;
-            _armature.animation.gotoAndStopByFrame('top');
+        _armature.animation.gotoAndStopByFrame('idle');
+        _source.hoverCallback = onHover;
+        if (!g.isAway) _source.endClickCallback = onClick;
+        _source.outCallback = onOut;
+        _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
+        _source.registerHitArea(_hitArea);
+        if (_stateBuild == STATE_UNACTIVE) {
+            _armature.animation.gotoAndStopByFrame('close');
         } else {
             _stateBuild = STATE_ACTIVE;
             _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
             _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
-        }
-        var b:Slot = _armature.getSlot('boom');
-        if (b && b.display) {
-            _boomOpen = b.display as Image;
-            if (_boomOpen) _boomOpen.visible = false;
-        }
-        b = _armature.getSlot('top');
-        if (b && b.display) {
-            _topOpen = b.display as Image;
-            if (_topOpen && _stateBuild == STATE_ACTIVE) _topOpen.visible = false;
-        }
-        if (!g.isAway) {
-            _source.endClickCallback = onClick;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
-            _source.registerHitArea(_hitArea);
-        }
-        _source.hoverCallback = onHover;
-        _source.outCallback = onOut;
-        if (_stateBuild == STATE_ACTIVE) {
             makeAnimation();
-            createSmallHero();
         }
     }
 
     private function createSmallHero():void {
         if (!g.isAway) {
-            _smallHero = new SmallHeroAnimation(this);
-            _smallHero.armature = g.allData.factory[_dataBuild.url].buildArmature('table');
+//            _smallHero = new SmallHeroAnimation(this);
+//            _smallHero.armature = g.allData.factory[_dataBuild.url].buildArmature('table');
         } else {
             var b:Slot = _armature.getSlot('table');
             if (b.display) b.display.dispose();
@@ -88,15 +73,24 @@ public class Order extends WorldObject{
     }
     
     public function animateSmallHero(v:Boolean):void {
-        if (_smallHero) {
-            _smallHero.animateIt(v);
-        }
+//        var b:Slot = _armature.getSlot('table');
+//        if (b.display) b.display.dispose();
+//        var s:Sprite = new Sprite();
+//        b.display = s;
+//        if (_smallHero) {
+//            _smallHero.animateIt(v);
+//        }
     }
 
     public function showSmallHero(needShow:Boolean):void {
-        if (_smallHero) {
-            _smallHero.needShowIt(needShow);
-        }
+
+//        var b:Slot = _armature.getSlot('table');
+//        if (b.display) b.display.dispose();
+//        var s:Sprite = new Sprite();
+//        b.display = s;
+//        if (_smallHero) {
+//            _smallHero.needShowIt(needShow);
+//        }
     }
 
     override public function onHover():void {
@@ -223,8 +217,8 @@ public class Order extends WorldObject{
         _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
         makeAnimation();
-        createSmallHero();
-        animateSmallHero(true);
+//        createSmallHero();
+//        animateSmallHero(true);
     }
     
     private function showBtnCellArrow():void {
@@ -235,10 +229,10 @@ public class Order extends WorldObject{
 
     override public function clearIt():void {
         onOut();
-        if (_smallHero) {
-            _smallHero.deleteIt();
-            _smallHero = null;
-        }
+//        if (_smallHero) {
+//            _smallHero.deleteIt();
+//            _smallHero = null;
+//        }
         _topOpen = null;
         _boomOpen = null;
         _source.touchable = false;
@@ -251,16 +245,13 @@ public class Order extends WorldObject{
 
     private function makeAnimation(e:Event=null):void {
         var k:Number = Math.random();
-        if (k < .2)
+        if (k < .6)
             _armature.animation.gotoAndPlayByFrame('idle');
-        else if (k < .4)
-           _armature.animation.gotoAndPlayByFrame('idle2');
-        else if (k < .6)
-            _armature.animation.gotoAndPlayByFrame('idle3');
         else if (k < .8)
-            _armature.animation.gotoAndPlayByFrame('idle4');
+           _armature.animation.gotoAndPlayByFrame('idle2');
         else
-            _armature.animation.gotoAndPlayByFrame('idle5');
+            _armature.animation.gotoAndPlayByFrame('idle1');
+
     }
 }
 }

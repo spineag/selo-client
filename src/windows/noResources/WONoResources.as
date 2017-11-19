@@ -66,7 +66,6 @@ public class WONoResources extends WindowMain {
         _source.addChild(_txtNoResource);
         _text = new CTextField(620, 220, String(g.managerLanguage.allTexts[374]));
         _text.setFormat(CTextField.BOLD30, 28, ManagerFilters.BLUE_LIGHT_NEW);
-//        _text.x = -(_text.textBounds.width/2 + 10);
         _text.y = -175;
         _source.addChild(_text);
 
@@ -78,7 +77,6 @@ public class WONoResources extends WindowMain {
         _source.addChild(_btnBuy);
         _imRubin = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _imRubin.alignPivot();
-//        MCScaler.scale(_imRubin, 25, 25);
         _txtHardCost = new CTextField(265, 80, String(''));
         _txtHardCost.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
     }
@@ -90,6 +88,7 @@ public class WONoResources extends WindowMain {
         _callbackBuy = callback;
         _text.text = String(g.managerLanguage.allTexts[374]);
         _text.x = -(_text.textBounds.width/2+8);
+        var i:int = 0;
         switch (params[0]) {
             case 'animal':
                 _countOfResources = 1;
@@ -138,8 +137,6 @@ public class WONoResources extends WindowMain {
                 _countOfResources = _paramData.count;
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
                 _text.text = String(g.managerLanguage.allTexts[1202]);
-//                _text.x = -(_text.textBounds.width/2 + (_woWidth - _text.textBounds.width) /2);
-//                _text.x = -(_text.textBounds.width/2 + 10);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
                     Cc.error('hard currency can"t be in woNoResourceWindow');
                     g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
@@ -189,7 +186,7 @@ public class WONoResources extends WindowMain {
             case 'order':
                 var countR:int;
                 _countCost = 0;
-                for (var i:int=0; i<_paramData.resourceIds.length; i++) {
+                for (i =0; i<_paramData.resourceIds.length; i++) {
                     countR = _paramData.resourceCounts[i] - g.userInventory.getCountResourceById(_paramData.resourceIds[i]);
                     if (countR > 0) {
                         item = new WONoResourcesItem();
@@ -299,6 +296,65 @@ public class WONoResources extends WindowMain {
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickRawPet;
+                break;
+            case 'voucher':
+                _countCost = 0;
+                for (i = 0; i<_paramData.data.currency.length; i++) {
+                    if (_paramData.data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _paramData.data.cost[i]) {
+                        item = new WONoResourcesItem();
+                        item.fillWitCoupone(DataMoney.GREEN_COUPONE, _paramData.data.cost[i] - g.user.greenCouponCount);
+                        _countCost += 15 * (_paramData.data.cost[i] - g.user.greenCouponCount);
+                    } else if (_paramData.data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _paramData.data.cost[i]) {
+                        item = new WONoResourcesItem();
+                        item.fillWitCoupone(DataMoney.BLUE_COUPONE, _paramData.data.cost[i] - g.user.blueCouponCount);
+                        _countCost += 30 * (_paramData.data.cost[i] - g.user.blueCouponCount);
+                    } else if (_paramData.data.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < _paramData.data.cost[i]) {
+                        item = new WONoResourcesItem();
+                        item.fillWitCoupone(DataMoney.RED_COUPONE, _paramData.data.cost[i] - g.user.redCouponCount);
+                        _countCost += 45 * (_paramData.data.cost[i] - g.user.redCouponCount);
+                    } else if (_paramData.data.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _paramData.data.cost[i]) {
+                        item = new WONoResourcesItem();
+                        item.fillWitCoupone(DataMoney.YELLOW_COUPONE, _paramData.data.cost[i] - g.user.yellowCouponCount);
+                        _countCost += 60 * (_paramData.data.cost[i] - g.user.yellowCouponCount);
+                    }
+                    if (item) {
+                        _source.addChild(item.source);
+                        item.source.y = 8;
+                        _arrItems.push(item);
+                    }
+                }
+                switch (_arrItems.length) {
+                    case 1:
+                        _arrItems[0].source.x = - (item.source.width/4);
+                        break;
+                    case 2:
+                        _arrItems[0].source.x = - (item.source.width/4) - 60;
+                        _arrItems[1].source.x = - (item.source.width/4) + 60;
+                        break;
+                    case 3:
+                        _arrItems[0].source.x = -200 + 47;
+                        _arrItems[1].source.x = -200 + 167;
+                        _arrItems[2].source.x = -200 + 287;
+                        break;
+                    case 4:
+                        _arrItems[0].source.x = -211;
+                        _arrItems[1].source.x = -200 + 104;
+                        _arrItems[2].source.x = -200 + 219;
+                        _arrItems[3].source.x = -200 + 334;
+                        break;
+                }
+                _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
+                if (_sensi) {
+                    _sensi.deleteIt();
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
+                    _btnBuy.addSensBlock(_sensi,0,25);
+                } else {
+                    _sensi = new SensibleBlock();
+                    _sensi.textAndImage(_txtHardCost,_imRubin,265);
+                    _btnBuy.addSensBlock(_sensi,0,25);
+                }
+                _btnBuy.clickCallback = onClickVoucher;
                 break;
         }
         super.showIt();
@@ -423,6 +479,37 @@ public class WONoResources extends WindowMain {
         _btnBuy.clickCallback = null;
         if (_callbackBuy != null) {
             _callbackBuy.apply(null,[_paramData.data,_paramData.cost]);
+            _callbackBuy = null;
+        }
+    }
+
+    private function onClickVoucher():void {
+        if (_countCost <= g.user.hardCurrency) {
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countCost);
+        } else {
+            _callbackBuy = null;
+            g.windowsManager.uncasheWindow();
+            super.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        }
+
+        for (var i:int = 0; i < _paramData.data.currency.length; i++) {
+            if (_paramData.data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _paramData.data.cost[i]) {
+                g.userInventory.addMoney(DataMoney.BLUE_COUPONE, _paramData.data.cost[i] - g.user.blueCouponCount);
+            } else if (_paramData.data.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < _paramData.data.cost[i]) {
+                g.userInventory.addMoney(DataMoney.RED_COUPONE, _paramData.data.cost[i] - g.user.redCouponCount);
+            } else if (_paramData.data.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _paramData.data.cost[i]) {
+                g.userInventory.addMoney(DataMoney.YELLOW_COUPONE, _paramData.data.cost[i] - g.user.yellowCouponCount);
+            } else  if (_paramData.data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _paramData.data.cost[i]) {
+                g.userInventory.addMoney(DataMoney.GREEN_COUPONE, _paramData.data.cost[i] - g.user.greenCouponCount);
+            }
+        }
+
+        super.hideIt();
+        _btnBuy.clickCallback = null;
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null,[_paramData.data]);
             _callbackBuy = null;
         }
     }

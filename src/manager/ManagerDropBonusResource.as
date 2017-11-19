@@ -88,7 +88,7 @@ internal class MakeDrop {
     public function makeDropForUpdateSklad(_x:int, _y:int):void {
         var obj:Object = {};
         if ((g.userInventory.getCountResourceById(4) >= 1 && g.userInventory.getCountResourceById(8) >= 1 && g.userInventory.getCountResourceById(9) >= 1) || g.user.skladLevel >= 2) {
-            makeDropWildResource(_x,_y);
+            makeDrop(_x,_y);
             return;
         } else if (g.userInventory.getCountResourceById(4) < 1) {
             obj.id = 4;
@@ -115,179 +115,61 @@ internal class MakeDrop {
         new DropItem(_x, _y, obj);
     }
 
-    public function makeDropWildResource(_x:int, _y:int):void {
-        var obj:Object = {};
-        var aR:Number = Math.random();
-        if (aR < .3) {
-            obj.id = 1;
-            obj.count = 1;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        } else if (aR < .6) {
-            obj.id = 124;
-            obj.count = 1;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        } else if (aR < .9) {
-            obj.id = 125;
-            obj.count = 1;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        } else {
-            obj.id = 5;
-            obj.count = 1;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        }
-        new DropItem(_x, _y, obj);
-    }
-
     public function makeDrop(_x:int, _y:int):void {
         var obj:Object = {};
         var aR:Number = Math.random();
         var iR:Number = Math.random();
-        if (g.user.level >= 17 && aR < .1) {
-            if (iR < .1) {
+        if (g.user.level < 17) {
+            if (aR <= .2) { // Instrument Upgrade
+                if (iR < .25) obj.id = 2;
+                else if (iR < .42) obj.id = 3;
+                else if (iR < .50) obj.id = 7;
+                else if (iR < .75) obj.id = 8;
+                else if (iR < .92) obj.id = 9;
+                else obj.id = 4;
                 obj.count = 1;
-                obj.id = DataMoney.RED_COUPONE;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_MONEY;
-            } else if (iR <.2) {
+                obj.type = DROP_TYPE_RESOURSE;
+            } else { // Instrument Remove
+                if (iR < .37) obj.id = 1;
+                else if (iR < .45) obj.id = 5;
+                else if (iR < .55) obj.id = 47;
+                else if (iR < .95) obj.id = 124;
+                else obj.id = 125;
+                obj.type = DROP_TYPE_RESOURSE;
                 obj.count = 1;
-                obj.id = DataMoney.YELLOW_COUPONE;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_MONEY;
-            } else if (iR < .3){
-                obj.count = 1;
-                obj.id = DataMoney.BLUE_COUPONE;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_MONEY;
-            } else {
-                obj.count = 1;
-                obj.id = DataMoney.GREEN_COUPONE;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_MONEY;
             }
-        } else if (aR < .2) {
-            if (iR < .16) {
-                obj.count = 1;
-                obj.id = 7;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_RESOURSE;
-            } else if (iR <.32) {
-                obj.count = 1;
-                obj.id = 9;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_RESOURSE;
-            } else if (iR < .48){
-                obj.count = 1;
-                obj.id = 2;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_RESOURSE;
-            } else if (iR < .64) {
-                obj.count = 1;
-                obj.id = 8;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_RESOURSE;
-            } else if (iR < .8) {
-                obj.count = 1;
-                obj.id = 4;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_RESOURSE;
-            } else {
-                obj.count = 1;
-                obj.id = 3;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_RESOURSE;
-            }
-        } else if (aR < .3) {
-            if (iR < .25) {
-                if (g.userInventory.getCountResourceById(1) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 124;
-                    obj.variaty = 1;
-                    obj.type = DROP_TYPE_RESOURSE;
-                }
-            } else if (iR <.5) {
-                if (g.userInventory.getCountResourceById(124) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 5;
-                    obj.variaty = 1;
-                    obj.type = DROP_TYPE_RESOURSE;
-                }
-            } else if (iR < .75){
-                if (g.userInventory.getCountResourceById(6) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 1;
-                    obj.variaty = 1;
-                    obj.type = DROP_TYPE_RESOURSE;
-                }
-            } else if (iR < .9) {
-                if (g.userInventory.getCountResourceById(5) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 6;
-                    obj.variaty = 1;
-                    obj.type = DROP_TYPE_RESOURSE;
-                }
-            } else {
-                if (g.userInventory.getCountResourceById(125) > 5 &&  Math.random() < .5) {
-                    obj = instrumentRandom();
-                } else {
-                    obj.count = 1;
-                    obj.id = 125;
-                    obj.variaty = 1;
-                    obj.type = DROP_TYPE_RESOURSE;
-                }
-            }
-        } else {
-            obj.count = 100;
-            obj.id = DataMoney.SOFT_CURRENCY;
             obj.variaty = 1;
-            obj.type = DROP_TYPE_MONEY;
+        } else {
+            if (aR <= .2) { // Instrument Upgrade
+                if (iR < .08) obj.id = 2;
+                else if (iR < .33) obj.id = 3;
+                else if (iR < .50) obj.id = 7;
+                else if (iR < .58) obj.id = 8;
+                else if (iR < .83) obj.id = 9;
+                else obj.id = 4;
+                obj.count = 1;
+                obj.type = DROP_TYPE_RESOURSE;
+            } else if (aR <= .6) { // Instrument Remove
+                if (iR < .37) obj.id = 1;
+                else if (iR < .47) obj.id = 5;
+                else if (iR < .52) obj.id = 6;
+                else if (iR < .62) obj.id = 47;
+                else if (iR < .92) obj.id = 124;
+                else obj.id = 125;
+                obj.type = DROP_TYPE_RESOURSE;
+                obj.count = 1;
+            } else { // Vaucher
+                if (iR <= .40) obj.id = DataMoney.GREEN_COUPONE;
+                else if (iR < .70) obj.id =  DataMoney.BLUE_COUPONE;
+                else if (iR < .90) obj.id = DataMoney.RED_COUPONE;
+                else obj.id =  DataMoney.YELLOW_COUPONE;
+                obj.type = DROP_TYPE_MONEY;
+                obj.count = 1;
+            }
+            obj.variaty = 1;
         }
-
         var prise:Object = obj;
         new DropItem(_x, _y, prise);
     }
 
-    private function instrumentRandom():Object {
-        var obj:Object = {};
-        var iR:int = Math.random();
-        if (iR < .25) {
-            obj.count = 1;
-            obj.id = 1;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        } else if (iR <.5) {
-            obj.count = 1;
-            obj.id = 124;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        } else if (iR < .75){
-            obj.count = 1;
-            obj.id = 6;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        } else if (iR < .9) {
-            obj.count = 1;
-            obj.id = 5;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        } else {
-            obj.count = 1;
-            obj.id = 125;
-            obj.variaty = 1;
-            obj.type = DROP_TYPE_RESOURSE;
-        }
-
-        return obj;
-    }
 }
