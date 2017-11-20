@@ -4,6 +4,8 @@
 package build.orders {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
+
+import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
@@ -29,6 +31,8 @@ public class Order extends WorldObject{
 //    private var _smallHero:SmallHeroAnimation;
     private var _boomOpen:Image;
     private var _topOpen:Image;
+    private var _hintCheck:Bone;
+
 
     public function Order (data:Object) {
         super (data);
@@ -50,6 +54,10 @@ public class Order extends WorldObject{
         _source.outCallback = onOut;
         _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
+        _hintCheck = _armature.getBone('check');
+        var b:Bone;
+        b = _armature.getBone('check');
+        if (b != null) b.visible = false;
         if (_stateBuild == STATE_UNACTIVE) {
             _armature.animation.gotoAndStopByFrame('close');
         } else {
@@ -61,36 +69,27 @@ public class Order extends WorldObject{
     }
 
     private function createSmallHero():void {
-        if (!g.isAway) {
-//            _smallHero = new SmallHeroAnimation(this);
-//            _smallHero.armature = g.allData.factory[_dataBuild.url].buildArmature('table');
-        } else {
-            var b:Slot = _armature.getSlot('table');
-            if (b.display) b.display.dispose();
-            var s:Sprite = new Sprite();
-            b.display = s;
-        }
     }
     
     public function animateSmallHero(v:Boolean):void {
-//        var b:Slot = _armature.getSlot('table');
-//        if (b.display) b.display.dispose();
-//        var s:Sprite = new Sprite();
-//        b.display = s;
-//        if (_smallHero) {
-//            _smallHero.animateIt(v);
-//        }
+        if (!v) {
+            var b:Bone;
+            b = _armature.getBone('check');
+            if (b != null) b.visible = false;
+        } else {
+            _hintCheck.visible = true;
+        }
+
     }
 
     public function showSmallHero(needShow:Boolean):void {
-
-//        var b:Slot = _armature.getSlot('table');
-//        if (b.display) b.display.dispose();
-//        var s:Sprite = new Sprite();
-//        b.display = s;
-//        if (_smallHero) {
-//            _smallHero.needShowIt(needShow);
-//        }
+        if (!needShow) {
+            var b:Bone;
+            b = _armature.getBone('check');
+            if (b != null) b.visible = false;
+        } else {
+            _hintCheck.visible = true;
+        }
     }
 
     override public function onHover():void {
@@ -217,8 +216,6 @@ public class Order extends WorldObject{
         _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
         makeAnimation();
-//        createSmallHero();
-//        animateSmallHero(true);
     }
     
     private function showBtnCellArrow():void {
@@ -229,10 +226,6 @@ public class Order extends WorldObject{
 
     override public function clearIt():void {
         onOut();
-//        if (_smallHero) {
-//            _smallHero.deleteIt();
-//            _smallHero = null;
-//        }
         _topOpen = null;
         _boomOpen = null;
         _source.touchable = false;
@@ -245,9 +238,9 @@ public class Order extends WorldObject{
 
     private function makeAnimation(e:Event=null):void {
         var k:Number = Math.random();
-        if (k < .6)
+        if (k < .8)
             _armature.animation.gotoAndPlayByFrame('idle');
-        else if (k < .8)
+        else if (k < .9)
            _armature.animation.gotoAndPlayByFrame('idle2');
         else
             _armature.animation.gotoAndPlayByFrame('idle1');

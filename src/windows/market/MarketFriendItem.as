@@ -40,7 +40,6 @@ public class MarketFriendItem {
     public function MarketFriendItem(f:Someone, wo:WOMarket, _shift:int) {
         _shiftFriend = _shift;
         source = new CSprite();
-//        source.x = 218;
         _person = f;
         if (!_person) {
             Cc.error('MarketFriendItem:: person == null');
@@ -73,7 +72,6 @@ public class MarketFriendItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         visitBtn = new CButton();
-//        visitBtn.addButtonTexture(80, 30, CButton.GREEN, true);
         visitBtn.addButtonTexture(80, CButton.HEIGHT_32, CButton.GREEN, true);
         _txtBtn = new CTextField(76, 25, String(g.managerLanguage.allTexts[386]));
         _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -82,19 +80,18 @@ public class MarketFriendItem {
         visitBtn.addChild(_txtBtn);
         visitBtn.x = 55;
         visitBtn.y = 3;
-//        source.addChild(visitBtn);
         visitBtn.clickCallback = visitPerson;
         visitBtn.visible = false;
+        _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
+        source.addChild(_imRamka);
 
         if (_person.needHelpCount > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             MCScaler.scale(_helpIcon, 20, 20);
-            _helpIcon.x = 85;
-            _helpIcon.y = 80;
+            _helpIcon.x = 70;
+            _helpIcon.y = 70;
             source.addChild(_helpIcon);
         }
-        _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
-        source.addChild(_imRamka);
     }
 
     private function visitPerson():void {
@@ -119,9 +116,6 @@ public class MarketFriendItem {
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
         if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
-//        _person.name = ar[0].first_name;
-//        _person.lastName = ar[0].last_name;
-//        _person.photo = ar[0].photo_100;
         _txtName.text = _person.name;
         if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_person.photo, onLoadPhoto);

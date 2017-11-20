@@ -1,1 +1,1 @@
-{"SubTexture":[{"width":75,"height":75,"y":0,"name":"house1","x":0},{"width":38,"height":28,"y":0,"name":"plate","x":77},{"width":38,"height":28,"y":30,"name":"plate_meat","x":77},{"width":2,"height":2,"y":0,"name":"Символ 1","x":117}],"imagePath":"texture.png","name":"dog_small_house"}
+{"SubTexture":[{"width":75,"height":75,"y":0,"name":"house1","x":0},{"width":38,"height":28,"y":0,"name":"plate","x":77},{"width":38,"height":28,"y":30,"name":"plate_meat","x":77}],"imagePath":"texture.png","name":"dog_small_house"}

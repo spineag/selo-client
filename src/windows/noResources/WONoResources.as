@@ -299,20 +299,22 @@ public class WONoResources extends WindowMain {
                 break;
             case 'voucher':
                 _countCost = 0;
+                _arrItems = [];
                 for (i = 0; i<_paramData.data.currency.length; i++) {
-                    if (_paramData.data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _paramData.data.cost[i]) {
+                    if (item) item = null;
+                    if (_paramData.data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _paramData.data.cost[i] && g.user.greenCouponCount != _paramData.data.cost[i]) {
                         item = new WONoResourcesItem();
                         item.fillWitCoupone(DataMoney.GREEN_COUPONE, _paramData.data.cost[i] - g.user.greenCouponCount);
                         _countCost += 15 * (_paramData.data.cost[i] - g.user.greenCouponCount);
-                    } else if (_paramData.data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _paramData.data.cost[i]) {
+                    } else if (_paramData.data.currency[i] == DataMoney.BLUE_COUPONE && g.user.blueCouponCount < _paramData.data.cost[i] && g.user.blueCouponCount != _paramData.data.cost[i]) {
                         item = new WONoResourcesItem();
                         item.fillWitCoupone(DataMoney.BLUE_COUPONE, _paramData.data.cost[i] - g.user.blueCouponCount);
                         _countCost += 30 * (_paramData.data.cost[i] - g.user.blueCouponCount);
-                    } else if (_paramData.data.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < _paramData.data.cost[i]) {
+                    } else if (_paramData.data.currency[i] == DataMoney.RED_COUPONE && g.user.redCouponCount < _paramData.data.cost[i] && g.user.redCouponCount != _paramData.data.cost[i]) {
                         item = new WONoResourcesItem();
                         item.fillWitCoupone(DataMoney.RED_COUPONE, _paramData.data.cost[i] - g.user.redCouponCount);
                         _countCost += 45 * (_paramData.data.cost[i] - g.user.redCouponCount);
-                    } else if (_paramData.data.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _paramData.data.cost[i]) {
+                    } else if (_paramData.data.currency[i] == DataMoney.YELLOW_COUPONE && g.user.yellowCouponCount < _paramData.data.cost[i] && g.user.yellowCouponCount != _paramData.data.cost[i]) {
                         item = new WONoResourcesItem();
                         item.fillWitCoupone(DataMoney.YELLOW_COUPONE, _paramData.data.cost[i] - g.user.yellowCouponCount);
                         _countCost += 60 * (_paramData.data.cost[i] - g.user.yellowCouponCount);
@@ -325,11 +327,11 @@ public class WONoResources extends WindowMain {
                 }
                 switch (_arrItems.length) {
                     case 1:
-                        _arrItems[0].source.x = - (item.source.width/4);
+                        _arrItems[0].source.x = - (_arrItems[0].source.width/4);
                         break;
                     case 2:
-                        _arrItems[0].source.x = - (item.source.width/4) - 60;
-                        _arrItems[1].source.x = - (item.source.width/4) + 60;
+                        _arrItems[0].source.x = - (_arrItems[0].source.width/4) - 60;
+                        _arrItems[1].source.x = - (_arrItems[0].source.width/4) + 60;
                         break;
                     case 3:
                         _arrItems[0].source.x = -200 + 47;

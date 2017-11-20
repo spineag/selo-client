@@ -258,10 +258,6 @@ public class MarketItem {
         fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
         g.userInventory.addResource(id, -count);
         if(_dataFromServer.inPapper) {
-//            if (_papperBtn) {
-//                _papperBtn.visible = true;
-//            }
-//            if (_imCheck) _imCheck.visible = true;
             g.directServer.updateMarketPapper(number, true, null);
             _inPapper = true;
         }
@@ -670,6 +666,7 @@ public class MarketItem {
         }
         if (_btnAdditem) _btnAdditem.visible = false;
         _countMoney = cost;
+        if (_coin) _coin.visible = false;
         if (_plawkaCoins) _plawkaCoins.visible = true;
         if (_costTxt) _costTxt.text = String(cost);
         if (_dataFromServer.buyerSocialId == '1') {

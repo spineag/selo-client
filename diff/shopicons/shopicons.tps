@@ -379,11 +379,11 @@
             <filename>fireworks_event_icon.png</filename>
             <filename>corn_fabric_icon.png</filename>
             <filename>pets</filename>
-            <filename>pets_house</filename>
             <filename>easter_gnome_icon.png</filename>
             <filename>cake_icon.png</filename>
             <filename>goat_icon.png</filename>
             <filename>farm_goat_icon.png</filename>
+            <filename>pets_house</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

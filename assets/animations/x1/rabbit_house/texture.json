@@ -1,1 +1,1 @@
-{"SubTexture":[{"width":69,"height":94,"y":0,"name":"house1","x":0},{"width":38,"height":28,"y":30,"name":"plate","x":71},{"width":38,"height":28,"y":0,"name":"plate_carrot","x":71},{"width":2,"height":2,"y":0,"name":"Символ 1","x":111}],"imagePath":"texture.png","name":"rabbit_house"}
+{"SubTexture":[{"width":69,"height":94,"y":0,"name":"house1","x":0},{"width":38,"height":28,"y":0,"name":"plate","x":71},{"width":38,"height":28,"y":30,"name":"plate_carrot","x":71}],"imagePath":"texture.png","name":"rabbit_house"}
