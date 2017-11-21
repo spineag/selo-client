@@ -85,8 +85,13 @@ public class ShopNewTabs {
     }
 
     private function onTab(n:int):void {
+        g.user.shiftShop = 0;
         _callback.apply(null, [n]);
         activateTab(n);
+        g.user.shopTab = n;
+        if (n == WOShopNew.DECOR) {
+            g.user.decorShop = true;
+        }
     }
 
     public function deleteIt():void {

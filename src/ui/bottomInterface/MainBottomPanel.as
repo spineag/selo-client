@@ -71,13 +71,8 @@ public class MainBottomPanel {
         g.cont.interfaceCont.addChild(_friendBoard);
         g.cont.interfaceCont.addChild(_friendSpr);
         g.cont.interfaceCont.addChild(_source);
-//        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
-//                g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 260);
-//        _source.addChild(pl);
-
         createBtns();
         _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
-//        MCScaler.scale(_imNotification,33,33);
         _imNotification.x = -5;
         _imNotification.y = -20;
         _shopBtn.addChild(_imNotification);
@@ -204,7 +199,7 @@ public class MainBottomPanel {
                 g.toolsPanel.hideRepository();
                 var shopTab:int = WOShopNew.VILLAGE;
                 if (g.tuts.isTuts) {
-                    g.user.decorShiftShop = 0;
+                    g.user.shiftShop = 0;
                     g.user.decorShop = false;
                     if (g.tuts.action == TutsAction.BUY_ANIMAL) shopTab = WOShopNew.ANIMAL;
                     else if (g.tuts.action == TutsAction.BUY_FABRICA) shopTab = WOShopNew.FABRICA;
@@ -217,7 +212,7 @@ public class MainBottomPanel {
                 } else if (g.miniScenes.isReason(ManagerMiniScenes.BUY_BUILD)) {
                     shopTab = WOShopNew.FABRICA;
                 } else if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
-                    g.user.decorShiftShop = 0;
+                    g.user.shiftShop = 0;
                     g.user.decorShop = false;
                     g.user.shopTab = WOShopNew.ANIMAL;
                     if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShopNew.ANIMAL;

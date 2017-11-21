@@ -61,7 +61,7 @@ public class DecorShopNewFilter {
         _activeBtn = getItemByID(id);
         _activeBtn.setActive(true);
         g.user.shopDecorFilter = id;
-        g.user.decorShiftShop = 0;
+        g.user.shiftShop = 0;
         _wo.onChooseTab(WOShopNew.DECOR);
     }
 

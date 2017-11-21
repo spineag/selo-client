@@ -83,7 +83,7 @@ public class WOShopNew extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         if (!g.userValidates.checkInfo('level', g.user.level)) return;
-        if (params && params[0]) g.user.shopTab = params[0];
+//        if (params && params[0]) g.user.shopTab = params[0];
         _tabs.activateTab(g.user.shopTab);
         onChooseTab(g.user.shopTab);
         super.showIt();

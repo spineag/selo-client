@@ -136,6 +136,7 @@ public class ShopNewList {
             _maxPage = int(_arrItems.length / c);
             if (_arrItems.length % c) _maxPage++;
         }
+        if (g.user.shiftShop > 0) animFill();
     }
 
     private function createArrows():void {
@@ -152,7 +153,6 @@ public class ShopNewList {
             _leftArrow.y = -346 / 2 + 210;
         }
         _woSource.addChild(_leftArrow);
-
         _rightArrow = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
         im.scaleX = -1;
@@ -182,6 +182,12 @@ public class ShopNewList {
         }
         if (_shift < 0) _shift = 0;
         TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;  checkArrows(_curPage-1); }});
+        g.user.shiftShop = _shift
+    }
+
+    private function animFill():void {
+        _shift = g.user.shiftShop;
+        TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;  checkArrows(_curPage-1); }});
     }
 
     private function onClickRight():void {
@@ -197,13 +203,13 @@ public class ShopNewList {
         }
         if (_shift > _maxShift) _shift = _maxShift;
         TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;   checkArrows(_curPage+1); }});
+        g.user.shiftShop = _shift
     }
 
     private function checkArrows(i:int = 1):void {
         if (_maxShift == 0) _rightArrow.visible = _leftArrow.visible = false;
         else {
             _leftArrow.visible = _shift > 0;
-//            if (i == 0) _curPage = 0;
             _rightArrow.visible = i < _maxPage;
         }
        updateTxtPages();

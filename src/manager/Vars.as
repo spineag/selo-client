@@ -17,6 +17,8 @@ import data.AllData;
 import data.BuildType;
 import heroes.ManagerCats;
 
+import hint.PetHint;
+
 import order.DataOrderCat;
 
 import order.ManagerOrder;
@@ -164,6 +166,7 @@ public class Vars {
     public var mouseHint:MouseHint;
     public var fabricHint:FabricHint;
     public var treeHint:TreeHint;
+    public var petHint:PetHint;
     public var resourceHint:ResourceHint;
     public var marketHint:MarketHint;
     public var levelUpHint:LevelUpHint;
@@ -342,6 +345,7 @@ public class Vars {
         mouseHint = new MouseHint();
         fabricHint = new FabricHint();
         treeHint = new TreeHint();
+        petHint = new PetHint();
         resourceHint = new ResourceHint();
         marketHint = new MarketHint();
         levelUpHint = new LevelUpHint();
@@ -523,6 +527,7 @@ public class Vars {
         if (mouseHint) mouseHint.hideIt();
         if (fabricHint) fabricHint.hideIt();
         if (treeHint) treeHint.managerHide();
+        if (petHint) petHint.managerHide();
         if (resourceHint) resourceHint.hideIt();
         if (hint) (hint as Hint).hideIt();
     }

@@ -175,7 +175,7 @@ public class Farm extends WorldObject{
                 }
             } else {
                 if (!isFull && !g.tuts.isTuts && !g.isAway) {
-                    g.user.decorShiftShop = 0;
+                    g.user.shiftShop = 0;
                     g.user.decorShop = false;
                     g.user.animalIdArrow = _dataAnimal.id;
                     g.user.shopTab = WOShopNew.ANIMAL;

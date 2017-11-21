@@ -45,7 +45,7 @@ public class User extends Someone {
     public var wallTrainItem:Boolean;
     public var wallOrderItem:Boolean;
     public var decorShop:Boolean;
-    public var decorShiftShop:int;
+    public var shiftShop:int;
     public var userGAcid:String = 'unknown';
     public var paperShift:int;
     public var shopTab:int = WOShopNew.VILLAGE;
