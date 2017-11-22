@@ -105,43 +105,28 @@ public class WOLastResource extends WindowMain {
                 switch (_arrItems.length) {
                     case 1:
                         _arrItems[0].source.x = - item.source.width/4;
-//                        _arrItems[0].source.y = 10;
                         break;
                     case 2:
                         _arrItems[0].source.x = -200 + 107;
-//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 227;
-//                        _arrItems[1].source.y =  10;
                         break;
                     case 3:
                         _arrItems[0].source.x = -200 + 52;
-//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 167;
-//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 287;
-//                        _arrItems[2].source.y =  10;
                         break;
                     case 4:
                         _arrItems[0].source.x = -200 + 39;
-//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 124;
-//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 209;
-//                        _arrItems[2].source.y =  10;
                         _arrItems[3].source.x = -200 + 294;
-//                        _arrItems[3].source.y =  10;
                         break;
                     case 5:
                         _arrItems[0].source.x = -200 + 27;
-//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 97;
-//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 167;
-//                        _arrItems[2].source.y =  10;
                         _arrItems[3].source.x = -200 + 237;
-//                        _arrItems[3].source.y =  10;
                         _arrItems[4].source.x = -200 + 307;
-//                        _arrItems[4].source.y =  10;
                         break;
                 }
                 _btnYes.clickCallback = onClickOrder;
@@ -160,7 +145,6 @@ public class WOLastResource extends WindowMain {
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.resourceId);
                 item.source.x = -25;
-//                item.source.y = -20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickNyashuk;
@@ -187,43 +171,28 @@ public class WOLastResource extends WindowMain {
                 switch (_arrItems.length) {
                     case 1:
                         _arrItems[0].source.x = - item.source.width/4;
-//                        _arrItems[0].source.y = 10;
                         break;
                     case 2:
                         _arrItems[0].source.x = -200 + 107;
-//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 227;
-//                        _arrItems[1].source.y =  10;
                         break;
                     case 3:
                         _arrItems[0].source.x = -200 + 52;
-//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 167;
-//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 287;
-//                        _arrItems[2].source.y =  10;
                         break;
                     case 4:
                         _arrItems[0].source.x = -200 + 39;
-//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 124;
-//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 209;
-//                        _arrItems[2].source.y =  10;
                         _arrItems[3].source.x = -200 + 294;
-//                        _arrItems[3].source.y =  10;
                         break;
                     case 5:
                         _arrItems[0].source.x = -200 + 27;
-//                        _arrItems[0].source.y =  10;
                         _arrItems[1].source.x = -200 + 97;
-//                        _arrItems[1].source.y =  10;
                         _arrItems[2].source.x = -200 + 167;
-//                        _arrItems[2].source.y =  10;
                         _arrItems[3].source.x = -200 + 237;
-//                        _arrItems[3].source.y =  10;
                         _arrItems[4].source.x = -200 + 307;
-//                        _arrItems[4].source.y =  10;
                         break;
                 }
                 _btnYes.clickCallback = onClickFabric;

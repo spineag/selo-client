@@ -88,7 +88,6 @@ public class WONoResourcesItem {
         if (!_image) {
             Cc.error('WONoResourcesItem:: no such image ' + st);
         } else {
-//            MCScaler.scale(_image, 50, 50);
             _image.x = 33 - _image.width / 2;
             _image.y = 33 - _image.height / 2;
             source.addChild(_image);
@@ -140,7 +139,6 @@ public class WONoResourcesItem {
             _txtCount.deleteIt();
             _txtCount = null;
         }
-
     }
 
     private function onHover():void {
@@ -148,7 +146,6 @@ public class WONoResourcesItem {
         _inHover = true;
         _countTimer = 1;
         g.gameDispatcher.addToTimer(timer)
-
     }
 
     private function onOut():void {

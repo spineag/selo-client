@@ -46,6 +46,7 @@ public class CouponePanel {
         _imCouponePlashka.y = 47;
         _imCouponePlashka.pivotX = _imCouponePlashka.width/2;
         _imCouponePlashka.pivotY = _imCouponePlashka.width/2;
+        MCScaler.scale(_imCouponePlashka,_imCouponePlashka.height-5, _imCouponePlashka.width-5);
         _source.addChild(_imCouponePlashka);
 
         _imCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture("vauchers_pt_1_icon"));
@@ -55,6 +56,7 @@ public class CouponePanel {
         _source.y = 80;
         _imCoupone.pivotX = _imCoupone.width/2;
         _imCoupone.pivotY = _imCoupone.width/2;
+        MCScaler.scale(_imCoupone,_imCoupone.height-5, _imCoupone.width-5);
         _source.addChild(_imCoupone);
 
         if (g.user.level < 11) _source.visible = false;

@@ -31,7 +31,6 @@ public class WOLastResourceItem {
         source = new Sprite();
         var bg:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         MCScaler.scale(bg,66, 70);
-//        source.addChild(bg);
     }
         public function fillWithResource(id:int):void {
         var ob:Object = g.allData.getResourceById(id);
@@ -75,7 +74,6 @@ public class WOLastResourceItem {
         if (!_image) {
             Cc.error('WONoResourcesItem:: no such image ' + st);
         } else {
-//            MCScaler.scale(_image, 50, 50);
             _image.x = 33 - _image.width / 2;
             _image.y = 33 - _image.height / 2;
             source.addChild(_image);
@@ -83,8 +81,6 @@ public class WOLastResourceItem {
 
         _txtCount = new CTextField(150,150,String(g.userInventory.getCountResourceById(id)));
         _txtCount.setFormat(CTextField.BOLD24, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-//        _txtCount.x = 45;
-//        _txtCount.y = 45;
         source.addChild(_txtCount);
     }
 
