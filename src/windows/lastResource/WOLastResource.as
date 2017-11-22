@@ -150,7 +150,7 @@ public class WOLastResource extends WindowMain {
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.id);
                 item.source.x = -25;
-                item.source.y = -30;
+                item.source.y = -20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickMarket;
@@ -160,7 +160,7 @@ public class WOLastResource extends WindowMain {
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.resourceId);
                 item.source.x = -25;
-                item.source.y = -30;
+//                item.source.y = -20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickNyashuk;
@@ -169,7 +169,7 @@ public class WOLastResource extends WindowMain {
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.id);
                 item.source.x = -25;
-                item.source.y = -30;
+                item.source.y = -20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickTrainHelp;
@@ -232,7 +232,7 @@ public class WOLastResource extends WindowMain {
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.id);
                 item.source.x = -25;
-                item.source.y = -30;
+                item.source.y = -20;
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickRawPet;

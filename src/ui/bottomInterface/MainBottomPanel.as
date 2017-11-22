@@ -335,7 +335,6 @@ public class MainBottomPanel {
                     _imArrow.scaleX = 1;
                     _imArrow.x = 19;
                 }
-//                g.toolsPanel.hideRepository();
                 break;
             case 'option':
                 g.managerHelpers.onUserAction();
@@ -393,7 +392,6 @@ public class MainBottomPanel {
     public function showToolsForCutScene():void { onClick('tools'); }
     public function onResizePanelFriend():void {
         if (_friendSpr) {
-//            _friendSpr.x = g.managerResize.stageWidth/2;
             _friendSpr.y = g.managerResize.stageHeight - 83;
         }
         if (_friendBoard) _friendBoard.x = g.managerResize.stageWidth/2 - 121;
@@ -407,15 +405,12 @@ public class MainBottomPanel {
 
     public function cancelBoolean(b:Boolean):void {
         _cancelBtn.visible = b;
-//        _toolsBtn.visible = !b;
     }
 
     public function doorBoolean(b:Boolean,person:Someone = null):void {
         _person = person;
         _homeBtn.visible = b;
         _shopBtn.visible = !b;
-//        _ambarBtn.visible = !b;
-//        _orderBtn.visible = !b;
         _toolsBtn.visible = !b;
         _cancelBtn.visible = false;
         removeHelpIcon();
@@ -499,11 +494,6 @@ public class MainBottomPanel {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_add_button'));
                 MCScaler.scale(im, 27, 27);
                 _btnPlusMinus.addDisplayObject(im);
-//                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-//                MCScaler.scale(im, 16, 16);
-//                im.x = 6;
-//                im.y = 6;
-//                _btnPlusMinus.addDisplayObject(im);
                 _btnPlusMinus.clickCallback = onClickAddNeighbor;
                 _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1076])) };
                 _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
@@ -517,10 +507,6 @@ public class MainBottomPanel {
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_out_button'));
                         MCScaler.scale(im, 27, 27);
                         _btnPlusMinus.addDisplayObject(im);
-//                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
-//                        MCScaler.scale(im, 16, 16);
-//                        im.x = 6;
-//                        im.y = 10;
                         _btnPlusMinus.addDisplayObject(im);
                         _btnPlusMinus.clickCallback = onClickDeleteNeighbor;
                         _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1077])) };
@@ -558,7 +544,6 @@ public class MainBottomPanel {
         _btnPlusMinus.y = 60;
         _btnPlusMinus.x = -10;
     }
-//    g.user.isTester
 
     private function onClickDeleteNeighbor ():void {
         g.friendPanel.deleteNeighborFriend(_person);
@@ -585,7 +570,6 @@ public class MainBottomPanel {
     }
 
     public function addHelpIcon():void {
-        // _person === g.visitedUser
         var sp:CSprite = new CSprite();
         if (_person && _person.needHelpCount > 0) {
             _friendBoardHelpInfo = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));

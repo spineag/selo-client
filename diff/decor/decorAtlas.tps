@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/decor/decorAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/decor/decorAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -199,14 +199,14 @@
             <filename>alpine_garden.png</filename>
             <filename>amanita_1_red.png</filename>
             <filename>amanita_2_red.png</filename>
-            <filename>arbor.png</filename>
             <filename>arch_brick</filename>
             <filename>arch_stone_blue</filename>
             <filename>balabas_blue.png</filename>
-            <filename>barrel.png</filename>
             <filename>beach_chair_red.png</filename>
             <filename>bird_house.png</filename>
             <filename>blue_fence</filename>
+            <filename>boxes.png</filename>
+            <filename>boxes3.png</filename>
             <filename>bridge.png</filename>
             <filename>cactus_round</filename>
             <filename>camping_tent_green.png</filename>
@@ -215,6 +215,7 @@
             <filename>cat_cosmonaut_1.png</filename>
             <filename>cat_cosmonaut_2.png</filename>
             <filename>cat_statue.png</filename>
+            <filename>copper_bench.png</filename>
             <filename>cupidon_statue_blue.png</filename>
             <filename>cupidon_statue_pink.png</filename>
             <filename>cycle_flower.png</filename>
@@ -233,25 +234,34 @@
             <filename>fir_2.png</filename>
             <filename>fir_3.png</filename>
             <filename>fir_4.png</filename>
+            <filename>flag_usa.png</filename>
             <filename>flower_boot.png</filename>
-            <filename>fountain_blue.png</filename>
-            <filename>fountain_green.png</filename>
+            <filename>flower_pot_1.png</filename>
+            <filename>flower_pot_2.png</filename>
+            <filename>flower_pot_3.png</filename>
+            <filename>flowerbed_square_3x3.png</filename>
+            <filename>flowerbed_square_blue.png</filename>
+            <filename>flowerbed_square_red.png</filename>
+            <filename>flowerbed_usa.png</filename>
+            <filename>forks.png</filename>
             <filename>fountain_pink.png</filename>
-            <filename>fountain_yellow.png</filename>
+            <filename>fountain_small.png</filename>
+            <filename>fountain_top.png</filename>
             <filename>garden_gnome_blue_hat.png</filename>
             <filename>garden_gnome_coin.png</filename>
             <filename>garden_gnome_red_hat.png</filename>
             <filename>gnome_alien.png</filename>
             <filename>gnome_horseshoe.png</filename>
+            <filename>gold_bench.png</filename>
             <filename>grape_gnome.png</filename>
+            <filename>hay.png</filename>
             <filename>kiss_bench.png</filename>
             <filename>leaf_green</filename>
+            <filename>logs.png</filename>
             <filename>love_tree.png</filename>
             <filename>maslenitsa_statue.png</filename>
             <filename>mushroom_house_1.png</filename>
             <filename>mushroom_house_2.png</filename>
-            <filename>needles_pillow_blue.png</filename>
-            <filename>needles_pillow_pink.png</filename>
             <filename>new_year_boot.png</filename>
             <filename>picnic_pink.png</filename>
             <filename>pink_fence</filename>
@@ -260,24 +270,38 @@
             <filename>pumpkin_2.png</filename>
             <filename>pumpkin_3.png</filename>
             <filename>pumpkin.png</filename>
+            <filename>shovel.png</filename>
             <filename>sled.png</filename>
             <filename>snowdrop.png</filename>
+            <filename>star_event_winner.png</filename>
+            <filename>statue_cow.png</filename>
+            <filename>statue_usa.png</filename>
+            <filename>stone_bench.png</filename>
             <filename>street_lantern.png</filename>
+            <filename>street_light_red.png</filename>
+            <filename>street_light_wooden2.png</filename>
             <filename>sunflower</filename>
-            <filename>swamp_5х5.png</filename>
-            <filename>swamp_decor.png</filename>
+            <filename>swamp_5x5.png</filename>
+            <filename>swamp_small.png</filename>
+            <filename>tail_usa_1.png</filename>
+            <filename>tail_usa_2.png</filename>
             <filename>track_autumn_1.png</filename>
             <filename>track_autumn.png</filename>
             <filename>track_blue_cross.png</filename>
             <filename>track_blue.png</filename>
+            <filename>track_grass.png</filename>
+            <filename>track_grass2.png</filename>
             <filename>track_orange.png</filename>
             <filename>track_pink_heart.png</filename>
             <filename>track_pink_white.png</filename>
             <filename>track_pink.png</filename>
             <filename>track_purple.png</filename>
+            <filename>track_stone.png</filename>
             <filename>track_white_blue.png</filename>
             <filename>track_white_pink.png</filename>
             <filename>track_white.png</filename>
+            <filename>track_wooden1.png</filename>
+            <filename>track_wooden2.png</filename>
             <filename>track_yellow.png</filename>
             <filename>trampoline_yellow.png</filename>
             <filename>tree_house.png</filename>
@@ -292,18 +316,13 @@
             <filename>unique</filename>
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
+            <filename>wheelbarrow_top_1.png</filename>
+            <filename>wheelbarrow_top_2.png</filename>
+            <filename>wheelbarrow.png</filename>
             <filename>white_fence</filename>
             <filename>white_heart_fence</filename>
-            <filename>flowerbed_square_3x3.png</filename>
-            <filename>flowerbed_square_blue.png</filename>
-            <filename>flowerbed_square_red.png</filename>
-            <filename>star_event_winner.png</filename>
-            <filename>flag_usa.png</filename>
-            <filename>flowerbed_usa.png</filename>
-            <filename>statue_cow.png</filename>
-            <filename>statue_usa.png</filename>
-            <filename>tail_usa_1.png</filename>
-            <filename>tail_usa_2.png</filename>
+            <filename>wood_bench.png</filename>
+            <filename>barrel.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

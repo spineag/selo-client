@@ -192,7 +192,11 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>8_march_statue_icon.png</filename>
             <filename>alive_fence_icon.png</filename>
+            <filename>alpine_garden_big_icon.png</filename>
+            <filename>alpine_garden_icon.png</filename>
+            <filename>alpine_garden_medium_icon.png</filename>
             <filename>amanita_1_red_icon.png</filename>
             <filename>amanita_2_red_icon.png</filename>
             <filename>ambar_icon.png</filename>
@@ -211,14 +215,21 @@
             <filename>bbq_grill_icon.png</filename>
             <filename>beach_chair</filename>
             <filename>beehive_icon.png</filename>
+            <filename>bird_house_icon.png</filename>
             <filename>blue_fence_icon.png</filename>
             <filename>blueberry_icon.png</filename>
-            <filename>bridge_blue_icon.png</filename>
+            <filename>boxes_icon.png</filename>
+            <filename>boxes3_icon.png</filename>
             <filename>bridge_icon.png</filename>
-            <filename>bridge_red_icon.png</filename>
-            <filename>bridge_yellow_icon.png</filename>
             <filename>builds</filename>
             <filename>cactus_round</filename>
+            <filename>cake_icon.png</filename>
+            <filename>camping_fire_icon.png</filename>
+            <filename>camping_tent_green_icon.png</filename>
+            <filename>camping_tent_yellow_icon.png</filename>
+            <filename>cat_bouquet_icon.png</filename>
+            <filename>cat_cosmonaut_1_icon.png</filename>
+            <filename>cat_cosmonaut_2_icon.png</filename>
             <filename>cat_icon.png</filename>
             <filename>cat_nail</filename>
             <filename>chair_1_icon.png</filename>
@@ -226,14 +237,34 @@
             <filename>cherry_icon.png</filename>
             <filename>chicken_icon.png</filename>
             <filename>confectionery_icon.png</filename>
+            <filename>copper_bench_icon.png</filename>
+            <filename>corn_fabric_icon.png</filename>
             <filename>cow_icon.png</filename>
             <filename>cupidon_statue_blue_icon.png</filename>
             <filename>cupidon_statue_pink_icon.png</filename>
+            <filename>cycle_flower_icon.png</filename>
             <filename>dairy_icon.png</filename>
+            <filename>dandelion_blue_icon.png</filename>
+            <filename>dandelion_green_icon.png</filename>
+            <filename>dandelion_orange_icon.png</filename>
+            <filename>dandelion_red_icon.png</filename>
+            <filename>easel_blue_icon.png</filename>
             <filename>easel_clear_icon.png</filename>
+            <filename>easel_red_icon.png</filename>
+            <filename>easel_yellow_icon.png</filename>
+            <filename>easter_bunny_icon.png</filename>
+            <filename>easter_chick_icon.png</filename>
+            <filename>easter_egg_light_blue_icon.png</filename>
+            <filename>easter_egg_pink_icon.png</filename>
+            <filename>easter_egg_purple_icon.png</filename>
+            <filename>easter_egg_red_icon.png</filename>
+            <filename>easter_egg_yellow_icon.png</filename>
+            <filename>easter_gnome_icon.png</filename>
+            <filename>easter_tree_icon.png</filename>
             <filename>farm_bee_icon.png</filename>
             <filename>farm_chicken_icon.png</filename>
             <filename>farm_cow_icon.png</filename>
+            <filename>farm_goat_icon.png</filename>
             <filename>farm_pig_icon.png</filename>
             <filename>farm_sheep_icon.png</filename>
             <filename>farming_table_icon.png</filename>
@@ -242,18 +273,37 @@
             <filename>fir_2_icon.png</filename>
             <filename>fir_3_icon.png</filename>
             <filename>fir_4_icon.png</filename>
-            <filename>fountain_blue_icon.png</filename>
-            <filename>fountain_green_icon.png</filename>
+            <filename>fireworks_event_icon.png</filename>
+            <filename>flag_usa_icon.png</filename>
+            <filename>flower_boot_icon.png</filename>
+            <filename>flower_pot_1_icon.png</filename>
+            <filename>flower_pot_2_icon.png</filename>
+            <filename>flower_pot_3_icon.png</filename>
+            <filename>flowerbed_square_3x3_icon.png</filename>
+            <filename>flowerbed_square_blue_icon.png</filename>
+            <filename>flowerbed_square_red_icon.png</filename>
+            <filename>flowerbed_usa_icon.png</filename>
+            <filename>forks_icon.png</filename>
             <filename>fountain_pink_icon.png</filename>
-            <filename>fountain_yellow_icon.png</filename>
+            <filename>fountain_small_icon.png</filename>
+            <filename>fountain_top_icon.png</filename>
             <filename>fryer_icon.png</filename>
             <filename>garden_gnome_blue_hat_icon.png</filename>
+            <filename>garden_gnome_coin_icon.png</filename>
             <filename>garden_gnome_red_hat_icon.png</filename>
             <filename>gate_alive_closed_icon.png</filename>
             <filename>gate_blue_closed_icon.png</filename>
             <filename>gate_pink_closed_icon.png</filename>
             <filename>gate_white_closed_icon.png</filename>
             <filename>ghost_icon.png</filename>
+            <filename>gnome_alien_icon.png</filename>
+            <filename>gnome_horseshoe_icon.png</filename>
+            <filename>gnome_king_icon.png</filename>
+            <filename>goat_icon.png</filename>
+            <filename>gold_bench_icon.png</filename>
+            <filename>grape_gnome_icon.png</filename>
+            <filename>hammock_icon.png</filename>
+            <filename>hay_icon.png</filename>
             <filename>heart_balabas_icon.png</filename>
             <filename>ice_cream_maker_icon.png</filename>
             <filename>jam_machine_icon.png</filename>
@@ -262,17 +312,24 @@
             <filename>kakao_icon.png</filename>
             <filename>kiss_bench_icon.png</filename>
             <filename>lemon_icon.png</filename>
+            <filename>logs_icon.png</filename>
             <filename>loom_icon.png</filename>
             <filename>love_tree_icon.png</filename>
             <filename>maslenitsa_statue_icon.png</filename>
+            <filename>mushroom_house_1_icon.png</filename>
+            <filename>mushroom_house_2_icon.png</filename>
             <filename>needles_pillow_blue_icon.png</filename>
             <filename>needles_pillow_pink_icon.png</filename>
             <filename>new_year_boot_icon.png</filename>
             <filename>new_year_tree_1_icon.png</filename>
             <filename>new_year_tree_2_icon.png</filename>
             <filename>orange_icon.png</filename>
+            <filename>pets</filename>
+            <filename>pets_house</filename>
             <filename>picnic</filename>
+            <filename>picnic_table_icon.png</filename>
             <filename>pie_oven_icon.png</filename>
+            <filename>pier_icon.png</filename>
             <filename>pig_icon.png</filename>
             <filename>pink_fence_icon.png</filename>
             <filename>pumpkin_1_icon.png</filename>
@@ -283,14 +340,27 @@
             <filename>ridge_icon.png</filename>
             <filename>scarecrow_icon.png</filename>
             <filename>sheep_icon.png</filename>
+            <filename>shovel_icon.png</filename>
             <filename>sklad_icon.png</filename>
             <filename>sled_icon.png</filename>
             <filename>smelter_icon.png</filename>
             <filename>smoke_house_icon.png</filename>
             <filename>snowdrop_icon.png</filename>
+            <filename>snowman_icon.png</filename>
+            <filename>star_event_winner_icon.png</filename>
+            <filename>statue_cow_icon.png</filename>
+            <filename>statue_usa_icon.png</filename>
+            <filename>stone_bench_icon.png</filename>
+            <filename>street_lantern_icon.png</filename>
+            <filename>street_light_red_icon.png</filename>
+            <filename>street_light_wooden2_icon.png</filename>
             <filename>sugar_mill_icon.png</filename>
             <filename>sunflower</filename>
-            <filename>swamp_decor_icon.png</filename>
+            <filename>swamp_5x5_icon.png</filename>
+            <filename>swamp_small_icon.png</filename>
+            <filename>swing_icon.png</filename>
+            <filename>tail_usa_1_icon.png</filename>
+            <filename>tail_usa_2_icon.png</filename>
             <filename>teleskope_icon.png</filename>
             <filename>tent</filename>
             <filename>toy_factory_icon.png</filename>
@@ -298,16 +368,22 @@
             <filename>track_autumn_icon.png</filename>
             <filename>track_blue_cross_icon.png</filename>
             <filename>track_blue_icon.png</filename>
+            <filename>track_grass_icon.png</filename>
+            <filename>track_grass2_icon.png</filename>
             <filename>track_orange_icon.png</filename>
             <filename>track_pink_heart_icon.png</filename>
             <filename>track_pink_icon.png</filename>
             <filename>track_pink_white_icon.png</filename>
             <filename>track_purple_icon.png</filename>
+            <filename>track_stone_icon.png</filename>
             <filename>track_white_blue_icon.png</filename>
             <filename>track_white_icon.png</filename>
             <filename>track_white_pink_icon.png</filename>
+            <filename>track_wooden1_icon.png</filename>
+            <filename>track_wooden2_icon.png</filename>
             <filename>track_yellow_icon.png</filename>
             <filename>trampoline</filename>
+            <filename>tree_swing_icon.png</filename>
             <filename>trees_1_icon.png</filename>
             <filename>trees_2_icon.png</filename>
             <filename>trees_3_icon.png</filename>
@@ -315,75 +391,18 @@
             <filename>trees_5_icon.png</filename>
             <filename>trees_6_icon.png</filename>
             <filename>trees_7_icon.png</filename>
+            <filename>ufo_icon.png</filename>
             <filename>umbrella</filename>
             <filename>well_white_icon.png</filename>
             <filename>well_yellow_icon.png</filename>
+            <filename>wheelbarrow_icon.png</filename>
+            <filename>wheelbarrow_top_1_icon.png</filename>
+            <filename>wheelbarrow_top_2_icon.png</filename>
             <filename>white_fence_heart_icon.png</filename>
             <filename>white_fence_icon.png</filename>
             <filename>witch_pot</filename>
+            <filename>wood_bench_icon.png</filename>
             <filename>yogurt_machine_icon.png</filename>
-            <filename>street_lantern_icon.png</filename>
-            <filename>snowman_icon.png</filename>
-            <filename>8_march_statue_icon.png</filename>
-            <filename>alpine_garden_icon.png</filename>
-            <filename>cat_bouquet_icon.png</filename>
-            <filename>cycle_flower_icon.png</filename>
-            <filename>bird_house_icon.png</filename>
-            <filename>dandelion_blue_icon.png</filename>
-            <filename>dandelion_green_icon.png</filename>
-            <filename>dandelion_orange_icon.png</filename>
-            <filename>dandelion_red_icon.png</filename>
-            <filename>gnome_horseshoe_icon.png</filename>
-            <filename>garden_gnome_coin_icon.png</filename>
-            <filename>ufo_icon.png</filename>
-            <filename>swamp_5х5_icon.png</filename>
-            <filename>grape_gnome_icon.png</filename>
-            <filename>gnome_alien_icon.png</filename>
-            <filename>flower_boot_icon.png</filename>
-            <filename>cat_cosmonaut_1_icon.png</filename>
-            <filename>cat_cosmonaut_2_icon.png</filename>
-            <filename>easter_bunny_icon.png</filename>
-            <filename>easter_chick_icon.png</filename>
-            <filename>easter_tree_icon.png</filename>
-            <filename>easter_egg_light_blue_icon.png</filename>
-            <filename>easter_egg_pink_icon.png</filename>
-            <filename>easter_egg_purple_icon.png</filename>
-            <filename>easter_egg_yellow_icon.png</filename>
-            <filename>easter_egg_red_icon.png</filename>
-            <filename>gnome_king_icon.png</filename>
-            <filename>easel_blue_icon.png</filename>
-            <filename>easel_red_icon.png</filename>
-            <filename>easel_yellow_icon.png</filename>
-            <filename>camping_fire_icon.png</filename>
-            <filename>camping_tent_green_icon.png</filename>
-            <filename>camping_tent_yellow_icon.png</filename>
-            <filename>tree_swing_icon.png</filename>
-            <filename>picnic_table_icon.png</filename>
-            <filename>hammock_icon.png</filename>
-            <filename>alpine_garden_big_icon.png</filename>
-            <filename>alpine_garden_medium_icon.png</filename>
-            <filename>mushroom_house_1_icon.png</filename>
-            <filename>mushroom_house_2_icon.png</filename>
-            <filename>swing_icon.png</filename>
-            <filename>pier_icon.png</filename>
-            <filename>flowerbed_square_3x3_icon.png</filename>
-            <filename>flowerbed_square_red_icon.png</filename>
-            <filename>flowerbed_square_blue_icon.png</filename>
-            <filename>star_event_winner_icon.png</filename>
-            <filename>flag_usa_icon.png</filename>
-            <filename>statue_usa_icon.png</filename>
-            <filename>flowerbed_usa_icon.png</filename>
-            <filename>tail_usa_1_icon.png</filename>
-            <filename>tail_usa_2_icon.png</filename>
-            <filename>statue_cow_icon.png</filename>
-            <filename>fireworks_event_icon.png</filename>
-            <filename>corn_fabric_icon.png</filename>
-            <filename>pets</filename>
-            <filename>easter_gnome_icon.png</filename>
-            <filename>cake_icon.png</filename>
-            <filename>goat_icon.png</filename>
-            <filename>farm_goat_icon.png</filename>
-            <filename>pets_house</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
