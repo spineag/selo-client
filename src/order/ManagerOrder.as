@@ -1070,7 +1070,7 @@ public class ManagerOrder {
     }
     
     public function showSmallHeroAtOrder(v:Boolean):void {
-        if (_orderBuilding) _orderBuilding.showSmallHero(v);
+//        if (_orderBuilding) _orderBuilding.showSmallHero(v);
         if (v) checkForFullOrder();
     }
 

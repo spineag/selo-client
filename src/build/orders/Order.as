@@ -54,9 +54,9 @@ public class Order extends WorldObject{
         _source.outCallback = onOut;
         _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
-        _hintCheck = _armature.getBone('check');
+        if (!_hintCheck) _hintCheck = _armature.getBone('top');
         var b:Bone;
-        b = _armature.getBone('check');
+        b = _armature.getBone('top');
         if (b != null) b.visible = false;
         if (_stateBuild == STATE_UNACTIVE) {
             _armature.animation.gotoAndStopByFrame('close');
@@ -67,25 +67,12 @@ public class Order extends WorldObject{
             makeAnimation();
         }
     }
-
-    private function createSmallHero():void {
-    }
     
     public function animateSmallHero(v:Boolean):void {
+        if (!_hintCheck)  _hintCheck = _armature.getBone('top');
         if (!v) {
             var b:Bone;
-            b = _armature.getBone('check');
-            if (b != null) b.visible = false;
-        } else {
-            _hintCheck.visible = true;
-        }
-
-    }
-
-    public function showSmallHero(needShow:Boolean):void {
-        if (!needShow) {
-            var b:Bone;
-            b = _armature.getBone('check');
+            b = _armature.getBone('top');
             if (b != null) b.visible = false;
         } else {
             _hintCheck.visible = true;
@@ -238,13 +225,9 @@ public class Order extends WorldObject{
 
     private function makeAnimation(e:Event=null):void {
         var k:Number = Math.random();
-        if (k < .8)
-            _armature.animation.gotoAndPlayByFrame('idle');
-        else if (k < .9)
-           _armature.animation.gotoAndPlayByFrame('idle2');
-        else
-            _armature.animation.gotoAndPlayByFrame('idle1');
-
+        if (k < .9) _armature.animation.gotoAndPlayByFrame('idle');
+        else if (k < .95) _armature.animation.gotoAndPlayByFrame('idle2');
+        else _armature.animation.gotoAndPlayByFrame('idle1');
     }
 }
 }
