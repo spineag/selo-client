@@ -43,7 +43,7 @@ public class ManagerBuyerNyashuk {
         g.townArea.addTableNyashuk(_table2,25, 27);
         g.loadAnimation.load('animations_json/x1/red_n', 'red_n', null);
         g.loadAnimation.load('animations_json/x1/blue_n', 'blue_n', null);
-        if (!g.tuts.isTuts) g.directServer.getUserPapperBuy(null);
+        if (!g.tuts.isTuts) g.server.getUserPapperBuy(null);
     }
 
     public function get arrNyashuk():Array {
@@ -208,7 +208,7 @@ public class ManagerBuyerNyashuk {
             ob.visible = true;
             _arr.push(ob);
             for (i = 0; i < 2; i++) {
-                g.directServer.addUserPapperBuy(_arr[i].buyerId, _arr[i].resourceId, _arr[i].resourceCount, _arr[i].xp, _arr[i].cost, 1);
+                g.server.addUserPapperBuy(_arr[i].buyerId, _arr[i].resourceId, _arr[i].resourceCount, _arr[i].xp, _arr[i].cost, 1);
             }
         } else  {
             if (objectNew.buyer_id == 1) {
@@ -261,7 +261,7 @@ public class ManagerBuyerNyashuk {
                 ob.visible = true;
             }
             _arr.push(ob);
-            g.directServer.updateUserPapperBuy(ob.buyerId, ob.resourceId, ob.resourceCount, ob.xp, ob.cost,1, ob.typeBuild);
+            g.server.updateUserPapperBuy(ob.buyerId, ob.resourceId, ob.resourceCount, ob.xp, ob.cost,1, ob.typeBuild);
         }
     }
 

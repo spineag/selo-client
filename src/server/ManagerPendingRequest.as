@@ -24,7 +24,7 @@ public class ManagerPendingRequest {
     public function disActivateIt():void {
         _isActive = false;
         for (var i:int=0; i<_tempResourceIds.length; i++) {
-            g.directServer.addUserResource(_tempResourceIds[i], g.userInventory.getCountResourceById(_tempResourceIds[i]), null);
+            g.server.addUserResource(_tempResourceIds[i], g.userInventory.getCountResourceById(_tempResourceIds[i]), null);
         }
         _tempResourceIds.length = 0;
     }

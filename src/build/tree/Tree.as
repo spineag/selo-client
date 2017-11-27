@@ -537,9 +537,9 @@ public class Tree extends WorldObject {
         if (g.isActiveMapEditor) return;
         if (g.isAway) {
             if (_state == ASK_FIX) {
-                for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
-                    if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
-                        g.directServer.getAwayUserTreeWatering(int(tree_db_id),g.visitedUser.userSocialId,wateringTree);
+                for (var i:int = 0; i < g.visitedUser.userDataCity.trees.length; i++) {
+                    if (g.visitedUser.userDataCity.trees[i].id == tree_db_id) {
+                        g.server.getAwayUserTreeWatering(int(tree_db_id),g.visitedUser.userSocialId,wateringTree);
                         break;
                     }
                 }
@@ -560,7 +560,7 @@ public class Tree extends WorldObject {
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
             if (_state == ASK_FIX) makeWateringIcon();
-            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+            g.server.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             // ничего не делаем вообще
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
@@ -962,7 +962,7 @@ public class Tree extends WorldObject {
 
     private function deleteTree():void {
         _deleteTree = true;
-        g.directServer.deleteUserTree(tree_db_id, _dbBuildingId, null);
+        g.server.deleteUserTree(tree_db_id, _dbBuildingId, null);
         new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
     }
 
@@ -976,7 +976,7 @@ public class Tree extends WorldObject {
 
     private function askWateringTree():void {
         _state = ASK_FIX;
-        g.directServer.askWateringUserTree(tree_db_id, _state, null);
+        g.server.askWateringUserTree(tree_db_id, _state, null);
         makeWateringIcon();
     }
 
@@ -995,19 +995,19 @@ public class Tree extends WorldObject {
         if (_state == GROW1 || _state == GROW_FLOWER1) {
             _state = GROWED1;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED1, _dbBuildingId, afterSkip);
+            g.server.skipTimeOnTree(GROWED1, _dbBuildingId, afterSkip);
         } else if (_state == GROW2 || _state == GROW_FLOWER2) {
             _state = GROWED2;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED2, _dbBuildingId, afterSkip);
+            g.server.skipTimeOnTree(GROWED2, _dbBuildingId, afterSkip);
         } else if (_state == GROW3 || _state == GROW_FLOWER3) {
             _state = GROWED3;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED3, _dbBuildingId, afterSkip);
+            g.server.skipTimeOnTree(GROWED3, _dbBuildingId, afterSkip);
         } else if (_state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
             _state = GROWED_FIXED;
             setBuildImage();
-            g.directServer.skipTimeOnTree(GROWED_FIXED, _dbBuildingId, afterSkip);
+            g.server.skipTimeOnTree(GROWED_FIXED, _dbBuildingId, afterSkip);
         }
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_TREE_ID, info: _dataBuild.id});
     }
@@ -1149,10 +1149,10 @@ public class Tree extends WorldObject {
     private function onClickWatering():void {
         if (g.isAway) {
             if (_state == ASK_FIX) {
-                for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
-                    if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
+                for (var i:int = 0; i < g.visitedUser.userDataCity.trees.length; i++) {
+                    if (g.visitedUser.userDataCity.trees[i].id == tree_db_id) {
                         g.managerAchievement.addAll(16,1);
-                        g.directServer.getAwayUserTreeWatering(int(tree_db_id),g.visitedUser.userSocialId,wateringTree);
+                        g.server.getAwayUserTreeWatering(int(tree_db_id),g.visitedUser.userSocialId,wateringTree);
                         break;
                     }
                 }
@@ -1179,9 +1179,9 @@ public class Tree extends WorldObject {
             return;
         }
         _state = FIXED;
-        for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
-            if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
-                g.visitedUser.userDataCity.treesInfo[i].state = String(FIXED);
+        for (var i:int = 0; i < g.visitedUser.userDataCity.trees.length; i++) {
+            if (g.visitedUser.userDataCity.trees[i].id == tree_db_id) {
+                g.visitedUser.userDataCity.trees[i].state = String(FIXED);
                 break;
             }
         }
@@ -1189,7 +1189,7 @@ public class Tree extends WorldObject {
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         new XPStar(start.x,start.y,8);
-        g.directServer.makeWateringUserTree(tree_db_id, _state, null);
+        g.server.makeWateringUserTree(tree_db_id, _state, null);
         makeWateringIcon();
     }
 }

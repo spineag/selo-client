@@ -3,11 +3,12 @@
  */
 package user {
 public class UserDataCity {
-    public var treesInfo:Array;
-    public var animalsInfo:Array;
+    public var trees:Array;
+    public var animals:Array;
     public var objects:Array;
     public var plants:Array;
     public var recipes:Array;
+    public var pets:Array;
 
     public function UserDataCity() {}
 }

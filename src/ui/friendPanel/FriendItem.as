@@ -48,7 +48,7 @@ public class FriendItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'friendItem');
             return;
         }
-//        g.directServer.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
+//        g.server.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
 
         source = new CSprite();
         source.nameIt = 'friendPanel';

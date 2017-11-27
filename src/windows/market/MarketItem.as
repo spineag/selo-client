@@ -249,7 +249,7 @@ public class MarketItem {
     public function onChoose(id:int, level:int, count:int, cost:int, inPapper:Boolean):void {
         if (isFill == 1) return;
         isFill = 1;
-        g.directServer.addUserMarketItem(id, level, count, inPapper, cost, number, onAddToServer);
+        g.server.addUserMarketItem(id, level, count, inPapper, cost, number, onAddToServer);
     }
 
     private function onAddToServer(ob:Object, id:int, count:int):void {
@@ -258,7 +258,7 @@ public class MarketItem {
         fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
         g.userInventory.addResource(id, -count);
         if(_dataFromServer.inPapper) {
-            g.directServer.updateMarketPapper(number, true, null);
+            g.server.updateMarketPapper(number, true, null);
             _inPapper = true;
         }
         _btnAdditem.visible = false;
@@ -291,7 +291,7 @@ public class MarketItem {
                 buyCont.removeChildAt(0);
             }
         };
-        g.directServer.updateUserMarketCell(1,f1);
+        g.server.updateUserMarketCell(1,f1);
     }
 
     private function onPaper():void {
@@ -310,7 +310,7 @@ public class MarketItem {
         g.hint.hideIt();
         _dataFromServer.timeInPapper = TimeUtils.currentSeconds;
 //        _wo.startPapperTimer();
-        g.directServer.updateMarketPapper(number,true,null);
+        g.server.updateMarketPapper(number,true,null);
 //        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
@@ -329,7 +329,7 @@ public class MarketItem {
 //                    _papperBtn.alpha = 1;
 //                }
 //                _imCheck.visible = false;
-//                g.directServer.updateMarketPapper(number, false, null);
+//                g.server.updateMarketPapper(number, false, null);
 //            }
 //        } else {
 //            _papperBtn.visible = true;
@@ -355,7 +355,7 @@ public class MarketItem {
             g.marketHint.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _data, _countResource, _dataFromServer.cost);
         };
-        g.directServer.getUserMarketItem(g.user.userSocialId, f1);
+        g.server.getUserMarketItem(g.user.userSocialId, f1);
     }
 
     private function deleteCallback():void {
@@ -366,7 +366,7 @@ public class MarketItem {
         g.userInventory.addMoney(1,-1);
         g.userInventory.addResource(_data.id, _countResource);
         g.gameDispatcher.removeFromTimer(onEnterFrame);
-        g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
+        g.server.deleteUserMarketItem(_dataFromServer.id, null);
         for (var i:int = 0; i < g.user.marketItems.length; i++) {
             if (g.user.marketItems[i].id == _dataFromServer.id) {
                 g.user.marketItems.splice(i, 1);
@@ -422,7 +422,7 @@ public class MarketItem {
                 if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.BUY_INSTRUMENT)) g.miniScenes.checkMiniSceneCallback();
 
                 isFill = 2;
-                g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
+                g.server.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
                 g.managerQuest.onActionForTaskType(ManagerQuest.BUY_PAPER);
             }
         } else if (isFill == 0) { // пустая
@@ -437,7 +437,7 @@ public class MarketItem {
         } else {
             if (g.tuts.isTuts) return;
             if (_isUser) { // купленная
-                g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
+                g.server.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
                     if (g.user.marketItems[i].id == _dataFromServer.id) {
                         g.user.marketItems.splice(i, 1);
@@ -508,11 +508,11 @@ public class MarketItem {
             _ramkAva.visible = true;
             source.filter = ManagerFilters.getButtonDisableFilter();
             if (_person == g.user.neighbor) {
-                g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
+                g.server.buyFromNeighborMarket(_dataFromServer.id, null);
                 _dataFromServer.resourceId = -1;
             } else {
                 _dataFromServer.userSocialId = _person.userSocialId;
-                g.directServer.buyFromMarket(_dataFromServer, null);
+                g.server.buyFromMarket(_dataFromServer, null);
                 _dataFromServer.buyerId = g.user.userId;
                 _dataFromServer.inPapper = false;
                 _dataFromServer.buyerSocialId = g.user.userSocialId;

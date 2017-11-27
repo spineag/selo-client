@@ -202,7 +202,7 @@ public class WOSalePack extends WindowMain{
     }
 
     private function onBuy():void {
-        g.directServer.updateUserSalePack(null);
+        g.server.updateUserSalePack(null);
         var obj:Object;
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
@@ -260,12 +260,12 @@ public class WOSalePack extends WindowMain{
     override public function hideIt():void {
         g.gameDispatcher.removeFromTimer(startTimer);
         if (_boolOpen) {
-            if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.directServer.getDailyGift(null);
+            if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.server.getDailyGift(null);
             else {
                 var todayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
                 var today:Date = new Date(g.user.day * 1000);
                 if (g.user.level >= 5 && todayDailyGift.date != today.date) {
-                    g.directServer.getDailyGift(null);
+                    g.server.getDailyGift(null);
                 } else {
                     g.managerCats.helloCats();
                     if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >= g. managerParty.countToGift[0] && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2)) {

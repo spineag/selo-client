@@ -145,7 +145,7 @@ public class DecorAnimation extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             onOut();
             releaseFlip();
-            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+            g.server.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isCutSceneResource(_dataBuild.id)) return;
             onOut();
@@ -154,7 +154,7 @@ public class DecorAnimation extends WorldObject{
                     g.managerCutScenes.checkCutSceneCallback();
                 }
                 forceStopDecorAnimation();
-                g.directServer.addToInventory(_dbBuildingId, null);
+                g.server.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 p = new Point(0, 0);
                 p = _source.localToGlobal(p);
@@ -639,7 +639,7 @@ public class DecorAnimation extends WorldObject{
 
     public function removeLockedLand():void {
         _curLockedLand = null;
-        g.directServer.deleteUserWild(_dbBuildingId, null);
+        g.server.deleteUserWild(_dbBuildingId, null);
     }
 
     override public function clearIt():void {

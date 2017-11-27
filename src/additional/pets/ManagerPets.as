@@ -21,6 +21,8 @@ import manager.ownError.ErrorConst;
 
 import mouse.ToolsModifier;
 
+import user.Someone;
+
 import windows.WindowsManager;
 
 public class ManagerPets {
@@ -37,15 +39,16 @@ public class ManagerPets {
 
     private var g:Vars = Vars.getInstance();
     private var _arrPets:Array;
+    private var _arrAwayPets:Array;
     private var _rawPets:Array;
     
     public function ManagerPets() {
         _arrPets = [];
         _rawPets = [];
-        g.directServer.getDataPet(onGetData);
+        g.server.getDataPet(onGetData);
     }
 
-    private function onGetData():void { g.directServer.getUserPet(onGetUserPets); }
+    private function onGetData():void { g.server.getUserPet(onGetUserPets); }
 
     private function onGetUserPets(d:Object):void {
         var pet:PetMain;
@@ -72,7 +75,9 @@ public class ManagerPets {
     }
 
     private function getPetHouseByDbId(id:int, dbId:int):PetHouse {
-        var ar:Array  = g.townArea.getCityObjectsById(id);
+        var ar:Array;
+        if (g.isAway) ar = g.townArea.getAwayCityObjectsById(id);
+            else ar = g.townArea.getCityObjectsById(id);
         for (var i:int=0; i<ar.length; i++) {
             if ((ar[i] as PetHouse).dbBuildingId == dbId) return ar[i];
         }
@@ -124,7 +129,7 @@ public class ManagerPets {
         pet.petHouse = pHouse;
         pet.analyzeTimeEat(0);
         g.townArea.addPet(pet);
-        g.directServer.addNewPet(pet, pHouse.dbBuildingId, null);
+        g.server.addNewPet(pet, pHouse.dbBuildingId, null);
         chooseRandomAct(pet);
     }
 
@@ -170,12 +175,12 @@ public class ManagerPets {
 
     public function onCraftHouse(pet:PetMain):void {
         pet.onGetCraft();
-        g.directServer.craftUserPet(pet, null);
+        g.server.craftUserPet(pet, null);
         chooseRandomAct(pet);
     }
 
     public function onRawPet(p:PetMain, pHouse:PetHouse):void {
-        g.directServer.rawUserPet(p, null);
+        g.server.rawUserPet(p, null);
         if (!p.hasNewEat) {
             var f1:Function = function (p:PetMain):void {
                 g.townArea.removePet(p);
@@ -199,7 +204,7 @@ public class ManagerPets {
 
     public function chooseRandomAct(pet:PetMain):void {
         if (!pet.armature) return;
-        if (pet.state == STATE_HUNGRY_WALK || pet.state == STATE_RAW_WALK) {
+        if (g.isAway || pet.state == STATE_HUNGRY_WALK || pet.state == STATE_RAW_WALK) {
             if (Math.random() > .2) {
                 var p:Point = g.townArea.getRandomFreeCell();
                 goPetToPoint(pet, p, chooseRandomAct);
@@ -253,6 +258,42 @@ public class ManagerPets {
             Cc.stackch('error', 'ManagerPet goPetToPoint', 10);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerPets goPetToPoint');
         }
+    }
+
+    public function addAwayPets(s:Someone):void {
+        _arrAwayPets = [];
+        var ar:Array = s.userDataCity.pets;
+        var pet:PetMain;
+        var petData:StructureDataPet;
+        var pHouse:PetHouse;
+        for (var i:int = 0; i < ar.length; i++) {
+            petData = g.allData.getPetById(ar[i].petId);
+            pHouse = getPetHouseByDbId(petData.houseId, ar[i].houseDbId);
+            pet = getNewPetFromData(petData);
+            if (pHouse) {
+                pet.hasNewEat = false;
+                pHouse.addPet(pet);
+                pet.petHouse = pHouse;
+                pet.analyzeTimeEat(0);
+                _arrAwayPets.push(pet);
+                var point:Point = new Point(pHouse.posX, pHouse.posY);
+                point = getDirectPointForHouse(point, pet.positionAtHouse);
+                pet.posX = point.x;
+                pet.posY = point.y;
+                g.townArea.addAwayPet(pet);
+            } else Cc.error('no pet away house: ' + ar[i].houseDbId);
+        }
+    }
+
+    public function removeAwayPets():void {
+        var p:PetMain;
+        for (var i:int=0; i<_arrAwayPets.length; i++) {
+            p = _arrAwayPets[i] as PetMain;
+            g.townArea.removeAwayPet(p);
+            p.petHouse.removePet(p);
+            p.deleteIt();
+        }
+        _arrAwayPets.length = 0;
     }
 }
 }

@@ -249,13 +249,9 @@ public class TownArea extends Sprite {
                 Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
             }
             _needTownAreaSort = false;
-            if (isError) {
-                _zSortCounter = 1;
-            } else if (g.tuts.isTuts) {
-                _zSortCounter = 3;
-            } else {
-                _zSortCounter = SORT_COUNTER_MAX;
-            }
+            if (isError) _zSortCounter = 1;
+            else if (g.tuts.isTuts) _zSortCounter = 3;
+            else _zSortCounter = SORT_COUNTER_MAX;
         }
     }
 
@@ -702,9 +698,9 @@ public class TownArea extends Sprite {
                 (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, worldObject as Decor,null,null, _x, _y);
                 (worldObject as Decor).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
                 if (isNewAtMap && g.isActiveMapEditor)
-                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                    g.server.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
                 if (updateAfterMove && g.isActiveMapEditor) {
-                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                    g.server.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 }
                 return;
             } else if (g.isActiveMapEditor) {
@@ -717,8 +713,8 @@ public class TownArea extends Sprite {
                         fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
-                if (isNewAtMap) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                if (isNewAtMap) g.server.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove) g.server.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             }
         }
@@ -732,8 +728,8 @@ public class TownArea extends Sprite {
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
                 (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, null, worldObject as DecorAnimation, _x, _y);
                 (worldObject as DecorAnimation).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
-                if (isNewAtMap && g.isActiveMapEditor) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                if (isNewAtMap && g.isActiveMapEditor) g.server.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) g.server.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             } else if (g.isActiveMapEditor) {
                 _cont.addChild(worldObject.source);
@@ -745,8 +741,8 @@ public class TownArea extends Sprite {
                         fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
-                if (isNewAtMap && g.isActiveMapEditor) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                if (isNewAtMap && g.isActiveMapEditor) g.server.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) g.server.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             }
         }
@@ -760,8 +756,8 @@ public class TownArea extends Sprite {
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
                 (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, worldObject as ChestYellow,null, _x, _y);
                 (worldObject as ChestYellow).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
-                if (isNewAtMap && g.isActiveMapEditor) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                if (isNewAtMap && g.isActiveMapEditor) g.server.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) g.server.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             } else  {
                 _cont.addChild(worldObject.source);
@@ -773,8 +769,8 @@ public class TownArea extends Sprite {
                         fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
-                if (isNewAtMap && g.isActiveMapEditor) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                if (isNewAtMap && g.isActiveMapEditor) g.server.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) g.server.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             }
         }
@@ -812,9 +808,9 @@ public class TownArea extends Sprite {
                 }
             }
             if (isNewAtMap && g.isActiveMapEditor)
-                g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                g.server.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
             if (updateAfterMove && g.isActiveMapEditor) {
-                g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                g.server.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
             }
             return;
         }
@@ -876,27 +872,27 @@ public class TownArea extends Sprite {
             if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorAnimation
                     || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate || worldObject is DecorFenceArka ||
                     worldObject is DecorPostFenceArka || worldObject is PetHouse)
-                g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
+                g.server.addUserBuilding(worldObject, onAddNewBuilding);
             if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFenceArka || worldObject is DecorFenceArka
                     || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)
                         worldObject.addXP(); // ???? its empty function!!!
-            if (worldObject is Tree) g.directServer.addUserBuilding(worldObject, onAddNewTree);
+            if (worldObject is Tree) g.server.addUserBuilding(worldObject, onAddNewTree);
             if (worldObject is Ridge) g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
             if (worldObject is Farm)  g.managerAnimal.onAddNewFarm(worldObject as Farm);
             if (worldObject is Fabrica && g.miniScenes.isMiniScene)  g.miniScenes.onPasteFabrica((worldObject as Fabrica).dataBuild.id);
             if (g.managerQuest) g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
         } else {
-            if (worldObject is DecorFence) g.directServer.userBuildingFlip(worldObject.dbBuildingId, int(worldObject.flip), null);
+            if (worldObject is DecorFence) g.server.userBuildingFlip(worldObject.dbBuildingId, int(worldObject.flip), null);
         }
 
         if (updateAfterMove) {
             if (g.isActiveMapEditor) {
                 if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
                         worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus || worldObject is Achievement || worldObject[i] is Missing) {
-                    g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
+                    g.server.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
                 }
             } else {
-                g.directServer.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
+                g.server.updateUserBuildPosition(worldObject.dbBuildingId, worldObject.posX, worldObject.posY, null);
             }
         }
 
@@ -1111,7 +1107,7 @@ public class TownArea extends Sprite {
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         (build as WorldObject).dbBuildingId = dbId;
-        g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+        g.server.removeFromInventory(dbId, p.x, p.y, null);
         if (build is DecorTail) {
             pasteTailBuild(build as DecorTail, _x, _y,true,false,true);
         } else {
@@ -1210,7 +1206,7 @@ public class TownArea extends Sprite {
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
         (build as WorldObject).dbBuildingId = dbId;
-        g.directServer.removeFromInventory(dbId, p.x, p.y, null);
+        g.server.removeFromInventory(dbId, p.x, p.y, null);
         if (build is DecorTail) {
             pasteTailBuild(build as DecorTail, _x, _y);
         } else {
@@ -1237,12 +1233,12 @@ public class TownArea extends Sprite {
             if (!updateAfterMove)_cityTailObjects.push(tail);
             fillTailMatrix(tail.posX, tail.posY, tail.sizeX, tail.sizeY, tail as WorldObject);
             if (isNewAtMap) {
-                g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
+                g.server.addUserBuilding(tail as WorldObject, onAddNewBuilding);
                 tail.addXP();
                 if (g.managerQuest) g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:tail.dataBuild.id});
             }
             if (updateAfterMove) {
-                g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
+                g.server.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
             }
         }
         (tail as WorldObject).updateDepth();
@@ -1355,11 +1351,11 @@ public class TownArea extends Sprite {
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
-        if (wObject is Fabrica) g.directServer.startBuildBuilding(wObject, null);
-        if (wObject is DecorFence && wObject.flip) g.directServer.userBuildingFlip(wObject.dbBuildingId, 1, null);
+        if (wObject is Fabrica) g.server.startBuildBuilding(wObject, null);
+        if (wObject is DecorFence && wObject.flip) g.server.userBuildingFlip(wObject.dbBuildingId, 1, null);
     }
 
-    private function onAddNewTree(value:Boolean, wObject:WorldObject):void { g.directServer.addUserTree(wObject, null); }
+    private function onAddNewTree(value:Boolean, wObject:WorldObject):void { g.server.addUserTree(wObject, null); }
 
     public function deleteBuild(worldObject:WorldObject):void{
         if (!worldObject) {
@@ -1707,13 +1703,13 @@ public class TownArea extends Sprite {
             g.managerLohmatic.onGoAway();
             removeTownAreaSortCheking();
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                _cont.removeChild(_cityObjects[i].source);
+                if (_cont.contains(_cityObjects[i].source)) _cont.removeChild(_cityObjects[i].source);
                 if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
-                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
-                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
+                else if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
+                else if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
             }
             for (i = 0; i < _cityTailObjects.length; i++) {
-                _contTail.removeChild(_cityTailObjects[i].source);
+                if (_contTail.contains(_cityTailObjects[i].source)) _contTail.removeChild(_cityTailObjects[i].source);
             }
             g.managerCats.onGoAway(true);
             g.managerOrderCats.onGoAwayToUser(true);
@@ -1722,16 +1718,14 @@ public class TownArea extends Sprite {
         if (person.userDataCity.objects) {
             setAwayCity(person);
         } else {
-            g.directServer.getAllCityData(person, setAwayCity);
+            g.server.getAllCityData(person, setAwayCity);
         }
         g.bottomPanel.doorBoolean(true,person);
         _townAwayMatrix = [];
         setDefaultAwayMatrix();
         addAwayTownAreaSortCheking();
-        var p:Point = new Point();
-        p.x = 24;
-        p.y = 26;
-        g.cont.moveCenterToPos(p.x, p.y, true, 2);
+        
+        g.cont.moveCenterToPos(24, 26, true, 2);
     }
 
     private function setDefaultAwayMatrix():void {
@@ -1800,20 +1794,30 @@ public class TownArea extends Sprite {
         point.y = 26;
         g.cont.moveCenterToPos(point.x, point.y, true, 2);
 
-        for (i=0; i<p.userDataCity.objects.length; i++) {
-            createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(p.userDataCity.objects[i].buildId)), p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
+        var ar:Array = p.userDataCity.objects;
+        var l:int = ar.length;
+        for (i=0; i<l; i++) {
+            createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(ar[i].buildId)), ar[i].posX, ar[i].posY, int(ar[i].dbId), ar[i].isFlip);
         }
-        for (i=0; i<p.userDataCity.treesInfo.length; i++) {
-            fillAwayTree(p.userDataCity.treesInfo[i]);
+        ar = p.userDataCity.trees;
+        l = ar.length;
+        for (i=0; i<l; i++) {
+            fillAwayTree(ar[i]);
         }
-        for (i=0; i<p.userDataCity.plants.length; i++) {
-            fillAwayPlant(p.userDataCity.plants[i]);
+        ar = p.userDataCity.plants;
+        l = ar.length;
+        for (i=0; i<l; i++) {
+            fillAwayPlant(ar[i]);
         }
-        for (i=0; i<p.userDataCity.animalsInfo.length; i++) {
-            fillAwayAnimal(p.userDataCity.animalsInfo[i]);
+        ar = p.userDataCity.animals;
+        l = ar.length;
+        for (i=0; i<l; i++) {
+            fillAwayAnimal(ar[i]);
         }
-        for (i = 0; i < p.userDataCity.recipes.length; i++) {
-            fillAwayRecipe(p.userDataCity.recipes[i]);
+        ar = p.userDataCity.recipes;
+        l = ar.length;
+        for (i = 0; i < l; i++) {
+            fillAwayRecipe(ar[i]);
         }
 
         g.managerCats.makeAwayCats();
@@ -1828,6 +1832,7 @@ public class TownArea extends Sprite {
         startDecorAnimation();
         g.managerMouseHero.addMouse();
         g.user.calculateReasonForHelpAway();
+        g.managerPets.addAwayPets(p);
     }
 
     public function addAwayPet(pet:PetMain):void {
@@ -1942,6 +1947,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.MISSING:
                 return;
+                break;
+            case BuildType.PET_HOUSE:
+                build = new PetHouse(_data);
                 break;
         }
 
@@ -2382,6 +2390,7 @@ public class TownArea extends Sprite {
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(true);
         g.managerOrderCats.removeAwayCats();
+        g.managerPets.removeAwayPets();
         clearAwayCity();
         _freePlace.deleteAway();
         g.isAway = false;

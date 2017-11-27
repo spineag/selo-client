@@ -89,7 +89,7 @@ public class TrainCell {
         if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.TRAIN) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         _isFull = true;
         g.managerAchievement.addAll(3,countMoney);
-        g.directServer.updateUserTrainPackItems(item_db_id, null);
+        g.server.updateUserTrainPackItems(item_db_id, null);
     }
 
     public function getImage():Image {

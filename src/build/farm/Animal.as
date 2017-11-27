@@ -222,7 +222,7 @@ public class Animal {
     public function onCraft():void {
         _state = HUNGRY;
         addRenderAnimation();
-        g.directServer.craftUserAnimal(animal_db_id, null);
+        g.server.craftUserAnimal(animal_db_id, null);
     }
 
     public function feedAnimal(last:Boolean = false,show:Boolean = false):void {
@@ -271,7 +271,7 @@ public class Animal {
             texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
 
         new RawItem(p, texture, 1, 0);
-        g.directServer.rawUserAnimal(animal_db_id, null);
+        g.server.rawUserAnimal(animal_db_id, null);
         g.managerQuest.onActionForTaskType(ManagerQuest.FEED_ANIMAL, {id:(_data.id)});
         if (_data.id != 6) {
             showFeedingAnimation();
@@ -552,7 +552,7 @@ public class Animal {
     private function callbackSkip():void {
         onOut();
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_ANIMAL_ID, info: _data.id});
-        g.directServer.skipTimeOnAnimal(_timeToEnd, animal_db_id, null);
+        g.server.skipTimeOnAnimal(_timeToEnd, animal_db_id, null);
         _timeToEnd = 0;
         render();
     }

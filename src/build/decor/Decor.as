@@ -48,7 +48,7 @@ public class Decor extends WorldObject{
 
     public function removeLockedLand():void {
         _curLockedLand = null;
-        g.directServer.deleteUserWild(_dbBuildingId, null);
+        g.server.deleteUserWild(_dbBuildingId, null);
     }
 
     override public function onHover():void {
@@ -88,13 +88,13 @@ public class Decor extends WorldObject{
                     _curLockedLand = null;
                 }
                 onOut();
-                g.directServer.ME_removeWild(_dbBuildingId, null);
+                g.server.ME_removeWild(_dbBuildingId, null);
                 g.townArea.deleteBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             onOut();
             releaseFlip();
-            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+            g.server.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isCutSceneResource(_dataBuild.id)) return;
             onOut();
@@ -102,7 +102,7 @@ public class Decor extends WorldObject{
                 if (g.managerCutScenes && g.managerCutScenes.isCutSceneBuilding(this)) {
                     g.managerCutScenes.checkCutSceneCallback();
                 }
-                g.directServer.addToInventory(_dbBuildingId, null);
+                g.server.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 var p:Point = new Point(0, 0);
                 p = _source.localToGlobal(p);

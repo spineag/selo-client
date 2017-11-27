@@ -250,7 +250,7 @@ public class OptionPanel {
             case 'music':
                 while (_contMusic.numChildren) _contMusic.removeChildAt(0);
                 g.soundManager.enabledMusic(!g.soundManager.isPlayingMusic);
-                g.directServer.updateUserMusic(null);
+                g.server.updateUserMusic(null);
                 if (g.soundManager.isPlayingMusic) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_on_button"));
                     g.soundManager.playMusic();
@@ -262,7 +262,7 @@ public class OptionPanel {
             case 'sound':
                 while (_contSound.numChildren) _contSound.removeChildAt(0);
                 g.soundManager.enabledSound(!g.soundManager.isPlayingSound);
-                g.directServer.updateUserSound(null);
+                g.server.updateUserSound(null);
                 if (g.soundManager.isPlayingSound) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("sound_on_button"));
                 } else {
@@ -332,7 +332,7 @@ public class OptionPanel {
             }});
         }
         if (sendToServer) {
-            g.directServer.saveUserGameScale(null);
+            g.server.saveUserGameScale(null);
         }
         Cc.info('Game scale:: ' + s*100 + '%');
     }

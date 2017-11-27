@@ -139,7 +139,7 @@ public class Order extends WorldObject{
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
                 _armature.animation.gotoAndPlayByFrame('top_l');
                 hideArrow();
-                g.directServer.openUserOrder(null);
+                g.server.openUserOrder(null);
                 g.user.isOpenOrder = true;
             }
             return;

@@ -96,7 +96,7 @@ public class FriendPanel {
         _addFriend = new Sprite();
         _source.addChild(_addFriend);
         noFriends();
-        g.directServer.getNeighborFriends(getNeighborFriends);
+        g.server.getNeighborFriends(getNeighborFriends);
     }
 
     private function createTabs():void {
@@ -463,7 +463,7 @@ public class FriendPanel {
 
     public function addNeighborFriend(person:Someone):void {
         _arrNeighborFriends.push(person);
-        g.directServer.updateNeighborFriends();
+        g.server.updateNeighborFriends();
         clearItems();
         _activeTabType = TYPE_NEIGHBOR;
         _source.setChildIndex(_tab1, 0);
@@ -489,7 +489,7 @@ public class FriendPanel {
                 _arrNeighborFriends.splice(i,1);
             }
         }
-        g.directServer.updateNeighborFriends();
+        g.server.updateNeighborFriends();
         if (_arrNeighborFriends.length > 0) {
             clearItems();
             _activeTabType = TYPE_NEIGHBOR;
@@ -661,7 +661,7 @@ public class FriendPanel {
                 arr.push(_arrFriends[i].userSocialId);
             }
         }
-        if (arr.length > 0) g.directServer.getAllFriendsInfo(arr, sortFriend);
+        if (arr.length > 0) g.server.getAllFriendsInfo(arr, sortFriend);
         else if (_activeTabType != TYPE_NEIGHBOR) noFriends();
     }
 

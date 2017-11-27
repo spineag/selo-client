@@ -103,7 +103,7 @@ public class ConsoleWrapper {
             var f2:Function = function ():void {
                 if(g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
             };
-            g.directServer.deleteUser(f2);
+            g.server.deleteUser(f2);
         }
     }
 
@@ -130,7 +130,7 @@ public class ConsoleWrapper {
     private function makeTester():void {
         if (g.user.isTester) g.user.isTester = false;
         else g.user.isTester = true;
-        g.directServer.updateUserTester(null);
+        g.server.updateUserTester(null);
         Cc.info("Your isTester = " + g.user.isTester);
         g.testerPanel.updateText();
     }

@@ -118,7 +118,7 @@ public class XPPanel {
             }
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             g.friendPanel.checkLevel();
-            g.directServer.updateUserLevel(null);
+            g.server.updateUserLevel(null);
             g.userInventory.addNewElementsAfterGettingNewLevel();
 
             if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
@@ -149,7 +149,7 @@ public class XPPanel {
         g.user.xp += count;
         g.user.globalXP += count;
         g.userValidates.updateInfo('xp', int (g.user.xp ));
-        g.directServer.addUserXP(int (g.user.globalXP), null);
+        g.server.addUserXP(int (g.user.globalXP), null);
     }
 
     public function checkXP():void{

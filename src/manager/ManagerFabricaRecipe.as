@@ -63,7 +63,7 @@ public class ManagerFabricaRecipe {
     }
 
     public function onCraft(item:ResourceItem):void {
-        g.directServer.craftFabricaRecipe(item.idFromServer, null);
+        g.server.craftFabricaRecipe(item.idFromServer, null);
     }
 
     public function getFabricaWithPossibleRecipe():Fabrica {

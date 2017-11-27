@@ -131,13 +131,13 @@ public class Wild extends WorldObject{
                     _curLockedLand = null;
                 }
                 onOut();
-                g.directServer.ME_removeWild(_dbBuildingId, null);
+                g.server.ME_removeWild(_dbBuildingId, null);
                 g.townArea.deleteBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             if (g.isActiveMapEditor) {
                 releaseFlip();
-                g.directServer.ME_flipWild(_dbBuildingId, int(_dataBuild.isFlip), null);
+                g.server.ME_flipWild(_dbBuildingId, int(_dataBuild.isFlip), null);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
@@ -297,7 +297,7 @@ public class Wild extends WorldObject{
         var p:Point = new Point(_source.x, _source.y);
         p = _source.parent.localToGlobal(p);
         new XPStar(p.x,p.y, _dataBuild.xpForBuild);
-        g.directServer.deleteUserWild(_dbBuildingId, null);
+        g.server.deleteUserWild(_dbBuildingId, null);
         g.townArea.deleteBuild(this);
     }
 

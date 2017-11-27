@@ -117,7 +117,7 @@ public class WODailyGift extends WindowMain {
     }
 
     private function onClickExit(e:Event = null):void {
-        g.directServer.updateDailyGift(g.user.countDailyGift);
+        g.server.updateDailyGift(g.user.countDailyGift);
         if (int(_itemToday.type) == BuildType.DECOR || int(_itemToday.type) == BuildType.DECOR_ANIMATION) flyItDecor();
         else new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _itemToday);
         hideIt();
@@ -218,7 +218,7 @@ public class WODailyGift extends WindowMain {
     }
 
     private function onClick():void {
-        g.directServer.updateDailyGift(g.user.countDailyGift);
+        g.server.updateDailyGift(g.user.countDailyGift);
         if (int(_itemToday.type) == BuildType.DECOR || int(_itemToday.type) == BuildType.DECOR_ANIMATION) flyItDecor();
         else new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _itemToday);
         hideIt();

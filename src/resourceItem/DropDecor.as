@@ -87,7 +87,7 @@ public class DropDecor {
         var f:Function = function ():void {
             g.lastActiveDecorID = _data.id;
             for (var i:int=0; i<_count; i++) {
-                g.directServer.buyAndAddToInventory(_data.id, f1);
+                g.server.buyAndAddToInventory(_data.id, f1);
             }
             deleteIt();
         };

@@ -197,7 +197,7 @@ public class WOPartyWindow extends WindowMain {
         var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
                 + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
         g.managerParty.userParty.countResource += _countLoad;
-        g.directServer.updateUserParty(st,g.managerParty.userParty.countResource,0,null);
+        g.server.updateUserParty(st,g.managerParty.userParty.countResource,0,null);
         var p:Point = new Point(0, 0);
         p = _btnLoad.localToGlobal(p);
         new XPStar(p.x, p.y,_countLoad * g.allData.getResourceById(g.managerParty.idResource).orderXPMin);
@@ -344,7 +344,7 @@ public class WOPartyWindow extends WindowMain {
         _imLast.y = 110;
 
         _btnRating.clickCallback = function():void {
-//            g.directServer.getRatingParty(f1);
+//            g.server.getRatingParty(f1);
 
             _activityType = ManagerPartyNew.TYPE_RATING;
             _imEvent.visible = true;

@@ -67,7 +67,7 @@ public class DeactivatedAreaManager {
         area.source.y = p.y;
         _cont.addChild(area.source);
         _arrDeactivatedAreas.push(area);
-        g.directServer.ME_addOutGameTile(posX, posY, null);
+        g.server.ME_addOutGameTile(posX, posY, null);
     }
 
     private function activateArea(posX:int, posY:int):void { // remove red romb
@@ -87,7 +87,7 @@ public class DeactivatedAreaManager {
         }
         if (_arrDeactivatedAreas.indexOf(area) > -1) _arrDeactivatedAreas.splice(_arrDeactivatedAreas.indexOf(area), 1);
         g.townArea.addDeactivatedArea(area.posX, area.posY, false);
-        g.directServer.ME_deleteOutGameTile(area.posX, area.posY, null);
+        g.server.ME_deleteOutGameTile(area.posX, area.posY, null);
         area.clearIt();
         area = null;
 

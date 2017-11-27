@@ -487,7 +487,7 @@ public class HeroCat extends BasicCat{
         else Utils.createDelay(int(Math.random() * 2) + 2,f1);
     }
 
-    // JUMP CAT
+// HELLO CAT
     public function helloCat():void {
         var f2:Function = function ():void {
             jumpCat(true);

@@ -62,7 +62,7 @@ public class MiniSceneOrderCat {
         _currentCatObject = null;
         d.isMiniScene = false;
         g.user.miniScenesOrderCats[d.id - 1] = 1;
-        g.directServer.updateOrderCatMiniScenesData(g.user.miniScenesOrderCats.join(''));
+        g.server.updateOrderCatMiniScenesData(g.user.miniScenesOrderCats.join(''));
         if (_nextCats.length) g.windowsManager.openWindow(WindowsManager.WO_ORDER_CAT_MINI, onHideWO, _nextCats.shift());
             else g.miniScenes.onEndMiniSceneForOrderCat();
     }

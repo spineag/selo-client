@@ -103,7 +103,7 @@ public class IManagerTutorial {
 
     protected function updateTutorialStep():void {
         Cc.info('update tutorial step: ' + g.user.tutorialStep);
-        g.directServer.updateUserTutorialStep(null);
+        g.server.updateUserTutorialStep(null);
         if (g.analyticManager)
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
     }

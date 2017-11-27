@@ -182,7 +182,7 @@ public class UserNotification {
         ar.push(_tree.join('&'));
         ar.push(int(_isNewRidge));
         ar.push(int(_isNewDecor));
-        g.directServer.updateUserNotification(ar.join('|'), null);
+        g.server.updateUserNotification(ar.join('|'), null);
     }
 
     public function get allNotificationsCount():int {

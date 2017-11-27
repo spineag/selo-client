@@ -69,7 +69,7 @@ public class ManagerCutScenes {
 
     private function saveUserCutScenesData():void {
         if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
-        g.directServer.updateUserCutScenesData();
+        g.server.updateUserCutScenesData();
     }
 
     public function checkAvailableCutScenes():void {

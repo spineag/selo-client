@@ -109,14 +109,14 @@ public class WOMissYou extends WindowMain {
     private function onClickNo():void {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.MISSING);
         arr[0].visibleBuild(false);
-        g.directServer.updateUserMiss(_person.userSocialId, 0, false);
+        g.server.updateUserMiss(_person.userSocialId, 0, false);
         onClickExit();
     }
 
     private function onClickYes():void {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.MISSING);
         arr[0].visibleBuild(false);
-        g.directServer.updateUserMiss(_person.userSocialId, 1, true);
+        g.server.updateUserMiss(_person.userSocialId, 1, true);
         var obj:Object;
         obj = {};
         obj.count = 5;
@@ -124,8 +124,8 @@ public class WOMissYou extends WindowMain {
         p = _source.localToGlobal(p);
         obj.id =  1;
         new DropItem(p.x + 30, p.y + 30, obj);
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) g.directServer.notificationFbMiss(_person.userSocialId, null);
-        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) g.directServer.notificationVkMiss(_person.userSocialId, null);
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) g.server.notificationFbMiss(_person.userSocialId, null);
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) g.server.notificationVkMiss(_person.userSocialId, null);
         onClickExit();
     }
 

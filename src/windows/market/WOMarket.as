@@ -257,7 +257,7 @@ public class WOMarket  extends WindowMain {
 
         if (_curUser.marketCell <= 0) {
             _curUser.marketCell = 6;
-            if (_curUser == g.user) g.directServer.updateUserMarketCell(0, null);
+            if (_curUser == g.user) g.server.updateUserMarketCell(0, null);
         }
 
         var marketCellCount:int = _curUser.marketCell;
@@ -418,7 +418,7 @@ public class WOMarket  extends WindowMain {
         for (var i:int=0; i< _arrItems.length; i++) {
             _arrItems[i].unFillIt();
         }
-        g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
+        g.server.getUserMarketItem(_curUser.userSocialId, fillItems);
     }
 
     public function refreshItemWhenYouBuy ():void {
@@ -435,7 +435,7 @@ public class WOMarket  extends WindowMain {
             }
             _arrItems[i].unFillIt();
         }
-        g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
+        g.server.getUserMarketItem(_curUser.userSocialId, fillItems);
         createMarketTabBtns();
         _countPage = 1;
         checkArrow();
@@ -456,7 +456,7 @@ public class WOMarket  extends WindowMain {
     private function callbacKPapperBtn():void {
         g.userInventory.addMoney(1,-1);
         g.userTimer.papperTimerAtMarket = 0;
-        g.directServer.skipUserInPaper(null);
+        g.server.skipUserInPaper(null);
         g.gameDispatcher.removeFromTimer(onTimer);
         _txtTimerPaper.text = '';
         _booleanPaper = true;
@@ -641,11 +641,11 @@ public class WOMarket  extends WindowMain {
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         if (_curUser.marketCell < 0 || _curUser != g.user) {
             if (_curUser is NeighborBot) {
-                g.directServer.getUserNeighborMarket(onChoosePerson);
+                g.server.getUserNeighborMarket(onChoosePerson);
             } else {
                 if (_curUser.marketItems && _curUser.marketItems.length) {
                     onChoosePerson();
-                } else g.directServer.getUserMarketItem(_curUser.userSocialId, onChoosePerson);
+                } else g.server.getUserMarketItem(_curUser.userSocialId, onChoosePerson);
             }
         } else {
             onChoosePerson();
@@ -822,7 +822,7 @@ public class WOMarket  extends WindowMain {
         _timer--;
         if (_timer <= 0) {
             _arrItemsTemp = _curUser.marketItems;
-            g.directServer.getUserMarketItem(_curUser.userSocialId, onRefreshTemp);
+            g.server.getUserMarketItem(_curUser.userSocialId, onRefreshTemp);
             g.gameDispatcher.removeFromTimer(refreshMarketTemp);
         }
     }

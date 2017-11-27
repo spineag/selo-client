@@ -83,7 +83,7 @@ public class User extends Someone {
 
     public function checkMiss():void {
         if ((TimeUtils.currentSeconds - missDate) < 432000) return;
-        g.directServer.getUserMiss(openMiss);
+        g.server.getUserMiss(openMiss);
     }
 
     private function openMiss(ob:Object):void {
@@ -131,7 +131,7 @@ public class User extends Someone {
             if (g.dataLevel.objectLevels[level].totalXP > globalXP) {
                 xp = globalXP;
                 globalXP = g.dataLevel.objectLevels[level].totalXP + xp;
-                g.directServer.addUserXP(globalXP, null);
+                g.server.addUserXP(globalXP, null);
             } else {
                 xp = globalXP - g.dataLevel.objectLevels[level].totalXP;
             }

@@ -65,7 +65,7 @@ public class ManagerInviteFriendViral {
         _timerEnd--;
         if (_timerEnd < 0) {
             g.gameDispatcher.removeFromTimer(onTimer);
-            g.directServer.updateUserViralInvite(TimeUtils.currentSeconds + _timeCancelData, null);
+            g.server.updateUserViralInvite(TimeUtils.currentSeconds + _timeCancelData, null);
             onFinishIt();
         }
     }
@@ -79,7 +79,7 @@ public class ManagerInviteFriendViral {
             var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
             obj.id = DataMoney.HARD_CURRENCY;
             new DropItem(p.x + 30, p.y + 30, obj);
-            g.directServer.updateUserViralInvite(TimeUtils.currentSeconds + _timeCompleteData, null);
+            g.server.updateUserViralInvite(TimeUtils.currentSeconds + _timeCompleteData, null);
             onFinishIt();
         }
     }

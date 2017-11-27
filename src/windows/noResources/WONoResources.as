@@ -524,7 +524,7 @@ public class WONoResources extends WindowMain {
         _paramData.dataNyashuk.visible = false;
         new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2., 5);
         g.userInventory.addResource(_paramData.data.id,-_countCost );
-        g.directServer.updateUserPapperBuy(_paramData.dataNyashuk.buyerId,0,0,0,0,0,0);
+        g.server.updateUserPapperBuy(_paramData.dataNyashuk.buyerId,0,0,0,0,0,0);
         if (_paramData.dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
         else  g.userTimer.buyerNyashukRed(1200);
         g.managerBuyerNyashuk.onReleaseOrder(_params[2] as BuyerNyashuk, false);

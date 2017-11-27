@@ -28,7 +28,7 @@ public class ManagerPaper {
     }
 
     public function get arr():Array { return _arr; }
-    public function getPaperItems():void { g.directServer.getPaperItems(null); }
+    public function getPaperItems():void { g.server.getPaperItems(null); }
 
     public function onBuyAtMarket(ob:StructureMarketItem):void {
         var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
