@@ -50,6 +50,9 @@ public class Fabrica extends WorldObject {
             return;
         }
         if (!_dataBuild.countCell) _dataBuild.countCell = g.allData.getBuildingById(_dataBuild.id).startCountCell;
+        _arrRecipes = [];
+        _arrList = [];
+        _arrCrafted = [];
         _craftSprite = new Sprite();
         if (g.isAway) {
             g.cont.craftAwayCont.addChild(_craftSprite);
@@ -59,9 +62,6 @@ public class Fabrica extends WorldObject {
         _buildingBuildSprite = new Sprite();
         _source.addChild(_buildingBuildSprite);
         checkBuildState();
-        _arrRecipes = [];
-        _arrList = [];
-        _arrCrafted = [];
         _source.releaseContDrag = true;
         if (!g.isAway) _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
@@ -78,7 +78,7 @@ public class Fabrica extends WorldObject {
     }
 
     private function checkBuildState():void {
-        try {
+//        try {
             if (g.isAway) {
                 _stateBuild = STATE_ACTIVE;
                 createAnimatedBuild(onCreateBuild);
@@ -105,10 +105,10 @@ public class Fabrica extends WorldObject {
                     createAnimatedBuild(onCreateBuild);
                 }
             }
-        } catch (e:Error) {
-            Cc.error('Fabric checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Fabric checkBuildState');
-        }
+//        } catch (e:Error) {
+//            Cc.error('Fabric checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Fabric checkBuildState');
+//        }
     }
 
     private function onCreateBuild():void {
@@ -225,7 +225,7 @@ public class Fabrica extends WorldObject {
                 g.townArea.deleteBuild(this);
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
                 releaseFlip();
-                g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+                g.server.userBuildingFlip(_dbBuildingId, int(_flip), null);
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
@@ -277,7 +277,7 @@ public class Fabrica extends WorldObject {
             _stateBuild = STATE_ACTIVE;
             g.managerAchievement.addAll(12,1);
             g.user.userBuildingData[_dataBuild.id].isOpen = 1;
-            g.directServer.openBuildedBuilding(this, onOpenBuilded);
+            g.server.openBuildedBuilding(this, onOpenBuilded);
             clearBuildingBuildSprite();
             onOut();
             createAnimatedBuild(onCreateBuild);
@@ -377,7 +377,7 @@ public class Fabrica extends WorldObject {
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
             g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
-        g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
+        g.server.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
         g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.idResource});
         g.managerCats.onStartFabrica(this);
         workAloneAnimation();
@@ -513,7 +513,7 @@ public class Fabrica extends WorldObject {
 
     private function callbackSkip():void { // for building build
         _stateBuild = STATE_WAIT_ACTIVATE;
-        g.directServer.skipTimeOnFabricBuild(_leftBuildTime, _dbBuildingId, null);
+        g.server.skipTimeOnFabricBuild(_leftBuildTime, _dbBuildingId, null);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_BUILDING_BUILD_ID, info: _dataBuild.id});
         _leftBuildTime = 0;
         renderBuildProgress();
@@ -528,12 +528,12 @@ public class Fabrica extends WorldObject {
 
     public function onBuyNewCell():void {
         _dataBuild.countCell++;
-        g.directServer.buyNewCellOnFabrica(_dbBuildingId, _dataBuild.countCell, null);
+        g.server.buyNewCellOnFabrica(_dbBuildingId, _dataBuild.countCell, null);
     }
 
     public function skipRecipe():void { // for making recipe
         if (_arrList[0]) {
-            g.directServer.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
+            g.server.skipRecipeOnFabrica(_arrList[0].idFromServer, _arrList[0].leftTime, _dbBuildingId, null);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[0].resourceID});
             craftResource(_arrList.shift());
             if (!_arrList.length) {
@@ -548,7 +548,7 @@ public class Fabrica extends WorldObject {
 
     public function skipSmallRecipe(number:int):void { // for making recipe
         if (_arrList[number]) {
-            g.directServer.deleteRecipeOnFabrica(_arrList[number].idFromServer, _arrList[number].staticDelayTime, _dbBuildingId, null);
+            g.server.deleteRecipeOnFabrica(_arrList[number].idFromServer, _arrList[number].staticDelayTime, _dbBuildingId, null);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[number].resourceID});
             for (var i:int = 0; i < _arrList.length; i++) {
                 if (_arrList[i].staticDelayTime > _arrList[number].staticDelayTime )  _arrList[i].staticDelayTime = _arrList[i].staticDelayTime - _arrList[number].staticDelayTime ;

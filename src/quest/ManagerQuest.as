@@ -66,7 +66,7 @@ public class ManagerQuest {
     public function hideQuestsIcons(v:Boolean):void { if (_questUI) _questUI.hideIt(v); }
     public function showArrowsForAllVisibleIconQuests(t:int):void { if (_questUI) _questUI.showArrowsForAllVisibleIconQuests(t); }
     public function checkQuestContPosition():void { if (_questUI) _questUI.checkContPosition(); }
-    private function onGetUserQuestAward():void { g.directServer.getUserNewQuests(onGetNewQuests); }
+    private function onGetUserQuestAward():void { g.server.getUserNewQuests(onGetNewQuests); }
     public function get activeTask():QuestTaskStructure { return _activeTask; }
     public function clearActiveTask():void { _activeTask = null; }
     public function showAnimateOnTaskUpgrade(t:QuestTaskStructure):void { if (_questUI) _questUI.showAnimateOnTaskUpgrade(t); }
@@ -75,7 +75,7 @@ public class ManagerQuest {
         if (g.user.level >= 4 && g.useQuests) {
             _questUI = new QuestMainIconUI();
             if (g.managerCutScenes.isCutScene) hideQuestsIcons(true);
-            g.directServer.getUserQuests(onGetUserQuests);
+            g.server.getUserQuests(onGetUserQuests);
         }
     }
 
@@ -87,7 +87,7 @@ public class ManagerQuest {
         for (var i:int=0; i<_userQuests.length; i++) {
             (_userQuests[i] as QuestStructure).checkQuestForDone();
             if ((_userQuests[i] as QuestStructure).isDone) {
-                g.directServer.completeUserQuest((_userQuests[i] as QuestStructure).id, (_userQuests[i] as QuestStructure).idDB, null);
+                g.server.completeUserQuest((_userQuests[i] as QuestStructure).id, (_userQuests[i] as QuestStructure).idDB, null);
                 if (!isDone) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.windowsManager.closeAllWindows();
@@ -101,7 +101,7 @@ public class ManagerQuest {
 
     public function getNewQuests():void {
         if (g.user.level < 4) return;
-        if (g.useQuests) g.directServer.getUserNewQuests(onGetNewQuests);
+        if (g.useQuests) g.server.getUserNewQuests(onGetNewQuests);
     }
 
     private function onGetNewQuests(d:Object):void {
@@ -443,7 +443,7 @@ public class ManagerQuest {
     public function checkQuestForDone(q:QuestStructure):Boolean {
         q.checkQuestForDone();
         if (q.isDone) {
-            g.directServer.completeUserQuest(q.id, q.idDB, null);
+            g.server.completeUserQuest(q.id, q.idDB, null);
             g.windowsManager.closeAllWindows();
             g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
             if (_questUI) _questUI.updateIcons();
@@ -458,7 +458,7 @@ public class ManagerQuest {
                 break;
             }
         }
-        g.directServer.getUserQuestAward(q.id, q.idDB, onGetUserQuestAward);
+        g.server.getUserQuestAward(q.id, q.idDB, onGetUserQuestAward);
     }
 
     public function onActionForTaskType(type:int, adds:Object=null):void {
@@ -470,7 +470,7 @@ public class ManagerQuest {
             if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                 if (_activeTask && _activeTask.typeAction == ADD_LEFT_MENU) {
                     _activeTask.upgradeCount();
-                    g.directServer.updateUserQuestTask(_activeTask, onUpdateQuestTask);
+                    g.server.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                     _activeTask = null;
                 }
             }
@@ -478,13 +478,13 @@ public class ManagerQuest {
             if (_activeTask && _activeTask.typeAction == ADD_TO_GROUP) {
                 _activeTask.upgradeCount();
                 g.gameDispatcher.removeFromTimer(checkWithTimer);
-                g.directServer.updateUserQuestTask(_activeTask, onUpdateQuestTask);
+                g.server.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                 _activeTask = null;
             }
         } else if (type == POST) {
             if (_activeTask && _activeTask.typeAction == POST) {
                 _activeTask.upgradeCount();
-                g.directServer.updateUserQuestTask(_activeTask, onUpdateQuestTask);
+                g.server.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                 _activeTask = null;
             }
         } else if (type == RAW_PLANT || type == CRAFT_PLANT || type == BUILD_BUILDING || type == CRAFT_PRODUCT || type == RAW_PRODUCT
@@ -500,7 +500,7 @@ public class ManagerQuest {
                 for (i=0; i<tasks.length; i++) {
                     if (!(tasks[i] as QuestTaskStructure).isDone) {
                         (tasks[i] as QuestTaskStructure).upgradeCount();
-                        g.directServer.updateUserQuestTask(tasks[i], onUpdateQuestTask);
+                        g.server.updateUserQuestTask(tasks[i], onUpdateQuestTask);
                     }
                 }
             }
@@ -511,7 +511,7 @@ public class ManagerQuest {
                 for (i=0; i<tArr.length; i++) {
                     if (!(tArr[i] as QuestTaskStructure).isDone) {
                         (tArr[i] as QuestTaskStructure).upgradeCount();
-                        g.directServer.updateUserQuestTask(tArr[i], onUpdateQuestTask);
+                        g.server.updateUserQuestTask(tArr[i], onUpdateQuestTask);
                     }
                 }
             }

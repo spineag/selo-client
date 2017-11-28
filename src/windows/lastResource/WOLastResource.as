@@ -242,7 +242,7 @@ public class WOLastResource extends WindowMain {
         _dataResource.visible = false;
         new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2., 5);
         g.userInventory.addResource(_dataResource.resourceId,-_dataResource.resourceCount);
-        g.directServer.updateUserPapperBuy(_dataResource.buyerId,0,0,0,0,0,0);
+        g.server.updateUserPapperBuy(_dataResource.buyerId,0,0,0,0,0,0);
         if (_dataResource.buyerId == 1) g.userTimer.buyerNyashukBlue(1800);
         else  g.userTimer.buyerNyashukRed(1800);
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);

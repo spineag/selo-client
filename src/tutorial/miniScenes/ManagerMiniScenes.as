@@ -73,7 +73,7 @@ public class ManagerMiniScenes {
 
     public function checkMiniCutSceneCallbackOnShowWindow():void { if (_onShowWindowCallback != null) { _onShowWindowCallback.apply(); } }
     public function checkMiniCutSceneCallbackOnHideWindow():void { if (_onHideWindowCallback != null) { _onHideWindowCallback.apply(); } }
-    private function saveUserMiniScenesData():void { g.directServer.updateUserMiniScenesData(); }
+    private function saveUserMiniScenesData():void { g.server.updateUserMiniScenesData(); }
     public function isMiniSceneResource(id:int):Boolean { return _miniSceneResourceIDs.indexOf(id) > -1; }
     public function get oCat():MiniSceneOrderCat { return _oCat; }
 
@@ -445,7 +445,7 @@ public class ManagerMiniScenes {
         _miniSceneCallback = null;
     }
 
-//    g.directServer.getUserNeighborMarket(null);    ?????
+//    g.server.getUserNeighborMarket(null);    ?????
 
     public function onGoAwayToNeighbor():void {
         if (g.user.miniScenes[4] == 0 && g.isAway && g.user.level == 3) atNeighbor();

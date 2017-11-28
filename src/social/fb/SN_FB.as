@@ -103,7 +103,7 @@ public class SN_FB extends SocialNetwork  {
         super.getTempUsersInfoById(arr);
         if (arr && arr.length) {
             //        ExternalInterface.call("getTempUsersInfoById", arr);
-            g.directServer.FBgetUsersProfiles(arr, getTempUsersInfoByIdCallbackFromServer);
+            g.server.FBgetUsersProfiles(arr, getTempUsersInfoByIdCallbackFromServer);
         } else {
             Cc.error("FB getTempUsersInfoById:: empty array or not exist");
             super.getTempUsersInfoByIdSucces();
@@ -326,7 +326,7 @@ public class SN_FB extends SocialNetwork  {
     }
 
     private function orderSuccessHandler():void {
-        g.directServer.onFBTransaction(null, 1, orderPackID);
+        g.server.onFBTransaction(null, 1, orderPackID);
         super.orderSuccess();
     }
 

@@ -143,7 +143,7 @@ public class PetHouse extends WorldObject {
             g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
-            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+            g.server.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
@@ -243,8 +243,16 @@ public class PetHouse extends WorldObject {
         if (miska) {
             miska.pet = pet;
             pet.positionAtHouse = miska.number;
+        } else Cc.error('no free Miska for pet: ' + pet.petData.id);
+    }
+    
+    public function removePet(p:PetMain):void {
+        if (_arrPets.indexOf(p) > -1) _arrPets.removeAt(_arrPets.indexOf(p));
+        var miska:Miska = getMiskaForPet(p);
+        if (miska) {
+            miska.pet = null;
+            p.positionAtHouse = 0;
         }
-        else Cc.error('no free Miska for pet: ' + pet.petData.id);
     }
 
     public function onPetCraftReady(pet:PetMain):void {
@@ -286,9 +294,11 @@ public class PetHouse extends WorldObject {
 
     override public function clearIt():void {
         onOut();
-        if (_armature) {
-            WorldClock.clock.remove(_armature);
-        }
+        if (_armature) WorldClock.clock.remove(_armature);
+        if (_miska1) _miska1.deleteIt();
+        if (_miska2) _miska2.deleteIt();
+        if (_miska3) _miska3.deleteIt();
+        _miska1 = _miska2 = _miska3 = null;
         _arrPets.length = 0;
         _arrCraftedItems.length = 0;
         _source.touchable = false;
@@ -369,5 +379,11 @@ internal class Miska {
     public function showEat(v:Boolean = true):void { 
         _isEat = v;
         if (_eat) _eat.visible = v;
+    }
+
+    public function deleteIt():void {
+        _miska.dispose();
+        _eat.dispose();
+        _arma = null;
     }
 }

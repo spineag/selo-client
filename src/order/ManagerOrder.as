@@ -518,7 +518,7 @@ public class ManagerOrder {
             or.delOb = del;
             _arrOrders.push(or);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
-            g.directServer.addUserOrder(or, delay, or.catOb.id, null);
+            g.server.addUserOrder(or, delay, or.catOb.id, null);
             if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
                 if (f != null) f.apply(null, [or]);
             }
@@ -973,7 +973,7 @@ public class ManagerOrder {
             }
         }
         if (i == _arrOrders.length) Cc.error('ManagerOrder deleteOrder:: no order');
-        g.directServer.deleteUserOrder(or.dbId, null);
+        g.server.deleteUserOrder(or.dbId, null);
         addNewOrders(1, delayBeforeNextOrder, f, or.placeNumber,true);
     }
 
@@ -984,7 +984,7 @@ public class ManagerOrder {
                 break;
             }
         }
-        g.directServer.deleteUserOrder(dbId, null);
+        g.server.deleteUserOrder(dbId, null);
         if (g.user.level <= 6) addNewOrders(1, 1, null, placeNumber,true);
         else if (g.user.level <= 9) addNewOrders(1, 1, null, placeNumber,true);
         else if (g.user.level <= 15) addNewOrders(1, 1, null, placeNumber,true);
@@ -1002,7 +1002,7 @@ public class ManagerOrder {
                 break;
             }
         }
-        g.directServer.deleteUserOrder(or.dbId,null);
+        g.server.deleteUserOrder(or.dbId,null);
         var pl:int = or.placeNumber;
         or = null;
         addNewOrders(1, 0, f, pl);
@@ -1075,7 +1075,7 @@ public class ManagerOrder {
     }
 
     public function onSkipTimer(or:OrderItemStructure):void {
-        g.directServer.skipOrderTimer(or.dbId, null);
+        g.server.skipOrderTimer(or.dbId, null);
         var pl:int = or.placeNumber;
         var orderDbId:String = or.dbId;
         for (var i:int = 0; i<_arrOrders.length; i++) {

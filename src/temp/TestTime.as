@@ -22,7 +22,7 @@ public class TestTime {
     private function test():void {
         _timer++;
         if (_timer >= 30) {
-            g.directServer.testGetUserFabric(test1);
+            g.server.testGetUserFabric(test1);
             g.gameDispatcher.removeFromTimer(test);
         }
 

@@ -38,8 +38,8 @@ public class MainStarling extends Sprite {
 
     private function loadVersion():void {
         g.startPreloader.setProgress(5);
-        g.directServer.getVersion(loadComponents);
-        g.directServer.getTextHelp(null);
+        g.server.getVersion(loadComponents);
+        g.server.getTextHelp(null);
     }
 
     private function loadComponents():void {

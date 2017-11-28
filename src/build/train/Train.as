@@ -68,11 +68,11 @@ public class Train extends WorldObject{
     }
 
     public function fillItDefault():void { createAnimatedBuild(onCreateBuild); }
-    private function onResetPack():void { g.directServer.getTrainPack(g.user.userSocialId, fillList); }
-    private function onNewStateWait():void { g.directServer.releaseUserTrainPack(_train_db_id, onResetPack); }
+    private function onResetPack():void { g.server.getTrainPack(g.user.userSocialId, fillList); }
+    private function onNewStateWait():void { g.server.releaseUserTrainPack(_train_db_id, onResetPack); }
     private function afterWork():void { makeIdleAnimation(); }
-    private function onOpenTrain(value:Boolean):void { g.directServer.addUserTrain(onAddUserTrain); }
-    private function onUpdate():void { g.directServer.getTrainPack(g.user.userSocialId, fillList); }
+    private function onOpenTrain(value:Boolean):void { g.server.addUserTrain(onAddUserTrain); }
+    private function onUpdate():void { g.server.getTrainPack(g.user.userSocialId, fillList); }
     private function startRenderTrainWork():void { g.gameDispatcher.addToTimer(render); }
     public function set setTrainFull(b:Boolean):void { _fullTrain = b; }
 
@@ -84,21 +84,21 @@ public class Train extends WorldObject{
             if (_stateBuild == STATE_WAIT_BACK) {
                 if (int(ob.time_work) > TIME_WAIT) {
                     _stateBuild = STATE_READY;
-                    g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+                    g.server.updateUserTrainState(_stateBuild, _train_db_id, null);
                     _counter = TIME_READY;
                 } else {
                     _counter = TIME_WAIT - int(ob.time_work);
                 }
-                g.directServer.getTrainPack(g.user.userSocialId, fillList);
+                g.server.getTrainPack(g.user.userSocialId, fillList);
             } else if (_stateBuild == STATE_READY) {
                 if (int(ob.time_work) > TIME_READY) {
                     _stateBuild = STATE_WAIT_BACK;
-                    g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
+                    g.server.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
                     _counter = TIME_WAIT;
                 } else {
                     _counter = TIME_READY - int(ob.time_work);
                 }
-                g.directServer.getTrainPack(g.user.userSocialId, fillList);
+                g.server.getTrainPack(g.user.userSocialId, fillList);
             }
         }
         createAnimatedBuild(onCreateBuild);
@@ -215,7 +215,7 @@ public class Train extends WorldObject{
             var f1:Function = function (ob:Object, t:Train):void {
                 fillList(ob);
             };
-            g.directServer.getTrainPack(g.visitedUser.userSocialId, f1, this);
+            g.server.getTrainPack(g.visitedUser.userSocialId, f1, this);
         }
     }
 
@@ -280,7 +280,7 @@ public class Train extends WorldObject{
                             g.windowsManager.openWindow(WindowsManager.WO_TRAIN_WAIT_BACK, backTrain, list, t, _counter);
                         }
                     };
-                    g.directServer.getTrainPack(g.visitedUser.userSocialId, f1,this);
+                    g.server.getTrainPack(g.visitedUser.userSocialId, f1,this);
                 }
             }
             return;
@@ -330,7 +330,7 @@ public class Train extends WorldObject{
                             g.windowsManager.openWindow(WindowsManager.WO_TRAIN_WAIT_BACK, backTrain, list, t, _counter);
                         }
                     };
-                    g.directServer.getTrainPack(g.user.userSocialId, f2,this);
+                    g.server.getTrainPack(g.user.userSocialId, f2,this);
                  }
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
@@ -364,8 +364,8 @@ public class Train extends WorldObject{
             _stateBuild = STATE_READY;
             _counter = TIME_READY;
             clearBuildingBuildSprite();
-            g.directServer.openBuildedBuilding(this, onOpenTrain);
-            g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+            g.server.openBuildedBuilding(this, onOpenTrain);
+            g.server.updateUserTrainState(_stateBuild, _train_db_id, null);
             startRenderTrainWork();
             onOut();
             onJustOpenedTrain();
@@ -385,7 +385,7 @@ public class Train extends WorldObject{
 
     private function onAddUserTrain(s_id:String):void {
         _train_db_id = s_id;
-        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onUpdate);
+        g.server.updateUserTrainState(_stateBuild, _train_db_id, onUpdate);
     }
 
     private function onBuy():void {
@@ -395,9 +395,9 @@ public class Train extends WorldObject{
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;
-        g.directServer.startBuildBuilding(this, null);
+        g.server.startBuildBuilding(this, null);
         addFoundationBuilding();
-        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+        g.server.updateUserTrainState(_stateBuild, _train_db_id, null);
         _leftBuildTime = _dataBuild.buildTime[0];
         g.gameDispatcher.addToTimer(renderBuildTrainProgress);
     }
@@ -474,7 +474,7 @@ public class Train extends WorldObject{
     }
 
     public function fullTrain(full:Boolean):void {
-        g.directServer.releaseUserTrainPack(_train_db_id, onReleasePack);
+        g.server.releaseUserTrainPack(_train_db_id, onReleasePack);
         showBubleHelp(false);
         if (!full){
             onOut();
@@ -497,7 +497,7 @@ public class Train extends WorldObject{
         new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, priseCoupone);
         if (g.user.wallTrainItem) {
             g.windowsManager.openWindow(WindowsManager.POST_DONE_TRAIN);
-            g.directServer.updateWallTrainItem(null);
+            g.server.updateWallTrainItem(null);
             g.user.wallTrainItem = false;
         }
         onOut();
@@ -505,10 +505,10 @@ public class Train extends WorldObject{
 
     private function onReleasePack():void {
         _stateBuild = STATE_WAIT_BACK;
-        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+        g.server.updateUserTrainState(_stateBuild, _train_db_id, null);
         _counter = TIME_WAIT;
         leaveTrain();
-        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
+        g.server.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
         _fullTrain = false;
     }
 
@@ -521,17 +521,17 @@ public class Train extends WorldObject{
                     g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
                 } else {
                     _stateBuild = STATE_WAIT_BACK;
-                    g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+                    g.server.updateUserTrainState(_stateBuild, _train_db_id, null);
                     _counter = TIME_WAIT;
                     leaveTrain();
                     showBubleHelp();
-                    g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
+                    g.server.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
                     g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
 
                 }
             } else if (_stateBuild == STATE_WAIT_BACK) {
                 _stateBuild = STATE_READY;
-                g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+                g.server.updateUserTrainState(_stateBuild, _train_db_id, null);
                 _counter = TIME_READY;
                 arriveTrain();
                 g.windowsManager.hideWindow(WindowsManager.WO_TRAIN_WAIT_BACK);
@@ -560,7 +560,7 @@ public class Train extends WorldObject{
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
-        g.directServer.skipTimeOnTrainBuild(_leftBuildTime, _dataBuild.id,null);
+        g.server.skipTimeOnTrainBuild(_leftBuildTime, _dataBuild.id,null);
         _leftBuildTime = 0;
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_BUILDING_BUILD_ID, info: _dataBuild.id});
         renderBuildProgress();
@@ -577,7 +577,7 @@ public class Train extends WorldObject{
         _counter = 0;
         list.length = 0;
         _stateBuild = STATE_WAIT_BACK;
-        g.directServer.getTrainPack(g.user.userSocialId, fillList);
+        g.server.getTrainPack(g.user.userSocialId, fillList);
         render();
     }
 

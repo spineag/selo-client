@@ -59,7 +59,7 @@ public class AchievementPanel {
             for (var i:int = 0; i < g.managerAchievement.userAchievement.length; i++) {
                 if (ob.id == g.managerAchievement.userAchievement.id) {
                     var st:String = String(g.managerAchievement.userAchievement[i].tookGift[0]) + '&' + String(g.managerAchievement.userAchievement[i].tookGift[1]) + '&' + String(g.managerAchievement.userAchievement[i].tookGift[2]);
-                    g.directServer.updateUserAchievement(g.managerAchievement.userAchievement[i].id, g.managerAchievement.userAchievement[i].resourceCount, st, 1, null);
+                    g.server.updateUserAchievement(g.managerAchievement.userAchievement[i].id, g.managerAchievement.userAchievement[i].resourceCount, st, 1, null);
                 }
             }
             var arr:Array = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);

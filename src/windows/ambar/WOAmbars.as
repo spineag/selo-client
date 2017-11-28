@@ -250,7 +250,7 @@ public class WOAmbars extends WindowMain {
             g.userValidates.updateInfo('ambarLevel', g.user.ambarLevel);
             st = String(g.managerLanguage.allTexts[458])+ ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
             _progress.setProgress(g.userInventory.currentCountInAmbar / g.user.ambarMaxCount);
-            g.directServer.updateUserAmbar(1, g.user.ambarLevel, null);
+            g.server.updateUserAmbar(1, g.user.ambarLevel, null);
         } else {
             b = g.allData.getBuildingById(13);
             if (!g.userValidates.checkInfo('skladLevel', g.user.skladLevel)) return;
@@ -263,7 +263,7 @@ public class WOAmbars extends WindowMain {
             g.userValidates.updateInfo('skladLevel', g.user.skladLevel);
             st = String(g.managerLanguage.allTexts[458])+ ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
             _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
-            g.directServer.updateUserAmbar(2, g.user.skladLevel, null);
+            g.server.updateUserAmbar(2, g.user.skladLevel, null);
         }
         _txtCount.text = st;
         updateForUpdates();

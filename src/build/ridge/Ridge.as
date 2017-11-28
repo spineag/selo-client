@@ -127,7 +127,7 @@ public class Ridge extends WorldObject{
             var f1:Function = function (s:String):void {
                 _plant.idFromServer = s;
             };
-            g.directServer.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
+            g.server.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
             new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
@@ -248,7 +248,7 @@ public class Ridge extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {  g.toolsModifier.modifierType = ToolsModifier.NONE; return;
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
-            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+            g.server.userBuildingFlip(_dbBuildingId, int(_flip), null);
             return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
@@ -378,7 +378,7 @@ public class Ridge extends WorldObject{
         _source.filter = null;
         _isOnHover = false;
         _plant.checkStateRidge(false);
-        g.directServer.skipTimeOnRidge(_plant._timeToEndState, _dbBuildingId, null);
+        g.server.skipTimeOnRidge(_plant._timeToEndState, _dbBuildingId, null);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_PLANT_ID, info: _plant.dataPlant.id});
         _plant.renderSkip();
     }

@@ -99,7 +99,7 @@ public class ManagerMouse {
     private function onClickMouse():void {
         if (!_mouse) return;
         g.user.countAwayMouse++;
-        g.directServer.useHeroMouse(null);
+        g.server.useHeroMouse(null);
         _mouse.giveAward();
         _mouse = null;
     }

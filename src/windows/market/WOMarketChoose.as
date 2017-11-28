@@ -160,7 +160,7 @@ public class WOMarketChoose extends WindowMain {
         } else {
             g.userInventory.addMoney(1,-1);
             g.userTimer.papperTimerAtMarket = 0;
-            g.directServer.skipUserInPaper(null);
+            g.server.skipUserInPaper(null);
             g.gameDispatcher.removeFromTimer(timerPapper);
             _imPapper = null;
             _source.removeChild(_imPapper);

@@ -39,7 +39,7 @@ public class ChestYellow extends WorldObject{
     public function setLockedLand(l:LockedLand):void { _curLockedLand = l; }
     public function get isAtLockedLand():Boolean {  if (_curLockedLand) return true;   else return false; }
     public function removeLockedLand():void { _curLockedLand = null; }
-    private function onLoad():void { g.directServer.getChestYellow(dataBuild.chestId,openCallback); }
+    private function onLoad():void { g.server.getChestYellow(dataBuild.chestId,openCallback); }
     private function openCallback(ob:Object):void { g.windowsManager.openWindow(WindowsManager.WO_CHEST_YELLOW, deleteThisBuild,ob); }
 
     private function onClick():void {
@@ -68,7 +68,7 @@ public class ChestYellow extends WorldObject{
                     _curLockedLand = null;
                 }
                 onOut();
-                g.directServer.ME_removeWild(_dbBuildingId, null);
+                g.server.ME_removeWild(_dbBuildingId, null);
                 g.townArea.deleteBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
@@ -89,7 +89,7 @@ public class ChestYellow extends WorldObject{
 
     private function deleteThisBuild():void {
         g.townArea.deleteBuild(this);
-        g.directServer.deleteUserWild(_dbBuildingId, null);
+        g.server.deleteUserWild(_dbBuildingId, null);
     }
 
     override public function onHover():void {

@@ -128,12 +128,12 @@ public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
 //                    || _dataBuild.id == 107 || _dataBuild.id == 108 || _dataBuild.id == 109 || _dataBuild.id == 110 || _dataBuild.id == 111 || _dataBuild.id == 112 || _dataBuild.id == 113
 //                    || _dataBuild.id == 114 || _dataBuild.id == 115 || _dataBuild.id == 116 || _dataBuild.id == 117 || _dataBuild.id == 118) {
 //                releaseFlip();
-//                g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
+//                g.server.userBuildingFlip(_dbBuildingId, int(_flip), null);
 //            }
             // ничего не делаем
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             if (!g.selectedBuild) {
-                g.directServer.addToInventory(_dbBuildingId, null);
+                g.server.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 var p:Point = new Point(0, 0);
                 p = _source.localToGlobal(p);

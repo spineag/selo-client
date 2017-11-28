@@ -116,7 +116,7 @@ public class UserTimer {
                 var f:Function = function ():void {
                     g.managerParty.atlasLoad();
                 };
-                g.directServer.getUserParty(f);
+                g.server.getUserParty(f);
             }
             partyToStartTimer = 0;
             g.gameDispatcher.removeFromTimer(partyTimerToStart);

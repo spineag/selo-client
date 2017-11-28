@@ -256,7 +256,7 @@ public class LockedLand extends WorldObject {
         var _y:int = _source.y;
         if (_dataLand.currencyCount > 0) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataLand.currencyCount);
         if (_dataLand.resourceCount > 0) g.userInventory.addResource(_dataLand.resourceId, -_dataLand.resourceCount);
-        g.directServer.removeUserLockedLand(_dataLand.id);
+        g.server.removeUserLockedLand(_dataLand.id);
         while (_build.numChildren) _build.removeChildAt(0);
         g.townArea.deleteBuild(this);
         for (var i:int=0; i<_arrWilds.length; i++) {

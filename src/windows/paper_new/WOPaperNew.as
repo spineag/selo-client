@@ -112,9 +112,9 @@ public class WOPaperNew extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         if (g.userTimer.timerAtPapper <= 0) {
-            g.directServer.updateUserTimePaper(null);
+            g.server.updateUserTimePaper(null);
             startPapperTimer();
-            g.directServer.getPaperItems(fillAfterRefresh);
+            g.server.getPaperItems(fillAfterRefresh);
             g.user.paperShift = 1;
             _btnRefreshFree.visible = false;
             _btnRefresh.visible = true;
@@ -201,7 +201,7 @@ public class WOPaperNew extends WindowMain {
         } else {
             if (_txtTimer) _txtTimer.text = '';
             g.gameDispatcher.removeFromTimer(onTimer);
-            g.directServer.updateUserTimePaper(null);
+            g.server.updateUserTimePaper(null);
             g.user.paperShift = 1;
             _btnRefresh.visible = false;
             _ims.visible = false;
@@ -232,9 +232,9 @@ public class WOPaperNew extends WindowMain {
     }
 
     private function refreshItFree():void {
-        g.directServer.updateUserTimePaper(null);
+        g.server.updateUserTimePaper(null);
         startPapperTimer();
-        g.directServer.getPaperItems(fillAfterRefresh);
+        g.server.getPaperItems(fillAfterRefresh);
     }
 
     private function checkSocialInfoForArray():void {

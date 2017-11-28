@@ -330,7 +330,7 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     override public function setUserLevel():void {
-        g.directServer.setUserLevelToVK();
+        g.server.setUserLevelToVK();
     }
 
     override public function showInviteWindow():void {

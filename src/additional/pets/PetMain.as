@@ -374,6 +374,17 @@ public class PetMain {
         _armature.animation.gotoAndStopByFrame('idle01');
         _armatureBack.animation.gotoAndStopByFrame('idle01');
     }
+
+    public function deleteIt():void {
+        _petImage.removeChild(_armature.display as StarlingArmatureDisplay);
+        _petBackImage.removeChild(_armatureBack.display as StarlingArmatureDisplay);
+        if (WorldClock.clock.contains(_armature)) WorldClock.clock.remove(_armature);
+        if (WorldClock.clock.contains(_armatureBack)) WorldClock.clock.remove(_armatureBack);
+        _petImage.dispose();
+        _petBackImage.dispose();
+        _armature = null;
+        _armatureBack = null;
+    }
     
 }
 }

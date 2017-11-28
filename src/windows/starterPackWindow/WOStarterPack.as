@@ -40,7 +40,7 @@ public class WOStarterPack extends WindowMain{
         _woHeight = 538;
         _woWidth = 732;
         _windowType = WindowsManager.WO_STARTER_PACK;
-        g.directServer.getStarterPack(callbackServer);
+        g.server.getStarterPack(callbackServer);
     }
 
     private function onLoad(bitmap:Bitmap):void {
@@ -204,12 +204,12 @@ public class WOStarterPack extends WindowMain{
     }
 
     override public function hideIt():void {
-        if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.directServer.getDailyGift(null);
+        if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.server.getDailyGift(null);
         else {
             var todayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
             var today:Date = new Date(g.user.day * 1000);
             if (g.user.level >= 5 && todayDailyGift.date != today.date) {
-                g.directServer.getDailyGift(null);
+                g.server.getDailyGift(null);
             } else {
                 g.managerCats.helloCats();
                 if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >=g. managerParty.dataParty.countToGift[0] && (g.managerParty.dataParty.typeParty == 1 || g.managerParty.dataParty.typeParty == 2))
@@ -264,7 +264,7 @@ public class WOStarterPack extends WindowMain{
     }
 
     private function onBuy():void {
-        g.directServer.updateStarterPack(null);
+        g.server.updateStarterPack(null);
         var obj:Object;
         obj = {};
         obj.count = _data.soft_count;

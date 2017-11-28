@@ -19,7 +19,7 @@ public class ManagerSalePack {
     private var g:Vars = Vars.getInstance();
     private var count:int = 0;
     public function ManagerSalePack() {
-        g.directServer.getDataSalePack(startSalePack)
+        g.server.getDataSalePack(startSalePack)
     }
 
     private function startSalePack():void {

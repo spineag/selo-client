@@ -60,7 +60,7 @@ public class DropPartyResource {
                 g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 1;
                 var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
                         + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
-                g.directServer.updateUserParty(st, g.managerParty.userParty.countResource, 0, null);
+                g.server.updateUserParty(st, g.managerParty.userParty.countResource, 0, null);
 //            }
 //        }
         var f1:Function = function():void {

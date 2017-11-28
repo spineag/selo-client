@@ -52,7 +52,6 @@ import preloader.StartPreloader;
 import quest.ManagerQuest;
 import server.DirectServer;
 import server.ManagerPendingRequest;
-import server.Server;
 import social.SocialNetwork;
 import social.SocialNetworkSwitch;
 import starling.core.Starling;
@@ -189,8 +188,7 @@ public class Vars {
     public var selectedBuild:WorldObject;
     public var lastActiveDecorID:int = 0;
 
-    public var server:Server;
-    public var directServer:DirectServer;
+    public var server:DirectServer;
     public var startPreloader:StartPreloader;
     public var dataPath:DataPath;
 
@@ -246,9 +244,9 @@ public class Vars {
     }
 
     private function loadMap():void {           startPreloader.setProgress(76); background = new BackgroundArea(onLoadMap); }
-    private function onLoadMap():void {         startPreloader.setProgress(77); directServer.getDataOutGameTiles(onGetOutGameTiles); }
-    private function onGetOutGameTiles():void { startPreloader.setProgress(78); directServer.getDataLevel(onDataLevel); }
-    private function onDataLevel():void {       startPreloader.setProgress(79); directServer.getUserInfo(loadManagerLanguqage); }
+    private function onLoadMap():void {         startPreloader.setProgress(77); (server as DirectServer).getDataOutGameTiles(onGetOutGameTiles); }
+    private function onGetOutGameTiles():void { startPreloader.setProgress(78); (server as DirectServer).getDataLevel(onDataLevel); }
+    private function onDataLevel():void {       startPreloader.setProgress(79); (server as DirectServer).getUserInfo(loadManagerLanguqage); }
     private function loadManagerLanguqage():void { managerLanguage = new ManagerLanguage(initInterface); }
 
     public function initInterface():void {
@@ -294,37 +292,37 @@ public class Vars {
         } else {
 //            if ((user as User).level == 3) {
                 onLoadCatTutorial();
-//            } else directServer.getDataResource(onDataResource);
+//            } else server.getDataResource(onDataResource);
         }
     }
     
     private function onLoadCatTutorial():void {    startPreloader.setProgress(82); loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', onLoadCatTutorialBig); }
-    private function onLoadCatTutorialBig():void { startPreloader.setProgress(83); directServer.getDataResource(onDataResource); }
-    private function onDataResource():void {       startPreloader.setProgress(84); directServer.getDataRecipe(onDataRecipe); }
-    private function onDataRecipe():void {         startPreloader.setProgress(85); directServer.getDataAnimal(onDataAnimal); }
-    private function onDataAnimal():void {         startPreloader.setProgress(86); directServer.getDataCats(onDataCats); }
-    private function onDataCats():void {           startPreloader.setProgress(87); directServer.getDataBuyMoney(onDataBuyMoney); }
+    private function onLoadCatTutorialBig():void { startPreloader.setProgress(83); (server as DirectServer).getDataResource(onDataResource); }
+    private function onDataResource():void {       startPreloader.setProgress(84); (server as DirectServer).getDataRecipe(onDataRecipe); }
+    private function onDataRecipe():void {         startPreloader.setProgress(85); (server as DirectServer).getDataAnimal(onDataAnimal); }
+    private function onDataAnimal():void {         startPreloader.setProgress(86); (server as DirectServer).getDataCats(onDataCats); }
+    private function onDataCats():void {           startPreloader.setProgress(87); (server as DirectServer).getDataBuyMoney(onDataBuyMoney); }
 
     private function onDataBuyMoney():void {
         startPreloader.setProgress(88);
-        directServer.getDataLockedLand(onDataLockedLand);
+        (server as DirectServer).getDataLockedLand(onDataLockedLand);
     }
 
-    private function onDataLockedLand():void {     startPreloader.setProgress(89); directServer.getDataBuilding(onDataBuilding); }
-    private function onDataBuilding():void {       startPreloader.setProgress(90); directServer.getUserResource(onUserResource); }
-    private function onUserResource():void {       startPreloader.setProgress(91); directServer.getUserBuilding(onUserBuilding); }
-    private function onUserBuilding():void {       startPreloader.setProgress(92); directServer.getUserFabricaRecipe(onUserFabricaRecipe); }
-    private function onUserFabricaRecipe():void {  startPreloader.setProgress(93); directServer.getUserPlantRidge(onUserPlantRidge); }
-    private function onUserPlantRidge():void {     startPreloader.setProgress(94); directServer.getUserTree(onUserTree); }
-    private function onUserTree():void {           startPreloader.setProgress(95); directServer.getUserAnimal(onUserAnimal); }
-    private function onUserAnimal():void {         startPreloader.setProgress(96); directServer.getUserTrain(onUserTrain); }
-    private function onUserTrain():void {          startPreloader.setProgress(97); directServer.getUserWild(onUserWild); }
+    private function onDataLockedLand():void {     startPreloader.setProgress(89); (server as DirectServer).getDataBuilding(onDataBuilding); }
+    private function onDataBuilding():void {       startPreloader.setProgress(90); (server as DirectServer).getUserResource(onUserResource); }
+    private function onUserResource():void {       startPreloader.setProgress(91); (server as DirectServer).getUserBuilding(onUserBuilding); }
+    private function onUserBuilding():void {       startPreloader.setProgress(92); (server as DirectServer).getUserFabricaRecipe(onUserFabricaRecipe); }
+    private function onUserFabricaRecipe():void {  startPreloader.setProgress(93); (server as DirectServer).getUserPlantRidge(onUserPlantRidge); }
+    private function onUserPlantRidge():void {     startPreloader.setProgress(94); (server as DirectServer).getUserTree(onUserTree); }
+    private function onUserTree():void {           startPreloader.setProgress(95); (server as DirectServer).getUserAnimal(onUserAnimal); }
+    private function onUserAnimal():void {         startPreloader.setProgress(96); (server as DirectServer).getUserTrain(onUserTrain); }
+    private function onUserTrain():void {          startPreloader.setProgress(97); (server as DirectServer).getUserWild(onUserWild); }
 
     private function onUserWild():void {
         startPreloader.setProgress(98);
         managerOrder = new ManagerOrder();
         managerOrder.updateMaxCounts();
-        directServer.getUserOrder(onUserOrder);
+        (server as DirectServer).getUserOrder(onUserOrder);
     }
 
     private function onUserOrder():void {
@@ -359,13 +357,13 @@ public class Vars {
         testerPanel =new TesterPanelTop();
 
 //        if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
-        directServer.getDataStockPack(afterServerStock);
+        (server as DirectServer).getDataStockPack(afterServerStock);
 //            stockPanel = new StockPanel();
 //        }
         managerQuest = new ManagerQuest();
         managerParty = new ManagerPartyNew();
         optionPanel = new OptionPanel();
-        directServer.getDataParty(afterLoadAll);
+        (server as DirectServer).getDataParty(afterLoadAll);
     }
 
     private function afterLoadAll():void {
@@ -390,7 +388,7 @@ public class Vars {
 
         if ((user as User).isTester) {
             var f1:Function = function ():void {
-                directServer.deleteUser(f2);
+                (server as DirectServer).deleteUser(f2);
             };
             var f2:Function = function ():void {
                 windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
@@ -405,7 +403,7 @@ public class Vars {
         updateAmbarIndicator();
         gameDispatcher.addNextFrameFunction(afterLoadAll_2);
 
-        if (socialNetworkID == SocialNetworkSwitch.SN_FB_ID) directServer.getDataInviteViral(onViralInvite);
+        if (socialNetworkID == SocialNetworkSwitch.SN_FB_ID) (server as DirectServer).getDataInviteViral(onViralInvite);
     }
 
     private function afterLoadAll_2():void {
@@ -451,11 +449,11 @@ public class Vars {
                 } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene) {
                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
                } else {
-                   if ((user as User).level >= 5 && (user as User).dayDailyGift == 0  && !managerCutScenes.isCutScene) directServer.getDailyGift(null);
+                   if ((user as User).level >= 5 && (user as User).dayDailyGift == 0  && !managerCutScenes.isCutScene) (server as DirectServer).getDailyGift(null);
                    else {
                        todayDailyGift = new Date((user as User).dayDailyGift * 1000);
                        today = new Date((user as User).day * 1000);
-                       if ((user as User).level >= 5 && todayDailyGift.date != today.date) directServer.getDailyGift(null);
+                       if ((user as User).level >= 5 && todayDailyGift.date != today.date) (server as DirectServer).getDailyGift(null);
                        else managerCats.helloCats();
                    }
                }

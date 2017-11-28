@@ -145,12 +145,12 @@ public class Market extends WorldObject{
     public function marketState():void {
         if (g.isAway) {
             if (g.visitedUser is NeighborBot) {
-                g.directServer.getUserNeighborMarket(fillIt);
+                g.server.getUserNeighborMarket(fillIt);
             } else {
-                g.directServer.getUserMarketItem(g.visitedUser.userSocialId, fillIt);
+                g.server.getUserMarketItem(g.visitedUser.userSocialId, fillIt);
             }
         }
-        else g.directServer.getUserMarketItem(g.user.userSocialId,fillIt);
+        else g.server.getUserMarketItem(g.user.userSocialId,fillIt);
     }
 
     private function fillIt():void {

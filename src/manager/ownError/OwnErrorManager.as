@@ -20,7 +20,7 @@ public class OwnErrorManager {
             if (g.analyticManager) g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ERROR, {id: type});
         }
         if (sendUser) {
-            if (g.directServer) g.directServer.addUserError();
+            if (g.server) g.server.addUserError();
         }
     }
 }

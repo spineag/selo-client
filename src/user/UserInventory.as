@@ -74,7 +74,7 @@ public class UserInventory {
         if (g.managerPendingRequest && g.managerPendingRequest.isActive) {
             g.managerPendingRequest.updateResource(id);
         } else {
-            g.directServer.addUserResource(id, _inventoryResource[id], f);
+            g.server.addUserResource(id, _inventoryResource[id], f);
         }
         g.managerOrder.checkForFullOrder();
         if (g.managerTips) g.managerTips.calculateAvailableTips();
@@ -222,7 +222,7 @@ public class UserInventory {
         }
 
         if (needSendToServer)
-            g.directServer.addUserMoney(typeCurrency, newCount, null);
+            g.server.addUserMoney(typeCurrency, newCount, null);
     }
 
     public function dropItemMoney(typeCurrency:int, count:int):void {
@@ -260,7 +260,7 @@ public class UserInventory {
                 newCount = g.user.greenCouponCount;
                 break;
         }
-        g.directServer.addUserMoney(typeCurrency, newCount, null);
+        g.server.addUserMoney(typeCurrency, newCount, null);
     }
 
     public function updateMoneyTxt(typeCurrency:int):void {

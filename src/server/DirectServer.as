@@ -2204,7 +2204,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getUserTree OK', 5);
             var ob:Object;
-            g.user.userDataCity.treesInfo = [];
+            g.user.userDataCity.trees = [];
             g.managerTree = new ManagerTree();
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerTree.addTree(d.message[i]);
@@ -2212,7 +2212,7 @@ public class DirectServer {
                 ob = {};
                 ob.dbId = int(d.message[i].user_db_building_id);
                 ob.time_work = int(ob.time_work);
-                g.user.userDataCity.treesInfo.push(ob);
+                g.user.userDataCity.trees.push(ob);
             }
             if (callback != null) {
                 callback.apply();
@@ -2484,7 +2484,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getUserAnimal OK', 5);
             var ob:Object;
-            g.user.userDataCity.animalsInfo = [];
+            g.user.userDataCity.animals = [];
             g.managerAnimal = new ManagerAnimal();
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerAnimal.addAnimal(d.message[i]);
@@ -2492,7 +2492,7 @@ public class DirectServer {
                 ob.animalId = int(d.message[i].animal_id);
                 ob.timeWork = int(d.message[i].time_work);
                 ob.dbId = int(d.message[i].user_db_building_id);
-                g.user.userDataCity.animalsInfo.push(ob);
+                g.user.userDataCity.animals.push(ob);
             }
             if (callback != null) {
                 callback.apply();
@@ -3694,22 +3694,29 @@ public class DirectServer {
                 ob.timeWork = int(d.message['plant'][i].time_work);
                 p.userDataCity.plants.push(ob);
             }
-            p.userDataCity.treesInfo = new Array();
+            p.userDataCity.trees = new Array();
             for (i=0; i<d.message['tree'].length; i++) {
                 ob = {};
                 ob.id = d.message['tree'][i].id;
                 ob.dbId = int(d.message['tree'][i].user_db_building_id);
                 ob.state = int(d.message['tree'][i].state);
                 ob.time_work = int(d.message['tree'][i].time_work);
-                p.userDataCity.treesInfo.push(ob);
+                p.userDataCity.trees.push(ob);
             }
-            p.userDataCity.animalsInfo = new Array();
+            p.userDataCity.animals = new Array();
             for (i=0; i<d.message['animal'].length; i++) {
                 ob = {};
                 ob.animalId = int(d.message['animal'][i].animal_id);
                 ob.timeWork = int(d.message['animal'][i].time_work);
                 ob.dbId = int(d.message['animal'][i].user_db_building_id);
-                p.userDataCity.animalsInfo.push(ob);
+                p.userDataCity.animals.push(ob);
+            }
+            p.userDataCity.pets = new Array();
+            for (i=0; i<d.message['pet'].length; i++) {
+                ob = {};
+                ob.petId = int(d.message['pet'][i].pet_id);
+                ob.houseDbId = int(d.message['pet'][i].house_db_id);
+                p.userDataCity.pets.push(ob);
             }
             p.userDataCity.recipes = new Array();
             for (i=0; i<d.message['recipe'].length; i++) {

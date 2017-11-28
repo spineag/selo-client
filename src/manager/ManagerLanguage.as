@@ -13,7 +13,7 @@ public class ManagerLanguage {
     public function ManagerLanguage(f:Function) {
         allTexts = {};
         _callback = f;
-        g.directServer.getAllTexts(callbackLoad);
+        g.server.getAllTexts(callbackLoad);
     }
 
     private function callbackLoad():void {
@@ -26,7 +26,7 @@ public class ManagerLanguage {
         if (g.user.language == v) return;
         if (g.user.language == RUSSIAN) g.user.language = ENGLISH;
             else g.user.language = RUSSIAN;
-        g.directServer.changeLanguage(g.socialNetwork.reloadGame);
+        g.server.changeLanguage(g.socialNetwork.reloadGame);
     }
 }
 }

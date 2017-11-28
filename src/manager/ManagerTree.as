@@ -43,15 +43,15 @@ public class ManagerTree {
     }
 
     public function updateTreeState(treeDbId:String, state:int):void {
-        g.directServer.updateUserTreeState(treeDbId, state, null);
+        g.server.updateUserTreeState(treeDbId, state, null);
     }
 
     public function updateTreeCraftCount(treeDbId:String, countCraft:int):void {
-      g.directServer.updateUserCraftCountTree(treeDbId,countCraft,null);
+      g.server.updateUserCraftCountTree(treeDbId,countCraft,null);
     }
 
     public function onCraft(plantIdFromServer:String):void {
-        //g.directServer.craftPlantRidge(plantIdFromServer, null);
+        //g.server.craftPlantRidge(plantIdFromServer, null);
     }
 }
 }

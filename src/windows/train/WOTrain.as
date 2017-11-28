@@ -327,7 +327,7 @@ public class WOTrain extends WindowMain {
         var obj:Object;
         if (lastResource) {
             _btnHelp.visible = false;
-            g.directServer.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
+            g.server.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
             if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
                 new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient);
                 else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP);
@@ -352,7 +352,7 @@ public class WOTrain extends WindowMain {
                     return;
                 }
                 _btnHelp.visible = false;
-                g.directServer.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
+                g.server.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
                 if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
                     new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient);
                     else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP);
@@ -385,7 +385,7 @@ public class WOTrain extends WindowMain {
             _btnHelp.visible = false;
             _train.needHelp(true, _activeItemIndex);
             (_arrItems[_activeItemIndex] as WOTrainItem).onClickHelpMePls(true);
-            g.directServer.updateUserTrainPackNeedHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), null);
+            g.server.updateUserTrainPackNeedHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), null);
         }
     }
 
@@ -411,7 +411,7 @@ public class WOTrain extends WindowMain {
         }
         if ((_arrItems[_activeItemIndex] as WOTrainItem).canFull()) (_arrItems[_activeItemIndex] as WOTrainItem).fullIt();
         (_arrItems[_activeItemIndex] as WOTrainItem).onClickHelpMePls(false);
-        g.directServer.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId),'0', null);
+        g.server.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId),'0', null);
         _train.needHelp(false, _activeItemIndex);
         _btnHelp.visible = false;
         var b:Boolean = true;

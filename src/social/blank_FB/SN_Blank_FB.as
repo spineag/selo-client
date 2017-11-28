@@ -22,7 +22,7 @@ public class SN_Blank_FB extends SocialNetwork {
 
     override public function getProfile(uid:String):void {
         super.getProfile(g.user.userSocialId);
-        g.directServer.FBfake_getProfile(g.user.userSocialId, onGetProfile);
+        g.server.FBfake_getProfile(g.user.userSocialId, onGetProfile);
     }
     
     private function onGetProfile(ob:Object):void {
@@ -42,7 +42,7 @@ public class SN_Blank_FB extends SocialNetwork {
 
     override public function getAppUsers():void {
         super.getAppUsers();
-        g.directServer.FBfake_getAppUsers(onGetAppUsers);
+        g.server.FBfake_getAppUsers(onGetAppUsers);
     }
         
     private function onGetAppUsers(ob:Object):void {
@@ -65,7 +65,7 @@ public class SN_Blank_FB extends SocialNetwork {
     override public function getTempUsersInfoById(arr:Array):void {
         super.getTempUsersInfoById(arr);
         if (arr && arr.length) {
-            g.directServer.FBgetUsersProfiles(arr, getTempUsersInfoByIdCallbackFromServer);
+            g.server.FBgetUsersProfiles(arr, getTempUsersInfoByIdCallbackFromServer);
         } else {
             Cc.error("FB getTempUsersInfoById:: empty array or not exist");
             super.getTempUsersInfoByIdSucces();

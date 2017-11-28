@@ -314,7 +314,7 @@ public class WOAchievementItem {
         new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, g.managerAchievement.dataAchievement[_number].countXp[number]);
         var st:String = g.managerAchievement.userAchievement[_numberUser].tookGift[0] + '&' + g.managerAchievement.userAchievement[_numberUser].tookGift[1] + '&'
                 + g.managerAchievement.userAchievement[_numberUser].tookGift[2];
-        g.directServer.updateUserAchievement(g.managerAchievement.userAchievement[_numberUser].id, g.managerAchievement.userAchievement[_numberUser].resourceCount, st,0, null);
+        g.server.updateUserAchievement(g.managerAchievement.userAchievement[_numberUser].id, g.managerAchievement.userAchievement[_numberUser].resourceCount, st,0, null);
     }
 }
 }

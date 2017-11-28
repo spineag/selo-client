@@ -130,7 +130,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.pXMLs = {};
         g.pJSONs = {};
         g.loadAnimation = new LoadAnimationManager();
-        g.directServer = new DirectServer();
+        g.server = new DirectServer();
         g.version = {};
         g.socialNetwork = new SocialNetwork(g.flashVars);
         
@@ -161,7 +161,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.socialNetwork.checkUserLanguageForIFrame();
         g.startPreloader.setProgress(3);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
-        g.directServer.authUser(game.start);
+        g.server.authUser(game.start);
     }
 
     private function onLoaded(event : starling.events.Event):void {

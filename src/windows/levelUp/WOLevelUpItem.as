@@ -83,7 +83,7 @@ public class WOLevelUpItem {
                 var f1:Function = function (dbId:int):void {
                     g.userInventory.addToDecorInventory(ob.id, dbId);
                 };
-                g.directServer.buyAndAddToInventory(ob.id, f1);
+                g.server.buyAndAddToInventory(ob.id, f1);
             }
 
 

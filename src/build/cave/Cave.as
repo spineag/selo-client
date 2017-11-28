@@ -145,7 +145,7 @@ public class Cave extends WorldObject{
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
                         _armature.animation.gotoAndStopByFrame('open');
-                        g.directServer.getUserCave(fillFromServer);
+                        g.server.getUserCave(fillFromServer);
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
                         _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
@@ -299,10 +299,10 @@ public class Cave extends WorldObject{
                             return;
                         }
                         g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[_arrCrafted.length-1] as CraftItem).resourceId});
-                        g.directServer.craftUserCave(String(_arrCrafted[_arrCrafted.length-1].resourceId),null);
+                        g.server.craftUserCave(String(_arrCrafted[_arrCrafted.length-1].resourceId),null);
                         _arrCrafted.pop().flyIt();
 
-//                        g.directServer.craftUserCave();
+//                        g.server.craftUserCave();
                         if (!_arrCrafted.length) {
                             _armature.animation.gotoAndStopByFrame('open');
                         }
@@ -331,7 +331,7 @@ public class Cave extends WorldObject{
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;
             _armature.animation.gotoAndStopByFrame('open');
-            g.directServer.openBuildedBuilding(this, onOpenBuilded);
+            g.server.openBuildedBuilding(this, onOpenBuilded);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
@@ -366,7 +366,7 @@ public class Cave extends WorldObject{
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataBuild.cost);
         _stateBuild = STATE_BUILD;
         _dbBuildingId = 0;
-        g.directServer.startBuildBuilding(this, onStartBuildingResponse);
+        g.server.startBuildBuilding(this, onStartBuildingResponse);
         addFoundationBuilding();
         _leftBuildTime = _dataBuild.buildTime;
         g.gameDispatcher.addToTimer(renderBuildCaveProgress);
@@ -448,7 +448,7 @@ public class Cave extends WorldObject{
                     _arrCrafted.push(craftItem);
                 }
                 if (item.resourceID == 129) g.managerAchievement.addResource(item.resourceID);
-                g.directServer.addUserCave(item.resourceID,craftItem.count,null);
+                g.server.addUserCave(item.resourceID,craftItem.count,null);
             }
             _isAnimate = false;
         };

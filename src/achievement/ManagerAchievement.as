@@ -17,8 +17,8 @@ public class ManagerAchievement {
     public function ManagerAchievement() {
         dataAchievement = [];
         userAchievement = [];
-        g.directServer.getDataAchievement(null);
-        g.directServer.getUserAchievement(null);
+        g.server.getDataAchievement(null);
+        g.server.getUserAchievement(null);
     }
 
     public function achievementCountFriend(count:int):void {
@@ -57,7 +57,7 @@ public class ManagerAchievement {
                 ob.tookGift[2] = int(0);
                 ob.showPanel = 0;
                 userAchievement.push(ob);
-                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
+                g.server.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
             }
         } else {
             ob = {};
@@ -69,7 +69,7 @@ public class ManagerAchievement {
             ob.tookGift[2] = int(0);
             ob.showPanel = 0;
             userAchievement.push(ob);
-            g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
+            g.server.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
         }
     }
 
@@ -109,7 +109,7 @@ public class ManagerAchievement {
                     ob.tookGift[2] = int(0);
                     ob.showPanel = 0;
                     userAchievement.push(ob);
-                    g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
+                    g.server.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
                 }
             } else {
                 ob = {};
@@ -121,7 +121,7 @@ public class ManagerAchievement {
                 ob.tookGift[2] = int(0);
                 ob.showPanel = 0;
                 userAchievement.push(ob);
-                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
+                g.server.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
             }
         }
 
@@ -137,7 +137,7 @@ public class ManagerAchievement {
                             b = true;
                             userAchievement[k].resourceCount += 1;
                             var st:String = String(userAchievement[k].tookGift[0]) + '&' + String(userAchievement[k].tookGift[1]) + '&' + String(userAchievement[k].tookGift[2]);
-                            g.directServer.updateUserAchievement(userAchievement[k].id, userAchievement[k].resourceCount, st, userAchievement[k].showPanel, null);
+                            g.server.updateUserAchievement(userAchievement[k].id, userAchievement[k].resourceCount, st, userAchievement[k].showPanel, null);
                             if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                                 for (var j:int = 0; j < dataAchievement[i].countToGift.length; j++) {
                                     if (userAchievement[k].resourceCount >= dataAchievement[i].countToGift[j] && !userAchievement[k].tookGift[j]) {
@@ -164,7 +164,7 @@ public class ManagerAchievement {
                         ob.tookGift[2] = int(0);
                         ob.showPanel = 0;
                         userAchievement.push(ob);
-                        g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
+                        g.server.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
                         break;
                     }
                 }
@@ -181,7 +181,7 @@ public class ManagerAchievement {
                     ob.tookGift[2] = int(0);
                     ob.showPanel = 0;
                     userAchievement.push(ob);
-                    g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
+                    g.server.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
                     break;
                 }
             }
@@ -198,7 +198,7 @@ public class ManagerAchievement {
                     b = true;
                     userAchievement[i].resourceCount += count;
                     var st:String = String(userAchievement[i].tookGift[0]) + '&' + String(userAchievement[i].tookGift[1]) + '&' + String(userAchievement[i].tookGift[2]);
-                    g.directServer.updateUserAchievement(userAchievement[i].id, userAchievement[i].resourceCount, st, userAchievement[i].showPanel, null);
+                    g.server.updateUserAchievement(userAchievement[i].id, userAchievement[i].resourceCount, st, userAchievement[i].showPanel, null);
                     if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                         for (var k:int = 0; k < dataAchievement.length; k++) {
                             if (dataAchievement[k].id == achievementId) {
@@ -225,7 +225,7 @@ public class ManagerAchievement {
                 ob.tookGift[2] = int(0);
                 ob.showPanel = 0;
                 userAchievement.push(ob);
-                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
+                g.server.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
             }
         } else {
             ob = {};
@@ -237,7 +237,7 @@ public class ManagerAchievement {
             ob.tookGift[2] = int(0);
             ob.showPanel = 0;
             userAchievement.push(ob);
-            g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
+            g.server.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
         }
     }
 

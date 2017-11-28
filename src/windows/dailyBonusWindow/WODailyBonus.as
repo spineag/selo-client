@@ -208,7 +208,7 @@ public class WODailyBonus extends WindowMain {
             }
         }
         g.managerDailyBonus.updateCount();
-        g.directServer.useDailyBonus(g.managerDailyBonus.count);
+        g.server.useDailyBonus(g.managerDailyBonus.count);
         g.managerAchievement.addAll(21,1);
         _curActivePosition = int(Math.random()*12); // choose random item position as prise
         var angle:Number = -(Math.PI/5)*_curActivePosition + (3 + int(Math.random()*3))*Math.PI*2;

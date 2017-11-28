@@ -303,7 +303,7 @@ public class SN_OK extends SocialNetwork {
                     orderPackID = 0;
                 }
             };
-            g.directServer.onOKTransaction(f1, 0, orderPackID);
+            g.server.onOKTransaction(f1, 0, orderPackID);
         }
     }
 
@@ -312,7 +312,7 @@ public class SN_OK extends SocialNetwork {
         g.mainStage.removeEventListener(flash.events.Event.ACTIVATE, onStageActivate);
         if (result =='ok') {
             super.orderSuccess();
-            g.directServer.onOKTransaction(null, 1, orderPackID);
+            g.server.onOKTransaction(null, 1, orderPackID);
             orderPackID = 0;
         } else {
             super.orderCancel();

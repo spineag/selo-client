@@ -33,7 +33,7 @@ public class ManagerPlantRidge {
     }
 
     public function onAddNewRidge(r:Ridge):void { _arrRidge.push(r); }
-    public function onCraft(plantIdFromServer:String):void { g.directServer.craftPlantRidge(plantIdFromServer, null); }
+    public function onCraft(plantIdFromServer:String):void { g.server.craftPlantRidge(plantIdFromServer, null); }
 
     public function addPlant(ob:Object):void {
         var curRidge:Ridge;
