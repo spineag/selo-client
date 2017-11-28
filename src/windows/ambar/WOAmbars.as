@@ -233,7 +233,7 @@ public class WOAmbars extends WindowMain {
         }
     }
 
-    private function onUpdate():void {
+    private function onUpdate():void { // DO Upgrade Ambar/Sklad
         var needCountForUpdate:int;
         var st:String;
         var b:StructureDataBuilding;

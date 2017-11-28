@@ -202,6 +202,7 @@
             <filename>arch_brick</filename>
             <filename>arch_stone_blue</filename>
             <filename>balabas_blue.png</filename>
+            <filename>barrel.png</filename>
             <filename>beach_chair_red.png</filename>
             <filename>bird_house.png</filename>
             <filename>blue_fence</filename>
@@ -282,7 +283,6 @@
             <filename>street_light_wooden2.png</filename>
             <filename>sunflower</filename>
             <filename>swamp_5x5.png</filename>
-            <filename>swamp_small.png</filename>
             <filename>tail_usa_1.png</filename>
             <filename>tail_usa_2.png</filename>
             <filename>track_autumn_1.png</filename>
@@ -322,7 +322,7 @@
             <filename>white_fence</filename>
             <filename>white_heart_fence</filename>
             <filename>wood_bench.png</filename>
-            <filename>barrel.png</filename>
+            <filename>swamp_small.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

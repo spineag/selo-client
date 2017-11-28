@@ -226,8 +226,8 @@ public class Order extends WorldObject{
     private function makeAnimation(e:Event=null):void {
         var k:Number = Math.random();
         if (k < .9) _armature.animation.gotoAndPlayByFrame('idle');
-        else if (k < .95) _armature.animation.gotoAndPlayByFrame('idle2');
-        else _armature.animation.gotoAndPlayByFrame('idle1');
+        else if (k < .95) _armature.animation.gotoAndPlayByFrame('idle1');
+        else _armature.animation.gotoAndPlayByFrame('idle2');
     }
 }
 }

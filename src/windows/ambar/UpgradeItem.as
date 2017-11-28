@@ -35,6 +35,7 @@ public class UpgradeItem {
     private var _btn:CButton;
     private var _btnTxt:CTextField;
     private var _imGalo4ka:Image;
+    private var _txtCountAll:CTextField;
     private var _txtCount:CTextField;
     private var _isAmbarItem:Boolean;
     private var _buyCallback:Function;
@@ -59,34 +60,32 @@ public class UpgradeItem {
         _contImage.hoverCallback = onHover;
         _contImage.outCallback = onOut;
 
+        _txtCountAll = new CTextField(80,40,'');
+        _txtCountAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCountAll.alignH = Align.RIGHT;
+        _txtCountAll.x = -25;
+        _txtCountAll.y = 23;
+        source.addChild(_txtCountAll);
+
         _txtCount = new CTextField(80,40,'');
         _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCount.alignH = Align.RIGHT;
-        _txtCount.x = -25;
+        _txtCount.x = -5;
         _txtCount.y = 23;
         source.addChild(_txtCount);
 
         _btn = new CButton();
         _btn.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
-//        _btn.addButtonTexture(100, 40, CButton.GREEN, true);
         _btn.y = 90;
         source.addChild(_btn);
         _btn.clickCallback = onBuy;
 
         _btnTxt = new CTextField(90,50,'50');
         _btnTxt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-//        _btnTxt.x = 11;
-//        _btnTxt.y = 8;
-//        _btn.addChild(_btnTxt);
-
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-//        _rubinsSmall.x = 57;
-//        _rubinsSmall.y = 4;
-//        _btn.addChild(_rubinsSmall);
         var sens:SensibleBlock = new SensibleBlock();
         sens.textAndImage(_btnTxt,_rubinsSmall,100);
         _btn.addSensBlock(sens,0,20);
-//        _rubinsSmall.filter = ManagerFilters.SHADOW_TINY;
 
         _imGalo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
         _imGalo4ka.alignPivot();
@@ -103,7 +102,16 @@ public class UpgradeItem {
         var curCount:int = g.userInventory.getCountResourceById(_resourceId);
         if (_isAmbarItem) {
             needCountForUpdate = g.allData.getBuildingById(12).startCountInstrumets + g.allData.getBuildingById(12).deltaCountAfterUpgrade * (g.user.ambarLevel-1);
-            _txtCount.text = String(curCount) + '/' + String(needCountForUpdate);
+            if (needCountForUpdate > curCount) {
+                _txtCount.changeTextColor = ManagerFilters.RED_TXT_NEW;
+                _txtCount.text = String(curCount);
+                _txtCountAll.text = '/' + String(needCountForUpdate);
+            } else {
+                _txtCount.changeTextColor = ManagerFilters.BLUE_COLOR;
+                _txtCount.text = String(curCount);
+                _txtCountAll.text = '/' + String(needCountForUpdate);
+            }
+            _txtCount.x = _txtCountAll.x - _txtCountAll.textBounds.width + 3;
             if (curCount >= needCountForUpdate) {
                 _imGalo4ka.visible = true;
                 _btn.visible = false;
@@ -115,7 +123,16 @@ public class UpgradeItem {
             }
         } else {
             needCountForUpdate = g.allData.getBuildingById(13).startCountInstrumets + g.allData.getBuildingById(13).deltaCountAfterUpgrade * (g.user.skladLevel-1);
-            _txtCount.text = String(curCount) + '/' + String(needCountForUpdate);
+            if (needCountForUpdate > curCount) {
+                _txtCount.changeTextColor = ManagerFilters.RED_TXT_NEW;
+                _txtCount.text = String(curCount);
+                _txtCountAll.text = '/' + String(needCountForUpdate);
+            } else {
+                _txtCount.changeTextColor = Color.WHITE;
+                _txtCount.text = String(curCount);
+                _txtCountAll.text = '/' + String(needCountForUpdate);
+            }
+            _txtCount.x = _txtCountAll.x - _txtCountAll.textBounds.width + 3;
             if (curCount >= needCountForUpdate) {
                 _imGalo4ka.visible = true;
                 _btn.visible = false;
@@ -174,8 +191,8 @@ public class UpgradeItem {
         _imGalo4ka.filter = null;
         _rubinsSmall.filter = null;
         source.removeChild(_btn);
-        _txtCount.deleteIt();
-        _txtCount = null;
+        _txtCountAll.deleteIt();
+        _txtCountAll = null;
         _btnTxt.deleteIt();
         _btnTxt = null;
         _btn.deleteIt();

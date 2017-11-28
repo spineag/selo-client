@@ -318,8 +318,6 @@
             <filename>maslenitsa_statue_icon.png</filename>
             <filename>mushroom_house_1_icon.png</filename>
             <filename>mushroom_house_2_icon.png</filename>
-            <filename>needles_pillow_blue_icon.png</filename>
-            <filename>needles_pillow_pink_icon.png</filename>
             <filename>new_year_boot_icon.png</filename>
             <filename>new_year_tree_1_icon.png</filename>
             <filename>new_year_tree_2_icon.png</filename>
