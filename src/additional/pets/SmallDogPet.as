@@ -73,5 +73,9 @@ public class SmallDogPet extends PetMain  {
         }
         super.releaseTexture();
     }
+
+    public function clearIt():void {
+        deleteIt();
+    }
 }
 }

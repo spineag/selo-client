@@ -133,13 +133,6 @@ public class MarketItem {
         _countTxt.x = 23;
         _countTxt.y = 100;
         source.addChild(_countTxt);
-
-
-        _txtPlawka = new CTextField(100,60, String(g.managerLanguage.allTexts[389]));
-        _txtPlawka.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
-        _txtPlawka.cacheIt = false;
-        _txtPlawka.y = 85;
-        _txtPlawka.visible = false;
         _plawkaCoins = new Sprite();
         source.addChild(_plawkaCoins);
         _plawkaBuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_blue_cell_big_white'));
@@ -151,6 +144,13 @@ public class MarketItem {
         _coin.x = _bg.width/2 + 15;
         _plawkaCoins.addChild(_coin);
         _plawkaCoins.addChild(_costTxt);
+        _txtPlawka = new CTextField(120,60, String(g.managerLanguage.allTexts[389]));
+        _txtPlawka.setFormat(CTextField.BOLD24, 18, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtPlawka.cacheIt = false;
+        _txtPlawka.x = 25;
+        _txtPlawka.y = 125;
+        _txtPlawka.visible = false;
+        _plawkaCoins.addChild(_txtPlawka);
         _plawkaCoins.visible = false;
         _delete = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('trash'));
@@ -220,7 +220,6 @@ public class MarketItem {
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
                 return;
             }
-//            MCScaler.scale(im, 80, 80);
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;
             im.x = _bg.width/2;
@@ -239,8 +238,6 @@ public class MarketItem {
 
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
-        _txtPlawka.x = 5;
-        _txtPlawka.y = 85;
         if (_isUser) {
             visiblePapperTimer();
         }
@@ -295,23 +292,13 @@ public class MarketItem {
     }
 
     private function onPaper():void {
-//        if (g.managerCutScenes.isCutScene) {
-//            if (g.managerCutScenes.curCutSceneProperties.reason == ManagerCutScenes.REASON_ADD_TO_PAPPER) {
-//                g.managerCutScenes.checkCutSceneCallback();
-//            } else return;
-//        }
         if (_inPapper) return;
         _inPapper = true;
         _dataFromServer.inPapper = true;
-//        _papperBtn.visible = true;
-//        _imCheck.visible = true;
-//        _papperBtn.alpha = .8;
         g.managerAchievement.addAll(11,1);
         g.hint.hideIt();
         _dataFromServer.timeInPapper = TimeUtils.currentSeconds;
-//        _wo.startPapperTimer();
         g.server.updateMarketPapper(number,true,null);
-//        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
     public function visiblePapperTimer():void {
@@ -359,9 +346,6 @@ public class MarketItem {
     }
 
     private function deleteCallback():void {
-//        _papperBtn.visible = false;
-//        _imCheck.visible = false;
-//        _papperBtn.alpha = 1;
         _inPapper = false;
         g.userInventory.addMoney(1,-1);
         g.userInventory.addResource(_data.id, _countResource);
@@ -579,7 +563,6 @@ public class MarketItem {
             isFill = 2;
             _inPapper = _dataFromServer.inPapper;
             if (_person.userSocialId == g.user.userSocialId) { //sale yours item
-                _txtPlawka.visible = false;
                 try {
                     showSaleImage(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.cost);
                 } catch (e:Error) {
@@ -629,11 +612,21 @@ public class MarketItem {
             _inPapper = _dataFromServer.inPapper;
             fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
             if (g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel > g.user.level) { //have item but your level so small
-                _plawkaCoins.visible = false;
-                _txtPlawka.visible = true;
-                _txtPlawka.y = 75;
+                if (_plawkaBuy) {
+                    _plawkaCoins.removeChild(_plawkaBuy);
+                    _plawkaBuy.dispose();
+                    _plawkaBuy = null;
+                }
+                _plawkaBuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_cell_big_white_2'));
+                _plawkaBuy.x = 7;
+                _plawkaBuy.y = 125;
+                _plawkaCoins.addChildAt(_plawkaBuy,0);
+                _coin.visible = false;
+
+                _plawkaCoins.visible = true;
                 _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel);
-                _btnAdditem.visible = false;
+                _txtPlawka.visible = true;
+                _costTxt.visible = false;
                 isFill = 3;
             }
         }
@@ -660,10 +653,6 @@ public class MarketItem {
         im.x = 33;
         im.y = 55;
         _imageCont.addChild(im);
-        if (_txtPlawka) {
-            _txtPlawka.visible = true;
-            _txtPlawka.y = 45;
-        }
         if (_btnAdditem) _btnAdditem.visible = false;
         _countMoney = cost;
         if (_coin) _coin.visible = false;
@@ -940,7 +929,7 @@ public class MarketItem {
             _countTxt = null;
         }
         if (_txtPlawka) {
-            source.removeChild(_txtPlawka);
+            _plawkaCoins.removeChild(_txtPlawka);
             _txtPlawka.deleteIt();
             _txtPlawka = null;
         }

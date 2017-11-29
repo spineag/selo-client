@@ -75,5 +75,9 @@ public class DogPet extends PetMain  {
         }
         super.releaseTexture();
     }
+
+    public function clearIt():void {
+        deleteIt();
+    }
 }
 }

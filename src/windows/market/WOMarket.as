@@ -54,6 +54,7 @@ public class WOMarket  extends WindowMain {
     private var _item3:MarketFriendItem;
     private var _ma:MarketAllFriend;
     private var _shiftFriend:int = 0;
+    private var _shiftFriendVisit:int = 0;
     private var _shift:int;
     private var _countPage:int;
     private var _countAllPage:int;
@@ -67,7 +68,7 @@ public class WOMarket  extends WindowMain {
     private var _sprRightFr:CSprite;
     private var _visitBtn:CButton;
     private var _ava:Image;
-    private var ramkaIm:Image;
+    private var _ramkaIm:Image;
 
     public function WOMarket() {
         super();
@@ -178,7 +179,7 @@ public class WOMarket  extends WindowMain {
         _sprLeftFr.x = -_woWidth/2 + 64;
         _sprLeftFr.y = 120;
         _sprLeftFr.endClickCallback = function():void {
-            onChooseFriendOnPanel(_arrFriends[_shiftFriend+1], _shiftFriend+1);
+            onChooseFriendOnPanel(_arrFriends[_shiftFriend], _shiftFriend);
         };
         _source.addChild(_sprRightFr)
     }
@@ -217,8 +218,19 @@ public class WOMarket  extends WindowMain {
             if(_shiftFriend == 0)  {
                 if (_curUser.userSocialId == g.user.userSocialId) createMarketTabBtns();
                 else createMarketTabBtns(true);
-            } else createMarketTabBtns();
-//            checkPapperTimer();
+            } else {
+                if (_curUser == g.user) {
+                    _visitBtn.visible = false;
+                    deleteAva();
+                    _txtName.x = -150;
+                } else {
+                    _visitBtn.visible = true;
+                    createAva();
+                    _shiftFriendVisit = _shiftFriend;
+                    _txtName.x = -110;
+                }
+                createMarketTabBtns();
+            }
             choosePerson(_curUser);
         }
         _timer = 15;
@@ -588,6 +600,10 @@ public class WOMarket  extends WindowMain {
                 _shiftFriend = -1;
             }
         } else {
+            if (_shiftFriend == 0) _shiftFriend++;
+            else if (_shiftFriend + 1 >= _arrFriends.length) _shiftFriend = 0;
+            else if (_shiftFriend != 0) _shiftFriend++;
+
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
             _item.source.x = 10;
             _item.source.y = 25;
@@ -602,24 +618,12 @@ public class WOMarket  extends WindowMain {
                     createAva();
                     _txtName.x = -110;
                 }
-            } else {
-                if (_arrFriends[_shiftFriend] == g.user) {
-                    _visitBtn.visible = false;
-                    deleteAva();
-                    _txtName.x = -150;
-                }
-                else {
-                    _item.visitBtn.visible = true;
-                    createAva();
-                    _txtName.x = -110;
-                }
             }
             _sprRightFr.addChild(_item.source);
-            if (_shiftFriend + 2 >= _arrFriends.length) {
-                _shiftFriend = -1;
-            }
+            if (_shiftFriend + 1 >= _arrFriends.length) _shiftFriend = 0;
+            else _shiftFriend ++;
         }
-        _item2 = new MarketFriendItem(_arrFriends[_shiftFriend + 1], this, _shiftFriend + 1);
+        _item2 = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
         _item2.source.x = -120;
         _item2.source.y = 25;
         _sprLeftFr.addChild(_item2.source);
@@ -657,10 +661,10 @@ public class WOMarket  extends WindowMain {
             if (g.userTimer.papperTimerAtMarket > 0) _contPaper.visible = true;
             else _contPaper.visible = false;
 
-            if (ramkaIm) {
-                ramkaIm.dispose();
-                ramkaIm = null;
-                _source.removeChild(ramkaIm);
+            if (_ramkaIm) {
+                _ramkaIm.dispose();
+                _ramkaIm = null;
+                _source.removeChild(_ramkaIm);
             }
             if (_ava) {
                 _ava.dispose();
@@ -675,6 +679,16 @@ public class WOMarket  extends WindowMain {
     public function onChooseFriendOnPanel(p:Someone, shift:int):void {
         choosePerson(p);
         _shiftFriend = shift;
+        if (p == g.user) {
+            _visitBtn.visible = false;
+            deleteAva();
+            _txtName.x = -150;
+        } else {
+            _visitBtn.visible = true;
+            createAva();
+            _shiftFriendVisit = _shiftFriend;
+            _txtName.x = -110;
+        }
         deleteFriends();
         createMarketTabBtns();
         closePanelFriend();
@@ -908,6 +922,8 @@ public class WOMarket  extends WindowMain {
     }
 
     private function createAva():void {
+//        var shift:int = 0;
+//        if (_shiftFriend != 0) shift = _shiftFriend - 1;
         if (_arrFriends[_shiftFriend] is NeighborBot) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
@@ -924,8 +940,8 @@ public class WOMarket  extends WindowMain {
         if (_ava) {
             _source.removeChild(_ava);
             _ava = null;
-            _source.removeChild(ramkaIm);
-            ramkaIm = null;
+            _source.removeChild(_ramkaIm);
+            _ramkaIm = null;
         }
     }
 
@@ -949,21 +965,23 @@ public class WOMarket  extends WindowMain {
     }
 
     private function photoFromTexture(tex:Texture):void {
+        deleteAva();
         _ava = new Image(tex);
         MCScaler.scale(_ava, 85, 85);
         _ava.x = -158;
         _ava.y = -295;
         if (_source) _source.addChild(_ava);
-        ramkaIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
-        ramkaIm.y = -300;
-        ramkaIm.x = -170;
-        _source.addChild(ramkaIm);
+        _ramkaIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_panel'));
+        _ramkaIm.y = -300;
+        _ramkaIm.x = -170;
+        _source.addChild(_ramkaIm);
     }
 
     private function visitPerson():void {
         if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
+        g.windowsManager.uncasheWindow();
         onClickExit();
-        g.townArea.goAway(_arrFriends[_shiftFriend]);
+        g.townArea.goAway(_arrFriends[_shiftFriendVisit]);
     }
 }
 }

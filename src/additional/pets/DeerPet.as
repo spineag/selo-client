@@ -151,5 +151,9 @@ public class DeerPet extends PetMain  {
         }
         super.releaseTexture();
     }
+
+    public function clearIt():void {
+        deleteIt();
+    }
 }
 }

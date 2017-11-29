@@ -88,8 +88,8 @@ public class MarketFriendItem {
         if (_person.needHelpCount > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             MCScaler.scale(_helpIcon, 20, 20);
-            _helpIcon.x = 70;
-            _helpIcon.y = 70;
+            _helpIcon.x = 75;
+            _helpIcon.y = 10;
             source.addChild(_helpIcon);
         }
     }
@@ -137,7 +137,7 @@ public class MarketFriendItem {
         MCScaler.scale(_ava, 85, 85);
         _ava.x = 12;
         _ava.y = 12;
-        if (source) source.addChild(_ava);
+        if (source) source.addChildAt(_ava,0);
         if (visitBtn && source.contains(visitBtn)) source.setChildIndex(visitBtn, source.numChildren-1);
         if (_helpIcon && source.contains(_helpIcon)) source.setChildIndex(_helpIcon, source.numChildren-1);
     }

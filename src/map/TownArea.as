@@ -2450,7 +2450,7 @@ public class TownArea extends Sprite {
         for (var i:int = 0; i < _cityAwayObjects.length; i++) {
             if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue; // wtf??
             _cont.removeChild(_cityAwayObjects[i].source);
-            _cityAwayObjects[i].clearIt();
+            if (_cityAwayObjects[i]) _cityAwayObjects[i].clearIt();
         }
         for (i = 0; i < _cityAwayTailObjects.length; i++) {
             _contTail.removeChild(_cityAwayTailObjects[i].source);

@@ -376,14 +376,14 @@ public class PetMain {
     }
 
     public function deleteIt():void {
-        _petImage.removeChild(_armature.display as StarlingArmatureDisplay);
-        _petBackImage.removeChild(_armatureBack.display as StarlingArmatureDisplay);
-        if (WorldClock.clock.contains(_armature)) WorldClock.clock.remove(_armature);
-        if (WorldClock.clock.contains(_armatureBack)) WorldClock.clock.remove(_armatureBack);
-        _petImage.dispose();
-        _petBackImage.dispose();
-        _armature = null;
-        _armatureBack = null;
+        if (_petImage && _armature) _petImage.removeChild(_armature.display as StarlingArmatureDisplay);
+        if (_petBackImage  && _armatureBack) _petBackImage.removeChild(_armatureBack.display as StarlingArmatureDisplay);
+        if (_armature && WorldClock.clock.contains(_armature)) WorldClock.clock.remove(_armature);
+        if (_armatureBack && WorldClock.clock.contains(_armatureBack)) WorldClock.clock.remove(_armatureBack);
+        if (_petImage) _petImage.dispose();
+        if (_petBackImage) _petBackImage.dispose();
+        if (_armature) _armature = null;
+        if (_armatureBack) _armatureBack = null;
     }
     
 }

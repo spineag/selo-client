@@ -84,5 +84,9 @@ public class CatPet extends PetMain {
         }
         super.releaseTexture();
     }
+
+    public function clearIt():void {
+        deleteIt();
+    }
 }
 }

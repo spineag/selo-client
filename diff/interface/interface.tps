@@ -289,6 +289,7 @@
             <filename>yellow_tile.png</filename>
             <filename>coins_market.png</filename>
             <filename>friends_board_yellow_bg.png</filename>
+            <filename>blue_cell_big_white_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

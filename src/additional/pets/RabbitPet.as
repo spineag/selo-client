@@ -102,5 +102,9 @@ public class RabbitPet  extends PetMain {
         }
         super.releaseTexture();
     }
+
+    public function clearIt():void {
+        deleteIt();
+    }
 }
 }

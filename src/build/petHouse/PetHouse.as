@@ -107,7 +107,7 @@ public class PetHouse extends WorldObject {
     public function get innerPetY3():int { return 66 * g.scaleFactor; }
 
     private function getFreeMiska():Miska {
-        if (!_miska1.pet) return _miska1;
+        if (_miska1 && !_miska1.pet) return _miska1;
         if (_miska2 && !_miska2.pet) return _miska2;
         if (_miska3 && !_miska3.pet) return _miska3;
         return null;
@@ -306,7 +306,7 @@ public class PetHouse extends WorldObject {
         super.clearIt();
     }
 
-    private function stopAnimation():void { _armature.animation.gotoAndStopByFrame('idle'); }
+    private function stopAnimation():void {if (_armature) _armature.animation.gotoAndStopByFrame('idle'); }
 
     public function showPetAnimateEat(p:PetMain, f:Function):void {
         if (_petsCont) {
