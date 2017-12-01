@@ -370,10 +370,10 @@ public class ManagerCats {
                 _catsArray[i].helloCat();
             }
         }
-            var arr:Array = g.managerOrderCats.arrCats;
-            for (i = 0; i < arr.length; i++) {
-                arr[i].sayHIAnimation(null,true);
-            }
+//            var arr:Array = g.managerOrderCats.arrCats;
+//            for (i = 0; i < arr.length; i++) {
+//                arr[i].sayHIAnimation(null,true);
+//            }
 
 //        Utils.createDelay(int(Math.random() * 2) + 2,f1);
         if (f != null) {

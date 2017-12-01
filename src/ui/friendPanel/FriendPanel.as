@@ -761,11 +761,9 @@ internal class FriendTabs {
     private var _imActiveFriend:Image;
     private var _txtActiveFriend:CTextField;
     private var _unactiveFriend:CSprite;
-//    private var _txtUnactiveFriend:CTextField;
     private var _imActiveNeedHelp:Image;
     private var _txtActiveNeedHelp:CTextField;
     private var _unactiveNeedHelp:CSprite;
-//    private var _txtUnactiveNeedHelp:CTextField;
     private var _imActiveNeighbors:Image;
     private var _txtActiveNeighbors:CTextField;
     private var _unactiveNeighbors:CSprite;
@@ -795,11 +793,6 @@ internal class FriendTabs {
         _unactiveFriend.y = 18;
         bg.addChildAt(_unactiveFriend, 0);
         _unactiveFriend.endClickCallback = onClickFriend;
-//        _txtUnactiveFriend = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
-//        _txtUnactiveFriend.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
-//        _txtUnactiveFriend.x = 127;
-//        _txtUnactiveFriend.y = -42;
-//        bg.addChild(_txtUnactiveFriend);
 
         _imActiveNeedHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab_light'));
         _imActiveNeedHelp.pivotX = _imActiveNeedHelp.width/2;
@@ -822,11 +815,6 @@ internal class FriendTabs {
         _unactiveNeedHelp.y = 18;
         bg.addChildAt(_unactiveNeedHelp, 0);
         _unactiveNeedHelp.endClickCallback = onClickNeedHelp;
-//        _txtUnactiveNeedHelp = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
-//        _txtUnactiveNeedHelp.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
-//        _txtUnactiveNeedHelp.x = 287;
-//        _txtUnactiveNeedHelp.y = -42;
-//        bg.addChild(_txtUnactiveNeedHelp);
 
         _imActiveNeighbors = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab_light'));
         _imActiveNeighbors.pivotX = _imActiveNeighbors.width/2;
@@ -866,25 +854,17 @@ internal class FriendTabs {
             _unactiveFriend.visible = _unactiveNeedHelp.visible = _imActiveNeighbors.visible = true;
             _imActiveFriend.visible = _imActiveNeedHelp.visible =  _unactiveNeighbors.visible = false
         }
-//        _imActiveFriend.visible = _unactiveNeedHelp.visible = isAmbar;
-//        _imActiveNeedHelp.visible = _unactiveFriend.visible = !isAmbar;
-//        _txtActiveFriend.visible = _txtUnactiveNeedHelp.visible = isAmbar;
-//        _txtActiveNeedHelp.visible = _txtUnactiveFriend.visible = !isAmbar;
     }
 
     public function deleteIt():void {
         _bg.removeChild(_txtActiveFriend);
         _bg.removeChild(_txtActiveNeedHelp);
-//        _bg.removeChild(_txtUnactiveNeedHelp);
-//        _bg.removeChild(_txtUnactiveFriend);
         _bg.removeChild(_imActiveFriend);
         _bg.removeChild(_imActiveNeedHelp);
         _bg.removeChild(_unactiveFriend);
         _bg.removeChild(_unactiveNeedHelp);
         _txtActiveFriend.deleteIt();
         _txtActiveNeedHelp.deleteIt();
-//        _txtUnactiveFriend.deleteIt();
-//        _txtUnactiveNeedHelp.deleteIt();
         _imActiveFriend.dispose();
         _imActiveNeedHelp.dispose();
         _unactiveFriend.deleteIt();

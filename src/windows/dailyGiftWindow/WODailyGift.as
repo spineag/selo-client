@@ -104,7 +104,7 @@ public class WODailyGift extends WindowMain {
         super.showIt();
     }
     override public function hideIt():void {
-        g.managerCats.helloCats();
+//        g.managerCats.helloCats();
         if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >=g. managerParty.countToGift[0] && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2))
             g.managerParty.endPartyWindow();
         else if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && g.allData.atlas['partyAtlas']) {

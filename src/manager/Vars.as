@@ -454,7 +454,7 @@ public class Vars {
                        todayDailyGift = new Date((user as User).dayDailyGift * 1000);
                        today = new Date((user as User).day * 1000);
                        if ((user as User).level >= 5 && todayDailyGift.date != today.date) (server as DirectServer).getDailyGift(null);
-                       else managerCats.helloCats();
+//                       else managerCats.helloCats();
                    }
                }
             var f1:Function = function ():void {

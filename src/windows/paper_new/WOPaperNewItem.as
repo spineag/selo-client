@@ -96,7 +96,7 @@ public class WOPaperNewItem {
         if (_data.needHelp > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
 //            MCScaler.scale(_helpIcon, 25, 25);
-            _helpIcon.x = 215;
+            _helpIcon.x = 205;
             _helpIcon.y = 2;
             _source.addChild(_helpIcon);
         }

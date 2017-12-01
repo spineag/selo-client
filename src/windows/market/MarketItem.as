@@ -84,7 +84,6 @@ public class MarketItem {
     private var _wo:WOMarket;
     private var _btnGoAwaySaleItem:CButton;
     private var _txtBuyCell:CTextField;
-    private var _txtGo:CTextField;
     private var _photoUrl:String;
     private var _ramkAva:Image;
     private var g:Vars = Vars.getInstance();
@@ -115,17 +114,14 @@ public class MarketItem {
         _btnAdditem.y = 85;
         _btnAdditem.x = 83;
         _btnAdditem.clickCallback = onClick;
-
         _imageCont = new Sprite();
         source.addChild(_imageCont);
-
         _costTxt = new CTextField(122, 30, '');
         _costTxt.setFormat(CTextField.BOLD24, 24,ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _costTxt.cacheIt = false;
         _costTxt.y = 148;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 15;
-
         _countTxt = new CTextField(122, 30, ' ');
         _countTxt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _countTxt.cacheIt = false;
@@ -190,7 +186,6 @@ public class MarketItem {
             var sens:SensibleBlock = new SensibleBlock();
             sens.textAndImage(_txtBuyCell,im,100);
             _btnBuyCont.addSensBlock(sens,0,18);
-//            _btnBuyCont.addChild(im);
             _btnBuyCont.y = 160;
             _btnBuyCont.x = 85;
             _btnBuyCont.clickCallback = onClickBuy;
@@ -374,7 +369,6 @@ public class MarketItem {
                 if (g.tuts.isTuts) return;
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
             } else {
-//                if (_plawkaSold.visible == true) return;
                 //Вставить проверку на лвл
                 var p:Point;
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
@@ -533,12 +527,14 @@ public class MarketItem {
         clearImageCont();
         _countMoney = 0;
         _countResource = 0;
+        source.filter = null;
+        if (_ramkAva) _ramkAva.visible = false;
         if (_costTxt) _costTxt.text = '';
         if(_countTxt) {
             _countTxt.text = '';
             _countTxt.visible = false;
         }
-        if (_isUser) _btnAdditem.visible = true;
+        if (isFill == 0) _btnAdditem.visible = true;
         else _btnAdditem.visible = false;
         if (_data) _data = null;
         if (_personBuyerTempItem) _personBuyerTempItem = null;
@@ -589,15 +585,15 @@ public class MarketItem {
 
                 for (var i:int = 0; i < _person.marketItems.length; i++) {
                     if (number == _person.marketItems[i].numberCell) {
-                        _personBuyer = _person;
-                        if (_person && _person.marketItems[i].buyerSocialId) {
+                        _personBuyerTempItem = _person.marketItems[i];
+                        if (_personBuyerTempItem) {
                             g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-                            g.socialNetwork.getTempUsersInfoById([_person.marketItems[i].buyerSocialId]);
+                            g.socialNetwork.getTempUsersInfoById([_personBuyerTempItem.buyerSocialId]);
                         }
                         break;
                     }
                 }
-
+                _coin.visible = false;
                 source.filter = ManagerFilters.getButtonDisableFilter();
             }
         } else { //have Item
@@ -655,7 +651,6 @@ public class MarketItem {
         _imageCont.addChild(im);
         if (_btnAdditem) _btnAdditem.visible = false;
         _countMoney = cost;
-        if (_coin) _coin.visible = false;
         if (_plawkaCoins) _plawkaCoins.visible = true;
         if (_costTxt) _costTxt.text = String(cost);
         if (_dataFromServer.buyerSocialId == '1') {
@@ -892,7 +887,6 @@ public class MarketItem {
             buyCont = null;
         }
         source.removeChild(_bg);
-//        _bg.deleteIt();
         _bg = null;
         _callback = null;
         _data = null;
@@ -900,13 +894,7 @@ public class MarketItem {
         _person = null;
         _personBuyer = null;
         _personBuyerTempItem = null;
-//        _quadGreen = null;
         _ava = null;
-//        if (_papperBtn) {
-//            source.removeChild(_papperBtn);
-//            _papperBtn.deleteIt();
-//            _papperBtn = null;
-//        }
         if (_delete) {
             source.removeChild(_delete);
             _delete.deleteIt();
@@ -917,7 +905,6 @@ public class MarketItem {
             _btnGoAwaySaleItem.deleteIt();
             _btnGoAwaySaleItem = null;
         }
-//        _imCheck = null;
         if (_costTxt) {
             _plawkaCoins.removeChild(_costTxt);
             _costTxt.deleteIt();
