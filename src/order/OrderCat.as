@@ -52,7 +52,6 @@ public class OrderCat {
     protected var _speedRun:int = 8;
     private var _catImage:Sprite;
     private var _catBackImage:Sprite;
-//    private var heroEyes:HeroEyesAnimation;
     private var armature:Armature;
     private var armatureBack:Armature;
     private var _queuePosition:int;
@@ -81,13 +80,7 @@ public class OrderCat {
         WorldClock.clock.add(armature);
         WorldClock.clock.add(armatureBack);
         bant = 0;
-//        if (_typeCat != BLACK) {
-            changeCatTexture();
-//        } else {
-//            heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head', '_black', false);
-//            var b:Bone = armature.getBone('bant');
-//            b.visible = false;
-//        }
+        changeCatTexture();
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
         showFront(true);
@@ -106,7 +99,6 @@ public class OrderCat {
     public function set arriveCallback(f:Function):void { _arriveCallback = f; }
     public function get dataCatId():int { return _catData.id; }
     public function get typeCat():int { return _catData.color; }
-//    public function get sexCat():Boolean { return _catData.isWoman; }
     public function get dataCat():Object { return _catData; }
     public function showForOptimisation(needShow:Boolean):void { if (_source) _source.visible = needShow; }
     public function get isMiniScene():Boolean { return _catData.isMiniScene; }
@@ -288,10 +280,6 @@ public class OrderCat {
         g.townArea.removeOrderCatFromCityObjects(this);
         g.townArea.removeOrderCatFromCont(this);
         forceStopAnimation();
-//        if (heroEyes) {
-//            heroEyes.stopAnimations();
-//            heroEyes = null;
-//        }
         WorldClock.clock.remove(armature);
         WorldClock.clock.remove(armatureBack);
         TweenMax.killTweensOf(_source);
@@ -314,12 +302,9 @@ public class OrderCat {
 
     private var count:int;
     public function idleFrontAnimation():void {
-        var r:int = int(Math.random()*16);
-//        if (r != 10) {
-            armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
-            armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
-//        }
-
+        var r:int = int(Math.random()*18);
+        armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
+        armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
 
         if (r > 11) {
             armature.animation.gotoAndPlayByFrame("breath");
@@ -337,8 +322,6 @@ public class OrderCat {
                 case 9: releaseBackIdle(); break;
                 case 11: armature.animation.gotoAndPlayByFrame("breath"); break;
                 case 10:
-//                    armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
-//                    armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
                     switch (_catData.id) {
                         case 6: armature.animation.gotoAndPlayByFrame("akril");  break;
                         case 7: armature.animation.gotoAndPlayByFrame("agur"); break;
@@ -354,15 +337,6 @@ public class OrderCat {
                         case 14: armature.animation.gotoAndPlayByFrame("sintetika"); break;
                         case 2: armature.animation.gotoAndPlayByFrame("stegok"); break;
                         case 1: armature.animation.gotoAndPlayByFrame("uzelok"); break;
-//                            var vii1:Slot = armature.getSlot('vii1');
-//                            var vii2:Slot = armature.getSlot('vii2');
-//                            if (_catData.isWoman) {
-//                                if (vii1 && vii1.display) vii1.display.visible = true;
-//                                if (vii2 && vii2.display) vii2.display.visible = true;
-//                            } else {
-//                                if (vii1 && vii1.display) vii1.display.visible = false;
-//                                if (vii2 && vii2.display) vii2.display.visible = false;
-//                            }
                     }
                     break;
             }

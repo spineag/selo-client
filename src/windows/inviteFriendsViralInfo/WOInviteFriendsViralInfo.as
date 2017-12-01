@@ -55,8 +55,8 @@ public class WOInviteFriendsViralInfo extends WindowMain {
         _txtName.y = -230;
         _source.addChild(_txtName);
         _btn = new CButton();
-        _btn.addButtonTexture(130, CButton.HEIGHT_41, CButton.GREEN, true);
-        _btn.addTextField(130, 40, 0, 0, String(g.managerLanguage.allTexts[427]));
+        _btn.addButtonTexture(130, CButton.HEIGHT_55, CButton.GREEN, true);
+        _btn.addTextField(130, 54, 0, 0, String(g.managerLanguage.allTexts[427]));
         _btn.setTextFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_btn);
 
@@ -91,7 +91,7 @@ public class WOInviteFriendsViralInfo extends WindowMain {
         _imRub = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _imRub.alignPivot();
         if (g.user.language == ManagerLanguage.RUSSIAN) _imRub.x = -12;
-            else _imRub.x = -73;
+            else _imRub.x = -80;
         _imRub.y = 145;
         _source.addChild(_imRub);
 
