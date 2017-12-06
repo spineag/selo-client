@@ -290,6 +290,7 @@ public class StructureDataBuilding {
     public function get deltaCost():int{ return _deltaCost;}
     public function get filterType():int{ return _filterType;}
     public function get group():int{ return _group;}
+    public function set sfilter(gr:int):void{ _filterType = gr;}
     public function get height():int {return _height;}
     public function get id():int {return _id;}
     public function get image():String{ return _image;}

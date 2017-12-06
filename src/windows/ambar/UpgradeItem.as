@@ -107,7 +107,7 @@ public class UpgradeItem {
                 _txtCount.text = String(curCount);
                 _txtCountAll.text = '/' + String(needCountForUpdate);
             } else {
-                _txtCount.changeTextColor = ManagerFilters.BLUE_COLOR;
+                _txtCount.changeTextColor = Color.WHITE;
                 _txtCount.text = String(curCount);
                 _txtCountAll.text = '/' + String(needCountForUpdate);
             }

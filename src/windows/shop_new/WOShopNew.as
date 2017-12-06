@@ -28,7 +28,8 @@ public class WOShopNew extends WindowMain {
     private var _shopList:ShopNewList;
     private var _isBigShop:Boolean;
     private var _txtWindowName:CTextField;
-    
+    private var _txtDecorInventory:CTextField;
+
     public function WOShopNew() {
         super();
         _windowType = WindowsManager.WO_SHOP_NEW;
@@ -79,6 +80,11 @@ public class WOShopNew extends WindowMain {
         if (_isBigShop) _txtWindowName.y = -_woHeight/2 + 20;
             else _txtWindowName.y = -_woHeight/2 + 3;
         _source.addChild(_txtWindowName);
+        _txtDecorInventory = new CTextField(300, 70, g.managerLanguage.allTexts[1235]);
+        _txtDecorInventory.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtDecorInventory.x = -70;
+        _source.addChild(_txtDecorInventory);
+        _txtDecorInventory.visible = false;
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -96,6 +102,8 @@ public class WOShopNew extends WindowMain {
 
         g.user.shopTab = n;
         _decorFilter.source.visible = n == 5;
+        _txtDecorInventory.visible = false;
+        _shopList.booleanPage(true);
 
         switch (n) {
             case VILLAGE:
@@ -109,7 +117,7 @@ public class WOShopNew extends WindowMain {
             case ANIMAL:
                 arR = g.allData.animal;
                 for (i = 0; i < arR.length; i++) {
-                    arr.push(Utils.objectFromStructureAnimaToObject(arR[i]));
+                    arr.push(Utils.objectFromStructureAnimaToObject(arR[i],g.allData.getBuildingById(arR[i].buildId).blockByLevel[0]));
                 }
                 arR = g.allData.pet;
                 for (i = 0; i < arR.length; i++) {
@@ -147,10 +155,15 @@ public class WOShopNew extends WindowMain {
                         }
                     }
                 }
+                    if (arr.length == 0) {
+                        _txtDecorInventory.visible = true;
+                        _shopList.booleanPage(false);
+                    }
                 break;
             default:
 
         }
+
         _shopList.updateList(arr);
     }
 

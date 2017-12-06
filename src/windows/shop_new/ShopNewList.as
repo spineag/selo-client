@@ -99,6 +99,7 @@ public class ShopNewList {
                 else c = 4;
         }
         var p1:int;
+        _arrCurrent.sortOn("sort", Array.NUMERIC);
         var item:ShopNewListItem;
         for (var i:int=0; i<ar.length; i++) {
             if (_isBigShop) {
@@ -294,6 +295,10 @@ public class ShopNewList {
         for (var i:int=0; i<_arrItems.length; i++) {
             (_arrItems[i] as ShopNewListItem).deleteArrow();
         }
+    }
+
+    public function booleanPage(b:Boolean=false):void {
+        _txtPages.visible = b;
     }
     
     public function deleteIt():void {

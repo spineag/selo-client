@@ -173,7 +173,7 @@ public class Ridge extends WorldObject{
                 _plant = null;
             };
             var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 1, null);
-            item.flyIt();
+            item.flyIt(false);
             item = new CraftItem(0, 0, _resourceItem, _plantSprite, 1, f1);
             item.flyIt(true, false, .1);
             if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level && Math.random() <= .1) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
