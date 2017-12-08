@@ -47,7 +47,6 @@ public class TutorialManager extends IManagerTutorial{
             g.load.loadImage(g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas'), onLoad);
             g.load.loadXML(g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas'), onLoad);
         }
-//        try {
             Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
             switch (g.user.tutorialStep) {
                 case 1: curFunc = initScene_1; break;
@@ -77,10 +76,6 @@ public class TutorialManager extends IManagerTutorial{
                 curFunc.apply();
             }
             g.friendPanel.hideIt(true);
-//        } catch (err:Error) {
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
-//            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
-//        }
     }
 
     private function onLoad(smth:*=null):void {
@@ -631,23 +626,14 @@ public class TutorialManager extends IManagerTutorial{
         if ((_tutorialObjects[0] as Fabrica).isAnyCrafted) {
             subStep13_4();
         } else {
-            if (!cutScene) cutScene = new CutScene();
             if (!texts) texts = (new TextsTutorial()).objText;
-            addBlack();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep13_1);
-            if (!_cat) {
-                _cat = new TutorialCat();
-                _cat.setPosition(new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4));
-                _cat.addToMap();
-            }
+            g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep13_1, texts[g.user.tutorialStep][_subStep], 3);
+
         }
     }
 
     private function subStep13_1():void {
         _subStep = 1;
-        removeBlack();
-        cutScene.hideIt(deleteCutScene);
-        _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         _action = TutsAction.RAW_RECIPE;
         _tutorialResourceIDs = [6]; // recipeId
         g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY, false, 1);
@@ -658,7 +644,6 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep13_2():void {
         _subStep = 2;
         (_tutorialObjects[0] as Fabrica).hideArrow();
-        _cat.hideBubble();
         _tutorialCallback = subStep13_3;
     }
 
@@ -869,7 +854,7 @@ public class TutorialManager extends IManagerTutorial{
             return;
         }
         if (_tutorialObjects.length > 3) _tutorialObjects.length = 3;
-        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep17_1, texts[g.user.tutorialStep][_subStep], 3);
+        subStep17_1();
     }
 
     private function subStep17_1():void {

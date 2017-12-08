@@ -65,6 +65,8 @@ public class WOTutorial extends WindowMain {
             } else if (int(params[1]) == 2) {
                 _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('crop_art_1'));
 
+            } else if (int(params[1]) == 2) {
+                _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('bakery_art_1'));
             } else {
                 _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('bakery_art_1'));
             }
