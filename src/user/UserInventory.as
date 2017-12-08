@@ -53,7 +53,7 @@ public class UserInventory {
         }
         return dbId;
         var st:StructureDataBuilding = g.allData.getBuildingById(id);
-        st.sfilter = 1;
+        st.sfilter = g.allData.getBuildingById(id).beforInventroy;
     }
 
     public function getCountResourceById(id:int):int {

@@ -216,6 +216,11 @@
             <filename>cat_cosmonaut_1.png</filename>
             <filename>cat_cosmonaut_2.png</filename>
             <filename>cat_statue.png</filename>
+            <filename>cone_1.png</filename>
+            <filename>cone_2.png</filename>
+            <filename>cone_3.png</filename>
+            <filename>cone_4.png</filename>
+            <filename>cone_5.png</filename>
             <filename>copper_bench.png</filename>
             <filename>cupidon_statue_blue.png</filename>
             <filename>cupidon_statue_pink.png</filename>
@@ -245,6 +250,7 @@
             <filename>flowerbed_square_red.png</filename>
             <filename>flowerbed_usa.png</filename>
             <filename>forks.png</filename>
+            <filename>fountain_flowers.png</filename>
             <filename>fountain_pink.png</filename>
             <filename>fountain_small.png</filename>
             <filename>fountain_top.png</filename>
@@ -277,12 +283,17 @@
             <filename>star_event_winner.png</filename>
             <filename>statue_cow.png</filename>
             <filename>statue_usa.png</filename>
+            <filename>stone_1.png</filename>
+            <filename>stone_2.png</filename>
+            <filename>stone_3.png</filename>
+            <filename>stone_4.png</filename>
             <filename>stone_bench.png</filename>
             <filename>street_lantern.png</filename>
             <filename>street_light_red.png</filename>
             <filename>street_light_wooden2.png</filename>
             <filename>sunflower</filename>
             <filename>swamp_5x5.png</filename>
+            <filename>swamp_small.png</filename>
             <filename>tail_usa_1.png</filename>
             <filename>tail_usa_2.png</filename>
             <filename>track_autumn_1.png</filename>
@@ -322,7 +333,6 @@
             <filename>white_fence</filename>
             <filename>white_heart_fence</filename>
             <filename>wood_bench.png</filename>
-            <filename>swamp_small.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

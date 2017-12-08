@@ -89,9 +89,15 @@ public class WOShopNew extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         if (!g.userValidates.checkInfo('level', g.user.level)) return;
+        if (g.tuts.isTuts) {
+            _tabs.activateTab(params[0]);
+            onChooseTab(params[0]);
+        } else {
+            _tabs.activateTab(g.user.shopTab);
+            onChooseTab(g.user.shopTab);
+        }
 //        if (params && params[0]) g.user.shopTab = params[0];
-        _tabs.activateTab(g.user.shopTab);
-        onChooseTab(g.user.shopTab);
+
         super.showIt();
     }
 
@@ -146,7 +152,7 @@ public class WOShopNew extends WindowMain {
                     if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_FULL_FENСE ||
                             arR[i].buildType == BuildType.DECOR_POST_FENCE || arR[i].buildType == BuildType.DECOR_TAIL || arR[i].buildType == BuildType.DECOR_FENCE_GATE ||
                             arR[i].buildType == BuildType.DECOR_FENCE_ARKA || arR[i].buildType == BuildType.DECOR_POST_FENCE_ARKA) {
-                        if (g.user.shopDecorFilter == DecorShopNewFilter.FILTER_ALL || g.user.shopDecorFilter == arR[i].filterType) {
+                        if (g.user.shopDecorFilter == DecorShopNewFilter.FILTER_ALL || g.user.shopDecorFilter == arR[i].filterType || g.user.shopDecorFilter == arR[i].beforInventroy) {
                             if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_TAIL) {
                                 if (arR[i].group && !g.allData.isFirstInGroupDecor(arR[i].group, arR[i].id))
                                     continue;

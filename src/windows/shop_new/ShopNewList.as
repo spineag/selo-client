@@ -213,6 +213,10 @@ public class ShopNewList {
             _leftArrow.visible = _shift > 0;
             _rightArrow.visible = i < _maxPage;
         }
+        if (_maxPage ==  1) {
+            _leftArrow.visible = false;
+            _rightArrow.visible = false;
+        }
        updateTxtPages();
     }
 

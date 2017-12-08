@@ -11,10 +11,19 @@ import build.farm.Farm;
 import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import flash.display.Bitmap;
 import flash.geom.Point;
 import heroes.TutorialCat;
+
+import loaders.PBitmap;
+
 import mouse.ToolsModifier;
 import particle.tuts.DustRectangle;
+
+import starling.textures.Texture;
+import starling.textures.TextureAtlas;
+
 import tutorial.CutScene;
 import tutorial.IManagerTutorial;
 import tutorial.TutsAction;
@@ -25,12 +34,19 @@ import windows.fabricaWindow.WOFabrica;
 import windows.shop_new.WOShopNew;
 
 public class TutorialManager extends IManagerTutorial{
+    private var _count:int = 0;
+    private var _bolAtlas:Boolean = false;
     public function TutorialManager() {  super(); }
 
     override protected function initScenes():void {
         var curFunc:Function;
         _subStep = 0;
         _action = TutsAction.NONE;
+        if (!g.allData.atlas['tutorialAtlas'] && !_bolAtlas) {
+            _bolAtlas = true;
+            g.load.loadImage(g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas'), onLoad);
+            g.load.loadXML(g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas'), onLoad);
+        }
 //        try {
             Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
             switch (g.user.tutorialStep) {
@@ -65,6 +81,20 @@ public class TutorialManager extends IManagerTutorial{
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
 //            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
 //        }
+    }
+
+    private function onLoad(smth:*=null):void {
+        _count++;
+        if (_count >=2) createAtlases();
+    }
+
+    private function createAtlases():void {
+        g.allData.atlas['tutorialAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas')]);
+        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas')] as PBitmap).deleteIt();
+        delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas')];
+        delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas')];
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas'));
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas'));
     }
 
     private function initScene_1():void { // for mult or smth like that
@@ -113,7 +143,7 @@ public class TutorialManager extends IManagerTutorial{
             subStep3_4();
             return;
         }
-        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep3_1, texts[g.user.tutorialStep][_subStep]);
+        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep3_1, texts[g.user.tutorialStep][_subStep], 1);
     }
 
     private function subStep3_1():void {
@@ -178,7 +208,7 @@ public class TutorialManager extends IManagerTutorial{
             subStep4_4();
             return;
         }
-        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep4_1, texts[g.user.tutorialStep][_subStep]);
+        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep4_1, texts[g.user.tutorialStep][_subStep], 2);
     }
 
     private function subStep4_1():void {
@@ -272,7 +302,7 @@ public class TutorialManager extends IManagerTutorial{
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
             var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
-            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            if (_dustRectangle)_dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
             _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
@@ -839,7 +869,7 @@ public class TutorialManager extends IManagerTutorial{
             return;
         }
         if (_tutorialObjects.length > 3) _tutorialObjects.length = 3;
-        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep17_1, texts[g.user.tutorialStep][_subStep]);
+        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep17_1, texts[g.user.tutorialStep][_subStep], 3);
     }
 
     private function subStep17_1():void {
