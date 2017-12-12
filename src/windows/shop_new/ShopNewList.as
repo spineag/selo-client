@@ -137,7 +137,7 @@ public class ShopNewList {
             _maxPage = int(_arrItems.length / c);
             if (_arrItems.length % c) _maxPage++;
         }
-        if (g.user.shiftShop > 0) animFill();
+        animFill();
     }
 
     private function createArrows():void {

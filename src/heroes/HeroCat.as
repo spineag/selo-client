@@ -10,6 +10,7 @@ import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.ridge.Ridge;
 import com.greensock.TweenMax;
+import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
@@ -22,6 +23,8 @@ import flash.geom.Point;
 
 import starling.display.Image;
 import starling.display.Sprite;
+
+import tutorial.TutorialTextBubble;
 
 import utils.CSprite;
 import utils.Utils;
@@ -41,6 +44,9 @@ public class HeroCat extends BasicCat{
     private var _animation:HeroCatsAnimation;
     private var _isRandomWork:Boolean;
     public var activeRandomWorkBuild:WorldObject;
+    private var _bubble:TutorialTextBubble;
+    private var _isFlip:Boolean;
+    public var bShowBubble:Boolean;
 
     public function HeroCat(type:int) {
         super();
@@ -53,7 +59,7 @@ public class HeroCat extends BasicCat{
         _catWateringAndFeed = new Sprite();
         _catBackImage = new Sprite();
         freeIdleGo = true;
-
+        bShowBubble = false;
         _animation = new HeroCatsAnimation();
         _animation.catArmature = g.allData.factory['cat_main'].buildArmature("cat");
         _animation.catBackArmature = g.allData.factory['cat_main'].buildArmature("cat_back");
@@ -81,13 +87,17 @@ public class HeroCat extends BasicCat{
         _animation.catBackImage = _catBackImage;
         _animation.catWorkerImage = _catWateringAndFeed;
         showFront(true);
+        _bubble = new TutorialTextBubble(g.cont.animationsCont);
         addShadow();
     }
 
     public function get typeMan():int { return _type; }
     public function set workRandom(v:Boolean):void { _isRandomWork = v; }
     public function get isWorkRandom():Boolean { return _isRandomWork; }
-    override public function flipIt(v:Boolean):void { _animation.flipIt(v); }
+    override public function flipIt(v:Boolean):void {
+        _animation.flipIt(v);
+        _isFlip = v;
+    }
     public function get isFree():Boolean { return _isFree; }
     public function get decorAnimation():DecorAnimation { return _decorAnimation; }
 
@@ -308,6 +318,38 @@ public class HeroCat extends BasicCat{
         TweenMax.killTweensOf(_source);
         timer = 0;
         g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
+    }
+
+    public function showBubble(st:String, delay:Number=0):void {
+        var type:int;
+        if (st.length > 140) {
+            type = TutorialTextBubble.BIG;
+        } else if (st.length > 60) {
+            type = TutorialTextBubble.MIDDLE;
+        } else {
+            type = TutorialTextBubble.SMALL;
+        }
+        try {
+            if (_bubble) {
+                _bubble.showBubble(st, _isFlip, type);
+                bShowBubble = true;
+                if (_isFlip) {
+                    _bubble.setXY(20 + _source.x, -50 + _source.y);
+                } else {
+                    _bubble.setXY(-20 + _source.x, -50 + _source.y);
+                }
+            }
+        } catch (e:Error) {
+            bShowBubble = false;
+            Cc.error('TutorialCat showBubble error: ' + e.message + '  step: ' + g.user.tutorialStep);
+        }
+    }
+
+    public function hideBubble():void {
+        if (_bubble) {
+            bShowBubble = false;
+            _bubble.clearIt();
+        }
     }
 
 // WORK WITH PLANT

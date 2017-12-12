@@ -100,7 +100,7 @@ public class WOTutorial extends WindowMain {
 
             _image.x = -_image.width / 2;
             _image.y = -_image.height / 2 + 35;
-            _source.addChild(_image);
+            if (_source)_source.addChild(_image);
         }
     }
 

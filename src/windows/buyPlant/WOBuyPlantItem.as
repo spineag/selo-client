@@ -77,7 +77,7 @@ public class WOBuyPlantItem {
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
         _txtNumber.text = String(_countPlants);
         if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE && g.tuts.isTutsResource(_dataPlant.id) && g.user.level <= _dataPlant.blockByLevel) addArrow();
-        if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE_2 && g.user.level <= _dataPlant.blockByLevel) addArrow();
+        if (g.tuts && g.tuts.action == TutsAction.PLANT_RIDGE_2) addArrow();
         if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PLANT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PLANT)
             && g.managerQuest.activeTask.resourceId == _dataPlant.id && g.user.level <= _dataPlant.blockByLevel) addArrow(3);
     }

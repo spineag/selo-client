@@ -15,6 +15,7 @@ import windows.buyCurrency.WOBuyCurrency;
 import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.buyPlant.WOBuyPlant;
 import windows.buyerNyashuk.WOBuyerNyashuk;
+import windows.buyerNyashuk.WOTutorialNyashuk;
 import windows.cave.WOBuyCave;
 import windows.cave.WOCave;
 import windows.chestWindow.WOChest;
@@ -123,6 +124,7 @@ public class WindowsManager {
     public static const WO_ANNOUNCEMENT:String = 'announcement';
     public static const WO_TUTORIAL:String = 'tutorial';
     public static const WO_ORDER_CAT_MINI:String = 'order_cat_mini_scene';
+    public static const WO_TUTORIAL_NYASHUK:String = 'tutorial_nyashuk';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -331,6 +333,9 @@ public class WindowsManager {
                 break;
             case WO_ORDER_CAT_MINI:
                 wo = new WOMiniSceneOrderCat();
+                break;
+            case WO_TUTORIAL_NYASHUK:
+                wo = new WOTutorialNyashuk();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

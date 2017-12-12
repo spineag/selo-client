@@ -287,13 +287,13 @@ public class Vars {
         managerCats.addAllHeroCats();
         managerSalePack = new ManagerSalePack();
         startPreloader.setProgress(81);
-        if (tuts.isTuts) {
-            loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
-        } else {
+//        if (tuts.isTuts) {
+//            loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
+//        } else {
 //            if ((user as User).level == 3) {
                 onLoadCatTutorial();
 //            } else server.getDataResource(onDataResource);
-        }
+//        }
     }
     
     private function onLoadCatTutorial():void {    startPreloader.setProgress(82); loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', onLoadCatTutorialBig); }
@@ -475,7 +475,7 @@ public class Vars {
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
             managerLohmatic = new ManagerLohmatik();
-            if ((user as User).level >= 5 && !managerCutScenes.isCutScene) managerBuyerNyashuk = new ManagerBuyerNyashuk();
+            if ((user as User).level >= 3 && !managerCutScenes.isCutScene) managerBuyerNyashuk = new ManagerBuyerNyashuk();
 //            if ((user as User).level >= 7 && socialNetworkID == SocialNetworkSwitch.SN_FB_ID) managerBuyerNyashuk = new ManagerBuyerNyashuk();
 
             analyticManager = new AnalyticManager();
