@@ -12,7 +12,7 @@ import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import mouse.ToolsModifier;
 
-import resourceItem.DropDecor;
+import resourceItem.SimpleFlyDecor;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -137,7 +137,7 @@ public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 var p:Point = new Point(0, 0);
                 p = _source.localToGlobal(p);
-                new DropDecor(p.x, p.y, g.allData.getBuildingById(_dataBuild.id), 70, 70,1, 1, true);
+                new SimpleFlyDecor(p.x, p.y, g.allData.getBuildingById(_dataBuild.id), 70, 70,1, 1, true);
                 g.townArea.deleteBuild(this);
             } else {
                 if (g.selectedBuild == this) {

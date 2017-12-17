@@ -3,25 +3,15 @@
  */
 package windows.lastResource {
 import additional.buyerNyashuk.BuyerNyashuk;
-
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
-
+import flash.geom.Point;
 import manager.ManagerFilters;
-
-import resourceItem.DropItem;
-
-import starling.text.TextField;
+import resourceItem.newDrop.DropObject;
 import starling.utils.Color;
-
-import resourceItem.xp.XPStar;
-
 import utils.CButton;
 import utils.CTextField;
-import utils.SensibleBlock;
-
-import windows.WOComponents.WindowBackground;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -235,12 +225,12 @@ public class WOLastResource extends WindowMain {
     }
 
     private function onClickNyashuk():void {
-        var ob:Object = {};
-        ob.id = DataMoney.SOFT_CURRENCY;
-        ob.count = _dataResource.cost;
-        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,ob);
+        var d:DropObject = new DropObject();
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataResource.cost, p);
+        d.addDropXP(5, p);
+        d.releaseIt();
         _dataResource.visible = false;
-        new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2., 5);
         g.userInventory.addResource(_dataResource.resourceId,-_dataResource.resourceCount);
         g.server.updateUserPapperBuy(_dataResource.buyerId,0,0,0,0,0,0);
         if (_dataResource.buyerId == 1) g.userTimer.buyerNyashukBlue(1800);

@@ -5,9 +5,7 @@ package additional.mouse {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import data.DataMoney;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
@@ -16,21 +14,11 @@ import flash.geom.Point;
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
-
 import quest.ManagerQuest;
-
-import resourceItem.DropItem;
-
-import starling.display.Image;
+import resourceItem.newDrop.DropObject;
 import starling.display.Quad;
-
 import starling.display.Sprite;
 import starling.events.Event;
-
-import temp.DropResourceVariaty;
-
-import resourceItem.xp.XPStar;
-
 import utils.CSprite;
 import utils.IsoUtils;
 import utils.Point3D;
@@ -157,26 +145,19 @@ public class MouseHero {
     }
 
     private function flyAwards():void {
-        var obj:Object;
-        obj = {};
-        obj.count = 5;
-        var p:Point = new Point(0, 0);
-        p = _source.localToGlobal(p);
-        obj.id =  DataMoney.SOFT_CURRENCY;
-        new DropItem(p.x, p.y, obj);
-        new XPStar(p.x, p.y, 5);
+        var p:Point = _source.localToGlobal(new Point(0, 0));
+        var d:DropObject = new DropObject();
+        d.addDropXP(5, p);
+        d.addDropMoney(DataMoney.SOFT_CURRENCY, 5, p);
+        d.releaseIt();
     }
 
     private function flyInstrument():void {
-        var obj:Object;
-        obj = {};
-        obj.count = 1;
-        var p:Point = new Point(0, 0);
-        p = _source.localToGlobal(p);
-        obj.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
         var arr:Array = [1, 5, 6, 124, 125];
-        obj.id = arr[int(Math.random()*5)];
-        new DropItem(p.x, p.y, obj);
+        var p:Point = _source.localToGlobal(new Point(0, 0));
+        var d:DropObject = new DropObject();
+        d.addDropItemNewByResourceId(arr[int(Math.random()*5)], p);
+        d.releaseIt();
     }
 
     public function showBoom():void {

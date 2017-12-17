@@ -3,29 +3,19 @@
  */
 package windows.ambar {
 import data.DataMoney;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.Vars;
-
-import resourceItem.DropItem;
-
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
-
-import temp.DropResourceVariaty;
-
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
-
-import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
 
 public class UpgradeItem {
@@ -159,11 +149,10 @@ public class UpgradeItem {
     private function onBuy():void {
         if (g.user.hardCurrency >= _countForBuy * g.allData.getResourceById(_resourceId).priceHard) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.allData.getResourceById(_resourceId).priceHard);
-            var prise:Object = {};
-            prise.id = _resourceId;
-            prise.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
-            prise.count = _countForBuy;
-            new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
+            var d:DropObject = new DropObject();
+            var p:Point =new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+            d.addDropItemNewByResourceId(_resourceId, p, _countForBuy);
+            d.releaseIt(null, false);
             updateIt(_resourceId, _isAmbarItem);
             if (!_isAmbarItem) _wo.updateCells();
             if (_buyCallback != null) _buyCallback.apply();

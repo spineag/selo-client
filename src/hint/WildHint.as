@@ -3,35 +3,21 @@
  */
 package hint {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
+import resourceItem.newDrop.DropObject;
 import starling.animation.Tween;
-
 import starling.display.Image;
 import starling.display.Quad;
-import starling.display.Sprite;
-import starling.text.TextField;
-import starling.utils.Align;
 import starling.utils.Color;
-
 import tutorial.TutsAction;
-
-import resourceItem.xp.XPStar;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.SimpleArrow;
-
 import windows.WOComponents.HintBackground;
 import windows.WindowsManager;
 
@@ -60,7 +46,6 @@ public class WildHint {
     public function WildHint() {
         _canHide = true;
         _source = new CSprite();
-        _source.nameIt = 'wildHint';
         _btn = new CButton();
         _isShowed = false;
         _isOnHover = false;
@@ -178,7 +163,11 @@ public class WildHint {
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'menu', ob);
         } else {
             if (_buildType == BuildType.TREE) {
-                new XPStar(_source.x,_source.y,8);
+                var start:Point = new Point(int(_source.x), int(_source.y));
+                start = _source.parent.localToGlobal(start);
+                var d:DropObject = new DropObject();
+                d.addDropXP(8, start);
+                d.releaseIt();
             }
             g.userInventory.addResource(_id, -1);
             if (_deleteCallback != null) {

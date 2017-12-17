@@ -11,7 +11,7 @@ import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
 import mouse.ToolsModifier;
 
-import resourceItem.DropDecor;
+import resourceItem.SimpleFlyDecor;
 
 public class DecorTail extends WorldObject{
     public function DecorTail(_data:Object) {
@@ -59,7 +59,7 @@ public class DecorTail extends WorldObject{
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 var p:Point = new Point(0, 0);
                 p = _source.localToGlobal(p);
-                new DropDecor(p.x, p.y, g.allData.getBuildingById(_dataBuild.id), 70, 70,1, 1, true);
+                new SimpleFlyDecor(p.x, p.y, g.allData.getBuildingById(_dataBuild.id), 70, 70,1, 1, true);
                 g.townArea.deleteTailBuild(this);
             } else {
                 if (g.selectedBuild == this) {

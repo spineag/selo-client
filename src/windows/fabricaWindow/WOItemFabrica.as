@@ -28,7 +28,6 @@ public class WOItemFabrica {
 
     public function WOItemFabrica() {
         source = new CSprite();
-        source.nameIt = 'woItemFabrica';
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;

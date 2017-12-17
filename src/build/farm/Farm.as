@@ -18,11 +18,11 @@ import particle.FarmFeedParticles;
 import quest.ManagerQuest;
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
+import resourceItem.newDrop.DropObject;
 import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
 import tutorial.TutsAction;
-import resourceItem.xp.XPStar;
 import windows.WindowsManager;
 import windows.shop_new.WOShopNew;
 
@@ -170,7 +170,7 @@ public class Farm extends WorldObject{
                     onOut();
                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                 } else {
-                    (_arrCrafted[0] as CraftItem).flyIt();
+                    (_arrCrafted[0] as CraftItem).releaseIt();
                     checkForCraft();
                 }
             } else {
@@ -294,7 +294,9 @@ public class Farm extends WorldObject{
         if (_dataBuild.xpForBuild) {
             var start:Point = new Point(int(_source.x), int(_source.y));
             start = _source.parent.localToGlobal(start);
-            new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+            var d:DropObject = new DropObject();
+            d.addDropXP(_dataBuild.xpForBuild, start);
+            d.releaseIt();
         }
     }
 

@@ -36,7 +36,6 @@ public class CouponePanel {
 
     public function CouponePanel() {
         _source = new CSprite();
-        _source.nameIt = 'couponePanel';
         g.cont.interfaceCont.addChild(_source);
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;

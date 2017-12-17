@@ -45,7 +45,6 @@ public class XPPanel {
 
     public function XPPanel() {
         _source = new CSprite();
-        _source.nameIt = 'xpPanel';
         g.cont.interfaceCont.addChild(_source);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('progres_bar'));
         _source.addChild(im);

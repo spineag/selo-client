@@ -8,6 +8,7 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
 import manager.ManagerPartyNew;
+import resourceItem.newDrop.DropObject;
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
 import starling.display.Image;
@@ -15,7 +16,6 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
-import resourceItem.xp.XPStar;
 import user.Someone;
 import utils.CButton;
 import utils.CSprite;
@@ -200,12 +200,14 @@ public class WOPartyWindow extends WindowMain {
         g.server.updateUserParty(st,g.managerParty.userParty.countResource,0,null);
         var p:Point = new Point(0, 0);
         p = _btnLoad.localToGlobal(p);
-        new XPStar(p.x, p.y,_countLoad * g.allData.getResourceById(g.managerParty.idResource).orderXPMin);
+        var d:DropObject = new DropObject();
+        d.addDropXP(_countLoad * g.allData.getResourceById(g.managerParty.idResource).orderXPMin, p);
+        d.releaseIt();
         g.userInventory.addResource(g.managerParty.idResource, - _countLoad);
         _countLoad =  g.userInventory.getCountResourceById(g.managerParty.idResource);
         _txtCountLoad.text = String(_countLoad);
         for (var i:int = 0; i < _arrItem.length; i++) {
-            _arrItem[i].reload();
+            (_arrItem[i] as WOPartyWindowItem).reload();
         }
         if (_countLoad > 0) {
             _countLoad = _countLoad/2;

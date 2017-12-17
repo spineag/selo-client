@@ -3,19 +3,12 @@
  */
 package manager {
 import com.junkbyte.console.Cc;
-
 import flash.display.StageDisplayState;
-
+import flash.geom.Point;
 import quest.ManagerQuest;
-import resourceItem.DropItem;
-
-import social.SocialNetwork;
+import resourceItem.newDrop.DropObject;
 import social.SocialNetworkSwitch;
-
 import starling.core.Starling;
-
-import resourceItem.xp.XPStar;
-
 import wallPost.WALLAnnouncement;
 import wallPost.WALLDoneOrder;
 import wallPost.WALLDoneTrain;
@@ -81,14 +74,11 @@ public class ManagerWallPost {
             g.managerQuest.onActionForTaskType(ManagerQuest.POST);
         } else {
             if (_type == 0 || _count == 0) return;
-            if (_type == 9) new XPStar(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, _count);
-            else {
-                var obj:Object;
-                obj = {};
-                obj.count = _count;
-                obj.id = _type;
-                new DropItem(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, obj);
-            }
+            var d:DropObject = new DropObject();
+            var p:Point = new Point(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2);
+            if (_type == 9) d.addDropXP(_count, p);
+            else d.addDropMoney(_type, _count, p);
+            d.releaseIt();
         }
         _type = 0;
         _typePost = '';

@@ -2,30 +2,29 @@
  * Created by user on 4/27/16.
  */
 package windows.chestWindow {
+import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
+import flash.geom.Point;
 import manager.ManagerChest;
 import manager.ManagerFilters;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
-
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOChest  extends WindowMain{
     private var _armature:Armature;
     private var _woChestItem:WOChestItem;
-    private var _woChestItemsTutorial:WOChestItemsTutorial;
     private var _btnOpen:CButton;
     private var _callback:Function;
     private var _txtBtn:CTextField;
@@ -53,8 +52,16 @@ public class WOChest  extends WindowMain{
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 _armature.animation.gotoAndStopByFrame('idle_2');
-                if (g.tuts.isTuts) _woChestItemsTutorial = new WOChestItemsTutorial(_source, closeAnimation);
-                else  _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, closeAnimation);
+                if (g.tuts.isTuts) {
+                    var d:DropObject = new DropObject();
+                    var p:Point = new Point(0,0);
+                    p = source.localToGlobal(p);
+                    for (var i:int=0; i<5; i++) {
+                        d.addDropMoney(DataMoney.HARD_CURRENCY, 10, p);
+                        d.addDropMoney(DataMoney.SOFT_CURRENCY, 250, p);
+                    }
+                    d.releaseIt();
+                } else _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, closeAnimation);
             };
             _armature.addEventListener(EventObject.COMPLETE, fEndOver);
             _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);

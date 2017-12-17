@@ -166,7 +166,6 @@ public class MainBottomPanel {
         _homeBtn.visible = false;
 
         _optionBtn = new CSprite();
-        _optionBtn.nameIt = 'optionBtn';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('options_button'));
         _optionBtn.addChild(im);
         _optionBtn.x = 203;

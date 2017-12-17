@@ -8,6 +8,7 @@ import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
 
 import data.BuildType;
+import data.DataMoney;
 import data.StructureDataBuilding;
 
 import flash.display.StageDisplayState;
@@ -18,7 +19,8 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import resourceItem.CraftItem;
-import resourceItem.DropDecor;
+import resourceItem.SimpleFlyDecor;
+import resourceItem.newDrop.DropObject;
 
 import starling.core.Starling;
 
@@ -129,94 +131,31 @@ public class WODailyBonusCraftItem {
 
     private function flyIt():void {
         hideParticle(0);
-        switch (_data.type) {
-            case ManagerDailyBonus.RESOURCE:
-                flyItResource();
-                break;
-            case ManagerDailyBonus.PLANT:
-                flyItResource();
-                break;
-            case ManagerDailyBonus.SOFT_MONEY:
-                flyItMoney(true);
-                break;
-            case ManagerDailyBonus.HARD_MONEY:
-                flyItMoney(false);
-                break;
-            case ManagerDailyBonus.DECOR:
-                flyItDecor();
-                break;
-            case ManagerDailyBonus.INSTRUMENT:
-                flyItResource();
-                break;
-        }
-    }
-
-    private function flyItDecor():void {
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
-        new DropDecor(p.x, p.y, g.allData.getBuildingById(_data.id), 100, 100, _data.count);
-        deleteIt();
-    }
-
-    private function flyItMoney(isSoft:Boolean):void {
-        var endPoint:Point;
-
-        var f1:Function = function():void {
-            if (isSoft) {
-                g.userInventory.addMoney(2, _data.count);
-            } else {
-                g.userInventory.addMoney(1, _data.count);
-            }
-            deleteIt();
-        };
-
-        endPoint = new Point();
-        endPoint.x = _source.x;
-        endPoint.y = _source.y;
-        endPoint = _parent.localToGlobal(endPoint);
-        _parent.removeChild(_source);
-        _parent = g.cont.animationsResourceCont;
-        _source.x = endPoint.x;
-        _source.y = endPoint.y;
-        _parent.addChild(_source);
-        if (isSoft) {
-            endPoint = g.softHardCurrency.getSoftCurrencyPoint();
-        } else {
-            endPoint = g.softHardCurrency.getHardCurrencyPoint();
+        var d:DropObject = new DropObject();
+        switch (_data.type) {
+            case ManagerDailyBonus.RESOURCE:
+                d.addDropItemNewByResourceId(_data.id, p, _data.count);
+                break;
+            case ManagerDailyBonus.PLANT:
+                d.addDropItemNewByResourceId(_data.id, p, _data.count);
+                break;
+            case ManagerDailyBonus.SOFT_MONEY:
+                d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.count, p);
+                break;
+            case ManagerDailyBonus.HARD_MONEY:
+                d.addDropMoney(DataMoney.HARD_CURRENCY, _data.count, p);
+                break;
+            case ManagerDailyBonus.DECOR:
+                d.addDropDecor(g.allData.getBuildingById(_data.id), p, _data.count);
+                break;
+            case ManagerDailyBonus.INSTRUMENT:
+                d.addDropItemNewByResourceId(_data.id, p, _data.count);
+                break;
         }
-        var tempX:int = _source.x - 70;
-        var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        var v:int;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
-        else v = 460;
-        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
-    }
-
-    private function flyItResource():void {
-        var f1:Function = function():void {
-            g.userInventory.addResource(_data.id, _data.count);
-            g.craftPanel.afterFlyWithId(_data.id);
-            deleteIt();
-        };
-
-        var start:Point = new Point(int(_source.x), int(_source.y));
-        start = _parent.localToGlobal(start);
-        _parent.removeChild(_source);
-        _parent = g.cont.animationsResourceCont;
-        _source.x = start.x;
-        _source.y = start.y;
-        _parent.addChild(_source);
-        g.craftPanel.showIt(g.allData.getResourceById(_data.id).placeBuild);
-        var endPoint:Point = g.craftPanel.pointXY();
-        var tempX:int = _source.x - 70;
-        var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - tempX)*(_source.x - tempX) + (_source.y - tempY)*(_source.y - tempY)));
-        dist += int(Math.sqrt((tempX - endPoint.x)*(tempX - endPoint.x) + (tempY - endPoint.y)*(tempY - endPoint.y)));
-        var t:Number = dist/1000 * 2;
-        if (t > 2) t -= .6;
-        if (t > 3) t -= 1;
-        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
+        d.releaseIt(null, false);
+        deleteIt();
     }
 
     private function deleteIt():void {

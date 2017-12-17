@@ -2,27 +2,13 @@
  * Created by user on 12/26/16.
  */
 package windows.chestYellowWindow {
-import data.DataMoney;
-
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
-import flash.geom.Point;
-
 import manager.ManagerChest;
-
-import resourceItem.DropItem;
-
 import starling.display.Sprite;
-
 import starling.events.Event;
-
-import temp.DropResourceVariaty;
-
-import resourceItem.xp.XPStar;
-
 import windows.WindowMain;
 
 public class WOChestYellow extends WindowMain {
@@ -45,19 +31,19 @@ public class WOChestYellow extends WindowMain {
             var ob:Object = {};
             ob.resource_id = _data.resource_id;
             ob.resource_count = _data.resource_count;
-            ob.type = ManagerChest.RESOURCE;
+            ob.types = ManagerChest.RESOURCE;
             arr.push(ob);
         }
         if (_data.money_count > 0) {
             ob = {};
             ob.money_count = _data.money_count;
-            ob.type = ManagerChest.SOFT_MONEY;
+            ob.types = ManagerChest.SOFT_MONEY;
             arr.push(ob);
         }
         if (_data.xp_count > 0) {
             ob ={};
             ob.xp_count = _data.xp_count;
-            ob.type = ManagerChest.XP;
+            ob.types = ManagerChest.XP;
             arr.push(ob);
         }
             var fEndOver:Function = function():void {

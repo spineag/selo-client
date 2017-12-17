@@ -7,34 +7,24 @@ import data.BuildType;
 import data.DataMoney;
 import data.StructureDataResource;
 import data.StructureMarketItem;
-
 import flash.display.Bitmap;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.Vars;
-
 import quest.ManagerQuest;
-
 import resourceItem.CraftItem;
-import resourceItem.DropItem;
-import resourceItem.DropPartyResource;
+import resourceItem.newDrop.DropObject;
 import resourceItem.ResourceItem;
-
 import social.SocialNetworkEvent;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
-import temp.DropResourceVariaty;
 import tutorial.TutsAction;
-import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
-
 import user.NeighborBot;
 import user.Someone;
 import utils.CButton;
@@ -43,8 +33,6 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
 import utils.TimeUtils;
-
-import windows.WOComponents.BackgroundWhiteIn;
 import windows.WindowsManager;
 
 public class MarketItem {
@@ -429,8 +417,14 @@ public class MarketItem {
                     }
                 }
                 g.managerAchievement.addAll(2,_countMoney);
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.MARKET && g.allData.atlas['partyAtlas']&&g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
-                else if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.MARKET && 
+                        g.allData.atlas['partyAtlas']&&g.managerParty.levelToStart <= g.user.level ||
+                        g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) {
+                    var dr:DropObject = new DropObject();
+                    p = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+                    dr.addDropPartyResource(p);
+                    dr.releaseIt();
+                }
 
                 animCoin();
                 isFill = 0;
@@ -511,17 +505,11 @@ public class MarketItem {
     }
 
     private function animCoin():void {
-        var x:Number;
-        var y:Number;
-        x = _imageCont.width/2;
-        y = _imageCont.height/2;
-        var p:Point = new Point(x, y);
+        var p:Point = new Point(_imageCont.width/2,_imageCont.height/2);
         p = _imageCont.localToGlobal(p);
-        var prise:Object = {};
-        prise.id = DataMoney.SOFT_CURRENCY;
-        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
-        prise.count = _countMoney;
-        new DropItem(p.x, p.y, prise);
+        var d:DropObject = new DropObject();
+        d.addDropMoney(DataMoney.SOFT_CURRENCY, _countMoney, p);
+        d.releaseIt();
         _countMoney = 0;
         _countResource = 0;
         _inPapper = false;
@@ -640,7 +628,7 @@ public class MarketItem {
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(d);
         var item:CraftItem = new CraftItem(0,0,resource,source,count);
-        item.flyIt(false,false);
+        item.releaseIt(false,false);
     }
 
     private function showSaleImage(data:Object, cost:int):void {

@@ -6,12 +6,15 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 
 import data.BuildType;
+import data.DataMoney;
 
 import flash.geom.Point;
 
 import manager.ManagerChest;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import resourceItem.newDrop.DropObject;
 
 import starling.display.Image;
 
@@ -36,7 +39,7 @@ public class WOChestYellowItem {
         _callback = f;
 
         var im:Image;
-        switch (_data.type) {
+        switch (_data.types) {
             case ManagerChest.RESOURCE:
                     if (g.allData.getResourceById(_data.resource_id).buildType == BuildType.PLANT) {
                         im = new Image(g.allData.atlas[g.allData.getResourceById(_data.resource_id).url].getTexture(g.allData.getResourceById(_data.resource_id).imageShop + '_icon'));
@@ -132,116 +135,22 @@ public class WOChestYellowItem {
 
     private function flyIt():void {
         hideParticle(0);
+        var p:Point = new Point();
+        p = source.localToGlobal(p);
+        var d:DropObject = new DropObject();
         switch (_data.type) {
             case ManagerChest.RESOURCE:
-                flyItResource();
+                d.addDropItemNewByResourceId(_data.resource_id, p, _data.resource_count);
                 break;
-
             case ManagerChest.SOFT_MONEY:
-                flyItMoney(true);
+                d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.money_count, p);
                 break;
             case ManagerChest.XP:
-                flyItXp();
+                d.addDropXP(_data.xp_count, p);
                 break;
         }
-    }
-
-    private function flyItMoney(isSoft:Boolean):void {
-        var endPoint:Point;
-
-        var f1:Function = function ():void {
-            if (isSoft) {
-                g.userInventory.addMoney(2, _data.money_count);
-            } else {
-                g.userInventory.addMoney(1, _data.money_count);
-            }
-            deleteIt();
-        };
-
-        endPoint = new Point();
-        endPoint.x = source.x;
-        endPoint.y = source.y;
-        endPoint = _parent.localToGlobal(endPoint);
-        _parent.removeChild(source);
-        _parent = g.cont.animationsResourceCont;
-        source.x = endPoint.x;
-        source.y = endPoint.y;
-        _parent.addChild(source);
-        if (isSoft) {
-            endPoint = g.softHardCurrency.getSoftCurrencyPoint();
-        } else {
-            endPoint = g.softHardCurrency.getHardCurrencyPoint();
-        }
-        var tempX:int = source.x - 70;
-        var tempY:int = source.y + 30 + int(Math.random() * 20);
-        var dist:int = int(Math.sqrt((source.x - tempX) * (source.x - tempX) + (source.y - tempY) * (source.y - tempY)));
-        dist += int(Math.sqrt((tempX - endPoint.x) * (tempX - endPoint.x) + (tempY - endPoint.y) * (tempY - endPoint.y)));
-        var t:Number = dist / 1000 * 2;
-        if (t > 2) t -= .6;
-        if (t > 3) t -= 1;
-        new TweenMax(source, t, {bezier: [{x: tempX, y: tempY}, {x: endPoint.x, y: endPoint.y}], scaleX:.5, scaleY:.5, ease: Linear.easeOut, onComplete: f1});
-    }
-
-    private function flyItResource():void {
-        var endPoint:Point;
-
-        var f1:Function = function ():void {
-            g.craftPanel.afterFlyWithId(_data.resource_id);
-            deleteIt();
-        };
-        g.userInventory.addResource(_data.resource_id, _data.resource_count);
-        endPoint = new Point();
-        endPoint.x = source.x;
-        endPoint.y = source.y;
-        endPoint = _parent.localToGlobal(endPoint);
-        _parent.removeChild(source);
-        _parent = g.cont.animationsResourceCont;
-        source.x = endPoint.x;
-        source.y = endPoint.y;
-        _parent.addChild(source);
-        if (g.allData.getResourceById(_data.resource_id).placeBuild == BuildType.PLACE_SKLAD) {
-            g.craftPanel.showIt(BuildType.PLACE_SKLAD);
-        } else {
-            g.craftPanel.showIt(BuildType.PLACE_AMBAR);
-        }
-        endPoint = g.craftPanel.pointXY();
-        var tempX:int = source.x - 70;
-        var tempY:int = source.y + 30 + int(Math.random() * 20);
-        var dist:int = int(Math.sqrt((source.x - tempX) * (source.x - tempX) + (source.y - tempY) * (source.y - tempY)));
-        dist += int(Math.sqrt((tempX - endPoint.x) * (tempX - endPoint.x) + (tempY - endPoint.y) * (tempY - endPoint.y)));
-        var t:Number = dist / 1000 * 2;
-        if (t > 2) t -= .6;
-        if (t > 3) t -= 1;
-        new TweenMax(source, t, {bezier: [{x: tempX, y: tempY}, {x: endPoint.x, y: endPoint.y}], scaleX:.5, scaleY:.5, ease: Linear.easeOut, onComplete: f1});
-    }
-
-    private function flyItXp():void {
-        var endPoint:Point;
-
-        var f1:Function = function ():void {
-            g.xpPanel.serverAddXP(_data.xp_count);
-            deleteIt();
-        };
-
-        endPoint = new Point();
-        endPoint.x = source.x;
-        endPoint.y = source.y;
-        endPoint = _parent.localToGlobal(endPoint);
-        _parent.removeChild(source);
-        _parent = g.cont.animationsResourceCont;
-        source.x = endPoint.x;
-        source.y = endPoint.y;
-        _parent.addChild(source);
-        endPoint = g.xpPanel.getPanelPoints();
-        var tempX:int = source.x - 70;
-        var tempY:int = source.y + 30 + int(Math.random() * 20);
-        var dist:int = int(Math.sqrt((source.x - tempX) * (source.x - tempX) + (source.y - tempY) * (source.y - tempY)));
-        dist += int(Math.sqrt((tempX - endPoint.x) * (tempX - endPoint.x) + (tempY - endPoint.y) * (tempY - endPoint.y)));
-        var t:Number = dist / 1000 * 2;
-        if (t > 2) t -= .6;
-        if (t > 3) t -= 1;
-        new TweenMax(source, t, {bezier: [{x: tempX, y: tempY}, {x: endPoint.x, y: endPoint.y}], scaleX:.5, scaleY:.5, ease: Linear.easeOut, onComplete: f1
-        });
+        d.releaseIt(null, false);
+        deleteIt();
     }
 
     private function deleteIt():void {

@@ -15,16 +15,12 @@ import flash.geom.Point;
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
-
 import media.SoundConst;
-
 import quest.ManagerQuest;
-
-import resourceItem.DropItem;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-import resourceItem.xp.XPStar;
 import utils.CSprite;
 import utils.IsoUtils;
 import utils.Point3D;
@@ -126,14 +122,11 @@ public class Lohmatik {
     }
 
     private function flyItAward():void {
-        var obj:Object;
-        obj = {};
-        obj.count = 1;
-        var p:Point = new Point(0, 0);
-        p = _source.localToGlobal(p);
-        obj.id =  DataMoney.SOFT_CURRENCY;
-        new DropItem(p.x, p.y, obj);
-        new XPStar(p.x, p.y, 1);
+        var p:Point = _source.localToGlobal(new Point(0, 0));
+        var d:DropObject = new DropObject();
+        d.addDropXP(1, p);
+        d.addDropMoney(DataMoney.SOFT_CURRENCY, 1, p);
+        d.releaseIt();
     }
 
     public function showBoom():void {

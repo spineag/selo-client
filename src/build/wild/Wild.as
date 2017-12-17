@@ -9,18 +9,11 @@ import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
-import media.SoundConst;
-
 import mouse.ToolsModifier;
-
 import quest.ManagerQuest;
-
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
-
 import tutorial.TutsAction;
-
-import resourceItem.xp.XPStar;
 import windows.WindowsManager;
 
 public class Wild extends WorldObject{
@@ -294,9 +287,11 @@ public class Wild extends WorldObject{
     }
 
     private function onEndAnimationTotal():void {
-        var p:Point = new Point(_source.x, _source.y);
-        p = _source.parent.localToGlobal(p);
-        new XPStar(p.x,p.y, _dataBuild.xpForBuild);
+        var start:Point = new Point(int(_source.x), int(_source.y));
+        start = _source.parent.localToGlobal(start);
+        var d:DropObject = new DropObject();
+        d.addDropXP(_dataBuild.xpForBuild, start);
+        d.releaseIt();
         g.server.deleteUserWild(_dbBuildingId, null);
         g.townArea.deleteBuild(this);
     }

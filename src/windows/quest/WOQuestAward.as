@@ -2,26 +2,10 @@
  * Created by user on 9/12/16.
  */
 package windows.quest {
-import data.DataMoney;
-
-import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.Vars;
-
-import quest.QuestStructure;
-
-import resourceItem.DropItem;
-
-import starling.display.Image;
-import starling.display.Quad;
 import starling.display.Sprite;
-import starling.utils.Color;
-
 import utils.CTextField;
-import utils.MCScaler;
-
-import windows.WOComponents.BackgroundWhiteIn;
 
 public class WOQuestAward {
     private var g:Vars = Vars.getInstance();

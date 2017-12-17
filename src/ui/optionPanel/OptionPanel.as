@@ -59,7 +59,6 @@ public class OptionPanel {
         var im:Image;
 
         _contFullScreen = new CSprite();
-        _contFullScreen.nameIt = 'contFullScreen';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("show_all_button"));
         _contFullScreen.addChild(im);
         _contFullScreen.y = 45;
@@ -87,7 +86,6 @@ public class OptionPanel {
         };
 
         _contScalePlus = new CSprite();
-        _contScalePlus.nameIt = 'contScalePlus';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_in_button"));
         _contScalePlus.addChild(im);
         _contScalePlus.y = 100;
@@ -105,7 +103,6 @@ public class OptionPanel {
         };
 
         _contScaleMinus = new CSprite();
-        _contScaleMinus.nameIt = 'contScaleMinus';
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("zoom_out_button"));
         _contScaleMinus.addChild(im);
         _contScaleMinus.y = 155;
@@ -123,7 +120,6 @@ public class OptionPanel {
         };
 
         _contMusic = new CSprite();
-        _contMusic.nameIt = '_contMusic';
         if (g.soundManager.isPlayingMusic) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_off_button"));
         } else {
@@ -147,7 +143,6 @@ public class OptionPanel {
         };
 
         _contSound = new CSprite();
-        _contSound.nameIt = 'contSound';
         if (g.soundManager.isPlayingSound) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("sound_on_button"));
         } else {

@@ -86,7 +86,6 @@ public class AirTextBubble {
     private function createClickableFon():void {
         if (_fonClickable) return;
         _fonClickable = new CSprite();
-        _fonClickable.nameIt = 'airText_fonClickable';
         _fonClickable.addChild(new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK));
         _parent.addChild(_fonClickable);
         _fonClickable.alpha = 0;

@@ -7,12 +7,11 @@ import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
 import manager.ManagerFilters;
-import resourceItem.DropItem;
+import resourceItem.newDrop.DropObject;
 import social.SocialNetworkEvent;
 import starling.display.Image;
 import starling.events.Event;
 import starling.utils.Color;
-import resourceItem.xp.XPStar;
 import user.Someone;
 import utils.CButton;
 import utils.CTextField;
@@ -324,19 +323,17 @@ public class WOTrain extends WindowMain {
     }
 
     private function releaseAwayHelp(lastResource:Boolean = false):void {
-        var obj:Object;
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        var d:DropObject = new DropObject();
         if (lastResource) {
             _btnHelp.visible = false;
             g.server.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
             if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-                new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient);
-                else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP);
-            obj = {};
-            obj.id = DataMoney.SOFT_CURRENCY;
+                d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient, p);
+                else d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP, p);
             if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-                obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins * g.managerParty.coefficient;
-                else obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins;
-            new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
+                d.addDropMoney(DataMoney.SOFT_CURRENCY, (_arrItems[_activeItemIndex] as WOTrainItem).countCoins * g.managerParty.coefficient, p);
+                else d.addDropMoney(DataMoney.SOFT_CURRENCY, (_arrItems[_activeItemIndex] as WOTrainItem).countCoins, p);
             g.userInventory.addResource((_arrItems[_activeItemIndex] as WOTrainItem).idFree, - (_arrItems[_activeItemIndex] as WOTrainItem).countFree);
             g.managerAchievement.addAll(19,1);
             (_arrItems[_activeItemIndex] as WOTrainItem).fullItHelp();
@@ -354,15 +351,11 @@ public class WOTrain extends WindowMain {
                 _btnHelp.visible = false;
                 g.server.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
                 if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-                    new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient);
-                    else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, (_arrItems[_activeItemIndex] as WOTrainItem).countXP);
-                obj = {};
-                obj.id = DataMoney.SOFT_CURRENCY;
-                obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins;
+                    d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient, p);
+                    else d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP, p);
                 if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-                    obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins * g.managerParty.coefficient;
-                    else obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countCoins;
-                new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
+                    d.addDropMoney(DataMoney.SOFT_CURRENCY, (_arrItems[_activeItemIndex] as WOTrainItem).countCoins * g.managerParty.coefficient, p);
+                    else d.addDropMoney(DataMoney.SOFT_CURRENCY, (_arrItems[_activeItemIndex] as WOTrainItem).countCoins, p);
                 g.userInventory.addResource((_arrItems[_activeItemIndex] as WOTrainItem).idFree, - (_arrItems[_activeItemIndex] as WOTrainItem).countFree);
                 g.managerAchievement.addAll(19,1);
                 _arrItems[_activeItemIndex].fullItHelp();
@@ -370,12 +363,14 @@ public class WOTrain extends WindowMain {
             }  else if ((_arrItems[_activeItemIndex] as WOTrainItem).countFree > g.userInventory.getCountResourceById((_arrItems[_activeItemIndex] as WOTrainItem).idFree)) {
                 g.windowsManager.cashWindow = this;
                 super.hideIt();
-                obj = {};
+                var obj:Object = {};
                 obj.id = (_arrItems[_activeItemIndex] as WOTrainItem).idFree;
                 obj.count = (_arrItems[_activeItemIndex] as WOTrainItem).countFree;
                 g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, releaseAwayHelp, 'trainHelp', obj);
+                return;
             }
         }
+        d.releaseIt();
     }
 
     private function wantHelpClick():void {

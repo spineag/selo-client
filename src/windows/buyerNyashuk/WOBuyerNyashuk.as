@@ -6,23 +6,19 @@ import additional.buyerNyashuk.BuyerNyashuk;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+import flash.geom.Point;
 import manager.ManagerFilters;
 import quest.ManagerQuest;
-import resourceItem.DropItem;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
-
 import tutorial.TutsAction;
-
-import resourceItem.xp.XPStar;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
-
-import windows.WOComponents.WindowBackground;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -197,11 +193,13 @@ public class WOBuyerNyashuk extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBuy, _data, 'nyashuk', _nyashuk);
             return;
         }
-        ob.id = DataMoney.SOFT_CURRENCY;
-        ob.count = _data.cost;
-        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,ob);
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        var d:DropObject = new DropObject();
+        d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.cost, p);
+        d.addDropXP(5, p);
+        d.releaseIt();
+        
         _data.visible = false;
-        new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2., 5);
         g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
         g.server.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         if (_data.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);

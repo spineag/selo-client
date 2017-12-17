@@ -5,38 +5,24 @@ package windows.orderWindow {
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import media.SoundConst;
-
 import order.ManagerOrder;
-import order.OrderItemStructure;
-
 import quest.ManagerQuest;
-
-import resourceItem.DropItem;
-import resourceItem.DropPartyResource;
-
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
-
 import tutorial.TutsAction;
-
-import resourceItem.xp.XPStar;
-
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
 import utils.TimeUtils;
 import utils.Utils;
-
 import windows.WOComponents.BackgroundWhiteIn;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.BackgroundYellowOut;
@@ -402,30 +388,26 @@ public class WOOrderNew extends WindowMain {
         for (i=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
             g.userInventory.addResource(or.resourceIds[i], -or.resourceCounts[i]);
         }
-        var prise:Object = {};
         var p1:Point = new Point(134, 147);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) {
-            if (b) _clickItem = true;
-            p1 = _source.localToGlobal(p1);
-            new XPStar(p1.x, p1.y, or.xp * g.managerParty.coefficient);
-        } else {
-            if (b) _clickItem = true; 
-            p1 = _source.localToGlobal(p1);
-            new XPStar(p1.x, p1.y, or.xp);
-        }
-        var p2:Point = new Point(186, 147);
-        prise.id = DataMoney.SOFT_CURRENCY;
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
-            prise.count = or.coins * g.managerParty.coefficient;
-            else prise.count = or.coins;
+        p1 = _source.localToGlobal(p1);
+        var d:DropObject = new DropObject();
         if (b) _clickItem = true;
-            p2 = _source.localToGlobal(p2);
-            new DropItem(p2.x, p2.y, prise);
-        if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) 
-                new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
-            else if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) 
-                new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
-
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
+            d.addDropXP(or.xp * g.managerParty.coefficient, p1);
+         else d.addDropXP(or.xp, p1);
+        p1.x = 186;
+        p1.y = 147;
+        p1 = _source.localToGlobal(p1);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
+            d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins * g.managerParty.coefficient, p1);
+            else d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins, p1);
+        p1.x = g.managerResize.stageWidth/2;
+        p1.y = g.managerResize.stageHeight/2;
+        if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER && 
+                g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level || 
+            g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) 
+                d.addDropPartyResource(p1);
+        d.releaseIt();    
         _waitForAnswer = true;
         _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
         var tOrderItem:WOOrderItem = _activeOrderItem;

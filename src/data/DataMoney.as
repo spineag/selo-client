@@ -9,5 +9,9 @@ public class DataMoney {
     public static const RED_COUPONE:int = 4;
     public static const BLUE_COUPONE:int = 5;
     public static const GREEN_COUPONE:int = 6;
+    
+    public static function get randomVaucher():int {
+        return int(Math.random() * 4) + 3;
+    }
 }
 }

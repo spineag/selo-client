@@ -4,7 +4,6 @@ import additional.buyerNyashuk.tableNyashuk.TableNyashuk;
 import additional.lohmatik.Lohmatik;
 import additional.mouse.MouseHero;
 import additional.pets.PetMain;
-
 import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.achievement.Achievement;
@@ -40,7 +39,6 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
-import flash.utils.getQualifiedClassName;
 import heroes.AddNewHero;
 import heroes.BasicCat;
 import order.OrderCat;
@@ -51,12 +49,12 @@ import preloader.AwayPreloader;
 import quest.ManagerQuest;
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
+import resourceItem.newDrop.DropObject;
 import social.SocialNetworkSwitch;
 import starling.display.Sprite;
 import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
-import resourceItem.xp.XPStar;
 import user.NeighborBot;
 import user.Someone;
 import utils.Utils;
@@ -1121,7 +1119,11 @@ public class TownArea extends Sprite {
         var p:Point = new Point((build as WorldObject).source.x, (build as WorldObject).source.y);
         p = g.cont.contentCont.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
-        if (build  is Decor || build is DecorFence || build is DecorPostFence || build is DecorTail || build is DecorAnimation) new XPStar(p.x, p.y, (build as WorldObject).dataBuild.xpForBuild);
+        if (build  is Decor || build is DecorFence || build is DecorPostFence || build is DecorTail || build is DecorAnimation) {
+            var d:DropObject = new DropObject();
+            d.addDropXP((build as WorldObject).dataBuild.xpForBuild, p);
+            d.releaseIt();
+        }
     }
 
     public function startMoveAfterShop(build:WorldObject, isFromInventory:Boolean = false):void {
@@ -2332,10 +2334,6 @@ public class TownArea extends Sprite {
                     for (i = 0; i < l; i++) {
                         if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source))
                             _cont.setChildIndex(_cityAwayObjects[i].source, i);
-                        else {
-                            if (_cityAwayObjects[i].source) Cc.error('TownArea zAwaySort: not in cont');
-                            else Cc.error('TownArea zAwaySort:: no _source for smth: ' + flash.utils.getQualifiedClassName(_cityAwayObjects[i]));
-                        }
                     }
                 } catch (e:Error) {
                     isError = true;
@@ -2399,7 +2397,6 @@ public class TownArea extends Sprite {
         for (var i:int = 0; i < _cityObjects.length; i++) {
             if (_cityObjects[i].source) _cont.addChild(_cityObjects[i].source);
             else {
-                Cc.error('backHome:: no _source or deleted for smth from class: ' + flash.utils.getQualifiedClassName(_cityObjects[i]));
                 _cityObjects.removeAt(i);
                 i--;
                 continue;

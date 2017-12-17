@@ -3,7 +3,10 @@
  */
 package utils {
 import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
+
 import starling.display.DisplayObject;
+import starling.display.Sprite;
 
 public class AnimationsStock {
 
@@ -67,6 +70,18 @@ public class AnimationsStock {
         } catch(e:Error) {
             onFinish();
         }
+    }
+
+    public static function tweenBezier(source:Sprite, endX:int, endY:int, callback:Function, scale:Number = 1, delay:Number = 0, ...callbackParams):void {
+        var tempX:int = int(source.x/2 + endX/2 - 70 + Math.random()*140);
+        var tempY:int = int(source.y/2 + endY/2 - 70 + Math.random()*140);
+        var dist:int = int(Math.sqrt((source.x - tempX)*(source.x - tempX) + (source.y - tempY)*(source.y - tempY)));
+        dist += int(Math.sqrt((tempX - endX)*(tempX - endX) + (tempY - endY)*(tempY - endY)));
+        var t:Number = dist/1000 * 2;
+        if (t > 2) t -= .6;
+        if (t > 3) t -= 1;
+        var f:Function = function():void { if (callback != null) callback.apply(null, callbackParams) };
+        new TweenMax(source, t, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], scale:scale, delay:delay, ease:Linear.easeOut, onComplete: f});
     }
 
 }

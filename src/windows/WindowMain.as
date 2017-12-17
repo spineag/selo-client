@@ -153,7 +153,6 @@ public class WindowMain {
     private function createBlackBG():void {
         if (_black) return;
         _black = new CSprite();
-        _black.nameIt = 'wo_black';
         _black.addChild(new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK));
         g.cont.windowsCont.addChildAt(_black, 0);
         _black.alpha = .0;

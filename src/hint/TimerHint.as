@@ -49,7 +49,6 @@ public class TimerHint {
     public function TimerHint() {
         _canHide = true;
         _source = new CSprite();
-        _source.nameIt = 'timerHint';
         _isOnHover = false;
         _isShow = false;
         _txtCost = new CTextField(70,60,"");

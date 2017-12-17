@@ -3,26 +3,12 @@
  */
 package build.train {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import data.DataMoney;
-
 import flash.geom.Point;
-
 import manager.Vars;
-
-import resourceItem.DropItem;
-import resourceItem.DropPartyResource;
-
-import starling.core.Starling;
-
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
-
-import temp.DropResourceVariaty;
-
-import resourceItem.xp.XPStar;
-
 import windows.WindowsManager;
 
 public class TrainCell {
@@ -78,27 +64,27 @@ public class TrainCell {
             p.x = g.managerResize.stageWidth/2;
             p.y = g.managerResize.stageHeight/2;
         }
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(p.x, p.y, countXP * g.managerParty.coefficient);
-            else new XPStar(p.x, p.y, countXP);
-        var prise:Object = {};
-        prise.id = DataMoney.SOFT_CURRENCY;
-        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) prise.count = countMoney * g.managerParty.coefficient;
-            else prise.count = countMoney;
-        new DropItem(p.x, p.y, prise);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.TRAIN) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+
+        var d:DropObject = new DropObject();
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN)
+            d.addDropMoney(DataMoney.SOFT_CURRENCY, countMoney * g.managerParty.coefficient, p);
+            else d.addDropMoney(DataMoney.SOFT_CURRENCY, countMoney, p);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+            d.addDropXP(int(countXP * g.managerParty.coefficient), p);
+            else  d.addDropXP(countXP, p);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.TRAIN)
+            d.addDropPartyResource(p);
+        d.releaseIt();
+
         _isFull = true;
-        g.managerAchievement.addAll(3,countMoney);
+        g.managerAchievement.addAll(3, countMoney);
         g.server.updateUserTrainPackItems(item_db_id, null);
     }
 
     public function getImage():Image {
         var im:Image;
-        if (_dataResource.buildType == BuildType.PLANT) {
-            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
-        } else {
-            im = new Image(g.allData.atlas[g.allData.getResourceById(_dataResource.id).url].getTexture(g.allData.getResourceById(_dataResource.id).imageShop));
-        }
+        if (_dataResource.buildType == BuildType.PLANT) im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
+        else im = new Image(g.allData.atlas[g.allData.getResourceById(_dataResource.id).url].getTexture(g.allData.getResourceById(_dataResource.id).imageShop));
         return im;
     }
 }

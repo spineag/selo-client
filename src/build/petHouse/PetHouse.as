@@ -5,44 +5,22 @@ package build.petHouse {
 import additional.pets.ManagerPets;
 import additional.pets.PetMain;
 import build.WorldObject;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
-import dragonBones.Slot;
-
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
-import media.SoundConst;
-
 import mouse.ToolsModifier;
-
 import quest.ManagerQuest;
-
 import resourceItem.CraftItem;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
-
-import resourceItem.xp.XPStar;
-
-import starling.display.DisplayObject;
-
-import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.textures.Texture;
-
-import tutorial.TutsAction;
-
 import utils.TimeUtils;
-
 import windows.WindowsManager;
 import windows.shop_new.WOShopNew;
 
@@ -159,7 +137,7 @@ public class PetHouse extends WorldObject {
                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                 } else {
                     g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCraftedItems[0] as CraftItem).resourceId});
-                    (_arrCraftedItems.pop() as CraftItem).flyIt();
+                    (_arrCraftedItems.pop() as CraftItem).releaseIt();
                     p = getCraftedPet();
                     g.managerPets.onCraftHouse(p);
                 }

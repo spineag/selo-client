@@ -3,36 +3,20 @@
  */
 package windows.buyCoupone {
 import com.junkbyte.console.Cc;
-
-import data.DataMoney;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
-import resourceItem.DropItem;
-
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
-
-import utils.CSprite;
 import utils.CTextField;
-
-import utils.MCScaler;
 import utils.SensibleBlock;
-
-import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowsManager;
 
 public class WOBuyCouponeItem {
     public var source:Sprite;
-    private var _carton:BackgroundYellowOut;
     private var _cost:int;
     private var _count:int;
     private var _imageCoupone:Image;
@@ -46,21 +30,14 @@ public class WOBuyCouponeItem {
     public function WOBuyCouponeItem(imageCopone:String, txtItemCoupone:int, txtCostCoupone:int,type:int) {
         try {
             _type = type;
-//            _carton = new BackgroundYellowOut(100, 150);
             _cost = txtCostCoupone;
             _count = txtItemCoupone;
-//            _carton.filter = ManagerFilters.SHADOW_LIGHT;
             source = new Sprite();
-//            source.addChild(_carton);
             _btn = new CButton();
             _btn.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
             _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, CButton.GREEN);
-//            _btn = new CButton();
-//            _btn.addButtonTexture(80, 50, CButton.GREEN, true);
             _txtBtn = new CTextField(100,100,'+' + String(_cost));
             _txtBtn.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
-//            txt.x = 5;
-//            _btn.addChild(_txtBtn);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             var sens:SensibleBlock = new SensibleBlock();
             sens.textAndImage(_txtBtn,im,100);
@@ -71,13 +48,11 @@ public class WOBuyCouponeItem {
             _btn.x = 50;
             _btn.y = 120;
             _imageCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture(imageCopone));
-//            _imageCoupone.x = 30;
             _imageCoupone.y = -60;
             source.addChild(_imageCoupone);
             _txtCount = new CTextField(50,50,String(_count));
             _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW,Color.WHITE);
             _txtCount.x = 60;
-//            _txtCount.y = -20;
             source.addChild(_txtCount);
             _txtPlusOne = new CTextField(50,50,'+1');
             _txtPlusOne.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW);
@@ -92,7 +67,6 @@ public class WOBuyCouponeItem {
 
     private function onClick():void {
         if (g.user.hardCurrency < _cost) {
-//            g.windowsManager.hideWindow(WindowsManager.WO_BUY_COUPONE);
             g.windowsManager.closeAllWindows();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
@@ -100,13 +74,11 @@ public class WOBuyCouponeItem {
         g.userInventory.addMoney(1, -_cost);
         _count++;
         _txtCount.text = String(_count);
-        var obj:Object;
-        obj = {};
-        obj.count = 1;
+        var d:DropObject = new DropObject();
         var p:Point = new Point(_imageCoupone.x, _imageCoupone.y);
         p = _imageCoupone.localToGlobal(p);
-        obj.id = _type;
-        new DropItem(p.x, p.y, obj);
+        d.addDropMoney(_type, 1, p);
+        d.releaseIt(null, false);
     }
 
     public function deleteIt():void {
@@ -124,9 +96,6 @@ public class WOBuyCouponeItem {
         source.removeChild(_txtPlusOne);
         _txtPlusOne.dispose();
         _txtPlusOne = null;
-//        source.removeChild(_carton);
-//        _carton.deleteIt();
-//        _carton = null;
     }
 }
 }

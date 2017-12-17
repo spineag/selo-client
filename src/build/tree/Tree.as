@@ -7,7 +7,6 @@ import build.WorldObject;
 import build.wild.RemoveWildAnimation;
 import com.greensock.TweenMax;
 import dragonBones.Bone;
-import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import flash.geom.Point;
@@ -15,20 +14,17 @@ import hint.FlyMessage;
 import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
 import quest.ManagerQuest;
-
 import resourceItem.CraftItem;
 import com.junkbyte.console.Cc;
 import resourceItem.ResourceItem;
 import mouse.ToolsModifier;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Color;
-
-import resourceItem.xp.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
@@ -319,7 +315,7 @@ public class Tree extends WorldObject {
         var st:String;
         var b:Bone;
         var item:CraftItem = new CraftItem(0, 0, _resourceItem, _source, 1);
-        item.flyIt();
+        item.releaseIt();
         g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_TREE, {id:_resourceItem.resourceID});
         if (_dataBuild.id == 25) { //Яблоня
             g.managerAchievement.addAll(14,1);
@@ -956,7 +952,9 @@ public class Tree extends WorldObject {
         if (_dataBuild.xpForBuild) {
             var start:Point = new Point(int(_source.x), int(_source.y));
             start = _source.parent.localToGlobal(start);
-            new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+            var d:DropObject = new DropObject();
+            d.addDropXP(_dataBuild.xpForBuild, start);
+            d.releaseIt();
         }
     }
 
@@ -1188,7 +1186,9 @@ public class Tree extends WorldObject {
         onOut();
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
-        new XPStar(start.x,start.y,8);
+        var d:DropObject = new DropObject();
+        d.addDropXP(8, start);
+        d.releaseIt();
         g.server.makeWateringUserTree(tree_db_id, _state, null);
         makeWateringIcon();
     }
