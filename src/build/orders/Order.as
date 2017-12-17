@@ -58,8 +58,11 @@ public class Order extends WorldObject{
         var b:Bone;
         b = _armature.getBone('top');
         if (b != null) b.visible = false;
+        if (g.user.isOpenOrder) _stateBuild = STATE_ACTIVE;
+        else _stateBuild = STATE_UNACTIVE;
+
         if (_stateBuild == STATE_UNACTIVE) {
-            _armature.animation.gotoAndStopByFrame('close');
+            _armature.animation.gotoAndPlayByFrame('close');
         } else {
             _stateBuild = STATE_ACTIVE;
             _armature.addEventListener(EventObject.COMPLETE, makeAnimation);

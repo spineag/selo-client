@@ -220,7 +220,6 @@ public class ToolsModifier {
         }
         if (im) {
             if (!_mouseCont.contains(_mouseIcon)) _mouseCont.addChild(_mouseIcon);
-//            MCScaler.scale(_mouseIcon, 40, 40);
             g.gameDispatcher.addEnterFrame(moveMouseIcon);
         }
      }

@@ -231,7 +231,7 @@ public class WOSalePack extends WindowMain{
                 if (g.user.level >= 5 && todayDailyGift.date != today.date) {
                     g.server.getDailyGift(null);
                 } else {
-                    g.managerCats.helloCats();
+//                    g.managerCats.helloCats();
                     if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >= g. managerParty.countToGift[0] && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2)) {
                         g.managerParty.endPartyWindow();
                     } else if ( g.managerParty.eventOn && g.user.level >= g.managerParty.levelToStart && g.allData.atlas['partyAtlas']) {

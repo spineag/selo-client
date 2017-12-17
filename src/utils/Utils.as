@@ -14,6 +14,9 @@ import flash.events.TimerEvent;
 import flash.utils.ByteArray;
 import flash.utils.Timer;
 
+import manager.Vars;
+
+
 public class Utils {
     public static function intArray(ar:Array):Array {
         for (var i:int=0; i<ar.length; i++) {
@@ -114,6 +117,7 @@ public class Utils {
         var i:int = 0;
         if (oldOb.blockByLevel) {
             newOb.blockByLevel = [];
+            newOb.sort = oldOb.blockByLevel[0];
             for (i=0; i< oldOb.blockByLevel.length; i++) {
                 newOb.blockByLevel.push(oldOb.blockByLevel[i]);
             }
@@ -194,7 +198,7 @@ public class Utils {
         return newOb;
     }
 
-    public static function objectFromStructureAnimaToObject(oldOb:StructureDataAnimal):Object {
+    public static function objectFromStructureAnimaToObject(oldOb:StructureDataAnimal, blockByLevel:int = 0):Object {
         var newOb:Object = {};
         newOb.id = oldOb.id;
         newOb.buildId = oldOb.buildId;
@@ -210,6 +214,7 @@ public class Utils {
         newOb.idResourceRaw = oldOb.idResourceRaw;
         newOb.buildType = oldOb.buildType;
         newOb.costNew = oldOb.costNew;
+        newOb.sort = blockByLevel;
         return newOb;
     }
 
@@ -231,6 +236,7 @@ public class Utils {
         newOb.buildType = oldOb.buildType;
         newOb.petType = oldOb.petType;
         newOb.currency = oldOb.currency;
+        newOb.sort = oldOb.blockByLevel[0];
         newOb.cost = [];
         if (oldOb.costBlue) newOb.cost.push(oldOb.costBlue);
         if (oldOb.costRed) newOb.cost.push(oldOb.costRed);

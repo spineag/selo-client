@@ -3,6 +3,8 @@ import analytic.AnalyticManager;
 import build.WorldObject;
 import build.tutorialPlace.TutorialPlace;
 import com.junkbyte.console.Cc;
+
+import heroes.HeroCat;
 import heroes.TutorialCat;
 import manager.Vars;
 import particle.tuts.DustRectangle;
@@ -27,7 +29,7 @@ public class IManagerTutorial {
     protected var _tutorialCallback:Function;
     protected var _onShowWindowCallback:Function;
     protected var _arrow:SimpleArrow;
-    protected var _cat:TutorialCat;
+    protected var _cat:HeroCat;
 
     public function IManagerTutorial() {
         _tutorialObjects = [];
@@ -120,7 +122,7 @@ public class IManagerTutorial {
     }
 
     protected function finishTutorial():void {
-        if (_cat) _cat.deleteIt();
+//        if (_cat) _cat.deleteIt();
         g.user.tutorialStep = MAX_STEPS;
         updateTutorialStep();
     }

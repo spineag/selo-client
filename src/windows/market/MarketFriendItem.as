@@ -51,11 +51,11 @@ public class MarketFriendItem {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (_person.photo) {
-                _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                MCScaler.scale(_ava, 85, 85);
-                _ava.x = 12;
-                _ava.y = 12;
-                source.addChild(_ava);
+//                _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+//                MCScaler.scale(_ava, 85, 85);
+//                _ava.x = 12;
+//                _ava.y = 12;
+//                source.addChild(_ava);
                 g.load.loadImage(_person.photo, onLoadPhoto);
             } else {
                 g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
@@ -88,8 +88,8 @@ public class MarketFriendItem {
         if (_person.needHelpCount > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             MCScaler.scale(_helpIcon, 20, 20);
-            _helpIcon.x = 75;
-            _helpIcon.y = 10;
+            _helpIcon.x = 74;
+            _helpIcon.y = 14;
             source.addChild(_helpIcon);
         }
     }

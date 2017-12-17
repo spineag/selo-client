@@ -10,6 +10,7 @@ import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.ridge.Ridge;
 import com.greensock.TweenMax;
+import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
@@ -22,6 +23,8 @@ import flash.geom.Point;
 
 import starling.display.Image;
 import starling.display.Sprite;
+
+import tutorial.TutorialTextBubble;
 
 import utils.CSprite;
 import utils.Utils;
@@ -41,6 +44,9 @@ public class HeroCat extends BasicCat{
     private var _animation:HeroCatsAnimation;
     private var _isRandomWork:Boolean;
     public var activeRandomWorkBuild:WorldObject;
+    private var _bubble:TutorialTextBubble;
+    private var _isFlip:Boolean;
+    public var bShowBubble:Boolean;
 
     public function HeroCat(type:int) {
         super();
@@ -53,7 +59,7 @@ public class HeroCat extends BasicCat{
         _catWateringAndFeed = new Sprite();
         _catBackImage = new Sprite();
         freeIdleGo = true;
-
+        bShowBubble = false;
         _animation = new HeroCatsAnimation();
         _animation.catArmature = g.allData.factory['cat_main'].buildArmature("cat");
         _animation.catBackArmature = g.allData.factory['cat_main'].buildArmature("cat_back");
@@ -73,7 +79,7 @@ public class HeroCat extends BasicCat{
             st2 = 'orange_c_w_worker_head_front';
             st3 = '_w';
         }
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, st2, st3, _type == WOMAN);
+//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, st2, st3, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
@@ -81,13 +87,17 @@ public class HeroCat extends BasicCat{
         _animation.catBackImage = _catBackImage;
         _animation.catWorkerImage = _catWateringAndFeed;
         showFront(true);
+        _bubble = new TutorialTextBubble(g.cont.animationsCont);
         addShadow();
     }
 
     public function get typeMan():int { return _type; }
     public function set workRandom(v:Boolean):void { _isRandomWork = v; }
     public function get isWorkRandom():Boolean { return _isRandomWork; }
-    override public function flipIt(v:Boolean):void { _animation.flipIt(v); }
+    override public function flipIt(v:Boolean):void {
+        _animation.flipIt(v);
+        _isFlip = v;
+    }
     public function get isFree():Boolean { return _isFree; }
     public function get decorAnimation():DecorAnimation { return _decorAnimation; }
 
@@ -102,10 +112,10 @@ public class HeroCat extends BasicCat{
 
     override public function showFront(v:Boolean):void {
         _animation.showFront(v);
-        if (heroEyes) {
-            if (v) heroEyes.startAnimations();
-            else heroEyes.stopAnimations();
-        }
+//        if (heroEyes) {
+//            if (v) heroEyes.startAnimations();
+//            else heroEyes.stopAnimations();
+//        }
     }
 
     override public function set visible(value:Boolean):void {
@@ -137,40 +147,44 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt('walk');
         super.walkAnimation();
     }
     override public function walkIdleAnimation():void {
-        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt('walk');
         super.walkIdleAnimation();
     }
     override public function runAnimation():void {
-        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt('run');
         super.runAnimation();
     }
     override public function stopAnimation():void {
-        if (heroEyes) heroEyes.stopAnimations();
         _animation.stopIt();
         super.stopAnimation();
     }
     override public function idleAnimation():void {
         if (Math.random() > .2) {
             showFront(true);
+            var r:Number = Math.random();
+            if (r >= .6) _animation.playIt('idle');
+            else if (r >= .5) _animation.playIt('smile');
+            else if (r >= .4)_animation.playIt('happy');
+            else if (r >= .3) _animation.playIt('look');
+            else if (r >= .2) _animation.playIt('surprise');
+            else  _animation.playIt('laugh');
+
         } else {
             showFront(false);
+            _animation.playIt('idle');
         }
-        if (heroEyes) heroEyes.startAnimations();
-        _animation.playIt('idle');
+//        if (heroEyes) heroEyes.startAnimations();
+
+
         super.idleAnimation();
     }
 
     override public function sleepAnimation():void {
         showFront(true);
-        if (heroEyes) heroEyes.startAnimations();
-        _animation.playIt('sleep');
         super.sleepAnimation();
     }
 
@@ -183,6 +197,18 @@ public class HeroCat extends BasicCat{
         changeTexture("legRight", "grey_c_m_worker_r_leg_front", arma);
         changeTexture("tail", "grey_c_m_worker_tail_front", arma);
         changeTexture("handRight copy", "grey_c_m_worker_r_hand_front", arma);
+        changeTexture("lid_r", "lid_r", arma);
+        changeTexture("lid_l", "lid_l", arma);
+        var vii1:Slot = arma.getSlot('vii1');
+        var vii2:Slot = arma.getSlot('vii2');
+        if (vii1 && vii1.display) {
+            vii1.display.visible = false;
+            arma.removeSlot(vii1);
+        }
+        if (vii2 && vii2.display) {
+            vii2.display.visible = false;
+            arma.removeSlot(vii2);
+        }
     }
 
     private function releaseBackMan(arma:Armature):void {
@@ -204,6 +230,8 @@ public class HeroCat extends BasicCat{
         changeTexture("legRight", "orange_c_w_worker_r_leg_front", arma);
         changeTexture("tail", "orange_c_w_worker_tail_front", arma);
         changeTexture("handRight copy", "orange_c_w_worker_r_hand_front", arma);
+        changeTexture("lid_r", "lid_r_w", arma);
+        changeTexture("lid_l", "lid_l_w", arma);
     }
 
     private function releaseBackWoman(arma:Armature):void {
@@ -229,7 +257,7 @@ public class HeroCat extends BasicCat{
 // play Direct label
     public function playDirectLabel(label:String, playOnce:Boolean, callback:Function):void {
         showFront(true);
-        if (heroEyes) heroEyes.startAnimations();
+//        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt(label, playOnce, callback);
     }
 
@@ -237,7 +265,7 @@ public class HeroCat extends BasicCat{
     private var timer:int;
     public function makeFreeCatIdle():void {
         freeIdleGo = !freeIdleGo;
-        if (freeIdleGo) {
+        if (freeIdleGo && Math.random() > .5) {
             g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(), makeFreeCatIdle);
         } else {
             var b:Boolean = false;
@@ -257,16 +285,16 @@ public class HeroCat extends BasicCat{
                     }
                 }
             }
-            if (r <= .08 && !g.isAway) {
-                 showFront(true);
-                killAllAnimations();
-                heroEyes.stopAnimations();
-                _animation.playIt('sleep', true, jumpCat);
-                b = true;
-            }
+//            if (r <= .08 && !g.isAway) {
+//                 showFront(true);
+//                killAllAnimations();
+////                heroEyes.stopAnimations();
+//                _animation.playIt('sleep', true, jumpCat);
+//                b = true;
+//            }
             if (!b) {
                 idleAnimation();
-                timer = 5 + int(Math.random() * 15);
+                timer = 5 + int(Math.random() * 10);
                 g.gameDispatcher.addToTimer(renderForIdleFreeCat);
                 renderForIdleFreeCat();
             }
@@ -290,6 +318,38 @@ public class HeroCat extends BasicCat{
         TweenMax.killTweensOf(_source);
         timer = 0;
         g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
+    }
+
+    public function showBubble(st:String, delay:Number=0):void {
+        var type:int;
+        if (st.length > 140) {
+            type = TutorialTextBubble.BIG;
+        } else if (st.length > 60) {
+            type = TutorialTextBubble.MIDDLE;
+        } else {
+            type = TutorialTextBubble.SMALL;
+        }
+        try {
+            if (_bubble) {
+                _bubble.showBubble(st, _isFlip, type);
+                bShowBubble = true;
+                if (_isFlip) {
+                    _bubble.setXY(20 + _source.x, -50 + _source.y);
+                } else {
+                    _bubble.setXY(-20 + _source.x, -50 + _source.y);
+                }
+            }
+        } catch (e:Error) {
+            bShowBubble = false;
+            Cc.error('TutorialCat showBubble error: ' + e.message + '  step: ' + g.user.tutorialStep);
+        }
+    }
+
+    public function hideBubble():void {
+        if (_bubble) {
+            bShowBubble = false;
+            _bubble.clearIt();
+        }
     }
 
 // WORK WITH PLANT
@@ -443,10 +503,6 @@ public class HeroCat extends BasicCat{
     override public function deleteIt():void {
         killAllAnimations();
         removeFromMap();
-        if (heroEyes) {
-            heroEyes.stopAnimations();
-            heroEyes = null;
-        }
         _animation.deleteWorker();
         _catImage.removeChild(_animation.catArmature.display as Sprite);
         _catBackImage.removeChild(_animation.catBackArmature.display as Sprite);
@@ -480,8 +536,7 @@ public class HeroCat extends BasicCat{
         var f1:Function = function ():void {
             if (!hello) showFront(true);
             if (!hello) killAllAnimations();
-            if(heroEyes) heroEyes.startAnimations();
-            _animation.playIt('jump_funny',true,f2);
+            _animation.playIt('happy',true,f2);
         };
         if (hello) f1();
         else Utils.createDelay(int(Math.random() * 2) + 2,f1);
@@ -495,7 +550,7 @@ public class HeroCat extends BasicCat{
         var f1:Function = function ():void {
             showFront(true);
             killAllAnimations();
-            _animation.playIt('hi_3',true,f2);
+            _animation.playIt('hi',true,f2);
         };
         Utils.createDelay(int(Math.random() * 2) + 2,f1);
     }

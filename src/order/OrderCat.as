@@ -52,7 +52,6 @@ public class OrderCat {
     protected var _speedRun:int = 8;
     private var _catImage:Sprite;
     private var _catBackImage:Sprite;
-    private var heroEyes:HeroEyesAnimation;
     private var armature:Armature;
     private var armatureBack:Armature;
     private var _queuePosition:int;
@@ -81,13 +80,7 @@ public class OrderCat {
         WorldClock.clock.add(armature);
         WorldClock.clock.add(armatureBack);
         bant = 0;
-//        if (_typeCat != BLACK) {
-            changeCatTexture();
-//        } else {
-//            heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head', '_black', false);
-//            var b:Bone = armature.getBone('bant');
-//            b.visible = false;
-//        }
+        changeCatTexture();
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
         showFront(true);
@@ -106,7 +99,6 @@ public class OrderCat {
     public function set arriveCallback(f:Function):void { _arriveCallback = f; }
     public function get dataCatId():int { return _catData.id; }
     public function get typeCat():int { return _catData.color; }
-//    public function get sexCat():Boolean { return _catData.isWoman; }
     public function get dataCat():Object { return _catData; }
     public function showForOptimisation(needShow:Boolean):void { if (_source) _source.visible = needShow; }
     public function get isMiniScene():Boolean { return _catData.isMiniScene; }
@@ -148,173 +140,104 @@ public class OrderCat {
     public function showFront(v:Boolean):void {
         _catImage.visible = v;
         _catBackImage.visible = !v;
-        if (heroEyes) {
-            if (v) {
-                heroEyes.startAnimations();
-            } else {
-                heroEyes.stopAnimations();
-            }
-        }
     }
 
     private function changeCatTexture():void {
         var st:String;
+        var lid:String;
         var st2:String;
         switch (_catData.color) {
             case BLACK_MAN:
                 st = 'black_c_m';
                 st2 = '_black';
+                lid = 'black';
                 break;
             case BLACK_WOMAN:
                 st = 'black_c_w';
                 st2 = '_black';
+                lid = 'black';
                 break;
             case BLUE_MAN:
                 st = 'blue_c_m';
                 st2 = '_blue';
+                lid = 'blue';
                 break;
             case BLUE_WOMAN:
                 st = 'blue_c_w';
                 st2 = '_blue';
+                lid = 'blue';
                 break;
             case GREEN_MAN:
                 st = 'green_c_m';
                 st2 = '_green';
+                lid = 'green';
                 break;
             case GREEN_WOMAN:
                 st = 'green_c_w';
                 st2 = '_green';
+                lid = 'green';
                 break;
             case BROWN_MAN:
                 st = 'brown_c_m';
                 st2 = '_brown';
+                lid = 'brown';
                 break;
             case BROWN_WOMAN:
                 st = 'brown_c_w';
                 st2 = '_brown';
+                lid = 'brown';
                 break;
             case ORANGE_MAN:
                 st = 'orange_c_m';
                 st2 = '_orange';
+                lid = 'orange';
                 break;
             case ORANGE_WOMAN:
                 st = 'orange_c_w';
                 st2 = '_orange';
+                lid = 'orange';
                 break;
             case PINK_MAN:
                 st = 'pink_c_m';
                 st2 = '_pink';
+                lid = 'pink';
                 break;
             case PINK_WOMAN:
                 st = 'pink_c_w';
                 st2 = '_pink';
+                lid = 'pink';
                 break;
             case WHITE_MAN:
                 st = 'white_c_m';
                 st2 = '_white';
+                lid = 'white';
                 break;
             case WHITE_WOMAN:
                 st = 'white_c_w';
                 st2 = '_white';
+                lid = 'white';
                 break;
         }
-
-        releaseFrontTexture(st);
+        var vii1:Slot = armature.getSlot('vii1');
+        var vii2:Slot = armature.getSlot('vii2');
+        if (_catData.isWoman) {
+            if (vii1 && vii1.display) vii1.display.visible = true;
+            if (vii2 && vii2.display) vii2.display.visible = true;
+        } else {
+            if (vii1 && vii1.display) {
+                vii1.display.visible = false;
+                armature.removeSlot(vii1);
+            }
+            if (vii2 && vii2.display) {
+                vii2.display.visible = false;
+                armature.removeSlot(vii2);
+            }
+        }
+        releaseFrontTexture(st, lid);
         releaseBackTexture(st);
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, st+'_head_front', st2, _catData.isWoman);
-
-//        if (!_catData.isWoman) {
-////            var sl:Slot = armature.getSlot('bant');
-////            sl.displayList=null;
-//        } else changeBant(int(Math.random() * 8 + 1));
-//        var okuli:Slot = armature.getSlot('okuli');
-//        var sharf:Slot = armature.getSlot('sharf');
-//        switch (_catData.id) {
-//            case 1:
-//                okuli.displayList = null;
-//                break;
-//            case 2:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 3:
-//                okuli.displayList = null;
-//                break;
-//            case 4:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 5:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 6:
-//                okuli.displayList = null;
-//                break;
-//            case 7:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 8:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 9:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 10:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 11:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 12:
-//                okuli.displayList = null;
-//                break;
-//            case 13:
-//                okuli.displayList = null;
-//                sharf.displayList = null;
-//                break;
-//            case 14:
-//                sharf.displayList = null;
-//                break;
-//
-//        }
-//        if (_catData.png) {
-//            var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(_catData.png));
-//            var sp:Sprite = new Sprite();
-//            if (sharf.displayList.length) {
-//                var imOld:DisplayObject = sharf.displayList[0] as DisplayObject;
-//                if (imOld) {
-//                    im.x = imOld.x + imOld.width/2 - im.width/2;
-//                }
-//            }
-//            sp.addChild(im);
-//            sharf.displayList = null;
-//            sharf.display = sp;
-//        }
     }
 
-    private function changeBant(n:int):void {
-//        bant = n;
-//        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture('bant_'+ n));
-//        var b:Slot = armature.getSlot('bant');
-//        var sp:Sprite = new Sprite();
-//        if (b.displayList.length) {
-//            var imOld:DisplayObject = b.displayList[0] as DisplayObject;
-//            if (imOld) {
-//               im.x = imOld.x + imOld.width/2 - im.width/2;
-//            }
-//        }
-//        sp.addChild(im);
-//        b.displayList = null;
-//        b.display = sp;
-    }
-
-    private function releaseFrontTexture(st:String):void {
+    private function releaseFrontTexture(st:String, lid:String):void {
         changeTexture("head", st + "_head_front", armature);
         changeTexture("body", st + "_body_front", armature);
         changeTexture("handLeft", st + '_l_hand_front', armature);
@@ -323,6 +246,8 @@ public class OrderCat {
         changeTexture("handRight", st + '_r_hand_front', armature);
         changeTexture("legRight", st + '_r_leg_front', armature);
         changeTexture("tail", st + '_tail_front', armature);
+        changeTexture("lid_l", 'lid_l_' + lid, armature);
+        changeTexture("lid_r", 'lid_r_' + lid, armature);
     }
 
     private function releaseBackTexture(st:String):void {
@@ -355,10 +280,6 @@ public class OrderCat {
         g.townArea.removeOrderCatFromCityObjects(this);
         g.townArea.removeOrderCatFromCont(this);
         forceStopAnimation();
-        if (heroEyes) {
-            heroEyes.stopAnimations();
-            heroEyes = null;
-        }
         WorldClock.clock.remove(armature);
         WorldClock.clock.remove(armatureBack);
         TweenMax.killTweensOf(_source);
@@ -377,18 +298,15 @@ public class OrderCat {
         _currentPath = [];
     }
 
-    
-    
     //  ------------------ ANIMATIONS -----------------------
 
     private var count:int;
     public function idleFrontAnimation():void {
-        var r:int = int(Math.random()*50);
-        if (r != 10) {
-            armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
-            armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
-        }
-        if (r > 10) {
+        var r:int = int(Math.random()*18);
+        armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
+        armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
+
+        if (r > 11) {
             armature.animation.gotoAndPlayByFrame("breath");
         } else {
             switch (r) {
@@ -402,9 +320,8 @@ public class OrderCat {
                 case 7: armature.animation.gotoAndPlayByFrame("idle8"); break;
                 case 8: armature.animation.gotoAndPlayByFrame("idle9"); break;
                 case 9: releaseBackIdle(); break;
+                case 11: armature.animation.gotoAndPlayByFrame("breath"); break;
                 case 10:
-                    armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
-                    armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
                     switch (_catData.id) {
                         case 6: armature.animation.gotoAndPlayByFrame("akril");  break;
                         case 7: armature.animation.gotoAndPlayByFrame("agur"); break;
@@ -471,19 +388,16 @@ public class OrderCat {
     }
 
     public function walkAnimation():void {
-        if (heroEyes) heroEyes.startAnimations();
         armature.animation.gotoAndPlayByFrame("walk");
         armatureBack.animation.gotoAndPlayByFrame("walk");
     }
 
     public function walkPackAnimation():void {
-        if (heroEyes) heroEyes.startAnimations();
         armature.animation.gotoAndPlayByFrame("walk_pack");
         armatureBack.animation.gotoAndPlayByFrame("walk_pack");
     }
 
     public function runAnimation():void {
-        if (heroEyes) heroEyes.startAnimations();
         armature.animation.gotoAndPlayByFrame("run");
         armatureBack.animation.gotoAndPlayByFrame("run");
     }

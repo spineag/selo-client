@@ -10,26 +10,18 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 
 import data.StructureDataResource;
-
 import dragonBones.Slot;
-
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
-
 import quest.ManagerQuest;
-
-import resourceItem.CraftItem;
 import resourceItem.newDrop.DropObject;
 import resourceItem.newDrop.DropPartyResource;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;

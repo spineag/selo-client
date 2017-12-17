@@ -190,6 +190,7 @@ public class ShopNewListItem {
                 if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                 _bg.filter = ManagerFilters.getButtonDisableFilter();
                 _isThisItemBlocked = true;
+                _blackPlawka.visible = true;
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 for (i = 0; _data.blockByLevel.length; i++) {
@@ -200,8 +201,8 @@ public class ShopNewListItem {
                 }
                 if (arr.length == _data.blockByLevel.length) {
                     _txtInfo.text = g.managerLanguage.allTexts[340];
-                    if (_im)_im.filter = ManagerFilters.getButtonDisableFilter();
-                    _bg.filter = ManagerFilters.getButtonDisableFilter();
+//                    if (_im)_im.filter = ManagerFilters.getButtonDisableFilter();
+//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _blackPlawka.visible = true;
                     _txtCount.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                     _isThisItemBlocked = true;
@@ -238,8 +239,8 @@ public class ShopNewListItem {
                 }
                 if (arr.length >= maxCountAtCurrentLevel) {
                     _isThisItemBlocked = true;
-                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-                    _bg.filter = ManagerFilters.getButtonDisableFilter();
+//                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _blackPlawka.visible = true;
                     if (g.user.level < _data.blockByLevel[arr.length]) _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[arr.length])));
                     else {
@@ -314,8 +315,8 @@ public class ShopNewListItem {
                     if (maxCount == curCount) {
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
                             _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
-                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-                            _bg.filter = ManagerFilters.getButtonDisableFilter();
+//                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+//                            _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
                             _txtCount.text = String(maxCount) + '/' + String(maxCount);
                             _costCount = 0;
@@ -359,8 +360,8 @@ public class ShopNewListItem {
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
-                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-                    _bg.filter = ManagerFilters.getButtonDisableFilter();
+//                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
                     _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
                     _blackPlawka.visible = true;
@@ -387,8 +388,8 @@ public class ShopNewListItem {
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
                     _txtInfo.text = g.managerLanguage.allTexts[340];
-                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-                    _bg.filter = ManagerFilters.getButtonDisableFilter();
+//                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _blackPlawka.visible = true;
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
                     _isThisItemBlocked = true;
@@ -421,8 +422,8 @@ public class ShopNewListItem {
                     if (maxCount == curCount) {
                         if (g.user.level >= dataPetHouse.blockByLevel[arr.length-1]) {
                             _txtInfo.text =  String(g.managerLanguage.allTexts[345]) + ' ' + String(dataPetHouse.name);
-                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-                            _bg.filter = ManagerFilters.getButtonDisableFilter();
+//                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+//                            _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
                             _txtCount.text = String(maxCount) + '/' + String(maxCount);
                             _costCount = 0;
@@ -460,8 +461,8 @@ public class ShopNewListItem {
                 maxCount = maxCountAtCurrentLevel;
                 if (curCount >= maxCount) {
                     _txtInfo.text = g.managerLanguage.allTexts[340];
-                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-                    _bg.filter = ManagerFilters.getButtonDisableFilter();
+//                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _blackPlawka.visible = true;
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
                     _isThisItemBlocked = true;

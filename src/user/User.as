@@ -48,7 +48,7 @@ public class User extends Someone {
     public var shiftShop:int;
     public var userGAcid:String = 'unknown';
     public var paperShift:int;
-    public var shopTab:int = WOShopNew.VILLAGE;
+    public var shopTab:int = -1;
     public var animalIdArrow:int;
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;

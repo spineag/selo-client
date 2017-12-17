@@ -55,6 +55,7 @@ public class StructureDataBuilding {
     private var _variaty:Array;
     private var g:Vars = Vars.getInstance();
     private var _dailyBonus:Boolean;
+    private var _beforeInventory:int = 0;
 
     public function StructureDataBuilding(ob:Object) {
         var obj:Object = {};
@@ -241,7 +242,10 @@ public class StructureDataBuilding {
         if (ob.delta_cost) _deltaCost = int(ob.delta_cost);
         if (ob.block_by_level) _blockByLevel = Utils.intArray(String(ob.block_by_level).split('&'));
         if (ob.cost_skip) _priceSkipHard = int(ob.cost_skip);
-        if (ob.filter) _filterType = int(ob.filter);
+        if (ob.filter) {
+            _filterType = int(ob.filter);
+            _beforeInventory = _filterType;
+        }
         if (ob.build_time) _buildTime = Utils.intArray(String(ob.build_time).split('&'));
         if (ob.count_unblock) _countUnblock = int(ob.count_unblock);
         if (ob.craft_resource_id) _craftIdResource = int(ob.craft_resource_id);
@@ -290,6 +294,7 @@ public class StructureDataBuilding {
     public function get deltaCost():int{ return _deltaCost;}
     public function get filterType():int{ return _filterType;}
     public function get group():int{ return _group;}
+    public function set sfilter(gr:int):void {_filterType = gr;}
     public function get height():int {return _height;}
     public function get id():int {return _id;}
     public function get image():String{ return _image;}
@@ -318,6 +323,7 @@ public class StructureDataBuilding {
     public function get imageActive():String {return _imageActive;}
     public function get idResource():Array {return _idResource;}
     public function get idResourceRaw():Array {return _idResourceRaw;}
+    public function get beforInventroy():int {return _beforeInventory;}
     public function get variaty():Array {return _variaty;}
     public function get dailyBonus():Boolean {return _dailyBonus;}
 }

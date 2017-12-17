@@ -11,10 +11,19 @@ import build.farm.Farm;
 import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import flash.display.Bitmap;
 import flash.geom.Point;
 import heroes.TutorialCat;
+
+import loaders.PBitmap;
+
 import mouse.ToolsModifier;
 import particle.tuts.DustRectangle;
+
+import starling.textures.Texture;
+import starling.textures.TextureAtlas;
+
 import tutorial.CutScene;
 import tutorial.IManagerTutorial;
 import tutorial.TutsAction;
@@ -25,13 +34,19 @@ import windows.fabricaWindow.WOFabrica;
 import windows.shop_new.WOShopNew;
 
 public class TutorialManager extends IManagerTutorial{
+    private var _count:int = 0;
+    private var _bolAtlas:Boolean = false;
     public function TutorialManager() {  super(); }
 
     override protected function initScenes():void {
         var curFunc:Function;
         _subStep = 0;
         _action = TutsAction.NONE;
-//        try {
+        if (!g.allData.atlas['tutorialAtlas'] && !_bolAtlas) {
+            _bolAtlas = true;
+            g.load.loadImage(g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas'), onLoad);
+            g.load.loadXML(g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas'), onLoad);
+        }
             Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
             switch (g.user.tutorialStep) {
                 case 1: curFunc = initScene_1; break;
@@ -61,10 +76,20 @@ public class TutorialManager extends IManagerTutorial{
                 curFunc.apply();
             }
             g.friendPanel.hideIt(true);
-//        } catch (err:Error) {
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
-//            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
-//        }
+    }
+
+    private function onLoad(smth:*=null):void {
+        _count++;
+        if (_count >=2) createAtlases();
+    }
+
+    private function createAtlases():void {
+        g.allData.atlas['tutorialAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas')]);
+        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas')] as PBitmap).deleteIt();
+        delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas')];
+        delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas')];
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'tutorialAtlas.png' + g.getVersion('tutorialAtlas'));
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'tutorialAtlas.xml' + g.getVersion('tutorialAtlas'));
     }
 
     private function initScene_1():void { // for mult or smth like that
@@ -100,7 +125,7 @@ public class TutorialManager extends IManagerTutorial{
     private function initScene_3():void {
         _subStep = 0;
         if (!texts) texts = (new TextsTutorial()).objText;
-        if (!_cat) _cat = new TutorialCat();
+        if (!_cat) _cat = g.managerCats.getFreeCatDecor();
         _tutorialObjects = [];
         var ar:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<ar.length; i++) {
@@ -113,22 +138,23 @@ public class TutorialManager extends IManagerTutorial{
             subStep3_4();
             return;
         }
-        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep3_1, texts[g.user.tutorialStep][_subStep]);
+        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep3_1, texts[g.user.tutorialStep][_subStep], 1);
     }
 
     private function subStep3_1():void {
         _subStep = 1;
         _action = TutsAction.CRAFT_RIDGE;
-        _cat.setPosition(new Point((_tutorialObjects[0] as Ridge).posX-2, (_tutorialObjects[0] as Ridge).posY+2));
+        g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as Ridge).posX-2, (_tutorialObjects[0] as Ridge).posY+2), subStep3_2);
         g.cont.moveCenterToPos((_tutorialObjects[0] as Ridge).posX, (_tutorialObjects[0] as Ridge).posY, false, .5);
-        _cat.addToMap();
-        _cat.flipIt(false);
-        _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
-        _cat.idleAnimation();
-        subStep3_2();
+        if (_cat.isOnMap) _cat.addToMap();
     }
 
     private function subStep3_2():void {
+        if (!_cat.bShowBubble) {
+            _cat.idleAnimation();
+            _cat.showFront(true);
+            _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
+        }
         _subStep = 2;
         if (_tutorialObjects.length) {
             var r:Ridge = _tutorialObjects[0] as Ridge;
@@ -161,10 +187,7 @@ public class TutorialManager extends IManagerTutorial{
     private function initScene_4():void {
         _subStep = 0;
         if (!texts) texts = (new TextsTutorial()).objText;
-        if (!_cat) {
-            _cat = new TutorialCat();
-            _cat.addToMap();
-        }
+
         _tutorialObjects = [];
         _tutorialResourceIDs = [31];
         _action = TutsAction.PLANT_RIDGE;
@@ -178,7 +201,12 @@ public class TutorialManager extends IManagerTutorial{
             subStep4_4();
             return;
         }
-        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep4_1, texts[g.user.tutorialStep][_subStep]);
+        if (!_cat) {
+            _cat = g.managerCats.getFreeCatDecor();
+            g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as Ridge).posX-2, (_tutorialObjects[0] as Ridge).posY+2));
+            if (_cat.isOnMap) _cat.addToMap();
+        }
+        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep4_1, texts[g.user.tutorialStep][_subStep], 2);
     }
 
     private function subStep4_1():void {
@@ -188,7 +216,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep4_2():void {
         if (_subStep == 1) {
-            _cat.flipIt(false);
+            _cat.showFront(true);
             _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
             _cat.idleAnimation();
         }
@@ -207,9 +235,12 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function subStep4_4():void {
+        var ar:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+        for (var i:int=0; i<ar.length; i++) {
+            ar[i].hideArrow();
+        }
         _subStep = 4;
         _cat.hideBubble();
-        _cat.flipIt(false);
         _tutorialObjects = [];
         g.user.tutorialStep = 5;
         updateTutorialStep();
@@ -239,9 +270,9 @@ public class TutorialManager extends IManagerTutorial{
         _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FARM);
         g.cont.moveCenterToPos((_tutorialObjects[0] as Farm).posX, (_tutorialObjects[0] as Farm).posY, false, .5);
         if (!_cat) {
-            _cat = new TutorialCat(initScene6_1);
-            _cat.setPosition(new Point((_tutorialObjects[0] as Farm).posX + 5, (_tutorialObjects[0] as Farm).posY-1));
-            _cat.addToMap();
+            _cat = g.managerCats.getFreeCatDecor();
+            g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as Farm).posX + 5, (_tutorialObjects[0] as Farm).posY-1),initScene6_1);
+            if (_cat.isOnMap) _cat.addToMap();
         } else g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as Farm).posX + 5, (_tutorialObjects[0] as Farm).posY-1), initScene6_1);
     }
 
@@ -272,7 +303,7 @@ public class TutorialManager extends IManagerTutorial{
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
             var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
-            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            if (_dustRectangle)_dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
             _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
@@ -311,9 +342,10 @@ public class TutorialManager extends IManagerTutorial{
         if (_tutorialObjects.length > 3) _tutorialObjects.length = 3;
         if (_tutorialObjects.length) {
             if (!_cat) {
-                _cat = new TutorialCat( function ():void { _cat.idleAnimation(); });
-                _cat.setPosition(new Point((arr[0] as Farm).posX + 4, (arr[0] as Farm).posY - 1));
-                _cat.addToMap();
+                _cat = g.managerCats.getFreeCatDecor();
+                _cat.idleAnimation();
+                g.managerCats.goCatToPoint(_cat, new Point((arr[0] as Farm).posX + 4, (arr[0] as Farm).posY - 1));
+                if (_cat.isOnMap) _cat.addToMap();
             }
             if (!cutScene) cutScene = new CutScene();
             if (!texts) texts = (new TextsTutorial()).objText;
@@ -369,9 +401,10 @@ public class TutorialManager extends IManagerTutorial{
         if (_tutorialObjects.length > 3) _tutorialObjects.length = 3;
         if (_tutorialObjects.length) {
             if (!_cat) {
-                _cat = new TutorialCat(function ():void { _cat.idleAnimation(); });
-                _cat.setPosition(new Point((arr[0] as Farm).posX + 4, (arr[0] as Farm).posY - 1));
-                _cat.addToMap();
+                _cat = g.managerCats.getFreeCatDecor();
+                _cat.idleAnimation();
+                g.managerCats.goCatToPoint(_cat, new Point((arr[0] as Farm).posX + 4, (arr[0] as Farm).posY - 1));
+                if (_cat.isOnMap) _cat.addToMap();
             }
             if (!cutScene) cutScene = new CutScene();
             if (!texts) texts = (new TextsTutorial()).objText;
@@ -517,9 +550,10 @@ public class TutorialManager extends IManagerTutorial{
         if ((_tutorialObjects[0] as Fabrica).stateBuild == WorldObject.STATE_BUILD) {
             g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY, false, 1);
             if (!_cat) {
-                _cat = new TutorialCat(subStep11_1);
-                _cat.setPosition(new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4));
-                _cat.addToMap();
+
+                _cat = g.managerCats.getFreeCatDecor();
+                g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4), subStep11_1);
+                if (_cat.isOnMap) _cat.addToMap();
             } else g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4), subStep11_1);
         } else subStep11_4();
     }
@@ -562,9 +596,9 @@ public class TutorialManager extends IManagerTutorial{
         if ((_tutorialObjects[0] as Fabrica).stateBuild == WorldObject.STATE_WAIT_ACTIVATE) {
             g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY, false, 1);
             if (!_cat) {
-                _cat = new TutorialCat(subStep12_1);
-                _cat.setPosition(new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4));
-                _cat.addToMap();
+                _cat = g.managerCats.getFreeCatDecor();
+                g.managerCats.goCatToPoint(_cat,new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4), subStep12_1);
+                if (_cat.isOnMap) _cat.addToMap();
             } else subStep12_1();
         } else subStep12_3();
     }
@@ -573,7 +607,7 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 1;
         _action = TutsAction.PUT_FABRICA;
         g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY, false, 1);
-        _cat.flipIt(false);
+        _cat.showFront(true);
         _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         (_tutorialObjects[0] as Fabrica).showArrow();
         _tutorialCallback = subStep12_2;
@@ -601,23 +635,14 @@ public class TutorialManager extends IManagerTutorial{
         if ((_tutorialObjects[0] as Fabrica).isAnyCrafted) {
             subStep13_4();
         } else {
-            if (!cutScene) cutScene = new CutScene();
             if (!texts) texts = (new TextsTutorial()).objText;
-            addBlack();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep13_1);
-            if (!_cat) {
-                _cat = new TutorialCat();
-                _cat.setPosition(new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4));
-                _cat.addToMap();
-            }
+            g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep13_1, texts[g.user.tutorialStep][_subStep], 3);
+
         }
     }
 
     private function subStep13_1():void {
         _subStep = 1;
-        removeBlack();
-        cutScene.hideIt(deleteCutScene);
-        _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         _action = TutsAction.RAW_RECIPE;
         _tutorialResourceIDs = [6]; // recipeId
         g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY, false, 1);
@@ -628,7 +653,6 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep13_2():void {
         _subStep = 2;
         (_tutorialObjects[0] as Fabrica).hideArrow();
-        _cat.hideBubble();
         _tutorialCallback = subStep13_3;
     }
 
@@ -821,8 +845,8 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 0;
         if (!texts) texts = (new TextsTutorial()).objText;
         if (!_cat) {
-            _cat = new TutorialCat();
-            _cat.addToMap();
+            _cat = g.managerCats.getFreeCatDecor();
+            if (_cat.isOnMap) _cat.addToMap();
         }
         _tutorialObjects = [];
         var ar:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
@@ -839,7 +863,7 @@ public class TutorialManager extends IManagerTutorial{
             return;
         }
         if (_tutorialObjects.length > 3) _tutorialObjects.length = 3;
-        g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL, subStep17_1, texts[g.user.tutorialStep][_subStep]);
+        subStep17_1();
     }
 
     private function subStep17_1():void {
@@ -868,7 +892,6 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep17_4():void {
         _subStep = 4;
         _cat.hideBubble();
-        _cat.flipIt(false);
         _tutorialObjects = [];
         g.user.tutorialStep = 18;
         updateTutorialStep();
@@ -888,15 +911,15 @@ public class TutorialManager extends IManagerTutorial{
         _action = TutsAction.NYASHIK;
         g.cont.moveCenterToPos((_tutorialObjects[0] as BuyerNyashuk).posX, (_tutorialObjects[0] as BuyerNyashuk).posY, false, 1);
         if (!_cat) {
-            _cat = new TutorialCat(subStep18_2);
-            _cat.setPosition(new Point((_tutorialObjects[0] as BuyerNyashuk).posX - 1, (_tutorialObjects[0] as BuyerNyashuk).posY + 1));
-            _cat.addToMap();
+            _cat = g.managerCats.getFreeCatDecor();
+            g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as BuyerNyashuk).posX - 1, (_tutorialObjects[0] as BuyerNyashuk).posY + 1), subStep18_2);
+            if (_cat.isOnMap) _cat.addToMap();
         } else g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as BuyerNyashuk).posX - 2, (_tutorialObjects[0] as BuyerNyashuk).posY + 1), subStep18_2);
     }
 
     private function subStep18_2():void {
         _subStep = 2;
-        _cat.flipIt(false);
+        _cat.showFront(true);
         _cat.idleAnimation();
         _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         (_tutorialObjects[0] as BuyerNyashuk).addArrow();
@@ -909,7 +932,6 @@ public class TutorialManager extends IManagerTutorial{
         (_tutorialObjects[0] as BuyerNyashuk).removeArrow();
         (_tutorialObjects[1] as BuyerNyashuk).removeArrow();
         _cat.hideBubble();
-        _cat.flipIt(false);
         _tutorialCallback = subStep18_4;
     }
 

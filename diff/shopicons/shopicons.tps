@@ -236,6 +236,11 @@
             <filename>chair_2_icon.png</filename>
             <filename>cherry_icon.png</filename>
             <filename>chicken_icon.png</filename>
+            <filename>cone_1_icon.png</filename>
+            <filename>cone_2_icon.png</filename>
+            <filename>cone_3_icon.png</filename>
+            <filename>cone_4_icon.png</filename>
+            <filename>cone_5_icon.png</filename>
             <filename>confectionery_icon.png</filename>
             <filename>copper_bench_icon.png</filename>
             <filename>corn_fabric_icon.png</filename>
@@ -284,6 +289,7 @@
             <filename>flowerbed_square_red_icon.png</filename>
             <filename>flowerbed_usa_icon.png</filename>
             <filename>forks_icon.png</filename>
+            <filename>fountain_flowers_icon.png</filename>
             <filename>fountain_pink_icon.png</filename>
             <filename>fountain_small_icon.png</filename>
             <filename>fountain_top_icon.png</filename>

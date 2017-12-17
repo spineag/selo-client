@@ -150,8 +150,12 @@ public class BuyerNyashuk {
     }
 
     private function onClick():void {
-        if (g.tuts.isTuts && g.tuts.action == TutsAction.NYASHIK) g.tuts.checkTutsCallback();
-        g.windowsManager.openWindow(WindowsManager.WO_BUYER_NYASHUK, null, _buyerId, _data,this);
+        if (g.tuts.isTuts && g.tuts.action == TutsAction.NYASHIK)  {
+            g.tuts.checkTutsCallback();
+            g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL_NYASHUK, null, _buyerId, _data, this);
+        } else {
+            g.windowsManager.openWindow(WindowsManager.WO_BUYER_NYASHUK, null, _buyerId, _data, this);
+        }
     }
 
     public function get id():int { return _buyerId; }

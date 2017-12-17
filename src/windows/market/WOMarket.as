@@ -146,7 +146,7 @@ public class WOMarket  extends WindowMain {
         _contPaper.addChild(im);
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);
-        _visitBtn.addTextField(160, 53, -5,-10, String(g.managerLanguage.allTexts[386]));
+        _visitBtn.addTextField(160, 53, 0,-10, String(g.managerLanguage.allTexts[386]));
         _visitBtn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _visitBtn.y = _woHeight/2;
         _source.addChild(_visitBtn);
@@ -555,15 +555,15 @@ public class WOMarket  extends WindowMain {
                     _txtName.x = -150;
                 }
             } else {
-                if (_arrFriends[_shiftFriend] == g.user) {
-                    _visitBtn.visible = false;
-                    deleteAva();
-                    _txtName.x = -150;
-                } else {
-                    _visitBtn.visible = true;
-                    createAva();
-                    _txtName.x = -110;
-                }
+//                if (_arrFriends[_shiftFriend] == g.user) {
+//                    _visitBtn.visible = false;
+//                    deleteAva();
+//                    _txtName.x = -150;
+//                } else {
+//                    _visitBtn.visible = true;
+//                    createAva();
+//                    _txtName.x = -110;
+//                }
             }
             _item.source.x = 10;
             _item.source.y = 25;
@@ -580,22 +580,22 @@ public class WOMarket  extends WindowMain {
         }
         if (paper) {
             _item = new MarketFriendItem(_curUser, this, 0);
-            if (g.visitedUser) {
-                if (_curUser.userSocialId == g.visitedUser.userSocialId) {
-                    _visitBtn.visible = false;
-                    deleteAva();
-                    _txtName.x = -150;
-                }
-                else {
-                    _visitBtn.visible = true;
-                    createAva();
-                    _txtName.x = -110;
-                }
-            } else {
-                _visitBtn.visible = true;
-                createAva();
-                _txtName.x = -110;
-            }
+//            if (g.visitedUser) {
+//                if (_curUser.userSocialId == g.visitedUser.userSocialId) {
+//                    _visitBtn.visible = false;
+//                    deleteAva();
+//                    _txtName.x = -150;
+//                }
+//                else {
+//                    _visitBtn.visible = true;
+//                    createAva();
+//                    _txtName.x = -110;
+//                }
+//            } else {
+//                _visitBtn.visible = true;
+//                createAva();
+//                _txtName.x = -110;
+//            }
             if (_shiftFriend + 2 >= _arrFriends.length) {
                 _shiftFriend = -1;
             }
@@ -607,18 +607,18 @@ public class WOMarket  extends WindowMain {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
             _item.source.x = 10;
             _item.source.y = 25;
-            if (g.isAway) {
-                if (_arrFriends[_shiftFriend] == g.visitedUser) {
-                    _visitBtn.visible = false;
-                    deleteAva();
-                    _txtName.x = -150;
-                }
-                else {
-                    _visitBtn.visible = true;
-                    createAva();
-                    _txtName.x = -110;
-                }
-            }
+//            if (g.isAway) {
+//                if (_arrFriends[_shiftFriend] == g.visitedUser) {
+//                    _visitBtn.visible = false;
+//                    deleteAva();
+//                    _txtName.x = -150;
+//                }
+//                else {
+//                    _visitBtn.visible = true;
+//                    createAva();
+//                    _txtName.x = -110;
+//                }
+//            }
             _sprRightFr.addChild(_item.source);
             if (_shiftFriend + 1 >= _arrFriends.length) _shiftFriend = 0;
             else _shiftFriend ++;

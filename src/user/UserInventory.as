@@ -6,6 +6,7 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import data.StructureDataAnimal;
+import data.StructureDataBuilding;
 import data.StructureDataResource;
 import manager.Vars;
 import media.SoundConst;
@@ -35,6 +36,8 @@ public class UserInventory {
             g.lastActiveDecorID = id;
             g.updateRepository();
         }
+        var st:StructureDataBuilding = g.allData.getBuildingById(id);
+        st.sfilter = 0;
     }
 
     public function removeFromDecorInventory(id:int, updateInventory:Boolean = true):int {
@@ -49,6 +52,8 @@ public class UserInventory {
             g.updateRepository();
         }
         return dbId;
+        var st:StructureDataBuilding = g.allData.getBuildingById(id);
+        st.sfilter = g.allData.getBuildingById(id).beforInventroy;
     }
 
     public function getCountResourceById(id:int):int {

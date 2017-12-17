@@ -48,7 +48,6 @@ public class FriendItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'friendItem');
             return;
         }
-//        g.server.getFriendsInfo(int(_person.userSocialId),_person,newLevel);
 
         source = new CSprite();
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
@@ -59,7 +58,7 @@ public class FriendItem {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friend_frame"));
         source.addChildAt(im,1);
         _preloader = new FlashAnimatedPreloader();
-        _preloader.source.x = 30;
+        _preloader.source.x = 40;
         _preloader.source.y = 40;
         source.addChild(_preloader.source);
         _timer = 5;
@@ -111,7 +110,7 @@ public class FriendItem {
             _friendBoardHelpInfo = new CSprite();
             var help:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             MCScaler.scale(help, 20, 20);
-            help.x = 44;
+            help.x = 46;
             help.y = 10;
             _friendBoardHelpInfo.addChild(help);
             _friendBoardHelpInfo.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[481])); };

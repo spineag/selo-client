@@ -209,7 +209,7 @@ public class WOStarterPack extends WindowMain{
             if (g.user.level >= 5 && todayDailyGift.date != today.date) {
                 g.server.getDailyGift(null);
             } else {
-                g.managerCats.helloCats();
+//                g.managerCats.helloCats();
                 if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >=g. managerParty.dataParty.countToGift[0] && (g.managerParty.dataParty.typeParty == 1 || g.managerParty.dataParty.typeParty == 2))
                     g.managerParty.endPartyWindow();
                 else if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && g.allData.atlas['partyAtlas']) {

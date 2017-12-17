@@ -4,6 +4,8 @@
 package windows.tutorial {
 import manager.ManagerFilters;
 
+import starling.display.Image;
+
 import starling.utils.Color;
 
 import utils.CButton;
@@ -11,44 +13,95 @@ import utils.CButton;
 import utils.CTextField;
 
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOTutorial extends WindowMain {
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _callback:Function;
     private var _txt:CTextField;
+    private var _numberImage:int;
     private var _btn:CButton;
+    private var _image:Image;
 
     public function WOTutorial() {
         super();
         _windowType = WindowsManager.WO_SERVER_ERROR;
         _woWidth = 500;
-        _woHeight = 420;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woHeight = 480;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
         _source.addChild(_woBG);
         _callbackClickBG = closeWindow;
 
-        _txt = new CTextField(300,100,'');
-        _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txt.x = -150;
-        _txt.y = -210;
+        _txt = new CTextField(400,90,'');
+        _txt.setFormat(CTextField.BOLD72, 62, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txt.x = -200;
+        _txt.y = -230;
         _source.addChild(_txt);
 
         _btn = new CButton();
-        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        _btn.y = _woHeight/2 - 10;
+        _btn.addButtonTexture(120, CButton.HEIGHT_41, CButton.GREEN, true);
+        _btn.addTextField(120, 40, 0, -5, String(g.managerLanguage.allTexts[532]));
+        _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_btn);
         _btn.clickCallback = closeWindow;
-        var t:CTextField = new CTextField(120, 38, 'Далее');
-        t.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btn.addChild(t);
+        _btn.y = _woHeight/2 - 33;
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         _callback = callback;
         _txt.text = String(params[0]);
+        _numberImage = int(params[1]);
+        if (g.allData.atlas['tutorialAtlas']) {
+            if (_image) {
+                _source.removeChild(_image);
+                _image.dispose();
+                _image = null;
+            }
+            if (int(params[1]) == 1) {
+                _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('harwest_art_1'));
+
+            } else if (int(params[1]) == 2) {
+                _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('crop_art_1'));
+
+            } else if (int(params[1]) == 2) {
+                _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('bakery_art_1'));
+            } else {
+                _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('bakery_art_1'));
+            }
+
+            _image.x = -_image.width / 2;
+            _image.y = -_image.height / 2 + 35;
+            _source.addChild(_image);
+        } else {
+            g.gameDispatcher.addEnterFrame(afterAtlas);
+        }
         super.showIt();
+    }
+
+    private function afterAtlas():void {
+        if (g.allData.atlas['tutorialAtlas']) {
+            g.gameDispatcher.removeEnterFrame(afterAtlas);
+            if (_image) {
+                _source.removeChild(_image);
+                _image.dispose();
+                _image = null;
+            }
+            if (_numberImage == 1) {
+                _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('harwest_art_1'));
+
+            } else if (_numberImage == 2) {
+                _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('crop_art_1'));
+
+            } else {
+                _image = new Image(g.allData.atlas['tutorialAtlas'].getTexture('bakery_art_1'));
+            }
+
+            _image.x = -_image.width / 2;
+            _image.y = -_image.height / 2 + 35;
+            if (_source)_source.addChild(_image);
+        }
     }
 
     private function closeWindow():void {

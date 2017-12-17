@@ -99,6 +99,7 @@ public class ShopNewList {
                 else c = 4;
         }
         var p1:int;
+        _arrCurrent.sortOn("sort", Array.NUMERIC);
         var item:ShopNewListItem;
         for (var i:int=0; i<ar.length; i++) {
             if (_isBigShop) {
@@ -136,7 +137,7 @@ public class ShopNewList {
             _maxPage = int(_arrItems.length / c);
             if (_arrItems.length % c) _maxPage++;
         }
-        if (g.user.shiftShop > 0) animFill();
+        animFill();
     }
 
     private function createArrows():void {
@@ -211,6 +212,10 @@ public class ShopNewList {
         else {
             _leftArrow.visible = _shift > 0;
             _rightArrow.visible = i < _maxPage;
+        }
+        if (_maxPage ==  1) {
+            _leftArrow.visible = false;
+            _rightArrow.visible = false;
         }
        updateTxtPages();
     }
@@ -294,6 +299,10 @@ public class ShopNewList {
         for (var i:int=0; i<_arrItems.length; i++) {
             (_arrItems[i] as ShopNewListItem).deleteArrow();
         }
+    }
+
+    public function booleanPage(b:Boolean=false):void {
+        _txtPages.visible = b;
     }
     
     public function deleteIt():void {

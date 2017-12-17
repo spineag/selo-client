@@ -1062,6 +1062,7 @@ public class TownArea extends Sprite {
         } else if (isNewAtMap && worldObject is DecorTail){
             Cc.error('TownArea.PasteBuild -- DecorTail wtf you doing here?');
         }
+//        if (g.buyHint && g.buyHint.showThis) g.buyHint.hideIt();
     }
 
     private function afterMoveReturn(build:WorldObject, _x:Number, _y:Number):void {// для ridge, tree, decorFence, decor,decorPostFence, DecorAnimation
@@ -1173,7 +1174,7 @@ public class TownArea extends Sprite {
                     pasteBuild(build, _x, _y);
                 }
                 showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency, -(build as WorldObject).countShopCost);
-                g.buyHint.showIt((build as WorldObject).countShopCost,true);
+//                g.buyHint.showIt((build as WorldObject).countShopCost,true);
                 return;
             } else {
                 if ((build as WorldObject).countShopCost == 0) {
@@ -1195,7 +1196,7 @@ public class TownArea extends Sprite {
         if (build is DecorFenceArka) (build as DecorFenceArka).removeFullView();
         if (build is DecorPostFenceArka) (build as DecorPostFenceArka).removeFullView();
         showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -(build as WorldObject).countShopCost);
-        if (g.managerCutScenes.isCutScene && (build as WorldObject).dataBuild.buildType == BuildType.DECOR) {
+        if (g.managerCutScenes.isCutScene && ((build as WorldObject).dataBuild.buildType == BuildType.DECOR_ANIMATION || (build as WorldObject).dataBuild.buildType == BuildType.DECOR || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_TAIL || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_POST_FENCE || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_FENCE_ARKA)) {
             if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
                 g.managerCutScenes.checkCutSceneCallback();
                 g.bottomPanel.cancelBoolean(false);

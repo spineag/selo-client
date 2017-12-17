@@ -47,11 +47,11 @@ public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
           return;
         }
         switch (_dataBuild.id) {  // better to add its to DB as array
-            case 21: im.x = -107 * g.scaleFactor;
-                     im.y = -3 * g.scaleFactor;
+            case 21: im.x = -79 * g.scaleFactor;
+                     im.y = g.scaleFactor;
                 break;
-            case 19: im.x = -105 * g.scaleFactor;
-                     im.y = 12 * g.scaleFactor;
+            case 19: im.x = -77 * g.scaleFactor;
+                     im.y = g.scaleFactor/2;
                 break;
             case 20: im.x = -105 * g.scaleFactor;
                      im.y = 9 * g.scaleFactor;
@@ -79,8 +79,8 @@ public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
             case 21: im.x = -107 * g.scaleFactor;
                 im.y = -3 * g.scaleFactor;
                 break;
-            case 19: im.x = -105 * g.scaleFactor;
-                im.y = 12 * g.scaleFactor;
+            case 19: im.x = -77 * g.scaleFactor;
+                im.y = g.scaleFactor;
                 break;
             case 20: im.x = -105 * g.scaleFactor;
                 im.y = 9 * g.scaleFactor;
