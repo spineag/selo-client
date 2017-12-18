@@ -31,10 +31,21 @@ public class DropMoneyObject extends DropObjectInterface{
     }
     
     override public function flyIt(p:Point = null):void {
+        var d:DropMoneyObject = this;
         if (_type == DataMoney.HARD_CURRENCY) p = g.softHardCurrency.getHardCurrencyPoint();
             else if (_type == DataMoney.SOFT_CURRENCY) p = g.softHardCurrency.getSoftCurrencyPoint();
             else p = g.couponePanel.getPoint();
+        var f:Function = _flyCallback;
+        _flyCallback = function():void {
+            if (_type == DataMoney.HARD_CURRENCY) g.softHardCurrency.animationBuy(true);
+            else if (_type == DataMoney.SOFT_CURRENCY)  g.softHardCurrency.animationBuy(false);
+            else g.couponePanel.animationBuy();
+            g.userInventory.updateMoneyTxt(_type);
+            if (g.managerTips) g.managerTips.calculateAvailableTips();
+            if (f!=null) f.apply(null, [d]);
+        };
         super.flyIt(p);
     }
+
 }
 }

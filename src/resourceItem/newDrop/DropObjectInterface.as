@@ -35,18 +35,21 @@ public class DropObjectInterface {
     public function set callback(f:Function):void { _flyCallback = f; }
     
     public function flyIt(p:Point=null):void {
-        AnimationsStock.joggleItBaby(_image, 90, .2, 1);
-        AnimationsStock.tweenBezier(_source, p.x, p.y, _flyCallback);
+        var d:DropObjectInterface = this;
+        AnimationsStock.joggleItBaby(_image, 90, .3, 1);
+        var f1:Function = function():void {
+            if (_flyCallback!=null) _flyCallback.apply(null, [d]);
+        };
+        AnimationsStock.tweenBezier(_source, p.x, p.y, f1, _source.scale, .3);
     }
     
     public function startJump(d:int, callback:Function):void {  // d==0 or d==1
         _flyCallback = callback;
-        var nX:int = _source.x -50+d*100 - 20 + int(Math.random()*40);
+        var nX:int = _source.x -50+d*100 - 30 + int(Math.random()*60);
         var nY:int = _source.y + 30 - 10 + int(Math.random()*20);
         var tX:int = int((_source.x + nX)/2);
         var tY:int = _source.y - 90 + int(Math.random()*20);
-        var f:Function = function():void { flyIt(); };
-        new TweenMax(_source, 1.2, {bezier:[{x:tX, y:tY}, {x:nX, y:nY}], ease:Linear.easeOut, onComplete: f});
+        new TweenMax(_source, .8, {bezier:[{x:tX, y:tY}, {x:nX, y:nY}], ease:Linear.easeOut, onComplete: flyIt});
     }
 
     public function deleteIt():void {

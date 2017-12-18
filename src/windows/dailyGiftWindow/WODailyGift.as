@@ -121,8 +121,10 @@ public class WODailyGift extends WindowMain {
         var d:DropObject = new DropObject();
         if (int(_itemToday.type) == BuildType.DECOR || int(_itemToday.type) == BuildType.DECOR_ANIMATION)
             d.addDropDecor(g.allData.getBuildingById(_itemToday.id), p);
-        else d.addUnknownItem(_itemToday, p);
-        d.releaseIt();
+        else if (_itemToday.type == DropResourceVariaty.DROP_TYPE_MONEY) 
+            d.addDropMoney(_itemToday.id, _itemToday.count, p);
+        else d.addDropItemNewByResourceId(_itemToday.id, p, _itemToday.count);
+        d.releaseIt(null, false);
         hideIt();
     }
 

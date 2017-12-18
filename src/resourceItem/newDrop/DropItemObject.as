@@ -24,11 +24,19 @@ public class DropItemObject extends DropObjectInterface{
     }
 
     override public function flyIt(p:Point = null):void {
+        var d:DropItemObject = this;
         p = g.craftPanel.pointXY();
-        g.craftPanel.showIt(BuildType.PLACE_SKLAD);
+        if (_resourceItem.buildType == BuildType.PLANT) g.craftPanel.showIt(BuildType.PLACE_AMBAR);
+            else g.craftPanel.showIt(BuildType.PLACE_SKLAD);
         g.userInventory.addResource(_resourceItem.resourceID, 1);
         g.updateAmbarIndicator();
+        var f:Function = _flyCallback;
+        _flyCallback = function():void {
+            g.craftPanel.afterFly(_resourceItem);
+            if (f!=null) f.apply(null, [d]);
+        };
        super.flyIt(p);
+        
     }
 }
 }

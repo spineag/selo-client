@@ -41,6 +41,7 @@ public class DropDecorNew extends DropObjectInterface {
     }
 
     override public function flyIt(p:Point = null):void {
+        var d:DropDecorNew = this;
         g.toolsPanel.repositoryBox.moveToItemWithID(_dataDecor.id);
         var obj:Object = g.bottomPanel.getShopButtonProperties();
         p = new Point(obj.x, obj.y);
@@ -50,11 +51,11 @@ public class DropDecorNew extends DropObjectInterface {
                 g.userInventory.addToDecorInventory(_dataDecor.id, dbId, false);
                 g.updateRepository();
             };
-            if (_needAddServer) { // ?????
+            if (_needAddServer) { 
                 g.lastActiveDecorID = _dataDecor.id;
                 g.server.buyAndAddToInventory(_dataDecor.id,  f2);
             }
-            if (f!=null) f.call();
+            if (f!=null) f.apply(null, [d]);
         };
         super.flyIt(p);
     }

@@ -30,6 +30,7 @@ public class DropPartyResource extends DropObjectInterface {
     }
 
     override public function flyIt(p:Point = null):void {
+        var d:DropPartyResource = this;
         var obj:Object = g.partyPanel.getPoint();
         p = new Point(obj.x, obj.y);
         var f:Function = _flyCallback;
@@ -39,7 +40,7 @@ public class DropPartyResource extends DropObjectInterface {
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
-            if (f!=null) f.call();
+            if (f!=null) f.apply(null, [d]);
         };
         super.flyIt(p);
     }

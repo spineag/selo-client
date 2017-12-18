@@ -65,27 +65,13 @@ public class DropObject {
         }
     }
 
-    public function addUnknownItem(prise:Object, p:Point):void {
-        if (!prise) {
-            Cc.error('DropObject unknownItem:: prise == null');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'dropUnknownItem');
-            return;
-        }
-
-        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION || prise.type == DropResourceVariaty.DROP_TYPE_DECOR) 
-            addDropDecor(g.allData.getBuildingById(prise.id), p, prise.count);
-        else if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE)
-            addDropItemNewByResourceId(prise.id, p, prise.count);
-        else addDropMoney(prise.id, prise.count, p);
-    }
-    
-    public function addDropPartyResource(p:Point):void { 
+    public function addDropPartyResource(p:Point):void {
         var d:DropPartyResource = new DropPartyResource();
         d.fillIt(p);
         _arrDrops.push(d);
     }
 
-    public function addDropDecor(data:StructureDataBuilding, p:Point, count:int=1, needAddServer:Boolean = false):void {   /// check addTo Server!!!
+    public function addDropDecor(data:StructureDataBuilding, p:Point, count:int=1, needAddServer:Boolean = false):void {
         var d:DropDecorNew;
         for (var i:int=0; i<count; i++) {
             d = new DropDecorNew();
@@ -112,7 +98,7 @@ public class DropObject {
     public function releaseIt(f:Function = null, useJump:Boolean = true):void {   // also create without jumping
         if (!_arrDrops.length) return;
         _callback = f;
-        for (var i:int=0; _arrDrops.length; i++) {
+        for (var i:int=0; i<_arrDrops.length; i++) {
             g.cont.animationsResourceCont.addChild((_arrDrops[i] as DropObjectInterface).source);
             if (useJump) (_arrDrops[i] as DropObjectInterface).startJump(i%2, onFinish);
             else {
