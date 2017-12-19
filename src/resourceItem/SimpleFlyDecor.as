@@ -23,7 +23,7 @@ import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
-public class DropDecor {
+public class SimpleFlyDecor {
     private var g:Vars = Vars.getInstance();
     private var _data:StructureDataBuilding;
     private var _count:int;
@@ -31,7 +31,7 @@ public class DropDecor {
     private var _source:Sprite;
     private var _image:Image;
 
-    public function DropDecor(globalX:int, globalY:int, data:StructureDataBuilding, w:int, h:int, count:int=1, delay:Number = 0, needAddServer:Boolean = false) {
+    public function SimpleFlyDecor(globalX:int, globalY:int, data:StructureDataBuilding, w:int, h:int, count:int=1, delay:Number = 0, needAddServer:Boolean = false) {
         _source = new Sprite();
         _count = count;
         _data = data;
@@ -40,7 +40,7 @@ public class DropDecor {
             if (!texture && g.allData.atlas[_data.url]) texture = g.allData.atlas[_data.url].getTexture(_data.image);
             if (!texture) texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             if (!texture) {
-                Cc.error('DropDecor:: no such texture: ' + _data.url + ' for _data.id ' + _data.id);
+                Cc.error('SimpleFlyDecor:: no such texture: ' + _data.url + ' for _data.id ' + _data.id);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'dropDecor');
                 return;
             }
@@ -48,7 +48,7 @@ public class DropDecor {
             MCScaler.scale(_image, w, h);
             _image.alignPivot();
             _source.addChild(_image);
-        } else Cc.error('DropDecor:: no image for decor with id: ' + _data.id);
+        } else Cc.error('SimpleFlyDecor:: no image for decor with id: ' + _data.id);
         if (_count > 1) {
             _txtCount =  new CTextField(50,50,'');
             _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);

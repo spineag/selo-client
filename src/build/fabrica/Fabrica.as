@@ -23,13 +23,13 @@ import com.junkbyte.console.Cc;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
 import mouse.ToolsModifier;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.textures.Texture;
 import tutorial.TutsAction;
 import tutorial.helpers.HelperReason;
-import resourceItem.xp.XPStar;
 import windows.WindowsManager;
 
 public class Fabrica extends WorldObject {
@@ -241,7 +241,7 @@ public class Fabrica extends WorldObject {
                         g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                     } else {
                         g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
-                        (_arrCrafted[0] as CraftItem).flyIt();
+                        (_arrCrafted[0] as CraftItem).releaseIt();
                     }
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
@@ -285,7 +285,9 @@ public class Fabrica extends WorldObject {
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
-                new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+                var d:DropObject = new DropObject();
+                d.addDropXP(_dataBuild.xpForBuild, start);
+                d.releaseIt();
             }
             showBoom();
             g.managerFabricaRecipe.onAddNewFabrica(this);

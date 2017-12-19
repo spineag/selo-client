@@ -39,16 +39,12 @@ public class SoftHardCurrency {
     private var _txtHard:CTextField;
     private var _imCoin:Image;
     private var _imHard:Image;
-    private var _count:int;
-    private var _animation:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function SoftHardCurrency() {
         _source = new Sprite();
         _contSoft = new CSprite();
-        _contSoft.nameIt = 'panel_contSoft';
         _contHard = new CSprite();
-        _contHard.nameIt = 'panel_contHard';
         _contSoft.endClickCallback = onClickSoft;
         _contSoft.hoverCallback = function ():void {
             g.hint.showIt(String(g.managerLanguage.allTexts[325]),'none',1);

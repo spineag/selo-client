@@ -2,32 +2,16 @@
  * Created by user on 2/2/17.
  */
 package windows.partyWindow {
-import com.greensock.TweenMax;
-import com.greensock.easing.Back;
-
 import data.BuildType;
 import data.DataMoney;
-
-import flash.display.StageDisplayState;
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.Vars;
-
-import resourceItem.DropDecor;
-
-import resourceItem.DropItem;
-import resourceItem.DropPartyResource;
-
-import starling.core.Starling;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.utils.Align;
-
 import starling.utils.Color;
-
-import temp.DropResourceVariaty;
-
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
@@ -222,7 +206,7 @@ public class WOPartyWindowItem {
                 _txtCountUser.x = 5;
             } else if (_data.number == 4) {
                 _txtCountUser.x = -3;
-            }else if (_data.number == 5) {
+            } else if (_data.number == 5) {
                 _txtCountUser.x = -11;
             }
         }
@@ -283,34 +267,19 @@ public class WOPartyWindowItem {
         var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
                 + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
         g.server.updateUserParty(st,g.managerParty.userParty.countResource,0, null);
-        var prise:Object = {};
-        if (_data.typeResource == BuildType.DECOR_ANIMATION) {
-            prise.count = _data.countResource;
-            prise.id =  _data.idResource;
-            prise.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
-        } else if (_data.typeResource == BuildType.DECOR) {
-            prise.count = _data.countResource;
-            prise.id =  _data.idResource;
-            prise.type = DropResourceVariaty.DROP_TYPE_DECOR;
-        } else {
-            if (_data.idResource == 1 && _data.typeResource == 1) {
-                prise.id = DataMoney.SOFT_CURRENCY;
-                prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
-            }
-            else if (_data.idResource == 2 && _data.typeResource == 2) {
-                prise.id = DataMoney.HARD_CURRENCY;
-                prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
-            }
-            else {
-                prise.id = _data.idResource;
-                prise.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
 
-            }
-            prise.count = _data.countResource;
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        var d:DropObject = new DropObject();
+        if (_data.typeResource == BuildType.DECOR_ANIMATION || _data.typeResource == BuildType.DECOR) {
+            d.addDropDecor(g.allData.getBuildingById(_data.idResource), p, _data.countResource);
+        } else {
+            if (_data.idResource == 1 && _data.typeResource == 1)
+                d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.countResource, p);
+            else if (_data.idResource == 2 && _data.typeResource == 2) 
+                d.addDropMoney(DataMoney.HARD_CURRENCY, _data.countResource, p);
+            else d.addDropItemNewByResourceId(_data.idResource, p, _data.countResource);
         }
-        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR || prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION)
-            new DropDecor(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, g.allData.getBuildingById(prise.id), 100, 100, prise.count);
-        else new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
+        d.releaseIt(null, false);
     }
 
     public function deleteIt():void {

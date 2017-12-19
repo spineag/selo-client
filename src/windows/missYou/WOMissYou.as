@@ -3,36 +3,26 @@
  */
 package windows.missYou {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
+import data.DataMoney;
 import flash.display.Bitmap;
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
-
-import resourceItem.DropItem;
-
+import resourceItem.newDrop.DropObject;
 import social.SocialNetwork;
-
 import social.SocialNetworkEvent;
-
 import social.SocialNetworkSwitch;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.events.Event;
 import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
-
 import user.Someone;
-
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
-
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -117,13 +107,11 @@ public class WOMissYou extends WindowMain {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.MISSING);
         arr[0].visibleBuild(false);
         g.server.updateUserMiss(_person.userSocialId, 1, true);
-        var obj:Object;
-        obj = {};
-        obj.count = 5;
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
-        obj.id =  1;
-        new DropItem(p.x + 30, p.y + 30, obj);
+        var d:DropObject = new DropObject();
+        d.addDropMoney(DataMoney.HARD_CURRENCY, 5, p);
+        d.releaseIt();
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) g.server.notificationFbMiss(_person.userSocialId, null);
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) g.server.notificationVkMiss(_person.userSocialId, null);
         onClickExit();

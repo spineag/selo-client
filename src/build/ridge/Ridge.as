@@ -10,25 +10,18 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 
 import data.StructureDataResource;
-
 import dragonBones.Slot;
-
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
-
 import quest.ManagerQuest;
-
-import resourceItem.CraftItem;
-import resourceItem.DropPartyResource;
+import resourceItem.newDrop.DropObject;
+import resourceItem.newDrop.DropPartyResource;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -169,17 +162,25 @@ public class Ridge extends WorldObject{
             _resourceItem.fillIt(_dataPlant);
             g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PLANT, {id:_dataPlant.id});
             var f1:Function = function():void {
-                g.managerPlantRidge.onCraft(_plant.idFromServer);
-                _plant = null;
+                
             };
-            var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 1, null);
-            item.flyIt(false);
-            item = new CraftItem(0, 0, _resourceItem, _plantSprite, 1, f1);
-            item.flyIt(true, false, .1);
-            if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level && Math.random() <= .1) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+
+            var p:Point = new Point(0, 0);
+            p = _source.localToGlobal(p);
+            var d:DropObject = new DropObject();
+            d.addDropItemNew(_resourceItem, p);
+            d.addDropItemNew(_resourceItem, p);
+            d.addDropXP(_resourceItem.craftXP, p);
+            d.addDropXP(_resourceItem.craftXP, p);
+            if (g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(p.x, p.y, d);
+            if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level && Math.random() <= .1)
+                d.addDropPartyResource(p);
+            d.releaseIt();
 
             onOut();
             g.managerAchievement.addResource(_resourceItem.resourceID);
+            g.managerPlantRidge.onCraft(_plant.idFromServer);
+            _plant = null;
         }
         if (g.tuts.isTuts && g.tuts.action == TutsAction.CRAFT_RIDGE) {
             if (_tutorialCallback != null) {

@@ -3,9 +3,7 @@
  */
 package hint {
 import additional.pets.PetMain;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import manager.ManagerFilters;
 import manager.Vars;
@@ -14,13 +12,11 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.utils.Color;
 import tutorial.TutsAction;
-import resourceItem.xp.XPStar;
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.SimpleArrow;
-
 import windows.WOComponents.HintBackground;
 import windows.WindowsManager;
 
@@ -29,8 +25,6 @@ public class PetHint {
     private var _btn:CButton;
     private var _isShowed:Boolean;
     private var _isOnHover:Boolean;
-//    private var _circle:Image;
-//    private var _bgItem:Image;
     private var _iconResource:Image;
     private var _txtCount:CTextField;
     private var _txtName:CTextField;
@@ -41,7 +35,6 @@ public class PetHint {
     private var bg:HintBackground;
     private var g:Vars = Vars.getInstance();
     private var _quad:Quad;
-    private var _buildType:int;
     private var _onOutCallback:Function;
     private var _canHide:Boolean;
     private var _arrow:SimpleArrow;
@@ -50,7 +43,6 @@ public class PetHint {
     public function PetHint() {
         _canHide = true;
         _source = new CSprite();
-        _source.nameIt = 'wildHint';
         _btn = new CButton();
         _isShowed = false;
         _isOnHover = false;

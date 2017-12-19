@@ -94,11 +94,7 @@ public class Containers {
         _mainCont.addChild(mouseCont);
 
         g.mainStage.addChild(_mainCont);
-
         addGameContListener(true);
-        contentCont.nameIt = 'contentCont_csprite';
-        tailCont.nameIt = 'tailCont_csprite';
-        
         craftAwayCont.touchable = false;
         craftAwayCont.visible = false;
     }

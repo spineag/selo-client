@@ -4,24 +4,16 @@
 package windows.achievementWindow {
 import data.BuildType;
 import data.DataMoney;
-
+import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
-
-import resourceItem.DropItem;
-
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Align;
 import starling.utils.Color;
-
-import temp.DropResourceVariaty;
-
-import resourceItem.xp.XPStar;
-
 import utils.CButton;
-
 import utils.CTextField;
 
 public class WOAchievementItem {
@@ -51,7 +43,6 @@ public class WOAchievementItem {
         _number = number;
         _imPlashka = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_big'));
         source.addChild(_imPlashka);
-//        _imPlashka.alpha = .5;
         _name = new CTextField(290, 60, String(g.managerAchievement.dataAchievement[_number].name));
         _name.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _name.alignH = Align.LEFT;
@@ -289,7 +280,6 @@ public class WOAchievementItem {
             _txtStar.text = String(g.managerAchievement.dataAchievement[_number].countXp[i]);
             var myPattern:RegExp = /count/;
             var str:String = g.managerAchievement.dataAchievement[_number].description;
-
             _description.text = str.replace(myPattern, String(g.managerAchievement.dataAchievement[_number].countToGift[i]));
             _imPlashkaDown.dispose();
             _imPlashkaDown = null;
@@ -302,16 +292,14 @@ public class WOAchievementItem {
             var arr:Array = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
             arr[0].onTimer(false);
         }
-
     }
 
     private function dropBonus(number:int):void {
-        var ob:Object = {};
-        ob.id = DataMoney.HARD_CURRENCY;
-        ob.type = DropResourceVariaty.DROP_TYPE_MONEY;
-        ob.count =  g.managerAchievement.dataAchievement[_number].countHard[number];
-        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, ob);
-        new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, g.managerAchievement.dataAchievement[_number].countXp[number]);
+        var d:DropObject = new DropObject();
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerAchievement.dataAchievement[_number].countHard[number], p);
+        d.addDropXP(g.managerAchievement.dataAchievement[_number].countXp[number], p);
+        d.releaseIt(null, false);
         var st:String = g.managerAchievement.userAchievement[_numberUser].tookGift[0] + '&' + g.managerAchievement.userAchievement[_numberUser].tookGift[1] + '&'
                 + g.managerAchievement.userAchievement[_numberUser].tookGift[2];
         g.server.updateUserAchievement(g.managerAchievement.userAchievement[_numberUser].id, g.managerAchievement.userAchievement[_numberUser].resourceCount, st,0, null);

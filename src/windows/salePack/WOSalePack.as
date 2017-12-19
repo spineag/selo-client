@@ -3,45 +3,25 @@
  */
 package windows.salePack {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import data.DataMoney;
-
 import flash.display.StageDisplayState;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
-import manager.ManagerPartyNew;
-
-import resourceItem.DropDecor;
-
-import resourceItem.DropItem;
-
+import resourceItem.newDrop.DropObject;
 import social.SocialNetworkEvent;
-
 import social.SocialNetworkSwitch;
-
 import starling.core.Starling;
-
 import starling.display.Image;
 import starling.display.Quad;
-
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
-
-import temp.DropResourceVariaty;
-
 import utils.CButton;
-
 import utils.CTextField;
-
 import utils.TimeUtils;
-
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -203,36 +183,20 @@ public class WOSalePack extends WindowMain{
 
     private function onBuy():void {
         g.server.updateUserSalePack(null);
-        var obj:Object;
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
+        var d:DropObject = new DropObject();
         for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
-            obj = {};
-            if (g.managerSalePack.dataSale.objectId[i] == 1 && g.managerSalePack.dataSale.objectType[i]  == 1) {
-                p = new Point(0, 0);
-                obj.id = DataMoney.SOFT_CURRENCY;
-                obj.type = DropResourceVariaty.DROP_TYPE_MONEY;
-
-            } else if (g.managerSalePack.dataSale.objectId[i] == 2 && g.managerSalePack.dataSale.objectType[i] == 2) {
-                obj.id = DataMoney.HARD_CURRENCY;
-                obj.type = DropResourceVariaty.DROP_TYPE_MONEY;
-            }  else if (g.managerSalePack.dataSale.objectType[i] == BuildType.RESOURCE || g.managerSalePack.dataSale.objectType[i] == BuildType.INSTRUMENT || g.managerSalePack.dataSale.objectType[i] == BuildType.PLANT) {
-                obj.id = g.managerSalePack.dataSale.objectId[i];
-                obj.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
-
-            } else if (g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR_ANIMATION) {
-                obj.id = g.managerSalePack.dataSale.objectId[i];
-                obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
-
-            } else if (g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR) {
-                obj.id = g.managerSalePack.dataSale.objectId[i];
-                obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
-            }
-            obj.count = g.managerSalePack.dataSale.objectCount[i];
-            if (obj.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION || obj.type == DropResourceVariaty.DROP_TYPE_DECOR)
-                new DropDecor(p.x + 30, p.y + 30, g.allData.getBuildingById(obj.id), 100, 100, obj.count);
-            else new DropItem(p.x + 30, p.y + 30, obj);
+            if (g.managerSalePack.dataSale.objectId[i] == 1 && g.managerSalePack.dataSale.objectType[i]  == 1)
+                d.addDropMoney(DataMoney.SOFT_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
+            else if (g.managerSalePack.dataSale.objectId[i] == 2 && g.managerSalePack.dataSale.objectType[i] == 2)
+                d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
+            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.RESOURCE || g.managerSalePack.dataSale.objectType[i] == BuildType.INSTRUMENT || g.managerSalePack.dataSale.objectType[i] == BuildType.PLANT)
+                d.addDropItemNewByResourceId(g.managerSalePack.dataSale.objectId[i], p, g.managerSalePack.dataSale.objectCount[i]);
+            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR_ANIMATION || g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR) 
+                d.addDropDecor(g.allData.getBuildingById(g.managerSalePack.dataSale.objectId[i]), p, g.managerSalePack.dataSale.objectCount[i]);
         }
+        d.releaseIt(null, false);
         hideIt();
         g.salePanel.visiblePartyPanel(false);
     }

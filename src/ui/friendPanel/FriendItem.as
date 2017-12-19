@@ -50,7 +50,6 @@ public class FriendItem {
         }
 
         source = new CSprite();
-        source.nameIt = 'friendPanel';
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
         MCScaler.scale(_ava, 60, 60);
         _ava.x = 10;

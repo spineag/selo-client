@@ -4,29 +4,15 @@
 package windows.partyWindow {
 import data.BuildType;
 import data.DataMoney;
-
 import flash.display.Bitmap;
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
-import resourceItem.DropDecor;
-
-import resourceItem.DropItem;
-
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
-import starling.display.Quad;
-
 import starling.textures.Texture;
-import starling.utils.Align;
 import starling.utils.Color;
-
-import temp.DropResourceVariaty;
-
 import utils.CButton;
-
 import utils.CTextField;
-
 import windows.WindowMain;
 
 public class WOPartyWindowClose extends WindowMain{
@@ -92,38 +78,22 @@ public class WOPartyWindowClose extends WindowMain{
     }
 
     override public function hideIt():void {
-        var obj:Object;
-        obj = {};
-//        g.server.updateUserParty('1&1&1&1&1',0,1,null);
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        var d:DropObject = new DropObject();
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
             if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.countToGift[i] ) {
-                if (g.managerParty.typeGift[i] == BuildType.DECOR_ANIMATION) {
-                    obj.count = g.managerParty.countGift[i];
-                    obj.id =  g.managerParty.idGift[i];
-                    obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
-                    new DropDecor(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, g.allData.getBuildingById(obj.id), 100, 100, obj.count);
-                } else if (g.managerParty.typeGift[i] == BuildType.DECOR) {
-                    obj.count = g.managerParty.countGift[i];
-                    obj.id =  g.managerParty.idGift[i];
-                    obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
-                    new DropDecor(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2 , g.allData.getBuildingById(obj.id), 100, 100, obj.count);
-                } else {
-                    if (g.managerParty.idGift[i] == 1 && g.managerParty.typeGift[i] == 1) {
-                        obj.id = DataMoney.SOFT_CURRENCY;
-                        obj.type = DropResourceVariaty.DROP_TYPE_MONEY;
-                    } else if (g.managerParty.idGift[i] == 2 && g.managerParty.typeGift[i] == 2) {
-                        obj.id = DataMoney.HARD_CURRENCY;
-                        obj.type = DropResourceVariaty.DROP_TYPE_MONEY;
-                    } else {
-                        obj.id = g.managerParty.idGift[i];
-                        obj.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
-                    }
-                    obj.count = g.managerParty.countGift[i];
-                    new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
+                if (g.managerParty.typeGift[i] == BuildType.DECOR_ANIMATION || g.managerParty.typeGift[i] == BuildType.DECOR) 
+                    d.addDropDecor(g.allData.getBuildingById( g.managerParty.idGift[i]), p, g.managerParty.countGift[i]);
+                else {
+                    if (g.managerParty.idGift[i] == 1 && g.managerParty.typeGift[i] == 1) 
+                        d.addDropMoney(DataMoney.SOFT_CURRENCY, g.managerParty.countGift[i], p);
+                    else if (g.managerParty.idGift[i] == 2 && g.managerParty.typeGift[i] == 2) 
+                        d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerParty.countGift[i], p);
+                    else d.addDropItemNewByResourceId(g.managerParty.idGift[i], p, g.managerParty.countGift[i]);
                 }
             }
         }
-//        g.managerParty.endParty();
+        d.releaseIt(null, false);
         super.hideIt();
     }
 }

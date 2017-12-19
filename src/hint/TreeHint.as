@@ -3,39 +3,21 @@
  */
 package hint {
 import build.WorldObject;
-import build.WorldObject;
-
 import com.greensock.TweenMax;
-
 import com.greensock.easing.Linear;
-
 import com.junkbyte.console.Cc;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
+import resourceItem.newDrop.DropObject;
 import starling.animation.Tween;
-
-import starling.core.Starling;
-
 import starling.display.Image;
 import starling.display.Quad;
-import starling.display.Sprite;
-import starling.text.TextField;
 import starling.utils.Color;
-
-import resourceItem.xp.XPStar;
-
 import utils.CButton;
-
 import utils.CSprite;
 import utils.CTextField;
-
 import utils.MCScaler;
-
 import windows.WOComponents.HintBackground;
 import windows.WindowsManager;
 
@@ -61,7 +43,6 @@ public class TreeHint {
 
     public function TreeHint() {
         _source = new CSprite();
-        _source.nameIt = 'treeHint';
         _contDelete = new CButton();
         _contWatering = new CButton();
         _isShowed = false;
@@ -246,7 +227,11 @@ public class TreeHint {
             ob.count = 1;
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickDelete, 'menu', ob);
         } else {
-            new XPStar(_source.x,_source.y,8);
+            var start:Point = new Point(int(_source.x), int(_source.y));
+            start = _source.parent.localToGlobal(start);
+            var d:DropObject = new DropObject();
+            d.addDropXP(8, start);
+            d.releaseIt();
             g.userInventory.addResource(_data.removeByResourceId, -1);
             if (_deleteCallback != null) {
                 _deleteCallback.apply();

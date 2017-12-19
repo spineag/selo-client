@@ -6,8 +6,7 @@ import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
 import manager.ManagerFilters;
-import resourceItem.DropDecor;
-import resourceItem.DropItem;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -58,7 +57,7 @@ public class WODailyGift extends WindowMain {
         _btnGet.addChild(_txt);
         _btnGet.y = 270;
         _source.addChild(_btnGet);
-        _btnGet.clickCallback = onClick;
+        _btnGet.clickCallback = onClickExit;
         _txt = new CTextField(680, 340, String(g.managerLanguage.allTexts[438]));
         _txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -350;
@@ -118,8 +117,14 @@ public class WODailyGift extends WindowMain {
 
     private function onClickExit(e:Event = null):void {
         g.server.updateDailyGift(g.user.countDailyGift);
-        if (int(_itemToday.type) == BuildType.DECOR || int(_itemToday.type) == BuildType.DECOR_ANIMATION) flyItDecor();
-        else new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _itemToday);
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        var d:DropObject = new DropObject();
+        if (int(_itemToday.type) == BuildType.DECOR || int(_itemToday.type) == BuildType.DECOR_ANIMATION)
+            d.addDropDecor(g.allData.getBuildingById(_itemToday.id), p);
+        else if (_itemToday.type == DropResourceVariaty.DROP_TYPE_MONEY) 
+            d.addDropMoney(_itemToday.id, _itemToday.count, p);
+        else d.addDropItemNewByResourceId(_itemToday.id, p, _itemToday.count);
+        d.releaseIt(null, false);
         hideIt();
     }
 
@@ -141,18 +146,13 @@ public class WODailyGift extends WindowMain {
         if (id == 1 && type == '1') {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_icon'));
             MCScaler.scale(im,im.height-20,im.width-20);
-            im.pivotX = im.width/2;
-            im.pivotY = im.height/2;
             im.x = bg.width/2 - 10;
             im.y = bg.width/2;
             id = DataMoney.HARD_CURRENCY;
             type = DropResourceVariaty.DROP_TYPE_MONEY;
-
         } else if (id == 2 && type == '2') {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_icon'));
             MCScaler.scale(im,im.height-20,im.width-20);
-            im.pivotX = im.width/2;
-            im.pivotY = im.height/2;
             im.x = bg.width/2 - 10;
             im.y = bg.width/2;
             id = DataMoney.SOFT_CURRENCY;
@@ -160,28 +160,21 @@ public class WODailyGift extends WindowMain {
         } else if (int(type) == BuildType.INSTRUMENT) {
             im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(id).imageShop));
             MCScaler.scale(im,im.height-10,im.width-10);
-            im.pivotX = im.width/2;
-            im.pivotY = im.height/2;
             im.x = bg.width/2 - 5;
             im.y = bg.width/2;
             type = DropResourceVariaty.DROP_TYPE_RESOURSE;
         } else if (int(type) == BuildType.DECOR) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image+ '_icon'));
             MCScaler.scale(im,im.height-60,im.width-60);
-//            im.scale = 100;
-            im.pivotX = im.width/2;
-            im.pivotY = im.height/2;
             im.x = bg.width/2 - 20;
             im.y = bg.width/2 - 20;
         } else if (int(type) == BuildType.DECOR_ANIMATION) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).url+ '_icon'));
             MCScaler.scale(im,im.height-60,im.width-60);
-//            im.scale = 100;
-            im.pivotX = im.width/2;
-            im.pivotY = im.height/2;
             im.x = bg.width/2 - 20;
             im.y = bg.width/2 - 20;
         }
+        im.alignPivot();
         source.addChild(im);
         var txt:CTextField = new CTextField(130,40, String(g.managerLanguage.allTexts[440]) + " " + (number+1));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -214,22 +207,6 @@ public class WODailyGift extends WindowMain {
             _point = new Point(source.x, source.y);
             _point = source.localToGlobal(_point);
         }
-
-    }
-
-    private function onClick():void {
-        g.server.updateDailyGift(g.user.countDailyGift);
-        if (int(_itemToday.type) == BuildType.DECOR || int(_itemToday.type) == BuildType.DECOR_ANIMATION) flyItDecor();
-        else new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _itemToday);
-        hideIt();
-
-    }
-
-    private function flyItDecor():void {
-        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
-        p = _source.localToGlobal(p);
-        new DropDecor(p.x, p.y, g.allData.getBuildingById(_itemToday.id), 100, 100, 1);
-        hideIt();
     }
 
 }

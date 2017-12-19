@@ -10,6 +10,9 @@ import manager.ManagerFilters;
 
 import quest.ManagerQuest;
 import quest.QuestStructure;
+
+import resourceItem.newDrop.DropObject;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.textures.Texture;
@@ -127,9 +130,11 @@ public class WOQuestFinishAward extends WindowMain {
     }
 
     private function onClickExit():void {
+        var d:DropObject = new DropObject();
         for (var i:int=0; i<_items.length; i++) {
-            _items[i].flyIt(i);
+            (_items[i] as Item).flyIt(d);
         }
+        d.releaseIt(null, false);
         _items.length = 0;
         if (_callback != null) {
             _callback.apply(null, [_quest]);
@@ -142,30 +147,17 @@ public class WOQuestFinishAward extends WindowMain {
 }
 }
 
-import com.greensock.TweenMax;
-import com.greensock.easing.Back;
-import com.greensock.easing.Linear;
-import data.BuildType;
 import data.DataMoney;
-import flash.display.StageDisplayState;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
 import quest.QuestAwardStructure;
-
-import resourceItem.DropDecor;
-import resourceItem.DropItem;
-
-import starling.core.Starling;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Color;
-
-import resourceItem.xp.XPStar;
-
 import utils.CTextField;
 import utils.MCScaler;
-import utils.Utils;
 
 internal class Item extends Sprite {
     private var g:Vars = Vars.getInstance();
@@ -220,94 +212,17 @@ internal class Item extends Sprite {
         if (_source) _source.dispose();
     }
 
-    public function flyIt(i:int):void {
-        _source = new Sprite();
-        if (_aw.typeResource == 'money') {
-            flyItMoney(i);
-        } else if (_aw.typeResource == 'decor') {
-            flyItDecor(i);
-        } else if (_aw.typeResource == 'xp') {
-            flyItXP();
-        } else {
-            flyItResource(i);
-        }
-    }
-
-    private function flyItDecor(i:int):void {
-        var p:Point = new Point(0, 0);
+    public function flyIt(d:DropObject):void {
+        var p:Point = new Point();
         p = _source.localToGlobal(p);
-        new DropDecor(p.x, p.y, g.allData.getBuildingById(_aw.idResource), 70, 70, _aw.countResource, i*.2);
+        if (_aw.typeResource == 'money')
+            d.addDropMoney(_aw.idResource, _aw.countResource, p);
+        else if (_aw.typeResource == 'decor')
+            d.addDropDecor(g.allData.getBuildingById(_aw.idResource), p, _aw.countResource);
+        else if (_aw.typeResource == 'xp')
+            d.addDropXP(_aw.countResource, p);
+        else d.addDropItemNewByResourceId(_aw.idResource, p, _aw.countResource);
         deleteIt();
     }
 
-    private function flyItXP():void {
-        var endPoint:Point = new Point();
-        endPoint.x = 0;
-        endPoint.y = 0;
-        endPoint = im.localToGlobal(endPoint);
-        removeChild(im);
-        new XPStar(endPoint.x, endPoint.y, _aw.countResource);
-    }
-
-    private function flyItMoney(i:int):void {
-        var endPoint:Point = new Point();
-        var f1:Function = function():void {
-            g.cont.animationsResourceCont.removeChild(_source);
-            g.userInventory.addMoney(_aw.idResource, _aw.countResource);
-            deleteIt();
-        };
-        endPoint.x = 0;
-        endPoint.y = 0;
-        endPoint = im.localToGlobal(endPoint);
-        removeChild(im);
-        _source.addChild(im);
-        _source.x = endPoint.x;
-        _source.y = endPoint.y;
-        g.cont.animationsResourceCont.addChild(_source);
-        if (_aw.idResource == DataMoney.SOFT_CURRENCY) {
-            endPoint = g.softHardCurrency.getSoftCurrencyPoint();
-        } else if (_aw.idResource == DataMoney.HARD_CURRENCY) {
-            endPoint = g.softHardCurrency.getHardCurrencyPoint();
-        } else {
-            endPoint = g.couponePanel.getPoint();
-        }
-        var tempX:int = _source.x - 70;
-        var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        var v:int;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 500;
-        else v = 800;
-        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut, onComplete: f1, delay:i * .2});
-    }
-
-    private function flyItResource(i:int):void {
-        var endPoint:Point = new Point();
-        var f1:Function = function():void {
-            g.cont.animationsResourceCont.removeChild(_source);
-            g.userInventory.addResource(_aw.idResource, _aw.countResource);
-            g.craftPanel.afterFlyWithId(_aw.idResource);
-            deleteIt();
-        };
-        endPoint.x = 0;
-        endPoint.y = 0;
-        endPoint = im.localToGlobal(endPoint);
-        removeChild(im);
-        _source.addChild(im);
-        _source.x = endPoint.x;
-        _source.y = endPoint.y;
-        g.cont.animationsResourceCont.addChild(_source);
-        if (g.allData.getResourceById(_aw.idResource).placeBuild == BuildType.PLACE_SKLAD) {
-            g.craftPanel.showIt(BuildType.PLACE_SKLAD);
-        } else {
-            g.craftPanel.showIt(BuildType.PLACE_AMBAR);
-        }
-        endPoint = g.craftPanel.pointXY();
-        var tempX:int = _source.x - 70;
-        var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        var v:int;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
-        else v = 380;
-        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut, onComplete: f1, delay:i * .2});
-    }
 }

@@ -3,35 +3,21 @@
  */
 package windows.buyCurrency {
 import analytic.AnalyticManager;
-
 import com.junkbyte.console.Cc;
-
 import data.DataMoney;
-
 import flash.display.StageDisplayState;
 import flash.geom.Point;
-import flash.geom.Rectangle;
-
 import manager.ManagerFilters;
-import manager.ManagerLanguage;
 import manager.Vars;
-import resourceItem.DropItem;
-
+import resourceItem.newDrop.DropObject;
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
-
 import starling.core.Starling;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
-import starling.utils.Align;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
-import utils.MCScaler;
-
-import windows.WindowsManager;
 
 public class WOBuyCurrencyItem {
     public var source:Sprite;
@@ -187,13 +173,13 @@ public class WOBuyCurrencyItem {
     }
 
     private function onBuy():void {
-        var obj:Object;
-        obj = {};
-        obj.count = _countGameMoney;
         var p:Point = new Point(120, 150);
         p = source.localToGlobal(p);
-        obj.id =  _currency;
-        new DropItem(p.x + 30, p.y + 30, obj);
+        p.x += 30;
+        p.y += 30;
+        var d:DropObject = new DropObject();
+        d.addDropMoney(_currency, _countGameMoney, p);
+        d.releaseIt(null, false);
     }
 
     public function deleteIt():void {

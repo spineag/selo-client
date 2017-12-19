@@ -4,7 +4,6 @@
 package resourceItem {
 import build.farm.Animal;
 import com.greensock.TweenMax;
-import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import flash.geom.Point;
@@ -12,15 +11,13 @@ import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
 import particle.CraftItemParticle;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Color;
-
-import utils.AnimationsStock;
 import utils.CTextField;
 import utils.SimpleArrow;
 import tutorial.TutsAction;
-import resourceItem.xp.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
@@ -44,7 +41,6 @@ public class CraftItem {
         count = _count;
         _callback = f;
         _source = new CSprite();
-        _source.nameIt = 'craftItem';
         _resourceItem = resourceItem;
         if (!_resourceItem) {
             Cc.error('CraftItem:: resourceItem == null!');
@@ -71,21 +67,21 @@ public class CraftItem {
         _sY = _source.y;
         parent.addChild(_source);
         _source.startClickCallback = onStart;
-        _source.endClickCallback = flyIt;
+        _source.endClickCallback = releaseIt;
         if (useHover){
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }
         _txtNumber = new CTextField(50,50,'');
         _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-//        _txtNumber.x = -5;
         _txtNumber.y = 10;
         _txtNumber.visible = false;
         _source.addChild(_txtNumber);
     }
     
     private function onStart():void {
-        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE)
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.cont.deleteDragPoint();
     }
 
@@ -108,14 +104,12 @@ public class CraftItem {
     public function get source():CSprite { return _source;}
     public function get resourceId():int { return _resourceItem.resourceID; }
 
-    public function flyIt(xpFly:Boolean = true, bonusDrop:Boolean = true, delay:Number = 0):void {
+    public function releaseIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
-        removeAnimIt();
         if (g.tuts.isTuts && (g.tuts.action == TutsAction.ANIMAL_CRAFT || g.tuts.action == TutsAction.FABRICA_CRAFT)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();
                 _tutorialCallback = null;
-                removeArrow();
             }
         }
         _image.filter = null;
@@ -132,61 +126,20 @@ public class CraftItem {
             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
             return;
         }
-        deleteParticle();
         if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
             g.craftPanel.showIt(_resourceItem.placeBuild);
 
         if (_callback != null) {
             _callback.apply(null, [_resourceItem, this]);
         }
-        _source.visible = true;
-        _source.endClickCallback = null;
-        if (_source.filter) _source.filter.dispose();
-        _source.filter = null;
-        _txtNumber.visible = true;
-        _source.isTouchable = false;
-        _txtNumber.text = String(count);
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
-        if (_source.parent && _source.parent.contains(_source)) _source.parent.removeChild(_source);
-
-        _source.scaleY = _source.scaleX = 1;
-        MCScaler.scale(_imageSprite, 50, 50);
-        var endPoint:Point = g.craftPanel.pointXY();
-        _source.x = start.x;
-        _source.y = start.y;
-        g.cont.animationsResourceCont.addChild(_source);
-        if (bonusDrop) {
-            if (g.managerDropResources.checkDrop()) {
-                if (g.user.level <= 7 && !g.tuts.isTuts) g.managerDropResources.createDrop(_source.x, _source.y);
-                else g.managerDropResources.createDrop(_source.x, _source.y);
-            }
-        }
-        g.userInventory.addResource(_resourceItem.resourceID, count);
-        var f1:Function = function():void {
-            g.cont.animationsResourceCont.removeChild(_source);
-            _source.deleteIt();
-            _source = null;
-            animal = null;
-            if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
-                g.craftPanel.afterFly(_resourceItem);
-        };
-        var tempX:int;
-        _source.x < endPoint.x ? tempX = _source.x - 50 + int(Math.random()*200) : tempX = _source.x + 50 - int(Math.random()*200);
-        var tempY:int = _source.y + 10 + int(Math.random()*40);
-        var dist:int = int(Math.sqrt((_source.x - tempX)*(_source.x - tempX) + (_source.y - tempY)*(_source.y - tempY)));
-        dist += int(Math.sqrt((tempX - endPoint.x)*(tempX - endPoint.x) + (tempY - endPoint.y)*(tempY - endPoint.y)));
-        var t:Number = dist/1000 * 2;
-        if (t > 2) t -= .6;
-        if (t > 3) t -= 1;
-        AnimationsStock.joggleItBaby(_image, 90, .2, .95);
-        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay:delay});
-        if (xpFly) new XPStar(_source.x,_source.y,_resourceItem.craftXP);
-        if (count > 0) {
-            _txtNumber.text = '+' + String(count);
-        } else {
-            _txtNumber.text = '';
-        }
+        var drop:DropObject = new DropObject();
+        drop.addDropItemNew(_resourceItem, start);
+        if (xpFly) drop.addDropXP(_resourceItem.craftXP, start);
+        if (bonusDrop && g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
+        drop.releaseIt();
+        deleteIt();
     }
 
     public function addParticle():void {
@@ -199,6 +152,18 @@ public class CraftItem {
             _particle.deleteIt();
             _particle = null;
         }
+    }
+
+    private function deleteIt():void {
+        deleteParticle();
+        removeArrow();
+        removeAnimIt();
+        if (_source.parent && _source.parent.contains(_source)) _source.parent.removeChild(_source);
+        _source.endClickCallback = null;
+        if (_source.filter) _source.filter.dispose();
+        _source.filter = null;
+        _source.dispose();
+        _source = null;
     }
 
     public function addArrow(f:Function):void {

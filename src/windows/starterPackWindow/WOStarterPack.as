@@ -10,8 +10,7 @@ import flash.display.StageDisplayState;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
-
-import resourceItem.DropItem;
+import resourceItem.newDrop.DropObject;
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
 import starling.core.Starling;
@@ -21,7 +20,6 @@ import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
-import temp.DropResourceVariaty;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
@@ -265,48 +263,16 @@ public class WOStarterPack extends WindowMain{
 
     private function onBuy():void {
         g.server.updateStarterPack(null);
-        var obj:Object;
-        obj = {};
-        obj.count = _data.soft_count;
-        var p:Point = new Point(0, 0);
+        var p:Point = new Point(30, 30);
         p = _source.localToGlobal(p);
-        obj.id =  DataMoney.SOFT_CURRENCY;
-        new DropItem(p.x + 30, p.y + 30, obj);
-
-        obj = {};
-        obj.count = _data.hard_count;
-        p = new Point(0, 0);
-        p = _source.localToGlobal(p);
-        obj.id =  DataMoney.HARD_CURRENCY;
-        new DropItem(p.x + 30, p.y + 30, obj);
-
-        if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT) {
-            obj = {};
-            obj.count = _data.object_count;
-            p = new Point(0, 0);
-            p = _source.localToGlobal(p);
-            obj.id =  _data.object_id;
-            obj.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
-            new DropItem(p.x + 30, p.y + 30, obj);
-        } else if (_data.object_type == BuildType.DECOR_ANIMATION || _data.object_type == BuildType.DECOR) {
-            if (_data.object_type == BuildType.DECOR_ANIMATION) {
-                obj = {};
-                obj.count = 1;
-                p = new Point(0, 0);
-                p = _source.localToGlobal(p);
-                obj.id =  _data.object_id;
-                obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
-                new DropItem(p.x + 30, p.y + 30, obj);
-            } else if (_data.object_type == BuildType.DECOR) {
-                obj = {};
-                obj.count = 1;
-                p = new Point(0, 0);
-                p = _source.localToGlobal(p);
-                obj.id =  _data.object_id;
-                obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
-                new DropItem(p.x + 30, p.y + 30, obj);
-            }
-        }
+        var d:DropObject = new DropObject();
+        d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.soft_count, p);
+        d.addDropMoney(DataMoney.HARD_CURRENCY, _data.hard_count, p);
+        if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT)
+            d.addDropItemNewByResourceId(_data.object_id, p, _data.object_count);
+        else if (_data.object_type == BuildType.DECOR_ANIMATION || _data.object_type == BuildType.DECOR)
+            d.addDropDecor(g.allData.getBuildingById(_data.object_id), p, 1);
+        d.releaseIt(null, false);
         hideIt();
     }
 }

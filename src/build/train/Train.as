@@ -2,34 +2,24 @@ package build.train {
 import analytic.AnalyticManager;
 import build.WorldObject;
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
 import media.SoundConst;
 import mouse.ToolsModifier;
-import resourceItem.DropItem;
-import starling.core.Starling;
+import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-
-import temp.DropResourceVariaty;
 import tutorial.managerCutScenes.ManagerCutScenes;
-import resourceItem.xp.XPStar;
-
 import utils.CSprite;
-import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class Train extends WorldObject{
@@ -359,7 +349,9 @@ public class Train extends WorldObject{
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
-                new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+                var d:DropObject = new DropObject();
+                d.addDropXP(_dataBuild.xpForBuild, start);
+                d.releaseIt();
             }
             _stateBuild = STATE_READY;
             _counter = TIME_READY;
@@ -480,21 +472,16 @@ public class Train extends WorldObject{
             onOut();
             return;
         }
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp * g.managerParty.coefficient);
-            else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp);
-        var prise:Object = {};
-        var priseCoupone:Object = {};
-        prise.id = DataMoney.SOFT_CURRENCY;
-        prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
-        prise.count = _dataPack.count_money;
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        var d:DropObject = new DropObject();
+        d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataPack.count_money, p);
+        d.addDropMoney(DataMoney.randomVaucher, 1, p);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+            d.addDropXP(int(_dataPack.count_xp * g.managerParty.coefficient), p);
+        else d.addDropXP(int(_dataPack.count_xp), p);
+        d.releaseIt();
+        
         g.managerAchievement.addAll(10,1);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) prise.count = _dataPack.count_money * g.managerParty.coefficient;
-        else prise.count = _dataPack.count_money;
-        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
-        priseCoupone.id = int(Math.random() * 4) + 3;
-        priseCoupone.type = DropResourceVariaty.DROP_TYPE_MONEY;
-        priseCoupone.count = 1;
-        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, priseCoupone);
         if (g.user.wallTrainItem) {
             g.windowsManager.openWindow(WindowsManager.POST_DONE_TRAIN);
             g.server.updateWallTrainItem(null);

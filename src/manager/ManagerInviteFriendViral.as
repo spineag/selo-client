@@ -4,14 +4,10 @@
 package manager {
 import data.DataMoney;
 import flash.geom.Point;
-import resourceItem.DropItem;
-
+import resourceItem.newDrop.DropObject;
 import starling.textures.TextureAtlas;
-
 import ui.inviteFriendPanel.InvitePanelTimer;
-
 import utils.TimeUtils;
-
 import windows.WindowsManager;
 
 public class ManagerInviteFriendViral {
@@ -74,11 +70,9 @@ public class ManagerInviteFriendViral {
         var countInvited:int = ar.length;
         if (countInvited > _countFriendsData) countInvited = _countFriendsData;
         if (countInvited > 0) {
-            var obj:Object = {};
-            obj.count = _countRubiesData * countInvited;
-            var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
-            obj.id = DataMoney.HARD_CURRENCY;
-            new DropItem(p.x + 30, p.y + 30, obj);
+            var d:DropObject = new DropObject();
+            d.addDropMoney(DataMoney.HARD_CURRENCY, _countRubiesData * countInvited, new Point(g.managerResize.stageWidth/2 + 30, g.managerResize.stageHeight/2 + 30));
+            d.releaseIt();
             g.server.updateUserViralInvite(TimeUtils.currentSeconds + _timeCompleteData, null);
             onFinishIt();
         }

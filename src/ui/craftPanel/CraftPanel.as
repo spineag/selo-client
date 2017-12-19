@@ -172,20 +172,7 @@ public class CraftPanel {
         isShow = false;
     }
 
-    public function pointXY():Point {
-        var p:Point;
-//        if (g.windowsManager.currentWindow) {
-//            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
-//                p = new Point(330,55);
-//            } else {
-//                p = new Point(795,55);
-//            }
-//            return p;
-//        }
-        p = new Point(-165,-5);
-        p = _source.localToGlobal(p);
-        return p;
-    }
+    public function pointXY():Point { return new Point(g.managerResize.stageWidth/2 - 165, 65); }
 
 }
 }

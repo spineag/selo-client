@@ -68,7 +68,6 @@ public class Animal {
         }
         _farm = farm;
         source = new CSprite();
-        source.nameIt = 'animal';
         _data = data;
         _isOnHover = false;
         _tutorialCallback = null;

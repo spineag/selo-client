@@ -1,6 +1,5 @@
 package build.cave {
 import analytic.AnalyticManager;
-
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import data.DataMoney;
@@ -8,23 +7,18 @@ import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
-
 import media.SoundConst;
 import mouse.ToolsModifier;
-
 import quest.ManagerQuest;
-
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
+import resourceItem.newDrop.DropObject;
 import starling.display.Sprite;
 import starling.events.Event;
-
-import resourceItem.xp.XPStar;
 import windows.WindowsManager;
 
 public class Cave extends WorldObject{
@@ -335,7 +329,9 @@ public class Cave extends WorldObject{
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
-                new XPStar(start.x, start.y, _dataBuild.xpForBuild);
+                var d:DropObject = new DropObject();
+                d.addDropXP(_dataBuild.xpForBuild, start);
+                d.releaseIt();
             }
             _stateBuild = STATE_ACTIVE;
             onOut();

@@ -32,7 +32,6 @@ public class CSprite extends Sprite {
     private var _startDragPoint:Point;
     private var _isHover:Boolean;
     private var _useCheckForHover:Boolean;
-    private var _itsName:String; // use for testing
 
     private var g:Vars = Vars.getInstance();
     public function CSprite() {
@@ -47,7 +46,6 @@ public class CSprite extends Sprite {
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
 
-    public function set nameIt(s:String):void { _itsName = s; }
     public function set releaseContDrag(value:Boolean):void { _useContDrag = value; }
     public function get isContDrag():Boolean { return _useContDrag; }
     public function get getCurTouch():Touch { return _currentTouch; }

@@ -42,7 +42,6 @@ public class WOBuyPlantItem {
 
     public function WOBuyPlantItem() {
         source = new CSprite();
-        source.nameIt = 'woBuyPlantItem';
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
