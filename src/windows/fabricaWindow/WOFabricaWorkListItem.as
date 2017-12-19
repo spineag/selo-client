@@ -191,7 +191,7 @@ public class WOFabricaWorkListItem {
                 _source.removeChild(_armatureBoom.display as StarlingArmatureDisplay);
                 _armatureBoom = null;
             }
-            if (g.tuts) {
+            if (g.tuts.isTuts) {
 //                removeArrow();
                 g.tuts.checkTutsCallback();
             }

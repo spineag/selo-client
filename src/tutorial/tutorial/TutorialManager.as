@@ -29,6 +29,7 @@ import tutorial.IManagerTutorial;
 import tutorial.TutsAction;
 import utils.SimpleArrow;
 import utils.Utils;
+import utils.Utils;
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
 import windows.shop_new.WOShopNew;
@@ -151,7 +152,7 @@ public class TutorialManager extends IManagerTutorial{
 
     private function subStep3_2():void {
         if (!_cat.bShowBubble) {
-            _cat.idleAnimation();
+//            _cat.idleAnimation();
             _cat.showFront(true);
             _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         }
@@ -686,6 +687,10 @@ public class TutorialManager extends IManagerTutorial{
         if (!_tutorialObjects.length) {
             _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FABRICA);
         }
+        if (!g.managerBuyerNyashuk) {
+            g.managerBuyerNyashuk = new ManagerBuyerNyashuk();
+            Utils.createDelay(5, g.managerBuyerNyashuk.addNyashuksOnTutorial);
+        }
         if ((_tutorialObjects[0] as Fabrica).isAnyCrafted) {
             g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY);
             subStep14_1();
@@ -721,6 +726,10 @@ public class TutorialManager extends IManagerTutorial{
     private function initScene_15():void {
         _subStep = 0;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
+        if (!g.managerBuyerNyashuk) {
+            g.managerBuyerNyashuk = new ManagerBuyerNyashuk();
+            Utils.createDelay(5, g.managerBuyerNyashuk.addNyashuksOnTutorial);
+        }
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TextsTutorial()).objText;
         _tutorialResourceIDs = [3];
@@ -900,8 +909,10 @@ public class TutorialManager extends IManagerTutorial{
 
     private function initScene_18():void {
         _subStep = 0;
-        if (!g.managerBuyerNyashuk) g.managerBuyerNyashuk = new ManagerBuyerNyashuk();
-        g.managerBuyerNyashuk.addNyashuksOnTutorial();
+        if (!g.managerBuyerNyashuk) {
+            g.managerBuyerNyashuk = new ManagerBuyerNyashuk();
+            g.managerBuyerNyashuk.addNyashuksOnTutorial(true);
+        }
         Utils.createDelay(1, subStep18_1);
     }
 

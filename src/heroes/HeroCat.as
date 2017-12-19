@@ -163,19 +163,55 @@ public class HeroCat extends BasicCat{
         super.stopAnimation();
     }
     override public function idleAnimation():void {
-        if (Math.random() > .2) {
-            showFront(true);
-            var r:Number = Math.random();
-            if (r >= .6) _animation.playIt('idle');
-            else if (r >= .5) _animation.playIt('smile');
-            else if (r >= .4)_animation.playIt('happy');
-            else if (r >= .3) _animation.playIt('look');
-            else if (r >= .2) _animation.playIt('surprise');
-            else  _animation.playIt('laugh');
+        if (Math.random() > .2 || (g.tuts.isTuts && _type == MAN)) {
+            if (!_isFlip)showFront(true);
+            var r:int = int(Math.random()*12);
+            if (r > 8) {
+                _animation.playIt('idle', true, makeFreeCatIdle);
+            } else {
+                switch (r) {
+                    case 0:
+                        _animation.playIt('smile', true, makeFreeCatIdle);
+                        break;
+                    case 1:
+                        _animation.playIt('happy', true, makeFreeCatIdle);
+                        break;
+                    case 2:
+                        _animation.playIt('look', true, makeFreeCatIdle);
+                        break;
+                    case 3:
+                        _animation.playIt('surprise', true, makeFreeCatIdle);
+                        break;
+                    case 4:
+                        _animation.playIt('hi', true, makeFreeCatIdle);
+                        break;
+                    case 5:
+                        _animation.playIt('hello', true, makeFreeCatIdle);
+                        break;
+                    case 6:
+                        _animation.playIt('work', true, makeFreeCatIdle);
+                        break;
+                    case 7:
+                        _animation.playIt('laugh', true, makeFreeCatIdle);
+                        break;
+                    case 8:
+                        _animation.playIt('jump', true, makeFreeCatIdle);
+                        break;
+                }
+            }
 
+//            if (r >= .9) _animation.playIt('idle', true, makeFreeCatIdle);
+//            else if (r >= .8) _animation.playIt('smile', true, makeFreeCatIdle);
+//            else if (r >= .7)_animation.playIt('happy', true, makeFreeCatIdle);
+//            else if (r >= .6) _animation.playIt('look', true, makeFreeCatIdle);
+//            else if (r >= .5) _animation.playIt('surprise', true, makeFreeCatIdle);
+//            else if (r >= .4) _animation.playIt('hi', true, makeFreeCatIdle);
+//            else if (r >= .3) _animation.playIt('hello', true, makeFreeCatIdle);
+//            else if (r >= .2) _animation.playIt('work', true, makeFreeCatIdle);
+//            else  _animation.playIt('laugh', true, makeFreeCatIdle);
         } else {
             showFront(false);
-            _animation.playIt('idle');
+            _animation.playIt('idle', true, makeFreeCatIdle);
         }
 //        if (heroEyes) heroEyes.startAnimations();
 
@@ -265,6 +301,13 @@ public class HeroCat extends BasicCat{
     private var timer:int;
     public function makeFreeCatIdle():void {
         freeIdleGo = !freeIdleGo;
+        if (g.tuts.isTuts && _type == MAN) {
+            idleAnimation();
+//            timer = 5 + int(Math.random() * 10);
+//            g.gameDispatcher.addToTimer(renderForIdleFreeCat);
+//            renderForIdleFreeCat();
+            return;
+        }
         if (freeIdleGo && Math.random() > .5) {
             g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(), makeFreeCatIdle);
         } else {
@@ -285,18 +328,11 @@ public class HeroCat extends BasicCat{
                     }
                 }
             }
-//            if (r <= .08 && !g.isAway) {
-//                 showFront(true);
-//                killAllAnimations();
-////                heroEyes.stopAnimations();
-//                _animation.playIt('sleep', true, jumpCat);
-//                b = true;
-//            }
             if (!b) {
                 idleAnimation();
-                timer = 5 + int(Math.random() * 10);
-                g.gameDispatcher.addToTimer(renderForIdleFreeCat);
-                renderForIdleFreeCat();
+//                timer = 5 + int(Math.random() * 10);
+//                g.gameDispatcher.addToTimer(renderForIdleFreeCat);
+//                renderForIdleFreeCat();
             }
         }
     }
@@ -307,7 +343,7 @@ public class HeroCat extends BasicCat{
         timer--;
         if (timer <= 0) {
             stopAnimation();
-            g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
+//            g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
             makeFreeCatIdle();
         }
     }
@@ -316,8 +352,8 @@ public class HeroCat extends BasicCat{
         stopAnimation();
         _currentPath = [];
         TweenMax.killTweensOf(_source);
-        timer = 0;
-        g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
+//        timer = 0;
+//        g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
     }
 
     public function showBubble(st:String, delay:Number=0):void {

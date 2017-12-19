@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:edd31be0c81e42d1bf5829d5db18ea28:d1de25ce0bd3cd9930e6b7721e46e383:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:41d44d9fd9a818de45962ae24268373a:6fc734e03b91b892d72a8fa3a0ac92a2:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png" width="1084" height="2044">
     <SubTexture name="Green_packet_closed" x="929" y="314" width="134" height="136"/>
     <SubTexture name="Green_packet_open" x="368" y="1311" width="134" height="106"/>
@@ -236,24 +236,25 @@
     <SubTexture name="select_pink" x="991" y="1974" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
     <SubTexture name="select_red" x="1044" y="1904" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
     <SubTexture name="select_yellow" x="1012" y="1946" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="shared" x="243" y="969" width="20" height="20"/>
     <SubTexture name="shop_at_limit" x="504" y="1411" width="159" height="36"/>
     <SubTexture name="shop_blue_cell" x="2" y="1177" width="173" height="229"/>
     <SubTexture name="shop_icon" x="558" y="1933" width="85" height="90"/>
     <SubTexture name="shop_more" x="1012" y="1181" width="7" height="23"/>
     <SubTexture name="shop_panel_tab_big" x="378" y="952" width="182" height="62"/>
     <SubTexture name="shop_panel_tab_small" x="505" y="1449" width="155" height="50"/>
-    <SubTexture name="shop_window_cc" x="243" y="969" width="20" height="20"/>
-    <SubTexture name="shop_window_cl" x="1037" y="676" width="20" height="20"/>
-    <SubTexture name="shop_window_cr" x="998" y="1091" width="20" height="20"/>
-    <SubTexture name="shop_window_ct" x="1062" y="601" width="20" height="20"/>
-    <SubTexture name="shop_window_dc" x="1062" y="623" width="20" height="20"/>
-    <SubTexture name="shop_window_dl" x="1062" y="645" width="20" height="20"/>
-    <SubTexture name="shop_window_dr" x="1062" y="667" width="20" height="20"/>
+    <SubTexture name="shop_window_cc" x="1037" y="676" width="20" height="20"/>
+    <SubTexture name="shop_window_cl" x="998" y="1091" width="20" height="20"/>
+    <SubTexture name="shop_window_cr" x="1062" y="601" width="20" height="20"/>
+    <SubTexture name="shop_window_ct" x="1062" y="623" width="20" height="20"/>
+    <SubTexture name="shop_window_dc" x="1062" y="645" width="20" height="20"/>
+    <SubTexture name="shop_window_dl" x="1062" y="667" width="20" height="20"/>
+    <SubTexture name="shop_window_dr" x="673" y="1771" width="20" height="20"/>
     <SubTexture name="shop_window_line_c" x="188" y="1716" width="5" height="38"/>
     <SubTexture name="shop_window_line_l" x="961" y="1181" width="31" height="38"/>
     <SubTexture name="shop_window_line_r" x="956" y="1807" width="31" height="38"/>
-    <SubTexture name="shop_window_lt" x="673" y="1771" width="20" height="20"/>
-    <SubTexture name="shop_window_rt" x="1019" y="1974" width="20" height="20"/>
+    <SubTexture name="shop_window_lt" x="1019" y="1974" width="20" height="20"/>
+    <SubTexture name="shop_window_rt" x="1044" y="1932" width="20" height="20"/>
     <SubTexture name="show_all_button" x="806" y="1399" width="61" height="61"/>
     <SubTexture name="silo_bg_progres_bar" x="457" y="1667" width="20" height="47"/>
     <SubTexture name="silo_bg_progres_bar_center" x="428" y="1667" width="27" height="47"/>

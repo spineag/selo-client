@@ -33,159 +33,223 @@ import starling.utils.Color;
 import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import utils.CButton;
+import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.Utils;
+
+import windows.WOComponents.BackgroundYellowOut;
 
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOLevelUp extends WindowMain {
+
     private var _txtNewLvl:CTextField;
     private var _txtNewObject:CTextField;
     private var _txtLevel:CTextField;
-    private var _txtContinue:CTextField;
-    private var _txtHard:CTextField;
-    private var _imageHard:Image;
+    private var _txtGift:CTextField;
     private var _contBtn:CButton;
     private var _contImage:Sprite;
+    private var _contImageGift:Sprite;
     private var _count:int;
     private var _contClipRect:Sprite;
+    private var _contClipRectGift:Sprite;
     private var _arrCells:Array;
+    private var _arrCellsGift:Array;
     private var _leftArrow:CButton;
     private var _rightArrow:CButton;
     private var _arrItems:Array;
     private var _shift:int;
-    private var _woBG:WindowBackground;
-    private var _armature:Armature;
+    private var _bigYellowBG:BackgroundYellowOut;
+    private var _bigYellowBGGift:BackgroundYellowOut;
+    private var _bgCheck:CSprite;
+    private var _imCheck:Image;
+    private var _txtShare:CTextField;
+    private var _sorceMainItem:Sprite;
+    private var _bolShare:Boolean;
 
     public function WOLevelUp() {
         super ();
         SOUND_OPEN = SoundConst.LEVEL_COMPLETED;
         _windowType = WindowsManager.WO_LEVEL_UP;
-        _woWidth = 551;
+        _woWidth = 745;
         _woHeight = 409;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
-        _source.addChild(_woBG);
-        if (g.allData.factory['new_level']) onLoad();
-        else g.loadAnimation.load('animations_json/new_level', 'new_level', onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/windows_new_level.png', onLoad);
+        _arrCells = [];
+        _arrCellsGift = [];
+        _arrItems = [];
+        _bolShare = true;
     }
 
-    private function onLoad():void {
-        _armature = g.allData.factory['new_level'].buildArmature("cat");
-        _source.addChild(_armature.display as StarlingArmatureDisplay);
-        WorldClock.clock.add(_armature);
-        (_armature.display as StarlingArmatureDisplay).y = -15;
-        photoFromTexture();
+    private function onLoad(bitmap:Bitmap):void {
+        var st:String = g.dataPath.getGraphicsPath();
+        bitmap = g.pBitmaps[st + 'qui/windows_new_level.png'].create() as Bitmap;
+        photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
-    private function photoFromTexture():void {
+    private function photoFromTexture(tex:Texture):void {
+        var im:Image;
+        im = new Image(tex);
+        im.x = -im.width/2;
+        im.y = -im.height/2;
+        _source.addChild(im);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
         _count = 1;
-        var im:Image;
-        _contClipRect = new Sprite();
-        _contImage = new Sprite();
-        _arrCells = [];
-        _arrItems = [];
-        _source.addChild(_contClipRect);
-        _contClipRect.mask = new Quad(440,280);
-        _contClipRect.x = -_woWidth/2 + 55;
-        _contClipRect.y = 55;
-
-        _txtNewLvl = new CTextField(200,100,String(g.managerLanguage.allTexts[420]));
-        _txtNewLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtNewLvl = new CTextField(500,100,String(g.managerLanguage.allTexts[420]));
+        _txtNewLvl.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtNewLvl.leading = -3;
-        var sp:Sprite = new Sprite();
-        var b:Slot = _armature.getSlot('text');
-        if (b) {
-            b.displayList = null;
-            b.display = sp;
-        }
-        _txtNewObject = new CTextField(400,100,String(g.managerLanguage.allTexts[421]));
-        _txtNewObject.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtLevel = new CTextField(300,100,"");
-        _txtLevel.setFormat(CTextField.BOLD72, 51, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        b = _armature.getSlot('number');
-        if (b) {
-            b.displayList = null;
-            b.display = sp;
-        }
-        _txtContinue = new CTextField(110,100,String(g.managerLanguage.allTexts[422]));
-        _txtContinue.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtContinue.x = 3;
-        _txtHard = new CTextField(50,50,' +'+String(_count));
-        _txtHard.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        if (g.user.level <= 5 || ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) && g.user.level > 30)) {
-            _contBtn = new CButton();
-            _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
-            _txtContinue.text = String(g.managerLanguage.allTexts[423]);
-            _txtContinue.y = -26;
-            _txtContinue.x = 36;
-            _contBtn.addChild(_txtContinue);
-            _contBtn.y = _woHeight / 2;
-            _contBtn.clickCallback = onClickNext;
-            _source.addChild(_contBtn);
-        } else {
-            _contBtn = new CButton();
-            _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
-            _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
-            MCScaler.scale(_imageHard, 25, 25);
-            _txtContinue.y = -26;
-            _txtHard.x = 93;
-            _imageHard.x = 135;
-            _imageHard.y = 12;
-            _contBtn.addChild(_imageHard);
-            _contBtn.addChild(_txtHard);
-            _contBtn.addChild(_txtContinue);
-            _contBtn.y = _woHeight / 2;
-            _contBtn.clickCallback = onClickShare;
-            _source.addChild(_contBtn);
-
-        }
-        _leftArrow = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
-        MCScaler.scale(im,61,26);
-        im.x = im.width;
-        _leftArrow.addDisplayObject(im);
-        _leftArrow.setPivots();
-        _leftArrow.x = -_woWidth/2 - 9 + _leftArrow.width/2;
-        _leftArrow.y = 75 + _leftArrow.height/2;
-        _source.addChild(_leftArrow);
-        _leftArrow.clickCallback = onLeftClick;
-
-        _rightArrow = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
-        MCScaler.scale(im,61,26);
-        im.scaleX *= -1;
-        _rightArrow.addDisplayObject(im);
-        _rightArrow.setPivots();
-        _rightArrow.x = _woWidth/2 - 20 + _rightArrow.width/2;
-        _rightArrow.y = 75 + _rightArrow.height/2;
-        _source.addChild(_rightArrow);
-        _rightArrow.clickCallback = onRightClick;
-
+        _txtNewLvl.x = -220;
+        _txtNewLvl.y = -220;
         _source.addChild(_txtNewLvl);
+
+        _txtLevel = new CTextField(300,150,"");
+        _txtLevel.setFormat(CTextField.BOLD72, 72, 0xf77a3f, Color.WHITE);
+        _txtLevel.x = -130;
+        _txtLevel.y = -360;
         _source.addChild(_txtLevel);
-        _source.addChild(_txtNewObject);
 
-        _contClipRect.addChild(_contImage);
-
-        _txtNewLvl.x = -104;
-        _txtNewLvl.y = -50;
-        _txtNewObject.x = -200;
-        _txtNewObject.y = 110;
-        _txtLevel.x = -154;
-        _txtLevel.y = -108;
+        createArrow();
         _callbackClickBG = null;
-        _armature.animation.gotoAndPlayByFrame('idle');
-
 
         if (g.user.level >= 11) g.couponePanel.openPanel(true);
         _txtLevel.text = String(g.user.level);
         createList();
         _source.y -= 40;
+    }
+
+    private function shareClick():void {
+        _bolShare = !_bolShare;
+        _imCheck.visible = _bolShare;
+        if (_bolShare) {
+            _contBtn.clickCallback = onClickShare;
+
+        } else {
+            _contBtn.clickCallback = onClickNext;
+        }
+    }
+
+    private function createArrow():void {
+        var im:Image;
+        _leftArrow = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
+        im.x = im.width;
+        _leftArrow.addDisplayObject(im);
+        _leftArrow.setPivots();
+        _leftArrow.x = -280;
+        _leftArrow.y = 55 + _leftArrow.height/2;
+        _source.addChild(_leftArrow);
+        _leftArrow.clickCallback = onLeftClick;
+
+        _rightArrow = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
+        im.scaleX *= -1;
+        _rightArrow.addDisplayObject(im);
+        _rightArrow.setPivots();
+        _rightArrow.x = 324;
+        _rightArrow.y = 55 + _rightArrow.height/2;
+        _source.addChild(_rightArrow);
+        _rightArrow.clickCallback = onRightClick;
+    }
+
+    private function createMain(countArr:int = 0, arrGift:int = 0):void {
+        _sorceMainItem = new Sprite();
+        _source.addChild(_sorceMainItem);
+        var widthYellow:int = 0;
+        if (countArr > 3) {
+            widthYellow = 540;
+        } else if (countArr == 2) {
+            widthYellow = 367;
+        } else {
+            widthYellow = 184;
+        }
+        var im:Image;
+        _bigYellowBG = new BackgroundYellowOut(widthYellow, 240);
+        _sorceMainItem.addChild(_bigYellowBG);
+
+        _txtNewObject = new CTextField(400,100,String(g.managerLanguage.allTexts[421]));
+        _txtNewObject.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_LIGHT_NEW);
+        _txtNewObject.x = -170;
+        _sorceMainItem.addChild(_txtNewObject);
+
+        _contClipRect = new Sprite();
+        _contClipRect.mask = new Quad(519,500);
+        _sorceMainItem.addChild(_contClipRect);
+
+        _bgCheck = new CSprite();
+        _source.addChild(_bgCheck);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shared'));
+        _bgCheck.addChild(im);
+        _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
+        _bgCheck.addChild(_imCheck);
+        MCScaler.scale(_imCheck, _imCheck.height-7,_imCheck.width-7);
+        _imCheck.x = -3;
+        _imCheck.y = -11;
+        _bgCheck.x = -195;
+        _bgCheck.endClickCallback = shareClick;
+        if (countArr > 3) {
+            _bigYellowBG.x = -_woWidth/2 + 125;
+            _contClipRect.x = -_woWidth/2 + 135;
+        } else if (countArr == 2) {
+            _bigYellowBG.x = -155;
+            _contClipRect.x = -145
+        } else {
+            _bigYellowBG.x = -55;
+            _contClipRect.x = -50;
+        }
+        _txtShare = new CTextField(300,100,String(g.managerLanguage.allTexts[291]));
+        _txtShare.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_LIGHT_NEW);
+        _txtShare.x = -250;
+        _source.addChild(_txtShare);
+
+        _contBtn = new CButton();
+        _contBtn.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
+        _contBtn.addTextField(100, 40, -5, -2, String(g.managerLanguage.allTexts[328]));
+        _contBtn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _source.addChild(_contBtn);
+        _contBtn.clickCallback = onClickShare;
+        _contBtn.x = 40;
+
+        if (arrGift > 0) {
+            _bigYellowBG.y = -12;
+            _contClipRect.y = 0;
+            _txtNewObject.y = -85;
+            _contBtn.y = _woHeight/2 + 50;
+            _bgCheck.y = 240;
+            _txtShare.y = 198;
+
+        } else {
+            _bigYellowBG.y = -60;
+            _contClipRect.y = -45;
+            _txtNewObject.y = -135;
+            _contBtn.y = _woHeight/2 + 23;
+            _bgCheck.y = 220;
+            _txtShare.y = 178;
+        }
+        _contImage = new Sprite();
+        _contClipRect.addChild(_contImage);
+    }
+
+    private function createGiftSource():void {
+        _bigYellowBGGift = new BackgroundYellowOut(540, 50);
+        _bigYellowBGGift.x = -_woWidth/2 + 125;
+        _bigYellowBGGift.y = -110;
+        _source.addChild(_bigYellowBGGift);
+
+        _contClipRectGift = new Sprite();
+        _source.addChild(_contClipRectGift);
+        _contClipRectGift.mask = new Quad(600,50);
+        _contClipRectGift.x = -_woWidth/2 + 205;
+        _contClipRectGift.y = -100;
+        _contImageGift = new Sprite();
+        _contClipRectGift.addChild(_contImageGift);
+        _txtGift = new CTextField(110,100,String(g.managerLanguage.allTexts[363]));
+        _txtGift.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtGift.x = -239;
+        _txtGift.y = -135;
+        _source.addChild(_txtGift);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -232,7 +296,7 @@ public class WOLevelUp extends WindowMain {
 
     private function animList():void {
         var tween:Tween = new Tween(_contImage, .5);
-        tween.moveTo(-_shift*90,0);
+        tween.moveTo(-_shift*173,50);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
         };
@@ -246,6 +310,7 @@ public class WOLevelUp extends WindowMain {
         var im:WOLevelUpItem;
         var i:int;
         var k:int;
+        var arGift:Array = [];
         _leftArrow.visible = false;
         _rightArrow.visible = false;
         arr = [];
@@ -276,6 +341,13 @@ public class WOLevelUp extends WindowMain {
                 objDataLevel.craftXP = arR[i].craftXP;
                 objDataLevel.priority = 10;
                 arr.push(objDataLevel);
+                if (arR[i].buildType == BuildType.PLANT) {
+                    objDataLevel = {};
+                    objDataLevel.id = arR[i].id;
+                    objDataLevel.count = 3;
+                    objDataLevel.resourceData = 4;
+                    arGift.push(objDataLevel);
+                }
             }
         }
         arR = g.allData.building;
@@ -305,20 +377,22 @@ public class WOLevelUp extends WindowMain {
                 }
             }
         }
+
         if (g.dataLevel.objectLevels[g.user.level].countHard > 0) {
             objDataLevel = {};
             objDataLevel.hard = true;
             objDataLevel.countHard = g.dataLevel.objectLevels[g.user.level].countHard;
             objDataLevel.priority = 0;
-            arr.push(objDataLevel);
+            arGift.push(objDataLevel);
         }
         if (g.dataLevel.objectLevels[g.user.level].countSoft > 0) {
             objDataLevel = {};
             objDataLevel.coins = true;
             objDataLevel.countSoft = g.dataLevel.objectLevels[g.user.level].countSoft;
             objDataLevel.priority = 1;
-            arr.push(objDataLevel);
+            arGift.push(objDataLevel);
         }
+
         if (g.dataLevel.objectLevels[g.user.level].decorId[0] > 0) {
             for (i = 0; i < g.dataLevel.objectLevels[g.user.level].decorId.length; i++) {
                 j = g.dataLevel.objectLevels[g.user.level].decorId[i];
@@ -335,6 +409,14 @@ public class WOLevelUp extends WindowMain {
                 }
             }
         }
+        if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
+            objDataLevel = {};
+            objDataLevel.ridgeCount = true;
+//            objDataLevel.id = -2;
+            objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
+            objDataLevel.priority = 5;
+            arr.push(objDataLevel);
+        }
         if (g.dataLevel.objectLevels[g.user.level].resourceId[0] > 0) {
             b = false;
             for (i = 0; i < g.dataLevel.objectLevels[g.user.level].resourceId.length; i++) {
@@ -350,7 +432,7 @@ public class WOLevelUp extends WindowMain {
                     objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
                     objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i];
                     objDataLevel.priority = 3;
-                    arr.push(objDataLevel);
+                    arGift.push(objDataLevel);
                 } else {
                     arr.splice(j,1);
                     objDataLevel = {};
@@ -358,11 +440,25 @@ public class WOLevelUp extends WindowMain {
                     objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
                     objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i] + 3;
                     objDataLevel.priority = 3;
-                    arr.push(objDataLevel);
+                    arGift.push(objDataLevel);
                 }
             }
         }
         var animal:StructureDataAnimal;
+        if (arGift.length > 0) {
+            createGiftSource();
+            arGift.sortOn("priority", Array.NUMERIC);
+            var itemGift:WOLevelUpGift;
+            for (i = 0; i < arGift.length; i++) {
+                itemGift = new WOLevelUpGift(arGift[i],true, true, 3);
+                if (i > 0) itemGift.source.x = 38 + int(i) * (_arrCellsGift[i-1].widthSource);
+                else itemGift.source.x = 38 + int(i);
+                _arrCellsGift.push(itemGift);
+                _contImageGift.addChild(itemGift.source);
+                _contImageGift.y = 2;
+            }
+        }
+        createMain(arr.length, arGift.length);
         arr.sortOn("priority", Array.NUMERIC);
         for (i = 0; i < arr.length; i++) {
             if (arr[i].buildType == BuildType.FARM) {
@@ -371,27 +467,17 @@ public class WOLevelUp extends WindowMain {
             }
             _arrItems.push(arr[i]);
             im = new WOLevelUpItem(arr[i],true, true, 3);
-            im.source.x = int(i) * (90);
+            im.source.x = 38 + int(i) * (173);
             _arrCells.push(im);
             _contImage.addChild(im.source);
-        }
-        if (_arrCells.length == 1) {
-            _contImage.x = 200;
-        } else if (_arrCells.length == 2) {
-            _contImage.x = 160;
-        } else if (_arrCells.length == 3) {
-            _contImage.x = 100;
-        } else if (_arrCells.length == 4) {
-            _contImage.x = 50;
-        } else if (_arrCells.length == 5) {
-            _contImage.x = 3;
+            _contImage.y = 50;
         }
         if (_arrCells.length > 5) {
-            _contImage.x = 3;
             _leftArrow.visible = true;
             _leftArrow.setEnabled = false;
             _rightArrow.visible = true;
         }
+        MCScaler.scale(_source,_source.height - 200, _source.width-200);
     }
 
     private function onClickShare():void {
@@ -431,25 +517,11 @@ public class WOLevelUp extends WindowMain {
             _txtLevel.deleteIt();
             _txtLevel = null;
         }
-        if (_txtContinue) {
-            _contBtn.removeChild(_txtContinue);
-            _txtContinue.deleteIt();
-            _txtContinue = null;
-        }
-        if (_txtHard) {
-            _contBtn.removeChild(_txtHard);
-            _txtHard.deleteIt();
-            _txtHard = null;
-        }
         if (_arrCells) {
             for (var i:int = 0; i < _arrCells.length; i++) {
                 _arrCells[i].deleteIt();
             }
             _arrCells.length = 0;
-        }
-        if (_armature) {
-            _source.removeChild(_armature.display as Sprite);
-            _armature = null;
         }
         if (_contBtn) {
             _source.removeChild(_contBtn);
@@ -465,11 +537,6 @@ public class WOLevelUp extends WindowMain {
             _source.removeChild(_rightArrow);
             _rightArrow.deleteIt();
             _rightArrow = null;
-        }
-        if (_woBG) {
-            _source.removeChild(_woBG);
-            _woBG.deleteIt();
-            _woBG = null;
         }
         super.deleteIt();
     }
