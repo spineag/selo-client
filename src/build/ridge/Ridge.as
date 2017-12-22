@@ -171,7 +171,7 @@ public class Ridge extends WorldObject{
             d.addDropItemNew(_resourceItem, p);
             d.addDropItemNew(_resourceItem, p);
             d.addDropXP(_resourceItem.craftXP, p);
-            d.addDropXP(_resourceItem.craftXP, p);
+            if (_resourceItem.craftXP > 1) d.addDropXP(_resourceItem.craftXP, p);
             if (g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(p.x, p.y, d);
             if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level && Math.random() <= .1)
                 d.addDropPartyResource(p);

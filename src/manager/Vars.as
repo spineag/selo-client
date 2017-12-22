@@ -475,7 +475,7 @@ public class Vars {
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
             managerLohmatic = new ManagerLohmatik();
-            if ((user as User).level >= 3 && !managerCutScenes.isCutScene) managerBuyerNyashuk = new ManagerBuyerNyashuk();
+            if ((user as User).level >= 3 && !managerCutScenes.isCutScene && !tuts.isTuts) managerBuyerNyashuk = new ManagerBuyerNyashuk();
 //            if ((user as User).level >= 7 && socialNetworkID == SocialNetworkSwitch.SN_FB_ID) managerBuyerNyashuk = new ManagerBuyerNyashuk();
 
             analyticManager = new AnalyticManager();

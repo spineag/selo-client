@@ -121,9 +121,9 @@ public class OptionPanel {
 
         _contMusic = new CSprite();
         if (g.soundManager.isPlayingMusic) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_off_button"));
-        } else {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_on_button"));
+        } else {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_off_button"));
         }
         _contMusic.addChild(im);
         _contMusic.y = 210;

@@ -231,6 +231,8 @@ public class WOAmbars extends WindowMain {
             _uItem2.updateIt(b.upInstrumentId2, false);
             _uItem3.updateIt(b.upInstrumentId3, false);
         }
+        if (_uItem1.isFull && _uItem2.isFull && _uItem3.isFull) _btnMakeUpgrade.setEnabled = true;
+        else _btnMakeUpgrade.setEnabled = false;
     }
 
     private function onUpdate():void { // DO Upgrade Ambar/Sklad

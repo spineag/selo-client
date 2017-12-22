@@ -79,10 +79,10 @@ public class XPPanel {
     }
     
     private function onClick():void {
-//        if (!g.isDebug) return;
-//        g.user.notif.checkOnNewLevel();
-        g.user.level++;
-        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+        if (!g.isDebug) return;
+        g.user.notif.checkOnNewLevel();
+//        g.user.level++;
+//        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
     }
 
     public function onResize():void {

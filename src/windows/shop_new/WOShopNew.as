@@ -110,7 +110,7 @@ public class WOShopNew extends WindowMain {
         _decorFilter.source.visible = n == 5;
         _txtDecorInventory.visible = false;
         _shopList.booleanPage(true);
-
+        if (n < 0) n = 1;
         switch (n) {
             case VILLAGE:
                 arR = g.allData.building;

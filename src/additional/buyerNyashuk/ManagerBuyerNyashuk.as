@@ -88,14 +88,6 @@ public class ManagerBuyerNyashuk {
                 }
             }
         } else newBot(true);
-//        if (!afterNewLvl) {
-//            if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return;
-//            var b:BuyerNyashuk;
-//            for (i = 0; i < _arr.length; i++) {
-//                b = new BuyerNyashuk(_arr[i].buyerId, _arr[i], afterNewLvl);
-//                _arrayNya.push(b);
-//            }
-//        }
         _timer = 0;
         g.gameDispatcher.addToTimer(timeToCreate);
     }
@@ -106,7 +98,6 @@ public class ManagerBuyerNyashuk {
             if (!afterNewLvl) {
                 g.gameDispatcher.removeFromTimer(timeToCreate);
                 _timer = 0;
-//                addNyashukOnStartGame();
                 var k:int = 0;
                 for (var i:int = 0; i < _arr.length; i++) {
                     var f2:Function = function ():void {
@@ -330,7 +321,7 @@ public class ManagerBuyerNyashuk {
                 nya.walkAnimation();
             }
 //            goNyaToPoint(nya, new Point(nya.posX + 1, nya.posY), goAwayPart1,true, nya );
-            goAwayPart2(nya);
+            goAwayPart1(nya);
         } else {
             var onFinishArrive:Function = function():void {
                 if (isOrderSelled) {
@@ -339,12 +330,12 @@ public class ManagerBuyerNyashuk {
                     nya.walkAnimation();
                 }
                 if (nya.walkPosition == BuyerNyashuk.TILE_WALKING) {
-                    nya.showFront(false);
-                    goAwayPart2(nya);
+                    nya.showFront(true);
+                    goAwayPart1(nya);
                 } else if (nya.walkPosition == BuyerNyashuk.SHORT_OUTTILE_WALKING) {
                     nya.flipIt(true);
-                    nya.showFront(true);
-                    goAwayPart3(nya);
+                    nya.showFront(false);
+                    goAwayPart2(nya);
                 } else if (nya.walkPosition == BuyerNyashuk.LONG_OUTTILE_WALKING) {
                     var time:int = 20 * (3600*g.scaleFactor - nya.source.x)/(3600*g.scaleFactor - 1500*g.scaleFactor);
                     goAwayPart4(nya,time);
@@ -358,17 +349,27 @@ public class ManagerBuyerNyashuk {
     }
 
     private function goAwayPart1(nya:BuyerNyashuk):void {
-        goNyaToPoint(nya, new Point(nya.posX, -5), goAwayPart2,true, nya);
+        var p:Point = new Point(31, 26);
+        p = g.matrixGrid.getXYFromIndex(p);
+        nya.flipIt(true);
+        nya.walkPosition = BuyerNyashuk.SHORT_OUTTILE_WALKING;
+        nya.walkAnimation();
+        nya.goNyaToXYPoint(p, 2, goAwayPart2);
     }
 
-    private function goAwayPart2(nya:BuyerNyashuk):void {
-        goNyaToPoint(nya, new Point(nya.posX, -5), goAwayPart2,true, nya);
+    private function goAwayPart2(nya:BuyerNyashuk, id:int = 1):void {
+        var p:Point = new Point(33, 0);
+        nya.flipIt(false);
+        nya.showFront(false);
+        p = g.matrixGrid.getXYFromIndex(p);
+        nya.walkAnimation();
+        nya.goNyaToXYPoint(p,6, goAwayPart3);
     }
 
-    private function goAwayPart3(nya:BuyerNyashuk):void {
+    private function goAwayPart3(nya:BuyerNyashuk, id:int = 1):void {
         nya.flipIt(true);
         nya.showFront(true);
-        nya.goNyaToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 6, goAwayPart3);
+        nya.goNyaToXYPoint(new Point(3600*g.scaleFactor, 1760*g.scaleFactor), 10, onGoAway);
     }
 
     private function goAwayPart4(nya:BuyerNyashuk, time:int = -1):void {

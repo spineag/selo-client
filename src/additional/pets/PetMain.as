@@ -210,7 +210,9 @@ public class PetMain {
     }
 
     protected function gotoPoint(p:Point, callback:Function):void {
-        var koef:Number = 1;
+        var koef:Number;
+        if (_isBack) koef = 1;
+        else koef = 5;
         var pXY:Point = g.matrixGrid.getXYFromIndex(p);
         var isBack:Boolean = _isBack;
         var f1:Function = function (callback:Function):void {
@@ -227,7 +229,7 @@ public class PetMain {
             }
         };
 
-        if (Math.abs(_posX - p.x) + Math.abs(_posY - p.y) == 2) koef = 1.4;
+//        if (Math.abs(_posX - p.x) + Math.abs(_posY - p.y) == 2) koef = 1.4;
         if (p.x == _posX + 1) {
             if (p.y == _posY) {
                 showFront(true);
@@ -322,7 +324,7 @@ public class PetMain {
     
     public function walkAnimation():void {
         if (!_armature) return;
-        if (!_isBack) _armature.animation.gotoAndPlayByFrame('idle01');
+        if (!_isBack) _armature.animation.gotoAndPlayByFrame('walk');
             else _armatureBack.animation.gotoAndPlayByFrame('idle01');
     }
 
@@ -332,8 +334,8 @@ public class PetMain {
         var label:String;
         var pet:PetMain = this;
         switch (n) {
-            case 0: label = 'idle02'; break;
-            case 1: label = 'idle02'; break;  // idle04
+            case 0: label = 'run2'; break;
+            case 1: label = 'run2'; break;  // idle04
         }
         var fEnd:Function = function(e:Event=null):void {
             _armature.removeEventListener(EventObject.COMPLETE, fEnd);
@@ -365,14 +367,14 @@ public class PetMain {
         _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
 
         if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlayByFrame('idle03');  // --> smth wrong with animation
+        _armature.animation.gotoAndPlayByFrame('eat');  // --> smth wrong with animation
 //        Utils.createDelay(4, fEnd);  // temp fix
     }
 
     public function stopAnimation():void {
         if (!_armature) return;
-        _armature.animation.gotoAndStopByFrame('idle01');
-        _armatureBack.animation.gotoAndStopByFrame('idle01');
+        _armature.animation.gotoAndStopByFrame('run');
+        _armatureBack.animation.gotoAndStopByFrame('run');
     }
 
     public function deleteIt():void {

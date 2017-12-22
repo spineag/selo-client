@@ -28,7 +28,6 @@ public class WOLevelUpItem {
     private var _sourceItem:CSprite;
     private var _imNew:Image;
     private var _txtName:CTextField;
-//    private var _txtCount:CTextField;
     private var _image:Image;
     private var _imageBg:Image;
     private var _data:Object;
@@ -52,7 +51,6 @@ public class WOLevelUpItem {
         _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("shop_blue_cell"));
         _imageBg.x = 50 - _imageBg.width/2;
         _imageBg.y = 60 - _imageBg.height/2;
-//        MCScaler.scale(_imageBg,80,80);
         source.addChild(_imageBg);
         _sourceItem = new CSprite();
         source.addChild(_sourceItem);
@@ -62,23 +60,14 @@ public class WOLevelUpItem {
         _imNew.x = 95;
         _imNew.y = -50;
         source.addChild(_imNew);
-//        _txtCount = new CTextField(80,20,' ');
-//        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, Color.RED);
-//        _txtCount.cacheIt = false;
-//        _txtCount.x = 15;
-//        _txtCount.y = 10;
         try {
             if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.coins) {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-//                _txtCount.text = '+' + String(ob.countSoft);
-//                _txtNew.text = '';
-                g.userInventory.addMoney(2,ob.countSoft)
+                g.userInventory.addMoney(2,ob.countSoft);
             }
             if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.hard) {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-//                _txtCount.text = '+' + String(ob.countHard);
-//                _txtNew.text = '';
-                g.userInventory.addMoney(1,ob.countHard)
+                g.userInventory.addMoney(1,ob.countHard);
             }
 
             if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.decorData) {
@@ -86,8 +75,6 @@ public class WOLevelUpItem {
                 if (!_image) {
                     _image = new Image(g.allData.atlas[g.allData.getBuildingById(ob.id).url].getTexture(g.allData.getBuildingById(ob.id).image));
                 }
-//                _txtCount.text = '+' + String(ob.count);
-//                _txtNew.text = '';
                 _bolHouse = true;
                 var f1:Function = function (dbId:int):void {
                     g.userInventory.addToDecorInventory(ob.id, dbId);
@@ -102,21 +89,15 @@ public class WOLevelUpItem {
                 } else {
                     _image = new Image(g.allData.atlas[g.allData.getResourceById(ob.id).url].getTexture(g.allData.getResourceById(ob.id).imageShop));
                 }
-//                _txtCount.text = '+' + String(ob.count);
-//                _txtNew.text = '';
                 g.userInventory.addResource(ob.id,ob.count);
             }
 
             if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.catCount) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
-//                _txtCount.text = String(ob.count);
-//                _txtNew.text = '';
                 _data.id = -1;
             }
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.ridgeCount) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.ridge) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
-//                _txtCount.text = String(count);
-//                _txtNew.text = '';
                 _data.id = 11;
                 _data.name = g.allData.getBuildingById(11).name;
             }
@@ -133,10 +114,8 @@ public class WOLevelUpItem {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.RESOURCE) {
-//                if (ob is StructureDataAnimal) _txtCount.text = '+3';
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.PLANT) {
-//                _txtCount.text = '+3';
                 _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
             } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE || ob.buildType == BuildType.DECOR_POST_FENCE_ARKA 
                     || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR || ob.buildType == BuildType.DECOR_FENCE_ARKA) {
@@ -183,7 +162,6 @@ public class WOLevelUpItem {
             _image.x = 50 - _image.width / 2;
             _image.y = 80 - _image.height / 2;
             _sourceItem.addChild(_image);
-//            if (!wallNew) source.addChild(_txtCount);
         } else {
             Cc.error('WOLevelUpItem:: no such image: ' + count);
         }
@@ -191,30 +169,23 @@ public class WOLevelUpItem {
 
     public function deleteIt():void {
         _sourceItem.deleteIt();
-//        if (_txtCount) {
-//            source.removeChild(_txtCount);
-//            _txtCount.deleteIt();
-//            _txtCount = null;
-//        }
         _image = null;
         _imageBg = null;
         source = null;
     }
 
     private function onHover():void {
-//        return;
         if (_onHover) return;
-//        if (g.tuts.isTuts) return;
         if (_data.coins) return;
+        if (_data.ridge) return;
         if (_data.hard) return;
 
         _onHover = true;
-        g.marketHint.showIt(_data.id,source.x,source.y,source);
+        g.levelUpHint.showIt(_data,source.x-30,source.y-50,source);
     }
 
     private function onOut():void {
-//        return;
-        g.marketHint.hideIt();
+        g.levelUpHint.hideIt();
         _onHover = false;
     }
 }

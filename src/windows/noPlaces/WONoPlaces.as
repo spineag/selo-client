@@ -38,7 +38,7 @@ public class WONoPlaces extends WindowMain {
         _windowType = WindowsManager.WO_NO_PLACES;
         _woWidth = 450;
         _woHeight = 400;
-        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,100);
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
@@ -47,12 +47,12 @@ public class WONoPlaces extends WindowMain {
         _txtName = new CTextField(350,70,String(g.managerLanguage.allTexts[376]));
         _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtName.x = -180;
-        _txtName.y = -160;
+        _txtName.y = -170;
         _source.addChild(_txtName);
-        _txtText = new CTextField(320,70,"");
-        _txtText.setFormat(CTextField.BOLD24, 24,  ManagerFilters.BLUE_LIGHT_NEW);
-        _txtText.x = -160;
-        _txtText.y = -80;
+        _txtText = new CTextField(380,90,"");
+        _txtText.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_LIGHT_NEW);
+        _txtText.x = -190;
+        _txtText.y = -95;
         _source.addChild(_txtText);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("plants_factory_y_cell_s"));
@@ -65,7 +65,7 @@ public class WONoPlaces extends WindowMain {
         _btn.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_btn);
         _txtCost = new CTextField(240, 38, '');
-        _txtCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _txtCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.y = 160;
         _btn.clickCallback = onClick;
 
@@ -122,12 +122,15 @@ public class WONoPlaces extends WindowMain {
         }
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
         MCScaler.scale(im,32,32);
-        im.alignPivot();
-        im.x = 260;
-        im.y = 20;
-        _btn.addChild(im);
-        _txtCost.x = 2;
-        _btn.addChild(_txtCost);
+//        im.alignPivot();
+//        im.x = 260;
+//        im.y = 20;
+//        _btn.addChild(im);
+//        _txtCost.x = 2;
+        var sens:SensibleBlock = new SensibleBlock();
+        sens.textAndImage(_txtCost,im,280);
+        _btn.addSensBlock(sens,0,21);
+//        _btn.addChild(_txtCost);
         super.showIt();
     }
 

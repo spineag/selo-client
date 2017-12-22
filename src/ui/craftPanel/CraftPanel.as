@@ -164,7 +164,7 @@ public class CraftPanel {
         }
     }
 
-    private function hideIt():void {
+    public function hideIt():void {
         while (_resourceSprite.numChildren) {
             _resourceSprite.removeChildAt(0);
         }

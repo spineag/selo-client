@@ -158,7 +158,7 @@ public class WOLevelUp extends WindowMain {
         _sorceMainItem = new Sprite();
         _source.addChild(_sorceMainItem);
         var widthYellow:int = 0;
-        if (countArr > 3) {
+        if (countArr >= 3) {
             widthYellow = 540;
         } else if (countArr == 2) {
             widthYellow = 367;
@@ -189,7 +189,7 @@ public class WOLevelUp extends WindowMain {
         _imCheck.y = -11;
         _bgCheck.x = -195;
         _bgCheck.endClickCallback = shareClick;
-        if (countArr > 3) {
+        if (countArr >= 3) {
             _bigYellowBG.x = -_woWidth/2 + 125;
             _contClipRect.x = -_woWidth/2 + 135;
         } else if (countArr == 2) {
@@ -209,7 +209,8 @@ public class WOLevelUp extends WindowMain {
         _contBtn.addTextField(100, 40, -5, -2, String(g.managerLanguage.allTexts[328]));
         _contBtn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_contBtn);
-        _contBtn.clickCallback = onClickShare;
+        if (g.user.level > 3) _contBtn.clickCallback = onClickShare;
+        else _contBtn.clickCallback = onClickNext;
         _contBtn.x = 40;
 
         if (arrGift > 0) {
@@ -230,6 +231,10 @@ public class WOLevelUp extends WindowMain {
         }
         _contImage = new Sprite();
         _contClipRect.addChild(_contImage);
+        if (g.user.level <= 3) {
+            _txtShare.visible = false;
+            _bgCheck.visible = false;
+        }
     }
 
     private function createGiftSource():void {
@@ -253,6 +258,8 @@ public class WOLevelUp extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        g.friendPanel.hideIt(true);
+        g.craftPanel.hideIt();
         super.showIt();
     }
     
@@ -402,17 +409,17 @@ public class WOLevelUp extends WindowMain {
                         && j != 107 && j != 208 && j != 206 && j != 207) {
                     objDataLevel = {};
                     objDataLevel.decorData = true;
-                    objDataLevel.id = g.dataLevel.objectLevels[g.user.level].decorId[i];
                     objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countDecor[i];
                     objDataLevel.priority = 30;
+                    objDataLevel = Utils.objectFromStructureBuildToObject(objDataLevel.id = g.dataLevel.objectLevels[g.user.level].decorId[i]);
                     arr.push(objDataLevel);
                 }
             }
         }
         if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
             objDataLevel = {};
-            objDataLevel.ridgeCount = true;
-//            objDataLevel.id = -2;
+            objDataLevel.ridge = true;
+            objDataLevel = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(11));
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
             objDataLevel.priority = 5;
             arr.push(objDataLevel);
@@ -449,6 +456,7 @@ public class WOLevelUp extends WindowMain {
             createGiftSource();
             arGift.sortOn("priority", Array.NUMERIC);
             var itemGift:WOLevelUpGift;
+            _arrCellsGift = [];
             for (i = 0; i < arGift.length; i++) {
                 itemGift = new WOLevelUpGift(arGift[i],true, true, 3);
                 if (i > 0) itemGift.source.x = 38 + int(i) * (_arrCellsGift[i-1].widthSource);
@@ -460,6 +468,8 @@ public class WOLevelUp extends WindowMain {
         }
         createMain(arr.length, arGift.length);
         arr.sortOn("priority", Array.NUMERIC);
+        _arrItems = [];
+        _arrCells = [];
         for (i = 0; i < arr.length; i++) {
             if (arr[i].buildType == BuildType.FARM) {
                 animal = g.allData.getAnimalByFarmId(arr[i]);
@@ -477,7 +487,7 @@ public class WOLevelUp extends WindowMain {
             _leftArrow.setEnabled = false;
             _rightArrow.visible = true;
         }
-        MCScaler.scale(_source,_source.height - 200, _source.width-200);
+//        MCScaler.scale(_source,_source.height - 200, _source.width-200);
     }
 
     private function onClickShare():void {
