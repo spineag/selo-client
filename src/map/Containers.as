@@ -39,7 +39,11 @@ public class Containers {
     public var hintContUnder:Sprite;
     public var hintGameCont:Sprite;
     public var mouseCont:Sprite;
-    public var gameCont:Sprite;
+    private var _gameCont:Sprite;
+    private var _gameContX:int;
+    private var _gameContY:int;
+    private var _gameContScale:int;
+    private var _isGameContTweening:Boolean;
 
     private var _startDragPoint:Point;
     private var _startDragPointCont:Point;
@@ -47,11 +51,15 @@ public class Containers {
     private var g:Vars = Vars.getInstance();
 
     public function Containers() {
-        SHIFT_MAP_X = 185 * g.scaleFactor;
+        _isGameContTweening = false;
+        _gameContX = 0;
+        _gameContY = 0;
+        _gameContScale = 1;
+        SHIFT_MAP_X = 186 * g.scaleFactor;
         SHIFT_MAP_Y = 590 * g.scaleFactor;
 
         _mainCont = new Sprite();
-        gameCont = new Sprite();
+        _gameCont = new Sprite();
         backgroundCont = new Sprite();
         gridDebugCont = new Sprite();
         contentCont = new CSprite();
@@ -72,15 +80,15 @@ public class Containers {
         mouseCont = new Sprite();
         interfaceContMapEditor = new Sprite();
 
-        _mainCont.addChild(gameCont);
-        gameCont.addChild(backgroundCont);
-        gameCont.addChild(gridDebugCont);
-        gameCont.addChild(tailCont);
-        gameCont.addChild(contentCont);
-        gameCont.addChild(craftCont);
-        gameCont.addChild(craftAwayCont);
-        gameCont.addChild(animationsCont);
-        gameCont.addChild(cloudsCont);
+        _mainCont.addChild(_gameCont);
+        _gameCont.addChild(backgroundCont);
+        _gameCont.addChild(gridDebugCont);
+        _gameCont.addChild(tailCont);
+        _gameCont.addChild(contentCont);
+        _gameCont.addChild(craftCont);
+        _gameCont.addChild(craftAwayCont);
+        _gameCont.addChild(animationsCont);
+        _gameCont.addChild(cloudsCont);
         _mainCont.addChild(hintGameCont);
         _mainCont.addChild(animationsContBottom);
         _mainCont.addChild(interfaceCont);
@@ -101,7 +109,7 @@ public class Containers {
     
     public function onLoadAll():void {
         hideAll(false);
-        _mainCont.addChildAt(gameCont, 0);
+        _mainCont.addChildAt(_gameCont, 0);
     }
     
     public function hideAll(v:Boolean):void {
@@ -119,40 +127,59 @@ public class Containers {
 
     public function addGameContListener(value:Boolean):void {
         if (value) {
-            if (gameCont.hasEventListener(TouchEvent.TOUCH)) return;
-            gameCont.addEventListener(TouchEvent.TOUCH, onGameContTouch);
+            if (_gameCont.hasEventListener(TouchEvent.TOUCH)) return;
+            _gameCont.addEventListener(TouchEvent.TOUCH, onGameContTouch);
 
         } else {
-            if (!gameCont.hasEventListener(TouchEvent.TOUCH)) return;
-            gameCont.removeEventListener(TouchEvent.TOUCH, onGameContTouch);
+            if (!_gameCont.hasEventListener(TouchEvent.TOUCH)) return;
+            _gameCont.removeEventListener(TouchEvent.TOUCH, onGameContTouch);
         }
+    }
+
+    public function get gameCont():Sprite { return _gameCont; }
+    public function get gameContX():int {
+        if (_isGameContTweening) return _gameCont.x;
+        else return _gameContX;
+    }
+    public function get gameContY():int {
+        if (_isGameContTweening) return _gameCont.y;
+        else return _gameContY;
+    }
+    public function get gameContScale():int {
+        if (_isGameContTweening) return _gameCont.scale;
+        else return _gameContScale;
+    }
+    public function updateGameContVariables():void {
+        _gameContX = _gameCont.x;
+        _gameContY = _gameCont.y;
+        _gameContScale = _gameCont.scale;
     }
 
     private var _isDragged:Boolean = false;
     private function onGameContTouch(te:TouchEvent):void {
         var p:Point;
-        if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED && te.getTouch(gameCont, TouchPhase.ENDED)) {
+        if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED && te.getTouch(_gameCont, TouchPhase.ENDED)) {
             p = te.touches[0].getLocation(g.mainStage);
-            p.x -= gameCont.x;
-            p.y -= gameCont.y;
+            p.x -= _gameContX;
+            p.y -= _gameContY;
             p = g.matrixGrid.getStrongIndexFromXY(p);
             g.deactivatedAreaManager.deactivateArea(p.x, p.y);
             g.ownMouse.showUsualCursor();
             return;
         }
 
-        if (te.getTouch(gameCont, TouchPhase.ENDED)) {
+        if (te.getTouch(_gameCont, TouchPhase.ENDED)) {
             onEnded();
-        } else if (te.getTouch(gameCont, TouchPhase.MOVED)) {
+        } else if (te.getTouch(_gameCont, TouchPhase.MOVED)) {
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
             dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу
-        } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
+        } else if (te.getTouch(_gameCont, TouchPhase.BEGAN)) {
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
-            _startDragPointCont = new Point(gameCont.x, gameCont.y);
+            _startDragPointCont = new Point(_gameContX, _gameContY);
             if (g.ownMouse) g.ownMouse.showClickCursor();
             if (g.mouseHint) g.mouseHint.hideIt();
-        } else if (te.getTouch(gameCont, TouchPhase.HOVER)) {}
+        } else if (te.getTouch(_gameCont, TouchPhase.HOVER)) {}
     }
 
     public function onEnded():void {
@@ -182,7 +209,7 @@ public class Containers {
 
     public function setDragPoints(p:Point):void {
         _startDragPoint = p;
-        _startDragPointCont = new Point(gameCont.x, gameCont.y);
+        _startDragPointCont = new Point(_gameContX, _gameContY);
     }
 
     public function deleteDragPoint():void {
@@ -192,29 +219,23 @@ public class Containers {
 
     public function dragGameCont(mouseP:Point):void {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
-        if (g.tuts.isTuts) { // no for new tuts
-            if (g.tuts.action == TutsAction.PUT_FABRICA || g.tuts.action == TutsAction.PUT_FARM) {
-
-            } else {
-                return;
-            }
-        }
         if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) return;
         g.hideAllHints(); // ??? not optimise
         if (_startDragPointCont == null || _startDragPoint == null) return;
         if (!_isDragged) if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
         _isDragged = true;
-        var s:Number = gameCont.scaleX;
-        gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
-        gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
+        var s:Number = _gameContScale;
+        _gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
+        _gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
         var oY:Number = g.matrixGrid.offsetY*s;
-        if (gameCont.y > oY + SHIFT_MAP_Y*s) gameCont.y = oY + SHIFT_MAP_Y*s;
-        if (gameCont.y < -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s)
-            gameCont.y = -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s;
-        if (gameCont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
-            gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
-        if (gameCont.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s)
-            gameCont.x = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s;
+        if (_gameCont.y > oY + SHIFT_MAP_Y*s) _gameCont.y = oY + SHIFT_MAP_Y*s;
+        if (_gameCont.y < -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s)
+            _gameCont.y = -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s;
+        if (_gameCont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
+            _gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
+        if (_gameCont.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s)
+            _gameCont.x = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s;
+        updateGameContVariables();
     }
     
     public function checkOnDragEnd():void {
@@ -228,7 +249,7 @@ public class Containers {
         //переміщаємо ігрову область так, щоб вказана точка була по центру екрана
         var newX:int;
         var newY:int;
-        var s:Number = gameCont.scaleX;
+        var s:Number = _gameContScale;
         var oY:Number = g.matrixGrid.offsetY*s;
         newX = -(_x*s - g.managerResize.stageWidth/2);
         newY = -(_y*s - g.managerResize.stageHeight/2);
@@ -240,24 +261,29 @@ public class Containers {
         if (newX < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s)
             newX = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s;
         var f1:Function = function():void {
+            _isGameContTweening = false;
+            updateGameContVariables();
             if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(false);
             if (callback != null) {
                 callback.apply();
             }
         };
         if (needQuick) {
-            gameCont.x = newX;
-            gameCont.y = newY;
+            _gameCont.x = newX;
+            _gameCont.y = newY;
+            updateGameContVariables();
             if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         } else {
             if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
-            new TweenMax(gameCont, time, {x:newX, y:newY, ease:Linear.easeOut,onComplete: f1});
+            _isGameContTweening = true;
+            new TweenMax(_gameCont, time, {x:newX, y:newY, ease:Linear.easeOut,onComplete: f1});
         }
-
     }
 
     public function killMoveCenterToPoint():void {
-        TweenMax.killTweensOf(gameCont);
+        TweenMax.killTweensOf(_gameCont);
+        _isGameContTweening = false;
+        updateGameContVariables();
     }
 
     public function moveCenterToPos(posX:int, posY:int, needQuick:Boolean = false, time:Number = .5, callback:Function = null):void {
@@ -267,29 +293,35 @@ public class Containers {
     }
 
     public function deltaMoveGameCont(deltaX:int, deltaY:int, time:Number = .5):void {
-        var oY:Number = g.matrixGrid.offsetY*g.cont.gameCont.scaleX;
-        var nX:int = gameCont.x + deltaX;
-        var nY:int = gameCont.y + deltaY;
-        if (nY > oY + SHIFT_MAP_Y*g.cont.gameCont.scaleX) nY = oY + SHIFT_MAP_Y*g.cont.gameCont.scaleX;
-        if (nY < -g.realGameTilesHeight*g.cont.gameCont.scaleX - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*g.cont.gameCont.scaleX)
-            nY = -g.realGameTilesHeight*g.cont.gameCont.scaleX - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*g.cont.gameCont.scaleX;
-        if (nX > g.cont.gameCont.scaleX*g.realGameWidth/2 - g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*g.cont.gameCont.scaleX)
-            nX =  g.cont.gameCont.scaleX*g.realGameWidth/2 - g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*g.cont.gameCont.scaleX;
-        if (nX < -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX)
-            nX = -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX;
-        new TweenMax(gameCont, time, {x:nX, y:nY, ease:Linear.easeOut});
+        var oY:Number = g.matrixGrid.offsetY*g.cont._gameCont.scaleX;
+        var nX:int = _gameCont.x + deltaX;
+        var nY:int = _gameCont.y + deltaY;
+        if (nY > oY + SHIFT_MAP_Y*_gameCont.scaleX) nY = oY + SHIFT_MAP_Y*_gameCont.scaleX;
+        if (nY < -g.realGameTilesHeight*_gameCont.scaleX - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*_gameCont.scaleX)
+            nY = -g.realGameTilesHeight*_gameCont.scaleX - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*_gameCont.scaleX;
+        if (nX > _gameCont.scaleX*g.realGameWidth/2 - _gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*_gameCont.scaleX)
+            nX = _gameCont.scaleX*g.realGameWidth/2 - _gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*_gameCont.scaleX;
+        if (nX < -_gameCont.scaleX*g.realGameWidth/2 + _gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - SHIFT_MAP_X*_gameCont.scaleX)
+            nX = -_gameCont.scaleX*g.realGameWidth/2 + _gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - SHIFT_MAP_X*_gameCont.scaleX;
+        var f1:Function = function():void {
+            _isGameContTweening = false;
+            updateGameContVariables();
+        };
+        _isGameContTweening = true;
+        new TweenMax(_gameCont, time, {x:nX, y:nY, ease:Linear.easeOut, onComplete: f1});
     }
 
     public function onResize():void {
-        var s:Number = gameCont.scaleX;
+        var s:Number = _gameCont.scaleX;
         var oY:Number = g.matrixGrid.offsetY*s;
-        if (gameCont.y > oY + g.cont.SHIFT_MAP_Y*s) gameCont.y = oY + g.cont.SHIFT_MAP_Y*s;
-        if (gameCont.y < -oY - g.realGameTilesHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s)
-            gameCont.y = -oY - g.realGameTilesHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s;
-        if (gameCont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
-            gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
-        if (gameCont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_X*s)
-            gameCont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_Y*s;
+        if (_gameCont.y > oY + g.cont.SHIFT_MAP_Y*s) _gameCont.y = oY + g.cont.SHIFT_MAP_Y*s;
+        if (_gameCont.y < -oY - g.realGameTilesHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            _gameCont.y = -oY - g.realGameTilesHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s;
+        if (_gameCont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
+            _gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
+        if (_gameCont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_X*s)
+            _gameCont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_Y*s;
+        updateGameContVariables();
     }
 }
 }

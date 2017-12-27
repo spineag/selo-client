@@ -4,6 +4,9 @@
 package utils {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
+
+import flash.geom.Point;
 
 import starling.display.DisplayObject;
 import starling.display.Sprite;
@@ -14,13 +17,15 @@ public class AnimationsStock {
         var defaultRotation:Number = sp.rotation;
         var finishF:Function = function():void {
             sp.rotation = defaultRotation;
+            Cc.error('End joggleItBaby');
             if (f!=null) f.apply(); 
         };
         try {
             var onEnd:Function = function ():void {
                 if (!sp) return;
                 count--;
-                if (count <= 0 || defaultRotation < .01) TweenMax.to(sp, time, {rotation: defaultRotation, onComplete: finishF});
+                if (count <= 0 || deltaRotation < .01)
+                    TweenMax.to(sp, time, {rotation: defaultRotation, onComplete: finishF});
                 else {
                     deltaRotation *= die;
                     f1();
@@ -38,6 +43,7 @@ public class AnimationsStock {
             };
             f1();
         } catch(e:Error) {
+            Cc.error('Error with joggleItBaby');
             finishF();
         }
     }
@@ -73,15 +79,30 @@ public class AnimationsStock {
     }
 
     public static function tweenBezier(source:Sprite, endX:int, endY:int, callback:Function, scale:Number = 1, delay:Number = 0, ...callbackParams):void {
-        var tempX:int = int(source.x/2 + endX/2 - 70 + Math.random()*140);
-        var tempY:int = int(source.y/2 + endY/2 - 70 + Math.random()*140);
-        var dist:int = int(Math.sqrt((source.x - tempX)*(source.x - tempX) + (source.y - tempY)*(source.y - tempY)));
-        dist += int(Math.sqrt((tempX - endX)*(tempX - endX) + (tempY - endY)*(tempY - endY)));
+        var tempP:Point = getTempPointForBezierV1(source.x, source.y, endX, endY);
+        var dist:int = int(Math.sqrt((source.x - tempP.x)*(source.x - tempP.x) + (source.y - tempP.y)*(source.y - tempP.y)));
+        dist += int(Math.sqrt((tempP.x - endX)*(tempP.x - endX) + (tempP.y - endY)*(tempP.y - endY)));
         var t:Number = dist/1000 * 2;
         if (t > 2) t -= .6;
         if (t > 3) t -= 1;
         var f:Function = function():void { if (callback != null) callback.apply(null, callbackParams) };
-        new TweenMax(source, t, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], scale:scale, delay:delay, ease:Linear.easeOut, onComplete: f});
+        new TweenMax(source, t, {bezier:{type:"soft", values:[{x:tempP.x, y:tempP.y}, {x:endX, y:endY}]}, scale:scale, delay:delay, ease:Linear.easeOut, onComplete: f});
+    }
+
+    private static function getTempPointForBezierV1(x1:int, y1:int, x2:int, y2:int):Point {
+        var xc:int = (x1 + x2)/2;
+        var yc:int = (y1 + y2)/2;
+        var l:Number = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+        var koef:Number = 0.2 + Math.random()*0.2;
+        if (y1==y2) y2++;
+        var b1:Number = (x1-x2)/(y2-y1);
+        var b2:Number = yc - xc*(x2-x1)/(y1-y2);
+        var znak:int;
+        Math.random() > .5 ? znak = 1: znak = -1;
+        var p:Point = new Point();
+        p.x = (2*(xc + b1*yc - b1*b2) + znak*Math.sqrt(4*(xc + b1*yc - b1*b2)*(xc + b1*yc - b1*b2) - 4*(1 + b1*b1)*(xc*xc + b2*b2 - 2*b2*yc + yc*yc - koef*koef*l*l)))/(2*(1+b1*b1));
+        p.y = p.x*b1 + b2;
+        return p;
     }
 
 }

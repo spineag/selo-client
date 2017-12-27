@@ -100,8 +100,8 @@ public class CSprite extends Sprite {
                 }
                 if (_useContDrag) {
                     _startDragPoint = new Point();
-                    _startDragPoint.x = g.cont.gameCont.x;
-                    _startDragPoint.y = g.cont.gameCont.y;
+                    _startDragPoint.x = g.cont.gameContX;
+                    _startDragPoint.y = g.cont.gameContY;
                     g.cont.setDragPoints(_currentTouch.getLocation(g.mainStage));
                 }
             }
@@ -148,7 +148,7 @@ public class CSprite extends Sprite {
 
     public function get wasGameContMoved():Boolean {
         if (_useContDrag && _startDragPoint) {
-            var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
+            var distance:int = Math.abs(g.cont.gameContX - _startDragPoint.x) + Math.abs(g.cont.gameContY - _startDragPoint.y);
             _startDragPoint = null;
             return distance > 5;
         } else {

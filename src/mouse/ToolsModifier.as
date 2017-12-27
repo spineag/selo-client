@@ -278,9 +278,9 @@ public class ToolsModifier {
         _spriteForMove.y = _mouse.mouseY - _cont.y - g.matrixGrid.FACTOR/2;
         _cont.addChild(_spriteForMove);
 
-        _cont.x = g.cont.gameCont.x;
-        _cont.y = g.cont.gameCont.y;
-        _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
+        _cont.x = g.cont.gameContX;
+        _cont.y = g.cont.gameContY;
+        _cont.scaleX = _cont.scaleY = g.cont.gameContScale;
 
         if (_activeBuilding.isContDrag() || isFromShop) {
             _needMoveGameCont = true;
@@ -325,9 +325,9 @@ public class ToolsModifier {
         _spriteForMove.y = _mouse.mouseY - _cont.y - g.matrixGrid.FACTOR/2;
         _cont.addChild(_spriteForMove);
 
-        _cont.x = g.cont.gameCont.x;
-        _cont.y = g.cont.gameCont.y;
-        _cont.scaleX = _cont.scaleY = g.cont.gameCont.scaleX;
+        _cont.x = g.cont.gameContX;
+        _cont.y = g.cont.gameContY;
+        _cont.scaleX = _cont.scaleY = g.cont.gameContScale;
 
         if (_activeBuilding.isContDrag() || isFromShop) {
             _needMoveGameCont = true;
@@ -372,22 +372,22 @@ public class ToolsModifier {
         if (_needMoveGameCont && te.getTouch(_cont, TouchPhase.BEGAN)) {
             g.gameDispatcher.removeEnterFrame(moveIt);
             _startDragPoint = new Point();
-            _startDragPoint.x = g.cont.gameCont.x;
-            _startDragPoint.y = g.cont.gameCont.y;
+            _startDragPoint.x = g.cont.gameContX;
+            _startDragPoint.y = g.cont.gameContY;
             g.cont.setDragPoints(te.touches[0].getLocation(g.mainStage));
         }
 
         if (_needMoveGameCont && te.getTouches(_cont, TouchPhase.MOVED)) {
             if (!_startDragPoint) return;
-            _cont.x = g.cont.gameCont.x;
-            _cont.y = g.cont.gameCont.y;
+            _cont.x = g.cont.gameContX;
+            _cont.y = g.cont.gameContY;
             g.cont.dragGameCont(te.touches[0].getLocation(g.mainStage));
         }
 
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
             g.cont.checkOnDragEnd();
             if (_startDragPoint) {
-                var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
+                var distance:int = Math.abs(g.cont.gameContX - _startDragPoint.x) + Math.abs(g.cont.gameContY - _startDragPoint.y);
                 if (distance > 5) {
                     g.gameDispatcher.addEnterFrame(moveIt);
                 } else {
@@ -469,10 +469,10 @@ public class ToolsModifier {
     private var spriteForMoveIndexX:int = 0;
     private var spriteForMoveIndexY:int = 0;
     private function moveIt():void {
-        _cont.x = g.cont.gameCont.x;
-        _cont.y = g.cont.gameCont.y;
-        _spriteForMove.x = (_mouse.mouseX - _cont.x)/g.cont.gameCont.scaleX;
-        _spriteForMove.y = (_mouse.mouseY - _cont.y - g.matrixGrid.FACTOR/2)/g.cont.gameCont.scaleX;
+        _cont.x = g.cont.gameContX;
+        _cont.y = g.cont.gameContY;
+        _spriteForMove.x = (_mouse.mouseX - _cont.x)/g.cont.gameContScale;
+        _spriteForMove.y = (_mouse.mouseY - _cont.y - g.matrixGrid.FACTOR/2)/g.cont.gameContScale;
         if (_startDragPoint) return;  // using for dragging gameCont
         if (!_activeBuilding.useIsometricOnly) return;
 

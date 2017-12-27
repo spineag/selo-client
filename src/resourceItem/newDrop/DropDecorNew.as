@@ -40,7 +40,7 @@ public class DropDecorNew extends DropObjectInterface {
         } else Cc.error('SimpleFlyDecor:: no image for decor with id: ' + _dataDecor.id);
     }
 
-    override public function flyIt(p:Point = null):void {
+    override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {
         var d:DropDecorNew = this;
         g.toolsPanel.repositoryBox.moveToItemWithID(_dataDecor.id);
         var obj:Object = g.bottomPanel.getShopButtonProperties();

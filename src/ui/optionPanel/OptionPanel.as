@@ -221,7 +221,7 @@ public class OptionPanel {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.toolsModifier.cancelMove();
                 if (isAnimScaling) return;
-                i = _arrCells.indexOf(g.cont.gameCont.scaleX);
+                i = _arrCells.indexOf(g.cont.gameContScale);
                 if (i >= _arrCells.length-1) return;
                 i++;
                 makeScaling(_arrCells[i]);
@@ -233,7 +233,7 @@ public class OptionPanel {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.toolsModifier.cancelMove();
                 if (isAnimScaling) return;
-                i = _arrCells.indexOf(g.cont.gameCont.scaleX);
+                i = _arrCells.indexOf(g.cont.gameContScale);
                 if (i <= 0 ) return;
                 i--;
                 makeScaling(_arrCells[i]);

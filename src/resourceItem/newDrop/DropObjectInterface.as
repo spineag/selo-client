@@ -34,10 +34,12 @@ public class DropObjectInterface {
     public function get source():Sprite { return _source; }
     public function set callback(f:Function):void { _flyCallback = f; }
     
-    public function flyIt(p:Point=null):void {
+    public function flyIt(p:Point=null, needJoggle:Boolean = false):void {
         var d:DropObjectInterface = this;
-        AnimationsStock.joggleItBaby(_image, 90, .3, 1);
+        if (needJoggle) AnimationsStock.joggleItBaby(_image, 1000, .2, 1);
         var f1:Function = function():void {
+            TweenMax.killTweensOf(_image);
+            TweenMax.killTweensOf(_source);
             if (_flyCallback!=null) _flyCallback.apply(null, [d]);
         };
         AnimationsStock.tweenBezier(_source, p.x, p.y, f1, _source.scale, .3);
@@ -49,6 +51,7 @@ public class DropObjectInterface {
         var nY:int = _source.y + 30 - 10 + int(Math.random()*20);
         var tX:int = int((_source.x + nX)/2);
         var tY:int = _source.y - 90 + int(Math.random()*20);
+        AnimationsStock.joggleItBaby(_image, 1000, .2, 1);
         new TweenMax(_source, .8, {bezier:[{x:tX, y:tY}, {x:nX, y:nY}], ease:Linear.easeOut, onComplete: flyIt});
     }
 

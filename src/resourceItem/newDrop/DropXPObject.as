@@ -20,7 +20,7 @@ public class DropXPObject extends DropObjectInterface{
         _source.y = pos.y;
     }
 
-    override public function flyIt(p:Point = null):void {
+    override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {
         var d:DropXPObject = this;
         p = new Point(g.managerResize.stageWidth - 168, 35);
         g.xpPanel.serverAddXP(_count);

@@ -29,7 +29,7 @@ public class DropPartyResource extends DropObjectInterface {
 //        }
     }
 
-    override public function flyIt(p:Point = null):void {
+    override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {
         var d:DropPartyResource = this;
         var obj:Object = g.partyPanel.getPoint();
         p = new Point(obj.x, obj.y);

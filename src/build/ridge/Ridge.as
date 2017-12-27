@@ -161,9 +161,6 @@ public class Ridge extends WorldObject{
             _resourceItem = new ResourceItem();
             _resourceItem.fillIt(_dataPlant);
             g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PLANT, {id:_dataPlant.id});
-            var f1:Function = function():void {
-                
-            };
 
             var p:Point = new Point(0, 0);
             p = _source.localToGlobal(p);
@@ -171,7 +168,6 @@ public class Ridge extends WorldObject{
             d.addDropItemNew(_resourceItem, p);
             d.addDropItemNew(_resourceItem, p);
             d.addDropXP(_resourceItem.craftXP, p);
-            if (_resourceItem.craftXP > 1) d.addDropXP(_resourceItem.craftXP, p);
             if (g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(p.x, p.y, d);
             if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level && Math.random() <= .1)
                 d.addDropPartyResource(p);
@@ -314,7 +310,7 @@ public class Ridge extends WorldObject{
                 onOut();
                 if (!lastBuyResource) {
                     if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
-                     else g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
+                     else g.timerHint.showIt(50, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
                 }
                 lastBuyResource = false;
             }
@@ -329,7 +325,7 @@ public class Ridge extends WorldObject{
     }
 
     private function onClickCallbackWhenWork():void {
-        g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
+        g.timerHint.showIt(50, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
     }
 
     public function checkBuildRect(isEmpty:Boolean):void {

@@ -6,6 +6,8 @@ import build.farm.Animal;
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.StructureDataRecipe;
+
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
@@ -35,10 +37,12 @@ public class CraftItem {
     private var _tutorialCallback:Function;
     public var animal:Animal;
     private var _sY:int;
+    private var _checkCount:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, _count:int = 1, f:Function = null, useHover:Boolean = false) {
         count = _count;
+        _checkCount = false;
         _callback = f;
         _source = new CSprite();
         _resourceItem = resourceItem;
@@ -103,6 +107,7 @@ public class CraftItem {
     public function set callback(f:Function):void { _callback = f; }
     public function get source():CSprite { return _source;}
     public function get resourceId():int { return _resourceItem.resourceID; }
+    public function set checkCount(v:Boolean):void { _checkCount = v; }
 
     public function releaseIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
@@ -135,7 +140,13 @@ public class CraftItem {
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         var drop:DropObject = new DropObject();
-        drop.addDropItemNew(_resourceItem, start);
+        if (_checkCount) { // use for fabrica for animal eat
+            var r:StructureDataRecipe = g.allData.getRecipeByResourceId(_resourceItem.resourceID);
+            for (var i:int=0; i<r.numberCreate; i++) {
+                drop.addDropItemNew(_resourceItem, start);
+            }
+
+        } else drop.addDropItemNew(_resourceItem, start);
         if (xpFly) drop.addDropXP(_resourceItem.craftXP, start);
         if (bonusDrop && g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
         drop.releaseIt();

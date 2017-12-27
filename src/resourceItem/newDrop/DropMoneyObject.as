@@ -30,13 +30,14 @@ public class DropMoneyObject extends DropObjectInterface{
         _source.y = pos.y;
     }
     
-    override public function flyIt(p:Point = null):void {
+    override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {
         var d:DropMoneyObject = this;
         if (_type == DataMoney.HARD_CURRENCY) p = g.softHardCurrency.getHardCurrencyPoint();
             else if (_type == DataMoney.SOFT_CURRENCY) p = g.softHardCurrency.getSoftCurrencyPoint();
             else p = g.couponePanel.getPoint();
         var f:Function = _flyCallback;
         _flyCallback = function():void {
+            g.userInventory.addMoney(_type, _count);
             if (_type == DataMoney.HARD_CURRENCY) g.softHardCurrency.animationBuy(true);
             else if (_type == DataMoney.SOFT_CURRENCY)  g.softHardCurrency.animationBuy(false);
             else g.couponePanel.animationBuy();

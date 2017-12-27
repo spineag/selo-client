@@ -264,12 +264,12 @@ public class Fabrica extends WorldObject {
                         g.timerHint.canHide = false;
                         g.timerHint.addArrow();
                         g.tuts.checkTutsCallback();
-                        g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
+                        g.timerHint.showIt(90, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale,
                                 _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                     }
                 } else {
                     g.timerHint.needMoveCenter = true;
-                    g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
+                    g.timerHint.showIt(90, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale,
                             _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                 }
             }
@@ -307,7 +307,7 @@ public class Fabrica extends WorldObject {
             g.timerHint.canHide = false;
             g.timerHint.addArrow();
             g.tuts.checkTutsCallback();
-            g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
+            g.timerHint.showIt(90, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale,
                     _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
         }
     }
@@ -433,6 +433,7 @@ public class Fabrica extends WorldObject {
         _arrCrafted.push(craftItem);
         craftItem.addParticle();
         craftItem.animIt();
+        craftItem.checkCount = true;
         if (g.managerTips) g.managerTips.calculateAvailableTips();
     }
 

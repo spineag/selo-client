@@ -72,7 +72,7 @@ public class ManagerInviteFriendViral {
         if (countInvited > 0) {
             var d:DropObject = new DropObject();
             d.addDropMoney(DataMoney.HARD_CURRENCY, _countRubiesData * countInvited, new Point(g.managerResize.stageWidth/2 + 30, g.managerResize.stageHeight/2 + 30));
-            d.releaseIt();
+            d.releaseIt(null, false);
             g.server.updateUserViralInvite(TimeUtils.currentSeconds + _timeCompleteData, null);
             onFinishIt();
         }

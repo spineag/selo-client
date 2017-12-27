@@ -23,7 +23,7 @@ public class DropItemObject extends DropObjectInterface{
         _source.y = pos.y;
     }
 
-    override public function flyIt(p:Point = null):void {
+    override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {
         var d:DropItemObject = this;
         p = g.craftPanel.pointXY();
         if (_resourceItem.buildType == BuildType.PLANT) g.craftPanel.showIt(BuildType.PLACE_AMBAR);

@@ -79,7 +79,7 @@ public class ManagerResize {
         var oldScale:Number;
         var arr:Array = [/*.5,*/ .62, .8, 1, 1.25, 1.55];
         var s:Number;
-        var i:int = arr.indexOf(g.cont.gameCont.scaleX);
+        var i:int = arr.indexOf(g.cont.gameContScale);
         if (!minus) {
             if (i == arr[0]) return;
             else s = arr[0];

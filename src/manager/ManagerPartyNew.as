@@ -46,7 +46,7 @@ public class ManagerPartyNew {
                         d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerParty.dataParty.countGift[i], p);
                     else  d.addDropItemNewByResourceId(g.managerParty.dataParty.idGift[i], p, g.managerParty.dataParty.countGift[i]);
                 }
-                d.releaseIt();
+                d.releaseIt(null, false);
             }
         }
     }
@@ -67,7 +67,7 @@ public class ManagerPartyNew {
         }
         if (playerPosition <= 5) d.addDropDecor(g.allData.getBuildingById(dataParty.idDecorBest), p);
         if (playerPosition == 1) d.addDropDecor(g.allData.getBuildingById(273), p);
-        d.releaseIt();
+        d.releaseIt(null, false);
     }
 
     public function endPartyWindow():void {

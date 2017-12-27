@@ -160,49 +160,49 @@ public class Wild extends WorldObject{
                 var newX:int;
                 var newY:int;
                 if(_dataBuild.id == 30) { // старое бревно1
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 12) * g.currentGameScale;
                 }else if( _dataBuild.id == 31){ //  старое бревно2
                     if (dataBuild.isFlip) {
-                        newX = g.cont.gameCont.x + (_source.x - _source.width/4) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+                        newX = g.cont.gameContX + (_source.x - _source.width/4) * g.currentGameScale;
+                        newY = g.cont.gameContY + (_source.y - _source.height / 12) * g.currentGameScale;
                     } else {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+                        newX = g.cont.gameContX + (_source.x + _source.width / 3) * g.currentGameScale;
+                        newY = g.cont.gameContY + (_source.y - _source.height / 12) * g.currentGameScale;
                     }
                 }else if( _dataBuild.id == 32){ //ель
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.9) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.9) * g.currentGameScale;
                 }else if( _dataBuild.id == 33){ //ёлочка
-                    newX = g.cont.gameCont.x + (_source.x + _source.width/12) * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
+                    newX = g.cont.gameContX + (_source.x + _source.width/12) * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
                 }else if( _dataBuild.id == 34){ // большой дуб
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.5) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
                 }else if( _dataBuild.id == 35){ // дубок
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.5) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
                 }else if( _dataBuild.id == 56){ // пень
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 3) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 3) * g.currentGameScale;
                 }else if( _dataBuild.id == 57){ // болотце
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 13) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 13) * g.currentGameScale;
                 }else if( _dataBuild.id == 58){ // тополь
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.3) * g.currentGameScale;
                 }else if( _dataBuild.id == 59){ // большой камень
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
                 }else if( _dataBuild.id == 60){ // булыжник
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
                 }else if( _dataBuild.id == 61){ // маленький камень
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
                 }else if( _dataBuild.id == 62){ // маленький камень
-                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
                 }
                 g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
             if (g.tuts.isTuts && g.tuts.action == TutsAction.REMOVE_WILD) {
@@ -221,49 +221,49 @@ public class Wild extends WorldObject{
         var newX:int;
         var newY:int;
         if(_dataBuild.id == 30) { // старое бревно1
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 12) * g.currentGameScale;
         }else if( _dataBuild.id == 31){ //  старое бревно2
             if (dataBuild.isFlip) {
-                newX = g.cont.gameCont.x + (_source.x - _source.width/4) * g.currentGameScale;
-                newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+                newX = g.cont.gameContX + (_source.x - _source.width/4) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 12) * g.currentGameScale;
             } else {
-                newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
-                newY = g.cont.gameCont.y + (_source.y - _source.height / 12) * g.currentGameScale;
+                newX = g.cont.gameContX + (_source.x + _source.width / 3) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 12) * g.currentGameScale;
             }
         }else if( _dataBuild.id == 32){ //ель
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 1.9) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.9) * g.currentGameScale;
         }else if( _dataBuild.id == 33){ //ёлочка
-            newX = g.cont.gameCont.x + (_source.x + _source.width/12) * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
+            newX = g.cont.gameContX + (_source.x + _source.width/12) * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
         }else if( _dataBuild.id == 34){ // большой дуб
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 1.5) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
         }else if( _dataBuild.id == 35){ // дубок
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 1.5) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
         }else if( _dataBuild.id == 56){ // пень
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 3) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 3) * g.currentGameScale;
         }else if( _dataBuild.id == 57){ // болотце
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 13) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 13) * g.currentGameScale;
         }else if( _dataBuild.id == 58){ // тополь
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.3) * g.currentGameScale;
         }else if( _dataBuild.id == 59){ // большой камень
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
         }else if( _dataBuild.id == 60){ // булыжник
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
         }else if( _dataBuild.id == 61){ // маленький камень
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
         }else if( _dataBuild.id == 62){ // маленький камень
-            newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-            newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
         }
         g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
     }

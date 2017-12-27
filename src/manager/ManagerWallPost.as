@@ -78,7 +78,7 @@ public class ManagerWallPost {
             var p:Point = new Point(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2);
             if (_type == 9) d.addDropXP(_count, p);
             else d.addDropMoney(_type, _count, p);
-            d.releaseIt();
+            d.releaseIt(null, false);
         }
         _type = 0;
         _typePost = '';

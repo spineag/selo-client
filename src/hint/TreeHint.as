@@ -231,7 +231,7 @@ public class TreeHint {
             start = _source.parent.localToGlobal(start);
             var d:DropObject = new DropObject();
             d.addDropXP(8, start);
-            d.releaseIt();
+            d.releaseIt(null, false);
             g.userInventory.addResource(_data.removeByResourceId, -1);
             if (_deleteCallback != null) {
                 _deleteCallback.apply();

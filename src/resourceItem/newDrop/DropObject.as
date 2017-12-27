@@ -103,7 +103,7 @@ public class DropObject {
             if (useJump) (_arrDrops[i] as DropObjectInterface).startJump(i%2, onFinish);
             else {
                 (_arrDrops[i] as DropObjectInterface).callback = onFinish;
-                (_arrDrops[i] as DropObjectInterface).flyIt();
+                (_arrDrops[i] as DropObjectInterface).flyIt(null, true);
             }
         }
     }

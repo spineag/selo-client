@@ -274,7 +274,7 @@ public class Cave extends WorldObject{
                 g.treeHint.managerHide(openHint);
                 return;
             }
-            g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+            g.timerHint.showIt(90,g.cont.gameContX + _source.x * g.currentGameScale,  g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
             g.hint.hideIt();
         } else if (_stateBuild == STATE_ACTIVE) {
              if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
@@ -344,7 +344,7 @@ public class Cave extends WorldObject{
     }
 
     private function openHint():void {
-        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+        g.timerHint.showIt(90,g.cont.gameContX + _source.x * g.currentGameScale,  g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
         g.hint.hideIt();
     }
 
