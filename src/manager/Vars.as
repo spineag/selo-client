@@ -370,7 +370,7 @@ public class Vars {
         cont.onLoadAll();
         startPreloader.setProgress(100);
         if (currentGameScale != 1) optionPanel.makeScaling(currentGameScale, false, true);
-        cont.moveCenterToXY(0, realGameTilesHeight / 2 - 700 * scaleFactor, true);
+        cont.moveCenterToXY(350, realGameTilesHeight / 2 - 700 * scaleFactor, true);
 
         windowsManager = new WindowsManager();
         managerDropResources = new ManagerDropBonusResource();

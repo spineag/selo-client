@@ -216,12 +216,11 @@
             <filename>tabs_top_1.png</filename>
             <filename>tabs_top_2.png</filename>
             <filename>star_event_winner_45x45.png</filename>
-            <filename>event_window_standard.png</filename>
-            <filename>../../../farm505/diff/party/butter_ru.png</filename>
-            <filename>../../../farm505/diff/party/cream_icon.png</filename>
-            <filename>../../../farm505/diff/party/punckake_icon.png</filename>
-            <filename>../../../farm505/diff/party/cream_rus.png</filename>
-            <filename>../../../farm505/diff/party/pancake_breakfast.png</filename>
+            <filename>new_year_icon.png</filename>
+            <filename>new_year_bg.png</filename>
+            <filename>new_year_rus.png</filename>
+            <filename>new_year_sheton.png</filename>
+            <filename>new_year.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
