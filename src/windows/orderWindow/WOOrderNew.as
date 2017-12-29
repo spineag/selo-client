@@ -93,18 +93,27 @@ public class WOOrderNew extends WindowMain {
             return;
         }
         fillList();
-        var num:int;
-        var delay:int;
-        for (var i:int = 0; i < _arrOrders.length; i++) {
-            delay = 0;
-            num = 0;
-            for (var k:int = 0; k<_arrOrders[i].resourceIds.length; k++) {
-                if (g.userInventory.getCountResourceById(_arrOrders[i].resourceIds[k]) >= _arrOrders[i].resourceCounts[k]) num++;
+        var i:int;
+        if (params[0]) {
+            for ( i = 0; i < _arrOrders.length; i++) {
+                if (_arrOrders[i].catOb.id == params[0].id) {
+                    break;
+                }
             }
-            if (num == _arrOrders[i].resourceIds.length) break;
-            else delay++;
+        } else {
+            var num:int;
+            var delay:int;
+            for (i = 0; i < _arrOrders.length; i++) {
+                delay = 0;
+                num = 0;
+                for (var k:int = 0; k<_arrOrders[i].resourceIds.length; k++) {
+                    if (g.userInventory.getCountResourceById(_arrOrders[i].resourceIds[k]) >= _arrOrders[i].resourceCounts[k]) num++;
+                }
+                if (num == _arrOrders[i].resourceIds.length) break;
+                else delay++;
+            }
+            if (delay > 0) i = 0;
         }
-        if (delay > 0) i = 0;
         onItemClick(_arrItems[i]);
         _waitForAnswer = false;
         super.showIt();

@@ -447,6 +447,7 @@ public class HeroCat extends BasicCat{
         killAllAnimations();
         showFront(true);
         _catImage.visible = true;
+        freeIdleGo = false;
         makeFreeCatIdle();
     }
 

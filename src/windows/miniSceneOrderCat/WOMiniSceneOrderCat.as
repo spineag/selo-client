@@ -9,6 +9,8 @@ import utils.CButton;
 import utils.CTextField;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
+import windows.WindowMain;
+import windows.WindowsManager;
 import windows.WindowsManager;
 
 public class WOMiniSceneOrderCat extends WindowMain{
@@ -61,6 +63,7 @@ public class WOMiniSceneOrderCat extends WindowMain{
             _callback.apply(null, [_dataCat]);
         }
         super.hideIt();
+        g.windowsManager.openWindow(WindowsManager.WO_ORDERS,null,_dataCat);
     }
 
     override protected function deleteIt():void {

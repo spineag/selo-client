@@ -4795,6 +4795,7 @@ public class DirectServer {
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerOrder.addFromServer(d.message[i]);
             }
+            g.managerOrder.checkCatId();
             if (callback != null) {
                 callback.apply();
             }
@@ -5701,7 +5702,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserOrder(id:int,place:int,callback:Function):void {
+    public function updateUserOrder(id:String, place:int, catId:int,callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_ORDER_ITEM);
         var variables:URLVariables = new URLVariables();
@@ -5710,7 +5711,8 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.id = id;
         variables.place = place;
-        variables.hash = MD5.hash(String(g.user.userId)+String(id)+String(place)+SECRET);
+        variables.catId = catId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(id)+String(place)+String(catId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
