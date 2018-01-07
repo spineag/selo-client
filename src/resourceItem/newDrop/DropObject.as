@@ -106,7 +106,6 @@ public class DropObject {
     }
     
     private function onFinish(d:DropObjectInterface):void {
-        //g.cont.removeFromTopGameContAnimation(d.source);
         g.cont.animationsResourceCont.removeChild(d.source);
         d.deleteIt();
         if (_callback!=null) _callback.apply();
