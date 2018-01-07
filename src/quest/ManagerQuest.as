@@ -20,7 +20,8 @@ import manager.Vars;
 import mouse.ToolsModifier;
 import social.SocialNetworkSwitch;
 import tutorial.helpers.HelperReason;
-import utils.Link;
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class ManagerQuest {
@@ -200,7 +201,7 @@ public class ManagerQuest {
                     onActionForTaskType(ADD_TO_GROUP);
                     return;
                 } else {
-                    Link.openURL(g.socialNetwork.urlForAnySocialGroup + t.adds);
+                    Utils.openURL(g.socialNetwork.urlForAnySocialGroup + t.adds);
                     _timer = 3;
                     g.gameDispatcher.addToTimer(checkWithTimer);
                 }

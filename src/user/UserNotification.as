@@ -5,6 +5,9 @@ package user {
 import data.BuildType;
 import data.StructureDataAnimal;
 import data.StructureDataBuilding;
+import data.StructureDataRecipe;
+import data.StructureDataResource;
+
 import manager.Vars;
 import utils.Utils;
 
@@ -12,6 +15,7 @@ public class UserNotification {
     private var _decor:Array; // not send to server, only in client
     private var _plant:Array;
     private var _fabrica:Array;
+    private var _fabricaItem:Array;
     private var _farm:Array;
     private var _animal:Array;
     private var _tree:Array;
@@ -23,12 +27,14 @@ public class UserNotification {
         _decor = [];
         _plant = [];
         _fabrica = [];
+        _fabricaItem = [];
         _farm = [];
         _animal = [];
         _tree = [];
     }
 
     public function isNewFabricId(id:int):Boolean { return Boolean(_fabrica.indexOf(id) > -1);  }
+    public function isNewFabricItemId(id:int):Boolean { return Boolean(_fabricaItem.indexOf(id) > -1);  }
     public function isNewFarmId(id:int):Boolean { return Boolean(_farm.indexOf(id) > -1);  }
     public function isNewAnimalId(id:int):Boolean { return Boolean(_animal.indexOf(id) > -1);  }
     public function isNewDecorId(id:int):Boolean { return Boolean(_decor.indexOf(id) > -1);  }
@@ -48,6 +54,7 @@ public class UserNotification {
         _decor = [];
         _plant = [];
         _fabrica = [];
+        _fabricaItem = [];
         _farm = [];
         _animal = [];
         _tree = [];
@@ -73,7 +80,15 @@ public class UserNotification {
         arR = g.allData.resource;
         for (i = 0; i < arR.length; i++) {
             if (arR[i].buildType == BuildType.PLANT && arR[i].blockByLevel == level) {
-                _plant.push(arR[i]);
+                _plant.push((arR[i] as StructureDataResource).id);
+                break;
+            }
+        }
+        arR = g.allData.recipe;
+        for (i = 0; i < arR.length; i++) {
+            if (arR[i].blockByLevel == level) {
+                _fabricaItem.push((arR[i] as StructureDataRecipe).id);
+                break;
             }
         }
         if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) _isNewRidge = true;
@@ -105,6 +120,10 @@ public class UserNotification {
         }
         _isNewRidge = Boolean(ar[5] == '1');
         _isNewDecor = Boolean(ar[6] == '1');
+        if (ar[7] && ar[7] != '') {
+            _fabricaItem = ar[7].split('&');
+            _fabricaItem = Utils.intArray(_fabricaItem);
+        }
     }
 
     public function onGameLoad():void {
@@ -135,6 +154,13 @@ public class UserNotification {
     public function onReleaseNewFabrica(id:int):void {
         if (_fabrica.indexOf(id) > -1) {
             _fabrica.removeAt(_fabrica.indexOf(id));
+            updateNotification();
+        }
+    }
+
+    public function onReleaseNewFabricaItem(id:int):void {
+        if (_fabricaItem.indexOf(id) > -1) {
+            _fabricaItem.removeAt(_fabricaItem.indexOf(id));
             updateNotification();
         }
     }
@@ -182,11 +208,12 @@ public class UserNotification {
         ar.push(_tree.join('&'));
         ar.push(int(_isNewRidge));
         ar.push(int(_isNewDecor));
+        ar.push(_fabricaItem.join('&'));
         g.server.updateUserNotification(ar.join('|'), null);
     }
 
     public function get allNotificationsCount():int {
-        var n:int = _fabrica.length + _farm.length + _animal.length + _tree.length + _decor.length;
+        var n:int = _fabrica.length + _farm.length + _animal.length + _tree.length + _decor.length; // no plant and fabrica item
         if (_isNewRidge) n++;
         return n;
     }

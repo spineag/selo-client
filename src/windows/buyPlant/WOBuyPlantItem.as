@@ -96,6 +96,12 @@ public class WOBuyPlantItem {
         _icon.alignPivot();
         source.addChildAt(_icon,0);
         if (_maxAlpha == .5) _icon.filter = ManagerFilters.DISABLE_FILTER;
+        if (g.user.notif.isNewPlantId(_dataPlant.id)) {
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+            im.x = 15;
+            im.y = -47;
+            source.addChild(im);
+        }
     }
 
     private function onClick():void {

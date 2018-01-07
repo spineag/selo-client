@@ -69,23 +69,15 @@ public class WOItemFabrica {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woItemFabrica');
             return;
         }
-//        MCScaler.scale(_icon, 80, 80);
         _icon.alignPivot();
         source.addChild(_icon);
         source.alpha = _maxAlpha;
-//        if (g.user.fabricItemNotification.length > 0) {
-//            var arr:Array = g.user.fabricItemNotification;
-//            var im:Image;
-//            for (var i:int = 0; i < arr.length; i++){
-//                if (arr[i].id == _dataRecipe.idResource) {
-//                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
-//                    im.x = _icon.width - im.width/2 + 3;
-//                    im.y = _icon.y -14;
-//                    source.addChild(im);
-//                    g.user.fabricItemNotification.splice(i);
-//                }
-//            }
-//        }
+        if (g.user.notif.isNewFabricItemId(_dataRecipe.id)) {
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
+            im.x = 15;
+            im.y = -42;
+            source.addChild(im);
+        }
     }
 
     private function onClick():void {
@@ -95,13 +87,13 @@ public class WOItemFabrica {
 
         g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         source.filter = null;
+        g.user.notif.onReleaseNewFabricaItem(_dataRecipe.id);
         if (_clickCallback != null) _clickCallback.apply(null, [_dataRecipe]);
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
         if (g.tuts && g.tuts.action == TutsAction.RAW_RECIPE && g.tuts.isTutsResource(_dataRecipe.id)) {
             removeArrow();
             g.tuts.currentActionNone();
-//            g.tuts.checkTutorialCallback();
         }
     }
 

@@ -10,6 +10,8 @@ import data.StructureDataBuilding;
 import data.StructureDataPet;
 
 import flash.events.TimerEvent;
+import flash.net.URLRequest;
+import flash.net.navigateToURL;
 
 import flash.utils.ByteArray;
 import flash.utils.Timer;
@@ -243,6 +245,18 @@ public class Utils {
         if (oldOb.costGreen) newOb.cost.push(oldOb.costGreen);
         if (oldOb.costYellow) newOb.cost.push(oldOb.costYellow);
         return newOb;
+    }
+
+    public static function openURL(url:String, window:String = '_blank'):void {
+        var urlRequest:URLRequest;
+
+        if (url) {
+            urlRequest = new URLRequest(url);
+            Cc.info('Link: open url - \'' + window + '\': ' + url);
+            navigateToURL(urlRequest, window);
+        } else {
+            Cc.warn('Link:: attempt to open a null reference');
+        }
     }
 }
 }

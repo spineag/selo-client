@@ -169,7 +169,7 @@ public class UserInventory {
         var r:StructureDataResource;
         for(var id:String in _inventoryResource) {
             r = g.allData.getResourceById(int(id));
-            if (r.buildType == type && _inventoryResource[id] > 0 && r.orderType > 0) {
+            if (r && r.buildType == type && _inventoryResource[id] > 0 && r.orderType > 0) {
                 ob = {};
                 ob.id = id;
                 ob.count = _inventoryResource[id];
