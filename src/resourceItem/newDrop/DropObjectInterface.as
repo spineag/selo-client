@@ -40,8 +40,6 @@ public class DropObjectInterface {
     }
     
     public function flyIt(p:Point=null, needJoggle:Boolean = false):void {
-//        p.x -= g.cont.gameContX;
-//        p.y -= g.cont.gameContY;
         var d:DropObjectInterface = this;
         if (needJoggle) AnimationsStock.joggleItBaby(_image, 1000, .2, 1);
         var f1:Function = function():void {
@@ -67,7 +65,11 @@ public class DropObjectInterface {
     }
 
     public function deleteIt():void {
-        
+        if (!_source) return;
+        TweenMax.killTweensOf(_image);
+        TweenMax.killTweensOf(_source);
+        _data = null;
+        _source.dispose();
     }
 }
 }
