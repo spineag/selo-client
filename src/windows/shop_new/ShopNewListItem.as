@@ -460,12 +460,22 @@ public class ShopNewListItem {
                 }
                 maxCount = maxCountAtCurrentLevel;
                 if (curCount >= maxCount) {
-                    _txtInfo.text = g.managerLanguage.allTexts[340];
+                    if (curCount == 0) {
+                        _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
+                        if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+                        _bg.filter = ManagerFilters.getButtonDisableFilter();
+                        _blackPlawka.visible = true;
+//                        _txtCount.text = String(maxCount) + '/' + String(maxCount);
+                        _isThisItemBlocked = true;
+                    } else {
+                       if (curCount == _data.blockByLevel.length) _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
+                           else _txtInfo.text = g.managerLanguage.allTexts[340];
 //                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
 //                    _bg.filter = ManagerFilters.getButtonDisableFilter();
-                    _blackPlawka.visible = true;
-                    _txtCount.text = String(maxCount) + '/' + String(maxCount);
-                    _isThisItemBlocked = true;
+                        _blackPlawka.visible = true;
+                        _txtCount.text = String(maxCount) + '/' + String(maxCount);
+                        _isThisItemBlocked = true;
+                    }
                 } else {
                     _txtCount.text = String(curCount) + '/' + String(maxCount);
                     createButton();

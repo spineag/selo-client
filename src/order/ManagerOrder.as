@@ -156,6 +156,40 @@ public class ManagerOrder {
         _arrOrders.sortOn('placeNumber', Array.NUMERIC);
     }
 
+    public function checkCatId():void {
+        for (var i:int = 0; i < _arrOrders.length; i++) {
+            for (var j:int = 0; j < _arrOrders.length; j++) {
+                if (i != j && _arrOrders[i].catOb.id == _arrOrders[j].catOb.id) {
+                    _arrOrders[i].catOb = DataOrderCat.getCatObjById(getIdCatNotArrOrder);
+                    g.server.updateUserOrder(String(_arrOrders[i].dbId), _arrOrders[i].placeNumber, _arrOrders[i].catOb.id, null);
+                    return;
+                }
+            }
+        }
+    }
+
+    private function get getIdCatNotArrOrder():int {
+        var arr:Array = DataOrderCat.getArrByLevel(g.user.level);
+        var b:Boolean = false;
+        var idR:int = 0;
+        for (var i:int = 0; i < arr.length; i++) {
+            b = false;
+            idR = 0;
+            for (var j:int = 0; j < _arrOrders.length; j++) {
+                if (!b && arr[i].id != _arrOrders[j].catOb.id) {
+                    idR = arr[i].id;
+                }
+                if (arr[i].id == _arrOrders[j].catOb.id) {
+                    b = true;
+                }
+            }
+            if (!b && idR > 0) {
+                return idR;
+            }
+        }
+        return 1;
+    }
+
     public function updateMaxCounts():void {
         _curMaxCountOrders = 1;
         _curMaxCountResoureAtOrder = 1;
@@ -624,11 +658,11 @@ public class ManagerOrder {
             if (randNumber < .4) {
                 or.resourceIds = getRandomElementsFromIntArray(arProducts, 2);
                 count = getRandomIntBetween(1, 2);
-                or.resourceIds = [count, count];
+                or.resourceCounts = [count, count];
             } else if (randNumber < .6) {
                 or.resourceIds = getRandomElementsFromIntArray(arPlants, 2);
                 count = getRandomIntBetween(1, 3);
-                or.resourceIds = [count, count];
+                or.resourceCounts = [count, count];
             } else {
                 count = getRandomIntBetween(1, 2);
                 or.resourceIds.push(getRandomIntElementFromArray(arPlants));
