@@ -17,8 +17,7 @@ public class DropPartyResource extends DropObjectInterface {
     public function fillIt(p:Point):void {
         if (g.allData.atlas['partyAtlas']) _image = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
         onCreateImage();
-        _source.x = p.x;
-        _source.y = p.y;
+        setStartPoint(p);
 //        if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
 //            if (g.managerParty.userParty.countResource + 1 <= g.managerParty.countToGift[4]) {
                 g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 1;

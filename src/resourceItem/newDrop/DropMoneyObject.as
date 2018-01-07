@@ -14,7 +14,7 @@ public class DropMoneyObject extends DropObjectInterface{
         super();
     }
 
-    public function fillIt(type:int, count:int, pos:Point):void {
+    public function fillIt(type:int, count:int, p:Point):void {
         _type = type;
         _count = count;
         switch (_type) {
@@ -26,8 +26,7 @@ public class DropMoneyObject extends DropObjectInterface{
             case DataMoney.YELLOW_COUPONE: _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone')); break;
         }
         onCreateImage();
-        _source.x = pos.x;
-        _source.y = pos.y;
+        setStartPoint(p);
     }
     
     override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {

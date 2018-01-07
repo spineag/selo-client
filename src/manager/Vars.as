@@ -66,7 +66,6 @@ import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
 import tutorial.tips.ManagerTips;
 import tutorial.tutorial.TutorialManager;
-
 import ui.achievementPanel.AchievementPanel;
 import ui.bottomInterface.MainBottomPanel;
 import ui.couponePanel.CouponePanel;
@@ -215,7 +214,6 @@ public class Vars {
     public var managerResize:ManagerResize;
     public var managerAchievement:ManagerAchievement;
     public var managerAnnouncement:ManagerAnnouncement;
-
     public var useQuests:Boolean = true;
 
     public static function getInstance():Vars {

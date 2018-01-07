@@ -2,13 +2,10 @@
  * Created by andy on 11/28/17.
  */
 package resourceItem.newDrop {
-import com.junkbyte.console.Cc;
 import data.StructureDataBuilding;
 import flash.geom.Point;
 import manager.Vars;
 import resourceItem.ResourceItem;
-import temp.DropResourceVariaty;
-import windows.WindowsManager;
 
 public class DropObject {
     private var g:Vars = Vars.getInstance();
@@ -95,11 +92,11 @@ public class DropObject {
         }
     }
 
-    public function releaseIt(f:Function = null, useJump:Boolean = true):void {   // also create without jumping
+    public function releaseIt(f:Function = null, useJump:Boolean = true):void {   
         if (!_arrDrops.length) return;
         _callback = f;
         for (var i:int=0; i<_arrDrops.length; i++) {
-            g.cont.animationsResourceCont.addChild((_arrDrops[i] as DropObjectInterface).source);
+            g.cont.addToTopGameContAnimation((_arrDrops[i] as DropObjectInterface).source);
             if (useJump) (_arrDrops[i] as DropObjectInterface).startJump(i%2, onFinish);
             else {
                 (_arrDrops[i] as DropObjectInterface).callback = onFinish;
@@ -109,6 +106,7 @@ public class DropObject {
     }
     
     private function onFinish(d:DropObjectInterface):void {
+        //g.cont.removeFromTopGameContAnimation(d.source);
         g.cont.animationsResourceCont.removeChild(d.source);
         d.deleteIt();
         if (_callback!=null) _callback.apply();

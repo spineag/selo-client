@@ -8,6 +8,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import flash.geom.Point;
 import mouse.ToolsModifier;
+
+import starling.display.DisplayObjectContainer;
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
@@ -44,6 +46,7 @@ public class Containers {
     private var _gameContY:int;
     private var _gameContScale:int;
     private var _isGameContTweening:Boolean;
+    private var _topGameContAnimation:Sprite;
 
     private var _startDragPoint:Point;
     private var _startDragPointCont:Point;
@@ -79,6 +82,7 @@ public class Containers {
         hintGameCont = new Sprite();
         mouseCont = new Sprite();
         interfaceContMapEditor = new Sprite();
+        _topGameContAnimation = new Sprite();
 
         _mainCont.addChild(_gameCont);
         _gameCont.addChild(backgroundCont);
@@ -97,6 +101,7 @@ public class Containers {
         _mainCont.addChild(hintContUnder);
         _mainCont.addChild(windowsCont);
         _mainCont.addChild(animationsResourceCont);
+        _mainCont.addChild(_topGameContAnimation);
         _mainCont.addChild(hintCont);
         _mainCont.addChild(popupCont);
         _mainCont.addChild(mouseCont);
@@ -137,22 +142,30 @@ public class Containers {
     }
 
     public function get gameCont():Sprite { return _gameCont; }
+    public function addToTopGameContAnimation(c:DisplayObjectContainer):void { if (!_topGameContAnimation.contains(c)) _topGameContAnimation.addChild(c); }
+    public function removeFromTopGameContAnimation(c:DisplayObjectContainer):void { if (_topGameContAnimation.contains(c)) _topGameContAnimation.removeChild(c); }
+    
     public function get gameContX():int {
         if (_isGameContTweening) return _gameCont.x;
         else return _gameContX;
     }
+    
     public function get gameContY():int {
         if (_isGameContTweening) return _gameCont.y;
         else return _gameContY;
     }
+    
     public function get gameContScale():int {
         if (_isGameContTweening) return _gameCont.scale;
         else return _gameContScale;
     }
+    
     public function updateGameContVariables():void {
         _gameContX = _gameCont.x;
         _gameContY = _gameCont.y;
         _gameContScale = _gameCont.scale;
+        _topGameContAnimation.x = _gameContX;
+        _topGameContAnimation.y = _gameContY;
     }
 
     private var _isDragged:Boolean = false;
@@ -277,11 +290,13 @@ public class Containers {
             if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
             _isGameContTweening = true;
             new TweenMax(_gameCont, time, {x:newX, y:newY, ease:Linear.easeOut,onComplete: f1});
+            new TweenMax(_topGameContAnimation, time, {x:newX, y:newY, ease:Linear.easeOut,onComplete: f1});
         }
     }
 
     public function killMoveCenterToPoint():void {
         TweenMax.killTweensOf(_gameCont);
+        TweenMax.killTweensOf(_topGameContAnimation);
         _isGameContTweening = false;
         updateGameContVariables();
     }
@@ -309,6 +324,7 @@ public class Containers {
         };
         _isGameContTweening = true;
         new TweenMax(_gameCont, time, {x:nX, y:nY, ease:Linear.easeOut, onComplete: f1});
+        new TweenMax(_topGameContAnimation, time, {x:nX, y:nY, ease:Linear.easeOut, onComplete: f1});
     }
 
     public function onResize():void {

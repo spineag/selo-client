@@ -12,12 +12,11 @@ public class DropXPObject extends DropObjectInterface{
         super();
     }
 
-    public function fillIt(count:int, pos:Point):void {
+    public function fillIt(count:int, p:Point):void {
         _count = count;
         _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_icon"));
         onCreateImage();
-        _source.x = pos.x;
-        _source.y = pos.y;
+        setStartPoint(p);
     }
 
     override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {

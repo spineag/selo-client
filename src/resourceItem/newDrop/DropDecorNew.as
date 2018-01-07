@@ -21,7 +21,7 @@ public class DropDecorNew extends DropObjectInterface {
         super();
     }
 
-    public function fillIt(data:StructureDataBuilding, pos:Point, needAddServer:Boolean = false):void {
+    public function fillIt(data:StructureDataBuilding, p:Point, needAddServer:Boolean = false):void {
         _dataDecor = data;
         _needAddServer = needAddServer;
         if (_data.image) {
@@ -35,8 +35,7 @@ public class DropDecorNew extends DropObjectInterface {
             }
             _image = new Image(texture);
             onCreateImage();
-            _source.x = pos.x;
-            _source.y = pos.y;
+            setStartPoint(p);
         } else Cc.error('SimpleFlyDecor:: no image for decor with id: ' + _dataDecor.id);
     }
 

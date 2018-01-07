@@ -14,13 +14,12 @@ public class DropItemObject extends DropObjectInterface{
         super();
     }
 
-    public function fillIt(item:ResourceItem, pos:Point):void {
+    public function fillIt(item:ResourceItem, p:Point):void {
         _resourceItem = item;
         if (_resourceItem.buildType == BuildType.PLANT) _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(_resourceItem.imageShop + '_icon'));
             else  _image = new Image(g.allData.atlas[_resourceItem.url].getTexture(_resourceItem.imageShop));
         onCreateImage();
-        _source.x = pos.x;
-        _source.y = pos.y;
+        setStartPoint(p);
     }
 
     override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {

@@ -33,8 +33,15 @@ public class DropObjectInterface {
 
     public function get source():Sprite { return _source; }
     public function set callback(f:Function):void { _flyCallback = f; }
+
+    protected function setStartPoint(p:Point):void {
+        _source.x = p.x - g.cont.gameContX;
+        _source.y = p.y - g.cont.gameContY;
+    }
     
     public function flyIt(p:Point=null, needJoggle:Boolean = false):void {
+//        p.x -= g.cont.gameContX;
+//        p.y -= g.cont.gameContY;
         var d:DropObjectInterface = this;
         if (needJoggle) AnimationsStock.joggleItBaby(_image, 1000, .2, 1);
         var f1:Function = function():void {
@@ -42,6 +49,10 @@ public class DropObjectInterface {
             TweenMax.killTweensOf(_source);
             if (_flyCallback!=null) _flyCallback.apply(null, [d]);
         };
+        g.cont.removeFromTopGameContAnimation(_source);
+        _source.x += g.cont.gameContX;
+        _source.y += g.cont.gameContY;
+        g.cont.animationsResourceCont.addChild(_source);
         AnimationsStock.tweenBezier(_source, p.x, p.y, f1, _source.scale, .3);
     }
     
