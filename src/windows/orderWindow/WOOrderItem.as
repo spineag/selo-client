@@ -216,29 +216,24 @@ public class WOOrderItem {
     private function renderLeftTime():void {
         _leftSeconds--;
         if (_leftSeconds == 19) {
-            if (_order &&_txtName && _order.delOb) {
-                _wo.timerSkip(_order);
-                g.managerOrder.checkForFullOrder();
-            }
-            else {
-                g.userTimer.newCatOrder();
-                g.managerOrder.checkForFullOrder();
-            }
+            if (_order && _txtName && _order.delOb) _wo.timerSkip(_order);
+            else g.userTimer.newCatOrder();
+            g.managerOrder.checkForFullOrder();
         }
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;
-            g.gameDispatcher.removeFromTimer(renderLeftTime);
             g.managerOrder.checkForFullOrder();
+            g.gameDispatcher.removeFromTimer(renderLeftTime);
             if(_txtName) {
                 if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
                 else _txtName.text = _order.catOb.nameRU;
                 _txtName.visible = true;
             }
-            if(_txtXP) _txtXP.visible = true;
-            if(_txtCoins) _txtCoins.visible = true;
-            if(_coinsImage) _coinsImage.visible = true;
-            if(_starImage) _starImage.visible = true;
-            if(_delImage) _delImage.visible = false;
+            if (_txtXP) _txtXP.visible = true;
+            if (_txtCoins) _txtCoins.visible = true;
+            if (_coinsImage) _coinsImage.visible = true;
+            if (_starImage) _starImage.visible = true;
+            if (_delImage) _delImage.visible = false;
             if (_clickCallback != null) { _clickCallback.apply(null, [this,1]); }
             updateCheck();
         }
@@ -351,6 +346,8 @@ public class WOOrderItem {
 
     public function deleteIt():void {
         g.hint.hideIt();
+        g.gameDispatcher.removeFromTimer(renderLeftTime);
+        g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
         if (!source) return;
 //        _starImage.filter.dispose();
         _coinsImage.filter.dispose();

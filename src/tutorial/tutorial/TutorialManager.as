@@ -422,6 +422,15 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function subStep8_2():void {
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+        var arrA:Array = (arr[0] as Farm).arrAnimals;
+        _tutorialObjects = [];
+        for (var i:int = 0; i<arrA.length; i++) {
+            if ((arrA[i] as Animal).state == Animal.WORK) {
+                _tutorialObjects.push(arrA[i]);
+            }
+        }
+        if (_tutorialObjects.length > 3) _tutorialObjects.length = 3;
         if (_tutorialObjects.length) {
             _action = TutsAction.ANIMAL_SKIP;
             var an:Animal = _tutorialObjects[0] as Animal;
@@ -684,6 +693,7 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function initScene_14():void {
+        _subStep = 0;
         if (!_tutorialObjects.length) {
             _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.FABRICA);
         }
@@ -691,11 +701,20 @@ public class TutorialManager extends IManagerTutorial{
             g.managerBuyerNyashuk = new ManagerBuyerNyashuk();
             Utils.createDelay(5, g.managerBuyerNyashuk.addNyashuksOnTutorial);
         }
-        if ((_tutorialObjects[0] as Fabrica).isAnyCrafted) {
-            g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY);
-            subStep14_1();
+        if (!_cat) {
+            if (_cat.isOnMap) _cat.addToMap();
+            if ((_tutorialObjects[0] as Fabrica).isAnyCrafted) {
+                g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY);
+                _cat = g.managerCats.getFreeCatDecor();
+                g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4), subStep14_1);
+            } else  subStep14_2();
         } else {
-            subStep14_2();
+            if ((_tutorialObjects[0] as Fabrica).isAnyCrafted) {
+                g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY);
+                subStep14_1();
+            } else {
+                subStep14_2();
+            }
         }
     }
 
@@ -704,9 +723,14 @@ public class TutorialManager extends IManagerTutorial{
         _action = TutsAction.FABRICA_CRAFT;
         (_tutorialObjects[0] as Fabrica).addArrowToCraftItem(subStep14_2);
         _tutorialCallback = subStep14_2;
+        if (_cat) {
+            _cat.showFront(true);
+            _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
+        }
     }
     
     private function subStep14_2():void {
+        if (_cat) _cat.hideBubble();
         _tutorialObjects = [];
         _subStep = 2;
         _action = TutsAction.LEVEL_UP;

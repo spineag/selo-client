@@ -187,19 +187,21 @@ public class UserTimer {
                 leftSecond = _arrOrderItem[i].startTime - TimeUtils.currentSeconds;
                 if (leftSecond <= 0){
                     g.managerOrder.checkForFullOrder();
-                        break;
+                    break;
                 }
             }
         }
-      if (_arrOrderItem[i]) var pl:int = _arrOrderItem[i].placeNumber;
-        _arrOrderItem[i] = null;
-        var arr:Array = g.managerOrder.arrOrders.slice();
-        for (i = 0; i < arr.length; i++) {
-            if (arr[i].placeNumber == pl &&  arr[i].delOb) {
-                arr[i].delOb = false;
-               arr[i].cat = g.managerOrderCats.getNewCatForOrder(null,arr[i].catOb);
-                g.managerOrder.checkForFullOrder();
-                break;
+        if (_arrOrderItem[i]) {
+            var pl:int = _arrOrderItem[i].placeNumber;
+            _arrOrderItem[i] = null;
+            var arr:Array = g.managerOrder.arrOrders.slice();
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].placeNumber == pl && arr[i].delOb) {
+                    arr[i].delOb = false;
+                    arr[i].cat = g.managerOrderCats.getNewCatForOrder(null, arr[i].catOb);
+                    g.managerOrder.checkForFullOrder();
+                    break;
+                }
             }
         }
     }

@@ -131,8 +131,6 @@ public class CraftItem {
             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
             return;
         }
-        if (_resourceItem.placeBuild != BuildType.PLACE_NONE)
-            g.craftPanel.showIt(_resourceItem.placeBuild);
 
         if (_callback != null) {
             _callback.apply(null, [_resourceItem, this]);

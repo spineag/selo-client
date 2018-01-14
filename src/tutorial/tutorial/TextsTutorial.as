@@ -51,9 +51,7 @@ public class TextsTutorial {
 
         _objText[14] = {};
         _objText[14][0] = String(g.managerLanguage.allTexts[558]);//Давай ускорим приготовление Булочек! Нажми кнопку “ускорить”!
-
-//        _objText[15] = {};
-//        _objText[15][0] = String(g.managerLanguage.allTexts[559]);//У тебя хорошо получается, булочки готовы!
+        _objText[14][1] = String(g.managerLanguage.allTexts[559]);//У тебя хорошо получается, булочки готовы!
 
         _objText[15] = {};
         _objText[15][0] = String(g.managerLanguage.allTexts[560]);//Давай построим Кормилку! С этой фабрикой наш животные никогда не будут голодными!

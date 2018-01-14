@@ -30,6 +30,7 @@ public class ManagerOrderCats {
         var cat:OrderCat;
         var leftSeconds:int;
         var r:int = 0;
+        arr.sortOn('placeNumber', Array.NUMERIC);
         for (var i:int=0; i<arr.length; i++) {
             leftSeconds = arr[i].startTime - TimeUtils.currentSeconds;
             if (leftSeconds <= 0) {
@@ -59,16 +60,29 @@ public class ManagerOrderCats {
     }
 
    // ------- cat go away -----------
-    public function onReleaseOrder(cat:OrderCat, isOrderSelled:Boolean):void {
+    public function onReleaseOrder(cat:OrderCat, isOrderSold:Boolean):void {
         if (!cat) {
            Cc.error('ManagerOrderCats onReleaseOrder:: cat == null');
            return;
         }
         var i:int = _arrCats.indexOf(cat);
         if (i > -1) _arrCats.splice(i, 1);
+
+        // move queue
+        var pos:int = cat.queuePosition;
+        for (i=0; i<_arrCats.length; i++) {
+            if (_arrCats[i].queuePosition > pos) {
+                if (_arrCats[i].walkPosition == OrderCat.STAY_IN_QUEUE) {
+                    _arrCats[i].setPositionInQueue(_arrCats[i].queuePosition-1);
+                    moveQueue(_arrCats[i]);
+                }
+            }
+        }
+
+        // cat go away
         cat.forceStopAnimation();
         if (cat.walkPosition == OrderCat.STAY_IN_QUEUE) {
-            if (isOrderSelled) {
+            if (isOrderSold) {
                 cat.walkPackAnimation();
             } else {
                 cat.walkAnimation();
@@ -77,7 +91,7 @@ public class ManagerOrderCats {
         } else {
 
             var onFinishArrive:Function = function():void {
-                if (isOrderSelled) {
+                if (isOrderSold) {
                     cat.walkPackAnimation();
                 } else {
                     cat.walkAnimation();
@@ -98,18 +112,6 @@ public class ManagerOrderCats {
             cat.showFront(true);
             cat.sayHIAnimation(onFinishArrive);
         }
-
-// move queue
-        var pos:int = cat.queuePosition;
-        for (i=0; i<_arrCats.length; i++) {
-            if (_arrCats[i].queuePosition > pos) {
-                if (_arrCats[i].walkPosition == OrderCat.STAY_IN_QUEUE) {
-                    moveQueue(_arrCats[i]);
-                } else {
-                    _arrCats[i].setPositionInQueue(_arrCats[i].queuePosition-1);
-                }
-            }
-        }
     }
 
     private function moveQueue(cat:OrderCat):void {
@@ -121,7 +123,6 @@ public class ManagerOrderCats {
     private function afterMoveQueue(cat:OrderCat):void {
         cat.forceStopAnimation();
         cat.idleFrontAnimation();
-        cat.setPositionInQueue(cat.queuePosition-1);
     }
 
     private function goAwayPart1(cat:OrderCat):void {
@@ -225,8 +226,7 @@ public class ManagerOrderCats {
         }
         if (b) {
             return max - r;
-        }
-        else {
+        } else {
             return int(max);
         }
     }
@@ -260,12 +260,12 @@ public class ManagerOrderCats {
     private function arrivePart2(cat:OrderCat):void {
         cat.setTailPositions(30, 0);
         cat.walkPosition = OrderCat.TILE_WALKING;
-        goCatToPoint(cat, new Point(30, 25 - cat.queuePosition*2), afterArrive, false, cat);
+        goCatToPoint(cat, new Point(30, 19 - cat.queuePosition*2), afterArrive, false, cat);
     }
 
     private function afterArrive(cat:OrderCat):void {
-        if (cat.posY != 25 - cat.queuePosition*2) {
-            goCatToPoint(cat, new Point(30, 25 - cat.queuePosition*2), afterArrive, false, cat);
+        if (cat.posY != 19 - cat.queuePosition*2) {
+            goCatToPoint(cat, new Point(30, 19 - cat.queuePosition*2), afterArrive, false, cat);
         } else {
             var onFinishArrive:Function = function():void {
                 cat.forceStopAnimation();

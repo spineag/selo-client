@@ -103,7 +103,7 @@ public class Market extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
             if (g.managerCutScenes.isCutScene && g.managerCutScenes.closeMarket) return;
-            var isNotAway:int = 5;
+            var isNotAway:int = 7;
             if (g.isAway) isNotAway = 1;
             if (g.user.level < isNotAway) {
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);

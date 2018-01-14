@@ -111,38 +111,45 @@ public class XPPanel {
             g.userValidates.updateInfo('xp', g.user.xp);
             g.userValidates.updateInfo('level', g.user.level);
 
-            if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                 g.toolsModifier.cancelMove();
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 if (g.buyHint.showThis) g.buyHint.hideIt();
             }
-            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-            g.friendPanel.checkLevel();
-            g.server.updateUserLevel(null);
-            g.userInventory.addNewElementsAfterGettingNewLevel();
 
-            if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
-            if (g.user.level == 4 || g.user.level == 5) g.miniScenes.checkDeleteMiniScene();
-            if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])
-                g.managerDailyBonus.generateDailyBonusItems();
-            if (g.user.level == 8) {
-                if (g.managerHelpers) g.managerHelpers.disableIt();
-            } else if (g.user.level == 10) {
-                if (g.managerTips) g.managerTips.deleteTips();
-                if (g.managerTips) g.managerTips = null;
-                g.managerQuest.checkQuestContPosition();
-            } else if (g.user.level == 17) {
-                g.managerQuest.checkQuestContPosition();
+            onGetNewLevel();
+            if (_countXP >= _maxXP) visualAddXP(0);
+            else {
+                g.server.updateUserLevel(null);
+                if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
+                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             }
-            if (g.user.level >= 5 && g.user.level < 10) {
-                if (g.managerTips) g.managerTips.calculateAvailableTips();
-            }
-            if (!g.isDebug) g.socialNetwork.setUserLevel();
-            if (g.managerInviteFriend) g.managerInviteFriend.onUpdateLevel();
-            g.user.notif.checkOnNewLevel();
         } else 
             checkXP();
+    }
+    
+    private function onGetNewLevel():void {
+        g.friendPanel.checkLevel();
+        g.userInventory.addNewElementsAfterGettingNewLevel();
+        if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
+        if (g.user.level == 4 || g.user.level == 5) g.miniScenes.checkDeleteMiniScene();
+        if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])
+            g.managerDailyBonus.generateDailyBonusItems();
+        if (g.user.level == 8) {
+            if (g.managerHelpers) g.managerHelpers.disableIt();
+        } else if (g.user.level == 10) {
+            if (g.managerTips) g.managerTips.deleteTips();
+            if (g.managerTips) g.managerTips = null;
+            g.managerQuest.checkQuestContPosition();
+        } else if (g.user.level == 17) {
+            g.managerQuest.checkQuestContPosition();
+        }
+        if (g.user.level >= 5 && g.user.level < 10) {
+            if (g.managerTips) g.managerTips.calculateAvailableTips();
+        }
+        if (!g.isDebug) g.socialNetwork.setUserLevel();
+        if (g.managerInviteFriend) g.managerInviteFriend.onUpdateLevel();
+        g.user.notif.checkOnNewLevel();
     }
 
     public function serverAddXP(count:int):void {

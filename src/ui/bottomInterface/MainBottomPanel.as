@@ -76,6 +76,7 @@ public class MainBottomPanel {
         _imNotification.x = -5;
         _imNotification.y = -20;
         _shopBtn.addChild(_imNotification);
+        _imNotification.touchable = false;
         _txtNotification = new CTextField(60,60,'');
         _txtNotification.setFormat(CTextField.BOLD24, 24, Color.WHITE);
         _txtNotification.x = -17;
@@ -190,9 +191,10 @@ public class MainBottomPanel {
                 }
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     if (g.managerCutScenes.isCutScene) return;
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();
                     cancelBoolean(false);
-                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.buyHint.hideIt();
                 }
                 if (g.miniScenes.isMiniScene) deleteArrow();    
                 g.toolsPanel.hideRepository();
@@ -390,9 +392,7 @@ public class MainBottomPanel {
 
     public function showToolsForCutScene():void { onClick('tools'); }
     public function onResizePanelFriend():void {
-        if (_friendSpr) {
-            _friendSpr.y = g.managerResize.stageHeight - 83;
-        }
+        if (_friendSpr) _friendSpr.y = g.managerResize.stageHeight - 83;
         if (_friendBoard) _friendBoard.x = g.managerResize.stageWidth/2 - 121;
     }
 

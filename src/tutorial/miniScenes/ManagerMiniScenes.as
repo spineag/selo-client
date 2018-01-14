@@ -170,6 +170,8 @@ public class ManagerMiniScenes {
 
     public function checkAvailableMiniScenesOnNewLevel():void {
         return;
+
+        
         if (g.user.level > 3) {
             checkForAvailableLevels();
         } else if (g.user.level == 3) {
@@ -191,6 +193,8 @@ public class ManagerMiniScenes {
 
     private function forReleaseMini():void {
         return;
+        
+        
         if (!_curMiniScenePropertie) return;
         switch (_curMiniScenePropertie.id) {
             case 1: openOrderBuilding(); break;
@@ -205,6 +209,8 @@ public class ManagerMiniScenes {
 
     private function openOrderBuilding():void {
         return;
+        
+        
         if (g.isAway) return;
         if (g.user.level > _properties.level) {
             order_2();
@@ -257,6 +263,8 @@ public class ManagerMiniScenes {
 
     private function firstOrderBuyer(c:OrderCat=null):void {
         return;
+        
+        
         _counter--;
         if (_counter > 0) return;
         if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
@@ -320,6 +328,8 @@ public class ManagerMiniScenes {
 
     public function onHideOrder():void {
         return;
+        
+        
         deleteArrowAndDust();
         if (isMiniScene && _curMiniScenePropertie && _curMiniScenePropertie.reason == BUY_ORDER) {
             isMiniScene = false;
@@ -358,6 +368,8 @@ public class ManagerMiniScenes {
 
     private function buildBulo4na():void {
         return;
+        
+        
         deleteArrowAndDust();
         var ar:Array = g.townArea.getCityObjectsById(1);
         if (ar.length) {
@@ -402,6 +414,8 @@ public class ManagerMiniScenes {
 
     public function onPasteFabrica(buildId:int=0):void {
         return;
+        
+        
         deleteArrowAndDust();
         _miniSceneResourceIDs = [];
         if (g.user.miniScenes[2] == 0) {
@@ -414,6 +428,8 @@ public class ManagerMiniScenes {
 
     private function letsGoToNeighbor():void {
         return;
+        
+        
         g.friendPanel.showIt();
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', letsGoToNeighbor);
@@ -453,6 +469,8 @@ public class ManagerMiniScenes {
 
     private function atNeighbor():void {
         return;
+        
+        
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', atNeighbor);
             return;
@@ -477,6 +495,8 @@ public class ManagerMiniScenes {
 
     public function atNeighborBuyInstrument():void {
         return;
+        
+        
         if (!g.isAway) return;
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', atNeighborBuyInstrument);
@@ -509,10 +529,12 @@ public class ManagerMiniScenes {
         _airBubble = null;
         _airBubble = new AirTextBubble();
         _airBubble.showIt(_curMiniScenePropertie.text2, g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2, ins_2);
+        addBlack();
     }
 
     private function ins_2():void {
         if (_airBubble) _airBubble.hideIt();
+        removeBlack();
         _airBubble = null;
         g.user.miniScenes[3] = 1;
         g.user.miniScenes[4] = 1;
@@ -527,6 +549,8 @@ public class ManagerMiniScenes {
 
     public function finishLetGoToNeighbor():void {
         return;
+        
+        
         deleteArrowAndDust();
         isMiniScene = false;
         _curMiniScenePropertie = null;

@@ -105,16 +105,6 @@ public class ManagerOrder {
         if (_arrOrders.length < _curMaxCountOrders) Utils.createDelay(3,f1);
     }
 
-//    public function addOrderForMiniScenes(onArriveCallback:Function = null):void {
-//        _arrOrders.length = 0;
-//        updateMaxCounts();
-//        if (_arrOrders.length < _curMaxCountOrders) {
-//            addNewMiniScenesOrder();
-//            checkForNewCats(onArriveCallback);
-//        }
-//        checkOrders();
-//    }
-
     public function countCellAtLevel(r:int):int {
         for (var i:int = 0; i < _countCellAtLevel.length; i++) {
             if (_countCellAtLevel[i].count == r) {
@@ -246,7 +236,7 @@ public class ManagerOrder {
         var ri:ResourceItem;
         if (arrResource == null || arrResource.length <= 0) {
             if (g.user.level <= 5) time = 60;
-            else if (g.user.level <= 6) time = 120;
+            else if (g.user.level == 6) time = 120;
             else time = 240;
             for (i = 0; i < arr.length; i++) {
                 arrTemp = (arr[i] as Fabrica).arrList;
@@ -364,7 +354,7 @@ public class ManagerOrder {
 
 
     //types for order:
-    // 1 - usual resource fromFabrica
+    // 1 - usual resource from Fabrica
     // 2 - resources made from resources from cave
     // 3 - resource plants
     private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1,del:Boolean = false):void {
@@ -381,7 +371,7 @@ public class ManagerOrder {
         for (var ik:int = 0; ik < n; ik++) {
             if (_arrOrders && !g.tuts.isTuts && _arrOrders.length > 0) {
                 for (i = 0; i < _arrOrders.length; i++) {
-                    if (_arrOrders[i].fasterBuy == true) {
+                    if ((_arrOrders[i] as OrderItemStructure).fasterBuy == true) {
                         countFastBuyer++;
                     }
                 }
