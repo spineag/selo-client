@@ -183,7 +183,7 @@ public class ShopNewList {
         }
         if (_shift < 0) _shift = 0;
         TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;  checkArrows(_curPage-1); }});
-        g.user.shiftShop = _shift
+        g.user.shiftShop = _shift;
     }
 
     private function animFill():void {
