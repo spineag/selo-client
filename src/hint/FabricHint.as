@@ -205,7 +205,7 @@ internal class FabricHintItem {
         else if (g.allData.getResourceById(obId).buildType == BuildType.RESOURCE) _image = new Image(g.allData.atlas[g.allData.getResourceById(obId).url].getTexture(g.allData.getResourceById(obId).imageShop));
         if (_image) {
             source.addChild(_image);
-            MCScaler.scale(_image, 40, 40);
+            MCScaler.scale(_image, 40, 34);
             _image.x = 50 - _image.width / 2;
             _image.y = 50 - _image.height / 2;
         } else {
@@ -215,7 +215,7 @@ internal class FabricHintItem {
         if (showPlus) {
             _txtPlus = new CTextField(20,20,String("+"));
             _txtPlus.setFormat(CTextField.BOLD24, 24,  ManagerFilters.BLUE_COLOR);
-            _txtPlus.x = 14;
+            _txtPlus.x = 15;
             _txtPlus.y = 38;
             source.addChild(_txtPlus);
         }
