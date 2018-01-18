@@ -38,7 +38,7 @@ public class Hint {
 
     public function Hint() {
         source = new Sprite();
-        _txtHint = new CTextField(150,20,"");
+        _txtHint = new CTextField(150,16,"");
         _txtHint.setFormat(CTextField.BOLD18, 16,ManagerFilters.BLUE_COLOR);
         _txtHintTime = new CTextField(150,20,"");
         _txtHintTime.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
@@ -101,7 +101,8 @@ public class Hint {
 //            _txtHintTime.height = int(rectangle.height) + 10;
             _txtHintTime.x = 0;
             _txtHintTime.y = 33;
-            _txtHintTime.width = int(rectangle.width) + 20;
+            if (_txtHintTime.textBounds.width < rectangle.width) _txtHintTime.width = int(rectangle.width) + 20;
+            else rectangle.width = _txtHintTime.textBounds.width + 20;
         } else {
             if (rectangle.height <= 42) rectangle.height = 42;
                 else if (rectangle.height <= 67-10) rectangle.height = 57;
@@ -111,7 +112,7 @@ public class Hint {
             while (source.numChildren) source.removeChildAt(0);
         }
         var bg:HintBackground;
-        if (_fabric) bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 10);
+        if (_fabric) bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 13);
             else bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height));
         if (_catXp) {
             if (g.user.language == ManagerLanguage.ENGLISH) _txtHint.x = int(bg.x) + 2;
@@ -119,8 +120,12 @@ public class Hint {
 
         }
         source.addChild(bg);
+        _txtHint.width = rectangle.width + 22;
         source.addChild(_txtHint);
-        if (_fabric) source.addChild(_txtHintTime);
+        if (_fabric) {
+            source.addChild(_txtHintTime);
+            _txtHintTime.width = rectangle.width + 22;
+        }
         g.cont.hintCont.addChild(source);
         if (_tips) {
             source.x = g.ownMouse.mouseX;

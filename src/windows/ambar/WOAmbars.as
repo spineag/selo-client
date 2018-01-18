@@ -107,7 +107,7 @@ public class WOAmbars extends WindowMain {
         _source.addChild(_mainPart);
 
         if (_isBigShop) {
-            _scrollSprite = new DefaultVerticalScrollSprite(480, 370, 121, 121);
+            _scrollSprite = new DefaultVerticalScrollSprite(480, 362, 121, 121);
             _scrollSprite.source.y = 159 - _woHeight / 2;
             _scrollSprite.createScoll(530, 0, 368, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         } else {

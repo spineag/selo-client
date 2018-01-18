@@ -35,22 +35,24 @@ public class WOFabrica extends WindowMain {
     private var _isAnim:Boolean;
     private var _listCont:Sprite;
     private var _imWhite:Image;
+    private var _isBigWindow:Boolean;
 
     public function WOFabrica() {
         super();
+        _isBigWindow = g.managerResize.stageHeight > 720;
         _windowType = WindowsManager.WO_FABRICA;
         _woHeight = 532;
         _woWidth = 746;
         _blackAlpha = 0;
         _shift = 0;
         _callbackClickBG = onClickExit;
-        _topBG = new WindowBackgroundFabrica(526, 164, 60);
-        _topBG.y = -_woHeight/2 + 120;
+        _topBG = new WindowBackgroundFabrica(526, 170, 60);
+        _topBG.y = -_woHeight/2 + 114;
         _source.addChild(_topBG);
         _txtWindowName = new CTextField(300, 50, '');
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -150;
-        _txtWindowName.y = -_woHeight/2 + 36;
+        _txtWindowName.y = -_woHeight/2 + 26;
         _source.addChild(_txtWindowName);
         _mask = new Sprite();
         _mask.mask = new Quad(524,100 + 150);
@@ -62,12 +64,14 @@ public class WOFabrica extends WindowMain {
         createArrows();
         _listCont = new Sprite();
         _listCont.x = -_woWidth/2 + 135;
-        _listCont.y = -_woHeight/2 + 320;
+        if (_isBigWindow) _listCont.y = -_woHeight/2 + 320;
+            else _listCont.y = -_woHeight/2 + 240;
         _source.addChild(_listCont);
         _list = new WOFabricaWorkList(_listCont, this);
         _imWhite = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_white_panel'));
         _imWhite.pivotX = _imWhite.width/2;
-        _imWhite.y = 20;
+        if (_isBigWindow) _imWhite.y = 20;
+            else _imWhite.y = -20;
         _source.addChildAt(_imWhite, 1);
     }
 

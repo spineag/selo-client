@@ -386,6 +386,7 @@ public class WOOrderNew extends WindowMain {
 
     private function sellOrder(b:Boolean = false, or:OrderItemStructure = null):void {
         if (_waitForAnswer) return;
+        if (!_activeOrderItem) return;
         if (g.tuts.isTuts && g.tuts.action != TutsAction.ORDER) return;
         if (!or) or = _activeOrderItem.getOrder();
         var i:int;
@@ -417,7 +418,7 @@ public class WOOrderNew extends WindowMain {
             }
         }
         for (i=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
-            g.userInventory.addResource(or.resourceIds[i], -or.resourceCounts[i]);
+            if (or.resourceIds[i] && or.resourceCounts[i]) g.userInventory.addResource(or.resourceIds[i], -or.resourceCounts[i]);
         }
         var p1:Point = new Point(134, 147);
         p1 = _source.localToGlobal(p1);
@@ -425,7 +426,7 @@ public class WOOrderNew extends WindowMain {
         if (b) _clickItem = true;
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
             d.addDropXP(or.xp * g.managerParty.coefficient, p1);
-         else d.addDropXP(or.xp, p1);
+            else d.addDropXP(or.xp, p1);
         p1.x = 186;
         p1.y = 147;
         p1 = _source.localToGlobal(p1);

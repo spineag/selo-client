@@ -147,7 +147,6 @@ public class Fabrica extends WorldObject {
         if (g.selectedBuild) return;
         super.onHover();
         if (g.isAway) { g.hint.showIt(_dataBuild.name); return; }
-//        if (g.tuts.isTuts && !g.tuts.isTutsBuilding(this)) return;
         if (g.isActiveMapEditor) return;
         _count = 20;
         if (_stateBuild == STATE_ACTIVE) {
@@ -245,7 +244,10 @@ public class Fabrica extends WorldObject {
                     }
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
-                    if (!g.tuts.isTuts) g.cont.moveCenterToXY(_source.x, _source.y);
+                    if (!g.tuts.isTuts) {
+                        if (g.managerResize.stageHeight > 720) g.cont.moveCenterToXY(_source.x, _source.y);
+                            else g.cont.moveCenterToXY(_source.x, _source.y + 40);
+                    }
                     onOut();
                     openFabricaWindow();
                 }
@@ -369,16 +371,15 @@ public class Fabrica extends WorldObject {
         _arrList.push(resItem);
         resItem.currentRecipeID = dataRecipe.id;
         if (_arrList.length == 1)  g.gameDispatcher.addToTimer(render);
-        if (_arrList.length > 1) {
-            // delay before start make this new recipe
-            for (i = 0; i < _arrList.length - 1; i++) {
+        else {
+            for (i = 0; i < _arrList.length - 1; i++) { // delay before start make this new recipe
                 delay += _arrList[i].buildTime;
             }
         }
-        _arrList[_arrList.length -1].staticDelayTime = delay;
+        resItem.staticDelayTime = delay;
         var f1:Function = function(t:String):void {  resItem.idFromServer = t;  };
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
-            g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
+            if (dataRecipe.ingridientsId[i] && dataRecipe.ingridientsCount[i]) g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
         g.server.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
         g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.idResource});
@@ -390,10 +391,12 @@ public class Fabrica extends WorldObject {
         var obj:Object;
         var texture:Texture;
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
-            obj = g.allData.getResourceById(int(dataRecipe.ingridientsId[i]));
-            if (obj.buildType == BuildType.PLANT)  texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
-            else texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
-            new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
+            if (dataRecipe.ingridientsId[i]) {
+                obj = g.allData.getResourceById(int(dataRecipe.ingridientsId[i]));
+                if (obj.buildType == BuildType.PLANT)  texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
+                else texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
+                new RawItem(p, texture, int(dataRecipe.ingridientsCount[i]), i * .1);
+            }
         }
     }
 
