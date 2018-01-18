@@ -25,6 +25,8 @@ public class UserTimer {
     public var saleTimerToStart:int;
     public var stockTimerToEnd:int;
     public var stockTimerToStart:int;
+    public var starterTimerToEnd:int;
+    public var starterTimerToStart:int;
 
     public function UserTimer() {
         _arrOrderItem = [];
@@ -133,6 +135,28 @@ public class UserTimer {
         if (saleTimerToEnd <= 0) {
             saleTimerToEnd = 0;
             g.gameDispatcher.removeFromTimer(saleTimerToEndF);
+        }
+    }
+
+    public function starterToEnd(time:int, first:Boolean = false):void {
+        starterTimerToEnd = time;
+        if (starterTimerToEnd == 0) return;
+        trace(TimeUtils.currentSeconds);
+        if (first) {
+            g.gameDispatcher.addToTimer(starterTimerToEndF);
+        } else {
+            starterTimerToEnd = TimeUtils.currentSeconds - time;
+            if (starterTimerToEnd >= 604800) return;
+            else starterTimerToEnd = 604800 - (TimeUtils.currentSeconds - time);
+            g.gameDispatcher.addToTimer(starterTimerToEndF);
+        }
+    }
+
+    private function starterTimerToEndF():void {
+        starterTimerToEnd--;
+        if (starterTimerToEnd <= 0) {
+            starterTimerToEnd = 0;
+            g.gameDispatcher.removeFromTimer(starterTimerToEndF);
         }
     }
 

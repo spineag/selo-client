@@ -48,7 +48,9 @@ import windows.quest.WOQuest;
 import windows.questAward.WOQuestFinishAward;
 import windows.questList.WOQuestList;
 import windows.reloadPage.WOReloadGame;
-import windows.salePack.WOSalePack;
+import windows.salePack.saleInstruments.WOSalePackInstrument;
+import windows.salePack.saleRubies.WOSalePackRubies;
+import windows.salePack.saleVauchers.WOSalePackVauchers;
 import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
 import windows.serverNoWork.WOSeverNoWork;
@@ -118,7 +120,9 @@ public class WindowsManager {
     public static const WO_PARTY_HELP:String = 'party_help';
     public static const WO_PARTY_CLOSE:String = 'party_close';
     public static const WO_FABRIC_DELETE_ITEM:String = 'fabric_delete_item';
-    public static const WO_SALE_PACK:String = 'sale_pack';
+    public static const WO_SALE_PACK_INSTRUMENTS:String = 'sale_pack_instruments';
+    public static const WO_SALE_PACK_RUBIES:String = 'sale_pack_rubies';
+    public static const WO_SALE_PACK_VAUCHERS:String = 'sale_pack_vauchers';
     public static const WO_ACHIEVEMENT:String = 'achievement';
     public static const WO_MISS_YOU:String = 'miss_you';
     public static const WO_ANNOUNCEMENT:String = 'announcement';
@@ -313,8 +317,14 @@ public class WindowsManager {
             case WO_FABRIC_DELETE_ITEM:
                 wo = new WOFabricDeleteItem();
                 break;
-            case WO_SALE_PACK:
-                wo = new WOSalePack();
+            case WO_SALE_PACK_INSTRUMENTS:
+                wo = new WOSalePackInstrument();
+                break;
+            case WO_SALE_PACK_RUBIES:
+                wo = new WOSalePackRubies();
+                break;
+            case WO_SALE_PACK_VAUCHERS:
+                wo = new WOSalePackVauchers();
                 break;
             case WO_ACHIEVEMENT:
                 wo = new WOAchievement();

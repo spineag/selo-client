@@ -80,7 +80,7 @@ public class SalePanel {
     }
 
     private function onClick():void {
-        g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, false);
+        g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
     }
 
     private function startTimer():void {

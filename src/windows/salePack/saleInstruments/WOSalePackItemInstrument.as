@@ -1,7 +1,7 @@
 /**
  * Created by user on 2/16/17.
  */
-package windows.salePack {
+package windows.salePack.saleInstruments {
 import data.BuildType;
 
 import manager.ManagerFilters;
@@ -18,7 +18,7 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 
-public class WOSalePackItem {
+public class WOSalePackItemInstrument {
     public var source:Sprite;
     private var _txtCount:CTextField;
     private var _txtName:CTextField;
@@ -27,19 +27,20 @@ public class WOSalePackItem {
     private var _objectCount:int = 0;
     private var g:Vars = Vars.getInstance();
 
-    public function WOSalePackItem(objectId:int = 0, objectType:int = 0, objectCount:int = 0) {
+    public function WOSalePackItemInstrument(objectId:int = 0, objectType:int = 0, objectCount:int = 0) {
         _objectId = objectId;
         _objectType = objectType;
         _objectCount = objectCount;
         source = new Sprite();
         var im:Image;
-        im = new Image(g.allData.atlas['saleAtlas'].getTexture('sp_cell'));
+        im = new Image(g.allData.atlas['saleAtlas'].getTexture('coins_windows_cell'));
         source.addChild(im);
         _txtName = new CTextField(171, 40, '');
         _txtName.setFormat(CTextField.BOLD30, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCount = new CTextField(171, 40, '');
-        _txtCount.setFormat(CTextField.BOLD30, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCount.y = 135;
+        _txtCount.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtCount.y = 85;
+        _txtCount.x = 14;
         if (objectId == 1 && objectType  == 1) {
             _txtName.text = String(g.managerLanguage.allTexts[325]);
             _txtCount.text = String(_objectCount);
@@ -62,15 +63,16 @@ public class WOSalePackItem {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_objectId).image +'_icon'));
             MCScaler.scale(im,100,100);
         }
-        im.x = 85 - im.width/2;
-        im.y = 85 - im.height/2;
+        im.x = 60 - im.width/2;
+        im.y = 60 - im.height/2;
         source.addChild(im);
         source.addChild(_txtName);
         source.addChild(_txtCount);
-        if (_objectType == BuildType.DECOR || _objectType == BuildType.DECOR_ANIMATION) {
-            im.y -= 15;
-            _txtName.y = 120;
-        }
+//        if (_objectType == BuildType.DECOR || _objectType == BuildType.DECOR_ANIMATION) {
+//            im.y -= 15;
+        _txtName.x = -26;
+        _txtName.y = -20;
+//        }
         if (_objectType == BuildType.DECOR_ANIMATION) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('animated_decor'));
             im.x = 135 - im.width/2;

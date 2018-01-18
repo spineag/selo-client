@@ -58,6 +58,7 @@ public class User extends Someone {
     public var dayDailyGift:int;
     public var countDailyGift:int;
     public var starterPack:Boolean;
+    public var timeStarterPack:int;
     public var salePack:Boolean;
     public var day:int;
     public var language:int;

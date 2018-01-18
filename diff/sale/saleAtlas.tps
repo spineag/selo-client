@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/sale/saleAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/sale/saleAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -192,12 +192,9 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>percent_w.png</filename>
-            <filename>sp_cell.png</filename>
-            <filename>sale_window_back.png</filename>
-            <filename>sale_window_title_eng.png</filename>
-            <filename>sale_window_title_rus.png</filename>
-            <filename>sale_window.png</filename>
+            <filename>coins_windows_cell.png</filename>
+            <filename>vaucher_windows_cell.png</filename>
+            <filename>sale_lable.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -23,6 +23,8 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.TimeUtils;
+
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -30,24 +32,28 @@ public class WOStarterPack extends WindowMain{
     private var _data:Object;
     private var _decorSpr:Sprite;
     private var _arrCTex:Array;
+    private var _txtName:CTextField;
+    private var _btnBuy:CButton;
+    private var _txtLastCost:CTextField;
+    private var _txtNewCost:CTextField;
+    private var _txtlabel:CTextField;
+    private var _imLabel:Image;
+    private var _txtTime:CTextField;
+    private var _txtTimeLeft:CTextField;
 
     public function WOStarterPack() {
         super();
         _decorSpr = new Sprite();
         _arrCTex = [];
-        _woHeight = 538;
-        _woWidth = 732;
+        _woHeight = 460;
+        _woWidth = 610;
         _windowType = WindowsManager.WO_STARTER_PACK;
         g.server.getStarterPack(callbackServer);
     }
 
     private function onLoad(bitmap:Bitmap):void {
         if (!_source) return;
-        if (g.user.language == ManagerLanguage.RUSSIAN) {
-            bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/sp_back_empty.png'].create() as Bitmap;
-        } else {
-            bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/sp_back_empty_eng.png'].create() as Bitmap;
-        }
+            bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/starter_pack_window.png'].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -62,139 +68,133 @@ public class WOStarterPack extends WindowMain{
 
     private function callbackServer(ob:Object):void {
         _data = ob;
-        if (g.user.language == ManagerLanguage.RUSSIAN) {
-            g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sp_back_empty.png', onLoad);
-        } else {
-            g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sp_back_empty_eng.png', onLoad);
-        }
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/starter_pack_window.png', onLoad);
     }
 
     private function createWindow():void {
         var txt:CTextField;
         var im:Image;
 
-        txt = new CTextField(_woWidth, 70, String(g.managerLanguage.allTexts[324]));
-        txt.setFormat(CTextField.BOLD30, 35, Color.RED, Color.WHITE);
+        _txtName = new CTextField(350, 100, String(g.managerLanguage.allTexts[324]));
+        _txtName.setFormat(CTextField.BOLD72, 70, 0xcf302f, Color.WHITE);
+        _txtName.alignH = Align.LEFT;
+        _txtName.x = -180;
+        _txtName.y = -235;
+        _source.addChild(_txtName);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_rubins_1'));
+        im.x = -220;
+        im.y = -75;
+        _source.addChild(im);
+        txt = new CTextField(220, 90, String(_data.hard_count) + ' ' + String(g.managerLanguage.allTexts[326]));
+        txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         txt.alignH = Align.LEFT;
-//        txt.x = -190;
-        txt.x = -txt.textBounds.width/2 + 20;
-        txt.y = -250;
-//        _source.addChild(txt);
-//        _arrCTex.push(txt);
-
-        txt = new CTextField(77, 40, String(_data.soft_count));
-        txt.setFormat(CTextField.BOLD24, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.alignH = Align.LEFT;
-        txt.x = -155 - txt.textBounds.width/2 ;
-        txt.y = -40;
+        txt.x = -135 - txt.textBounds.width/2 ;
+        txt.y = -5;
         _source.addChild(txt);
         _arrCTex.push(txt);
 
-        txt = new CTextField(50, 40, String(_data.hard_count));
-        txt.setFormat(CTextField.BOLD24, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.alignH = Align.LEFT;
-        txt.x = 25 - txt.textBounds.width/2 ;
-//        txt.x = -17;
-        txt.y = -40;
-        _source.addChild(txt);
-        _arrCTex.push(txt);
-
-        txt = new CTextField(90, 50, String(g.managerLanguage.allTexts[325]));
-        txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -200;
-        txt.y = -170;
-        _source.addChild(txt);
-        _arrCTex.push(txt);
-
-        txt = new CTextField(90, 50, String(g.managerLanguage.allTexts[326]));
-        txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.y = -170;
-        txt.x = -20;
-        _source.addChild(txt);
-        _arrCTex.push(txt);
-
-        txt = new CTextField(77, 40, String(g.managerLanguage.allTexts[327]));
-        txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = 175;
-        txt.y = -170;
+        txt = new CTextField(220, 90, String(_data.object_count) + ' ' + String(g.managerLanguage.allTexts[327]));
+        txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt.x = 18;
+        txt.y = -5;
         _source.addChild(txt);
         _arrCTex.push(txt);
 
         if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT) {
             im = new Image(g.allData.atlas[g.allData.getResourceById(_data.object_id).url].getTexture(g.allData.getResourceById(_data.object_id).imageShop));
-            txt = new CTextField(120, 40, String(_data.object_count));
-            txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            txt.alignH = Align.LEFT;
-            txt.x = 210 - txt.textBounds.width/2 ;
-            txt.y = -45;
-            _source.addChild(txt);
-            _arrCTex.push(txt);
             _source.addChild(im);
         } else if (_data.object_type == BuildType.DECOR_ANIMATION) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_data.object_id).url + '_icon'));
-            txt = new CTextField(120, 40, String(g.allData.getBuildingById(_data.object_id).name));
-            txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            txt.alignH = Align.LEFT;
-            txt.x = 210 - txt.textBounds.width/2 ;
-            txt.y = -45;
             _source.addChild(_decorSpr);
             _decorSpr.addChild(im);
-            _arrCTex.push(txt);
-            _source.addChild(txt);
         } else if (_data.object_type == BuildType.DECOR) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_data.object_id).image +'_icon'));
-            txt = new CTextField(120, 40, String(g.allData.getBuildingById(_data.object_id).name));
-            txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            txt.alignH = Align.LEFT;
-            txt.x = 210 - txt.textBounds.width/2 ;
-            txt.y = -45;
             _source.addChild(_decorSpr);
             _decorSpr.addChild(im);
-            _source.addChild(txt);
-            _arrCTex.push(txt);
         }
         MCScaler.scale(im,105,105);
-        im.x = 160;
-        im.y = -138;
+        im.x = 85;
+        im.y = -65;
 
+        txt = new CTextField(200,100,String(_data.old_cost));
+        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt.x = -270;
+        txt.y = 47;
+        _source.addChild(txt);
+        var myPattern:RegExp = /count/;
+        var str:String =  String(g.managerLanguage.allTexts[1242]);
         var st:String;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = ' USD';
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = ' ОК';
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' ВК';
+        _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
+        _txtLastCost.text = String(str.replace(myPattern, st));
+        _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtLastCost.alignH = Align.LEFT;
+        _txtLastCost.x = -215;
+        _txtLastCost.y = 50;
+        _source.addChild(_txtLastCost);
+
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            st = ' ' +String(g.managerLanguage.allTexts[328]);
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID ) {
-            st = ' ' +String(g.managerLanguage.allTexts[330]);
+            st = ' ' + String(g.managerLanguage.allTexts[328]);
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            st = ' ' + String(g.managerLanguage.allTexts[330]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
             st = ' USD';
         }
-        txt = new CTextField(160, 40, String(_data.old_cost) + st);
-        txt.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_COLOR);
-        txt.x = -100;
-        txt.y = 40;
-        _source.addChild(txt);
-        _arrCTex.push(txt);
 
-        txt = new CTextField(160, 40, String(g.managerLanguage.allTexts[329]) + ' ' + String(_data.new_cost) + st);
-        txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
-        txt.x = -100;
-        txt.y = 80;
+        txt = new CTextField(200,100,String(_data.new_cost) + st);
+        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
+        txt.x = -160;
+        txt.y = 87;
         _source.addChild(txt);
-        _arrCTex.push(txt);
-        
-        var quad:Quad = new Quad(160, 3, Color.RED);
-        quad.x = -100;
-        quad.y = 62;
+
+        _txtNewCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1243]));
+        _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtNewCost.x = -298;
+        _txtNewCost.y = 90;
+        _source.addChild(_txtNewCost);
+
+        var quad:Quad = new Quad(_txtLastCost.textBounds.width, 3, Color.RED);
+        quad.x = -215;
+        quad.y = 103;
         quad.alpha = .6;
         _source.addChild(quad);
 
-        var btn:CButton = new CButton();
-        btn.addButtonTexture(200, 45, CButton.GREEN, true);
-        txt = new CTextField(200, 45, String(g.managerLanguage.allTexts[331]));
-        txt.setFormat(CTextField.BOLD30, 26,  Color.WHITE,ManagerFilters.GREEN_COLOR);
-        btn.addChild(txt);
-        btn.clickCallback = onClick;
-        _source.addChild(btn);
-        btn.y = 260;
-        btn.x = 15;
-        _arrCTex.push(btn);
+        _imLabel = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_lable'));
+        _imLabel.x = 80;
+        _imLabel.y = 130;
+        _source.addChild(_imLabel);
+
+        _txtlabel = new CTextField(150,60,String('-' + _data.profit) + '%');
+        _txtlabel.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
+        _txtlabel.x = 87;
+        _txtlabel.y = 180;
+        _source.addChild(_txtlabel);
+
+        _btnBuy = new CButton();
+        _btnBuy.addButtonTexture(140, CButton.HEIGHT_55, CButton.GREEN, true);
+        _btnBuy.addTextField(140, 54, -2, -5, String(g.managerLanguage.allTexts[331]));
+        _btnBuy.setTextFormat(CTextField.BOLD72, 45, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _source.addChild(_btnBuy);
+        _btnBuy.x = -15;
+        _btnBuy.y = 210;
+        _btnBuy.clickCallback = onClick;
+
+        _txtTime = new CTextField(200,90,'');
+        _txtTime.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+        _txtTime.alignH = Align.LEFT;
+        _txtTime.x = 120;
+        _txtTime.y = 65;
+        _source.addChild(_txtTime);
+
+        _txtTimeLeft = new CTextField(200,90,String(g.managerLanguage.allTexts[357]));
+        _txtTimeLeft.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtTimeLeft.alignH = Align.LEFT;
+        _txtTimeLeft.x = 73;
+        _txtTimeLeft.y = 34;
+        _source.addChild(_txtTimeLeft);
+        g.gameDispatcher.addToTimer(startTimer);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -266,7 +266,6 @@ public class WOStarterPack extends WindowMain{
         var p:Point = new Point(30, 30);
         p = _source.localToGlobal(p);
         var d:DropObject = new DropObject();
-        d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.soft_count, p);
         d.addDropMoney(DataMoney.HARD_CURRENCY, _data.hard_count, p);
         if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT)
             d.addDropItemNewByResourceId(_data.object_id, p, _data.object_count);
@@ -274,6 +273,18 @@ public class WOStarterPack extends WindowMain{
             d.addDropDecor(g.allData.getBuildingById(_data.object_id), p, 1);
         d.releaseIt(null, false);
         hideIt();
+    }
+
+    public function startTimer():void {
+        if (g.userTimer.starterTimerToEnd > 0) {
+            if (_txtTime) {
+                _txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.starterTimerToEnd);
+                _txtTime.x = 130 - _txtTime.textBounds.width/2;
+            }
+        } else {
+            hideIt();
+            g.gameDispatcher.removeFromTimer(startTimer);
+        }
     }
 }
 }

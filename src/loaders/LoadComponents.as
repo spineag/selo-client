@@ -50,12 +50,14 @@ public class LoadComponents {
         g.load.loadXML(st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas'), onLoad);
         g.load.loadImage(st + 'x1/customisationAtlas.png' + g.getVersion('customisation'), onLoad);
         g.load.loadXML(st + 'x1/customisationAtlas.xml' + g.getVersion('customisation'), onLoad);
+        g.load.loadImage(st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder'), onLoad);
+        g.load.loadXML(st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder'), onLoad);
     }
 
     private function onLoad(smth:*=null):void {
         count++;
         g.startPreloader.setProgress(6 + count);
-        if (count >=22) createAtlases();
+        if (count >=24) createAtlases();
     }
 
     private function createAtlases():void {
@@ -139,6 +141,13 @@ public class LoadComponents {
         g.load.removeByUrl(st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas'));
         g.load.removeByUrl(st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas'));
 
+        g.allData.atlas['customisationOrder'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')].create() as Bitmap), g.pXMLs[st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder')]);
+        (g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')] as PBitmap).deleteIt();
+        delete  g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')];
+        delete  g.pXMLs[st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder')];
+        g.load.removeByUrl(st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder'));
+        g.load.removeByUrl(st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder'));
+
         loadDBAnimations();
     }
 
@@ -148,7 +157,7 @@ public class LoadComponents {
 
         g.loadAnimation.load('animations_json/arrow', 'arrow', onLoadDB);
         g.loadAnimation.load('animations_json/chest_interface', 'chest_interface', onLoadDB);
-        g.loadAnimation.load('animations_json/order_window', 'order_window', onLoadDB);
+        g.loadAnimation.load('animations_json/cat_order_window', 'order_window', onLoadDB);
         g.loadAnimation.load('animations_json/plot_seller', 'plot_seller', onLoadDB);
         g.loadAnimation.load('animations_json/preloader_2', 'preloader_2', onLoadDB);
         g.loadAnimation.load('animations_json/visit_preloader', 'visit_preloader', onLoadDB);

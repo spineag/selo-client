@@ -443,8 +443,8 @@ public class Vars {
             var todayDailyGift:Date;
             var today:Date;
                 if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - TimeUtils.currentSeconds) <= 0 && (user as User).level >= 6 && !managerCutScenes.isCutScene) {
-                    windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
-                } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene) {
+                    windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, true);
+                } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene && userTimer.starterTimerToEnd > 0) {
                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
                } else {
                    if ((user as User).level >= 5 && (user as User).dayDailyGift == 0  && !managerCutScenes.isCutScene) (server as DirectServer).getDailyGift(null);

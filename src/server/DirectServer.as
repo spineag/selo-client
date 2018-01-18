@@ -812,6 +812,7 @@ public class DirectServer {
             g.user.globalXP = int(ob.xp);
             g.user.notif.onGetFromServer(ob.notification_new);
             g.user.starterPack = Boolean(int(ob.starter_pack));
+            g.userTimer.starterToEnd(int(ob.time_starter_pack));
             g.user.salePack = Boolean(int(ob.sale_pack));
             g.user.dayDailyGift  = int(ob.day_daily_gift);
             g.user.countDailyGift  = int(ob.count_daily_gift);
@@ -7483,6 +7484,8 @@ public class DirectServer {
         obj.oldCost = Number(d.message.old_cost);
         obj.newCost = Number(d.message.new_cost);
         obj.timeToStart = int(d.message.time_to_start);
+        obj.typeSale = int(d.message.type_sale);
+        obj.isTester = Boolean(int(d.message.type_sale));
         obj.timeToEnd = int(d.message.time_to_end);
         if (!g.user.salePack && (obj.timeToEnd - TimeUtils.currentSeconds) > 0 && (obj.timeToStart - TimeUtils.currentSeconds) <= 0) g.userTimer.saleToEnd(obj.timeToEnd - TimeUtils.currentSeconds);
         else if (obj.timeToStart > 0) g.userTimer.saleToStart(obj.timeToEnd - TimeUtils.currentSeconds);
@@ -8522,6 +8525,55 @@ public class DirectServer {
 }
 
     private function completeUpdateUserMiss(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserMiss: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMiss: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserMiss OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserMiss: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function updateTimeStarterPack(timeStarterPack:int = 0,callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_TIME_STARTER_PACK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserMiss', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+//        variables.hash = MD5.hash(String(g.user.userId)++SECRET);
+        variables.timeStarterPack = timeStarterPack;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteUpdateTimeStarterPack);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserMiss'); });
+        function onСompleteUpdateTimeStarterPack(e:Event):void { completeUpdateTimeStarterPack(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserMiss error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateTimeStarterPack(response:String, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {

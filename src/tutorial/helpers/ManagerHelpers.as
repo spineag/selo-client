@@ -105,6 +105,15 @@ public class ManagerHelpers {
 
     private function onTimer():void {
         _countSeconds++;
+        if (_countSeconds >= 7 && g.user.level >= 7 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0) {
+            _countSeconds = 0;
+            if (_isActiveHelper) {
+                g.gameDispatcher.removeFromTimer(onTimer);
+            }
+            g.userTimer.starterToEnd(604800);
+            g.server.updateTimeStarterPack(1);
+            g.windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+        }
         if ((g.user.level == 2 && _countSeconds >= LOW_SECONDS) || (g.user.level == 4 && _countSeconds >= LOW_SECONDS) ||(g.user.level < 4 && _countSeconds >= LOW_SECONDS) || (g.user.level == 5 && _countSeconds >= MEMIUM_SECONDS) || _countSeconds >= MAX_SECONDS) {
             _countSeconds = 0;
             if (g.tuts.isTuts) return;

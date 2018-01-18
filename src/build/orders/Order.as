@@ -205,11 +205,18 @@ public class Order extends WorldObject{
         } else {
             g.managerOrder.checkOrders();
         }
+        var fEndOver:Function = function (e:Event = null):void {
+            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
+            makeAnimation();
+        };
         _armature.removeEventListener(EventObject.COMPLETE, onOpenOrder);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
-        _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
-        _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
-        makeAnimation();
+        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+        _armature.animation.gotoAndPlayByFrame('open');
     }
     
     private function showBtnCellArrow():void {

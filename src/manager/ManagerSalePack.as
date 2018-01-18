@@ -15,6 +15,10 @@ import utils.TimeUtils;
 import windows.WindowsManager;
 
 public class ManagerSalePack {
+    public static const WO_RUBIES:int = 1;
+    public static const WO_INSTRUMENTS:int = 2;
+    public static const WO_VAUCHERS:int = 3;
+
     public var dataSale:Object;
     private var g:Vars = Vars.getInstance();
     private var count:int = 0;
