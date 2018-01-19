@@ -61,6 +61,19 @@ public class WOStarterPack extends WindowMain{
         var image:Image = new Image(tex);
         image.pivotX = image.width/2;
         image.pivotY = image.height/2;
+        _source.addChildAt(image,0);
+    }
+
+    private function onLoadLabel(bitmap:Bitmap):void {
+        if (!_source) return;
+            bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/sale_lable.png'].create() as Bitmap;
+        photoFromTextureLabel(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTextureLabel(tex:Texture):void {
+        var image:Image = new Image(tex);
+        image.x = 80;
+        image.y = 130;
         _source.addChild(image);
         createExitButton(hideIt);
         createWindow();
@@ -69,6 +82,7 @@ public class WOStarterPack extends WindowMain{
     private function callbackServer(ob:Object):void {
         _data = ob;
         g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/starter_pack_window.png', onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sale_lable.png', onLoadLabel);
     }
 
     private function createWindow():void {
@@ -145,7 +159,7 @@ public class WOStarterPack extends WindowMain{
 
         txt = new CTextField(200,100,String(_data.new_cost) + st);
         txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
-        txt.x = -160;
+        txt.x = -153;
         txt.y = 87;
         _source.addChild(txt);
 
@@ -161,16 +175,16 @@ public class WOStarterPack extends WindowMain{
         quad.alpha = .6;
         _source.addChild(quad);
 
-        _imLabel = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_lable'));
-        _imLabel.x = 80;
-        _imLabel.y = 130;
-        _source.addChild(_imLabel);
+//        _imLabel = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_lable'));
+//        _imLabel.x = 80;
+//        _imLabel.y = 130;
+//        _source.addChild(_imLabel);
 
         _txtlabel = new CTextField(150,60,String('-' + _data.profit) + '%');
         _txtlabel.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
         _txtlabel.x = 87;
         _txtlabel.y = 180;
-        _source.addChild(_txtlabel);
+        _source.addChildAt(_txtlabel,2);
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(140, CButton.HEIGHT_55, CButton.GREEN, true);
@@ -279,7 +293,7 @@ public class WOStarterPack extends WindowMain{
         if (g.userTimer.starterTimerToEnd > 0) {
             if (_txtTime) {
                 _txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.starterTimerToEnd);
-                _txtTime.x = 130 - _txtTime.textBounds.width/2;
+                _txtTime.x = 132 - _txtTime.textBounds.width/2;
             }
         } else {
             hideIt();

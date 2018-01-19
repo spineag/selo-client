@@ -166,5 +166,8 @@ public class Consts {
     public static var INQ_RAW_USER_PET:String = 'a_game/rawUserPet.php';
     public static var INQ_FB_FAKE_GET_PROFILE:String = 'fake_social_network/FB_getProfile.php';
     public static var INQ_FB_FAKE_APP_USERS:String = 'fake_social_network/FB_getAppUsers.php';
+    public static var INQ_ADD_USER_SALE_PACK:String = 'a_game/addUserSalePack.php';
+    public static var INQ_GET_USER_SALE_PACK:String = 'a_userData/getUserSalePack.php';
+
 }
 }

@@ -110,6 +110,7 @@ public class ManagerHelpers {
             if (_isActiveHelper) {
                 g.gameDispatcher.removeFromTimer(onTimer);
             }
+            g.afterServerStarterPack(true);
             g.userTimer.starterToEnd(604800);
             g.server.updateTimeStarterPack(1);
             g.windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);

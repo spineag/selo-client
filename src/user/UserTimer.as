@@ -141,7 +141,6 @@ public class UserTimer {
     public function starterToEnd(time:int, first:Boolean = false):void {
         starterTimerToEnd = time;
         if (starterTimerToEnd == 0) return;
-        trace(TimeUtils.currentSeconds);
         if (first) {
             g.gameDispatcher.addToTimer(starterTimerToEndF);
         } else {

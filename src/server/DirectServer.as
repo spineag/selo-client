@@ -812,8 +812,9 @@ public class DirectServer {
             g.user.globalXP = int(ob.xp);
             g.user.notif.onGetFromServer(ob.notification_new);
             g.user.starterPack = Boolean(int(ob.starter_pack));
+            g.user.timeStarterPack = (int(ob.time_starter_pack));
             g.userTimer.starterToEnd(int(ob.time_starter_pack));
-            g.user.salePack = Boolean(int(ob.sale_pack));
+//            g.user.salePack = Boolean(int(ob.sale_pack));
             g.user.dayDailyGift  = int(ob.day_daily_gift);
             g.user.countDailyGift  = int(ob.count_daily_gift);
             g.user.language = int(ob.language);
@@ -7475,25 +7476,26 @@ public class DirectServer {
             return;
         }
         obj = {};
-        if (d.message.object_id) obj.objectId = String(d.message.object_id).split('&');
-        for (k = 0; k < obj.objectId.length; k++) obj.objectId[k] = int(obj.objectId[k]);
-        if (d.message.object_type) obj.objectType = String(d.message.object_type).split('&');
-        for (k = 0; k < obj.objectType.length; k++) obj.objectType[k] = int(obj.objectType[k]);
-        if (d.message.object_count) obj.objectCount = String(d.message.object_count).split('&');
-        for (k = 0; k < obj.objectCount.length; k++) obj.objectCount[k] = int(obj.objectCount[k]);
-        obj.oldCost = Number(d.message.old_cost);
-        obj.newCost = Number(d.message.new_cost);
-        obj.timeToStart = int(d.message.time_to_start);
-        obj.typeSale = int(d.message.type_sale);
-        obj.isTester = Boolean(int(d.message.type_sale));
-        obj.timeToEnd = int(d.message.time_to_end);
-        if (!g.user.salePack && (obj.timeToEnd - TimeUtils.currentSeconds) > 0 && (obj.timeToStart - TimeUtils.currentSeconds) <= 0) g.userTimer.saleToEnd(obj.timeToEnd - TimeUtils.currentSeconds);
-        else if (obj.timeToStart > 0) g.userTimer.saleToStart(obj.timeToEnd - TimeUtils.currentSeconds);
-        obj.profit = int(d.message.profit);
-//        obj.name = String(d.message.name);
-        obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
-        obj.description = String(g.managerLanguage.allTexts[int(d.message.text_id_description)]);
-        g.managerSalePack.dataSale = obj;
+        for (var i:int = 0; i < d.message.length; i++) {
+            if (d.message[i].object_id) obj.objectId = String(d.message[i].object_id).split('&');
+            for (k = 0; k < obj.objectId.length; k++) obj.objectId[k] = int(obj.objectId[k]);
+            if (d.message[i].object_type) obj.objectType = String(d.message[i].object_type).split('&');
+            for (k = 0; k < obj.objectType.length; k++) obj.objectType[k] = int(obj.objectType[k]);
+            if (d.message[i].object_count) obj.objectCount = String(d.message[i].object_count).split('&');
+            for (k = 0; k < obj.objectCount.length; k++) obj.objectCount[k] = int(obj.objectCount[k]);
+            obj.oldCost = Number(d.message[i].old_cost);
+            obj.newCost = Number(d.message[i].new_cost);
+            obj.typeSale = int(d.message[i].type_sale);
+            obj.isTester = Boolean(int(d.message[i].tester));
+            obj.timeEvent = int(d.message[i].time_event);
+//            if (!g.user.salePack && (obj.timeToEnd - TimeUtils.currentSeconds) > 0 && (obj.timeToStart - TimeUtils.currentSeconds) <= 0) g.userTimer.saleToEnd(obj.timeToEnd - TimeUtils.currentSeconds);
+//            else if (obj.timeToStart > 0) g.userTimer.saleToStart(obj.timeToEnd - TimeUtils.currentSeconds);
+            obj.profit = int(d.message[i].profit);
+            obj.name = String(g.managerLanguage.allTexts[int(d.message[i].text_id_name)]);
+            obj.description = String(g.managerLanguage.allTexts[int(d.message[i].text_id_description)]);
+            g.managerSalePack.dataSale.push(obj);
+        }
+
         if (d.id == 0) {
             Cc.ch('server', 'getDataSalePack OK', 5);
             if (callback != null) {
@@ -8954,6 +8956,118 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('FBfake_getAppUsers: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function addUserSalePack(saleId:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_SALE_PACK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserSalePack', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.saleId = saleId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(saleId)+SECRET);
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserSalePack);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('addUserSalePack'); });
+        function onCompleteAddUserSalePack(e:Event):void { completeAddUserSalePack(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserSalePack error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeAddUserSalePack(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserSalePack: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserSalePack: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'addUserSalePack OK', 5);
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('addUserSalePack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserResource: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function getUserSalePack(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_SALE_PACK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserSalePack', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserSalePack);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserSalePack'); });
+        function onCompleteGetUserSalePack(e:Event):void { completeGetUserSalePack(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserSalePack error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserSalePack(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserSalePack: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserSalePack: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserSalePack OK', 5);
+            var ob:Object;
+            for (var i:int = 0; i < d.message.length; i++) {
+                ob = {};
+                ob.id = int(d.message[i].id);
+                ob.saleId = int(d.message[i].sale_id);
+                ob.timeStart = int(d.message[i].time_start);
+                ob.buy = int(d.message[i].buy);
+                g.managerSalePack.arrUserSale.push(ob);
+            }
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserSalePack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }

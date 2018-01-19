@@ -59,7 +59,7 @@ public class User extends Someone {
     public var countDailyGift:int;
     public var starterPack:Boolean;
     public var timeStarterPack:int;
-    public var salePack:Boolean;
+    public var salePack:Boolean = false;
     public var day:int;
     public var language:int;
     public var nextTimeInvite:int = -1;

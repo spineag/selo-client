@@ -42,10 +42,8 @@ import windows.WindowsManager;
 import windows.salePack.saleInstruments.WOSalePackItemInstrument;
 
 public class WOSalePackRubies extends WindowMain{
-    private var _woBG:WindowBackground;
     private var _txtTime:CTextField;
     private var _txtName:CTextField;
-    private var _imName:Image;
     private var _txtDescription:CTextField;
     private var _txtBtn:CTextField;
     private var _txtProfit:CTextField;
@@ -53,21 +51,22 @@ public class WOSalePackRubies extends WindowMain{
     private var _sprItem:Sprite;
     private var _imPercent:Image;
     private var _btnBuy:CButton;
-    private var _arrItem:Array;
     private var _txtTimeLeft:CTextField;
     private var _txtLastCost:CTextField;
     private var _boolOpen:Boolean = false;
+    private var _imRubies:Image;
+    private var _txtCountBonus:CTextField;
 
     public function WOSalePackRubies() {
         _woHeight = 550;
         _woWidth = 340;
         _windowType = WindowsManager.WO_SALE_PACK_RUBIES;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/coins_windows.png', onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/coins_rubins_window.png', onLoad);
     }
 
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/coins_windows.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[st + 'qui/coins_rubins_window.png'].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -81,28 +80,28 @@ public class WOSalePackRubies extends WindowMain{
         _callbackClickBG = hideIt;
 
         _imPercent = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_lable'));
-        _imPercent.x = -405;
+        _imPercent.x = 215;
         _imPercent.y = -210;
         _source.addChild(_imPercent);
         _txtTime = new CTextField(200,90,'');
         _txtTime.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
         _txtTime.alignH = Align.LEFT;
-        _txtTime.x = 100;
-        _txtTime.y = 80;
+//        _txtTime.x = 30;
+        _txtTime.y = 105;
         _source.addChild(_txtTime);
 
         _txtTimeLeft = new CTextField(200,90,String(g.managerLanguage.allTexts[357]));
         _txtTimeLeft.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtTimeLeft.alignH = Align.LEFT;
-        _txtTimeLeft.x = -30;
-        _txtTimeLeft.y = 82;
+        _txtTimeLeft.x = -140;
+        _txtTimeLeft.y = 107;
         _source.addChild(_txtTimeLeft);
         var _txt:CTextField;
 
         _txt = new CTextField(200,100,String(g.managerSalePack.dataSale.oldCost));
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txt.x = -320;
-        _txt.y = 58;
+        _txt.y = -52;
         _source.addChild(_txt);
 
         var myPattern:RegExp = /count/;
@@ -116,12 +115,12 @@ public class WOSalePackRubies extends WindowMain{
         _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtLastCost.alignH = Align.LEFT;
         _txtLastCost.x = -265;
-        _txtLastCost.y = 60;
+        _txtLastCost.y = -50;
         _source.addChild(_txtLastCost);
 
         var quad:Quad = new Quad(_txtLastCost.textBounds.width, 3, Color.RED);
         quad.x = -267;
-        quad.y = 113;
+        quad.y = 3;
         quad.alpha = .6;
         _source.addChild(quad);
 
@@ -141,18 +140,18 @@ public class WOSalePackRubies extends WindowMain{
         _txt = new CTextField(200,100,String(g.managerSalePack.dataSale.newCost) + st);
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
         _txt.x = -210;
-        _txt.y = 97;
+        _txt.y = -7;
         _source.addChild(_txt);
 
         _txtNewCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1243]));
         _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtNewCost.x = -350;
-        _txtNewCost.y = 100;
+        _txtNewCost.y = -10;
         _source.addChild(_txtNewCost);
 
         _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.dataSale.profit) + '%');
         _txtProfit.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
-        _txtProfit.x = -398;
+        _txtProfit.x = 222;
         _txtProfit.y = -160;
         _source.addChild(_txtProfit);
         g.gameDispatcher.addToTimer(startTimer);
@@ -170,28 +169,19 @@ public class WOSalePackRubies extends WindowMain{
         _txtName.x = -235;
         _txtName.y = -230;
         _source.addChild(_txtName);
+
+        _txtCountBonus = new CTextField(150,90,' ');
+        _txtCountBonus.setFormat(CTextField.BOLD72, 70, 0xcf302f, Color.WHITE);
+        _txtCountBonus.x = -235;
+        _txtCountBonus.y = -230;
+        _source.addChild(_txtCountBonus);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        var item:WOSalePackItemInstrument;
         _sprItem = new Sprite();
         _source.addChild(_sprItem);
-        _arrItem = [];
-        for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
-            item = new WOSalePackItemInstrument(g.managerSalePack.dataSale.objectId[i],g.managerSalePack.dataSale.objectType[i],g.managerSalePack.dataSale.objectCount[i]);
-            item.source.x = 140 * i;
-            _sprItem.addChild(item.source);
-            _arrItem.push(item);
-        }
-        if (_arrItem.length == 1) {
-            _sprItem.x = -80;
-        } else if (_arrItem.length == 2) {
-            _sprItem.x = -160;
-        } else {
-            _sprItem.x = -250;
-        }
-        _sprItem.y = -75;
         _boolOpen = params[0];
+//        _txtCountBonus.text =
         super.showIt();
     }
 
@@ -249,7 +239,7 @@ public class WOSalePackRubies extends WindowMain{
         if (g.userTimer.saleTimerToEnd > 0) {
             if (_txtTime) {
                 _txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.saleTimerToEnd);
-                _txtTime.x = 150 - _txtTime.textBounds.width/2;
+                _txtTime.x = 40 - _txtTime.textBounds.width/2;
             }
         } else {
             onClickExit();

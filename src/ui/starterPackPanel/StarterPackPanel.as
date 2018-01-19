@@ -1,37 +1,36 @@
 /**
- * Created by user on 2/15/17.
+ * Created by user on 1/18/18.
  */
-package ui.sale {
+package ui.starterPackPanel {
 import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.starling.StarlingArmatureDisplay;
 
-import manager.ManagerFilters;
-
 import manager.Vars;
-
-import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.utils.Align;
 import starling.utils.Color;
 
 import utils.CSprite;
+
 import utils.CTextField;
 import utils.TimeUtils;
 
 import windows.WindowsManager;
 
-public class SalePanel {
+public class StarterPackPanel {
     private var _source:CSprite;
     private var g:Vars = Vars.getInstance();
     private var _armature:Armature;
     private var _timer:int;
     private var _txtData:CTextField;
+    private var _txtTime:CTextField;
     private var _spriteTxt:Sprite;
+    private var _spriteTime:Sprite;
 
-    public function SalePanel() {
+    public function StarterPackPanel() {
         _source = new CSprite();
         _source.endClickCallback = onClick;
         _source.hoverCallback = function ():void {
@@ -46,30 +45,45 @@ public class SalePanel {
     }
 
     private function loadTipsIcon():void {
-        var st:String = 'animations_json/sale_icon';
-        g.loadAnimation.load(st, 'sale_icon', onLoad);
+        var st:String;
+        st = 'animations_json/offer_icon';
+        g.loadAnimation.load(st, 'action_icon', onLoad);
     }
 
     private function onLoad():void {
-        _armature =  g.allData.factory['sale_icon'].buildArmature('cat');
+        _armature =  g.allData.factory['action_icon'].buildArmature('cat');
         WorldClock.clock.add(_armature);
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         _armature.animation.gotoAndPlayByFrame('idle');
         _timer = 20;
-        g.gameDispatcher.addToTimer(animation);
-        _txtData = new CTextField(128,60,'lohhhh');
-        _txtData.setFormat(CTextField.BOLD18, 16, 0x4b7200);
-        _txtData.y = -25;
-        _txtData.x = -30;
+
+        _txtTime = new CTextField(128,60,'');
+        _txtTime.setFormat(CTextField.BOLD18, 16, 0xff0c84);
+        _txtTime.alignH = Align.LEFT;
+        _txtTime.y = -28;
+        _spriteTime = new Sprite();
+        _spriteTime.addChild(_txtTime);
+
+        _txtData = new CTextField(128,60,String(g.managerLanguage.allTexts[454]));
+        _txtData.setFormat(CTextField.BOLD24, 24, Color.WHITE, 0xff0c84);
+        _txtData.y = -27;
+        _txtData.x = -62;
         _spriteTxt = new Sprite();
         _spriteTxt.addChild(_txtData);
 
-        if (!b) var b:Slot = _armature.getSlot('birka copy');
+        if (!b) var b:Slot = _armature.getSlot('text');
         if (b) {
             b.displayList = null;
             b.display = _spriteTxt;
         }
+
+        if (!t) var t:Slot = _armature.getSlot('timer');
+        if (t) {
+            t.displayList = null;
+            t.display = _spriteTime;
+        }
         g.gameDispatcher.addToTimer(startTimer);
+        g.gameDispatcher.addToTimer(animation);
         if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
     }
 
@@ -80,30 +94,8 @@ public class SalePanel {
     }
 
     private function onClick():void {
-        g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_RUBIES, null, false);
+        g.windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null, false);
     }
-
-    private function startTimer():void {
-        if (g.userTimer.saleTimerToEnd > 0) {
-            if (_txtData)_txtData.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.saleTimerToEnd);
-        } else {
-            visiblePartyPanel(false);
-            if (_txtData) {
-                _source.removeChild(_txtData);
-                _txtData.deleteIt();
-                _txtData = null;
-            }
-            g.gameDispatcher.removeFromTimer(startTimer);
-        }
-    }
-
-    public function visiblePartyPanel(b:Boolean):void {
-        if (b) _source.visible = true;
-        else _source.visible = false;
-        if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
-    }
-    
-    public function get isVisible():Boolean { return _source.visible; } 
 
     private function animation():void {
         _timer--;
@@ -114,5 +106,33 @@ public class SalePanel {
             g.gameDispatcher.addToTimer(animation);
         }
     }
+
+    private function startTimer():void {
+        if (g.userTimer.starterTimerToEnd > 0) {
+            if (_txtTime) {
+                _txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.starterTimerToEnd);
+                _txtTime.x = 8 -_txtTime.textBounds.width/2;
+            }
+        } else {
+            visiblePartyPanel(false);
+            if (_txtData) {
+                _txtData.deleteIt();
+                _txtData = null;
+            }
+            if (_txtTime) {
+                _txtTime.deleteIt();
+                _txtTime = null;
+            }
+            g.gameDispatcher.removeFromTimer(startTimer);
+        }
+    }
+
+    public function visiblePartyPanel(b:Boolean):void {
+        if (b) _source.visible = true;
+        else _source.visible = false;
+        if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
+    }
+
+    public function get isVisible():Boolean { return _source.visible; }
 }
 }

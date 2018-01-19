@@ -194,6 +194,7 @@ public class OptionPanel {
 
     private function onClick(reason:String):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
+        if (g.managerSalePack) g.managerSalePack.onUserAction();
         var i:int;
         var im:Image;
         switch (reason) {
