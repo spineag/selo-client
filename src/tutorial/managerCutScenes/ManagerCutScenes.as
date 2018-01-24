@@ -224,7 +224,7 @@ public class ManagerCutScenes {
         removeBlack();
         _cutScene.hideIt(deleteCutScene);
         _cutSceneStep = 2;
-        g.optionPanel.makeScaling(1);
+        g.cont.makeScaling(1);
         _closeMarket = false;
         (_cutSceneBuildings[0] as Market).showArrow();
         _airBubble = new AirTextBubble();
@@ -268,7 +268,7 @@ public class ManagerCutScenes {
         _cutSceneStep = 2;
         removeBlack();
         _cutScene.hideIt(deleteCutScene);
-        g.optionPanel.makeScaling(1);
+        g.cont.makeScaling(1);
         (_cutSceneBuildings[0] as Paper).showArrow();
         _cutSceneCallback = papper_2;
     }
@@ -518,7 +518,7 @@ public class ManagerCutScenes {
     private function availableTrain_1():void {
         g.windowsManager.closeAllWindows();
         _cutSceneStep = 2;
-        g.optionPanel.makeScaling(1);
+        g.cont.makeScaling(1);
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
         (_cutSceneBuildings[0] as Train).showArrow();

@@ -139,7 +139,7 @@ public class PetHouse extends WorldObject {
                     g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCraftedItems[0] as CraftItem).resourceId});
                     (_arrCraftedItems.pop() as CraftItem).releaseIt();
                     p = getCraftedPet();
-                    g.managerPets.onCraftHouse(p);
+                    if (p) g.managerPets.onCraftHouse(p);
                 }
             } else {
                 p = getPetWithOutEat();

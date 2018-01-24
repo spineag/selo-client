@@ -2,18 +2,17 @@
  * Created by user on 5/14/15.
  */
 package map {
+import com.junkbyte.console.Cc;
 import data.BuildType;
 import manager.*;
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import flash.geom.Point;
 import mouse.ToolsModifier;
-
 import starling.display.DisplayObjectContainer;
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
-import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import utils.CSprite;
 
@@ -46,10 +45,12 @@ public class Containers {
     private var _gameContY:int;
     private var _gameContScale:int;
     private var _isGameContTweening:Boolean;
+    public var isAnimScaling:Boolean = false;
     private var _topGameContAnimation:Sprite;
 
     private var _startDragPoint:Point;
     private var _startDragPointCont:Point;
+    
 
     private var g:Vars = Vars.getInstance();
 
@@ -338,6 +339,54 @@ public class Containers {
         if (_gameCont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_X*s)
             _gameCont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_Y*s;
         updateGameContVariables();
+    }
+
+    public function makeScaling(s:Number, sendToServer:Boolean = true, needQuick:Boolean = false):void {
+        var p:Point;
+        var pNew:Point;
+        var oldScale:Number;
+        var cont:Sprite = g.cont.gameCont;
+        oldScale = cont.scaleX;
+        if (oldScale > s-.05 && oldScale < s+.05) return;
+        p = new Point();
+        p.x = g.managerResize.stageWidth/2;
+        p.y = g.managerResize.stageHeight/2;
+        p = cont.globalToLocal(p);
+        cont.scaleX = cont.scaleY = s;
+        p = cont.localToGlobal(p);
+        pNew = new Point();
+        pNew.x = cont.x - p.x + g.managerResize.stageWidth/2;
+        pNew.y = cont.y - p.y + g.managerResize.stageHeight/2;
+        var oY:Number = g.matrixGrid.offsetY*s;
+
+        if (pNew.y > oY + g.cont.SHIFT_MAP_Y*s) pNew.y = oY + g.cont.SHIFT_MAP_Y*s;
+        if (pNew.y < oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            pNew.y = oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s;
+        if (pNew.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
+            pNew.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
+        if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - g.cont.SHIFT_MAP_X*s)
+            pNew.x =  -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - g.cont.SHIFT_MAP_X*s;
+        cont.scaleX = cont.scaleY = oldScale;
+        g.currentGameScale = s;
+        if (needQuick) {
+            TweenMax.killTweensOf(cont);
+            cont.scaleX = cont.scaleY = s;
+            cont.x = pNew.x;
+            cont.y = pNew.y;
+            isAnimScaling = false;
+        } else {
+            isAnimScaling = true;
+            if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
+            new TweenMax(cont, .5, {x: pNew.x, y: pNew.y, scaleX: s, scaleY: s, ease: Linear.easeOut, onComplete: function ():void {
+                isAnimScaling = false;
+                onResize();
+                if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(false);
+            }});
+        }
+        if (sendToServer) {
+            g.server.saveUserGameScale(null);
+        }
+        Cc.info('Game scale:: ' + s*100 + '%');
     }
 }
 }
