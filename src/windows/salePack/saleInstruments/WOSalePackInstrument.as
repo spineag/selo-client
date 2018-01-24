@@ -223,13 +223,9 @@ public class WOSalePackInstrument extends WindowMain{
         var d:DropObject = new DropObject();
         for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
             if (g.managerSalePack.dataSale.objectId[i] == 1 && g.managerSalePack.dataSale.objectType[i]  == 1)
-                d.addDropMoney(DataMoney.SOFT_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectId[i] == 2 && g.managerSalePack.dataSale.objectType[i] == 2)
                 d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.RESOURCE || g.managerSalePack.dataSale.objectType[i] == BuildType.INSTRUMENT || g.managerSalePack.dataSale.objectType[i] == BuildType.PLANT)
+            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.INSTRUMENT)
                 d.addDropItemNewByResourceId(g.managerSalePack.dataSale.objectId[i], p, g.managerSalePack.dataSale.objectCount[i]);
-            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR_ANIMATION || g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR) 
-                d.addDropDecor(g.allData.getBuildingById(g.managerSalePack.dataSale.objectId[i]), p, g.managerSalePack.dataSale.objectCount[i]);
         }
         d.releaseIt(null, false);
         hideIt();

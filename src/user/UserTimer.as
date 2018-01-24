@@ -144,8 +144,12 @@ public class UserTimer {
         if (first) {
             g.gameDispatcher.addToTimer(starterTimerToEndF);
         } else {
+            trace(TimeUtils.currentSeconds);
             starterTimerToEnd = TimeUtils.currentSeconds - time;
-            if (starterTimerToEnd >= 604800) return;
+            if (starterTimerToEnd >= 604800) {
+                starterTimerToEnd = 0;
+                return;
+            }
             else starterTimerToEnd = 604800 - (TimeUtils.currentSeconds - time);
             g.gameDispatcher.addToTimer(starterTimerToEndF);
         }
@@ -168,7 +172,7 @@ public class UserTimer {
         saleTimerToStart--;
         if (saleTimerToStart <= 0) {
             saleTimerToStart = 0;
-            g.managerSalePack.sartAfterSaleTimer();
+//            g.managerSalePack.sartAfterSaleTimer();
             g.gameDispatcher.removeFromTimer(saleTimerToStartF);
         }
     }

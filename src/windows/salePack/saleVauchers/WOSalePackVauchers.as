@@ -176,8 +176,8 @@ public class WOSalePackVauchers  extends WindowMain{
         _sprItem = new Sprite();
         _source.addChild(_sprItem);
         _arrItem = [];
-        for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
-            item = new WOSalePackVauchersItem(g.managerSalePack.dataSale.objectId[i],g.managerSalePack.dataSale.objectType[i],g.managerSalePack.dataSale.objectCount[i]);
+        for (var i:int = 0; i < g.managerSalePack.userSale.objectId.length; i++) {
+            item = new WOSalePackVauchersItem(g.managerSalePack.userSale.objectId[i],g.managerSalePack.userSale.objectType[i],g.managerSalePack.userSale.objectCount[i]);
             item.source.x = -20 + 130 * i;
             _sprItem.addChild(item.source);
             _arrItem.push(item);
@@ -230,14 +230,10 @@ public class WOSalePackVauchers  extends WindowMain{
         p = _source.localToGlobal(p);
         var d:DropObject = new DropObject();
         for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
-            if (g.managerSalePack.dataSale.objectId[i] == 1 && g.managerSalePack.dataSale.objectType[i]  == 1)
-                d.addDropMoney(DataMoney.SOFT_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectId[i] == 2 && g.managerSalePack.dataSale.objectType[i] == 2)
-                d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.RESOURCE || g.managerSalePack.dataSale.objectType[i] == BuildType.INSTRUMENT || g.managerSalePack.dataSale.objectType[i] == BuildType.PLANT)
-                d.addDropItemNewByResourceId(g.managerSalePack.dataSale.objectId[i], p, g.managerSalePack.dataSale.objectCount[i]);
-            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR_ANIMATION || g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR)
-                d.addDropDecor(g.allData.getBuildingById(g.managerSalePack.dataSale.objectId[i]), p, g.managerSalePack.dataSale.objectCount[i]);
+            if (g.managerSalePack.dataSale.objectId[i] == 5) d.addDropMoney(DataMoney.RED_COUPONE, g.managerSalePack.dataSale.objectCount[i], p);
+            else if (g.managerSalePack.dataSale.objectId[i] == 6) d.addDropMoney(DataMoney.YELLOW_COUPONE, g.managerSalePack.dataSale.objectCount[i], p);
+            else if (g.managerSalePack.dataSale.objectId[i] == 7)  d.addDropMoney(DataMoney.GREEN_COUPONE, g.managerSalePack.dataSale.objectCount[i], p);
+            else if (g.managerSalePack.dataSale.objectId[i] == 8) d.addDropMoney(DataMoney.BLUE_COUPONE, g.managerSalePack.dataSale.objectCount[i], p);
         }
         d.releaseIt(null, false);
         hideIt();

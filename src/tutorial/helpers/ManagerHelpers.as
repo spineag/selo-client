@@ -105,7 +105,7 @@ public class ManagerHelpers {
 
     private function onTimer():void {
         _countSeconds++;
-        if (_countSeconds >= 7 && g.user.level >= 7 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0) {
+        if (_countSeconds >= 7 && g.user.level >= 7 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) {
             _countSeconds = 0;
             if (_isActiveHelper) {
                 g.gameDispatcher.removeFromTimer(onTimer);

@@ -80,7 +80,9 @@ public class SalePanel {
     }
 
     private function onClick():void {
-        g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_RUBIES, null, false);
+        if (g.managerSalePack.userSale.typeSale == 1) g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_RUBIES, null, false);
+        else if (g.managerSalePack.userSale.typeSale == 2)g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_INSTRUMENTS, null, false);
+        else g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
     }
 
     private function startTimer():void {

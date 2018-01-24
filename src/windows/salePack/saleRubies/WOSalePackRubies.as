@@ -58,8 +58,8 @@ public class WOSalePackRubies extends WindowMain{
     private var _txtCountBonus:CTextField;
 
     public function WOSalePackRubies() {
-        _woHeight = 550;
-        _woWidth = 340;
+        _woHeight = 490;
+        _woWidth = 505;
         _windowType = WindowsManager.WO_SALE_PACK_RUBIES;
         g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/coins_rubins_window.png', onLoad);
     }
@@ -75,7 +75,7 @@ public class WOSalePackRubies extends WindowMain{
         im = new Image(tex);
         im.x = -im.width/2;
         im.y = -im.height/2;
-        _source.addChildAt(im,0);
+        if (_source) _source.addChildAt(im,0);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
@@ -98,7 +98,7 @@ public class WOSalePackRubies extends WindowMain{
         _source.addChild(_txtTimeLeft);
         var _txt:CTextField;
 
-        _txt = new CTextField(200,100,String(g.managerSalePack.dataSale.oldCost));
+        _txt = new CTextField(200,100,String(g.managerSalePack.userSale.oldCost));
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txt.x = -320;
         _txt.y = -52;
@@ -124,7 +124,7 @@ public class WOSalePackRubies extends WindowMain{
         quad.alpha = .6;
         _source.addChild(quad);
 
-        _txtDescription = new CTextField(740,70,String(g.managerSalePack.dataSale.description));
+        _txtDescription = new CTextField(740,70,String(g.managerSalePack.userSale.description));
         _txtDescription.setFormat(CTextField.BOLD30, 26, 0xff8000, Color.WHITE);
         _txtDescription.x = -360;
         _txtDescription.y = 40;
@@ -137,7 +137,7 @@ public class WOSalePackRubies extends WindowMain{
             st = ' USD';
         }
 
-        _txt = new CTextField(200,100,String(g.managerSalePack.dataSale.newCost) + st);
+        _txt = new CTextField(200,100,String(g.managerSalePack.userSale.newCost) + st);
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
         _txt.x = -210;
         _txt.y = -7;
@@ -146,10 +146,10 @@ public class WOSalePackRubies extends WindowMain{
         _txtNewCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1243]));
         _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtNewCost.x = -350;
-        _txtNewCost.y = -10;
+        _txtNewCost.y = -5;
         _source.addChild(_txtNewCost);
 
-        _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.dataSale.profit) + '%');
+        _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.userSale.profit) + '%');
         _txtProfit.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
         _txtProfit.x = 222;
         _txtProfit.y = -160;
@@ -163,6 +163,7 @@ public class WOSalePackRubies extends WindowMain{
         _source.addChild(_btnBuy);
         _btnBuy.x = -15;
         _btnBuy.y = 200;
+        _btnBuy.clickCallback = onClick;
 
         _txtName = new CTextField(400,100,String(g.managerLanguage.allTexts[276]));
         _txtName.setFormat(CTextField.BOLD72, 70, 0xcf302f, Color.WHITE);
@@ -170,11 +171,16 @@ public class WOSalePackRubies extends WindowMain{
         _txtName.y = -230;
         _source.addChild(_txtName);
 
-        _txtCountBonus = new CTextField(150,90,' ');
-        _txtCountBonus.setFormat(CTextField.BOLD72, 70, 0xcf302f, Color.WHITE);
-        _txtCountBonus.x = -235;
-        _txtCountBonus.y = -230;
+        _txtCountBonus = new CTextField(255,120,String(g.managerSalePack.userSale.objectCount));
+        _txtCountBonus.setFormat(CTextField.BOLD72, 40, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtCountBonus.x = -305;
+        _txtCountBonus.y = -115;
         _source.addChild(_txtCountBonus);
+
+        _imRubies = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+        _imRubies.x = -140;
+        _imRubies.y = -65;
+        _source.addChild(_imRubies);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -195,7 +201,7 @@ public class WOSalePackRubies extends WindowMain{
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-            g.socialNetwork.showOrderWindow({id: 14, price: int(g.managerSalePack.dataSale.newCost)});
+            g.socialNetwork.showOrderWindow({id: 14, price: int(g.managerSalePack.userSale.newCost)});
             Cc.info('try to buy packId: ' + 14);
         }
     }
@@ -220,16 +226,7 @@ public class WOSalePackRubies extends WindowMain{
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
         var d:DropObject = new DropObject();
-        for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
-            if (g.managerSalePack.dataSale.objectId[i] == 1 && g.managerSalePack.dataSale.objectType[i]  == 1)
-                d.addDropMoney(DataMoney.SOFT_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectId[i] == 2 && g.managerSalePack.dataSale.objectType[i] == 2)
-                d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.RESOURCE || g.managerSalePack.dataSale.objectType[i] == BuildType.INSTRUMENT || g.managerSalePack.dataSale.objectType[i] == BuildType.PLANT)
-                d.addDropItemNewByResourceId(g.managerSalePack.dataSale.objectId[i], p, g.managerSalePack.dataSale.objectCount[i]);
-            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR_ANIMATION || g.managerSalePack.dataSale.objectType[i] == BuildType.DECOR)
-                d.addDropDecor(g.allData.getBuildingById(g.managerSalePack.dataSale.objectId[i]), p, g.managerSalePack.dataSale.objectCount[i]);
-        }
+        d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerSalePack.userSale.objectCount, p);
         d.releaseIt(null, false);
         hideIt();
         g.salePanel.visiblePartyPanel(false);

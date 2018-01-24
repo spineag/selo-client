@@ -7475,8 +7475,10 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataSalePack: wrong JSON:' + String(response));
             return;
         }
-        obj = {};
+
         for (var i:int = 0; i < d.message.length; i++) {
+            obj = {};
+            obj.id = int(d.message[i].id);
             if (d.message[i].object_id) obj.objectId = String(d.message[i].object_id).split('&');
             for (k = 0; k < obj.objectId.length; k++) obj.objectId[k] = int(obj.objectId[k]);
             if (d.message[i].object_type) obj.objectType = String(d.message[i].object_type).split('&');
@@ -7495,7 +7497,7 @@ public class DirectServer {
             obj.description = String(g.managerLanguage.allTexts[int(d.message[i].text_id_description)]);
             g.managerSalePack.dataSale.push(obj);
         }
-
+//        g.managerSalePack.dataSale.sortOn("id", Array.NUMERIC | Array.DESCENDING);
         if (d.id == 0) {
             Cc.ch('server', 'getDataSalePack OK', 5);
             if (callback != null) {
@@ -8969,7 +8971,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.saleId = saleId;
-        variables.hash = MD5.hash(String(g.user.userId)+String(saleId)+SECRET);
+//        variables.hash = MD5.hash(String(g.user.userId)+String(saleId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
         request.method = URLRequestMethod.POST;
@@ -9058,9 +9060,51 @@ public class DirectServer {
                 ob.id = int(d.message[i].id);
                 ob.saleId = int(d.message[i].sale_id);
                 ob.timeStart = int(d.message[i].time_start);
-                ob.buy = int(d.message[i].buy);
+                ob.buy = Boolean(int(d.message[i].buy));
                 g.managerSalePack.arrUserSale.push(ob);
-            }
+                switch (ob.saleId) {
+                    case 1:
+                        g.managerSalePack.obRubies.buy1 = ob.buy;
+                        g.managerSalePack.obRubies.showIts1 = true;
+                        break;
+                    case 2:
+                        g.managerSalePack.obRubies.buy2 = ob.buy;
+                        g.managerSalePack.obRubies.showIts2 = true;
+                        break;
+                    case 3:
+                        g.managerSalePack.obRubies.buy3 = ob.buy;
+                        g.managerSalePack.obRubies.showIts3 = true;
+                        break;
+                    case 4:
+                        g.managerSalePack.obRubies.buy4 = ob.buy;
+                        g.managerSalePack.obRubies.showIts4 = true;
+                        break;
+                    case 5:
+                        g.managerSalePack.obRubies.buy5 = ob.buy;
+                        g.managerSalePack.obRubies.showIts5 = true;
+                        break;
+                    case 6:
+                        g.managerSalePack.obRubies.buy6 = ob.buy;
+                        g.managerSalePack.obRubies.showIts6 = true;
+                        break;
+                    case 7:
+                        g.managerSalePack.obRubies.buy7 = ob.buy;
+                        g.managerSalePack.obRubies.showIts7 = true;
+                        break;
+                    case 8:
+                        g.managerSalePack.obRubies.buy8 = ob.buy;
+                        g.managerSalePack.obRubies.showIts8 = true;
+                        break;
+                    case 9:
+                        g.managerSalePack.obRubies.buy9 = ob.buy;
+                        g.managerSalePack.obRubies.showIts9 = true;
+                        break;
+                    case 10:
+                        g.managerSalePack.obRubies.buy10 = ob.buy;
+                        g.managerSalePack.obRubies.showIts10 = true;
+                        break;
+                        }
+                }
             if (callback != null) {
                 callback.apply();
             }
