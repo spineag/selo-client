@@ -156,6 +156,7 @@ public class Consts {
     public static var INQ_UPDATE_USER_VIRAL_INVITE:String = 'a_game/updateUserViralInvite.php';
     public static var INQ_GET_USER_MISS:String = 'a_userData/getUserMiss.php';
     public static var INQ_UPDATE_USER_MISS:String = 'a_game/updateUserMiss.php';
+    public static var INQ_UPDATE_TIME_STARTER_PACK:String = 'a_game/updateTimeStarter.php';
     public static var INQ_NOTIFICATION_FB_MISS:String = 'a_diff/notification_fb_miss.php';
     public static var INQ_NOTIFICATION_VK_MISS:String = 'a_diff/notification_vk_miss.php';
     public static var INQ_SHOW_ANNOUNCEMENT:String = 'a_game/onShowAnnouncement.php';
@@ -165,5 +166,8 @@ public class Consts {
     public static var INQ_RAW_USER_PET:String = 'a_game/rawUserPet.php';
     public static var INQ_FB_FAKE_GET_PROFILE:String = 'fake_social_network/FB_getProfile.php';
     public static var INQ_FB_FAKE_APP_USERS:String = 'fake_social_network/FB_getAppUsers.php';
+    public static var INQ_ADD_USER_SALE_PACK:String = 'a_game/addUserSalePack.php';
+    public static var INQ_GET_USER_SALE_PACK:String = 'a_userData/getUserSalePack.php';
+
 }
 }

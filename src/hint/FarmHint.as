@@ -35,7 +35,7 @@ public class FarmHint {
         
         _isOnHover = false;
         source = new CSprite();
-        source.nameIt = 'farmHint';
+//        source.nameIt = 'farmHint';
         _textureHint = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup_farm"));
         source.addChild(_textureHint);
         source.pivotX = int(source.width/2);
@@ -61,6 +61,7 @@ public class FarmHint {
 
     public function showIt(x:int, y:int, dataAnimal:Object, f:Function):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
+        if (g.managerSalePack) g.managerSalePack.onUserAction();
         hideIt();
 
         if (!dataAnimal) {

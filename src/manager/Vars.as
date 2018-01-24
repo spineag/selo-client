@@ -70,6 +70,7 @@ import ui.friendPanel.FriendPanel;
 import ui.optionPanel.OptionPanel;
 import ui.sale.SalePanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
+import ui.starterPackPanel.StarterPackPanel;
 import ui.stock.StockPanel;
 import ui.testerPanel.TesterPanelTop;
 import ui.toolsPanel.ToolsPanel;
@@ -173,6 +174,7 @@ public class Vars {
     public var friendPanel:FriendPanel;
     public var toolsPanel:ToolsPanel;
     public var stockPanel:StockPanel;
+    public var starterPanel:StarterPackPanel;
     public var partyPanel:PartyPanel;
     public var salePanel:SalePanel;
     public var achievementPanel:AchievementPanel;
@@ -438,19 +440,22 @@ public class Vars {
             miniScenes.checkAvailableMiniScenesOnNewLevel();
             var todayDailyGift:Date;
             var today:Date;
-                if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - TimeUtils.currentSeconds) <= 0 && (user as User).level >= 6 && !managerCutScenes.isCutScene) {
-                    windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
-                } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene) {
-                   windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-               } else {
-                   if ((user as User).level >= 5 && (user as User).dayDailyGift == 0  && !managerCutScenes.isCutScene) (server as DirectServer).getDailyGift(null);
-                   else {
-                       todayDailyGift = new Date((user as User).dayDailyGift * 1000);
-                       today = new Date((user as User).day * 1000);
-                       if ((user as User).level >= 5 && todayDailyGift.date != today.date) (server as DirectServer).getDailyGift(null);
-//                       else managerCats.helloCats();
-                   }
-               }
+                if ((user as User).salePack) {
+                    if (managerSalePack.userSale.typeSale == 1) windowsManager.openWindow(WindowsManager.WO_SALE_PACK_RUBIES, null, true);
+                    else if (managerSalePack.userSale.typeSale == 2) windowsManager.openWindow(WindowsManager.WO_SALE_PACK_INSTRUMENTS, null, false);
+                    else windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
+                } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene && userTimer.starterTimerToEnd > 0) {
+                    afterServerStarterPack(true);
+                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+               } //else {
+//                   if ((user as User).level >= 5 && (user as User).dayDailyGift == 0  && !managerCutScenes.isCutScene) (server as DirectServer).getDailyGift(null);
+//                   else {
+//                       todayDailyGift = new Date((user as User).dayDailyGift * 1000);
+//                       today = new Date((user as User).day * 1000);
+//                       if ((user as User).level >= 5 && todayDailyGift.date != today.date) (server as DirectServer).getDailyGift(null);
+////                       else managerCats.helloCats();
+//                   }
+//               }
             var f1:Function = function ():void {
                 if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
                         && (managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4 || managerParty.typeParty == 5)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
@@ -534,6 +539,7 @@ public class Vars {
     public function updateRepository():void { if (toolsPanel && toolsPanel.repositoryBox) toolsPanel.repositoryBox.updateItems(); }
     private function onViralInvite(data:Object):void {  managerInviteFriend = new ManagerInviteFriendViral(data); }
     private function afterServerStock(b:Boolean = false):void { if (b) stockPanel = new StockPanel(); }
+    public function afterServerStarterPack(b:Boolean = false):void { if (b) starterPanel = new StarterPackPanel(); }
 }
 }
 

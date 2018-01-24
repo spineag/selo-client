@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:3be642c0f582e6f94c463d651cdee575:245db0e89d65f1b09a5d8b6cfd58f211:a1151eefb99cb8d37a8c05c74b52ad79$ -->
-<TextureAtlas imagePath="saleAtlas.png" width="1559" height="504">
-    <SubTexture name="percent_w" x="1354" y="174" width="108" height="172" frameX="-2" frameY="0" frameWidth="113" frameHeight="173"/>
-    <SubTexture name="sale_window" x="1" y="1" width="683" height="468"/>
-    <SubTexture name="sale_window_back" x="686" y="1" width="666" height="430" frameX="0" frameY="0" frameWidth="669" frameHeight="432"/>
-    <SubTexture name="sale_window_title_eng" x="1277" y="433" width="281" height="70" frameX="-1" frameY="0" frameWidth="285" frameHeight="72"/>
-    <SubTexture name="sale_window_title_rus" x="686" y="433" width="589" height="70" frameX="-5" frameY="-2" frameWidth="597" frameHeight="78"/>
-    <SubTexture name="sp_cell" x="1354" y="1" width="171" height="171"/>
+<!-- $TexturePacker:SmartUpdate:0962d5754a178ff496538a4c57c4e22a:74fc07b2257d7f1cd910a6dc4e919065:a1151eefb99cb8d37a8c05c74b52ad79$ -->
+<TextureAtlas imagePath="saleAtlas.png" width="418" height="172">
+    <SubTexture name="coins_windows_cell" x="296" y="1" width="121" height="125"/>
+    <SubTexture name="sale_lable" x="1" y="1" width="170" height="170"/>
+    <SubTexture name="vaucher_windows_cell" x="173" y="1" width="121" height="143"/>
 </TextureAtlas>

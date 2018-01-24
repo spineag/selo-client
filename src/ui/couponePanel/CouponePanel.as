@@ -64,6 +64,7 @@ public class CouponePanel {
 
     private function onHover():void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
+        if (g.managerSalePack) g.managerSalePack.onUserAction();
         g.hint.showIt(String(g.managerLanguage.allTexts[484]),'none',1);
     }
 

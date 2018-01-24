@@ -88,6 +88,7 @@ public class ToolsModifier {
     public function set modifierType(a:int):void {
         Cc.info('set modifierType ==' + a);
         if (g.managerHelpers) g.managerHelpers.onUserAction();
+        if (g.managerSalePack) g.managerSalePack.onUserAction();
         if (_modifierType == a) return;
         if (_modifierType == PLANT_SEED) {
 //            g.managerPlantRidge.lockAllFillRidge(false); // unlock all not empty ridges
