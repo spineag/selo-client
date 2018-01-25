@@ -217,7 +217,7 @@ public class ManagerMiniScenes {
             return;
         }
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', openOrderBuilding);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', openOrderBuilding);
             return;
         }
         isMiniScene = true;
@@ -274,7 +274,7 @@ public class ManagerMiniScenes {
             return;
         }
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', firstOrderBuyer);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', firstOrderBuyer);
             return;
         }
         if (!g.managerOrder.countOrders) {
@@ -377,7 +377,7 @@ public class ManagerMiniScenes {
             return;
         }
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', buildBulo4na);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', buildBulo4na);
             return;
         }
         isMiniScene = true;
@@ -432,7 +432,7 @@ public class ManagerMiniScenes {
         
         g.friendPanel.showIt();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', letsGoToNeighbor);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', letsGoToNeighbor);
             return;
         }
         isMiniScene = true;
@@ -472,7 +472,7 @@ public class ManagerMiniScenes {
         
         
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', atNeighbor);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', atNeighbor);
             return;
         }
         isMiniScene = true;
@@ -499,7 +499,7 @@ public class ManagerMiniScenes {
         
         if (!g.isAway) return;
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', atNeighborBuyInstrument);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', atNeighborBuyInstrument);
             return;
         }
         if (g.user.miniScenes[5] == 0) {

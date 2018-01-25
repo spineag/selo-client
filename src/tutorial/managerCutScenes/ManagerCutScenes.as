@@ -295,7 +295,7 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseDecor);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseDecor);
             return;
         }
         _cutSceneStep = 1;
@@ -355,7 +355,7 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseToInventoryDecor);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseToInventoryDecor);
             return;
         }
         _cutSceneStep = 1;
@@ -420,7 +420,7 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseFromInventoryDecor);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseFromInventoryDecor);
             return;
         }
         _cutSceneStep = 1;
@@ -496,7 +496,7 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseAvailableTrain);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseAvailableTrain);
             return;
         }
         _cutSceneStep = 1;
@@ -540,7 +540,7 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseOpenTrain);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseOpenTrain);
             return;
         }
         _cutSceneStep = 1;

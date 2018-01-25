@@ -19,6 +19,7 @@ import windows.WindowsManager;
 
 public class CutScene {
     private var _source:Sprite;
+    private var _sourceBubble:Sprite;
     private var _armature:Armature;
     private var g:Vars = Vars.getInstance();
     private var _bubble:CutSceneTextBubble;
@@ -29,11 +30,17 @@ public class CutScene {
     public function CutScene() {
         _cont = g.cont.popupCont;
         _source = new Sprite();
+        _sourceBubble = new Sprite();
+        _source.addChild(_sourceBubble);
         _xStart = -95;
         _xEnd = 125;
+//        if (!g.allData.factory['tutorialCatBig']) {
+//            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', atNeighborBuyInstrument);
+//            return;
+//        }
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
-        (_armature.display as StarlingArmatureDisplay).scale = 1.5;
-        (_armature.display as StarlingArmatureDisplay).scaleX *= -1;
+        (_armature.display as StarlingArmatureDisplay).x = 430;
+        (_armature.display as StarlingArmatureDisplay).y = -115;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         onResize();
     }
@@ -47,21 +54,23 @@ public class CutScene {
     }
 
     private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String='', btnUrl:String = '', startClick:Function = null):void {
-        try {
+//        try {
             if (!st) {
                 st = '';
                 Cc.error('no text for CutScene');
             }
             if (st.length > 100 || stURL != '' || btnUrl != '') {
-                _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG, stURL, btnUrl);
+                _bubble = new CutSceneTextBubble(_sourceBubble, CutSceneTextBubble.BIG, stURL, btnUrl);
             } else {
-                _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE, '', '');
+                _bubble = new CutSceneTextBubble(_sourceBubble, CutSceneTextBubble.MIDDLE, '', '');
             }
             _bubble.showBubble(st, stBtn, callback, callbackNo, startClick);
-        } catch (e:Error) {
-            Cc.error('CutScene showBubble: error ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'cutScene showBubble');
-        }
+            _sourceBubble.x = 530;
+            _sourceBubble.y = -420;
+//        } catch (e:Error) {
+//            Cc.error('CutScene showBubble: error ' + e.message);
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'cutScene showBubble');
+//        }
     }
 
     public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null, startClick:Function=null, btnUrl:String=''):void {
@@ -90,9 +99,10 @@ public class CutScene {
         if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, animateCat);
 
         d = Math.random();
-        if (d < .5) label = 'idle1';
-            else if (d < .75) label = 'idle2';
-            else label = 'idle3';
+        if (d < .25) label = 'idle';
+            else if (d < .5) label = 'talk1';
+            else if (d < .75) label = 'talk2';
+            else label = 'talk3';
         _armature.addEventListener(EventObject.COMPLETE, animateCat);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, animateCat);
         _armature.animation.gotoAndPlayByFrame(label);
