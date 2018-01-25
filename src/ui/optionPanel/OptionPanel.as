@@ -221,11 +221,11 @@ public class OptionPanel {
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.toolsModifier.cancelMove();
-                if (isAnimScaling) return;
-                i = _arrCells.indexOf(g.cont.gameContScale);
+                if (g.cont.isAnimScaling) return;
+                i = _arrCells.indexOf(g.currentGameScale);
                 if (i >= _arrCells.length-1) return;
                 i++;
-                makeScaling(_arrCells[i]);
+                g.cont.makeScaling(_arrCells[i]);
                 break;
             case 'scale_minus':
                 if (g.tuts.isTuts) return;
@@ -233,11 +233,11 @@ public class OptionPanel {
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.toolsModifier.cancelMove();
-                if (isAnimScaling) return;
-                i = _arrCells.indexOf(g.cont.gameContScale);
+                if (g.cont.isAnimScaling) return;
+                i = _arrCells.indexOf(g.currentGameScale);
                 if (i <= 0 ) return;
                 i--;
-                makeScaling(_arrCells[i]);
+                g.cont.makeScaling(_arrCells[i]);
                 break;
             case 'screenshot':
                 break;
@@ -285,52 +285,6 @@ public class OptionPanel {
         if (_source.visible) _source.x -= 58;
     }
 
-    private var isAnimScaling:Boolean = false;
-    public function makeScaling(s:Number, sendToServer:Boolean = true, needQuick:Boolean = false):void {
-        var p:Point;
-        var pNew:Point;
-        var oldScale:Number;
-        var cont:Sprite = g.cont.gameCont;
-        oldScale = cont.scaleX;
-        if (oldScale > s-.05 && oldScale < s+.05) return;
-        p = new Point();
-        p.x = g.managerResize.stageWidth/2;
-        p.y = g.managerResize.stageHeight/2;
-        p = cont.globalToLocal(p);
-        cont.scaleX = cont.scaleY = s;
-        p = cont.localToGlobal(p);
-        pNew = new Point();
-        pNew.x = cont.x - p.x + g.managerResize.stageWidth/2;
-        pNew.y = cont.y - p.y + g.managerResize.stageHeight/2;
-        var oY:Number = g.matrixGrid.offsetY*s;
 
-        if (pNew.y > oY + g.cont.SHIFT_MAP_Y*s) pNew.y = oY + g.cont.SHIFT_MAP_Y*s;
-        if (pNew.y < oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s)
-            pNew.y = oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s;
-        if (pNew.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
-            pNew.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
-        if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - g.cont.SHIFT_MAP_X*s)
-            pNew.x =  -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - g.cont.SHIFT_MAP_X*s;
-        cont.scaleX = cont.scaleY = oldScale;
-        g.currentGameScale = s;
-        if (needQuick) {
-            TweenMax.killTweensOf(cont);
-            cont.scaleX = cont.scaleY = s;
-            cont.x = pNew.x;
-            cont.y = pNew.y;
-            isAnimScaling = false;
-        } else {
-            isAnimScaling = true;
-            if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
-            new TweenMax(cont, .5, {x: pNew.x, y: pNew.y, scaleX: s, scaleY: s, ease: Linear.easeOut, onComplete: function ():void {
-                isAnimScaling = false;
-                if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(false);
-            }});
-        }
-        if (sendToServer) {
-            g.server.saveUserGameScale(null);
-        }
-        Cc.info('Game scale:: ' + s*100 + '%');
-    }
 }
 }

@@ -8,7 +8,6 @@ import additional.buyerNyashuk.ManagerBuyerNyashuk;
 import additional.lohmatik.ManagerLohmatik;
 import additional.mouse.ManagerMouse;
 import additional.pets.ManagerPets;
-
 import analytic.AnalyticManager;
 import announcement.ManagerAnnouncement;
 import build.TownAreaTouchManager;
@@ -16,11 +15,8 @@ import build.farm.FarmGrid;
 import data.AllData;
 import data.BuildType;
 import heroes.ManagerCats;
-
 import hint.PetHint;
-
 import order.DataOrderCat;
-
 import order.ManagerOrder;
 import order.ManagerOrderCats;
 import hint.BuyHint;
@@ -37,7 +33,6 @@ import loaders.DataPath;
 import loaders.LoadAnimationManager;
 import loaders.LoaderManager;
 import loaders.allLoadMb.AllLoadMb;
-
 import manager.hitArea.ManagerHitArea;
 import manager.ownError.ErrorConst;
 import manager.ownError.OwnErrorManager;
@@ -94,6 +89,7 @@ import build.ambar.Ambar;
 import com.junkbyte.console.Cc;
 import dragonBones.animation.WorldClock;
 
+//148.251.121.199
 public class Vars {
     private static var _instance:Vars;
     public const HARD_IN_SOFT:int = 5; // 1 хард стоит 20 софт
@@ -369,7 +365,7 @@ public class Vars {
     private function afterLoadAll():void {
         cont.onLoadAll();
         startPreloader.setProgress(100);
-        if (currentGameScale != 1) optionPanel.makeScaling(currentGameScale, false, true);
+        if (currentGameScale != 1) cont.makeScaling(currentGameScale, false, true);
         cont.moveCenterToXY(350, realGameTilesHeight / 2 - 700 * scaleFactor, true);
 
         windowsManager = new WindowsManager();
