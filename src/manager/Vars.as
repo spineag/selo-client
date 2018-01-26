@@ -297,7 +297,6 @@ public class Vars {
         var st:String;
         if (managerResize.stageWidth < 1040 || managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
         else st = 'animations_json/cat_tutorial';
-        st = 'animations_json/cat_tutorial_small';
         loadAnimation.load(st, 'tutorialCatBig', onLoadCatTutorialBig);
     }
     private function onLoadCatTutorialBig():void { startPreloader.setProgress(83); (server as DirectServer).getDataResource(onDataResource); }
