@@ -83,7 +83,7 @@ public class ManagerSalePack {
     }
 
     public function checkNeedShowSalePack():void {
-        if (g.user.level < 7 || g.userTimer.starterTimerToEnd > 0 || g.user.salePack || int((TimeUtils.currentSeconds - g.user.timeStarterPack)) < 691200) return;
+        if (g.user.level < 7 || g.userTimer.starterTimerToEnd > 0 || g.user.salePack || g.user.timeStarterPack == 0|| int((TimeUtils.currentSeconds - g.user.timeStarterPack)) < 691200) return;
         if (arrUserSale.length <= 0) {
             thisUser(1);
         } else if (arrUserSale.length > 0) {
