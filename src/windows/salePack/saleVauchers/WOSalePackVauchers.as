@@ -263,13 +263,13 @@ public class WOSalePackVauchers  extends WindowMain{
     override public function hideIt():void {
         g.gameDispatcher.removeFromTimer(startTimer);
         if (_boolOpen) {
-            if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.server.getDailyGift(null);
-            else {
-                var todayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
-                var today:Date = new Date(g.user.day * 1000);
-                if (g.user.level >= 5 && todayDailyGift.date != today.date) {
-                    g.server.getDailyGift(null);
-                } else {
+//            if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.server.getDailyGift(null);
+//            else {
+//                var todayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
+//                var today:Date = new Date(g.user.day * 1000);
+//                if (g.user.level >= 5 && todayDailyGift.date != today.date) {
+//                    g.server.getDailyGift(null);
+//                } else {
 //                    g.managerCats.helloCats();
                     if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >= g. managerParty.countToGift[0] && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2)) {
                         g.managerParty.endPartyWindow();
@@ -279,8 +279,8 @@ public class WOSalePackVauchers  extends WindowMain{
                     else if (g.managerParty.userParty && g.userTimer.partyToEndTimer <= 0 && !g.managerParty.userParty.showWindow
                             && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4 || g.managerParty.typeParty == 5)) g.managerParty.endPartyWindow();
                 }
-            }
-        }
+//            }
+//        }
         super.hideIt();
     }
 }

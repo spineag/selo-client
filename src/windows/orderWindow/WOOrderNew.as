@@ -646,7 +646,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         var st2:String;
         var or:OrderItemStructure = _activeOrderItem.getOrder();
 
-        if (g.user.level >= 5) {
+        if (g.user.level >= 4) {
             _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_4'));
             _srcBaloon.addChild(_imBaloon);
             _txtBaloon = new CTextField(200, 200, '');

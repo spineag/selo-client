@@ -19,6 +19,7 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
+import utils.MCScaler;
 import utils.SimpleArrow;
 
 public class CutSceneTextBubble {
@@ -41,6 +42,9 @@ public class CutSceneTextBubble {
     private var _imageBtn:CSprite;
     private var _arrow:SimpleArrow;
     private var _st:String;
+    private var _isBigShop:Boolean;
+    private var _stPNG:String;
+
     public function CutSceneTextBubble(p:Sprite, type:int, stURL:String = '', btnUrl:String = '') {
         _type = type;
         _parent = p;
@@ -59,7 +63,7 @@ public class CutSceneTextBubble {
 
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/grey_cat_tutorial_babble.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[st + _stPNG].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -78,7 +82,11 @@ public class CutSceneTextBubble {
             if (callbackNo != null) addNoButton(callbackNo);
         }
         _st = st;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/grey_cat_tutorial_babble.png', onLoad);
+        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigShop = false;
+        else _isBigShop = true;
+        if (_isBigShop) _stPNG = 'qui/grey_cat_tutorial_babble.png';
+        else _stPNG = 'qui/babble_cat_window.png';
+        g.load.loadImage(g.dataPath.getGraphicsPath() + _stPNG, onLoad);
 
     }
     
@@ -102,6 +110,7 @@ public class CutSceneTextBubble {
     private function addImageButton(callback:Function, startClick:Function):void {
         _imageBtn = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_icon'));
+        if (!_isBigShop) MCScaler.scale(im, im.height - 15, im.width - 15);
         im.alignPivot();
         _imageBtn.addChild(im);
         if(_innerImage) _innerImage.alignPivot();
@@ -130,61 +139,104 @@ public class CutSceneTextBubble {
     }
 
     private function createBubble(st:String):void {
-//        var im:Image;
-        _txtBubble = new CTextField(400, 200, st);
-        _txtBubble.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        switch (_type) {
-            case BIG:
-//                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
-//                im.x = -12;
-//                im.y = -210;
-                _txtBubble.x = 145;
-                _txtBubble.y = -140;
-                if (_imageBtn) {
-                    _imageBtn.x = 360;
-                    _imageBtn.y = 90;
-                }
-                break;
-            case MIDDLE:
-                _txtBubble.width = 300;
-                _txtBubble.x = 195;
-                _txtBubble.y = -130;
-                break;
-            case SMALL:
-                _txtBubble.height = 80;
-                _txtBubble.x = 62;
-                _txtBubble.y = -94;
-                if (_btn) {
-                    _btn.x = 203;
-                    _btn.y = 0;
-                } else if (_imageBtn) {
-                    _imageBtn.x = 350;
-                    _imageBtn.y = 90;
-                }
-                break;
-        }
-//        _source.addChild(im);
-        _source.addChild(_innerImage);
-        _innerImage.x = -15;
-        _innerImage.y = -_innerImage.height/2;
+        if (_isBigShop) {
+            _txtBubble = new CTextField(400, 200, st);
+            _txtBubble.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            switch (_type) {
+                case BIG:
+                    _txtBubble.x = 145;
+                    _txtBubble.y = -140;
+                    if (_imageBtn) {
+                        _imageBtn.x = 360;
+                        _imageBtn.y = 90;
+                    }
+                    break;
+                case MIDDLE:
+                    _txtBubble.width = 300;
+                    _txtBubble.x = 195;
+                    _txtBubble.y = -130;
+                    break;
+                case SMALL:
+                    _txtBubble.height = 80;
+                    _txtBubble.x = 62;
+                    _txtBubble.y = -94;
+                    if (_imageBtn) {
+                        _imageBtn.x = 350;
+                        _imageBtn.y = 90;
+                    }
+                    break;
+            }
+            _source.addChild(_innerImage);
+            _innerImage.x = -15;
+            _innerImage.y = -_innerImage.height / 2;
 
-        _txtBubble.autoScale = true;
-        if (_btn) {
-            _btn.x = 350;
-            _btn.y = 90;
-        }
-        _source.addChild(_txtBubble);
-        if (_btn) _source.addChild(_btn);
-        if (_imageBtn) _source.addChild(_imageBtn);
-        if (_btnExit) {
-            _btnExit.x = _innerImage.x + _innerImage.width - 20;
-            _btnExit.y = _innerImage.y + 35;
-            _source.addChild(_btnExit);
-        }
-        if (_imageBtn && _btnUrl != '') {
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
-            _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width/2 + 20, _imageBtn.y);
+            _txtBubble.autoScale = true;
+            if (_btn) {
+                _btn.x = 350;
+                _btn.y = 90;
+                _source.addChild(_btn);
+            }
+            _source.addChild(_txtBubble);
+            if (_imageBtn) _source.addChild(_imageBtn);
+            if (_btnExit) {
+                _btnExit.x = _innerImage.x + _innerImage.width - 20;
+                _btnExit.y = _innerImage.y + 35;
+                _source.addChild(_btnExit);
+            }
+            if (_imageBtn && _btnUrl != '') {
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+                _arrow.scaleIt(.5);
+                _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width / 2 + 20, _imageBtn.y);
+            }
+        } else {
+            _txtBubble = new CTextField(350, 200, st);
+            _txtBubble.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            switch (_type) {
+                case BIG:
+                    _txtBubble.x = 48;
+                    _txtBubble.y = -135;
+                    if (_imageBtn) {
+                        _imageBtn.x = 230;
+                        _imageBtn.y = 60;
+                    }
+                    break;
+                case MIDDLE:
+                    _txtBubble.width = 300;
+                    _txtBubble.x = 73;
+                    _txtBubble.y = -130;
+                    break;
+                case SMALL:
+                    _txtBubble.height = 80;
+                    _txtBubble.x = 62;
+                    _txtBubble.y = -94;
+                    if (_imageBtn) {
+                        _imageBtn.x = 230;
+                        _imageBtn.y = 80;
+                    }
+                    break;
+            }
+            _source.addChild(_innerImage);
+            _innerImage.x = -15;
+            _innerImage.y = -_innerImage.height / 2;
+
+            _txtBubble.autoScale = true;
+            if (_btn) {
+                _btn.x = 230;
+                _btn.y = 80;
+                _source.addChild(_btn);
+            }
+            _source.addChild(_txtBubble);
+            if (_imageBtn) _source.addChild(_imageBtn);
+            if (_btnExit) {
+                _btnExit.x = _innerImage.x + _innerImage.width - 20;
+                _btnExit.y = _innerImage.y + 35;
+                _source.addChild(_btnExit);
+            }
+            if (_imageBtn && _btnUrl != '') {
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+                _arrow.scaleIt(.5);
+                _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width / 2 + 20, _imageBtn.y);
+            }
         }
     }
 

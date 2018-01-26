@@ -27,6 +27,8 @@ public class WOMiniSceneOrderCat extends WindowMain{
     private var _btn:CButton;
     private var _imCat:Image;
     private var _imBabble:Image;
+    private var _isBigShop:Boolean;
+    private var _stPNG:String;
 
     public function WOMiniSceneOrderCat() {
         super();
@@ -36,29 +38,55 @@ public class WOMiniSceneOrderCat extends WindowMain{
 //        _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 130);
 //        _source.addChild(_woBGNew);
         _callbackClickBG = onClickExit;
-        _txtName = new CTextField(300, 70, '');
-        _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-        _txtName.x = 120;
-        _txtName.y = -_woHeight/2-135;
+        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigShop = false;
+        else _isBigShop = true;
+        if (_isBigShop) _stPNG = 'qui/grey_cat_tutorial_babble.png';
+        else _stPNG = 'qui/babble_cat_window.png';
 
-        _txt = new CTextField(520, 140, '');
-        _txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
-        _txt.x = 5;
-        _txt.y = -255;
+        if (_isBigShop) {
+            _txtName = new CTextField(300, 70, '');
+            _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+            _txtName.x = 120;
+            _txtName.y = -_woHeight / 2 - 135;
 
-        _btn = new CButton();
-        _btn.addButtonTexture(144, CButton.HEIGHT_41, CButton.GREEN, true);
-        _btn.y = -80;
-        _btn.x = 280;
-        _btn.addTextField(144, 35, 0, 0, g.managerLanguage.allTexts[328]);
-        _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btn.clickCallback = onClickExit;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/grey_cat_tutorial_babble.png', onLoadBabble);
+            _txt = new CTextField(520, 140, '');
+            _txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
+            _txt.x = 5;
+            _txt.y = -255;
+
+            _btn = new CButton();
+            _btn.addButtonTexture(144, CButton.HEIGHT_41, CButton.GREEN, true);
+            _btn.y = -80;
+            _btn.x = 280;
+            _btn.addTextField(144, 35, 0, 0, g.managerLanguage.allTexts[328]);
+            _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _btn.clickCallback = onClickExit;
+        } else {
+            _txtName = new CTextField(300, 70, '');
+            _txtName.setFormat(CTextField.BOLD72, 50, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+//            _txtName.x = 20;
+            _txtName.y = -_woHeight / 2 - 60;
+
+            _txt = new CTextField(360, 140, '');
+            _txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
+            _txt.x = -30;
+            _txt.y = -200;
+
+            _btn = new CButton();
+            _btn.addButtonTexture(120, CButton.HEIGHT_32, CButton.GREEN, true);
+            _btn.x = 160;
+            _btn.y = -35;
+            _btn.addTextField(120, 28, -2, 0, g.managerLanguage.allTexts[328]);
+            _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _btn.clickCallback = onClickExit;
+        }
+
+        g.load.loadImage(g.dataPath.getGraphicsPath() + _stPNG, onLoadBabble);
     }
 
     private function onLoadBabble(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/grey_cat_tutorial_babble.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[st + _stPNG].create() as Bitmap;
         photoFromTextureBabble(Texture.fromBitmap(bitmap));
     }
 
@@ -96,11 +124,11 @@ public class WOMiniSceneOrderCat extends WindowMain{
     }
 
     private function onClickExit():void {
-//        if (_callback != null) {
-//            _callback.apply(null, [_dataCat]);
-//        }
+        if (_callback != null) {
+            _callback.apply(null, [_dataCat]);
+        }
         super.hideIt();
-//        g.windowsManager.openWindow(WindowsManager.WO_ORDERS,null,_dataCat);
+        g.windowsManager.openWindow(WindowsManager.WO_ORDERS,null,_dataCat);
     }
 
     override protected function deleteIt():void {

@@ -292,10 +292,12 @@ public class ManagerCutScenes {
 
     private function releaseDecor():void {
         return;
-        
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseDecor);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', releaseDecor);
             return;
         }
         _cutSceneStep = 1;
@@ -355,7 +357,10 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseToInventoryDecor);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', releaseToInventoryDecor);
             return;
         }
         _cutSceneStep = 1;
@@ -420,7 +425,10 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseFromInventoryDecor);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', releaseFromInventoryDecor);
             return;
         }
         _cutSceneStep = 1;
@@ -496,7 +504,10 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseAvailableTrain);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', releaseAvailableTrain);
             return;
         }
         _cutSceneStep = 1;
@@ -540,7 +551,10 @@ public class ManagerCutScenes {
         
         onStartMiniScenes();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', releaseOpenTrain);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', releaseOpenTrain);
             return;
         }
         _cutSceneStep = 1;

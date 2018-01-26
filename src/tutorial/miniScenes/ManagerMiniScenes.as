@@ -217,7 +217,10 @@ public class ManagerMiniScenes {
             return;
         }
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', openOrderBuilding);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', openOrderBuilding);
             return;
         }
         isMiniScene = true;
@@ -274,7 +277,10 @@ public class ManagerMiniScenes {
             return;
         }
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', firstOrderBuyer);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', firstOrderBuyer);
             return;
         }
         if (!g.managerOrder.countOrders) {
@@ -377,7 +383,10 @@ public class ManagerMiniScenes {
             return;
         }
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', buildBulo4na);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', buildBulo4na);
             return;
         }
         isMiniScene = true;
@@ -432,7 +441,10 @@ public class ManagerMiniScenes {
         
         g.friendPanel.showIt();
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', letsGoToNeighbor);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', letsGoToNeighbor);
             return;
         }
         isMiniScene = true;
@@ -472,7 +484,10 @@ public class ManagerMiniScenes {
         
         
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', atNeighbor);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', atNeighbor);
             return;
         }
         isMiniScene = true;
@@ -499,7 +514,10 @@ public class ManagerMiniScenes {
         
         if (!g.isAway) return;
         if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', atNeighborBuyInstrument);
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', atNeighborBuyInstrument);
             return;
         }
         if (g.user.miniScenes[5] == 0) {

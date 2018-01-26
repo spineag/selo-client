@@ -142,9 +142,7 @@ public class Order extends WorldObject{
                 _stateBuild = STATE_ACTIVE;
                 if (_topOpen) _topOpen.visible = true;
                 if (_boomOpen) _boomOpen.visible = true;
-                _armature.addEventListener(EventObject.COMPLETE, onOpenOrder);
-                _armature.addEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
-                _armature.animation.gotoAndPlayByFrame('top_l');
+                onOpenOrder();
                 hideArrow();
                 g.server.openUserOrder(null);
                 g.user.isOpenOrder = true;
@@ -197,7 +195,7 @@ public class Order extends WorldObject{
         }
     }
 
-    private function onOpenOrder(e:Event=null):void {
+    private function onOpenOrder():void {
         if (_topOpen) _topOpen.visible = false;
         if (_boomOpen) _boomOpen.visible = false;
         if (g.miniScenes.isMiniScene && g.user.level == _dataBuild.blockByLevel) {
@@ -212,8 +210,6 @@ public class Order extends WorldObject{
             _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
             makeAnimation();
         };
-        _armature.removeEventListener(EventObject.COMPLETE, onOpenOrder);
-        _armature.removeEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
         _armature.addEventListener(EventObject.COMPLETE, fEndOver);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
         _armature.animation.gotoAndPlayByFrame('open');

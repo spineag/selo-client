@@ -26,7 +26,7 @@ public class CutScene {
     private var _cont:Sprite;
     private var _xStart:int;
     private var _xEnd:int;
-
+    private var _isBigShop:Boolean;
     public function CutScene() {
         _cont = g.cont.popupCont;
         _source = new Sprite();
@@ -34,13 +34,18 @@ public class CutScene {
         _source.addChild(_sourceBubble);
         _xStart = -95;
         _xEnd = 125;
-//        if (!g.allData.factory['tutorialCatBig']) {
-//            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', atNeighborBuyInstrument);
-//            return;
-//        }
+        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigShop = false;
+        else _isBigShop = true;
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
-        (_armature.display as StarlingArmatureDisplay).x = 430;
-        (_armature.display as StarlingArmatureDisplay).y = -115;
+       if (_isBigShop) {
+            (_armature.display as StarlingArmatureDisplay).x = 430;
+            (_armature.display as StarlingArmatureDisplay).y = -115;
+       } else {
+           (_armature.display as StarlingArmatureDisplay).pivotX = (_armature.display as StarlingArmatureDisplay).width/2;
+           (_armature.display as StarlingArmatureDisplay).pivotY = (_armature.display as StarlingArmatureDisplay).height/2;
+           (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2 -100;
+           (_armature.display as StarlingArmatureDisplay).y = -100;
+       }
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         onResize();
     }
@@ -65,8 +70,13 @@ public class CutScene {
                 _bubble = new CutSceneTextBubble(_sourceBubble, CutSceneTextBubble.MIDDLE, '', '');
             }
             _bubble.showBubble(st, stBtn, callback, callbackNo, startClick);
+        if (_isBigShop) {
             _sourceBubble.x = 530;
             _sourceBubble.y = -420;
+        } else {
+            _sourceBubble.x = 420;
+            _sourceBubble.y = -420;
+        }
 //        } catch (e:Error) {
 //            Cc.error('CutScene showBubble: error ' + e.message);
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'cutScene showBubble');
