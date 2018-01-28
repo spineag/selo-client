@@ -3,6 +3,8 @@
  */
 package tutorial {
 import com.greensock.TweenMax;
+
+import flash.display.Bitmap;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
@@ -12,10 +14,12 @@ import particle.tuts.DustRectangle;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
+import utils.MCScaler;
 import utils.SimpleArrow;
 
 public class CutSceneTextBubble {
@@ -37,6 +41,9 @@ public class CutSceneTextBubble {
     private var _btnUrl:String;
     private var _imageBtn:CSprite;
     private var _arrow:SimpleArrow;
+    private var _st:String;
+    private var _isBigShop:Boolean;
+    private var _stPNG:String;
 
     public function CutSceneTextBubble(p:Sprite, type:int, stURL:String = '', btnUrl:String = '') {
         _type = type;
@@ -46,11 +53,25 @@ public class CutSceneTextBubble {
         _source.x = 55;
         _parent.addChild(_source);
         _btnUrl = btnUrl;
-        if (stURL != '') {
-            _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(stURL));
-        } else if (btnUrl != '') {
-            _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(btnUrl));
-        }
+
+//        if (stURL != '') {
+//            _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(stURL));
+//        } else if (btnUrl != '') {
+//            _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(btnUrl));
+//        }
+    }
+
+    private function onLoad(bitmap:Bitmap):void {
+        var st:String = g.dataPath.getGraphicsPath();
+        bitmap = g.pBitmaps[st + _stPNG].create() as Bitmap;
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
+        _innerImage = new Image(tex);
+        createBubble(_st);
+        _source.scaleX = _source.scaleY = .3;
+        TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:onCompleteShow});
     }
 
     public function showBubble(st:String, btnSt:String, callback:Function, callbackNo:Function=null, startClick:Function=null):void {
@@ -60,9 +81,13 @@ public class CutSceneTextBubble {
             if (callback != null) addButton(btnSt, callback, startClick);
             if (callbackNo != null) addNoButton(callbackNo);
         }
-        createBubble(st);
-        _source.scaleX = _source.scaleY = .3;
-        TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:onCompleteShow});
+        _st = st;
+        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigShop = false;
+        else _isBigShop = true;
+        if (_isBigShop) _stPNG = 'qui/grey_cat_tutorial_babble.png';
+        else _stPNG = 'qui/babble_cat_window.png';
+        g.load.loadImage(g.dataPath.getGraphicsPath() + _stPNG, onLoad);
+
     }
     
     private function onCompleteShow():void {
@@ -84,11 +109,12 @@ public class CutSceneTextBubble {
 
     private function addImageButton(callback:Function, startClick:Function):void {
         _imageBtn = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_icon'));
+        if (!_isBigShop) MCScaler.scale(im, im.height - 15, im.width - 15);
         im.alignPivot();
         _imageBtn.addChild(im);
-        _innerImage.alignPivot();
-        _imageBtn.addChild(_innerImage);
+        if(_innerImage) _innerImage.alignPivot();
+        if(_innerImage)  _imageBtn.addChild(_innerImage);
         _imageBtn.startClickCallback = startClick;
         _imageBtn.endClickCallback = callback;
     }
@@ -113,86 +139,104 @@ public class CutSceneTextBubble {
     }
 
     private function createBubble(st:String):void {
-        var im:Image;
-        _txtBubble = new CTextField(278, 60, st);
-        _txtBubble.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
-        switch (_type) {
-            case BIG:
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
-                im.x = -12;
-                im.y = -210;
-                if (_innerImage && !_imageBtn) {
-                    _innerImage.x = 201 - _innerImage.width/2;
-                    _innerImage.y = -75 - _innerImage.height/2;
-                    _txtBubble.x = 62;
-                    _txtBubble.y = -180;
-                } else {
-                    if (_btn) {
-                        _txtBubble.height = 132;
-                    } else {
-                        _txtBubble.height = 172;
+        if (_isBigShop) {
+            _txtBubble = new CTextField(400, 200, st);
+            _txtBubble.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            switch (_type) {
+                case BIG:
+                    _txtBubble.x = 145;
+                    _txtBubble.y = -140;
+                    if (_imageBtn) {
+                        _imageBtn.x = 360;
+                        _imageBtn.y = 90;
                     }
+                    break;
+                case MIDDLE:
+                    _txtBubble.width = 300;
+                    _txtBubble.x = 195;
+                    _txtBubble.y = -130;
+                    break;
+                case SMALL:
+                    _txtBubble.height = 80;
                     _txtBubble.x = 62;
-                    _txtBubble.y = -180;
-                }
-                if (_btn) {
-                    _btn.x = 203;
-                    _btn.y = -10;
-                } else if (_imageBtn) {
-                    _txtBubble.y -= 15;
-                    _imageBtn.x = 203;
-                    _imageBtn.y = -15;
-                }
-                break;
-            case MIDDLE:
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_2'));
-                im.x = -12;
-                im.y = -169;
-                if (_btn) {
-                    _btn.x = 203;
-                    _btn.y = -10;
-                    _txtBubble.height = 106;
-                } else if (_imageBtn) {
-                    _imageBtn.x = 203;
-                    _imageBtn.y = -10;
-                    _txtBubble.height = 106;
-                } else {
-                    _txtBubble.height = 146;
-                }
-                _txtBubble.x = 62;
-                _txtBubble.y = -142;
-                break;
-            case SMALL:
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
-                im.x = -15;
-                im.y = -116;
-                _txtBubble.height = 80;
-                _txtBubble.x = 62;
-                _txtBubble.y = -94;
-                if (_btn) {
-                    _btn.x = 203;
-                    _btn.y = 0;
-                } else if (_imageBtn) {
-                    _imageBtn.x = 203;
-                    _imageBtn.y = 0;
-                }
-                break;
-        }
-        _source.addChild(im);
-        if (_innerImage && !_imageBtn) _source.addChild(_innerImage);
-        _txtBubble.autoScale = true;
-        _source.addChild(_txtBubble);
-        if (_btn) _source.addChild(_btn);
-        if (_imageBtn) _source.addChild(_imageBtn);
-        if (_btnExit) {
-            _btnExit.x = im.x + im.width - 20;
-            _btnExit.y = im.y + 35;
-            _source.addChild(_btnExit);
-        }
-        if (_imageBtn && _btnUrl != '') {
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
-            _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width/2 + 20, _imageBtn.y);
+                    _txtBubble.y = -94;
+                    if (_imageBtn) {
+                        _imageBtn.x = 350;
+                        _imageBtn.y = 90;
+                    }
+                    break;
+            }
+            _source.addChild(_innerImage);
+            _innerImage.x = -15;
+            _innerImage.y = -_innerImage.height / 2;
+
+            _txtBubble.autoScale = true;
+            if (_btn) {
+                _btn.x = 350;
+                _btn.y = 90;
+                _source.addChild(_btn);
+            }
+            _source.addChild(_txtBubble);
+            if (_imageBtn) _source.addChild(_imageBtn);
+            if (_btnExit) {
+                _btnExit.x = _innerImage.x + _innerImage.width - 20;
+                _btnExit.y = _innerImage.y + 35;
+                _source.addChild(_btnExit);
+            }
+            if (_imageBtn && _btnUrl != '') {
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+                _arrow.scaleIt(.5);
+                _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width / 2 + 20, _imageBtn.y);
+            }
+        } else {
+            _txtBubble = new CTextField(350, 200, st);
+            _txtBubble.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            switch (_type) {
+                case BIG:
+                    _txtBubble.x = 48;
+                    _txtBubble.y = -135;
+                    if (_imageBtn) {
+                        _imageBtn.x = 230;
+                        _imageBtn.y = 60;
+                    }
+                    break;
+                case MIDDLE:
+                    _txtBubble.width = 300;
+                    _txtBubble.x = 73;
+                    _txtBubble.y = -130;
+                    break;
+                case SMALL:
+                    _txtBubble.height = 80;
+                    _txtBubble.x = 62;
+                    _txtBubble.y = -94;
+                    if (_imageBtn) {
+                        _imageBtn.x = 230;
+                        _imageBtn.y = 80;
+                    }
+                    break;
+            }
+            _source.addChild(_innerImage);
+            _innerImage.x = -15;
+            _innerImage.y = -_innerImage.height / 2;
+
+            _txtBubble.autoScale = true;
+            if (_btn) {
+                _btn.x = 230;
+                _btn.y = 80;
+                _source.addChild(_btn);
+            }
+            _source.addChild(_txtBubble);
+            if (_imageBtn) _source.addChild(_imageBtn);
+            if (_btnExit) {
+                _btnExit.x = _innerImage.x + _innerImage.width - 20;
+                _btnExit.y = _innerImage.y + 35;
+                _source.addChild(_btnExit);
+            }
+            if (_imageBtn && _btnUrl != '') {
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+                _arrow.scaleIt(.5);
+                _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width / 2 + 20, _imageBtn.y);
+            }
         }
     }
 

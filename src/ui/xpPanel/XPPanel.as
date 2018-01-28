@@ -17,6 +17,8 @@ import media.SoundConst;
 
 import mouse.ToolsModifier;
 
+import order.DataOrderCat;
+
 import social.SocialNetworkSwitch;
 
 import starling.animation.Tween;
@@ -83,6 +85,8 @@ public class XPPanel {
         g.user.notif.checkOnNewLevel();
 //        g.user.level++;
 //        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//        var arr:Array = DataOrderCat.arr;
+//        g.windowsManager.openWindow(WindowsManager.WO_ORDER_CAT_MINI, null, arr[int(Math.random()*arr.length)]);
     }
 
     public function onResize():void {

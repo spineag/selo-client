@@ -38,7 +38,7 @@ public class TutorialCat extends BasicCat {
         if (g.allData.factory['tutorialCat']) {
             createCat();
         } else {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', createCat);
+            g.loadAnimation.load('animations_json/cat_tutorial', 'tutorialCatBig', createCat);
         }
     }
 

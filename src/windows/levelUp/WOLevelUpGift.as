@@ -68,7 +68,7 @@ public class WOLevelUpGift {
             }
             MCScaler.scale(_imItem, 40, 40);
             _txtCount.text = String(ob.count);
-            g.userInventory.addResource(ob.id,ob.count);
+//            g.userInventory.addResource(ob.id,ob.count);
             _onHover = false;
             _data = g.allData.getResourceById(ob.id);
             source.hoverCallback = onHover;

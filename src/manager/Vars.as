@@ -292,7 +292,13 @@ public class Vars {
 //        }
     }
     
-    private function onLoadCatTutorial():void {    startPreloader.setProgress(82); loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', onLoadCatTutorialBig); }
+    private function onLoadCatTutorial():void {
+        startPreloader.setProgress(82);
+        var st:String;
+        if (managerResize.stageWidth < 1040 || managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+        else st = 'animations_json/cat_tutorial';
+        loadAnimation.load(st, 'tutorialCatBig', onLoadCatTutorialBig);
+    }
     private function onLoadCatTutorialBig():void { startPreloader.setProgress(83); (server as DirectServer).getDataResource(onDataResource); }
     private function onDataResource():void {       startPreloader.setProgress(84); (server as DirectServer).getDataRecipe(onDataRecipe); }
     private function onDataRecipe():void {         startPreloader.setProgress(85); (server as DirectServer).getDataAnimal(onDataAnimal); }

@@ -66,7 +66,7 @@ public class WOLevelUp extends WindowMain {
     private var _bigYellowBGGift:BackgroundYellowOut;
     private var _bgCheck:CSprite;
     private var _imCheck:Image;
-    private var _txtShare:CTextField;
+    private var _sprShare:CSprite;
     private var _sorceMainItem:Sprite;
     private var _bolShare:Boolean;
 
@@ -199,10 +199,16 @@ public class WOLevelUp extends WindowMain {
             _bigYellowBG.x = -55;
             _contClipRect.x = -50;
         }
-        _txtShare = new CTextField(300,100,String(g.managerLanguage.allTexts[291]));
-        _txtShare.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_LIGHT_NEW);
-        _txtShare.x = -250;
-        _source.addChild(_txtShare);
+        _sprShare = new CSprite();
+        _source.addChild(_sprShare);
+        var txtShare:CTextField;
+        txtShare = new CTextField(300,100,String(g.managerLanguage.allTexts[291]));
+        txtShare.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_LIGHT_NEW);
+        txtShare.x = -250;
+        txtShare.touchable = true;
+        _sprShare.addChild(txtShare);
+        _sprShare.endClickCallback = shareClick;
+
 
         _contBtn = new CButton();
         _contBtn.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
@@ -219,7 +225,7 @@ public class WOLevelUp extends WindowMain {
             _txtNewObject.y = -85;
             _contBtn.y = _woHeight/2 + 50;
             _bgCheck.y = 240;
-            _txtShare.y = 198;
+            _sprShare.y = 198;
 
         } else {
             _bigYellowBG.y = -60;
@@ -227,12 +233,12 @@ public class WOLevelUp extends WindowMain {
             _txtNewObject.y = -135;
             _contBtn.y = _woHeight/2 + 23;
             _bgCheck.y = 220;
-            _txtShare.y = 178;
+            _sprShare.y = 178;
         }
         _contImage = new Sprite();
         _contClipRect.addChild(_contImage);
         if (g.user.level <= 3) {
-            _txtShare.visible = false;
+            _sprShare.visible = false;
             _bgCheck.visible = false;
         }
     }

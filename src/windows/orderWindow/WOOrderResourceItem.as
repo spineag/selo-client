@@ -75,7 +75,7 @@ public class WOOrderResourceItem {
         _id = id;
         if (obj.buildType == BuildType.PLANT) _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon'));
             else _image = new Image(g.allData.atlas[obj.url].getTexture(obj.imageShop));
-        MCScaler.scale(_image, 80, 80);
+//        MCScaler.scale(_image, 80, 80);
         _image.alignPivot();
         source.addChildAt(_image, 0);
         var curCount:int = g.userInventory.getCountResourceById(id);

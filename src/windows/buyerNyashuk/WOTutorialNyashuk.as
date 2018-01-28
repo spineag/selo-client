@@ -55,7 +55,7 @@ public class WOTutorialNyashuk extends WindowMain{
         _imRedNya.y = 10;
         _source.addChild(_imRedNya);
         _txtNyashuk = new CTextField(400,250,String(g.managerLanguage.allTexts[564]));
-        _txtNyashuk.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtNyashuk.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtNyashuk.x = -200;
         _txtNyashuk.y = -140;
         _source.addChild(_txtNyashuk);

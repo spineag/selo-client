@@ -420,6 +420,10 @@ public class Farm extends WorldObject{
         _arrCrafted.push(item);
         checkForCraft();
         if (g.managerTips) g.managerTips.calculateAvailableTips();
+        if (g.tuts.isTuts) {
+            (_arrCrafted[0] as CraftItem).releaseIt();
+            checkForCraft();
+        }
     }
 
     private function useCraftedResource(item:ResourceItem, crItem:CraftItem):void {

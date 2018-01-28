@@ -192,7 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>part_plants</filename>
             <filename>part_products/apple_charlotte_icon.png</filename>
             <filename>part_products/apple_icon.png</filename>
             <filename>part_products/apple_jam_icon.png</filename>
@@ -267,6 +266,7 @@
             <filename>part_products/honey_icon.png</filename>
             <filename>part_products/hotdog_icon.png</filename>
             <filename>part_products/iron_bar_icon.png</filename>
+            <filename>part_products/iron_bracelet_icon.png</filename>
             <filename>part_products/iron_ore_icon.png</filename>
             <filename>part_products/jelly_beans_icon.png</filename>
             <filename>part_products/lemon_icon.png</filename>
@@ -297,6 +297,7 @@
             <filename>part_products/sausage_icon.png</filename>
             <filename>part_products/scarf_icon.png</filename>
             <filename>part_products/sheep_feed_icon.png</filename>
+            <filename>part_products/shepherd_pie_icon.png</filename>
             <filename>part_products/silver_bar_icon.png</filename>
             <filename>part_products/silver_ore_icon.png</filename>
             <filename>part_products/socks_icon.png</filename>
@@ -312,8 +313,7 @@
             <filename>part_products/vanllla_ice_cream_icon.png</filename>
             <filename>part_products/winter_hat_icon.png</filename>
             <filename>part_products/wool_icon.png</filename>
-            <filename>part_products/shepherd_pie_icon.png</filename>
-            <filename>part_products/iron_bracelet_icon.png</filename>
+            <filename>part_plants</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

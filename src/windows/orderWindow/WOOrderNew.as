@@ -167,7 +167,7 @@ public class WOOrderNew extends WindowMain {
         for (var i:int = 0; i < 6; i++) {
             item = new WOOrderResourceItem();
             item.source.x = -_woWidth / 2 + 465 + (i % 3) * 108;
-            item.source.y = -_woHeight / 2 + 410 + int(i / 3) * 90;
+            item.source.y = -_woHeight / 2 + 418 + int(i / 3) * 90;
             _rightBlock.addChild(item.source);
             _arrResourceItems.push(item);
         }
@@ -646,7 +646,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         var st2:String;
         var or:OrderItemStructure = _activeOrderItem.getOrder();
 
-        if (g.user.level >= 5) {
+        if (g.user.level >= 4) {
             _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_4'));
             _srcBaloon.addChild(_imBaloon);
             _txtBaloon = new CTextField(200, 200, '');
