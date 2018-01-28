@@ -287,7 +287,7 @@ public class ManagerCats {
     public function checkAllCatsAfterPasteBuilding(buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
         // check if any cat is under new building (or after removing) or his way is under building
         for (var i:int=0; i<_catsArray.length; i++) {
-            if (_catsArray[i] is HeroCat && (_catsArray[i] as HeroCat).visible) {  // means that cat is not on any fabrica
+            if (_catsArray[i] && _catsArray[i] is HeroCat && (_catsArray[i] as HeroCat).visible) {  // means that cat is not on any fabrica
                 checkCatAfterPasteBuilding(_catsArray[i] as HeroCat, buildPosX, buildPosY, buildWidth, buildHeight);
             }
         }

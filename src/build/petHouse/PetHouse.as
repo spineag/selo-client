@@ -148,8 +148,8 @@ public class PetHouse extends WorldObject {
                     if (g.userInventory.getCountResourceById(p.petData.eatId) <= 0)
                         g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickForRawPet, 'raw_pet', {pet: p});
                     else {
-                        g.petHint.showIt(_source.height,g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale, p.petData.eatId, _dataBuild.name, onClickForRawPet, p);
-//                        onClickForRawPet(p);
+                        g.petHint.showIt(_source.height,g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale, 
+                                p.petData.eatId, _dataBuild.name, onClickForRawPet, p);
                     }
                 } else {
                     g.user.shiftShop = 0;
@@ -251,7 +251,7 @@ public class PetHouse extends WorldObject {
 
     public function getCraftedPet():PetMain {
         for (var i:int=0; i<_arrPets.length; i++) {
-            if ((_arrPets[i] as PetMain).state == ManagerPets.STATE_WAIT_CRAFT_STOP_RUN) return _arrPets[i];
+            if ((_arrPets[i] as PetMain).state == ManagerPets.STATE_SLEEP) return _arrPets[i];
         }
         return null;
     }
@@ -290,11 +290,11 @@ public class PetHouse extends WorldObject {
         if (_petsCont) {
             getMiskaForPet(p).showEat(true);
             switch (p.positionAtHouse) {
-                case 1: p.source.x = p.innerPosX1; p.source.y = p.innerPosY1; p.flipIt(false); break;
-                case 2: if (_dataBuild.maxAnimalsCount == 2) { p.source.x = p.innerPosX2; p.source.y = p.innerPosY2; p.flipIt(true); }
-                        else if (_dataBuild.maxAnimalsCount == 3) { p.source.x = p.innerPosX3; p.source.y = p.innerPosY3; p.flipIt(false); }
+                case 1: p.source.x = p.innerPosX1; p.source.y = p.innerPosY1; p.animation.flipIt(false); break;
+                case 2: if (_dataBuild.maxAnimalsCount == 2) { p.source.x = p.innerPosX2; p.source.y = p.innerPosY2; p.animation.flipIt(true); }
+                        else if (_dataBuild.maxAnimalsCount == 3) { p.source.x = p.innerPosX3; p.source.y = p.innerPosY3; p.animation.flipIt(false); }
                     break;
-                case 3: p.source.x = p.innerPosX3; p.source.y = p.innerPosY3; p.flipIt(false); break;
+                case 3: p.source.x = p.innerPosX3; p.source.y = p.innerPosY3; p.animation.flipIt(false); break;
             }
             _petsCont.addChild(p.source);
 
@@ -304,7 +304,7 @@ public class PetHouse extends WorldObject {
                 _petsCont.removeChild(p.source);
                 if (f != null) f.apply(null, [p]);
             };
-            p.eatAnimation(fEnd);
+            p.animation.eatAnimation(fEnd);
         } else {
             Cc.error('no _petsCont for petHouse id: ' + _dataBuild.id);
             if (f!=null) f.apply(null, [p]);

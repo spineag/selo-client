@@ -8,42 +8,25 @@ import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.StructureDataPet;
 import dragonBones.Armature;
-import dragonBones.Slot;
-import dragonBones.animation.WorldClock;
-import dragonBones.events.EventObject;
-import dragonBones.starling.StarlingArmatureDisplay;
-
 import flash.geom.Point;
 import manager.Vars;
-
-import server.ManagerPendingRequest;
-
-import starling.display.Image;
 import starling.display.Sprite;
-import starling.events.Event;
-
-import utils.CSprite;
 import utils.IsoUtils;
 import utils.Point3D;
 import utils.SimpleArrow;
 import utils.TimeUtils;
-import utils.Utils;
 
 public class PetMain {
     protected var g:Vars = Vars.getInstance();
     protected var _source:Sprite;
-    protected var _petImage:Sprite;
-    protected var _petBackImage:Sprite;
     protected var _petData:StructureDataPet;
     protected var _petHouse:PetHouse;
-    protected var _armature:Armature;
-    protected var _armatureBack:Armature;
+    protected var _animation:AnimationPet;
     protected var _arrow:SimpleArrow;
     protected var _currentPath:Array;
     protected var _depth:Number = 0;
     protected var _posX:int = 0;
     protected var _posY:int = 0;
-    protected var _isBack:Boolean;
     protected var _callbackOnEndWalk:Function;
     protected var _dbId:int;
     protected var _timeEat:int;
@@ -57,33 +40,16 @@ public class PetMain {
     protected var _innerPosX3:int;
     protected var _innerPosY3:int;
     protected var _positionAtHouse:int;
-    protected var _defaultScaleX:int = 1;
-    protected var _defaultBackScaleX:int = 1;
     public var walkCallback:Function;
     public var walkCallbackParams:Array;
 
     public function PetMain(d:StructureDataPet) {
         _petData = d;
-        _isBack = false;
         _hasNewEat = false;
         _source = new Sprite();
-        _petImage = new Sprite();
-        _petBackImage = new Sprite();
-        _source.addChild(_petImage);
-        _source.addChild(_petBackImage);
-        _petImage.visible = false;
-        _petBackImage.visible = false;
+        _animation = new AnimationPet(_source, this);
         if (g.allData.factory[_petData.url]) createArmature();
             else g.loadAnimation.load('animations_json/x1/' + _petData.url, _petData.url, createArmature);
-    }
-
-    private function createArmature():void {
-        _armature = g.allData.factory[_petData.url].buildArmature(_petData.image);
-        _armatureBack = g.allData.factory[_petData.url].buildArmature(_petData.image + "_back");
-        _petImage.addChild(_armature.display as StarlingArmatureDisplay);
-        _petBackImage.addChild(_armatureBack.display as StarlingArmatureDisplay);
-        if (g.allData.atlas['customisationPetsAtlas']) releaseTexture();
-            else g.load.loadAtlas('x1/customisationPetsAtlas', 'customisationPetsAtlas', releaseTexture);
     }
 
     public function goPetToXYPoint(p:Point, time:int, callbackOnWalking:Function):void {
@@ -110,24 +76,16 @@ public class PetMain {
         return _depth;
     }
 
-    public function flipIt(v:Boolean):void {
-        if (v) {
-            _petImage.scaleX = -1 * _defaultScaleX;
-            _petBackImage.scaleX = _defaultBackScaleX;
-        } else {
-            _petImage.scaleX = _defaultScaleX;
-            _petBackImage.scaleX = -1 * _defaultBackScaleX;
-        }
-    }
-
+    private function createArmature():void { _animation.fillArmatures(_petData); }
+    protected function releaseTexture():void {}
     public function get petData():StructureDataPet { return _petData; }
     public function get posX():int { return _posX; }
     public function get posY():int { return _posY; }
     public function set posX(a:int):void { _posX = a; }
     public function set posY(a:int):void { _posY = a; }
     public function get source():Sprite { return _source; }
-    public function get armature():Armature { return _armature; }
-//    public function get hitArea():OwnHitArea { return _hitArea; }
+    public function get armature():Armature { return _animation.armature; }
+    public function get animation():AnimationPet { return _animation; }
     public function set petHouse(h:PetHouse):void { _petHouse = h; }
     public function get petHouse():PetHouse { return _petHouse; }
     public function get dbId():int { return _dbId; }
@@ -137,6 +95,7 @@ public class PetMain {
     public function set timeLeft(t:int):void { _timeLeft = t; }
     public function get state():int { return _state; }
     public function set state(s:int):void { _state = s; }
+    public function get currentPath():Array { return _currentPath; } 
     public function get hasNewEat():Boolean { return _hasNewEat; }
     public function set hasNewEat(v:Boolean):void { _hasNewEat = v; }
     public function get innerPosX1():int { return _innerPosX1; }
@@ -147,6 +106,7 @@ public class PetMain {
     public function get innerPosY3():int { return _innerPosY3; }
     public function set positionAtHouse(v:int):void { _positionAtHouse = v; }
     public function get positionAtHouse():int { return _positionAtHouse; }
+    public function removePath():void { _currentPath.length = 0; }
 
     public function onGetCraft():void {
         if (_hasNewEat) {
@@ -168,7 +128,7 @@ public class PetMain {
             _timeLeft = _timeEat + _petData.buildTime - TimeUtils.currentSeconds;
             if (_timeLeft < 0) {
                 _timeLeft = 0;
-                _state = ManagerPets.STATE_WAIT_CRAFT_STOP_RUN;
+                _state = ManagerPets.STATE_SLEEP;
                 _petHouse.onPetCraftReady(this);
                 _petHouse.getMiskaForPet(this).showEat(_hasNewEat);
             } else {
@@ -187,10 +147,10 @@ public class PetMain {
         _timeLeft--;
         if (_timeLeft <= 0) {
             g.managerPets.onPetCraftReady(this);
-            _state = ManagerPets.STATE_WAIT_CRAFT_STOP_RUN;
+            _state = ManagerPets.STATE_SLEEP;
         }
     }
-
+    
     public function goWithPath(arr:Array, callbackOn:Function):void {
         _currentPath = arr;
         _callbackOnEndWalk = callbackOn;
@@ -210,18 +170,16 @@ public class PetMain {
     }
 
     protected function gotoPoint(p:Point, callback:Function):void {
-        var koef:Number;
-        if (_isBack) koef = 1;
-        else koef = 5;
+        var koef:Number = 2;
         var pXY:Point = g.matrixGrid.getXYFromIndex(p);
-        var isBack:Boolean = _isBack;
+        var isBack:Boolean = _animation.isBack;
         var f1:Function = function (callback:Function):void {
             _posX = p.x;
             _posY = p.y;
             g.townArea.zSort();
             if (_currentPath.length) gotoPoint(_currentPath.shift(), callback);
             else {
-                stopAnimation();
+                _animation.stopAnimation();
                 if (callback != null) {
                     callback.apply();
                     callback = null;
@@ -229,43 +187,46 @@ public class PetMain {
             }
         };
 
-//        if (Math.abs(_posX - p.x) + Math.abs(_posY - p.y) == 2) koef = 1.4;
         if (p.x == _posX + 1) {
             if (p.y == _posY) {
-                showFront(true);
-                flipIt(true);
+                _animation.showFront(true);
+                _animation.flipIt(true);
             } else if (p.y == _posY - 1) {
-                showFront(true);
-                flipIt(true);
+                _animation.showFront(true);
+                _animation.flipIt(true);
             } else if (p.y == _posY + 1) {
-                showFront(true);
-                flipIt(false);
+                _animation.showFront(true);
+                _animation.flipIt(false);
             }
         } else if (p.x == _posX) {
             if (p.y == _posY) {
-                showFront(true);
-                flipIt(false);
+                _animation.showFront(true);
+                _animation.flipIt(false);
             } else if (p.y == _posY - 1) {
-                showFront(false);
-                flipIt(false);
+                _animation.showFront(false);
+                _animation.flipIt(false);
             } else if (p.y == _posY + 1) {
-                showFront(true);
-                flipIt(false);
+                _animation.showFront(true);
+                _animation.flipIt(false);
             }
         } else if (p.x == _posX - 1) {
             if (p.y == _posY) {
-                showFront(false);
-                flipIt(true);
+                _animation.showFront(false);
+                _animation.flipIt(true);
             } else if (p.y == _posY - 1) {
-                showFront(false);
-                flipIt(false);
+                _animation.showFront(false);
+                _animation.flipIt(false);
             } else if (p.y == _posY + 1) {
-                showFront(true);
-                flipIt(false);
+                _animation.showFront(true);
+                _animation.flipIt(false);
             }
         } else Cc.error('Pet gotoPoint:: wrong front-back logic');
-        if (isBack != _isBack) walkAnimation();
-        new TweenMax(_source, koef/3, { x: pXY.x, y: pXY.y, ease: Linear.easeNone, onComplete: f1, onCompleteParams: [callback]});
+        if (isBack != _animation.isBack) {
+            if (_animation.isWalking) _animation.walkAnimation();
+                else _animation.runAnimation();
+        }
+        if (_animation.isBack || !_animation.isWalking) koef = .5; // for run
+        new TweenMax(_source, koef, { x: pXY.x, y: pXY.y, ease: Linear.easeNone, onComplete: f1, onCompleteParams: [callback]});
     }
 
     public function showArrow(t:Number = 0):void {
@@ -281,111 +242,12 @@ public class PetMain {
             _arrow = null;
         }
     }
-
-    protected function releaseTexture():void {
-        // main part of this is in override functions
-        _petImage.visible = false;
-        _petBackImage.visible = false;
-        g.managerPets.chooseRandomAct(this);
-    }
-
-    protected function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = new Image(g.allData.atlas['customisationPetsAtlas'].getTexture(newName));
-        var b:Slot = arma.getSlot(oldName);
-        if (b && im) {
-            b.displayList = null;
-            b.display = im;
-            if (im.width == 100 && im.height == 100) {
-                Cc.ch('pet', 'probably no im: ' + newName + '  for petId: ' + _petData.id);
-            }
-        } else {
-            if (!b) Cc.ch('pet', 'no slot: ' + oldName + '  for petId: ' + _petData.id);
-        }
-    }
-
-    public function showFront(v:Boolean):void {
-        if (v) {
-            _isBack = false;
-            _petImage.visible = true;
-            if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
-            _petBackImage.visible = false;
-            if (WorldClock.clock.contains(_armatureBack)) WorldClock.clock.remove(_armatureBack);
-        } else {
-            _isBack = true;
-            _petBackImage.visible = true;
-            if (!WorldClock.clock.contains(_armatureBack)) WorldClock.clock.add(_armatureBack);
-            _petImage.visible = false;
-            if (WorldClock.clock.contains(_armature)) WorldClock.clock.remove(_armature);
-        }
-    }
-
-    /////////////       ANIMATIONS
-    /// idle01 - front run, idle02, idle03, idle04 - play; idle01 - back run
-    
-    public function walkAnimation():void {
-        if (!_armature) return;
-        if (!_isBack) _armature.animation.gotoAndPlayByFrame('walk');
-            else _armatureBack.animation.gotoAndPlayByFrame('idle01');
-    }
-
-    public function playPlayAnimation(callback:Function):void {  // callback == null  ===  loop == 1000000000
-        if (!_armature) return;
-        var n:int = int(Math.random()*2);
-        var label:String;
-        var pet:PetMain = this;
-        switch (n) {
-            case 0: label = 'run2'; break;
-            case 1: label = 'run2'; break;  // idle04
-        }
-        var fEnd:Function = function(e:Event=null):void {
-            _armature.removeEventListener(EventObject.COMPLETE, fEnd);
-            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEnd);
-            stopAnimation();
-            if (callback != null) callback.apply(null, [pet]);
-                else playPlayAnimation(null);
-            callback = null;
-        };
-        _armature.addEventListener(EventObject.COMPLETE, fEnd);
-        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
-        
-        if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlayByFrame(label);  // - >> smth wrong with animation
-//        Utils.createDelay(4, fEnd);  // temp fix
-    }
-
-    public function eatAnimation(f:Function):void {
-        var p:PetMain = this;
-        var fEnd:Function = function(e:Event=null):void {
-            _armature.removeEventListener(EventObject.COMPLETE, fEnd);
-            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEnd);
-            stopAnimation();
-            if (f != null) {
-                f.apply(null, [p]);
-            }
-        };
-        _armature.addEventListener(EventObject.COMPLETE, fEnd);
-        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
-
-        if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlayByFrame('eat');  // --> smth wrong with animation
-//        Utils.createDelay(4, fEnd);  // temp fix
-    }
-
-    public function stopAnimation():void {
-        if (!_armature) return;
-        _armature.animation.gotoAndStopByFrame('run');
-        _armatureBack.animation.gotoAndStopByFrame('run');
-    }
-
+   
     public function deleteIt():void {
-        if (_petImage && _armature) _petImage.removeChild(_armature.display as StarlingArmatureDisplay);
-        if (_petBackImage  && _armatureBack) _petBackImage.removeChild(_armatureBack.display as StarlingArmatureDisplay);
-        if (_armature && WorldClock.clock.contains(_armature)) WorldClock.clock.remove(_armature);
-        if (_armatureBack && WorldClock.clock.contains(_armatureBack)) WorldClock.clock.remove(_armatureBack);
-        if (_petImage) _petImage.dispose();
-        if (_petBackImage) _petBackImage.dispose();
-        if (_armature) _armature = null;
-        if (_armatureBack) _armatureBack = null;
+        if (!_source) return;
+        _animation.deleteIt();
+        _source.dispose();
+        _source = null;
     }
     
 }

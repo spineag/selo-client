@@ -111,22 +111,22 @@ public class ManagerLohmatik {
 
     public function checkAllLohAfterPasteBuilding(buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
         for (var i:int=0; i<_arr.length; i++) {
-            if (_arr[i] is Lohmatik) {
-                checkCatAfterPasteBuilding(_arr[i] as Lohmatik, buildPosX, buildPosY, buildWidth, buildHeight);
+            if (_arr[i] && _arr[i] is Lohmatik) {
+                checkLohAfterPasteBuilding(_arr[i] as Lohmatik, buildPosX, buildPosY, buildWidth, buildHeight);
             }
         }
     }
 
-    private function checkCatAfterPasteBuilding(l:Lohmatik, buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
+    private function checkLohAfterPasteBuilding(l:Lohmatik, buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
         if (g.isAway) return;
-                if (l.posX > buildPosX && l.posX < buildPosX + buildWidth && l.posY > buildPosY && l.posY < buildPosY + buildHeight) {
-                    var afterRunFree2:Function = function (_cat:Lohmatik):void {
-                        makeAnyAction(l);
-                    };
-                    l.stopAnimation();
-                    forceRunToXYPoint(l, buildPosX + buildWidth, buildPosY, afterRunFree2);
-                }
-            }
+        if (l.posX > buildPosX && l.posX < buildPosX + buildWidth && l.posY > buildPosY && l.posY < buildPosY + buildHeight) {
+            var afterRunFree2:Function = function (_cat:Lohmatik):void {
+                makeAnyAction(l);
+            };
+            l.stopAnimation();
+            forceRunToXYPoint(l, buildPosX + buildWidth, buildPosY, afterRunFree2);
+        }
+    }
 
     private function forceRunToXYPoint(l:Lohmatik, posX:int, posY:int, callback:Function):void {
         var p:Point = new Point(posX, posY);

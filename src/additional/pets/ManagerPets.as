@@ -4,25 +4,12 @@
 package additional.pets {
 import build.petHouse.PetHouse;
 import com.junkbyte.console.Cc;
-
-import data.BuildType;
 import data.StructureDataPet;
-
 import flash.geom.Point;
-
-import heroes.BasicCat;
-
-import heroes.HeroCat;
-
 import manager.AStar.AStar;
-
 import manager.Vars;
 import manager.ownError.ErrorConst;
-
-import mouse.ToolsModifier;
-
 import user.Someone;
-
 import windows.WindowsManager;
 
 public class ManagerPets {
@@ -35,7 +22,7 @@ public class ManagerPets {
 
     public static const STATE_RAW_WALK:int = 1; // walking anythere after raw
     public static const STATE_HUNGRY_WALK:int = 2; // is hungry and walking anywhere
-    public static const STATE_WAIT_CRAFT_STOP_RUN:int = 3;  // sit near house
+    public static const STATE_SLEEP:int = 3;  // sleep near house
 
     private var g:Vars = Vars.getInstance();
     private var _arrPets:Array;
@@ -160,7 +147,7 @@ public class ManagerPets {
     public function onPetCraftReady(pet:PetMain):void {
         if (_rawPets.indexOf(pet) > -1) _rawPets.removeAt(_rawPets.indexOf(pet));
         if (!_rawPets.length) g.gameDispatcher.removeFromTimer(onTimer);
-        pet.stopAnimation();
+        pet.animation.stopAnimation();
         if (pet.petHouse) pet.petHouse.onPetCraftReady(pet);
         var point:Point = new Point(pet.petHouse.posX, pet.petHouse.posY);
         point = getDirectPointForHouse(point, pet.positionAtHouse);
@@ -188,7 +175,8 @@ public class ManagerPets {
             };
             var point:Point = new Point(pHouse.posX, pHouse.posY);
             point = getDirectPointForHouse(point, p.positionAtHouse);
-            p.stopAnimation();
+            p.animation.stopAnimation();
+            p.animation.isWalking = false;
             goPetToPoint(p, point, f1);
         }
     }
@@ -207,15 +195,17 @@ public class ManagerPets {
         if (g.isAway || pet.state == STATE_HUNGRY_WALK || pet.state == STATE_RAW_WALK) {
             if (Math.random() > .2) {
                 var p:Point = g.townArea.getRandomFreeCell();
+                if (Math.random() > .5) pet.animation.isWalking = true;
+                    else pet.animation.isWalking = false;
                 goPetToPoint(pet, p, chooseRandomAct);
-            } else pet.playPlayAnimation(chooseRandomAct);
-        } else pet.playPlayAnimation(chooseRandomAct);
+            } else pet.animation.playAnimation(chooseRandomAct);
+        } else pet.animation.sleepAnimation();
     }
 
     public function goPetToPoint(pet:PetMain, p:Point, callback:Function = null, ...callbackParams):void {
         var f2:Function = function ():void {
-            pet.flipIt(false);
-            pet.showFront(true);
+            pet.animation.flipIt(false);
+            pet.animation.showFront(true);
             var fT:Function = pet.walkCallback;
             var arrT:Array = pet.walkCallbackParams;
             pet.walkCallback = null;
@@ -225,8 +215,9 @@ public class ManagerPets {
 
         var f1:Function = function (arr:Array):void {
             try {
-                pet.showFront(true);
-                pet.walkAnimation();
+                pet.animation.showFront(true);
+                if (pet.animation.isWalking) pet.animation.walkAnimation();
+                    else pet.animation.runAnimation();
                 pet.goWithPath(arr, f2);
             } catch (e:Error) {
                 Cc.error('ManagerCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
@@ -242,10 +233,10 @@ public class ManagerPets {
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerPet goPetToPoint pet == null');
                 return;
             }
-            pet.stopAnimation();
+            pet.animation.stopAnimation();
             if (pet.posX == p.x && pet.posY == p.y) {
-                pet.flipIt(false);
-                pet.showFront(true);
+                pet.animation.flipIt(false);
+                pet.animation.showFront(true);
                 if (callback != null) callback.apply(null, [pet].concat(callbackParams));
                 return;
             }
@@ -294,6 +285,37 @@ public class ManagerPets {
             p.deleteIt();
         }
         _arrAwayPets.length = 0;
+    }
+
+    public function checkAllPetsAfterPasteBuilding(buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
+        for (var i:int=0; i<_arrPets.length; i++) {
+            if (_arrPets[i] && ((_arrPets[i] as PetMain).state == STATE_HUNGRY_WALK || (_arrPets[i] as PetMain).state == STATE_RAW_WALK)) {
+                checkPetAfterPasteBuilding(_arrPets[i] as PetMain, buildPosX, buildPosY, buildWidth, buildHeight);
+            }
+        }
+    }
+
+    private function checkPetAfterPasteBuilding(pet:PetMain, buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):void {
+        if (g.isAway) return;
+        if (isCrossedPathAndSquare(pet.currentPath, buildPosX, buildPosY, buildWidth, buildHeight)) {
+            pet.removePath();
+            pet.animation.stopAnimation();
+            goPetToPoint(pet, g.townArea.getRandomFreeCell(), chooseRandomAct);
+        }
+    }
+
+    private function isCrossedPathAndSquare(path:Array, buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):Boolean {
+        var isCrossed:Boolean = false;
+        if (!path || !path.length) return false;
+        var p:Point;
+        for (var i:int=0; i<path.length; i++) {
+            p = path[i];
+            if (p.x > buildPosX && p.x < buildPosX+buildWidth && p.y > buildPosY && p.y < buildPosY+buildHeight) {
+                isCrossed = true;
+                break;
+            }
+        }
+        return isCrossed;
     }
 }
 }
