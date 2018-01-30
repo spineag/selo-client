@@ -144,7 +144,6 @@ public class UserTimer {
         if (first) {
             g.gameDispatcher.addToTimer(starterTimerToEndF);
         } else {
-            trace(TimeUtils.currentSeconds);
             starterTimerToEnd = TimeUtils.currentSeconds - time;
             if (starterTimerToEnd >= 604800) {
                 starterTimerToEnd = 0;

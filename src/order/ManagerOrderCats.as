@@ -2,6 +2,8 @@
  * Created by user on 2/5/16.
  */
 package order {
+import build.WorldObject;
+
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import manager.AStar.DirectWay;
@@ -26,6 +28,7 @@ public class ManagerOrderCats {
     public function get arrCats():Array { return _arrCats; }
 
     public function addCatsOnStartGame():void {
+        if (g.managerOrder.stateOrderBuild != WorldObject.STATE_ACTIVE) return;
         var arr:Array = g.managerOrder.arrOrders;
         var cat:OrderCat;
         var leftSeconds:int;

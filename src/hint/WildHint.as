@@ -77,6 +77,7 @@ public class WildHint {
     public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function,buildType:int = 0):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
+        if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         if (_isShowed) return;
         _id = idResourceForRemoving;
         _isShowed = true;

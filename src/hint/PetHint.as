@@ -67,6 +67,7 @@ public class PetHint {
     public function showIt(height:int,x:int,y:int, idResourceForRemoving:int, name:String, out:Function, p:PetMain):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
+        if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         if (_isShowed) return;
         _id = idResourceForRemoving;
         _isShowed = true;

@@ -124,6 +124,7 @@ public class FriendItem {
         if (g.miniScenes.isMiniScene && (g.miniScenes.isReason(ManagerMiniScenes.BUY_ORDER) || g.miniScenes.isReason(ManagerMiniScenes.OPEN_ORDER))) return;
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
+        if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         if (g.visitedUser && g.visitedUser == _person) return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.tuts.isTuts) {

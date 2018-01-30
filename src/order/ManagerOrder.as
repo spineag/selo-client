@@ -2,6 +2,7 @@
  * Created by andy on 11/14/15.
  */
 package order {
+import build.WorldObject;
 import build.fabrica.Fabrica;
 
 import manager.*;
@@ -96,7 +97,7 @@ public class ManagerOrder {
 
     public function checkOrders():void {
         updateMaxCounts();
-        if (g.user.level < 4) return;
+        if (g.user.level < 4 || g.managerOrder.stateOrderBuild != WorldObject.STATE_ACTIVE) return;
         var f1:Function = function():void {
             addNewOrders(_curMaxCountOrders - _arrOrders.length, 0, null, -1);
             checkForNewCats();
@@ -376,6 +377,7 @@ public class ManagerOrder {
                     }
                 }
             } else countFastBuyer = 1;
+            countFastBuyer = 1; // OFF FASTER BUYER
             if (countFastBuyer == 0 && userLevel < 10) {
                 or = new OrderItemStructure();
                 or.addCoupone = false;
@@ -1092,8 +1094,12 @@ public class ManagerOrder {
         g.bottomPanel.onFullOrder(false);
         if (_orderBuilding) _orderBuilding.animateSmallHero(false);
     }
+
+    public function get stateOrderBuild():int {
+       return _orderBuilding.stateBuild;
+    }
     
-    public function showSmallHeroAtOrder(v:Boolean):void {
+    public function  showSmallHeroAtOrder(v:Boolean):void {
 //        if (_orderBuilding) _orderBuilding.showSmallHero(v);
         if (v) checkForFullOrder();
     }

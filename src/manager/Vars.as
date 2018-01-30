@@ -138,6 +138,7 @@ public class Vars {
     public var managerTimerSkip:ManagerTimerSkip;
     public var managerParty:ManagerPartyNew;
     public var managerSalePack:ManagerSalePack;
+    public var managerStarterPack:ManagerStarterPack;
     public var managerLanguage:ManagerLanguage;
     public var managerPets:ManagerPets;
     public var cont:Containers;
@@ -281,6 +282,7 @@ public class Vars {
     private function initInterface2():void {
         soundManager.load();
         managerCats.addAllHeroCats();
+        managerStarterPack = new ManagerStarterPack();
         managerSalePack = new ManagerSalePack();
         startPreloader.setProgress(81);
 //        if (tuts.isTuts) {

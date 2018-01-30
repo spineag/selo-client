@@ -307,6 +307,7 @@ public class Animal {
     public function onEndClick(last:Boolean = false):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
+        if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             return;

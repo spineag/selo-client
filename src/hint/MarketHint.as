@@ -167,40 +167,66 @@ public class MarketHint {
             _txtName.y = 15;
             _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);
-            if (_dataId == 2 || _dataId == 3 || _dataId == 7) {
-                _txtText.text = String(g.allData.getResourceById(_dataId).opys);
-                _txtText.x = -100;
-                _txtText.y = 32;
-                _txtSklad.text = String(g.managerLanguage.allTexts[612]);
-                _txtSklad.alignH = Align.LEFT;
-                _txtSklad.x = -50;
-                _txtSklad.y = 97;
-                _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
-                _txtCount.alignH = Align.LEFT;
-                _txtCount.x = _txtSklad.x + _txtSklad.textBounds.width;
-                _txtCount.y = 97;
-                wText = int(_txtText.textBounds.width + 20);
-                wName = int(_txtName.textBounds.width + 80);
-                if (wText > wName) bg = new HintBackground(wText, 120, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 120, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            if (noResource) {
+                if (_dataId == 6 || _dataId == 5) {
+                    _txtName.text = g.allData.getResourceById(_dataId).name;
+                    _txtName.x = -100;
+                    _txtName.y = -167;
+                    _txtText.text = String(g.allData.getResourceById(_dataId).opys);
+                    _txtText.x = -100;
+                    _txtText.y = -125;
+                    wText = int(_txtText.textBounds.width + 20);
+                    wName = int(_txtName.textBounds.width + 40);
+                    if (wText > wName) bg = new HintBackground(wText, 150, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                    else bg = new HintBackground(wName, 150, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                } else {
+                    _txtName.text = g.allData.getResourceById(_dataId).name;
+                    _txtName.x = -100;
+                    _txtName.y = -123;
+                    _txtText.text = String(g.allData.getResourceById(_dataId).opys);
+                    _txtText.x = -100;
+                    _txtText.y = -114;
+                    wText = int(_txtText.textBounds.width + 20);
+                    wName = int(_txtName.textBounds.width + 40);
+                    if (wText > wName) bg = new HintBackground(wText, 90, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                    else bg = new HintBackground(wName, 90, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                }
             } else {
+                if (_dataId == 2 || _dataId == 3 || _dataId == 7) {
+                    _txtText.text = String(g.allData.getResourceById(_dataId).opys);
+                    _txtText.x = -100;
+                    _txtText.y = 32;
+                    _txtSklad.text = String(g.managerLanguage.allTexts[612]);
+                    _txtSklad.alignH = Align.LEFT;
+                    _txtSklad.x = -50;
+                    _txtSklad.y = 97;
+                    _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+                    _txtCount.alignH = Align.LEFT;
+                    _txtCount.x = _txtSklad.x + _txtSklad.textBounds.width;
+                    _txtCount.y = 97;
+                    wText = int(_txtText.textBounds.width + 20);
+                    wName = int(_txtName.textBounds.width + 80);
+                    if (wText > wName) bg = new HintBackground(wText, 120, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, 120, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                } else {
 //                _imageItem.y = 80;
 //                _imageItem.x = 10;
-                _txtText.text = String(g.allData.getResourceById(_dataId).opys);
-                _txtText.x = -100;
-                _txtText.y = 23;
-                _txtSklad.text = String(g.managerLanguage.allTexts[612]);
-                _txtSklad.alignH = Align.LEFT;
-                _txtSklad.x = -50;
-                _txtSklad.y = 79;
-                _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
-                _txtCount.alignH = Align.LEFT;
-                _txtCount.x = _txtSklad.x + _txtSklad.textBounds.width;
-                _txtCount.y = 79;
-                wText = int(_txtText.textBounds.width + 20);
-                wName = int(_txtName.textBounds.width + 80);
-                if (wText > wName) bg = new HintBackground(wText, 105, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 105, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    _txtText.text = String(g.allData.getResourceById(_dataId).opys);
+                    _txtText.x = -100;
+                    _txtText.y = 23;
+                    _txtSklad.text = String(g.managerLanguage.allTexts[612]);
+                    _txtSklad.alignH = Align.LEFT;
+                    _txtSklad.x = -50;
+                    _txtSklad.y = 79;
+                    _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
+                    _txtCount.alignH = Align.LEFT;
+                    _txtCount.x = _txtSklad.x + _txtSklad.textBounds.width;
+                    _txtCount.y = 79;
+                    wText = int(_txtText.textBounds.width + 20);
+                    wName = int(_txtName.textBounds.width + 80);
+                    if (wText > wName) bg = new HintBackground(wText, 105, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, 105, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                }
             }
             _source.addChild(bg);
             _source.addChild(_txtName);

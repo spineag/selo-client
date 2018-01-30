@@ -17,6 +17,7 @@ import windows.shop_new.WOShopNew;
 public class ManagerHelpers {
     private const MAX_SECONDS:int = 60;
     private const LOW_SECONDS:int = 25;
+    private const SUPER_LOW_SECONDS:int = 10;
     private const MEMIUM_SECONDS:int = 40;
     private var _countSeconds:int;
     private var _isActiveHelper:Boolean;
@@ -39,7 +40,7 @@ public class ManagerHelpers {
         _isStoped = false;
         if (_isActiveHelper) {
 
-        } else if (g.user.level >= 2 && g.user.level < 8) {
+        } else if (g.user.level >= 2 && g.user.level < 10) {
             _curReason = null;
             _isCheckingForHelper = true;
             startIt();
@@ -105,17 +106,7 @@ public class ManagerHelpers {
 
     private function onTimer():void {
         _countSeconds++;
-        if (_countSeconds >= 7 && g.user.level >= 7 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) {
-            _countSeconds = 0;
-            if (_isActiveHelper) {
-                g.gameDispatcher.removeFromTimer(onTimer);
-            }
-            g.afterServerStarterPack(true);
-            g.userTimer.starterToEnd(604800);
-            g.server.updateTimeStarterPack(1);
-            g.windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-        }
-        if ((g.user.level == 2 && _countSeconds >= LOW_SECONDS) || (g.user.level == 4 && _countSeconds >= LOW_SECONDS) ||(g.user.level < 4 && _countSeconds >= LOW_SECONDS) || (g.user.level == 5 && _countSeconds >= MEMIUM_SECONDS) || _countSeconds >= MAX_SECONDS) {
+        if ((g.user.level < 4 && _countSeconds >= SUPER_LOW_SECONDS) || (g.user.level <= 8 && _countSeconds >= LOW_SECONDS) ||(g.user.level <= 10 && _countSeconds >= MEMIUM_SECONDS)) {
             _countSeconds = 0;
             if (g.tuts.isTuts) return;
             if (g.managerCutScenes.isCutScene) return;
@@ -431,6 +422,7 @@ public class ManagerHelpers {
             (g.windowsManager.currentWindow as WOFabrica).addArrowForPossibleRawItems();
         }
         _isActiveHelper = false;
+        trace('ads');
         _curReason = false;
     }
 

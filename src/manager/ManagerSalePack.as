@@ -23,12 +23,13 @@ public class ManagerSalePack {
     public var dataSale:Array;
     public var arrUserSale:Array;
     public var userSale:Object;
-    private var g:Vars = Vars.getInstance();
     private var count:int = 0;
     private var _countSeconds:int = 0;
     private var _bolCanSalePack:Boolean;
     private var _howMustShow:Array;
     public var obRubies:Object;
+
+    private var g:Vars = Vars.getInstance();
 
     public function ManagerSalePack() {
         dataSale = [];
@@ -225,11 +226,11 @@ public class ManagerSalePack {
     }
 
     private function startIt():void {
-        if (_bolCanSalePack) {
-            _countSeconds = 0;
-            g.gameDispatcher.addToTimer(onTimer);
-        }
+    if (_bolCanSalePack) {
+        _countSeconds = 0;
+        g.gameDispatcher.addToTimer(onTimer);
     }
+}
 
     private function onTimer():void {
         _countSeconds++;

@@ -210,7 +210,7 @@ public class WODailyBonus extends WindowMain {
         g.managerDailyBonus.updateCount();
         g.server.useDailyBonus(g.managerDailyBonus.count);
         g.managerAchievement.addAll(21,1);
-        _curActivePosition = int(Math.random()*12); // choose random item position as prise
+        _curActivePosition = int(Math.random()*10); // choose random item position as prise
         var angle:Number = -(Math.PI/5)*_curActivePosition + (3 + int(Math.random()*3))*Math.PI*2;
         var delta:Number = -Math.PI/9 + Math.random()*Math.PI/5;
         TweenMax.to(_koleso, 5, {rotation: angle - delta, ease: Quad.easeInOut, onComplete:completeRotateKoleso, onCompleteParams:[delta]});

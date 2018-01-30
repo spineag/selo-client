@@ -275,7 +275,12 @@ public class WOLevelUp extends WindowMain {
 
     override public function hideIt():void {
         super.hideIt();
-        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
+        if (g.user.level == 4) {
+            var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            arr[0].showArrow(40);
+        }
+        if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
+//        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
     }
 
     private function onLeftClick():void {

@@ -112,6 +112,7 @@ public class CraftItem {
     public function releaseIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
+        if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         if (g.tuts.isTuts && (g.tuts.action == TutsAction.ANIMAL_CRAFT || g.tuts.action == TutsAction.FABRICA_CRAFT)) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply();
