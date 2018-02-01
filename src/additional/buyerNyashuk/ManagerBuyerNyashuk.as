@@ -77,12 +77,12 @@ public class ManagerBuyerNyashuk {
                     newBot(false,ar[i]);
                 } else {
                     if (ar[i].buyer_id == 1) {
-                        g.userTimer.buyerNyashukBlue((ar[i].time_to_new - TimeUtils.currentSeconds) * (-1));
+                        g.userTimer.buyerNyashukBlue(1200 - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         _table1.showTable(true,26, 25);
 
                     }
                     else {
-                        g.userTimer.buyerNyashukRed((ar[i].time_to_new - TimeUtils.currentSeconds) * (-1));
+                        g.userTimer.buyerNyashukRed( 1200 - (TimeUtils.currentSeconds) - ar[i].time_to_new);
                         _table2.showTable(true, 25, 27);
                     }
                 }

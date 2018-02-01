@@ -10,6 +10,7 @@ import manager.Vars;
 import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Quad;
+import starling.utils.Align;
 import starling.utils.Color;
 import tutorial.TutsAction;
 import utils.CButton;
@@ -27,6 +28,7 @@ public class PetHint {
     private var _isOnHover:Boolean;
     private var _iconResource:Image;
     private var _txtCount:CTextField;
+    private var _txtCountAll:CTextField;
     private var _txtName:CTextField;
     private var _deleteCallback:Function;
     private var _id:int;
@@ -51,11 +53,19 @@ public class PetHint {
         _source.addChild(_btn);
         _txtCount = new CTextField(80,50,"");
         _txtCount.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCount.alignH = Align.LEFT;
+        _source.addChild(_txtCount);
+
+        _txtCountAll = new CTextField(80,50, '/1');
+        _txtCountAll.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCountAll.alignH = Align.LEFT;
+        _txtCountAll.y = -68;
+        _source.addChild(_txtCountAll);
+
         _txtName = new CTextField(120,50,"");
         _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -60;
         _txtName.y = -157;
-        _source.addChild(_txtCount);
         _source.addChild(_txtName);
         _btn.clickCallback = onClick;
         _source.outCallback = onOutHint;
@@ -85,13 +95,13 @@ public class PetHint {
             return;
         }
         _txtName.text = name;
-        _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         if (g.allData.getResourceById(idResourceForRemoving).buildType == BuildType.PLANT) _iconResource = new Image(g.allData.atlas['resourceAtlas'].getTexture(String(g.allData.getResourceById(idResourceForRemoving).imageShop) + '_icon'));
         else _iconResource = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(idResourceForRemoving).imageShop));
 
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
-        _txtCount.x = -45;
+        _txtCount.x = -20;
         _txtCount.y = -68;
+        _txtCountAll.x = _txtCount.x + _txtCount.textBounds.width;
         if (g.userInventory.getCountResourceById(idResourceForRemoving) > 0) {
             _txtCount.changeTextColor =  Color.WHITE;
             _txtCount.changeTextStroke = ManagerFilters.BLUE_COLOR;

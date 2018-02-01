@@ -145,12 +145,8 @@ public class PetHouse extends WorldObject {
                 p = getPetWithOutEat();
                 if (!p) p = getPetWithOutNewEat();
                 if (p) {
-                    if (g.userInventory.getCountResourceById(p.petData.eatId) <= 0)
-                        g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickForRawPet, 'raw_pet', {pet: p});
-                    else {
-                        g.petHint.showIt(_source.height,g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale, 
-                                p.petData.eatId, _dataBuild.name, onClickForRawPet, p);
-                    }
+                    g.petHint.showIt(_source.height,g.cont.gameContX + _source.x/1.2 * g.currentGameScale, g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale,
+                            p.petData.eatId, _dataBuild.name, onClickForRawPet, p);
                 } else {
                     g.user.shiftShop = 0;
                     g.user.decorShop = false;
