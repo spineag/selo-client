@@ -5,14 +5,19 @@ package windows.levelUp {
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
+import data.DataMoney;
 
 import data.StructureDataBuilding;
 
 import data.StructureDataResource;
 
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 
 import manager.Vars;
+
+import resourceItem.newDrop.DropObject;
 
 import starling.display.Image;
 import starling.utils.Align;
@@ -51,13 +56,26 @@ public class WOLevelUpGift {
             _imItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
             MCScaler.scale(_imItem, 40, 40);
             _txtCount.text = String(ob.countSoft);
-            g.userInventory.addMoney(2,ob.countSoft)
+            var d:DropObject = new DropObject();
+            var p:Point = new Point(120, 150);
+            p = _imItem.localToGlobal(p);
+            p.x += 30;
+            p.y += 30;
+            d.addDropMoney(DataMoney.SOFT_CURRENCY, ob.countSoft, p);
+            d.releaseIt(null, false);
+
         }
         if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.hard) {
             _imItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(_imItem, 40, 40);
             _txtCount.text = String(ob.countHard);
-            g.userInventory.addMoney(1,ob.countHard)
+            var d:DropObject = new DropObject();
+            var p:Point = new Point(120, 150);
+            p = _imItem.localToGlobal(p);
+            p.x += 30;
+            p.y += 30;
+            d.addDropMoney(DataMoney.HARD_CURRENCY, ob.countSoft, p);
+//            g.userInventory.addMoney(1,ob.countHard)
         }
         
         if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.resourceData) {
@@ -67,8 +85,9 @@ public class WOLevelUpGift {
                 _imItem = new Image(g.allData.atlas[g.allData.getResourceById(ob.id).url].getTexture(g.allData.getResourceById(ob.id).imageShop));
             }
             MCScaler.scale(_imItem, 40, 40);
-            _txtCount.text = String(ob.count);
-//            g.userInventory.addResource(ob.id,ob.count);
+            if (g.user.level == 2) _txtCount.text = String(4);
+             else _txtCount.text = String(ob.count);
+            if (g.allData.getResourceById(ob.id).buildType != BuildType.PLANT) g.userInventory.addResource(ob.id,ob.count);
             _onHover = false;
             _data = g.allData.getResourceById(ob.id);
             source.hoverCallback = onHover;

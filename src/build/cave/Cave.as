@@ -294,8 +294,8 @@ public class Cave extends WorldObject{
                         }
                         g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[_arrCrafted.length-1] as CraftItem).resourceId});
                         g.server.craftUserCave(String(_arrCrafted[_arrCrafted.length-1].resourceId),null);
-                        (_arrCrafted[0] as CraftItem).releaseIt();
-
+                        (_arrCrafted[_arrCrafted.length-1] as CraftItem).releaseIt();
+                        if (_arrCrafted.length) _arrCrafted.splice(_arrCrafted.length-1, 1);
 //                        g.server.craftUserCave();
                         if (!_arrCrafted.length) {
                             _armature.animation.gotoAndStopByFrame('open');

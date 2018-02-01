@@ -77,7 +77,17 @@ public class ShopNewList {
         _shift = 0;
         _cont.x = 0;
         fillItems(ar);
-        checkArrows(0);
+        if (g.user.shiftShop > 0) {
+            if (_isBigShop) {
+                _curPage = int(_shift / 4) + 1;
+                if (_shift % 4) _curPage++;
+            } else {
+                _curPage = int(_shift / 3) + 1;
+                if (_shift % 3) _curPage++;
+            }
+            checkArrows(_curPage);
+        }
+        else checkArrows(0);
     }
 
     private function clearItems():void {
@@ -171,6 +181,7 @@ public class ShopNewList {
     }
 
     private function onClickLeft():void {
+        if (g.tuts.isTuts) return;
         if (_isAnim) return;
         if (_curPage <= 1) return;
         _isAnim = true;
@@ -188,10 +199,11 @@ public class ShopNewList {
 
     private function animFill():void {
         _shift = g.user.shiftShop;
-        TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;  checkArrows(_curPage-1); }});
+        TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;  checkArrows(_curPage); }});
     }
 
     private function onClickRight():void {
+        if (g.tuts.isTuts) return;
         if (_isAnim) return;
         if (_curPage >= _maxPage) return;
         _isAnim = true;

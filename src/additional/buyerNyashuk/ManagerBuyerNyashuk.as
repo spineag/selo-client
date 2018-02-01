@@ -272,6 +272,12 @@ public class ManagerBuyerNyashuk {
                     ob.cost = g.allData.getResourceById(arrMax[ra].id).visitorPrice * ob.resourceCount;
                     ob.typeBuild = g.allData.getResourceById(arrMax[ra].id).buildType;
                 }
+                if (!_arr && _arr.length > 0) {
+                    if (_arr[0].resourceId == ob.resourceId) {
+                        newBot(firstBot, objectNew);
+                        return;
+                    }
+                }
                 ob.timeToNext = 0;
                 ob.isBuyed = false;
                 ob.isBotBuy = true;

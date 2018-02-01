@@ -168,7 +168,7 @@ public class MarketHint {
             _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);
             if (noResource) {
-                if (_dataId == 6 || _dataId == 5) {
+                if (_dataId == 6 || _dataId == 5 || _dataId == 125) {
                     _txtName.text = g.allData.getResourceById(_dataId).name;
                     _txtName.x = -100;
                     _txtName.y = -167;

@@ -57,7 +57,7 @@ public class ManagerChest {
         var aR:Number = Math.random();
         var iR:Number = Math.random();
         if (g.user.level < 17) {
-            if (aR <= .30) { // Instrument Upgrade
+            if (aR <= .3) { // Instrument Upgrade
                 if (iR < .08) obj.id = 2;
                 else if (iR < .33) obj.id = 3;
                 else if (iR < .50) obj.id = 4;
@@ -67,7 +67,7 @@ public class ManagerChest {
 
                 obj.count = 1;
                 obj.type = INSTRUMENT;
-            } else if (aR <= .60) { // Instrument Remove
+            } else if (aR <= .7) { // Instrument Remove
                 if (iR < .37) obj.id = 1;
                 else if (iR < .45) obj.id = 5;
                 else if (iR < .55) obj.id = 47;
@@ -76,7 +76,7 @@ public class ManagerChest {
 
                 obj.type = INSTRUMENT;
                 obj.count = 1;
-            } else if (aR <= .90) { // Soft
+            } else if (aR <= .9) { // Soft
                 obj.count = g.managerDailyBonus.moneyCount / 2.5;
                 obj.id = 0;
                 obj.type = SOFT_MONEY;

@@ -60,17 +60,17 @@ public class WOLevelUpItem {
         _imNew.x = 95;
         _imNew.y = -50;
         source.addChild(_imNew);
-        try {
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.coins) {
+//        try {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && !(ob is StructureDataAnimal) && ob.coins) {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
                 g.userInventory.addMoney(2,ob.countSoft);
             }
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.hard) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && !(ob is StructureDataAnimal) && ob.hard) {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
                 g.userInventory.addMoney(1,ob.countHard);
             }
 
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.decorData) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && !(ob is StructureDataAnimal) && ob.decorData) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(ob.id).image + '_icon'));
                 if (!_image) {
                     _image = new Image(g.allData.atlas[g.allData.getBuildingById(ob.id).url].getTexture(g.allData.getBuildingById(ob.id).image));
@@ -83,7 +83,7 @@ public class WOLevelUpItem {
             }
 
 
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.resourceData) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && !(ob is StructureDataAnimal) && ob.resourceData) {
                 if (g.allData.getResourceById(ob.id).buildType == BuildType.PLANT) {
                     _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(ob.id).imageShop + '_icon'));
                 } else {
@@ -92,11 +92,11 @@ public class WOLevelUpItem {
                 g.userInventory.addResource(ob.id,ob.count);
             }
 
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.catCount) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && !(ob is StructureDataAnimal) && ob.catCount) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
                 _data.id = -1;
             }
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.ridge) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && !(ob is StructureDataAnimal) && ob.ridge) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
                 _data.id = 11;
                 _data.name = g.allData.getBuildingById(11).name;
@@ -149,9 +149,9 @@ public class WOLevelUpItem {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
                 _bolHouse = true;
             }
-        } catch (e:Error) {
-          Cc.error('WOLevelUpItem:: error with _image for data.id: ' + ob.id);
-       }
+//        } catch (e:Error) {
+//          Cc.error('WOLevelUpItem:: error with _image for data.id: ' + ob.id);
+//       }
         _txtName = new CTextField(160, 50,String(_data.name));
         _txtName.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -32;
@@ -176,12 +176,12 @@ public class WOLevelUpItem {
 
     private function onHover():void {
         if (_onHover) return;
-        if (_data.coins) return;
-        if (_data.ridge) return;
-        if (_data.hard) return;
-
         _onHover = true;
-        g.levelUpHint.showIt(_data,source.x-30,source.y-50,source);
+        if (_data.buildType == BuildType.FARM || _data.buildType == BuildType.RIDGE || _data.buildType == BuildType.FABRICA || _data.buildType == BuildType.TREE
+            || _data.buildType == BuildType.RESOURCE || _data.buildType == BuildType.PLANT || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA
+            || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.ANIMAL
+            || _data.buildType == BuildType.INSTRUMENT || _data.buildType == BuildType.MARKET || _data.buildType == BuildType.PAPER || _data.buildType == BuildType.TRAIN
+            || _data.buildType == BuildType.CAVE || _data.buildType == BuildType.DAILY_BONUS || _data.buildType == BuildType.ORDER || _data.buildType == BuildType.DECOR_ANIMATION) g.levelUpHint.showIt(_data,source.x-30,source.y-50,source);
     }
 
     private function onOut():void {

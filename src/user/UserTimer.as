@@ -211,8 +211,8 @@ public class UserTimer {
         for (i = 0; i < _arrOrderItem.length; i++) {
             if (_arrOrderItem[i]) {
                 leftSecond = _arrOrderItem[i].startTime - TimeUtils.currentSeconds;
-                if (leftSecond <= 0){
-                    g.managerOrder.checkForFullOrder();
+                if (leftSecond <= 19){
+//                    g.managerOrder.checkForFullOrder();
                     break;
                 }
             }

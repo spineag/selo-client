@@ -788,7 +788,7 @@ public class ManagerOrder {
                 or.resourceIds.push(getRandomIntElementFromArray(arPlants));
                 count = getRandomIntBetween(1, 3);
                 or.resourceCounts = [count, count, count];
-            } else if (randNumber < .6) {
+            } else {
                 or.resourceIds = getRandomElementsFromIntArray(arPlants, 2);
                 or.resourceIds.push(getRandomIntElementFromArray(arProducts));
                 count = getRandomIntBetween(1, 4);
