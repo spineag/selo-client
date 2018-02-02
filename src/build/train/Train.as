@@ -465,7 +465,13 @@ public class Train extends WorldObject{
         }
     }
 
-    public function fullTrain(full:Boolean):void {
+    public function fullTrain(full:Boolean, showWindow:Boolean = false):void {
+//        trace('sasdsd');
+//        return;
+        if (!full && !showWindow) {
+            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain);
+            return;
+        }
         g.server.releaseUserTrainPack(_train_db_id, onReleasePack);
         showBubleHelp(false);
         if (!full){
