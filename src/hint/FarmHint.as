@@ -62,6 +62,7 @@ public class FarmHint {
     public function showIt(x:int, y:int, dataAnimal:Object, f:Function):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
+        if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         hideIt();
 
         if (!dataAnimal) {

@@ -275,7 +275,12 @@ public class WOLevelUp extends WindowMain {
 
     override public function hideIt():void {
         super.hideIt();
-        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
+        if (g.user.level == 4) {
+            var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            arr[0].showArrow(120);
+        }
+        if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
+//        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
     }
 
     private function onLeftClick():void {
@@ -287,19 +292,19 @@ public class WOLevelUp extends WindowMain {
 
     private function onRightClick():void {
         _shift += 5;
-        if (_shift > int(_arrCells.length - 5)) _shift = int(_arrCells.length - 5);
+        if (_shift > int(_arrCells.length - 3)) _shift = int(_arrCells.length - 3);
         animList();
         checkBtns();
     }
 
     private function checkBtns():void {
-        if (_arrCells.length > 5) {
+        if (_arrCells.length > 3) {
             if (_shift <= 0) {
                 _leftArrow.setEnabled = false;
             } else {
                 _leftArrow.setEnabled = true;
             }
-            if (_shift + 5 >= _arrCells.length) {
+            if (_shift + 3 >= _arrCells.length) {
                 _rightArrow.setEnabled = false;
             } else {
                 _rightArrow.setEnabled = true;
@@ -478,7 +483,7 @@ public class WOLevelUp extends WindowMain {
         _arrCells = [];
         for (i = 0; i < arr.length; i++) {
             if (arr[i].buildType == BuildType.FARM) {
-                animal = g.allData.getAnimalByFarmId(arr[i]);
+                animal = g.allData.getAnimalByFarmId(arr[i].id);
                 if (animal) arr.push(animal);
             }
             _arrItems.push(arr[i]);
@@ -488,7 +493,14 @@ public class WOLevelUp extends WindowMain {
             _contImage.addChild(im.source);
             _contImage.y = 50;
         }
-        if (_arrCells.length > 5) {
+        if (_arrCells.length > 3) {
+            if (_arrCellsGift && _arrCellsGift.length > 0) {
+                _leftArrow.y = 55 + _leftArrow.height/2;
+                _rightArrow.y = 55 + _rightArrow.height/2;
+            } else {
+                _leftArrow.y = 15 + _leftArrow.height/2;
+                _rightArrow.y = 15 + _rightArrow.height/2;
+            }
             _leftArrow.visible = true;
             _leftArrow.setEnabled = false;
             _rightArrow.visible = true;

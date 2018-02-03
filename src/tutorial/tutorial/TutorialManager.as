@@ -27,6 +27,8 @@ import starling.textures.TextureAtlas;
 import tutorial.CutScene;
 import tutorial.IManagerTutorial;
 import tutorial.TutsAction;
+import tutorial.pretuts.TutorialComix;
+
 import utils.SimpleArrow;
 import utils.Utils;
 import utils.Utils;
@@ -95,12 +97,19 @@ public class TutorialManager extends IManagerTutorial{
 
     private function initScene_1():void { // for mult or smth like that
         _subStep = 0;
-        g.startPreloader.hideIt();
-        g.startPreloader = null;
+        g.startPreloader.hideIt(); // delete When Comix been
+        g.startPreloader = null; // delete When Comix been
+//        var tutComix:TutorialComix = new TutorialComix(nextStepa);
         g.user.tutorialStep = 2;
         updateTutorialStep();
         initScenes();
     }
+
+//    private function nextStepa():void {
+//        g.user.tutorialStep = 2;
+//        updateTutorialStep();
+//        initScenes();
+//    }
 
     private function initScene_2():void {
         if (!cutScene) cutScene = new CutScene();

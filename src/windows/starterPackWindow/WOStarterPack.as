@@ -88,13 +88,22 @@ public class WOStarterPack extends WindowMain{
     private function createWindow():void {
         var txt:CTextField;
         var im:Image;
+        if (g.user.language == ManagerLanguage.RUSSIAN) {
+            _txtName = new CTextField(600, 100, String(g.managerLanguage.allTexts[324]));
+            _txtName.setFormat(CTextField.BOLD72, 45, 0xcf302f, Color.WHITE);
+            _txtName.alignH = Align.LEFT;
+            _txtName.x = -255;
+            _txtName.y = -235;
+            _source.addChild(_txtName);
+        } else {
+            _txtName = new CTextField(350, 100, String(g.managerLanguage.allTexts[324]));
+            _txtName.setFormat(CTextField.BOLD72, 70, 0xcf302f, Color.WHITE);
+            _txtName.alignH = Align.LEFT;
+            _txtName.x = -180;
+            _txtName.y = -235;
+            _source.addChild(_txtName);
+        }
 
-        _txtName = new CTextField(350, 100, String(g.managerLanguage.allTexts[324]));
-        _txtName.setFormat(CTextField.BOLD72, 70, 0xcf302f, Color.WHITE);
-        _txtName.alignH = Align.LEFT;
-        _txtName.x = -180;
-        _txtName.y = -235;
-        _source.addChild(_txtName);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_rubins_1'));
         im.x = -220;
         im.y = -75;

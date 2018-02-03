@@ -56,12 +56,16 @@ public class ManagerCats {
     }
 
     public function timerRandomWorkMan():void {
-        var delay:int = 30 + int(Math.random()*60);
+        var delay:int;
+        if (g.user.level <= 8) delay = 10 + int(Math.random()*60);
+       else  delay = 30 + int(Math.random()*60);
         Utils.createDelay(delay, function():void {chooseRandomWork(_catsArray[0])});
     }
 
     public function timerRandomWorkWoman():void {
-        var delay:int = 30 + int(Math.random()*60);
+        var delay:int;
+        if (g.user.level <= 8) delay = 15 + int(Math.random()*60);
+        else  delay = 30 + int(Math.random()*60);
         Utils.createDelay(delay,  function():void {chooseRandomWork(_catsArray[1])});
     }
 

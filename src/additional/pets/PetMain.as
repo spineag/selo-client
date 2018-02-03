@@ -221,7 +221,7 @@ public class PetMain {
                 else _animation.runAnimation();
         }
         if (_animation.isBack || !_animation.isWalking) koef = .5; // for run
-        new TweenMax(_source, koef, { x: pXY.x, y: pXY.y, ease: Linear.easeNone, onComplete: f1, onCompleteParams: [callback]});
+        if (_source) new TweenMax(_source, koef, { x: pXY.x, y: pXY.y, ease: Linear.easeNone, onComplete: f1, onCompleteParams: [callback]});
     }
 
     public function showArrow(t:Number = 0):void {

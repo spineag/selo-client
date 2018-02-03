@@ -135,7 +135,6 @@ public class XPPanel {
     private function onGetNewLevel():void {
         g.friendPanel.checkLevel();
         g.userInventory.addNewElementsAfterGettingNewLevel();
-        if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
         if (g.user.level == 4 || g.user.level == 5) g.miniScenes.checkDeleteMiniScene();
         if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])
             g.managerDailyBonus.generateDailyBonusItems();

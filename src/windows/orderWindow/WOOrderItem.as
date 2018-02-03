@@ -346,8 +346,8 @@ public class WOOrderItem {
 
     public function deleteIt():void {
         g.hint.hideIt();
-        g.gameDispatcher.removeFromTimer(renderLeftTime);
-        g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
+//        g.gameDispatcher.removeFromTimer(renderLeftTime);
+//        g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
         if (!source) return;
 //        _starImage.filter.dispose();
         _coinsImage.filter.dispose();

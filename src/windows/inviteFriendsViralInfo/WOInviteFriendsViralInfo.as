@@ -91,7 +91,7 @@ public class WOInviteFriendsViralInfo extends WindowMain {
         _imRub = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _imRub.alignPivot();
         if (g.user.language == ManagerLanguage.RUSSIAN) _imRub.x = -12;
-            else _imRub.x = -80;
+            else _imRub.x = -95;
         _imRub.y = 145;
         _source.addChild(_imRub);
 

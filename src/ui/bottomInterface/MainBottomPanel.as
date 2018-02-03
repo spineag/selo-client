@@ -314,6 +314,7 @@ public class MainBottomPanel {
                 if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
                 g.managerHelpers.onUserAction();
                 if (g.managerSalePack) g.managerSalePack.onUserAction();
+                if (g.managerStarterPack) g.managerStarterPack.onUserAction();
                 if (g.managerCutScenes.isCutScene)  {
                     if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR)) {
                         if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
@@ -341,6 +342,7 @@ public class MainBottomPanel {
             case 'option':
                 g.managerHelpers.onUserAction();
                 if (g.managerSalePack) g.managerSalePack.onUserAction();
+                if (g.managerStarterPack) g.managerStarterPack.onUserAction();
                 if (g.managerCutScenes.isCutScene) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();

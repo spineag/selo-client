@@ -58,6 +58,7 @@ import windows.shop_new.WOShopNew;
 import windows.starterPackWindow.WOStarterPack;
 import windows.tipsWindow.WOTips;
 import windows.train.WOTrain;
+import windows.train.WOTrainSend;
 import windows.train.WOTrainWaitBack;
 import windows.tutorial.WOTutorial;
 import windows.wallPost.PostDoneOrder;
@@ -129,6 +130,7 @@ public class WindowsManager {
     public static const WO_TUTORIAL:String = 'tutorial';
     public static const WO_ORDER_CAT_MINI:String = 'order_cat_mini_scene';
     public static const WO_TUTORIAL_NYASHUK:String = 'tutorial_nyashuk';
+    public static const WO_TRAIN_SEND:String = 'send_train';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -346,6 +348,9 @@ public class WindowsManager {
                 break;
             case WO_TUTORIAL_NYASHUK:
                 wo = new WOTutorialNyashuk();
+                break;
+            case WO_TRAIN_SEND:
+                wo = new WOTrainSend();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

@@ -144,7 +144,6 @@ public class UserTimer {
         if (first) {
             g.gameDispatcher.addToTimer(starterTimerToEndF);
         } else {
-            trace(TimeUtils.currentSeconds);
             starterTimerToEnd = TimeUtils.currentSeconds - time;
             if (starterTimerToEnd >= 604800) {
                 starterTimerToEnd = 0;
@@ -212,8 +211,8 @@ public class UserTimer {
         for (i = 0; i < _arrOrderItem.length; i++) {
             if (_arrOrderItem[i]) {
                 leftSecond = _arrOrderItem[i].startTime - TimeUtils.currentSeconds;
-                if (leftSecond <= 0){
-                    g.managerOrder.checkForFullOrder();
+                if (leftSecond <= 19){
+//                    g.managerOrder.checkForFullOrder();
                     break;
                 }
             }

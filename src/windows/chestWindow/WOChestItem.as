@@ -63,6 +63,8 @@ public class WOChestItem {
                 im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(obj.id).imageShop));
                 break;
         }
+        trace(obj.type);
+        trace(obj.id);
         MCScaler.scale(im, 100, 100);
         im.x = -im.width/2;
         im.y = -im.height/2;

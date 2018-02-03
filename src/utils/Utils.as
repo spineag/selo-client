@@ -216,7 +216,7 @@ public class Utils {
         newOb.idResourceRaw = oldOb.idResourceRaw;
         newOb.buildType = oldOb.buildType;
         newOb.costNew = oldOb.costNew;
-        newOb.sort = blockByLevel;
+        newOb.sort = int(blockByLevel);
         return newOb;
     }
 
@@ -238,7 +238,8 @@ public class Utils {
         newOb.buildType = oldOb.buildType;
         newOb.petType = oldOb.petType;
         newOb.currency = oldOb.currency;
-        newOb.sort = oldOb.blockByLevel[0];
+
+        newOb.sort = int(oldOb.blockByLevel[0]);
         newOb.cost = [];
         if (oldOb.costBlue) newOb.cost.push(oldOb.costBlue);
         if (oldOb.costRed) newOb.cost.push(oldOb.costRed);

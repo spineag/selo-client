@@ -273,6 +273,7 @@ public class WONoResources extends WindowMain {
                 _countOfResources = 1;
                 _countCost = g.allData.getResourceById(_paramData.pet.petData.eatId).priceHard * _countOfResources;
                 _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
+                _text.text = String(g.managerLanguage.allTexts[1251]);
                 if (_sensi) _sensi.deleteIt();
                 _sensi = new SensibleBlock();
                 _sensi.textAndImage(_txtHardCost,_imRubin,265);

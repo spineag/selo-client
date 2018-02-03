@@ -77,12 +77,12 @@ public class ManagerBuyerNyashuk {
                     newBot(false,ar[i]);
                 } else {
                     if (ar[i].buyer_id == 1) {
-                        g.userTimer.buyerNyashukBlue((ar[i].time_to_new - TimeUtils.currentSeconds) * (-1));
+                        g.userTimer.buyerNyashukBlue(1200 - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         _table1.showTable(true,26, 25);
 
                     }
                     else {
-                        g.userTimer.buyerNyashukRed((ar[i].time_to_new - TimeUtils.currentSeconds) * (-1));
+                        g.userTimer.buyerNyashukRed( 1200 - (TimeUtils.currentSeconds) - ar[i].time_to_new);
                         _table2.showTable(true, 25, 27);
                     }
                 }
@@ -271,6 +271,12 @@ public class ManagerBuyerNyashuk {
                     ob.resourceCount = int(Math.random() * arrMax[ra].count) + 1;
                     ob.cost = g.allData.getResourceById(arrMax[ra].id).visitorPrice * ob.resourceCount;
                     ob.typeBuild = g.allData.getResourceById(arrMax[ra].id).buildType;
+                }
+                if (!_arr && _arr.length > 0) {
+                    if (_arr[0].resourceId == ob.resourceId) {
+                        newBot(firstBot, objectNew);
+                        return;
+                    }
                 }
                 ob.timeToNext = 0;
                 ob.isBuyed = false;

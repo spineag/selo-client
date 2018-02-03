@@ -307,10 +307,13 @@ public class WOOrderNew extends WindowMain {
             if (_activeOrderItem.leftSeconds <= 5) _btnSkipDelete.visible = false;
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
+            stopCatsAnimations();
+            emptyCarCustomer();
         } else {
             _rightBlock.visible = true;
             _rightBlockTimer.visible = false;
             g.gameDispatcher.removeFromTimer(onTimer);
+            animateCustomerCat();
             changeCatTexture();
         }
 
@@ -821,6 +824,34 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         var im:Image = new Image(g.allData.atlas['customisationOrder'].getTexture(newName));
         b.displayList = null;
         b.display = im;
+    }
+
+    private function killCatAnimations():void {
+        if (!_armature) {
+            return;
+        }
+        stopCatsAnimations();
+        WorldClock.clock.remove(_armature);
+    }
+
+    private function stopCatsAnimations():void {
+        if (!_armature) {
+            return;
+        }
+        _armature.animation.gotoAndStopByFrame('idle');
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, animateCustomerCat);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
+    }
+
+    private function deleteCats():void {
+        killCatAnimations();
+        if (!_armature) return;
+        _source.removeChild(_armature.display as Sprite);
+        _armature = null;
+    }
+
+    private function emptyCarCustomer():void {
+        _armature.animation.gotoAndStopByFrame('empty');
     }
 }
 }

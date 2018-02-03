@@ -85,6 +85,7 @@ public class ShopNewTabs {
     }
 
     private function onTab(n:int):void {
+        if (g.tuts.isTuts) return;
         g.user.shiftShop = 0;
         _callback.apply(null, [n]);
         activateTab(n);
