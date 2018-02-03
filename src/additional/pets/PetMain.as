@@ -52,21 +52,15 @@ public class PetMain {
             else g.loadAnimation.load('animations_json/x1/' + _petData.url, _petData.url, createArmature);
     }
 
-    public function goPetToXYPoint(p:Point, time:int, callbackOnWalking:Function):void {
-        new TweenMax(_source, time, {
-            x: p.x,
-            y: p.y,
-            ease: Linear.easeNone,
-            onComplete: onGotPetToXYPoint,
-            onCompleteParams: [callbackOnWalking]
-        });
-    }
-
-    private function onGotPetToXYPoint(f:Function):void {
-        if (f != null) {
-            f.apply(null, [this]);
-        }
-    }
+//    public function goPetToXYPoint(p:Point, time:int, callbackOnWalking:Function):void {
+//        new TweenMax(_source, time, {
+//            x: p.x,
+//            y: p.y,
+//            ease: Linear.easeNone,
+//            onComplete: onGotPetToXYPoint,
+//            onCompleteParams: [callbackOnWalking]
+//        });
+//    }
 
     public function get depth():Number {
         var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
@@ -77,7 +71,8 @@ public class PetMain {
     }
 
     private function createArmature():void { _animation.fillArmatures(_petData); }
-    protected function releaseTexture():void {}
+    //private function onGotPetToXYPoint(f:Function):void {  if (f != null) {  f.apply(null, [this]); }  }
+    public function releaseTexture():void {  g.managerPets.chooseRandomAct(this); }
     public function get petData():StructureDataPet { return _petData; }
     public function get posX():int { return _posX; }
     public function get posY():int { return _posY; }

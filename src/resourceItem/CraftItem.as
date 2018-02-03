@@ -110,6 +110,10 @@ public class CraftItem {
     public function set checkCount(v:Boolean):void { _checkCount = v; }
 
     public function releaseIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
+        if (!_source) {
+            Cc.error('CraftItem releaseIt:: _ source = null');
+            return;
+        }
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
         if (g.tuts.isTuts && (g.tuts.action == TutsAction.ANIMAL_CRAFT || g.tuts.action == TutsAction.FABRICA_CRAFT)) {
@@ -121,10 +125,6 @@ public class CraftItem {
         _image.filter = null;
         if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + count > g.user.ambarMaxCount) {
             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
-            while (_source.numChildren) {
-                _source.removeChildAt(0);
-            }
-            _source = null;
             return;
         }
 

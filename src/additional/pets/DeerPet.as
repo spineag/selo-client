@@ -16,7 +16,7 @@ public class DeerPet extends PetMain  {
         _innerPosY3 = 96 * g.scaleFactor;
     }
 
-    override protected function releaseTexture():void {
+    override public function releaseTexture():void {
         switch (_petData.id) {
             case 6: // white
                 _animation.changeTexture("brown_deer_horn_front.png",               "white_deer_horn_front", true);

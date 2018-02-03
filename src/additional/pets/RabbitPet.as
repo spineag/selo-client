@@ -17,7 +17,7 @@ public class RabbitPet  extends PetMain {
         _innerPosY3 = 92 * g.scaleFactor;
     }
 
-    override protected function releaseTexture():void {
+    override public function releaseTexture():void {
         switch (_petData.id) {
             case 5: // blue_rabbit  -> default
                 _animation.changeTexture("Right_ear",          "blue_rabbit_ear_right_front", true);

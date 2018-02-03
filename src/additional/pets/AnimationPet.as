@@ -39,7 +39,6 @@ public class AnimationPet {
         _petBackImage = new Sprite();
         _parent.addChild(_petImage);
         _parent.addChild(_petBackImage);
-        _petImage.visible = false;
         _petBackImage.visible = false;
     }
     
@@ -49,17 +48,11 @@ public class AnimationPet {
         _armatureBack = g.allData.factory[_petData.url].buildArmature(_petData.image + "_back");
         _petImage.addChild(_armature.display as StarlingArmatureDisplay);
         _petBackImage.addChild(_armatureBack.display as StarlingArmatureDisplay);
-        if (g.allData.atlas['customisationPetsAtlas']) releaseTexture();
-            else g.load.loadAtlas('x1/customisationPetsAtlas', 'customisationPetsAtlas', releaseTexture);
         if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, loopEnd);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, loopEnd);
-    }
-
-    protected function releaseTexture():void {
-        _petImage.visible = false;
-        _petBackImage.visible = false;
-        g.managerPets.chooseRandomAct(_pet);
+        if (g.allData.atlas['customisationPetsAtlas']) _pet.releaseTexture();
+            else g.load.loadAtlas('x1/customisationPetsAtlas', 'customisationPetsAtlas', _pet.releaseTexture);
     }
 
     public function changeTexture(oldName:String, newName:String, isFront:Boolean):void {
