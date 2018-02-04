@@ -58,11 +58,8 @@ public class WOTrain extends WindowMain {
         _windowType = WindowsManager.WO_TRAIN;
         _woWidth = 972;
         _woHeight = 714;
-        if (g.managerResize.stageHeight < 750) _isBigWO = false;
-            else _isBigWO = true;
-
-        if (_isBigWO) _woHeight = 714;
-            else _woHeight = 550;
+        if (g.managerResize.stageHeight < 750) _isBigWO = false;   else _isBigWO = true;
+        if (_isBigWO) _woHeight = 714;   else _woHeight = 550;
         _activeItemIndex = -1;
         if (_isBigWO) _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 109);  else _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 60);
         _source.addChild(_woBGNew);
@@ -106,8 +103,7 @@ public class WOTrain extends WindowMain {
         _txt2.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txt2.alignPivot();
         _txt2.x = -_woWidth/2 + 790;
-        if (_isBigWO) _txt2.y = -_woHeight/2 + 144;
-            else _txt2.y = -_woHeight/2 + 85;
+        if (_isBigWO) _txt2.y = -_woHeight/2 + 144;  else _txt2.y = -_woHeight/2 + 85;
         _source.addChild(_txt2);
         _txt3 = new CTextField(280,40,String(g.managerLanguage.allTexts[295]));
         _txt3.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
