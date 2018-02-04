@@ -58,71 +58,94 @@ public class WOTrain extends WindowMain {
         _windowType = WindowsManager.WO_TRAIN;
         _woWidth = 972;
         _woHeight = 714;
+        if (g.managerResize.stageHeight < 750) _isBigWO = false;
+            else _isBigWO = true;
+
+        _isBigWO = false;
+
+        if (_isBigWO) _woHeight = 714;
+            else _woHeight = 550;
         _activeItemIndex = -1;
-        _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 109);
+        if (_isBigWO) _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 109);  else _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 60);
         _source.addChild(_woBGNew);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-        _yellowBG = new BackgroundYellowOut(932, 564);
+        if (_isBigWO) _yellowBG = new BackgroundYellowOut(932, 564);  else _yellowBG = new BackgroundYellowOut(932, 464);
         _yellowBG.x = - 468;
-        _yellowBG.y = -_woHeight/2 + 128;
+        if (_isBigWO) _yellowBG.y = -_woHeight/2 + 128;  else _yellowBG.y = -_woHeight/2 + 68;
         _source.addChild(_yellowBG);
         _milkBG = new BackgroundMilkIn(282, 278);
         _milkBG.x = -_woWidth/2 + 651;
-        _milkBG.y = -_woHeight/2 + 223;
+        if (_isBigWO) _milkBG.y = -_woHeight/2 + 223;  else _milkBG.y = -_woHeight/2 + 160;
         _source.addChild(_milkBG);
-        _txtWindowName = new CTextField(300, 70, g.managerLanguage.allTexts[293]);
-        _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        if (_isBigWO) {
+            _txtWindowName = new CTextField(300, 70, g.managerLanguage.allTexts[293]);
+            _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+            _txtWindowName.y = -_woHeight / 2 + 20;
+        } else {
+            _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[293]);
+            _txtWindowName.setFormat(CTextField.BOLD30, 36, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+            _txtWindowName.y = -_woHeight / 2 + 5;
+        }
         _txtWindowName.x = -150;
-        _txtWindowName.y = -_woHeight/2 + 20;
         _source.addChild(_txtWindowName);
 
         _arrItems = [];
         createItems();
-        _txt1 = new CTextField(400,50,String(g.managerLanguage.allTexts[296]));
-        _txt1.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        if (_isBigWO) {
+            _txt1 = new CTextField(400, 50, String(g.managerLanguage.allTexts[296]));
+            _txt1.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR, Color.WHITE);
+            _txt1.y = -_woHeight / 2 + 156;
+        } else {
+            _txt1 = new CTextField(400, 50, String(g.managerLanguage.allTexts[296]));
+            _txt1.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
+            _txt1.y = -_woHeight / 2 + 85;
+        }
         _txt1.alignPivot();
-        _txt1.x = -_woWidth/2 + 335;
-        _txt1.y = -_woHeight/2 + 156;
+        _txt1.x = -_woWidth / 2 + 335;
         _source.addChild(_txt1);
         _txt2 = new CTextField(220,30,String(g.managerLanguage.allTexts[297]));
         _txt2.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txt2.alignPivot();
         _txt2.x = -_woWidth/2 + 790;
-        _txt2.y = -_woHeight/2 + 144;
+        if (_isBigWO) _txt2.y = -_woHeight/2 + 144;
+            else _txt2.y = -_woHeight/2 + 85;
         _source.addChild(_txt2);
         _txt3 = new CTextField(280,40,String(g.managerLanguage.allTexts[295]));
         _txt3.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txt3.alignPivot();
         _txt3.x = -_woWidth/2 + 796;
-        _txt3.y = -_woHeight/2 + 523;
+        if (_isBigWO) _txt3.y = -_woHeight/2 + 523;  else _txt3.y = -_woHeight/2 + 458;
         _source.addChild(_txt3);
         _txt4 = new CTextField(280,60,String(g.managerLanguage.allTexts[299]));
         _txt4.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txt4.alignPivot();
         _txt4.x = -_woWidth/2 + 786;
-        _txt4.y = -_woHeight/2 + 271;
-
+        if (_isBigWO)_txt4.y = -_woHeight/2 + 271;  else _txt4.y = -_woHeight/2 + 200;
         _source.addChild(_txt4);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('clock'));
         im.alignPivot();
         im.x = -_woWidth/2 + 730;
-        im.y = -_woHeight/2 + 190;
+        if (_isBigWO) im.y = -_woHeight/2 + 190;  else im.y = -_woHeight/2 + 130;
         _source.addChild(im);
         _txtTimer = new CTextField(300, 50, '');
         _txtTimer.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txtTimer.alignPivot();
         _txtTimer.x = -_woWidth/2 + 827;
-        _txtTimer.y = -_woHeight/2 + 185;
+        if (_isBigWO) _txtTimer.y = -_woHeight/2 + 185;  else _txtTimer.y = -_woHeight/2 + 125;
         _source.addChild(_txtTimer);
 
         _btnSendBasket = new CButton();
         _btnSendBasket.addButtonTexture(150, CButton.HEIGHT_55, CButton.GREEN, true);
-        _btnSendBasket.x = -_woWidth/2 + 800;
-        _btnSendBasket.y = -_woHeight/2 + 638;
-        _source.addChild(_btnSendBasket);
         _btnSendBasket.addTextField(92, 50, 6, 0, g.managerLanguage.allTexts[292]);
         _btnSendBasket.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        if (_isBigWO) {
+            _btnSendBasket.x = -_woWidth / 2 + 800;
+            _btnSendBasket.y = -_woHeight / 2 + 638;
+        } else {
+            _btnSendBasket.x = -_woWidth / 2 + 330;
+            _btnSendBasket.y = -_woHeight / 2 + 490;
+        }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('basket_send'));
         im.alignPivot();
         im.x = 134;
@@ -130,15 +153,16 @@ public class WOTrain extends WindowMain {
         _btnSendBasket.addDisplayObject(im);
         _btnSendBasket.setEnabled = false;
         _btnSendBasket.clickCallback = sendFullTrain;
+        _source.addChild(_btnSendBasket);
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rug'));
         im.x = -_woWidth/2 + 676;
-        im.y = -_woHeight/2 + 340;
+        if (_isBigWO) im.y = -_woHeight/2 + 340;  else im.y = -_woHeight/2 + 265;
         _source.addChild(im);
         _btnLoad = new CButton();
         _btnLoad.addButtonTexture(90, CButton.HEIGHT_32, CButton.GREEN, true);
-        _btnLoad.x = -_woWidth/2 + 736;
-        _btnLoad.y = -_woHeight/2 + 405;
+        _btnLoad.x = -_woWidth / 2 + 736;
+        if (_isBigWO) _btnLoad.y = -_woHeight / 2 + 405; _btnLoad.y = -_woHeight/2 + 340;
         _btnLoad.addTextField(90, 30, 0, 0, g.managerLanguage.allTexts[294]);
         _btnLoad.setTextFormat(CTextField.BOLD24, 21, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnLoad.clickCallback = onResourceLoad;
@@ -153,7 +177,7 @@ public class WOTrain extends WindowMain {
         _btnHelp.addTextField(180, 34, 47, 0, g.managerLanguage.allTexts[301]);
         _btnHelp.setTextFormat(CTextField.BOLD24, 21, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnHelp.x = -_woWidth/2 + 803;
-        _btnHelp.y = -_woHeight/2 + 463;
+        if (_isBigWO) _btnHelp.y = -_woHeight/2 + 463;  _btnHelp.y = -_woHeight/2 + 400;
         _source.addChild(_btnHelp);
         _btnHelp.clickCallback = wantHelpClick;
 
@@ -164,7 +188,7 @@ public class WOTrain extends WindowMain {
         MCScaler.scale(im, 30, 30);
         _sensMoneyItem.imageAndText(im, t, 110, 10);
         _sensMoneyItem.x = -_woWidth / 2 + 800;
-        _sensMoneyItem.y = -_woHeight / 2 + 382;
+        if (_isBigWO) _sensMoneyItem.y = -_woHeight / 2 + 382;  else _sensMoneyItem.y = -_woHeight/2 + 307;
         _source.addChild(_sensMoneyItem);
         _sensXPItem = new SensibleBlock();
         t = new CTextField(60, 30, '8888');
@@ -173,7 +197,7 @@ public class WOTrain extends WindowMain {
         MCScaler.scale(im, 36, 36);
         _sensXPItem.imageAndText(im, t, 110, 7);
         _sensXPItem.x = -_woWidth / 2 + 800;
-        _sensXPItem.y = -_woHeight / 2 + 340;
+        if (_isBigWO) _sensXPItem.y = -_woHeight / 2 + 340;  else _sensXPItem.y = -_woHeight/2 + 265;
         _source.addChild(_sensXPItem);
 
         _sensXP = new SensibleBlock();
@@ -183,7 +207,7 @@ public class WOTrain extends WindowMain {
         MCScaler.scale(im, 36, 36);
         _sensXP.imageAndText(im, t, 110, 2);
         _sensXP.x = -_woWidth / 2 + 660;
-        _sensXP.y = -_woHeight / 2 + 554;
+        if (_isBigWO) _sensXP.y = -_woHeight / 2 + 554;  _sensXP.y = -_woHeight/2 + 485;
         _source.addChild(_sensXP);
         _sensMoney = new SensibleBlock();
         t = new CTextField(60, 30, '8888');
@@ -192,7 +216,7 @@ public class WOTrain extends WindowMain {
         MCScaler.scale(im, 30, 30);
         _sensMoney.imageAndText(im, t, 110, 5);
         _sensMoney.x = -_woWidth / 2 + 755;
-        _sensMoney.y = -_woHeight / 2 + 554;
+        if (_isBigWO) _sensMoney.y = -_woHeight / 2 + 554;  else _sensMoney.y = -_woHeight / 2 + 488;
         _source.addChild(_sensMoney);
         _sensCoupone = new SensibleBlock();
         t = new CTextField(60, 30, '1');
@@ -201,7 +225,7 @@ public class WOTrain extends WindowMain {
         MCScaler.scale(im, 30, 30);
         _sensCoupone.imageAndText(im, t, 110, 2);
         _sensCoupone.x = -_woWidth / 2 + 835;
-        _sensCoupone.y = -_woHeight / 2 + 554;
+        if (_isBigWO) _sensCoupone.y = -_woHeight / 2 + 554;  else _sensCoupone.y = -_woHeight / 2 + 488;
         _source.addChild(_sensCoupone);
     }
 
@@ -213,9 +237,14 @@ public class WOTrain extends WindowMain {
     private function createItems():void {
         var item:WOTrainItem;
         for (var i:int = 0; i < 12; i++) {
-            item = new WOTrainItem(int(i/4) + 1, i);
-            item.source.x = -_woWidth/2 + 110 + i%4 * 146;
-            item.source.y = -_woHeight/2 + 325 + int(i/4) * 152;
+            item = new WOTrainItem(int(i/4) + 1, i, _isBigWO);
+            if (_isBigWO) {
+                item.source.x = -_woWidth / 2 + 110 + i % 4 * 146;
+                item.source.y = -_woHeight / 2 + 325 + int(i / 4) * 152;
+            } else {
+                item.source.x = -_woWidth / 2 + 110 + i % 4 * 146;
+                item.source.y = -_woHeight / 2 + 210 + int(i / 4) * 110;
+            }
             _source.addChild(item.source);
             _arrItems.push(item);
         }
@@ -256,6 +285,7 @@ public class WOTrain extends WindowMain {
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         g.gameDispatcher.addToTimer(checkCounter);
         super.showIt();
+        if (_isBigWO) _source.y -= 40;
     }
 
     private function checkCounter():void {
@@ -296,7 +326,7 @@ public class WOTrain extends WindowMain {
         MCScaler.scale(_imResource, 80, 80);
         _imResource.alignPivot();
         _imResource.x = 737 - _woWidth/2;
-        _imResource.y = 348 - _woHeight/2;
+        if (_isBigWO) _imResource.y = 348 - _woHeight/2;  else _imResource.y = 285 - _woHeight/2;
         _source.addChild(_imResource);
         if (g.isAway) {
             if (_arrItems[k].needHelp && int(_arrItems[k].idWhoHelp) <= 0) {
