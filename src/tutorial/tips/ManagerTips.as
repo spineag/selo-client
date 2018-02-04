@@ -315,7 +315,7 @@ public class ManagerTips {
     }
     
     private function atBuyCat():void {
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0, 3);
         }
     }

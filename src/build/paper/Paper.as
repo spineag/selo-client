@@ -95,7 +95,7 @@ public class Paper extends WorldObject{
                 new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
                 return;
             }
-            g.windowsManager.openWindow(WindowsManager.WO_PAPER_NEW, null);
+            g.windowsManager.openWindow(WindowsManager.WO_PAPER, null);
             onOut();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')

@@ -85,7 +85,7 @@ public class ManagerHelpers {
                _curReason.reason != HelperReason.REASON_BUY_FARM && _curReason.reason != HelperReason.REASON_BUY_HERO && _curReason.reason != HelperReason.REASON_BUY_RIDGE) {
                 onEnd();
             } else {
-                if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType != WindowsManager.WO_SHOP_NEW) onEnd();
+                if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType != WindowsManager.WO_SHOP) onEnd();
             }
         }
     }
@@ -398,7 +398,7 @@ public class ManagerHelpers {
     public function onOpenShop():void {
         if (_helper) _helper.deleteHelper();
         _helper = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             if (_curReason.reason == HelperReason.REASON_BUY_ANIMAL || _curReason.reason == HelperReason.REASON_BUY_FABRICA || _curReason.reason == HelperReason.REASON_BUY_FARM
                  || _curReason.reason == HelperReason.REASON_BUY_RIDGE) {
                 (g.windowsManager.currentWindow as WOShop).openOnResource(_curReason.id);

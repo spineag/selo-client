@@ -90,13 +90,13 @@ public class WindowsManager {
     public static const WO_WAIT_FREE_CATS:String = 'wait_free_cats';
     public static const WO_NO_PLACES:String = 'no_places';
     public static const WO_NO_RESOURCES:String = 'no_resources';
-    public static const WO_ORDERS:String = 'orders_NEW';
-    public static const WO_PAPER_NEW:String = 'paper_new';
+    public static const WO_ORDERS:String = 'orders';
+    public static const WO_PAPER:String = 'paper';
     public static const WO_RELOAD_GAME:String = 'reload_game';
     public static const WO_SERVER_ERROR:String = 'server_error';
     public static const WO_SERVER_CRACK:String = 'server_crack';
     public static const WO_ANOTHER_GAME_ERROR:String = 'another_game';
-    public static const WO_SHOP_NEW:String = 'shop_new';
+    public static const WO_SHOP:String = 'shop';
     public static const WO_TRAIN:String = 'train';
     public static const WO_TRAIN_WAIT_BACK:String = 'train_order';
     public static const WO_CHEST:String = 'chest';
@@ -247,7 +247,7 @@ public class WindowsManager {
             case WO_TRAIN_WAIT_BACK:
                 wo = new WOTrainWaitBack();
                 break;
-            case WO_SHOP_NEW:
+            case WO_SHOP:
                 wo = new WOShop();
                 break;
             case WO_CHEST:
@@ -340,7 +340,7 @@ public class WindowsManager {
             case WO_TUTORIAL:
                 wo = new WOTutorial();
                 break;
-            case WO_PAPER_NEW:
+            case WO_PAPER:
                 wo = new WOPaper();
                 break;
             case WO_ORDER_CAT_MINI:

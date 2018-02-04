@@ -179,7 +179,7 @@ public class Farm extends WorldObject{
                     g.user.decorShop = false;
                     g.user.animalIdArrow = _dataAnimal.id;
                     g.user.shopTab = WOShop.ANIMAL;
-                    g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShop.ANIMAL);
+                    g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
                 }
             }
         } else {

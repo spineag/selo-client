@@ -31,7 +31,7 @@ public class WOShop extends WindowMain {
 
     public function WOShop() {
         super();
-        _windowType = WindowsManager.WO_SHOP_NEW;
+        _windowType = WindowsManager.WO_SHOP;
         if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigWO = false;
             else _isBigWO = true;
         if (_isBigWO) {

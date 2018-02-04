@@ -250,7 +250,7 @@ public class MainBottomPanel {
                     }
                 }
                 if (_questBoolean && _typeHelp == HelperReason.REASON_BUY_DECOR) g.user.shopDecorFilter = DecorShopFilter.FILTER_ALL;
-                g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, shopTab);
+                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.managerHelpers.onOpenShop();
                 }

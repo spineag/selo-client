@@ -41,7 +41,7 @@ public class WOPaper extends WindowMain {
         super();
         _arrItems = [];
         _isAnim = false;
-        _windowType = WindowsManager.WO_PAPER_NEW;
+        _windowType = WindowsManager.WO_PAPER;
         _woWidth = 880;
         _woHeight = 646;
         _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 98);
@@ -136,7 +136,7 @@ public class WOPaper extends WindowMain {
         _leftArrow.addChild(im);
         _leftArrow.clickCallback = onClickLeft;
         _leftArrow.x = -_woWidth/2 + 33;
-        _leftArrow.y = -_woHeight/2 + 380;
+        _leftArrow.y = -_woHeight/2 + 350;
         _source.addChild(_leftArrow);
 
         _rightArrow = new CButton();
@@ -146,7 +146,7 @@ public class WOPaper extends WindowMain {
         _rightArrow.addChild(im);
         _rightArrow.clickCallback = onClickRight;
         _rightArrow.x = _woWidth/2 - 33;
-        _rightArrow.y = -_woHeight/2 + 380;
+        _rightArrow.y = -_woHeight/2 + 350;
         _source.addChild(_rightArrow);
     }
 

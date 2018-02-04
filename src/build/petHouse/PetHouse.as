@@ -151,7 +151,7 @@ public class PetHouse extends WorldObject {
                     g.user.shiftShop = 0;
                     g.user.decorShop = false;
                     g.user.shopTab = WOShop.ANIMAL;
-                    g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShop.ANIMAL);
+                    g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
                 }
             }
         }
