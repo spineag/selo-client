@@ -35,11 +35,10 @@ public class WOFabrica extends WindowMain {
     private var _isAnim:Boolean;
     private var _listCont:Sprite;
     private var _imWhite:Image;
-    private var _isBigWindow:Boolean;
 
     public function WOFabrica() {
         super();
-        _isBigWindow = g.managerResize.stageHeight > 720;
+        _isBigWO = g.managerResize.stageHeight > 720;
         _windowType = WindowsManager.WO_FABRICA;
         _woHeight = 532;
         _woWidth = 746;
@@ -64,13 +63,13 @@ public class WOFabrica extends WindowMain {
         createArrows();
         _listCont = new Sprite();
         _listCont.x = -_woWidth/2 + 135;
-        if (_isBigWindow) _listCont.y = -_woHeight/2 + 320;
+        if (_isBigWO) _listCont.y = -_woHeight/2 + 320;
             else _listCont.y = -_woHeight/2 + 240;
         _source.addChild(_listCont);
         _list = new WOFabricaWorkList(_listCont, this);
         _imWhite = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plants_factory_white_panel'));
         _imWhite.pivotX = _imWhite.width/2;
-        if (_isBigWindow) _imWhite.y = 20;
+        if (_isBigWO) _imWhite.y = 20;
             else _imWhite.y = -20;
         _source.addChildAt(_imWhite, 1);
     }

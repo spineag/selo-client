@@ -36,7 +36,6 @@ public class WOMarket  extends WindowMain {
     private var _shopSprite:Sprite;
     private var _contRect:Sprite;
     private var _contItem:Sprite;
-    private var _cont:Sprite;
     private var _contItemCell:Sprite;
     private var _btnRefresh:CSprite;
     private var _leftBtn:CSprite;

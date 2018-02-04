@@ -45,6 +45,7 @@ public class WindowMain {
     protected var _woBGNew:WindowBackgroundNew;
     protected var _blackAlpha:Number = .5;    
     public var isCashed:Boolean = false;
+    protected var _isBigWO:Boolean;
 
     public function WindowMain() {
         _source = new Sprite();

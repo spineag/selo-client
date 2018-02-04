@@ -217,7 +217,7 @@ public class Order extends WorldObject{
     
     private function showBtnCellArrow():void {
 //        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
-//            (g.windowsManager.currentWindow as WOOrderNew).showBtnSellArrow();
+//            (g.windowsManager.currentWindow as WOOrder).showBtnSellArrow();
 //        }
     }
 

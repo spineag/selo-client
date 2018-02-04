@@ -26,8 +26,8 @@ import windows.fabricaWindow.WOFabricDeleteItem;
 import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
 import windows.miniSceneOrderCat.WOMiniSceneOrderCat;
 import windows.missYou.WOMissYou;
-import windows.orderWindow.WOOrderNew;
-import windows.paper_new.WOPaperNew;
+import windows.orderWindow.WOOrder;
+import windows.paper_new.WOPaper;
 import windows.partyWindow.WOPartyHelp;
 import windows.partyWindow.WOPartyWindow;
 import windows.fabricaWindow.WOFabrica;
@@ -54,7 +54,7 @@ import windows.salePack.saleVauchers.WOSalePackVauchers;
 import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
 import windows.serverNoWork.WOSeverNoWork;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 import windows.starterPackWindow.WOStarterPack;
 import windows.tipsWindow.WOTips;
 import windows.train.WOTrain;
@@ -239,7 +239,7 @@ public class WindowsManager {
                 wo = new WOMarketDeleteItem();
                 break;
             case WO_ORDERS:
-                wo = new WOOrderNew();
+                wo = new WOOrder();
                 break;
             case WO_TRAIN:
                 wo = new WOTrain();
@@ -248,7 +248,7 @@ public class WindowsManager {
                 wo = new WOTrainWaitBack();
                 break;
             case WO_SHOP_NEW:
-                wo = new WOShopNew();
+                wo = new WOShop();
                 break;
             case WO_CHEST:
                 wo = new WOChest();
@@ -341,7 +341,7 @@ public class WindowsManager {
                 wo = new WOTutorial();
                 break;
             case WO_PAPER_NEW:
-                wo = new WOPaperNew();
+                wo = new WOPaper();
                 break;
             case WO_ORDER_CAT_MINI:
                 wo = new WOMiniSceneOrderCat();

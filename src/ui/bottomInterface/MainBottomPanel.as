@@ -27,8 +27,8 @@ import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
-import windows.shop_new.DecorShopNewFilter;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.DecorShopFilter;
+import windows.shop_new.WOShop;
 
 public class MainBottomPanel {
     private var _source:Sprite;
@@ -198,29 +198,29 @@ public class MainBottomPanel {
                 }
                 if (g.miniScenes.isMiniScene) deleteArrow();    
                 g.toolsPanel.hideRepository();
-                var shopTab:int = WOShopNew.VILLAGE;
+                var shopTab:int = WOShop.VILLAGE;
                 if (g.tuts.isTuts) {
                     g.user.shiftShop = 0;
                     g.user.decorShop = false;
-                    if (g.tuts.action == TutsAction.BUY_ANIMAL) shopTab = WOShopNew.ANIMAL;
-                    else if (g.tuts.action == TutsAction.BUY_FABRICA) shopTab = WOShopNew.FABRICA;
-                    else if (g.tuts.action == TutsAction.NEW_RIDGE) shopTab = WOShopNew.VILLAGE;
-                    else if (g.tuts.action == TutsAction.BUY_CAT) shopTab = WOShopNew.VILLAGE;
-                    else if (g.tuts.action == TutsAction.BUY_FARM) shopTab = WOShopNew.VILLAGE;
+                    if (g.tuts.action == TutsAction.BUY_ANIMAL) shopTab = WOShop.ANIMAL;
+                    else if (g.tuts.action == TutsAction.BUY_FABRICA) shopTab = WOShop.FABRICA;
+                    else if (g.tuts.action == TutsAction.NEW_RIDGE) shopTab = WOShop.VILLAGE;
+                    else if (g.tuts.action == TutsAction.BUY_CAT) shopTab = WOShop.VILLAGE;
+                    else if (g.tuts.action == TutsAction.BUY_FARM) shopTab = WOShop.VILLAGE;
                 } else if (g.managerCutScenes.isCutScene) {
-                    shopTab = WOShopNew.DECOR;
+                    shopTab = WOShop.DECOR;
                     g.managerCutScenes.checkCutSceneCallback();
                 } else if (g.miniScenes.isReason(ManagerMiniScenes.BUY_BUILD)) {
-                    shopTab = WOShopNew.FABRICA;
+                    shopTab = WOShop.FABRICA;
                 } else if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.user.shiftShop = 0;
                     g.user.decorShop = false;
-                    g.user.shopTab = WOShopNew.ANIMAL;
-                    if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShopNew.ANIMAL;
-                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FABRICA) shopTab = WOShopNew.FABRICA;
-                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FARM) shopTab = WOShopNew.VILLAGE;
-                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_HERO) shopTab = WOShopNew.VILLAGE;
-                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_RIDGE) shopTab = WOShopNew.VILLAGE;
+                    g.user.shopTab = WOShop.ANIMAL;
+                    if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShop.ANIMAL;
+                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FABRICA) shopTab = WOShop.FABRICA;
+                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FARM) shopTab = WOShop.VILLAGE;
+                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_HERO) shopTab = WOShop.VILLAGE;
+                    else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_RIDGE) shopTab = WOShop.VILLAGE;
                 }
                 if (g.tuts.isTuts) {
                     if (_tutorialCallback != null) {
@@ -229,50 +229,50 @@ public class MainBottomPanel {
                 }
                 if (_questBoolean) {
                     if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) {
-                        shopTab = WOShopNew.ANIMAL;
+                        shopTab = WOShop.ANIMAL;
                         g.user.decorShop = false;
                     } else if (_typeHelp == HelperReason.REASON_BUY_FABRICA) {
-                        shopTab = WOShopNew.FABRICA;
+                        shopTab = WOShop.FABRICA;
                         g.user.decorShop = false;
                     } else if (_typeHelp == HelperReason.REASON_BUY_FARM) {
-                        shopTab = WOShopNew.VILLAGE;
+                        shopTab = WOShop.VILLAGE;
                         g.user.decorShop = false;
                     } else if (_typeHelp == HelperReason.REASON_BUY_HERO) {
-                        shopTab = WOShopNew.VILLAGE;
+                        shopTab = WOShop.VILLAGE;
                         g.user.decorShop = false;
                     } else if (_typeHelp == HelperReason.REASON_BUY_RIDGE) {
-                        shopTab = WOShopNew.VILLAGE;
+                        shopTab = WOShop.VILLAGE;
                         g.user.decorShop = false;
-                    } else if (_typeHelp == HelperReason.REASON_BUY_DECOR) shopTab = WOShopNew.DECOR;
+                    } else if (_typeHelp == HelperReason.REASON_BUY_DECOR) shopTab = WOShop.DECOR;
                     else if (_typeHelp == HelperReason.REASON_BUY_TREE) {
-                        shopTab = WOShopNew.PLANT;
+                        shopTab = WOShop.PLANT;
                         g.user.decorShop = false;
                     }
                 }
-                if (_questBoolean && _typeHelp == HelperReason.REASON_BUY_DECOR) g.user.shopDecorFilter = DecorShopNewFilter.FILTER_ALL;
+                if (_questBoolean && _typeHelp == HelperReason.REASON_BUY_DECOR) g.user.shopDecorFilter = DecorShopFilter.FILTER_ALL;
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, shopTab);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.managerHelpers.onOpenShop();
                 }
                 if (_questBoolean) {
                     _questBoolean = false;
-                    (g.windowsManager.currentWindow as WOShopNew).deleteAllArrows();
+                    (g.windowsManager.currentWindow as WOShop).deleteAllArrows();
                     if (_typeHelp == HelperReason.REASON_BUY_FABRICA || _typeHelp == HelperReason.REASON_BUY_DECOR) {
-                        (g.windowsManager.currentWindow as WOShopNew).openOnResource(_questBuilId);
-                        (g.windowsManager.currentWindow as WOShopNew).addItemArrow(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).addItemArrow(_questBuilId);
                     } else if (_typeHelp == HelperReason.REASON_BUY_HERO) {
-                        (g.windowsManager.currentWindow as WOShopNew).addArrowAtPos(0);
+                        (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0);
                     } else if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) {
-                        (g.windowsManager.currentWindow as WOShopNew).openOnResource(_questBuilId);
-                        (g.windowsManager.currentWindow as WOShopNew).addItemArrow(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).addItemArrow(_questBuilId);
                     } else if (_typeHelp == HelperReason.REASON_BUY_FARM) {
-                        (g.windowsManager.currentWindow as WOShopNew).openOnResource(_questBuilId);
-                        (g.windowsManager.currentWindow as WOShopNew).addItemArrow(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).addItemArrow(_questBuilId);
                     } else if (_typeHelp == HelperReason.REASON_BUY_RIDGE) {
-                        (g.windowsManager.currentWindow as WOShopNew).addArrowAtPos(1);
+                        (g.windowsManager.currentWindow as WOShop).addArrowAtPos(1);
                     } else if (_typeHelp == HelperReason.REASON_BUY_TREE) {
-                        (g.windowsManager.currentWindow as WOShopNew).openOnResource(_questBuilId);
-                        (g.windowsManager.currentWindow as WOShopNew).addItemArrow(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).addItemArrow(_questBuilId);
                     }
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();

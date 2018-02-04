@@ -6,7 +6,7 @@ import manager.Vars;
 import starling.display.Sprite;
 import windows.WOComponents.BackgroundWhiteIn;
 
-public class DecorShopNewFilter {
+public class DecorShopFilter {
     public static const FILTER_OTHER:int = 0;
     public static const FILTER_HOLIDAY:int = 6;
     public static const FILTER_TREES:int = 2;
@@ -16,14 +16,14 @@ public class DecorShopNewFilter {
     public static const FILTER_ALL:int = 1;
 
     private var g:Vars = Vars.getInstance();
-    private var _wo:WOShopNew;
+    private var _wo:WOShop;
     private var _source:Sprite;
     private var _bg:BackgroundWhiteIn;
     private var _arrBtns:Array;
     private var _activeBtn:FilterButtonItem;
     private var _isBigShop:Boolean;
 
-    public function DecorShopNewFilter(w:WOShopNew, isBigShop:Boolean) {
+    public function DecorShopFilter(w:WOShop, isBigShop:Boolean) {
         _isBigShop = isBigShop;
         _wo = w;
         _source = new Sprite();
@@ -62,7 +62,7 @@ public class DecorShopNewFilter {
         _activeBtn.setActive(true);
         g.user.shopDecorFilter = id;
         g.user.shiftShop = 0;
-        _wo.onChooseTab(WOShopNew.DECOR);
+        _wo.onChooseTab(WOShop.DECOR);
     }
 
     private function getItemByID(id:int):FilterButtonItem {
@@ -94,7 +94,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 import utils.CButton;
 import utils.CTextField;
-import windows.shop_new.DecorShopNewFilter;
+import windows.shop_new.DecorShopFilter;
 
 internal class FilterButtonItem {
     private var g:Vars = Vars.getInstance();
@@ -120,13 +120,13 @@ internal class FilterButtonItem {
 
         _btn.addChild(_txt);
         switch (_filterID) {
-            case DecorShopNewFilter.FILTER_ALL: _txt.text = String(g.managerLanguage.allTexts[332]); break;
-            case DecorShopNewFilter.FILTER_OTHER: _txt.text = String(g.managerLanguage.allTexts[333]); break;
-            case DecorShopNewFilter.FILTER_FENCE: _txt.text = String(g.managerLanguage.allTexts[334]); break;
-            case DecorShopNewFilter.FILTER_TAIL: _txt.text = String(g.managerLanguage.allTexts[335]); break;
-            case DecorShopNewFilter.FILTER_TREES: _txt.text = String(g.managerLanguage.allTexts[336]); break;
-            case DecorShopNewFilter.FILTER_SPECIAL: _txt.text = String(g.managerLanguage.allTexts[337]); break;
-            case DecorShopNewFilter.FILTER_HOLIDAY: _txt.text = String(g.managerLanguage.allTexts[338]); break;
+            case DecorShopFilter.FILTER_ALL: _txt.text = String(g.managerLanguage.allTexts[332]); break;
+            case DecorShopFilter.FILTER_OTHER: _txt.text = String(g.managerLanguage.allTexts[333]); break;
+            case DecorShopFilter.FILTER_FENCE: _txt.text = String(g.managerLanguage.allTexts[334]); break;
+            case DecorShopFilter.FILTER_TAIL: _txt.text = String(g.managerLanguage.allTexts[335]); break;
+            case DecorShopFilter.FILTER_TREES: _txt.text = String(g.managerLanguage.allTexts[336]); break;
+            case DecorShopFilter.FILTER_SPECIAL: _txt.text = String(g.managerLanguage.allTexts[337]); break;
+            case DecorShopFilter.FILTER_HOLIDAY: _txt.text = String(g.managerLanguage.allTexts[338]); break;
         }
     }
 

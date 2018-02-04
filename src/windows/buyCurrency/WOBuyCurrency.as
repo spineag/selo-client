@@ -31,7 +31,6 @@ public class WOBuyCurrency extends WindowMain {
     private var _txtWindowName:CTextField;
     private var _tabs:MoneyTabs;
     private var _bigYellowBG:BackgroundYellowOut;
-    private var _isBigWindow:Boolean;
     private var _mask:Sprite;
     private var _cont:Sprite;
     private var _leftArrow:CButton;
@@ -42,10 +41,10 @@ public class WOBuyCurrency extends WindowMain {
         super();
         SOUND_OPEN = SoundConst.OPEN_CURRENCY_WINDOW;
         _windowType = WindowsManager.WO_BUY_CURRENCY;
-        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 770) _isBigWindow = false;
-            else _isBigWindow = true;
+        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 770) _isBigWO = false;
+            else _isBigWO = true;
 
-        if (_isBigWindow) {
+        if (_isBigWO) {
             _woWidth = 856;
             _woHeight = 762;
         } else {
@@ -63,7 +62,7 @@ public class WOBuyCurrency extends WindowMain {
         _txtWindowName.y = -_woHeight/2 + 23;
         _source.addChild(_txtWindowName);
 
-        if (_isBigWindow) {
+        if (_isBigWO) {
             _bigYellowBG = new BackgroundYellowOut(804, 558);
             _bigYellowBG.y = -_woHeight / 2 + 176;
             _bigYellowBG.x = -402;
@@ -75,8 +74,8 @@ public class WOBuyCurrency extends WindowMain {
 
         _bigYellowBG.source.touchable = true;
         _source.addChild(_bigYellowBG);
-        _tabs = new MoneyTabs(_bigYellowBG, onTabClick, _isBigWindow);
-        if (!_isBigWindow) createForSmallWindow();
+        _tabs = new MoneyTabs(_bigYellowBG, onTabClick, _isBigWO);
+        if (!_isBigWO) createForSmallWindow();
     }
 
     private function createForSmallWindow():void {
@@ -120,7 +119,7 @@ public class WOBuyCurrency extends WindowMain {
             }
         }
         arrInfo.sortOn('count', Array.NUMERIC);
-        if (_isBigWindow) {
+        if (_isBigWO) {
             for (i = 0; i < arrInfo.length; i++) {
                 item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, arrInfo[i].bonus, arrInfo[i].cost, arrInfo[i].id, arrInfo[i].sale);
                 item.source.x = -_woWidth / 2 + 57 + (i % 3) * 260;
@@ -156,7 +155,7 @@ public class WOBuyCurrency extends WindowMain {
     }
 
     private function checkArrows():void {
-        if (_isBigWindow) return;
+        if (_isBigWO) return;
         if (_shift > 0) {
             _leftArrow.visible = true;
             _rightArrow.visible = false;
@@ -175,7 +174,7 @@ public class WOBuyCurrency extends WindowMain {
 
     private function deleteLists():void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            if (_isBigWindow) _source.removeChild(_arrItems[i].source);
+            if (_isBigWO) _source.removeChild(_arrItems[i].source);
                 else _cont.removeChild(_arrItems[i].source);
             (_arrItems[i] as WOBuyCurrencyItem).deleteIt();
         }
@@ -192,7 +191,7 @@ public class WOBuyCurrency extends WindowMain {
     override protected function deleteIt():void {
         if (!_source) return;
         deleteLists();
-        if (!_isBigWindow) {
+        if (!_isBigWO) {
             _source.removeChild(_leftArrow);
             _leftArrow.deleteIt();
             _source.removeChild(_rightArrow);

@@ -21,7 +21,7 @@ import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
-public class WOPaperNewItem {
+public class WOPaperItem {
     private var g:Vars = Vars.getInstance();
     private var _data:StructureMarketItem;
     private var _source:CSprite;
@@ -34,10 +34,10 @@ public class WOPaperNewItem {
     private var _personSeller:Someone;
     private var _helpIcon:Image;
     private var _ramka:Image;
-    private var _wo:WOPaperNew;
+    private var _wo:WOPaper;
     private var _dataResource:StructureDataResource;
 
-    public function WOPaperNewItem(ob:StructureMarketItem, wo:WOPaperNew) {
+    public function WOPaperItem(ob:StructureMarketItem, wo:WOPaper) {
         _data = ob;
         _wo = wo;
         _dataResource = g.allData.getResourceById(_data.resourceId);

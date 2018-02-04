@@ -12,10 +12,10 @@ import starling.display.Sprite;
 import utils.CButton;
 import utils.CTextField;
 
-public class ShopNewList {
+public class ShopList {
     private var g:Vars = Vars.getInstance();
     private var _woSource:Sprite;
-    private var _woShop:WOShopNew;
+    private var _woShop:WOShop;
     private var _arrCurrent:Array;
     private var _mask:Sprite;
     private var _cont:Sprite;
@@ -31,7 +31,7 @@ public class ShopNewList {
     private var _maxPage:int;
     private var _isBigShop:Boolean;
 
-    public function ShopNewList(s:Sprite, w:WOShopNew, isBigShop:Boolean) {
+    public function ShopList(s:Sprite, w:WOShop, isBigShop:Boolean) {
         _woSource = s;
         _woShop = w;
         _isBigShop = isBigShop;
@@ -55,7 +55,7 @@ public class ShopNewList {
     }
 
     public function updateList(ar:Array):void {
-        _isDecor = g.user.shopTab == WOShopNew.DECOR;
+        _isDecor = g.user.shopTab == WOShop.DECOR;
         clearItems();
         if (_isDecor) {
             if (_isBigShop) {
@@ -92,8 +92,8 @@ public class ShopNewList {
 
     private function clearItems():void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            if (_cont.contains((_arrItems[i] as ShopNewListItem).source)) _cont.removeChild((_arrItems[i] as ShopNewListItem).source);
-            (_arrItems[i] as ShopNewListItem).deleteIt();
+            if (_cont.contains((_arrItems[i] as ShopListItem).source)) _cont.removeChild((_arrItems[i] as ShopListItem).source);
+            (_arrItems[i] as ShopListItem).deleteIt();
         }
         _arrItems.length = 0;
     }
@@ -110,16 +110,16 @@ public class ShopNewList {
         }
         var p1:int;
         _arrCurrent.sortOn("sort", Array.NUMERIC);
-        var item:ShopNewListItem;
+        var item:ShopListItem;
         for (var i:int=0; i<ar.length; i++) {
             if (_isBigShop) {
-                item = new ShopNewListItem(ar[i], Math.ceil((i+1) / (2 * c)), i % (2 * c), _woShop);
+                item = new ShopListItem(ar[i], Math.ceil((i+1) / (2 * c)), i % (2 * c), _woShop);
                 p1 = int(i / c);
                 if (p1 % 2) item.source.y = 216 + 17;
                 else item.source.y = 1;
                 item.source.x = (i % c) * 167 + 167 * c * int(i / (2 * c));
             } else {
-                item = new ShopNewListItem(ar[i], Math.ceil((i+1)/c), i%c, _woShop);
+                item = new ShopListItem(ar[i], Math.ceil((i+1)/c), i%c, _woShop);
                 p1 = int(i / c);
                 item.source.y = 1;
                 item.source.x = i * 167;
@@ -255,13 +255,13 @@ public class ShopNewList {
 
     public function openOnResource(id:int):void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            if ((_arrItems[i] as ShopNewListItem).id == id) {
+            if ((_arrItems[i] as ShopListItem).id == id) {
                 if (_isDecor) {
-                    if (_isBigShop) _shift = 4 * (_arrItems[i] as ShopNewListItem).pageNumber;
-                        else _shift = 3 * (_arrItems[i] as ShopNewListItem).pageNumber;
+                    if (_isBigShop) _shift = 4 * (_arrItems[i] as ShopListItem).pageNumber;
+                        else _shift = 3 * (_arrItems[i] as ShopListItem).pageNumber;
                 } else {
-                    if (_isBigShop) _shift = 5*(_arrItems[i] as ShopNewListItem).pageNumber;
-                        else  _shift = 4*(_arrItems[i] as ShopNewListItem).pageNumber;
+                    if (_isBigShop) _shift = 5*(_arrItems[i] as ShopListItem).pageNumber;
+                        else  _shift = 4*(_arrItems[i] as ShopListItem).pageNumber;
                 }
                 _cont.x = -_shift*167;
                 return;
@@ -271,16 +271,16 @@ public class ShopNewList {
 
     public function getShopItemBounds(id:int):Object {
         for (var i:int=0; i<_arrItems.length; i++) {
-            if ((_arrItems[i] as ShopNewListItem).id == id) {
+            if ((_arrItems[i] as ShopListItem).id == id) {
                 if (_isDecor) {
-                    if (_isBigShop) _shift = 4*((_arrItems[i] as ShopNewListItem).pageNumber -1);
-                        else _shift = 3*((_arrItems[i] as ShopNewListItem).pageNumber -1);
+                    if (_isBigShop) _shift = 4*((_arrItems[i] as ShopListItem).pageNumber -1);
+                        else _shift = 3*((_arrItems[i] as ShopListItem).pageNumber -1);
                 } else {
-                    if (_isBigShop) _shift = 5*((_arrItems[i] as ShopNewListItem).pageNumber -1);
-                    else _shift = 4*((_arrItems[i] as ShopNewListItem).pageNumber -1);
+                    if (_isBigShop) _shift = 5*((_arrItems[i] as ShopListItem).pageNumber -1);
+                    else _shift = 4*((_arrItems[i] as ShopListItem).pageNumber -1);
                 }
                 _cont.x = -_shift*167;
-                return (_arrItems[i] as ShopNewListItem).itemBounds;
+                return (_arrItems[i] as ShopListItem).itemBounds;
             }
         }
         return null;
@@ -288,8 +288,8 @@ public class ShopNewList {
 
     public function addItemArrow(id:int, t:int):void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            if ((_arrItems[i] as ShopNewListItem).id == id) {
-                (_arrItems[i] as ShopNewListItem).addArrow(t);
+            if ((_arrItems[i] as ShopListItem).id == id) {
+                (_arrItems[i] as ShopListItem).addArrow(t);
                 return;
             }
         }
@@ -304,12 +304,12 @@ public class ShopNewList {
             if (_isBigShop) arShift = _shift*5 + n;
                 else arShift = _shift*4 + n;
         }
-        (_arrItems[arShift] as ShopNewListItem).addArrow(t);
+        (_arrItems[arShift] as ShopListItem).addArrow(t);
     }
 
     public function deleteAllArrows():void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            (_arrItems[i] as ShopNewListItem).deleteArrow();
+            (_arrItems[i] as ShopListItem).deleteArrow();
         }
     }
 

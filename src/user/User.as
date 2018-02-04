@@ -13,7 +13,7 @@ import social.SocialNetwork;
 
 import utils.TimeUtils;
 
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class User extends Someone {
     public var ambarMaxCount:int;

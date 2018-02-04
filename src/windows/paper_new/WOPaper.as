@@ -20,7 +20,7 @@ import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOPaperNew extends WindowMain {
+public class WOPaper extends WindowMain {
     private var _txtWindowName:CTextField;
     private var _mask:Sprite;
     private var _cont:Sprite;
@@ -37,7 +37,7 @@ public class WOPaperNew extends WindowMain {
     private var _isAnim:Boolean;
     private var _ims:Sprite;
 
-    public function WOPaperNew() {
+    public function WOPaper() {
         super();
         _arrItems = [];
         _isAnim = false;
@@ -257,22 +257,22 @@ public class WOPaperNew extends WindowMain {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
         Cc.info('WOPapper:: for update avatar');
         for (var i:int=0; i<_arrItems.length; i++) {
-            (_arrItems[i] as WOPaperNewItem).updatePersonInfo();
+            (_arrItems[i] as WOPaperItem).updatePersonInfo();
         }
     }
 
     private function clearItems():void {
         for (var i:int=0; i<_arrItems.length; i++) {
             _cont.removeChild(_arrItems[i].source);
-            (_arrItems[i] as WOPaperNewItem).deleteIt();
+            (_arrItems[i] as WOPaperItem).deleteIt();
         }
         _arrItems.length = 0;
     }
 
     private function fillItems():void {
-        var it:WOPaperNewItem;
+        var it:WOPaperItem;
         for (var i:int=0; i<_arrPaper.length; i++) {
-            it = new WOPaperNewItem(_arrPaper[i], this);
+            it = new WOPaperItem(_arrPaper[i], this);
             it.source.x = int(i/2)*252;
             it.source.y = int(i%2)*237;
             _cont.addChild(it.source);

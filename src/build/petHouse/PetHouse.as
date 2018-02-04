@@ -22,7 +22,7 @@ import starling.events.Event;
 import starling.textures.Texture;
 import utils.TimeUtils;
 import windows.WindowsManager;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class PetHouse extends WorldObject {
     private var _isOnHover:Boolean;
@@ -150,8 +150,8 @@ public class PetHouse extends WorldObject {
                 } else {
                     g.user.shiftShop = 0;
                     g.user.decorShop = false;
-                    g.user.shopTab = WOShopNew.ANIMAL;
-                    g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.ANIMAL);
+                    g.user.shopTab = WOShop.ANIMAL;
+                    g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShop.ANIMAL);
                 }
             }
         }

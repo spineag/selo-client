@@ -42,7 +42,7 @@ import windows.WOComponents.WOSimpleButtonTexture;
 import windows.WindowsManager;
 import windows.shop_new.decorRadioButton.DecorRadioButton;
 
-public class ShopNewListItem {
+public class ShopListItem {
     private var g:Vars = Vars.getInstance();
     private var _source:CSprite;
     private var _bg:Image;
@@ -60,11 +60,11 @@ public class ShopNewListItem {
     private var _isFromInventory:Boolean;
     private var _hand:CSprite;
     private var _arrow:SimpleArrow;
-    private var _wo:WOShopNew;
+    private var _wo:WOShop;
     private var _isThisItemBlocked:Boolean;
     private var _blackPlawka:Image;
 
-    public function ShopNewListItem(obj:Object, pg:int, np:int, w:WOShopNew) { // 160x216
+    public function ShopListItem(obj:Object, pg:int, np:int, w:WOShop) { // 160x216
         _wo = w;
         _data = obj;
         _pageNumber = pg;
