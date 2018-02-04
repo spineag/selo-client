@@ -61,8 +61,6 @@ public class WOTrain extends WindowMain {
         if (g.managerResize.stageHeight < 750) _isBigWO = false;
             else _isBigWO = true;
 
-        _isBigWO = false;
-
         if (_isBigWO) _woHeight = 714;
             else _woHeight = 550;
         _activeItemIndex = -1;
