@@ -57,9 +57,10 @@ public class PetHouse extends WorldObject {
             _source.registerHitArea(_hitArea);
         }
         if (_arrCraftedItems.length) _craftSprite.visible = true;
-        _craftSprite.x = _source.x;
-        _craftSprite.y = -50*g.scaleFactor + _source.y;
-
+        if(_craftSprite) {
+            _craftSprite.x = _source.x;
+            _craftSprite.y = -50 * g.scaleFactor + _source.y;
+        }
         _miska1 = new Miska(_armature, 1);
         if (_dataBuild.maxAnimalsCount == 2) {
             _miska2 = new Miska(_armature, 3);
@@ -69,7 +70,7 @@ public class PetHouse extends WorldObject {
             _miska3 = new Miska(_armature, 3);
         }
         _petsCont = new Sprite();
-        _source.addChild(_petsCont);
+        if (_source) _source.addChild(_petsCont);
         _petsCont.touchable = false;
     }
 

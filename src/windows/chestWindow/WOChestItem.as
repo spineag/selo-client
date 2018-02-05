@@ -59,6 +59,18 @@ public class WOChestItem {
             case ManagerChest.HARD_MONEY:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
                 break;
+            case ManagerChest.GREEN_VAU:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone'));
+                break;
+            case ManagerChest.BLUE_VAU:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
+                break;
+            case ManagerChest.PUR_VAU:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone'));
+                break;
+            case ManagerChest.YELLOW_VAU:
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone'));
+                break;
             case ManagerChest.INSTRUMENT:
                 im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(obj.id).imageShop));
                 break;

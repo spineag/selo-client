@@ -15,7 +15,7 @@ public class ManagerLohmatik {
     public function ManagerLohmatik() {
         _timerCounter = 0;
         _arr = [];
-        addLohmatics();
+//        addLohmatics();
     }
 
     private function addLohmatics():void {
