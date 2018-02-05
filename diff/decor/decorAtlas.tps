@@ -206,6 +206,7 @@
             <filename>beach_chair_red.png</filename>
             <filename>bird_house.png</filename>
             <filename>blue_fence</filename>
+            <filename>box_plant.png</filename>
             <filename>boxes.png</filename>
             <filename>boxes3.png</filename>
             <filename>bridge.png</filename>

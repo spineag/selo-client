@@ -533,6 +533,12 @@ public class DecorAnimation extends WorldObject{
         if (viyi) {
             viyi.visible = false;
         }
+        var viyi_0:Bone;
+        if (armature)  viyi_0 = armature.getBone('viyi_0');
+        else viyi_0 = _armature.getBone('viyi_0');
+        if (viyi_0) {
+            viyi_0.visible = false;
+        }
     }
 
     private function releaseManBackTexture(armature:Armature = null):void {
@@ -583,6 +589,12 @@ public class DecorAnimation extends WorldObject{
             if (viyi) {
                 viyi.visible = true;
             }
+        var viyi_0:Bone;
+        if (armature)  viyi_0 = armature.getBone('viyi_0');
+        else viyi_0 = _armature.getBone('viyi_0');
+        if (viyi_0) {
+            viyi_0.visible = true;
+        }
     }
 
     private function releaseWomanBackTexture(armature:Armature = null):void {

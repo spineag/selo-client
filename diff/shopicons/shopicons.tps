@@ -204,9 +204,7 @@
             <filename>arbor_for_both_icon.png</filename>
             <filename>arbor_icon.png</filename>
             <filename>arch_alive_icon.png</filename>
-            <filename>arch_blue_icon.png</filename>
             <filename>arch_heart_icon.png</filename>
-            <filename>arch_pink_icon.png</filename>
             <filename>arch_white_heart_icon.png</filename>
             <filename>arch_white_icon.png</filename>
             <filename>bakery_icon.png</filename>
@@ -216,8 +214,8 @@
             <filename>beach_chair</filename>
             <filename>beehive_icon.png</filename>
             <filename>bird_house_icon.png</filename>
-            <filename>blue_fence_icon.png</filename>
             <filename>blueberry_icon.png</filename>
+            <filename>box_plant_icon.png</filename>
             <filename>boxes_icon.png</filename>
             <filename>boxes3_icon.png</filename>
             <filename>bridge_icon.png</filename>
@@ -298,8 +296,6 @@
             <filename>garden_gnome_coin_icon.png</filename>
             <filename>garden_gnome_red_hat_icon.png</filename>
             <filename>gate_alive_closed_icon.png</filename>
-            <filename>gate_blue_closed_icon.png</filename>
-            <filename>gate_pink_closed_icon.png</filename>
             <filename>gate_white_closed_icon.png</filename>
             <filename>ghost_icon.png</filename>
             <filename>gnome_alien_icon.png</filename>
