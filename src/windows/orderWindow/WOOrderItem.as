@@ -32,12 +32,12 @@ public class WOOrderItem {
     private var _checkImage:Image;
     private var _clickCallback:Function;
     private var _act:Boolean;
-    private var _wo:WOOrderNew;
+    private var _wo:WOOrder;
     private var _timer:int;
     private var _isHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
-    public function WOOrderItem(wo:WOOrderNew) {
+    public function WOOrderItem(wo:WOOrder) {
         _act = false;
         _isHover = false;
         _wo = wo;

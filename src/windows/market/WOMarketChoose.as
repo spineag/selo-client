@@ -24,7 +24,6 @@ public class WOMarketChoose extends WindowMain {
     private var _tabs:AmbarTabs;
     private var _isAmbar:Boolean;
     private var _mainSprite:Sprite;
-    private var _type:int;
     private var _countResourceBlock:CountBlock;
     private var _countMoneyBlock:CountBlock;
     private var _curResourceId:int;

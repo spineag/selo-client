@@ -59,7 +59,7 @@ import user.NeighborBot;
 import user.Someone;
 import utils.Utils;
 import windows.WindowsManager;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class TownArea extends Sprite {
     private var _cityObjects:Array;
@@ -1143,7 +1143,7 @@ public class TownArea extends Sprite {
         (build as WorldObject).source.filter = null;
         g.selectedBuild = null;
         if ((build as WorldObject).dataBuild.buildType == BuildType.FARM) {
-            g.user.shopTab = WOShopNew.VILLAGE;
+            g.user.shopTab = WOShop.VILLAGE;
            if (!g.tuts.isTuts) (build as WorldObject).showArrow(3);
         }
         if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {

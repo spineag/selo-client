@@ -14,7 +14,7 @@ public class SmallDogPet extends PetMain  {
         _innerPosY2 = 106 * g.scaleFactor;
     }
 
-    override protected function releaseTexture():void {
+    override public function releaseTexture():void {
         switch (_petData.id) {
             case 2: // pink_dog_small
                 _animation.changeTexture("Orange_head_small_front.png",             "Pink_head_small_front", true);

@@ -39,21 +39,39 @@ public class WODailyBonus extends WindowMain {
     private var _namePng:String;
     private var _woBG:WindowBackgroundNew;
     private var _txtName:CTextField;
+    private var _cont:Sprite;
 
     public function WODailyBonus() {
         super();
         _windowType = WindowsManager.WO_DAILY_BONUS;
+        if (g.managerResize.stageHeight < 750) _isBigWO = false;
+            else _isBigWO = true;
         _woWidth = 550;
-        _woHeight = 700;
-        _woBG = new WindowBackgroundNew(_woWidth, _woHeight,110);
+        if (_isBigWO) _woHeight = 700;
+            else _woHeight = 560;
+        _cont = new Sprite();
+        if (_isBigWO) _woBG = new WindowBackgroundNew(_woWidth, _woHeight,110);
+            else _woBG = new WindowBackgroundNew(_woWidth, _woHeight,90);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-        _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[1206]));
-        _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
+        if (_isBigWO) {
+            _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[1206]));
+            _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
+            _txtName.x = -230;
+            _txtName.y = -315;
+        } else {
+            _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[1206]));
+            _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
+            _txtName.x = -230;
+            _txtName.y = -258;
+        }
         _source.addChild(_txtName);
-        _txtName.x = -230;
-        _txtName.y = -315;
+        if (!_isBigWO) {
+            _cont.scale = .75;
+            _cont.y = 5;
+        }
+        _source.addChild(_cont);
     }
 
     private function onLoad(bitmap:Bitmap):void {
@@ -73,14 +91,14 @@ public class WODailyBonus extends WindowMain {
                 _koleso.addChild(im);
                 _koleso.x = 0;
                 _koleso.y = 24;
-                _source.addChild(_koleso);
+                _cont.addChild(_koleso);
                 _namePng = 'qui/wheels_of_fortune _str.png';
                 g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
                  break;
             case 'qui/wheels_of_fortune_flag_l.png':
                 im = new Image(tex);
-                im.x = -270;
-                im.y = -242;
+                im.x = -272;
+                im.y = -191;
                 im.touchable = false;
                 _source.addChild(im);
                 _namePng = 'qui/wheels_of_fortune_flag_r.png';
@@ -88,8 +106,8 @@ public class WODailyBonus extends WindowMain {
                 break;
             case 'qui/wheels_of_fortune_flag_r.png':
                 im = new Image(tex);
-                im.x = 88;
-                im.y = -242;
+                im.x = 90;
+                im.y = -191;
                 im.touchable = false;
                 _source.addChild(im);
                 _namePng = 'qui/wheels_of_fortune_disk.png';
@@ -100,14 +118,13 @@ public class WODailyBonus extends WindowMain {
                 im.x = -71;
                 im.y = -233;
                 im.touchable = false;
-                _source.addChild(im);
+                _cont.addChild(im);
                 createKoleso();
                 _koleso.rotation = 0;
                 _curActivePosition = 0;
                 fillItems();
                 checkBtns();
                 super.showIt();
-                break;
         }
     }
 
@@ -133,6 +150,8 @@ public class WODailyBonus extends WindowMain {
             _txtBtnBuy2 = null;
         }
         clearItems();
+        _source.removeChild(_cont);
+        _cont.dispose();
         _source.removeChild(_btnBuy);
         _btnBuy.deleteIt();
         _btnBuy = null;
@@ -148,7 +167,8 @@ public class WODailyBonus extends WindowMain {
         _btnFree.addButtonTexture(146, CButton.HEIGHT_41, CButton.BLUE, true);
         _btnFree.addTextField(146, 40, 0, -3, String(g.managerLanguage.allTexts[1006]));
         _btnFree.setTextFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _btnFree.y = 310;
+        if (_isBigWO) _btnFree.y = 310;
+            else _btnFree.y = 243;
         _source.addChild(_btnFree);
 
         var sens:SensibleBlock;
@@ -156,7 +176,8 @@ public class WODailyBonus extends WindowMain {
         _btnBuy.addButtonTexture(200, CButton.HEIGHT_41, CButton.GREEN, true);
         _txtBtnBuy = new CTextField(200, 40, String(g.managerLanguage.allTexts[1006]) +  ' 10');
         _txtBtnBuy.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
-        _btnBuy.y = 310;
+        if (_isBigWO) _btnBuy.y = 310;
+            else _btnBuy.y = 243;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         sens = new SensibleBlock();
         sens.textAndImage(_txtBtnBuy,im,200);

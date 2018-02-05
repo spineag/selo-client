@@ -40,7 +40,7 @@ import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOOrderNew extends WindowMain {
+public class WOOrder extends WindowMain {
     private var _txtWindowName:CTextField;
     private var _bigYellowBG:BackgroundYellowOut;
     private var _arrOrders:Array;
@@ -68,7 +68,7 @@ public class WOOrderNew extends WindowMain {
     private var _imBaloon:Image;
     private var _txtBaloon:CTextField;
 
-    public function WOOrderNew() {
+    public function WOOrder() {
         _windowType = WindowsManager.WO_ORDERS;
         _woWidth = 780;
         _woHeight = 680;

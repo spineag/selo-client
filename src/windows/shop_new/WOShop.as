@@ -15,7 +15,7 @@ import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOShopNew extends WindowMain {
+public class WOShop extends WindowMain {
     public static const VILLAGE:int=1;
     public static const ANIMAL:int=2;
     public static const FABRICA:int=3;
@@ -23,32 +23,31 @@ public class WOShopNew extends WindowMain {
     public static const DECOR:int=5;
     
     private var _bigYellowBG:BackgroundYellowOut;
-    private var _tabs:ShopNewTabs;
-    private var _decorFilter:DecorShopNewFilter;
-    private var _shopList:ShopNewList;
-    private var _isBigShop:Boolean;
+    private var _tabs:ShopTabs;
+    private var _decorFilter:DecorShopFilter;
+    private var _shopList:ShopList;
     private var _txtWindowName:CTextField;
     private var _txtDecorInventory:CTextField;
 
-    public function WOShopNew() {
+    public function WOShop() {
         super();
-        _windowType = WindowsManager.WO_SHOP_NEW;
-        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigShop = false;
-            else _isBigShop = true;
-        if (_isBigShop) {
+        _windowType = WindowsManager.WO_SHOP;
+        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigWO = false;
+            else _isBigWO = true;
+        if (_isBigWO) {
             _woWidth = 988;
             _woHeight = 676;
         } else {
             _woWidth = 830;
             _woHeight = 486;
         }
-        if (_isBigShop) _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 154);
+        if (_isBigWO) _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 154);
             else _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 124);
         _source.addChild(_woBGNew);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
 
-        if (_isBigShop) {
+        if (_isBigWO) {
             _bigYellowBG = new BackgroundYellowOut(868, 486);
             _bigYellowBG.x = -434;
             _bigYellowBG.y = -185;
@@ -60,9 +59,9 @@ public class WOShopNew extends WindowMain {
         _bigYellowBG.source.touchable = true;
         _source.addChild(_bigYellowBG);
 
-        _tabs = new ShopNewTabs(_bigYellowBG, onChooseTab, _isBigShop);
-        _decorFilter = new DecorShopNewFilter(this, _isBigShop);
-        if (_isBigShop) {
+        _tabs = new ShopTabs(_bigYellowBG, onChooseTab, _isBigWO);
+        _decorFilter = new DecorShopFilter(this, _isBigWO);
+        if (_isBigWO) {
             _decorFilter.source.x = -_woWidth / 2 + 81;
             _decorFilter.source.y = -_woHeight / 2 + 170;
         } else {
@@ -72,12 +71,12 @@ public class WOShopNew extends WindowMain {
         _source.addChild(_decorFilter.source);
         _decorFilter.source.visible = false;
 
-        _shopList = new ShopNewList(_source, this, _isBigShop);
+        _shopList = new ShopList(_source, this, _isBigWO);
         
         _txtWindowName = new CTextField(300, 70, g.managerLanguage.allTexts[352]);
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -150;
-        if (_isBigShop) _txtWindowName.y = -_woHeight/2 + 20;
+        if (_isBigWO) _txtWindowName.y = -_woHeight/2 + 20;
             else _txtWindowName.y = -_woHeight/2 + 3;
         _source.addChild(_txtWindowName);
         _txtDecorInventory = new CTextField(300, 70, g.managerLanguage.allTexts[1235]);
@@ -152,7 +151,7 @@ public class WOShopNew extends WindowMain {
                     if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_FULL_FENСE ||
                             arR[i].buildType == BuildType.DECOR_POST_FENCE || arR[i].buildType == BuildType.DECOR_TAIL || arR[i].buildType == BuildType.DECOR_FENCE_GATE ||
                             arR[i].buildType == BuildType.DECOR_FENCE_ARKA || arR[i].buildType == BuildType.DECOR_POST_FENCE_ARKA) {
-                        if (g.user.shopDecorFilter == DecorShopNewFilter.FILTER_ALL || g.user.shopDecorFilter == arR[i].filterType || g.user.shopDecorFilter == arR[i].beforInventroy) {
+                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == arR[i].filterType || g.user.shopDecorFilter == arR[i].beforInventroy) {
                             if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_TAIL) {
                                 if (arR[i].group && !g.allData.isFirstInGroupDecor(arR[i].group, arR[i].id))
                                     continue;

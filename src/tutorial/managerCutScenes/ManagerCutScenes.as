@@ -23,7 +23,7 @@ import utils.Utils;
 import windows.WindowsManager;
 import windows.buyPlant.WOBuyPlant;
 import windows.market.MarketItem;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 import windows.train.WOTrain;
 
 public class ManagerCutScenes {
@@ -327,8 +327,8 @@ public class ManagerCutScenes {
     private function decor_2():void {
         _cutSceneStep = 3;
         _cutSceneResourceIDs = [28, 151, 152];
-        (g.windowsManager.currentWindow as WOShopNew).openOnResource(_cutSceneResourceIDs[0]);
-        var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_cutSceneResourceIDs[0]);
+        (g.windowsManager.currentWindow as WOShop).openOnResource(_cutSceneResourceIDs[0]);
+        var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemBounds(_cutSceneResourceIDs[0]);
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
         _arrow.scaleIt(.7);
@@ -830,7 +830,7 @@ public class ManagerCutScenes {
                         } else if (_cutSceneStep == 3) {
                             deleteArrow();
                             deleteDust();
-                            ob = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_cutSceneResourceIDs[0]);
+                            ob = (g.windowsManager.currentWindow as WOShop).getShopItemBounds(_cutSceneResourceIDs[0]);
                             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
                             _arrow.scaleIt(.7);

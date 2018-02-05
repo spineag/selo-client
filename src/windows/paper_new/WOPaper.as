@@ -20,7 +20,7 @@ import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOPaperNew extends WindowMain {
+public class WOPaper extends WindowMain {
     private var _txtWindowName:CTextField;
     private var _mask:Sprite;
     private var _cont:Sprite;
@@ -37,44 +37,45 @@ public class WOPaperNew extends WindowMain {
     private var _isAnim:Boolean;
     private var _ims:Sprite;
 
-    public function WOPaperNew() {
+    public function WOPaper() {
         super();
         _arrItems = [];
         _isAnim = false;
-        _windowType = WindowsManager.WO_PAPER_NEW;
+        _windowType = WindowsManager.WO_PAPER;
         _woWidth = 880;
-        _woHeight = 646;
-        _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 98);
+        if (g.managerResize.stageHeight < 750) _isBigWO = false;  else _isBigWO = true;
+        if (_isBigWO) _woHeight = 646;  else _woHeight = 550;
+        if (_isBigWO) _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 98);  else _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 60);
         _source.addChild(_woBGNew);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
 
         _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[161]);
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        if (_isBigWO) _txtWindowName.y = -_woHeight/2 + 25;  else _txtWindowName.y = -_woHeight/2 + 3;
         _txtWindowName.x = -150;
-        _txtWindowName.y = -_woHeight/2 + 25;
         _source.addChild(_txtWindowName);
 
         _txtPage = new CTextField(70, 30, '');
         _txtPage.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _txtPage.x = -_woWidth/2 + 94;
-        _txtPage.y = -_woHeight/2 + 589;
+        if (_isBigWO) _txtPage.y = -_woHeight/2 + 589;  else _txtPage.y = -_woHeight/2 + 495;
         _source.addChild(_txtPage);
 
         _ims = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_offers_b'));
         im.x = -_woWidth/2 + 220;
-        im.y = -_woHeight/2 + 576;
+        if (_isBigWO) im.y = -_woHeight/2 + 576;  else im.y = -_woHeight/2 + 480;
         _ims.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_timer_s'));
         im.x = -_woWidth/2 + 387;
-        im.y = -_woHeight/2 + 584;
+        if (_isBigWO) im.y = -_woHeight/2 + 584;  else im.y = -_woHeight/2 + 488;
         _ims.addChild(im);
         _source.addChild(_ims);
         _txtTimer = new CTextField(85, 30, '');
         _txtTimer.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _txtTimer.x = -_woWidth/2 + 395;
-        _txtTimer.y = -_woHeight/2 + 588;
+        if (_isBigWO) _txtTimer.y = -_woHeight/2 + 588;  _txtTimer.y = -_woHeight/2 + 493;
         _ims.addChild(_txtTimer);
         _btnRefresh = new CButton();
         _btnRefresh.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);
@@ -87,7 +88,7 @@ public class WOPaperNew extends WindowMain {
         im.y = 20;
         _btnRefresh.addDisplayObject(im);
         _btnRefresh.x = -_woWidth/2 + 595;
-        _btnRefresh.y = -_woHeight/2 + 604;
+        if (_isBigWO) _btnRefresh.y = -_woHeight/2 + 604;  else _btnRefresh.y = -_woHeight/2 + 512;
         _source.addChild(_btnRefresh);
         _btnRefresh.clickCallback = refreshIt;
         _btnRefreshFree = new CButton();
@@ -95,14 +96,14 @@ public class WOPaperNew extends WindowMain {
         _btnRefreshFree.addTextField(140, 37, 0, 0, g.managerLanguage.allTexts[359]);
         _btnRefreshFree.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnRefreshFree.x = -_woWidth/2 + 585;
-        _btnRefreshFree.y = -_woHeight/2 + 604;
+        if (_isBigWO) _btnRefreshFree.y = -_woHeight/2 + 604;  else _btnRefreshFree.y = -_woHeight/2 + 512;
         _source.addChild(_btnRefreshFree);
         _btnRefreshFree.clickCallback = refreshItFree;
 
         _mask = new Sprite();
         _mask.mask = new Quad(740, 460);
         _mask.x = -_woWidth/2 + 75;
-        _mask.y = -_woHeight/2 + 107;
+        if (_isBigWO) _mask.y = -_woHeight/2 + 107;  else _mask.y = -_woHeight/2 + 67;
         _source.addChild(_mask);
         _cont = new Sprite();
         _mask.addChild(_cont);
@@ -135,8 +136,8 @@ public class WOPaperNew extends WindowMain {
         im.alignPivot();
         _leftArrow.addChild(im);
         _leftArrow.clickCallback = onClickLeft;
-        _leftArrow.x = -_woWidth/2 + 33;
-        _leftArrow.y = -_woHeight/2 + 380;
+        if (_isBigWO) _leftArrow.x = -_woWidth/2 + 33; _leftArrow.x = -_woWidth/2 + 37;
+        if (_isBigWO) _leftArrow.y = -_woHeight/2 + 350;  else _leftArrow.y = -_woHeight/2 + 275;
         _source.addChild(_leftArrow);
 
         _rightArrow = new CButton();
@@ -145,8 +146,8 @@ public class WOPaperNew extends WindowMain {
         im.alignPivot();
         _rightArrow.addChild(im);
         _rightArrow.clickCallback = onClickRight;
-        _rightArrow.x = _woWidth/2 - 33;
-        _rightArrow.y = -_woHeight/2 + 380;
+        if (_isBigWO) _rightArrow.x = _woWidth/2 - 33;  _rightArrow.x = _woWidth/2 - 37;
+        if (_isBigWO) _rightArrow.y = -_woHeight/2 + 350;  else  _rightArrow.y = -_woHeight/2 + 275;
         _source.addChild(_rightArrow);
     }
 
@@ -257,24 +258,25 @@ public class WOPaperNew extends WindowMain {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
         Cc.info('WOPapper:: for update avatar');
         for (var i:int=0; i<_arrItems.length; i++) {
-            (_arrItems[i] as WOPaperNewItem).updatePersonInfo();
+            (_arrItems[i] as WOPaperItem).updatePersonInfo();
         }
     }
 
     private function clearItems():void {
         for (var i:int=0; i<_arrItems.length; i++) {
             _cont.removeChild(_arrItems[i].source);
-            (_arrItems[i] as WOPaperNewItem).deleteIt();
+            (_arrItems[i] as WOPaperItem).deleteIt();
         }
         _arrItems.length = 0;
     }
 
     private function fillItems():void {
-        var it:WOPaperNewItem;
+        var it:WOPaperItem;
         for (var i:int=0; i<_arrPaper.length; i++) {
-            it = new WOPaperNewItem(_arrPaper[i], this);
+            it = new WOPaperItem(_arrPaper[i], this);
+            it.source.scale = .9;
             it.source.x = int(i/2)*252;
-            it.source.y = int(i%2)*237;
+            if (_isBigWO) it.source.y = int(i%2)*237;  else it.source.y = int(i%2)*210;
             _cont.addChild(it.source);
             _arrItems.push(it);
         }

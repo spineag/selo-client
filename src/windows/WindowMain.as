@@ -45,6 +45,7 @@ public class WindowMain {
     protected var _woBGNew:WindowBackgroundNew;
     protected var _blackAlpha:Number = .5;    
     public var isCashed:Boolean = false;
+    protected var _isBigWO:Boolean = true;
 
     public function WindowMain() {
         _source = new Sprite();
@@ -87,8 +88,8 @@ public class WindowMain {
         if (g.miniScenes.isMiniScene) g.miniScenes.checkMiniCutSceneCallbackOnShowWindow();
         if (g.managerCutScenes.isCutScene) {
             if ((g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET) && _windowType == WindowsManager.WO_MARKET) ||
-                (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && _windowType == WindowsManager.WO_SHOP_NEW) ||
-                (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_PAPPER) && _windowType == WindowsManager.WO_PAPER_NEW) )
+                (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && _windowType == WindowsManager.WO_SHOP) ||
+                (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_PAPPER) && _windowType == WindowsManager.WO_PAPER) )
                 g.managerCutScenes.checkCutSceneCallback();
         }
     }

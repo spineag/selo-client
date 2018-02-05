@@ -12,7 +12,7 @@ import mouse.ToolsModifier;
 import utils.Utils;
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class ManagerHelpers {
     private const MAX_SECONDS:int = 60;
@@ -85,7 +85,7 @@ public class ManagerHelpers {
                _curReason.reason != HelperReason.REASON_BUY_FARM && _curReason.reason != HelperReason.REASON_BUY_HERO && _curReason.reason != HelperReason.REASON_BUY_RIDGE) {
                 onEnd();
             } else {
-                if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType != WindowsManager.WO_SHOP_NEW) onEnd();
+                if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType != WindowsManager.WO_SHOP) onEnd();
             }
         }
     }
@@ -398,13 +398,13 @@ public class ManagerHelpers {
     public function onOpenShop():void {
         if (_helper) _helper.deleteHelper();
         _helper = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             if (_curReason.reason == HelperReason.REASON_BUY_ANIMAL || _curReason.reason == HelperReason.REASON_BUY_FABRICA || _curReason.reason == HelperReason.REASON_BUY_FARM
                  || _curReason.reason == HelperReason.REASON_BUY_RIDGE) {
-                (g.windowsManager.currentWindow as WOShopNew).openOnResource(_curReason.id);
-                (g.windowsManager.currentWindow as WOShopNew).addItemArrow(_curReason.id);
+                (g.windowsManager.currentWindow as WOShop).openOnResource(_curReason.id);
+                (g.windowsManager.currentWindow as WOShop).addItemArrow(_curReason.id);
             } else if (_curReason.reason == HelperReason.REASON_BUY_HERO) {
-                (g.windowsManager.currentWindow as WOShopNew).addArrowAtPos(0);
+                (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0);
             }
         }
         _isActiveHelper = false;

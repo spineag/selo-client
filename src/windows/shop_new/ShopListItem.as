@@ -42,7 +42,7 @@ import windows.WOComponents.WOSimpleButtonTexture;
 import windows.WindowsManager;
 import windows.shop_new.decorRadioButton.DecorRadioButton;
 
-public class ShopNewListItem {
+public class ShopListItem {
     private var g:Vars = Vars.getInstance();
     private var _source:CSprite;
     private var _bg:Image;
@@ -60,11 +60,11 @@ public class ShopNewListItem {
     private var _isFromInventory:Boolean;
     private var _hand:CSprite;
     private var _arrow:SimpleArrow;
-    private var _wo:WOShopNew;
+    private var _wo:WOShop;
     private var _isThisItemBlocked:Boolean;
     private var _blackPlawka:Image;
 
-    public function ShopNewListItem(obj:Object, pg:int, np:int, w:WOShopNew) { // 160x216
+    public function ShopListItem(obj:Object, pg:int, np:int, w:WOShop) { // 160x216
         _wo = w;
         _data = obj;
         _pageNumber = pg;
@@ -752,7 +752,7 @@ public class ShopNewListItem {
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
             if (g.tuts.isTuts && g.tuts.action == TutsAction.NEW_RIDGE) g.tuts.checkTutsCallback();
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             (build as WorldObject).countShopCost = _costCount;
             g.townArea.startMoveAfterShop(build);
             g.user.notif.onReleaseRidge();
@@ -769,13 +769,13 @@ public class ShopNewListItem {
                 (build as WorldObject).countShopCost = _costCount;
                 g.townArea.startMoveAfterShop(build);
             }
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else if (_data.buildType == BuildType.PET) {
             for (i = 0; i < _data.currency.length; i++) {
                 g.userInventory.addMoney(_data.currency[i], -_data.cost[i]);
             }
             g.managerPets.onBuyNewPet(_data.id);
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else if (_data.buildType == BuildType.PET_HOUSE) {
             if (g.tuts.isTuts) return;
             build = g.townArea.createNewBuild(_data);
@@ -784,7 +784,7 @@ public class ShopNewListItem {
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             (build as WorldObject).countShopCost = _costCount;
             g.townArea.startMoveAfterShop(build);
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else if (_data.buildType != BuildType.ANIMAL) {
             if (g.tuts.isTuts && g.tuts.action != TutsAction.BUY_FABRICA && g.tuts.action != TutsAction.BUY_FARM) return;
             build = g.townArea.createNewBuild(_data);
@@ -818,7 +818,7 @@ public class ShopNewListItem {
                 (build as WorldObject).countShopCost = _costCount;
                 g.townArea.startMoveAfterShop(build);
             }
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else { // animal
             if (g.tuts.isTuts) {
                 if (g.tuts.action != TutsAction.BUY_ANIMAL) return;
@@ -863,7 +863,7 @@ public class ShopNewListItem {
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.ADD_NEW_RIDGE;
             if (g.tuts.isTuts && g.tuts.action == TutsAction.NEW_RIDGE) g.tuts.checkTutsCallback();
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             (build as WorldObject).countShopCost = countCost;
             g.townArea.startMoveAfterShop(build);
         } else if (objectCallback.buildType == BuildType.DECOR_TAIL) {
@@ -872,7 +872,7 @@ public class ShopNewListItem {
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
             (build as WorldObject).countShopCost = countCost;
             g.townArea.startMoveAfterShop(build);
         } else if (objectCallback.buildType != BuildType.ANIMAL) {
@@ -889,7 +889,7 @@ public class ShopNewListItem {
             }
             (build as WorldObject).countShopCost = countCost;
             g.townArea.startMoveAfterShop(build);
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else {
             if (g.tuts.isTuts) {
                 if (g.tuts.action != TutsAction.BUY_ANIMAL) return;
@@ -923,7 +923,7 @@ public class ShopNewListItem {
                 g.userInventory.addMoney(objectCallback.currency[i], -objectCallback.cost[i]);
             }
             g.managerPets.onBuyNewPet(objectCallback.id);
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         } else {
             var build:WorldObject;
             build = g.townArea.createNewBuild(objectCallback);
@@ -935,7 +935,7 @@ public class ShopNewListItem {
             if (build is DecorPostFenceArka) (build as DecorPostFenceArka).showFullView();
             (build as WorldObject).countShopCost = objectCallback.cost;
             g.townArea.startMoveAfterShop(build);
-            g.windowsManager.hideWindow(WindowsManager.WO_SHOP_NEW);
+            g.windowsManager.hideWindow(WindowsManager.WO_SHOP);
         }
     }
 

@@ -44,6 +44,8 @@ public class WOLevelUpGift {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woLevelUpItem');
             return;
         }
+        var d:DropObject;
+        var p:Point;
         source = new CSprite();
         _txtCount = new CTextField(80,20,' ');
         _txtCount.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
@@ -56,8 +58,8 @@ public class WOLevelUpGift {
             _imItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
             MCScaler.scale(_imItem, 40, 40);
             _txtCount.text = String(ob.countSoft);
-            var d:DropObject = new DropObject();
-            var p:Point = new Point(120, 150);
+            d = new DropObject();
+            p = new Point(120, 150);
             p = _imItem.localToGlobal(p);
             p.x += 30;
             p.y += 30;
@@ -69,13 +71,14 @@ public class WOLevelUpGift {
             _imItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(_imItem, 40, 40);
             _txtCount.text = String(ob.countHard);
-            var d:DropObject = new DropObject();
-            var p:Point = new Point(120, 150);
+            d = new DropObject();
+            p = new Point(120, 150);
             p = _imItem.localToGlobal(p);
             p.x += 30;
             p.y += 30;
             d.addDropMoney(DataMoney.HARD_CURRENCY, ob.countSoft, p);
 //            g.userInventory.addMoney(1,ob.countHard)
+            d.releaseIt(null, false);
         }
         
         if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.resourceData) {
@@ -86,7 +89,7 @@ public class WOLevelUpGift {
             }
             MCScaler.scale(_imItem, 40, 40);
             if (g.user.level == 2) _txtCount.text = String(4);
-             else _txtCount.text = String(ob.count);
+                else _txtCount.text = String(ob.count);
             if (g.allData.getResourceById(ob.id).buildType != BuildType.PLANT) g.userInventory.addResource(ob.id,ob.count);
             _onHover = false;
             _data = g.allData.getResourceById(ob.id);

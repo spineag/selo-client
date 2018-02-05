@@ -40,7 +40,7 @@ public class WOTrainItem {
 
     private var g:Vars = Vars.getInstance();
 
-    public function WOTrainItem(type:int, i:int) {
+    public function WOTrainItem(type:int, i:int, isBigWO:Boolean) {
         _index = i;
         _source = new CSprite();
         var st1:String;
@@ -51,19 +51,33 @@ public class WOTrainItem {
         _imClosed = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st1));
         _imOpen = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st2));
         _imPlawka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_button'));
-        _imClosed.x = -67;
-        _imClosed.y = -133;
+        if (isBigWO) {
+            _imClosed.y = -72;
+            _imOpen.y = -54;
+            _imPlawka.y = -10;
+            _txtCount = new CTextField(62, 30, '20/20');
+            _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+            _txtCount.x = -5;
+            _txtCount.y = -15;
+        } else {
+            _imClosed.scale = .7;
+            _imOpen.scale = .7;
+            _imClosed.y = -72 * .7;
+            _imOpen.y = -54 * .7;
+            _imPlawka.scale = .7;
+            _imPlawka.y = -12;
+            _txtCount = new CTextField(62, 30, '20/20');
+            _txtCount.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
+            _txtCount.x = -5;
+            _txtCount.y = -15;
+        }
+        _imClosed.alignPivot();
+        _imOpen.alignPivot();
+        _imPlawka.alignPivot();
+        _txtCount.alignPivot();
         _source.addChild(_imClosed);
-        _imOpen.x = -67;
-        _imOpen.y = -102;
         _source.addChild(_imOpen);
-        _imPlawka.x = -42;
-        _imPlawka.y = -23;
         _source.addChild(_imPlawka);
-        _txtCount = new CTextField(62,30,'20/20');
-        _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-        _txtCount.x = -33;
-        _txtCount.y = -18;
         _source.addChild(_txtCount);
         _isHover = false;
     }

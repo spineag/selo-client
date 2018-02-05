@@ -7,7 +7,7 @@ import manager.Vars;
 
 import windows.WOComponents.BackgroundYellowOut;
 
-public class ShopNewTabs {
+public class ShopTabs {
     private var _shopBGSource:BackgroundYellowOut;
     private var _callback:Function;
     private var _activeTabNumber:int;
@@ -20,17 +20,17 @@ public class ShopNewTabs {
     private var _isBigShop:Boolean;
     private var g:Vars = Vars.getInstance();
 
-    public function ShopNewTabs(bg:BackgroundYellowOut, f:Function, isBigShop:Boolean) {
+    public function ShopTabs(bg:BackgroundYellowOut, f:Function, isBigShop:Boolean) {
         _activeTabNumber = 0;
         _shopBGSource = bg;
         _callback = f;
         _isBigShop = isBigShop;
-        _btn1 = new TabButton(WOShopNew.VILLAGE, onTab, _shopBGSource);
-        _btn2 = new TabButton(WOShopNew.ANIMAL, onTab, _shopBGSource);
-        _btn3 = new TabButton(WOShopNew.FABRICA, onTab, _shopBGSource);
-        _btn4 = new TabButton(WOShopNew.PLANT, onTab, _shopBGSource);
-        _btn5 = new TabButton(WOShopNew.DECOR, onTab, _shopBGSource);
-        activateTab(WOShopNew.VILLAGE);
+        _btn1 = new TabButton(WOShop.VILLAGE, onTab, _shopBGSource);
+        _btn2 = new TabButton(WOShop.ANIMAL, onTab, _shopBGSource);
+        _btn3 = new TabButton(WOShop.FABRICA, onTab, _shopBGSource);
+        _btn4 = new TabButton(WOShop.PLANT, onTab, _shopBGSource);
+        _btn5 = new TabButton(WOShop.DECOR, onTab, _shopBGSource);
+        activateTab(WOShop.VILLAGE);
     }
 
     public function activateTab(n:int):void {
@@ -90,7 +90,7 @@ public class ShopNewTabs {
         _callback.apply(null, [n]);
         activateTab(n);
         g.user.shopTab = n;
-        if (n == WOShopNew.DECOR) {
+        if (n == WOShop.DECOR) {
             g.user.decorShop = true;
         }
     }

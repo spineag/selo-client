@@ -24,7 +24,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import tutorial.TutsAction;
 import windows.WindowsManager;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class Farm extends WorldObject{
     private var _dataAnimal:StructureDataAnimal;
@@ -178,8 +178,8 @@ public class Farm extends WorldObject{
                     g.user.shiftShop = 0;
                     g.user.decorShop = false;
                     g.user.animalIdArrow = _dataAnimal.id;
-                    g.user.shopTab = WOShopNew.ANIMAL;
-                    g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.ANIMAL);
+                    g.user.shopTab = WOShop.ANIMAL;
+                    g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
                 }
             }
         } else {

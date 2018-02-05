@@ -34,7 +34,7 @@ import utils.Utils;
 import utils.Utils;
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class TutorialManager extends IManagerTutorial{
     private var _count:int = 0;
@@ -305,14 +305,14 @@ public class TutorialManager extends IManagerTutorial{
         _tutorialResourceIDs = [1];
         removeBlack();
         _onShowWindowCallback = subStep6_3;
-        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.ANIMAL);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
     }
 
     private function subStep6_3():void {
         _subStep = 3;
         _onShowWindowCallback = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemBounds(_tutorialResourceIDs[0]);
             if (_dustRectangle)_dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
@@ -526,15 +526,15 @@ public class TutorialManager extends IManagerTutorial{
         removeBlack();
         _subStep = 1;
         _onShowWindowCallback = subStep10_2;
-        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.FABRICA);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
     }
 
     private function subStep10_2():void {
         _subStep = 2;
         _onShowWindowCallback = null;
         _action = TutsAction.BUY_FABRICA;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemBounds(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
@@ -787,15 +787,15 @@ public class TutorialManager extends IManagerTutorial{
         removeBlack();
         _subStep = 1;
         _onShowWindowCallback = subStep15_2;
-        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.FABRICA);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
     }
 
     private function subStep15_2():void {
         _subStep = 2;
         _onShowWindowCallback = null;
         _action = TutsAction.BUY_FABRICA;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemBounds(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
@@ -841,15 +841,15 @@ public class TutorialManager extends IManagerTutorial{
         _tutorialResourceIDs = [11];
         removeBlack();
         _onShowWindowCallback = subStep16_3;
-        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.VILLAGE);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
     }
 
     private function subStep16_3():void {
         _subStep = 3;
         _onShowWindowCallback = null;
         _tutorialObjects.length = 0;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_tutorialResourceIDs[0]);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemBounds(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);

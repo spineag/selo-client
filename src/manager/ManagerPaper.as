@@ -6,6 +6,9 @@ import com.junkbyte.console.Cc;
 
 import data.StructureMarketItem;
 
+import social.SocialNetwork;
+import social.SocialNetworkSwitch;
+
 import user.Someone;
 
 public class ManagerPaper {
@@ -25,6 +28,7 @@ public class ManagerPaper {
             ob = new StructureMarketItem(ar[i]);
             if (ob.resourceCount > 0 && ob.cost > 0) _arr.push(ob);
         }
+        if (g.isDebug && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) addFakeForDebugAtFB();
     }
 
     public function get arr():Array { return _arr; }
@@ -46,6 +50,16 @@ public class ManagerPaper {
             }
         }
         Cc.error('ManagerPaper onBuyAtMarket:: no user for such StructureMarketItem');
+    }
+
+    private function addFakeForDebugAtFB(count:int = 12):void {
+        var ob:StructureMarketItem;
+        for (var i:int=0; i<count; i++) {
+            ob = new StructureMarketItem({
+                id: 0, level: 1, resource_id: 31, resource_count: int(Math.random()*10) + 2, cost: 10, user_id: 5, user_social_id: '1539107592776660'  //Ivan Samchuk
+            });
+            _arr.push(ob);
+        }
     }
 }
 }

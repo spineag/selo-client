@@ -14,7 +14,7 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 import ui.tips.TipsPanel;
 import windows.WindowsManager;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class ManagerTips {
     public static const TIP_RAW_RIDGE:String = 'raw_ridge';        // 8 - priority
@@ -315,8 +315,8 @@ public class ManagerTips {
     }
     
     private function atBuyCat():void {
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
-            (g.windowsManager.currentWindow as WOShopNew).addArrowAtPos(0, 3);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0, 3);
         }
     }
 

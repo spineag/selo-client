@@ -85,7 +85,7 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     override public function get urlApp():String {
-        return "https://vk.com/app5448769";
+        return "https://vk.com/app6353765";
     }
 
     override public function get urlSocialGroup():String {
@@ -301,7 +301,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
         url = url || "icon_vk.png";
-        title = title || "Умелые Лапки";
+        title = title || "Вязаный мир";
 
         super.wallPostBitmap(uid, message, image, url, title, posttype);
 
@@ -436,7 +436,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
     private function onGetAlbums(data:Object):void {
         for (var Key:String in data) {
-            if (data[Key].title == "Умелые Лапки") {
+            if (data[Key].title == "Вязаный мир") {
                 _isAlbum = true;
                 _idAlbum = data[Key].aid;
 
@@ -705,7 +705,7 @@ internal class VKWallPost {
     private function wallPostSavePhotoComplete(e:Object):void {
         var message:String;
 
-        message = 'Умелые Лапки' + "\n" + _messageWall + "\n" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost;
+        message = 'Вязаный мир' + "\n" + _messageWall + "\n" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost;
 //        message = "[" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost + "|Умелые Лапки]" + "\n" + _messageWall;
         _apiConnection.api("wall.post", {owner_id: _uidWall, message: message, attachments: e[0].id, https: 1}, wallPostSavePostComplete, onErrorPost);
     }

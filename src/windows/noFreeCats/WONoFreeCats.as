@@ -13,7 +13,7 @@ import utils.CTextField;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class WONoFreeCats extends WindowMain {
     private var _btn:CButton;
@@ -66,13 +66,13 @@ public class WONoFreeCats extends WindowMain {
         super.hideIt();
         g.user.decorShop = false;
         g.user.shiftShop = 0;
-        g.windowsManager.openWindow(WindowsManager.WO_SHOP_NEW, null, WOShopNew.VILLAGE);
+        g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
         createDelay(.7, atBuyCat);
     }
 
     private function atBuyCat():void {
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
-            (g.windowsManager.currentWindow as WOShopNew).addArrowAtPos(0, 3);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0, 3);
         }
     }
 

@@ -19,7 +19,7 @@ import utils.SimpleArrow;
 import utils.Utils;
 import windows.WindowsManager;
 import windows.market.WOMarket;
-import windows.shop_new.WOShopNew;
+import windows.shop_new.WOShop;
 
 public class ManagerMiniScenes {
     public static const OPEN_ORDER:int = 1;  // use after getting new level
@@ -312,8 +312,8 @@ public class ManagerMiniScenes {
     private function buyer_3():void {
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
-//            (g.windowsManager.currentWindow as WOOrderNew).setTextForCustomer(String(g.managerLanguage.allTexts[533]));
-//            var ob:Object = (g.windowsManager.currentWindow as WOOrderNew).getSellBtnProperties();
+//            (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(String(g.managerLanguage.allTexts[533]));
+//            var ob:Object = (g.windowsManager.currentWindow as WOOrder).getSellBtnProperties();
 //            _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
 //            _arrow.scaleIt(.5);
 //            _arrow.animateAtPosition(ob.x, ob.y + 25);
@@ -325,7 +325,7 @@ public class ManagerMiniScenes {
 
     private function buyer_4():void {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
-//            (g.windowsManager.currentWindow as WOOrderNew).setTextForCustomer('');
+//            (g.windowsManager.currentWindow as WOOrder).setTextForCustomer('');
         }
         _miniSceneCallback = null;
         deleteArrowAndDust();
@@ -409,8 +409,8 @@ public class ManagerMiniScenes {
     private function bulo4na_2():void {
         deleteArrowAndDust();
         _onShowWindowCallback = null;
-        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP_NEW) {
-            var ob:Object = (g.windowsManager.currentWindow as WOShopNew).getShopItemBounds(_miniSceneResourceIDs[0]);
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+            var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemBounds(_miniSceneResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);

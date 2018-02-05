@@ -16,7 +16,7 @@ public class CatPet extends PetMain {
         _innerPosY3 = 82 * g.scaleFactor;
     }
     
-    override protected function releaseTexture():void {
+    override public function releaseTexture():void {
         switch (_petData.id) {
             case 3: // kakao_cat_big
                 _animation.changeTexture("coffee_cat_head_front_big.png",         "kakao_cat_head_front_big", true);
