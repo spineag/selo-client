@@ -39,7 +39,7 @@ public class DustParticle {
     public function setDefaults(_x:int, _y:int):void {
         source.x = _x;
         source.y = _y;
-        _q.scaleX = _q.scaleY = .2;
+        _q.scaleX = _q.scaleY = 1;
     }
 
     public function moveIt(_newX:int, _newY:int, time:Number, f:Function):void {
@@ -51,12 +51,12 @@ public class DustParticle {
     }
 
     public function scaleIt(time:Number, f:Function):void {
-        var scale:Number = .5 + .8*Math.random();
+        var scale:Number = .5 + 1.5*Math.random();
         TweenMax.to(_q, time, {scaleX:scale, scaleY:scale, ease:Linear.easeNone, onComplete:scaleIt2, onCompleteParams: [time, f]});
     }
 
     private function scaleIt2(time:Number, f:Function):void {
-        TweenMax.to(_q, time, {scaleX:.2, scaleY:.2, ease:Linear.easeNone, onComplete:scaleIt3, onCompleteParams: [f]});
+        TweenMax.to(_q, time, {scaleX:1, scaleY:1, ease:Linear.easeNone, onComplete:scaleIt3, onCompleteParams: [f]});
     }
 
     private function scaleIt3(f:Function):void {

@@ -423,6 +423,7 @@ public class WorldObject {
             g.gameDispatcher.removeFromTimer(renderBuildProgress);
             clearBuildingBuildSprite();
             addDoneBuilding();
+            if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION && g.tuts.isTutsBuilding(this)) g.tuts.checkTutsCallback();
             _stateBuild = STATE_WAIT_ACTIVATE;
             if (g.tuts.isTuts && _dataBuild.buildType == BuildType.FABRICA && g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) {
                 g.timerHint.canHide = true;
