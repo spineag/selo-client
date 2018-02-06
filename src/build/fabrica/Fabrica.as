@@ -173,10 +173,10 @@ public class Fabrica extends WorldObject {
         if (g.isAway) { g.hint.hideIt();  return;  }
         if (_source.filter) _source.filter.dispose();
         _source.filter = null;
-        if (g.tuts.isTuts) {
-            if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) return;
-            if (!g.tuts.isTutsBuilding(this)) return;
-        }
+//        if (g.tuts.isTuts) {
+//            if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) return;
+//            if (!g.tuts.isTutsBuilding(this)) return;
+//        }
         if (g.isActiveMapEditor) return;
         _isOnHover = false;
         g.hint.hideIt();
@@ -198,8 +198,8 @@ public class Fabrica extends WorldObject {
             if (g.tuts.action == TutsAction.RAW_RECIPE && g.tuts.isTutsBuilding(this)) {
                 g.tuts.checkTutsCallback();
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
-//            } else if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION && g.tuts.isTutsBuilding(this)) {
-//                if (_leftBuildTime <= 0) g.tuts.checkTutsCallback();
+            } else if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION && g.tuts.isTutsBuilding(this)) {
+                if (_leftBuildTime <= 0) g.tuts.checkTutsCallback();
             } else if (g.tuts.action == TutsAction.PUT_FABRICA && g.tuts.isTutsResource(_dataBuild.id)) {
             } else if (g.tuts.action == TutsAction.PUT_FABRICA && g.tuts.isTutsBuilding(this)) {
             } else if (g.tuts.action == TutsAction.FABRICA_CRAFT && g.tuts.isTutsBuilding(this)) {

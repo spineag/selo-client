@@ -230,7 +230,8 @@ public class TimerHint {
     private function onClickBtn():void {
         if (g.tuts.isTuts) {
             _isOnHover = false;
-
+            _canHide = true;
+            hideIt();
             if (_callbackSkip != null) {
                 _callbackSkip.apply(null);
             }

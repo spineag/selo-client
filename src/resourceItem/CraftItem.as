@@ -148,7 +148,7 @@ public class CraftItem {
 
         } else drop.addDropItemNew(_resourceItem, start);
         if (xpFly) drop.addDropXP(_resourceItem.craftXP, start);
-        if (bonusDrop && g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
+        if (bonusDrop && g.managerDropResources &&g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
         drop.releaseIt();
         deleteIt();
     }
