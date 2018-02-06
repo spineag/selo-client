@@ -231,7 +231,8 @@ public class TimerHint {
         if (g.tuts.isTuts) {
             _isOnHover = false;
             _canHide = true;
-            hideIt();
+            _closeTime = 0;
+            closeTimer();
             if (_callbackSkip != null) {
                 _callbackSkip.apply(null);
             }
