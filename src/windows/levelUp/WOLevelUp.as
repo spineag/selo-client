@@ -81,6 +81,7 @@ public class WOLevelUp extends WindowMain {
         _arrCellsGift = [];
         _arrItems = [];
         _bolShare = true;
+        _shift = 0;
     }
 
     private function onLoad(bitmap:Bitmap):void {

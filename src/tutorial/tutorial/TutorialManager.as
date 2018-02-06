@@ -584,12 +584,20 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function subStep11_2():void {
-        _subStep = 2;
-        removeBlack();
-        cutScene.hideIt(deleteCutScene);
-        _action = TutsAction.FABRICA_SKIP_FOUNDATION;
-        (_tutorialObjects[0] as Fabrica).showArrow();
-        _tutorialCallback = subStep11_3;
+        if ((_tutorialObjects[0] as Fabrica).stateBuild == WorldObject.STATE_WAIT_ACTIVATE) {
+            _subStep = 2;
+            removeBlack();
+            cutScene.hideIt(deleteCutScene);
+            subStep11_4();
+        }
+        else {
+            _subStep = 2;
+            removeBlack();
+            cutScene.hideIt(deleteCutScene);
+            _action = TutsAction.FABRICA_SKIP_FOUNDATION;
+            (_tutorialObjects[0] as Fabrica).showArrow();
+            _tutorialCallback = subStep11_3;
+        }
     }
 
     private function subStep11_3():void {

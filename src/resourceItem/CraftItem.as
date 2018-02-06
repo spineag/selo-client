@@ -22,6 +22,8 @@ import utils.SimpleArrow;
 import tutorial.TutsAction;
 import utils.CSprite;
 import utils.MCScaler;
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class CraftItem {
@@ -145,10 +147,16 @@ public class CraftItem {
             for (var i:int=0; i<r.numberCreate; i++) {
                 drop.addDropItemNew(_resourceItem, start);
             }
-
         } else drop.addDropItemNew(_resourceItem, start);
         if (xpFly) drop.addDropXP(_resourceItem.craftXP, start);
-        if (bonusDrop && g.managerDropResources &&g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
+        var func:Function = function():void {
+            source.releaseContDrag = true;
+        }; if (bonusDrop && g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
+        if (g.managerDropResources) {
+            if (bonusDrop && g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
+        } else {
+            Utils.createDelay(5,func)
+        }
         drop.releaseIt();
         deleteIt();
     }
