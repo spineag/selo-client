@@ -59,10 +59,8 @@ public class WOLevelUpGift {
             MCScaler.scale(_imItem, 40, 40);
             _txtCount.text = String(ob.countSoft);
             d = new DropObject();
-            p = new Point(120, 150);
+            p = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
             p = _imItem.localToGlobal(p);
-            p.x += 30;
-            p.y += 30;
             d.addDropMoney(DataMoney.SOFT_CURRENCY, ob.countSoft, p);
             d.releaseIt(null, false);
 
@@ -72,11 +70,9 @@ public class WOLevelUpGift {
             MCScaler.scale(_imItem, 40, 40);
             _txtCount.text = String(ob.countHard);
             d = new DropObject();
-            p = new Point(120, 150);
+            p = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
             p = _imItem.localToGlobal(p);
-            p.x += 30;
-            p.y += 30;
-            d.addDropMoney(DataMoney.HARD_CURRENCY, ob.countSoft, p);
+            d.addDropMoney(DataMoney.HARD_CURRENCY, ob.countHard, p);
 //            g.userInventory.addMoney(1,ob.countHard)
             d.releaseIt(null, false);
         }

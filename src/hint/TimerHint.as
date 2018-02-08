@@ -2,6 +2,8 @@
  * Created by user on 6/9/15.
  */
 package hint {
+import build.fabrica.Fabrica;
+
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import manager.ManagerFilters;
@@ -279,6 +281,10 @@ public class TimerHint {
             _isShow = false;
             _source.removeChild(_bg);
             _bg = null;
+            if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) {
+                var arr:Array = g.townArea.getCityObjectsById(1);
+                (arr[0] as Fabrica).showArrow();
+            }
         }
     }
 

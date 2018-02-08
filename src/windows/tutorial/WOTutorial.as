@@ -11,6 +11,8 @@ import starling.utils.Color;
 import utils.CButton;
 
 import utils.CTextField;
+import utils.SimpleArrow;
+import utils.Utils;
 
 import windows.WOComponents.WindowBackground;
 import windows.WOComponents.WindowBackgroundNew;
@@ -24,10 +26,11 @@ public class WOTutorial extends WindowMain {
     private var _numberImage:int;
     private var _btn:CButton;
     private var _image:Image;
+    private var _arrow:SimpleArrow;
 
     public function WOTutorial() {
         super();
-        _windowType = WindowsManager.WO_SERVER_ERROR;
+        _windowType = WindowsManager.WO_TUTORIAL;
         _woWidth = 500;
         _woHeight = 480;
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight,115);
@@ -74,6 +77,10 @@ public class WOTutorial extends WindowMain {
             _image.x = -_image.width / 2;
             _image.y = -_image.height / 2 + 35;
             _source.addChild(_image);
+            var f1:Function = function ():void {
+                addArrow();
+            };
+            Utils.createDelay(3,f1);
         } else {
             g.gameDispatcher.addEnterFrame(afterAtlas);
         }
@@ -101,6 +108,10 @@ public class WOTutorial extends WindowMain {
             _image.x = -_image.width / 2;
             _image.y = -_image.height / 2 + 35;
             if (_source)_source.addChild(_image);
+            var f1:Function = function ():void {
+                addArrow();
+            };
+            Utils.createDelay(3,f1);
         }
     }
 
@@ -125,6 +136,21 @@ public class WOTutorial extends WindowMain {
         _woBG.deleteIt();
         _woBG = null;
         super.deleteIt();
+    }
+
+    public function addArrow():void {
+        if (_btn && !_arrow) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _source);
+            _arrow.animateAtPosition(_btn.x, _btn.y + _btn.height/2 - 2);
+            _arrow.scaleIt(.7);
+        }
+    }
+
+    public function hideArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

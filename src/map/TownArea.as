@@ -2396,6 +2396,7 @@ public class TownArea extends Sprite {
         g.isAway = false;
         g.visitedUser = null;
         g.bottomPanel.doorBoolean(false);
+        if (g.user.level > 3) g.managerOrder.checkOrders();
         for (var i:int = 0; i < _cityObjects.length; i++) {
             if (_cityObjects[i].source) _cont.addChild(_cityObjects[i].source);
             else {

@@ -145,9 +145,9 @@ public class CutSceneTextBubble {
             switch (_type) {
                 case BIG:
                     _txtBubble.x = 145;
-                    _txtBubble.y = -140;
+                    _txtBubble.y = -130;
                     if (_imageBtn) {
-                        _imageBtn.x = 360;
+                        _imageBtn.x = 350;
                         _imageBtn.y = 90;
                     }
                     break;
@@ -173,7 +173,7 @@ public class CutSceneTextBubble {
             _txtBubble.autoScale = true;
             if (_btn) {
                 _btn.x = 350;
-                _btn.y = 90;
+                _btn.y = 108;
                 _source.addChild(_btn);
             }
             _source.addChild(_txtBubble);

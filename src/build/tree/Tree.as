@@ -1077,10 +1077,11 @@ public class Tree extends WorldObject {
                     }
                     if (_state == FIXED) {
                         watering.visible = false;
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
                         im.pivotX = im.width / 2;
                         im.pivotY = im.height / 2;
-                        im.y = -_source.height / 2 - im.height - 80;
+                        im.x = 1;
+                        im.y = -_source.height / 2 - im.height - 75;
                         _wateringIcon.addChild(im);
                         if (_dataBuild.id == 25) { //Яблоня
                         } else if (_dataBuild.id == 26) { // Вишня
@@ -1110,7 +1111,7 @@ public class Tree extends WorldObject {
                     _wateringIcon.addChild(watering);
                     if (_state == FIXED) {
                         watering.visible = false;
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
                         im.pivotX = im.width / 2;
                         im.pivotY = im.height / 2;
                         im.x = 8;

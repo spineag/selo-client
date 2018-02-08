@@ -8,6 +8,7 @@ import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
 
 import data.BuildType;
+import data.DataMoney;
 
 import flash.display.StageDisplayState;
 
@@ -152,8 +153,17 @@ public class WOChestItem {
             case ManagerChest.HARD_MONEY:
                 flyItMoney(false);
                 break;
-            case ManagerChest.INSTRUMENT:
-                flyItResource();
+            case ManagerChest.BLUE_VAU:
+                flyItVaucher();
+                break;
+            case ManagerChest.GREEN_VAU:
+                flyItVaucher();
+                break;
+            case ManagerChest.PUR_VAU:
+                flyItVaucher();
+                break;
+            case ManagerChest.YELLOW_VAU:
+                flyItVaucher();
                 break;
         }
     }
@@ -225,6 +235,46 @@ public class WOChestItem {
         if (t > 2) t -= .6;
         if (t > 3) t -= 1;
         new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
+    }
+
+    private function flyItVaucher():void {
+        var endPoint:Point;
+        var f1:Function = function():void {
+            deleteIt();
+        };
+        switch (_data.type) {
+            case ManagerChest.BLUE_VAU:
+                g.userInventory.addMoney(DataMoney.BLUE_COUPONE, _data.count);
+                break;
+            case ManagerChest.GREEN_VAU:
+                g.userInventory.addMoney(DataMoney.GREEN_COUPONE, _data.count);
+                break;
+            case ManagerChest.PUR_VAU:
+                g.userInventory.addMoney(DataMoney.RED_COUPONE, _data.count);
+                break;
+            case ManagerChest.YELLOW_VAU:
+                g.userInventory.addMoney(DataMoney.YELLOW_COUPONE, _data.count);
+                break;
+        }
+
+        endPoint = new Point();
+        endPoint.x = _source.x;
+        endPoint.y = _source.y;
+        endPoint = _parent.localToGlobal(endPoint);
+        _parent.removeChild(_source);
+        _parent = g.cont.animationsResourceCont;
+        _source.x = endPoint.x;
+        _source.y = endPoint.y;
+        _parent.addChild(_source);
+        endPoint = g.couponePanel.getPoint();
+        var tempX:int = _source.x - 70;
+        var tempY:int = _source.y + 30 + int(Math.random()*20);
+        var dist:int = int(Math.sqrt((_source.x - tempX)*(_source.x - tempX) + (_source.y - tempY)*(_source.y - tempY)));
+        dist += int(Math.sqrt((tempX - endPoint.x)*(tempX - endPoint.x) + (tempY - endPoint.y)*(tempY - endPoint.y)));
+        var t:Number = dist/1000 * 2;
+        if (t > 2) t -= .6;
+        if (t > 3) t -= 1;
+        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut, onComplete: f1});
     }
 
     private function deleteIt():void {

@@ -117,7 +117,7 @@ public class ManagerOrder {
 
     private function checkForNewCats(onArriveCallback:Function = null):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
-            if (!_arrOrders[i].cat) {
+            if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback, _arrOrders[i].catOb, i);
             }
         }
@@ -551,7 +551,7 @@ public class ManagerOrder {
         }
     }
 
-    private function getRandomIntElementFromArray(ar:Array):int { return ar[int(Math.random()*ar.length)]; }
+    private function getRandomIntElementFromArray(ar:Array):int { return ar[int(Math.random()*(ar.length-1))]; }
     private function getRandomIntBetween(aMin:int, aMax:int):int { return aMin + int(Math.random()* (aMax-aMin)); }
 
     private function getRandomElementsFromIntArray(ar:Array, n:int):Array {
@@ -968,6 +968,26 @@ public class ManagerOrder {
         if (!d && _lastActiveCatId) d = DataOrderCat.getCatObjById(_lastActiveCatId);
         if (!d) d = DataOrderCat.arr[1];
         _lastActiveCatId = 0;
+        return d;
+    }
+
+    public function getFreeCatAwayObj():Object {
+        var d:Object;
+
+        var arAllCats:Array = DataOrderCat.getArrByLevel(g.visitedUser.level);
+        var b:Boolean = true;
+        for (var i:int = 0; i < arAllCats.length; i++) {
+            for (var j:int = 0; j < g.managerOrderCats.arrAwayCats.length; j++) {
+                if (arAllCats[i].id == g.managerOrderCats.arrAwayCats[j].dataCat.id) {
+                    b = false;
+                    break;
+                }
+            }
+            if (b) {
+                d = arAllCats[i];
+                break;
+            } else b = true;
+        }
         return d;
     }
 

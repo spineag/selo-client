@@ -36,6 +36,7 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SimpleArrow;
 import utils.Utils;
 
 import windows.WOComponents.BackgroundYellowOut;
@@ -69,6 +70,7 @@ public class WOLevelUp extends WindowMain {
     private var _sprShare:CSprite;
     private var _sorceMainItem:Sprite;
     private var _bolShare:Boolean;
+    private var _arrow:SimpleArrow;
 
     public function WOLevelUp() {
         super ();
@@ -81,7 +83,6 @@ public class WOLevelUp extends WindowMain {
         _arrCellsGift = [];
         _arrItems = [];
         _bolShare = true;
-        _shift = 0;
     }
 
     private function onLoad(bitmap:Bitmap):void {
@@ -267,6 +268,13 @@ public class WOLevelUp extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         g.friendPanel.hideIt(true);
         g.craftPanel.hideIt();
+        _shift = 0;
+        if (g.user.level <= 3) {
+            var f1:Function = function ():void {
+                addArrow();
+            };
+            Utils.createDelay(3,f1);
+        }
         super.showIt();
     }
     
@@ -280,7 +288,7 @@ public class WOLevelUp extends WindowMain {
             var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
             arr[0].showArrow(120);
         }
-        if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
+        if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
 //        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
     }
 
@@ -568,6 +576,21 @@ public class WOLevelUp extends WindowMain {
             _rightArrow = null;
         }
         super.deleteIt();
+    }
+
+    public function addArrow():void {
+        if (_contBtn && !_arrow) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _source);
+            _arrow.animateAtPosition(_contBtn.x, _contBtn.y + _contBtn.height/2 - 2);
+            _arrow.scaleIt(.7);
+        }
+    }
+
+    public function hideArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 
 }

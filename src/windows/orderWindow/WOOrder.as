@@ -32,6 +32,7 @@ import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.SensibleBlock;
+import utils.SimpleArrow;
 import utils.TimeUtils;
 import utils.Utils;
 import windows.WOComponents.BackgroundWhiteIn;
@@ -67,6 +68,8 @@ public class WOOrder extends WindowMain {
     private var _srcBaloon:Sprite;
     private var _imBaloon:Image;
     private var _txtBaloon:CTextField;
+    private var _arrow:SimpleArrow;
+    private var _canArrow:Boolean;
 
     public function WOOrder() {
         _windowType = WindowsManager.WO_ORDERS;
@@ -325,6 +328,21 @@ public class WOOrder extends WindowMain {
                 _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
                 break;
             }
+        }
+        if (g.user.level <= 5) {
+            hideArrow();
+            _canArrow = true;
+            var or:OrderItemStructure = _activeOrderItem.getOrder();
+            for (i = 0; i < or.resourceIds.length; i++) {
+                if (!(_arrResourceItems[i] as WOOrderResourceItem).isChecked()) {
+                    _canArrow = false;
+                    return;
+                }
+            }
+            var f1:Function = function ():void {
+                if (_source && _activeOrderItem.leftSeconds <= 0) addArrow();
+            };
+            Utils.createDelay(4,f1);
         }
     }
 
@@ -852,6 +870,21 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
 
     private function emptyCarCustomer():void {
         _armature.animation.gotoAndStopByFrame('empty');
+    }
+
+    public function addArrow():void {
+        if (_btnSell && !_arrow && _canArrow) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _source);
+            _arrow.animateAtPosition(_btnSell.x, _btnSell.y + _btnSell.height/2 - 2);
+            _arrow.scaleIt(.7);
+        }
+    }
+
+    public function hideArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

@@ -50,24 +50,27 @@ public class CutScene {
         onResize();
     }
 
-    public function showIt(st:String, stBtn:String='', callback:Function=null, delay:Number=0, stURL:String = '', btnUrl:String = ''):void {
+    public function showIt(st:String, stBtn:String='', callback:Function=null, delay:Number=0, stURL:String = '', btnUrl:String = '', type:int = 0):void {
         _cont.addChild(_source);
         _source.x = _xStart;
-        TweenMax.to(_source, .5, {x:_xEnd, onComplete:showBubble, onCompleteParams: [st, stBtn, callback, null, stURL, btnUrl], delay:delay});
+        TweenMax.to(_source, .5, {x:_xEnd, onComplete:showBubble, onCompleteParams: [st, stBtn, callback, null, stURL, btnUrl, null, type], delay:delay});
         WorldClock.clock.add(_armature);
         animateCat();
     }
 
-    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String='', btnUrl:String = '', startClick:Function = null):void {
+    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String='', btnUrl:String = '', startClick:Function = null, type:int = 0):void {
 //        try {
             if (!st) {
                 st = '';
                 Cc.error('no text for CutScene');
             }
-            if (st.length > 100 || stURL != '' || btnUrl != '') {
-                _bubble = new CutSceneTextBubble(_sourceBubble, CutSceneTextBubble.BIG, stURL, btnUrl);
-            } else {
-                _bubble = new CutSceneTextBubble(_sourceBubble, CutSceneTextBubble.MIDDLE, '', '');
+            if (type > 0) _bubble = new CutSceneTextBubble(_sourceBubble, type, stURL, btnUrl);
+            else {
+                if (st.length > 100 || stURL != '' || btnUrl != '') {
+                    _bubble = new CutSceneTextBubble(_sourceBubble, CutSceneTextBubble.BIG, stURL, btnUrl);
+                } else {
+                    _bubble = new CutSceneTextBubble(_sourceBubble, CutSceneTextBubble.MIDDLE, '', '');
+                }
             }
             _bubble.showBubble(st, stBtn, callback, callbackNo, startClick);
         if (_isBigShop) {

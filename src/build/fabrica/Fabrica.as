@@ -30,6 +30,9 @@ import starling.events.Event;
 import starling.textures.Texture;
 import tutorial.TutsAction;
 import tutorial.helpers.HelperReason;
+
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class Fabrica extends WorldObject {
@@ -93,6 +96,7 @@ public class Fabrica extends WorldObject {
                         _leftBuildTime = int(_dataBuild.buildTime[arr.length]) - _leftBuildTime;        // сколько времени еще до конца стройки
                         if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                             _stateBuild = STATE_WAIT_ACTIVATE;
+                            animationYouCanOpen();
                             addDoneBuilding();
                         } else {  // еще строится
                             _stateBuild = STATE_BUILD;
@@ -199,7 +203,9 @@ public class Fabrica extends WorldObject {
                 g.tuts.checkTutsCallback();
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
             } else if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION && g.tuts.isTutsBuilding(this)) {
-                if (_leftBuildTime <= 0) g.tuts.checkTutsCallback();
+                if (_leftBuildTime <= 0) {
+                    g.tuts.checkTutsCallback();
+                }
             } else if (g.tuts.action == TutsAction.PUT_FABRICA && g.tuts.isTutsResource(_dataBuild.id)) {
             } else if (g.tuts.action == TutsAction.PUT_FABRICA && g.tuts.isTutsBuilding(this)) {
             } else if (g.tuts.action == TutsAction.FABRICA_CRAFT && g.tuts.isTutsBuilding(this)) {
@@ -265,7 +271,8 @@ public class Fabrica extends WorldObject {
                     if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) {
                         g.timerHint.canHide = false;
                         g.timerHint.addArrow();
-                        g.tuts.checkTutsCallback();
+//                        g.tuts.checkTutsCallback();
+                        hideArrow();
                         g.timerHint.showIt(90, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y - _source.height/3) * g.currentGameScale,
                                 _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                     }
@@ -520,6 +527,7 @@ public class Fabrica extends WorldObject {
 
     private function callbackSkip():void { // for building build
         _stateBuild = STATE_WAIT_ACTIVATE;
+        animationYouCanOpen();
         g.server.skipTimeOnFabricBuild(_leftBuildTime, _dbBuildingId, null);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_BUILDING_BUILD_ID, info: _dataBuild.id});
         _leftBuildTime = 0;
@@ -664,6 +672,16 @@ public class Fabrica extends WorldObject {
             b.display = im;
         } else {
             Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
+        }
+    }
+
+    public function animationYouCanOpen():void {
+        if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            var f1:Function = function ():void {
+                buildingBuildDoneOver();
+                animationYouCanOpen();
+            };
+            Utils.createDelay(5 * Math.random(), f1);
         }
     }
 

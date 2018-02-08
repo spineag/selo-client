@@ -25,6 +25,7 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 import tutorial.CutScene;
+import tutorial.CutSceneTextBubble;
 import tutorial.IManagerTutorial;
 import tutorial.TutsAction;
 import tutorial.pretuts.TutorialComix;
@@ -580,7 +581,7 @@ public class TutorialManager extends IManagerTutorial{
     private function subStep11_1():void {
         _subStep = 1;
         addBlack();
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep11_2);
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep11_2, 0, '', '', CutSceneTextBubble.BIG);
     }
 
     private function subStep11_2():void {

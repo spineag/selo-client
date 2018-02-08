@@ -288,9 +288,9 @@ public class ManagerOrderCats {
             var cat:OrderCat;
             var ob:Object;
             var l:int = g.managerOrder.getMaxCountForLevel(g.visitedUser.level);
-            if (l > 5) l = 5;
+//            if (l > 5) l = 5;
             for (var i:int = 0; i < l; i++) {
-                ob = g.managerOrder.getFreeCatObj();
+                ob = g.managerOrder.getFreeCatAwayObj();
                 cat = new OrderCat(ob);
                 cat.setTailPositions(30, 19 - i * 2);
                 cat.walkPosition = OrderCat.STAY_IN_QUEUE;
@@ -314,6 +314,9 @@ public class ManagerOrderCats {
         _arrAwayCats.length = 0;
     }
 
+    public function get arrAwayCats():Array {
+        return _arrAwayCats;
+    }
 
 }
 }

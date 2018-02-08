@@ -424,6 +424,10 @@ public class WorldObject {
             clearBuildingBuildSprite();
             addDoneBuilding();
             _stateBuild = STATE_WAIT_ACTIVATE;
+            var arr:Array = g.townArea.getCityObjectsById(dataBuild.id);
+            for (var i:int = 0; i < arr.length; i++) {
+                arr[i].animationYouCanOpen();
+            }
             if (g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION && g.tuts.isTutsBuilding(this)) g.tuts.checkTutsCallback();
             if (g.tuts.isTuts && _dataBuild.buildType == BuildType.FABRICA && g.tuts.action == TutsAction.FABRICA_SKIP_FOUNDATION) {
                 g.timerHint.canHide = true;

@@ -36,6 +36,7 @@ public class WOOrderItem {
     private var _timer:int;
     private var _isHover:Boolean;
     private var g:Vars = Vars.getInstance();
+    private var _booleanNewCat:Boolean;
 
     public function WOOrderItem(wo:WOOrder) {
         _act = false;
@@ -54,6 +55,7 @@ public class WOOrderItem {
         _clockImage.visible = false;
         source.addChild(_clockImage);
 
+        _booleanNewCat = true;
         _delImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_or'));
         _delImage.alignPivot();
         _delImage.x = 60;
@@ -215,15 +217,19 @@ public class WOOrderItem {
 
     private function renderLeftTime():void {
         _leftSeconds--;
-        if (_leftSeconds == 19) {
-            if (_order && _txtName && _order.delOb) _wo.timerSkip(_order);
-            else g.userTimer.newCatOrder();
+        if (_leftSeconds <= 16) {
+           if (_order && _txtName && _order.delOb) _wo.timerSkip(_order);
+            else if (_booleanNewCat) {
+               _booleanNewCat = false;
+               g.userTimer.newCatOrder(_position);
+           }
             g.managerOrder.checkForFullOrder();
         }
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;
-            g.managerOrder.checkForFullOrder();
             g.gameDispatcher.removeFromTimer(renderLeftTime);
+            _booleanNewCat = true;
+            g.managerOrder.checkForFullOrder();
             if(_txtName) {
                 if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
                 else _txtName.text = _order.catOb.nameRU;

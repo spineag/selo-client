@@ -76,7 +76,7 @@ public class TutorialTextBubble {
                     _im.scaleX = -1;
                     _im.x = 12;
                     _im.y = -169;
-                    _txt.x = -333;
+                    _txt.x = -343;
                     _txt.y = -135;
                 }
                 break;

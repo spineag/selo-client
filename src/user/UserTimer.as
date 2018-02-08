@@ -2,12 +2,14 @@
  * Created by user on 4/20/16.
  */
 package user {
+import order.OrderCat;
 import order.OrderItemStructure;
 import manager.Vars;
 
 import ui.stock.StockPanel;
 
 import utils.TimeUtils;
+import utils.Utils;
 
 import windows.WindowsManager;
 
@@ -205,24 +207,25 @@ public class UserTimer {
         }
     }
 
-    public function newCatOrder():void {
-        var i:int;
-        var leftSecond:int;
-        for (i = 0; i < _arrOrderItem.length; i++) {
-            if (_arrOrderItem[i]) {
-                leftSecond = _arrOrderItem[i].startTime - TimeUtils.currentSeconds;
-                if (leftSecond <= 19){
-//                    g.managerOrder.checkForFullOrder();
-                    break;
-                }
-            }
-        }
-        if (_arrOrderItem[i]) {
-            var pl:int = _arrOrderItem[i].placeNumber;
-            _arrOrderItem[i] = null;
+    public function newCatOrder(position:int):void {
+//        var i:int;
+//        var leftSecond:int;
+//        for (i = 0; i < _arrOrderItem.length; i++) {
+//            if (_arrOrderItem[i]) {
+//                leftSecond = _arrOrderItem[i].startTime - TimeUtils.currentSeconds;
+//                if (leftSecond <= 19){
+////                    g.managerOrder.checkForFullOrder();
+//                    break;
+//                }
+//            }
+//        }
+//        if (_arrOrderItem[i]) {
+//            var pl:int = _arrOrderItem[i].placeNumber;
+//            _arrOrderItem[i] = null;
             var arr:Array = g.managerOrder.arrOrders.slice();
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].placeNumber == pl && arr[i].delOb) {
+            for (var i:int = 0; i < arr.length; i++) {
+                if (arr[i].startTime - TimeUtils.currentSeconds <= 16 && arr[i].delOb && position ==  arr[i].placeNumber) {
+                    g.managerOrder.checkCatId();
                     arr[i].delOb = false;
                     arr[i].cat = g.managerOrderCats.getNewCatForOrder(null, arr[i].catOb);
                     g.managerOrder.checkForFullOrder();
@@ -230,6 +233,6 @@ public class UserTimer {
                 }
             }
         }
-    }
+//    }
 }
 }

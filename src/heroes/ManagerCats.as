@@ -53,6 +53,10 @@ public class ManagerCats {
     private function addHeroCat(type:int):void {
         var cat:HeroCat = new HeroCat(type);
         _catsArray.push(cat);
+        if (g.user.level <= 3) {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(25 + int(2 * Math.random()), 26 + int(2 * Math.random())));
+            goCatToPoint(cat, new Point(p.x, p.y), null, cat);
+        }
     }
 
     public function timerRandomWorkMan():void {
