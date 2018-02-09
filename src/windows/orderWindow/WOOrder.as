@@ -396,6 +396,7 @@ public class WOOrder extends WindowMain {
         var pl:int = or.placeNumber;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl &&  _arrOrders[i].delOb) {
+                g.managerOrder.checkCatId();
                 _arrOrders[i].delOb = false;
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 break;

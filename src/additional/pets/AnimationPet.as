@@ -58,6 +58,10 @@ public class AnimationPet {
     public function changeTexture(oldName:String, newName:String, isFront:Boolean):void {
         var im:Image = new Image(g.allData.atlas['customisationPetsAtlas'].getTexture(newName));
         var b:Slot;
+        if (!_armature) {
+            Cc.ch('error', '_armature == null for petId: ' + _petData.id);
+            return;
+        }
         if (isFront) b = _armature.getSlot(oldName);
             else b = _armatureBack.getSlot(oldName);
         if (b && im) {

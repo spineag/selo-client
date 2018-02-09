@@ -118,6 +118,7 @@ public class ManagerOrder {
     private function checkForNewCats(onArriveCallback:Function = null):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
+                checkCatId();
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback, _arrOrders[i].catOb, i);
             }
         }
@@ -1059,6 +1060,7 @@ public class ManagerOrder {
         addNewOrders(1, 0, f, pl);
         for (i = 0; i < _arrOrders.length; i++) {
             if (!_arrOrders[i].cat) {
+                checkCatId();
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 break;
             }
@@ -1135,7 +1137,7 @@ public class ManagerOrder {
         var orderDbId:String = or.dbId;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl) {
-                g.managerOrder.checkCatId();
+                checkCatId();
                 _arrOrders[i].delOb = false;
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 g.managerOrder.checkForFullOrder();

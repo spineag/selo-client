@@ -135,12 +135,13 @@ public class LevelUpHint {
             return;
         }
 
-        if (_data.buildType == BuildType.FABRICA || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
                 || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE
-                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA || _data.buildType == BuildType.TREE
-                || _data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.CAT_HOUSE || _data.buildType == BuildType.CAVE || _data.buildType == BuildType.FARM
-                || _data.buildType == BuildType.PET_HOUSE || _data.buildType == BuildType.PET_HOUSE || _data.buildType == BuildType.TRAIN) {
-            _txtName.text = String(g.managerLanguage.allTexts[351]);
+                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) {
+            if (_data.buildType == BuildType.FABRICA || _data.buildType == BuildType.TREE
+                    || _data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.CAT_HOUSE || _data.buildType == BuildType.CAVE || _data.buildType == BuildType.FARM
+                    || _data.buildType == BuildType.PET_HOUSE || _data.buildType == BuildType.PET_HOUSE || _data.buildType == BuildType.TRAIN) _txtName.text = _data.name;
+            else _txtName.text = String(g.managerLanguage.allTexts[351]);
             _txtName.x = -100;
             _txtName.y = 30;
             _txtText.text = String(g.managerLanguage.allTexts[608]);
