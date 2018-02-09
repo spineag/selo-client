@@ -20,6 +20,8 @@ import starling.display.Sprite;
 import starling.events.Event;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import utils.CSprite;
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class Train extends WorldObject{
@@ -514,6 +516,7 @@ public class Train extends WorldObject{
                     g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
                 } else {
                     _stateBuild = STATE_WAIT_BACK;
+                    animationYouCanOpen();
                     g.server.updateUserTrainState(_stateBuild, _train_db_id, null);
                     _counter = TIME_WAIT;
                     leaveTrain();
@@ -553,6 +556,7 @@ public class Train extends WorldObject{
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
+        animationYouCanOpen();
         g.server.skipTimeOnTrainBuild(_leftBuildTime, _dataBuild.id,null);
         _leftBuildTime = 0;
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_BUILDING_BUILD_ID, info: _dataBuild.id});
@@ -617,6 +621,16 @@ public class Train extends WorldObject{
                 }
                 _sprHelp = null;
             }
+        }
+    }
+
+    public function animationYouCanOpen():void {
+        if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            var f1:Function = function ():void {
+                buildingBuildDoneOver();
+                animationYouCanOpen();
+            };
+            Utils.createDelay(5 * Math.random(), f1);
         }
     }
 }

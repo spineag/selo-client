@@ -210,7 +210,7 @@ public class ManagerBuyerNyashuk {
 
             ra = int(Math.random() * arrMax.length);
             if (_arr && _arr.length > 0) {
-                if (arrMax[ra].id == _arr[0].resourceId)  ra =  int(Math.random() * arrMax.length);
+                if (arrMax.length > 0 && arrMax[ra].id == _arr[0].resourceId)  ra =  int(Math.random() * arrMax.length);
             }
             ob = {};
             ob.buyerId = 2;

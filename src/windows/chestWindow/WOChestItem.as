@@ -165,6 +165,9 @@ public class WOChestItem {
             case ManagerChest.YELLOW_VAU:
                 flyItVaucher();
                 break;
+            case ManagerChest.INSTRUMENT:
+                flyItResource();
+                break;
         }
     }
 

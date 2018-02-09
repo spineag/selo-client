@@ -19,6 +19,9 @@ import resourceItem.ResourceItem;
 import resourceItem.newDrop.DropObject;
 import starling.display.Sprite;
 import starling.events.Event;
+
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class Cave extends WorldObject{
@@ -123,6 +126,7 @@ public class Cave extends WorldObject{
                     _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
                     if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
                         _stateBuild = STATE_WAIT_ACTIVATE;
+                        animationYouCanOpen();
                         addDoneBuilding();
                         _build.visible = false;
                     } else {  // еще строится
@@ -466,6 +470,7 @@ public class Cave extends WorldObject{
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
+        animationYouCanOpen();
         _leftBuildTime = 0;
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_BUILDING_BUILD_ID, info: _dataBuild.id});
         renderBuildProgress();
@@ -487,6 +492,16 @@ public class Cave extends WorldObject{
         _source.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen = null;
         g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE);
+    }
+
+    public function animationYouCanOpen():void {
+        if (_stateBuild == STATE_WAIT_ACTIVATE) {
+            var f1:Function = function ():void {
+                buildingBuildDoneOver();
+                animationYouCanOpen();
+            };
+            Utils.createDelay(5 * Math.random(), f1);
+        }
     }
 
 }

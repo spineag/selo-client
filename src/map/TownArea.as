@@ -1688,6 +1688,9 @@ public class TownArea extends Sprite {
         if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(false);
+        if (g.starterPanel) {
+            g.starterPanel.visibleStaterPanel(false);
+        }
         g.visitedUser = person;
         _freePlace.deleteAway();
         _freePlace.fillAway();
@@ -2394,6 +2397,9 @@ public class TownArea extends Sprite {
         clearAwayCity();
         _freePlace.deleteAway();
         g.isAway = false;
+        if (g.starterPanel) {
+            g.starterPanel.visibleStaterPanel(true);
+        }
         g.visitedUser = null;
         g.bottomPanel.doorBoolean(false);
         if (g.user.level > 3) g.managerOrder.checkOrders();

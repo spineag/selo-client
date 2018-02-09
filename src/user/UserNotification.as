@@ -97,6 +97,7 @@ public class UserNotification {
     }
 
     public function onGetFromServer(st:String):void {
+        if (!st) return;
         var ar:Array = st.split('|');
         if (ar[0] != '') {
             _plant = ar[0].split('&');

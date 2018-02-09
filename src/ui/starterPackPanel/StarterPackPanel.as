@@ -114,7 +114,7 @@ public class StarterPackPanel {
                 _txtTime.x = 8 -_txtTime.textBounds.width/2;
             }
         } else {
-            visiblePartyPanel(false);
+            visibleStaterPanel(false);
             if (_txtData) {
                 _txtData.deleteIt();
                 _txtData = null;
@@ -127,7 +127,7 @@ public class StarterPackPanel {
         }
     }
 
-    public function visiblePartyPanel(b:Boolean):void {
+    public function visibleStaterPanel(b:Boolean):void {
         if (b) _source.visible = true;
         else _source.visible = false;
         if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();

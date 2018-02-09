@@ -545,9 +545,14 @@ public class ManagerOrder {
             _arrOrders.push(or);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.server.addUserOrder(or, delay, or.catOb.id, null);
-            if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
-                if (f != null) f.apply(null, [or]);
-            }
+
+            var f1:Function = function ():void {
+                if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
+                    if (f != null) f.apply(null, [or]);
+                }
+            };
+            Utils.createDelay(1,f1);
+
         }
     }
 
@@ -1130,7 +1135,10 @@ public class ManagerOrder {
         var orderDbId:String = or.dbId;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl) {
+                g.managerOrder.checkCatId();
+                _arrOrders[i].delOb = false;
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
+                g.managerOrder.checkForFullOrder();
                 break;
             }
         }
