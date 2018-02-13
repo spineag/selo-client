@@ -43,7 +43,7 @@ public class Containers {
     private var _gameCont:Sprite;
     private var _gameContX:int;
     private var _gameContY:int;
-    private var _gameContScale:int;
+    private var _gameContScale:Number;
     private var _isGameContTweening:Boolean;
     public var isAnimScaling:Boolean = false;
     private var _topGameContAnimation:Sprite;
@@ -238,17 +238,16 @@ public class Containers {
         if (_startDragPointCont == null || _startDragPoint == null) return;
         if (!_isDragged) if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
         _isDragged = true;
-        var s:Number = _gameContScale;
         _gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         _gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
-        var oY:Number = g.matrixGrid.offsetY*s;
-        if (_gameCont.y > oY + SHIFT_MAP_Y*s) _gameCont.y = oY + SHIFT_MAP_Y*s;
-        if (_gameCont.y < -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s)
-            _gameCont.y = -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s;
-        if (_gameCont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
-            _gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
-        if (_gameCont.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s)
-            _gameCont.x = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s;
+        var oY:Number = g.matrixGrid.offsetY*_gameContScale;
+        if (_gameCont.y > oY + SHIFT_MAP_Y*_gameContScale) _gameCont.y = oY + SHIFT_MAP_Y*_gameContScale;
+        if (_gameCont.y < -g.realGameTilesHeight*_gameContScale - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*_gameContScale)
+            _gameCont.y = -g.realGameTilesHeight*_gameContScale - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*_gameContScale;
+        if (_gameCont.x > _gameContScale*g.realGameWidth/2 - _gameContScale*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*_gameContScale)
+            _gameCont.x =  _gameContScale*g.realGameWidth/2 - _gameContScale*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*_gameContScale;
+        if (_gameCont.x < -_gameContScale*g.realGameWidth/2 + _gameContScale*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*_gameContScale)
+            _gameCont.x = -_gameContScale*g.realGameWidth/2 + _gameContScale*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*_gameContScale;
         updateGameContVariables();
     }
     
