@@ -47,7 +47,7 @@ public class Containers {
     private var _isGameContTweening:Boolean;
     public var isAnimScaling:Boolean = false;
     private var _topGameContAnimation:Sprite;
-
+//    private var _isMoving:Boolean = false;
     private var _startDragPoint:Point;
     private var _startDragPointCont:Point;
     
@@ -232,7 +232,7 @@ public class Containers {
     }
 
     public function dragGameCont(mouseP:Point):void {
-        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
+        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT || _isGameContTweening) return;
         if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) return;
         g.hideAllHints(); // ??? not optimise
         if (_startDragPointCont == null || _startDragPoint == null) return;
@@ -281,6 +281,7 @@ public class Containers {
             if (callback != null) {
                 callback.apply();
             }
+//            _isMoving= false;
         };
         if (needQuick) {
             _gameCont.x = newX;
@@ -303,6 +304,7 @@ public class Containers {
     }
 
     public function moveCenterToPos(posX:int, posY:int, needQuick:Boolean = false, time:Number = .5, callback:Function = null):void {
+//        _isMoving = true;
         var p:Point = new Point(posX, posY);
         p = g.matrixGrid.getXYFromIndex(p);
         moveCenterToXY(p.x, p.y, needQuick, time, callback);

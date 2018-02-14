@@ -32,7 +32,7 @@ public class WOLevelUpItem {
     private var _imageBg:Image;
     private var _data:Object;
     private var _onHover:Boolean;
-    private var _bolHouse:Boolean;
+//    private var _bolHouse:Boolean;
     private var _bolAnimal:Boolean;
     private var g:Vars = Vars.getInstance();
 
@@ -75,7 +75,7 @@ public class WOLevelUpItem {
                 if (!_image) {
                     _image = new Image(g.allData.atlas[g.allData.getBuildingById(ob.id).url].getTexture(g.allData.getBuildingById(ob.id).image));
                 }
-                _bolHouse = true;
+//                _bolHouse = true;
                 var f1:Function = function (dbId:int):void {
                     g.userInventory.addToDecorInventory(ob.id, dbId);
                 };
@@ -103,16 +103,16 @@ public class WOLevelUpItem {
             }
             if (ob.buildType == BuildType.FARM) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
-                _bolHouse = true;
+//                _bolHouse = true;
             } else if (ob.buildType == BuildType.RIDGE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
-                _bolHouse = true;
-            } else if (ob.buildType == BuildType.FABRICA) {
+//                _bolHouse = true;
+            } else if (ob.buildType == BuildType.FABRICA || ob.buildType == BuildType.PET_HOUSE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
-                _bolHouse = true;
-            } else if (ob.buildType == BuildType.TREE) {
+//                _bolHouse = true;
+            } else if (ob.buildType == BuildType.TREE || ob.buildType == BuildType.PET) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
-                _bolHouse = true;
+//                _bolHouse = true;
             } else if (ob.buildType == BuildType.RESOURCE) {
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.PLANT) {
@@ -126,28 +126,28 @@ public class WOLevelUpItem {
                     }
                 }
                 _image = new Image(texture);
-                _bolHouse = true;
+//                _bolHouse = true;
             } else if (ob.buildType == BuildType.ANIMAL) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
-                _bolHouse = true;
+//                _bolHouse = true;
                 _bolAnimal = true;
             } else if (ob.buildType == BuildType.INSTRUMENT) {
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
                  _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
-                _bolHouse = true;
+//                _bolHouse = true;
             } else if (ob.buildType == BuildType.CAVE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
-                _bolHouse = true;
+//                _bolHouse = true;
             } else if (ob.buildType == BuildType.DAILY_BONUS) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('daily_bonus_icon'));
-                _bolHouse = true;
+//                _bolHouse = true;
             } else if (ob.buildType == BuildType.ORDER) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('orders_icon'));
-                _bolHouse = true;
+//                _bolHouse = true;
             } else if (ob.buildType == BuildType.DECOR_ANIMATION) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
-                _bolHouse = true;
+//                _bolHouse = true;
             }
 //        } catch (e:Error) {
 //          Cc.error('WOLevelUpItem:: error with _image for data.id: ' + ob.id);

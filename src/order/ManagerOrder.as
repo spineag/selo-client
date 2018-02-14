@@ -134,7 +134,10 @@ public class ManagerOrder {
         or.dbId = ob.id;
         or.resourceIds = ob.ids.split('&');
         or.resourceCounts = ob.counts.split('&');
-        if (ob.cat_id == '0') or.catOb = getFreeCatObj();  else or.catOb = DataOrderCat.getCatObjById(int(ob.cat_id));
+        if (ob.cat_id == '0') or.catOb = getFreeCatObj();  else {
+            or.catOb = DataOrderCat.getCatObjById(int(ob.cat_id));
+            DataOrderCat.setCatObjByTxtId(int(ob.cat_id), int(ob.txt_id));
+        }
         or.coins = int(ob.coins);
         or.xp = int(ob.xp);
         or.addCoupone = ob.add_coupone == '1';
@@ -522,6 +525,7 @@ public class ManagerOrder {
 //                return;
 //            }
             or.catOb = getFreeCatObj();
+            or.catOb = getFreeCatObj();
             or.coins = 0;
             or.xp = 0;
             for (k = 0; k < or.resourceIds.length; k++) {
@@ -545,7 +549,7 @@ public class ManagerOrder {
             or.delOb = del;
             _arrOrders.push(or);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
-            g.server.addUserOrder(or, delay, or.catOb.id, null);
+            g.server.addUserOrder(or, delay, or.catOb.id, or.catOb.txtId, null);
 
             var f1:Function = function ():void {
                 if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
@@ -973,6 +977,10 @@ public class ManagerOrder {
         }
         if (!d && _lastActiveCatId) d = DataOrderCat.getCatObjById(_lastActiveCatId);
         if (!d) d = DataOrderCat.arr[1];
+        var n:Number = Math.random();
+        if (n < .3) DataOrderCat.setCatObjByTxtId(_lastActiveCatId, 1);
+        else  if (n < .6) DataOrderCat.setCatObjByTxtId(_lastActiveCatId, 2);
+        else DataOrderCat.setCatObjByTxtId(_lastActiveCatId, 3);
         _lastActiveCatId = 0;
         return d;
     }

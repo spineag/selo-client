@@ -18,7 +18,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1160,
             isMiniScene: false,
-            namePng: 'cat_order/black_cat_m_window.png'
+            namePng: 'cat_order/black_cat_m_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -32,7 +33,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1158,
             isMiniScene: false,
-            namePng: 'cat_order/blue_cat_m_window.png'
+            namePng: 'cat_order/blue_cat_m_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -46,7 +48,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1161,
             isMiniScene: false,
-            namePng: 'cat_order/green_cat_m_window.png'
+            namePng: 'cat_order/green_cat_m_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -60,7 +63,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1167,
             isMiniScene: false,
-            namePng: 'cat_order/brown_cat_m_window.png'
+            namePng: 'cat_order/brown_cat_m_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -74,7 +78,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1168,
             isMiniScene: false,
-            namePng: '/cat_order/orange_cat_m_window.png'
+            namePng: '/cat_order/orange_cat_m_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -88,7 +93,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1164,
             isMiniScene: false,
-            namePng: 'cat_order/pink_cat_m_window.png'
+            namePng: 'cat_order/pink_cat_m_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -102,7 +108,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1170,
             isMiniScene: false,
-            namePng: 'cat_order/white_cat_m_window.png'
+            namePng: 'cat_order/white_cat_m_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -116,7 +123,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1169,
             isMiniScene: false,
-            namePng: 'cat_order/black_cat_w_window.png'
+            namePng: 'cat_order/black_cat_w_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -130,7 +138,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1162,
             isMiniScene: false,
-            namePng: 'cat_order/blue_cat_w_window.png'
+            namePng: 'cat_order/blue_cat_w_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -144,7 +153,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1163,
             isMiniScene: false,
-            namePng: 'cat_order/green_cat_w_window.png'
+            namePng: 'cat_order/green_cat_w_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -158,7 +168,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1157,
             isMiniScene: false,
-            namePng: 'cat_order/brown_cat_w_window.png'
+            namePng: 'cat_order/brown_cat_w_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -172,7 +183,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1159,
             isMiniScene: false,
-            namePng: 'cat_order/orange_cat_w_window.png'
+            namePng: 'cat_order/orange_cat_w_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -186,7 +198,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1166,
             isMiniScene: false,
-            namePng: 'cat_order/pink_cat_w_window.png'
+            namePng: 'cat_order/pink_cat_w_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
 
@@ -200,7 +213,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1165,
             isMiniScene: false,
-            namePng: 'cat_order/white_cat_w_window.png'
+            namePng: 'cat_order/white_cat_w_window.png',
+            txtId: 1
         };
         _arrCats.push(obj);
     }
@@ -220,6 +234,14 @@ public class DataOrderCat {
             if (_arrCats[i].level <= l) ar.push(_arrCats[i]);
         }
         return ar;
+    }
+
+    public static function setCatObjByTxtId(id:int, txtId:int):void {
+        for (var i:int=0; i<14; i++) {
+            if (_arrCats[i].id == id)  {
+                _arrCats[i].txtId = txtId;
+            }
+        }
     }
 }
 }

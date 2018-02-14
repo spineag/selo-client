@@ -471,25 +471,25 @@ import windows.orderWindow.WOOrderItem;
 
 private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
-    var p1:Point = new Point(134, 147);
-    p1 = _source.localToGlobal(p1);
-    var d:DropObject = new DropObject();
-    if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
-        d.addDropXP(or.xp * g.managerParty.coefficient, p1);
-    else d.addDropXP(or.xp, p1);
-    p1.x = 186;
-    p1.y = 147;
-    p1 = _source.localToGlobal(p1);
-    if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
-        d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins * g.managerParty.coefficient, p1);
-    else d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins, p1);
-    p1.x = g.managerResize.stageWidth/2;
-    p1.y = g.managerResize.stageHeight/2;
-    if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER &&
-            g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level ||
-            g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level)
-        d.addDropPartyResource(p1);
-    d.releaseIt();
+        var p1:Point = new Point(134, 147);
+        p1 = _source.localToGlobal(p1);
+        var d:DropObject = new DropObject();
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
+            d.addDropXP(or.xp * g.managerParty.coefficient, p1);
+        else d.addDropXP(or.xp, p1);
+        p1.x = 186;
+        p1.y = 147;
+        p1 = _source.localToGlobal(p1);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
+            d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins * g.managerParty.coefficient, p1);
+        else d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins, p1);
+        p1.x = g.managerResize.stageWidth/2;
+        p1.y = g.managerResize.stageHeight/2;
+        if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER &&
+                g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level ||
+                g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level)
+            d.addDropPartyResource(p1);
+        d.releaseIt();
 //        if (_isShowed) {
             or.startTime = TimeUtils.currentSeconds + 6;
             orderItem.fillIt(or, or.placeNumber, onItemClick);
@@ -691,8 +691,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_black';
                 lid = 'black';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1246]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1247]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1246]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1247]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1248]);
                 }
                 break;
@@ -701,8 +701,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_black';
                 lid = 'black';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1040]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1041]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1040]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1041]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1042]);
                 }
                 break;
@@ -711,8 +711,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_blue';
                 lid = 'blue';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1255]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1256]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1255]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1256]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1257]);
                 }
                 break;
@@ -721,8 +721,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_blue';
                 lid = 'blue';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1049]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1050]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1049]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1050]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1051]);
                 }
                 break;
@@ -731,8 +731,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_green';
                 lid = 'green';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1055]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1056]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1055]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1056]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1057]);
                 }
                 break;
@@ -741,8 +741,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_green';
                 lid = 'green';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1034]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1035]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1034]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1035]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1036]);
                 }
                 break;
@@ -751,8 +751,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_brown';
                 lid = 'brown';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1052]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1053]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1052]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1053]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1054]);
                 }
                 break;
@@ -761,8 +761,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_brown';
                 lid = 'brown';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1031]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1032]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1031]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1032]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1033]);
                 }
                 break;
@@ -771,8 +771,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_orange';
                 lid = 'orange';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1252]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1253]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1252]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1253]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1254]);
                 }
                 break;
@@ -781,8 +781,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_orange';
                 lid = 'orange';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1046]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1047]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1046]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1047]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1048]);
                 }
                 break;
@@ -791,8 +791,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_pink';
                 lid = 'pink';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1058]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1244]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1058]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1244]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1245]);
                 }
                 break;
@@ -801,8 +801,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_pink';
                 lid = 'pink';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1037]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1038]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1037]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1038]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1039]);
                 }
                 break;
@@ -811,8 +811,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_white';
                 lid = 'white';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1249]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1250]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1249]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1250]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1251]);
                 }
                 break;
@@ -821,8 +821,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 st2 = '_white';
                 lid = 'white';
                 if (_txtBaloon) {
-                    if (n < .3) _txtBaloon.text = String(g.managerLanguage.allTexts[1043]);
-                    else  if (n < .6) _txtBaloon.text = String(g.managerLanguage.allTexts[1044]);
+                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1043]);
+                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1044]);
                     else _txtBaloon.text = String(g.managerLanguage.allTexts[1045]);
                 }
                 break;

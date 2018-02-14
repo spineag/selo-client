@@ -78,11 +78,11 @@ public class WOLevelUp extends WindowMain {
         _windowType = WindowsManager.WO_LEVEL_UP;
         _woWidth = 745;
         _woHeight = 409;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/windows_new_level.png', onLoad);
         _arrCells = [];
         _arrCellsGift = [];
         _arrItems = [];
         _bolShare = true;
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/windows_new_level.png', onLoad);
     }
 
     private function onLoad(bitmap:Bitmap):void {
@@ -293,14 +293,14 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function onLeftClick():void {
-        _shift -= 5;
+        _shift -= 3;
         if (_shift < 0) _shift = 0;
         animList();
         checkBtns();
     }
 
     private function onRightClick():void {
-        _shift += 5;
+        _shift += 3;
         if (_shift > int(_arrCells.length - 3)) _shift = int(_arrCells.length - 3);
         animList();
         checkBtns();
@@ -366,7 +366,8 @@ public class WOLevelUp extends WindowMain {
                 objDataLevel.priceSkipHard = arR[i].priceSkipHard;
                 objDataLevel.buildTime = arR[i].buildTime;
                 objDataLevel.craftXP = arR[i].craftXP;
-                objDataLevel.priority = 10;
+                if (arR[i].buildType == BuildType.PLANT) objDataLevel.priority = 1;
+                else objDataLevel.priority = 5;
                 arr.push(objDataLevel);
                 if (arR[i].buildType == BuildType.PLANT) {
                     objDataLevel = {};
@@ -382,13 +383,16 @@ public class WOLevelUp extends WindowMain {
         var j:int = 0;
         for (i = 0; i < arR.length; i++) {
             if (arR[i].buildType != BuildType.CHEST) {
-                if (arR[i].buildType == BuildType.TREE || arR[i].buildType == BuildType.FARM || arR[i].buildType == BuildType.FABRICA) {
+                if (arR[i].buildType == BuildType.TREE || arR[i].buildType == BuildType.FARM || arR[i].buildType == BuildType.FABRICA || arR[i].buildType == BuildType.PET_HOUSE) {
                     for (k = 0; k < arR[i].blockByLevel.length; k++) {
                         if (g.user.level == arR[i].blockByLevel[k]) {
-
                             objDataLevel = {};
                             objDataLevel = Utils.objectFromStructureBuildToObject(arR[i]);
-                            objDataLevel.priority = 15;
+                            if (arR[i].buildType == BuildType.TREE) objDataLevel.priority = 6;
+                            else if (arR[i].buildType == BuildType.FARM) objDataLevel.priority = 4;
+                            else if (arR[i].buildType == BuildType.FABRICA) objDataLevel.priority = 2;
+                            else if (arR[i].buildType == BuildType.PET_HOUSE) objDataLevel.priority = 4;
+
                             arr.push(objDataLevel);
                         }
                     }
@@ -398,9 +402,25 @@ public class WOLevelUp extends WindowMain {
                     b = true;
                     if (arR[i].buildType != BuildType.CAVE && arR[i].buildType != BuildType.TRAIN && arR[i].buildType != BuildType.PAPER && arR[i].buildType != BuildType.DAILY_BONUS
                             && arR[i].buildType != BuildType.ORDER && arR[i].buildType != BuildType.MARKET) {
-                        objDataLevel.priority = 25;
-                    } else objDataLevel.priority = 15;
+                        if (arR[i].id != 113 && arR[i].id != 114 && arR[i].id != 115 && arR[i].id != 116 && arR[i].id != 117
+                                && arR[i].id != 118 && arR[i].id != 177 && arR[i].id != 178 && arR[i].id != 179
+                                && arR[i].id != 109 && arR[i].id != 112 && arR[i].id != 111 && arR[i].id != 110
+                                && arR[i].id != 107 && arR[i].id != 208 && arR[i].id != 206 && arR[i].id != 207) objDataLevel.priority = 7;
+                        else b = false;
+                    } else objDataLevel.priority = 1;
                     if (b) arr.push(objDataLevel);
+                }
+            }
+        }
+
+        arR = g.allData.pet;
+        for (i = 0; i < arR.length; i++) {
+            for (k = 0; k < arR[i].blockByLevel.length; k++) {
+                if (g.user.level == arR[i].blockByLevel[k]) {
+                    objDataLevel = {};
+                    objDataLevel = Utils.objectFromStructurePetToObject(arR[i]);
+                    objDataLevel.priority = 3;
+                    arr.push(objDataLevel);
                 }
             }
         }
@@ -430,7 +450,7 @@ public class WOLevelUp extends WindowMain {
                     objDataLevel = {};
                     objDataLevel.decorData = true;
                     objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countDecor[i];
-                    objDataLevel.priority = 30;
+                    objDataLevel.priority = 7;
                     objDataLevel = Utils.objectFromStructureBuildToObject(objDataLevel.id = g.dataLevel.objectLevels[g.user.level].decorId[i]);
                     arr.push(objDataLevel);
                 }
@@ -441,7 +461,7 @@ public class WOLevelUp extends WindowMain {
             objDataLevel.ridge = true;
             objDataLevel = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(11));
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
-            objDataLevel.priority = 5;
+            objDataLevel.priority = 8;
             arr.push(objDataLevel);
         }
         if (g.dataLevel.objectLevels[g.user.level].resourceId[0] > 0) {
@@ -458,7 +478,7 @@ public class WOLevelUp extends WindowMain {
                     objDataLevel.resourceData = true;
                     objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
                     objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i];
-                    objDataLevel.priority = 3;
+                    objDataLevel.priority = 1;
                     arGift.push(objDataLevel);
                 } else {
                     arr.splice(j,1);
@@ -466,12 +486,12 @@ public class WOLevelUp extends WindowMain {
                     objDataLevel.resourceData = true;
                     objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
                     objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i] + 3;
-                    objDataLevel.priority = 3;
+                    objDataLevel.priority = 1;
                     arGift.push(objDataLevel);
                 }
             }
         }
-        var animal:StructureDataAnimal;
+//        var animal:StructureDataAnimal;
         if (arGift.length > 0) {
             createGiftSource();
             arGift.sortOn("priority", Array.NUMERIC);
@@ -487,14 +507,18 @@ public class WOLevelUp extends WindowMain {
             }
         }
         createMain(arr.length, arGift.length);
+        for (i = 0; i < arr.length; i++) {
+            if (arr[i].buildType == BuildType.FARM) {
+                objDataLevel = {};
+                objDataLevel = Utils.objectFromStructureAnimaToObject(g.allData.getAnimalByFarmId(arr[i].id));
+                objDataLevel.priority = 3;
+                if (objDataLevel) arr.push(objDataLevel);
+            }
+        }
         arr.sortOn("priority", Array.NUMERIC);
         _arrItems = [];
         _arrCells = [];
         for (i = 0; i < arr.length; i++) {
-            if (arr[i].buildType == BuildType.FARM) {
-                animal = g.allData.getAnimalByFarmId(arr[i].id);
-                if (animal) arr.push(animal);
-            }
             _arrItems.push(arr[i]);
             im = new WOLevelUpItem(arr[i],true, true, 3);
             im.source.x = 38 + int(i) * (173);
@@ -502,6 +526,7 @@ public class WOLevelUp extends WindowMain {
             _contImage.addChild(im.source);
             _contImage.y = 50;
         }
+//        createArrow();
         if (_arrCells.length > 3) {
             if (_arrCellsGift && _arrCellsGift.length > 0) {
                 _leftArrow.y = 55 + _leftArrow.height/2;
@@ -514,7 +539,6 @@ public class WOLevelUp extends WindowMain {
             _leftArrow.setEnabled = false;
             _rightArrow.visible = true;
         }
-//        MCScaler.scale(_source,_source.height - 200, _source.width-200);
     }
 
     private function onClickShare():void {
@@ -526,6 +550,8 @@ public class WOLevelUp extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        _shift = 0;
+        _count = 0;
         g.levelUpHint.hideIt();
         if (g.tuts.isTuts && g.tuts.action == TutsAction.LEVEL_UP) {
             g.tuts.checkTutsCallback();
@@ -554,8 +580,9 @@ public class WOLevelUp extends WindowMain {
             _txtLevel.deleteIt();
             _txtLevel = null;
         }
+        var i:int;
         if (_arrCells) {
-            for (var i:int = 0; i < _arrCells.length; i++) {
+            for (i = 0; i < _arrCells.length; i++) {
                 _arrCells[i].deleteIt();
             }
             _arrCells.length = 0;
@@ -575,6 +602,47 @@ public class WOLevelUp extends WindowMain {
             _rightArrow.deleteIt();
             _rightArrow = null;
         }
+        if (_txtGift) {
+            _source.removeChild(_txtGift);
+            _txtGift.deleteIt();
+            _txtGift = null;
+        }
+        if (_contImage) {
+            if (_contClipRectGift) _contClipRectGift.removeChild(_contImage);
+            _contImage.dispose();
+            _contImage = null;
+
+        }
+        if (_contImageGift) {
+            if (_contClipRectGift) _contClipRectGift.removeChild(_contImageGift);
+            _contImageGift.dispose();
+            _contImageGift = null;
+        }
+        if (_contImageGift) {
+            if (_contClipRectGift) _contClipRectGift.removeChild(_contImageGift);
+            _contImageGift.dispose();
+            _contImageGift = null;
+        }
+        if (_contClipRect) {
+            _sorceMainItem.removeChild(_contClipRect);
+            _contClipRect.dispose();
+            _contClipRect = null;
+        }
+        if (_contClipRectGift) {
+            _source.removeChild(_contClipRectGift);
+            _contClipRectGift.dispose();
+            _contClipRectGift = null;
+        }
+        if (_arrCellsGift) {
+            for (i = 0; i < _arrCellsGift.length; i++) {
+                _arrCellsGift[i].deleteIt();
+            }
+            _arrCellsGift.length = 0;
+        }
+        if (_arrItems) {
+            _arrItems = null;
+        }
+
         super.deleteIt();
     }
 

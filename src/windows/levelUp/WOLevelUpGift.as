@@ -115,5 +115,11 @@ public class WOLevelUpGift {
         _onHover = false;
         g.hint.hideIt();
     }
+
+    public function deleteIt():void {
+        source.deleteIt();
+        _imItem = null;
+        source = null;
+    }
 }
 }
