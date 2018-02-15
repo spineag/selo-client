@@ -490,7 +490,6 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level)
             d.addDropPartyResource(p1);
         d.releaseIt();
-//        if (_isShowed) {
             or.startTime = TimeUtils.currentSeconds + 6;
             orderItem.fillIt(or, or.placeNumber, onItemClick);
             for (var i:int = 0; _arrOrders.length; i++) {
@@ -499,13 +498,21 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                     break;
                 }
             }
-//            _arrOrders[or.placeNumber] = or;
             if (_activeOrderItem == orderItem) {
                 onItemClick(_activeOrderItem);
                 _clickItem = false;
             }
-//        }
-        Utils.createDelay(1,hideIt);
+        var f:Function = function ():void {
+            hideIt();
+            for (i = 0; i < _arrOrders.length; i++) {
+                if (!_arrOrders[i].cat) {
+//                    g.managerOrder.checkCatId();
+                    _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
+                    break;
+                }
+            }
+        };
+        Utils.createDelay(1,f);
     }
 
     override  public function hideIt():void { super.hideIt(); }

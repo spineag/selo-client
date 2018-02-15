@@ -22,6 +22,7 @@ public class ManagerInviteFriendViral {
     private var _timerEnd:int;
 
     public function ManagerInviteFriendViral(d:Object) {
+        return;
         _levelData = int(d.user_level);
         _countFriendsData = int(d.count_friends);
         _countRubiesData = int(d.count_rubies);
@@ -35,7 +36,7 @@ public class ManagerInviteFriendViral {
     public function getCountFriends():int { return _countFriendsData; }
     public function getCountRubies():int { return _countRubiesData; }
     public function onUpdateLevel():void { if (g.user.level == _levelData) checkIt(); }
-    public function openWO():void { g.windowsManager.openWindow(WindowsManager.WO_INVITE_FRIENDS_VIRAL_INFO, onCloseWO); }
+    public function openWO():void {  g.windowsManager.openWindow(WindowsManager.WO_INVITE_FRIENDS_VIRAL_INFO, onCloseWO); }
     public function updateTimerPanelPosition():void { if (_invitePanelTimer) _invitePanelTimer.updatePosition(); }
 
     private function checkIt():void {

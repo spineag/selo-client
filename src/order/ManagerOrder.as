@@ -525,7 +525,7 @@ public class ManagerOrder {
 //                return;
 //            }
             or.catOb = getFreeCatObj();
-            or.catOb = getFreeCatObj();
+//            or.catOb = getFreeCatObj();
             or.coins = 0;
             or.xp = 0;
             for (k = 0; k < or.resourceIds.length; k++) {
@@ -1066,13 +1066,13 @@ public class ManagerOrder {
         var pl:int = or.placeNumber;
         or = null;
         addNewOrders(1, 0, f, pl);
-        for (i = 0; i < _arrOrders.length; i++) {
-            if (!_arrOrders[i].cat) {
-                checkCatId();
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
-                break;
-            }
-        }
+//        for (i = 0; i < _arrOrders.length; i++) {
+//            if (!_arrOrders[i].cat) {
+//                checkCatId();
+//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
+//                break;
+//            }
+//        }
     }
 
     public function checkIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled

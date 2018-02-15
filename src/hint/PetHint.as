@@ -99,9 +99,9 @@ public class PetHint {
         else _iconResource = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(idResourceForRemoving).imageShop));
 
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
-        _txtCount.x = -20;
+        _txtCount.x = -18;
         _txtCount.y = -68;
-        _txtCountAll.x = _txtCount.x + _txtCount.textBounds.width;
+        _txtCountAll.x = _txtCount.x + _txtCount.textBounds.width - 3;
         if (g.userInventory.getCountResourceById(idResourceForRemoving) > 0) {
             _txtCount.changeTextColor =  Color.WHITE;
             _txtCount.changeTextStroke = ManagerFilters.BLUE_COLOR;
