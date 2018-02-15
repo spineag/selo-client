@@ -146,17 +146,17 @@ public class Containers {
     public function addToTopGameContAnimation(c:DisplayObjectContainer):void { if (!_topGameContAnimation.contains(c)) _topGameContAnimation.addChild(c); }
     public function removeFromTopGameContAnimation(c:DisplayObjectContainer):void { if (_topGameContAnimation.contains(c)) _topGameContAnimation.removeChild(c); }
     
-    public function get gameContX():int {
+    public function get gameContX():Number {
         if (_isGameContTweening) return _gameCont.x;
         else return _gameContX;
     }
     
-    public function get gameContY():int {
+    public function get gameContY():Number {
         if (_isGameContTweening) return _gameCont.y;
         else return _gameContY;
     }
     
-    public function get gameContScale():int {
+    public function get gameContScale():Number {
         if (_isGameContTweening) return _gameCont.scale;
         else return _gameContScale;
     }

@@ -2,6 +2,8 @@
  * Created by andriy.grynkiv on 8/8/14.
  */
 package utils {
+import com.junkbyte.console.Cc;
+
 import flash.events.TimerEvent;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
@@ -66,13 +68,33 @@ public class FarmDispatcher {
     }
 
     private var i:int;
+    private var tempANFF:Array = [];
     private function enterFrame(e:Event):void {
         for (i = 0; i < _enterFrameListenersLength; i++) {
-            (_enterFrameListeners[i] as Function).apply();
+            try {
+                (_enterFrameListeners[i] as Function).apply();
+            } catch(e:Error) {
+                Cc.error('Some error during EnterFrame');
+            }
+        }
+        if (tempANFF.length) {
+            try {
+                for (i = 0; i < tempANFF.length; i++) {
+                    (tempANFF[i] as Function).apply();
+                }
+            } catch(e:Error) {
+                Cc.error('Some error during NextFrameFunction double!!!');
+            }
+            tempANFF.length = 0;
         }
         if (_nextFrameFunctionsLength) {
             for (i = 0; i < _nextFrameFunctionsLength; i++) {
-                (_nextFrameFunctions[i] as Function).apply();
+                try {
+                    (_nextFrameFunctions[i] as Function).apply();
+                } catch(e:Error) {
+                    tempANFF.push(_nextFrameFunctions[i]);
+                    Cc.error('Some error during NextFrameFunction');
+                }
             }
             _nextFrameFunctions.length = 0;
             _nextFrameFunctionsLength = 0;
@@ -82,7 +104,11 @@ public class FarmDispatcher {
     private var k:int;
     private function timerTimerHandler(e:TimerEvent):void {
         for (k = 0; k < _timerListenersLength; k++) {
-            (_timerListeners[k] as Function).apply();
+            try {
+                (_timerListeners[k] as Function).apply();
+            } catch(e:Error) {
+                Cc.error('Some error during timerTimeHandler Function');
+            }
         }
         timerTimerWithParamsHandler(e);
     }
@@ -92,12 +118,8 @@ public class FarmDispatcher {
     }
 
     private function removeListener(listener:Function, listeners:Vector.<Function>):void {
-        var index:int;
-
-        index = listeners.indexOf(listener);
-        if (index + 1) {
-            listeners.splice(index, 1);
-        }
+        var index:int = listeners.indexOf(listener);
+        if (index + 1) listeners.splice(index, 1);
     }
 
     public function addToTimerWithParams(listener:Function, delay:uint = 1000, loop:uint = int.MAX_VALUE, ...params):void {
