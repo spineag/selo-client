@@ -5,8 +5,12 @@ package ui.xpPanel {
 
 import additional.buyerNyashuk.ManagerBuyerNyashuk;
 
+import flash.display.Bitmap;
+
 import flash.filters.GlowFilter;
 import flash.geom.Point;
+
+import loaders.PBitmap;
 
 import manager.ManagerFilters;
 import manager.ManagerInviteFriendViral;
@@ -25,7 +29,11 @@ import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
 import starling.text.TextField;
+import starling.textures.Texture;
+import starling.textures.TextureAtlas;
 import starling.utils.Color;
+
+import ui.confetti.Confetti;
 
 import utils.CSprite;
 import utils.CTextField;
@@ -44,6 +52,9 @@ public class XPPanel {
     public var _imageStar:Image;
     private var _countXP:int;
     private var g:Vars = Vars.getInstance();
+    private var _st:String;
+    private var _count:int;
+    private var _bAtlas:Boolean;
 
     public function XPPanel() {
         _source = new CSprite();
@@ -76,15 +87,16 @@ public class XPPanel {
         _source.endClickCallback = onClick;
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
         _countXP = g.user.xp;
+        _bAtlas = false;
         checkXP();
         onResize();
     }
     
     private function onClick():void {
-        if (!g.isDebug) return;
-        g.user.notif.checkOnNewLevel();
-//        g.user.level++;
-//        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//        if (!g.isDebug) return;
+//        g.user.notif.checkOnNewLevel();
+        g.user.level++;
+        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
 //        var arr:Array = DataOrderCat.arr;
 //        g.windowsManager.openWindow(WindowsManager.WO_ORDER_CAT_MINI, null, arr[int(Math.random()*arr.length)]);
     }
@@ -126,10 +138,27 @@ public class XPPanel {
             else {
                 g.server.updateUserLevel(null);
                 if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
+                var c:Confetti = new Confetti();
+                c.showIt();
                 g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             }
         } else 
             checkXP();
+    }
+
+    private function onLoad(smth:*=null):void {
+        _count++;
+        if (_count >= 2) createAtlases();
+    }
+
+    private function createAtlases():void {
+        g.allData.atlas['levelAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[_st + 'levelAtlas.png' + g.getVersion('levelAtlas')].create() as Bitmap), g.pXMLs[_st + 'levelAtlas.xml' + g.getVersion('levelAtlas')]);
+        (g.pBitmaps[_st + 'levelAtlas.png' + g.getVersion('levelAtlas')] as PBitmap).deleteIt();
+        delete  g.pBitmaps[_st + 'levelAtlas.png' + g.getVersion('levelAtlas')];
+        delete  g.pXMLs[_st + 'levelAtlas.xml' + g.getVersion('levelAtlas')];
+        g.load.removeByUrl(_st + 'levelAtlas.png' + g.getVersion('levelAtlas'));
+        g.load.removeByUrl(_st + 'levelAtlas.xml' + g.getVersion('levelAtlas'));
+        _bAtlas = false;
     }
     
     private function onGetNewLevel():void {
@@ -167,6 +196,15 @@ public class XPPanel {
         _bar.progress = ((_countXP)/_maxXP)*.9 + .1; // get 10% for better view
         _txtXPCount.text = String(_countXP) + '/' + _maxXP;
         _txtLevel.text = String(g.user.level);
+        if (_maxXP - g.user.xp <= 10) {
+            if (!g.allData.atlas['levelAtlas'] && !_bAtlas) {
+                _st = g.dataPath.getGraphicsPath();
+                _count = 0;
+                _bAtlas = true;
+                g.load.loadImage(_st + 'levelAtlas.png' + g.getVersion('levelAtlas'), onLoad);
+                g.load.loadXML(_st + 'levelAtlas.xml' + g.getVersion('levelAtlas'), onLoad);
+            }
+        }
     }
 
     private function onHover():void {

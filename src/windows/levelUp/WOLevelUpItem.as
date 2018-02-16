@@ -177,7 +177,7 @@ public class WOLevelUpItem {
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
-        if (_data.buildType == BuildType.FARM || _data.buildType == BuildType.RIDGE || _data.buildType == BuildType.FABRICA || _data.buildType == BuildType.TREE
+        if (_data.buildType == BuildType.RIDGE || _data.buildType == BuildType.FABRICA || _data.buildType == BuildType.TREE
             || _data.buildType == BuildType.RESOURCE || _data.buildType == BuildType.PLANT || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA
             || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.ANIMAL
             || _data.buildType == BuildType.INSTRUMENT || _data.buildType == BuildType.MARKET || _data.buildType == BuildType.PAPER || _data.buildType == BuildType.TRAIN

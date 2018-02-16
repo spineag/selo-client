@@ -141,24 +141,48 @@ public class ManagerBuyerNyashuk {
     }
 
     public function addNyashuksOnTutorial(faste:Boolean = false):void {
-        timeToNewNyashuk(faste);
+        timeToNewNyashuk(faste, true);
         var f2:Function = function ():void {
-            timeToNewNyashuk(faste)
+            timeToNewNyashuk(faste, true)
         };
         Utils.createDelay(2,f2);
     }
 
-    public function timeToNewNyashuk(faste:Boolean = false):void {
+    public function timeToNewNyashuk(faste:Boolean = false, tuttorial:Boolean = false):void {
         var ob:Object = {};
         if (_arr.length == 0) ob.buyer_id = 1;
         else {
             if (_arr[0].buyerId == 1) ob.buyer_id = 2;
             else ob.buyer_id = 1;
         }
-        newBot(false,ob);
+        if (tuttorial) newBotTutorial(ob);
+        else newBot(false,ob);
 
         if (faste) getNewNyaForOrderFaste(null,_arr[_arr.length-1],_arr[_arr.length-1].buyerId);
         else getNewNyaForOrder(null,_arr[_arr.length-1],_arr[_arr.length-1].buyerId);
+    }
+
+    private function newBotTutorial(objectNew:Object = null):void {
+        var ob:Object;
+        ob = {};
+        ob.buyerId = objectNew.buyer_id;
+        if (objectNew.buyer_id == 1) {
+            ob.resourceId = 13; // Булка
+            ob.resourceCount = 1;
+        } else {
+            ob.resourceId = 26; // Яйцо
+            ob.resourceCount = 3;
+        }
+
+        ob.cost = g.allData.getResourceById(ob.resourceId).visitorPrice * ob.resourceCount;
+        ob.xp = 5;
+        ob.typeBuild = int(g.allData.getResourceById(ob.resourceId).buildType);
+        ob.timeToNext = 0;
+        ob.isBuyed = false;
+        ob.isBotBuy = true;
+        ob.visible = true;
+        _arr.push(ob);
+        g.server.updateUserPapperBuy(ob.buyerId, ob.resourceId, ob.resourceCount, ob.xp, ob.cost,1, ob.typeBuild);
     }
 
     private function newBot(firstBot:Boolean = false, objectNew:Object = null):void {

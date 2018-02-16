@@ -302,6 +302,7 @@ public class MainBottomPanel {
                 }
                 break;
             case 'friend':
+                if (g.tuts.isTuts) return;
                 if (_boolFriend == true) {
                     _boolFriend = false;
                     g.friendPanel.showIt();
@@ -344,6 +345,7 @@ public class MainBottomPanel {
                 if (g.managerSalePack) g.managerSalePack.onUserAction();
                 if (g.managerStarterPack) g.managerStarterPack.onUserAction();
                 if (g.managerCutScenes.isCutScene) return;
+                if (g.tuts.isTuts) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     cancelBoolean(false);

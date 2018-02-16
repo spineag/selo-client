@@ -75,7 +75,7 @@ public class WOItemFabrica {
         if (g.user.notif.isNewFabricItemId(_dataRecipe.id)) {
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('new_m'));
             im.x = 15;
-            im.y = -42;
+            im.y = -52;
             source.addChild(im);
         }
     }
