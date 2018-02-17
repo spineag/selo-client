@@ -16,6 +16,9 @@ import dragonBones.starling.StarlingArmatureDisplay;
 import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Rectangle;
+
+import loaders.PBitmap;
+
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
 import media.SoundConst;
@@ -29,9 +32,13 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
+import starling.textures.TextureAtlas;
 import starling.utils.Color;
 import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
+
+import ui.confetti.Confetti;
+
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
@@ -71,6 +78,8 @@ public class WOLevelUp extends WindowMain {
     private var _sorceMainItem:Sprite;
     private var _bolShare:Boolean;
     private var _arrow:SimpleArrow;
+    private var _st:String;
+    private var count:int;
 
     public function WOLevelUp() {
         super ();
@@ -84,18 +93,37 @@ public class WOLevelUp extends WindowMain {
         _arrCellsGift = [];
         _arrItems = [];
         _bolShare = true;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/windows_new_level.png', onLoad);
+//        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/windows_new_level.png', onLoad);
+        _st = g.dataPath.getGraphicsPath();
+        count=0;
+        if (!g.allData.atlas['levelAtlas']) {
+            g.load.loadImage(_st + 'levelAtlas.png' + g.getVersion('levelAtlas'), onLoad);
+            g.load.loadXML(_st + 'levelAtlas.xml' + g.getVersion('levelAtlas'), onLoad);
+        } else photoFromTexture();
     }
 
-    private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/windows_new_level.png'].create() as Bitmap;
-        photoFromTexture(Texture.fromBitmap(bitmap));
+    private function onLoad(smth:*=null):void {
+        count++;
+        if (count >= 2) createAtlases();
     }
 
-    private function photoFromTexture(tex:Texture):void {
+    private function createAtlases():void {
+        g.allData.atlas['levelAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[_st + 'levelAtlas.png' + g.getVersion('levelAtlas')].create() as Bitmap), g.pXMLs[_st + 'levelAtlas.xml' + g.getVersion('levelAtlas')]);
+        (g.pBitmaps[_st + 'levelAtlas.png' + g.getVersion('levelAtlas')] as PBitmap).deleteIt();
+        delete  g.pBitmaps[_st + 'levelAtlas.png' + g.getVersion('levelAtlas')];
+        delete  g.pXMLs[_st + 'levelAtlas.xml' + g.getVersion('levelAtlas')];
+        g.load.removeByUrl(_st + 'levelAtlas.png' + g.getVersion('levelAtlas'));
+        g.load.removeByUrl(_st + 'levelAtlas.xml' + g.getVersion('levelAtlas'));
+    }
+//    private function onLoad(bitmap:Bitmap):void {
+//        var st:String = g.dataPath.getGraphicsPath();
+//        bitmap = g.pBitmaps[st + 'qui/windows_new_level.png'].create() as Bitmap;
+//        photoFromTexture(Texture.fromBitmap(bitmap));
+//    }
+
+    private function photoFromTexture():void {
         var im:Image;
-        im = new Image(tex);
+        im = new Image(g.allData.atlas['levelAtlas'].getTexture('windows_new_level'));
         im.x = -im.width/2;
         im.y = -im.height/2;
         _source.addChild(im);
@@ -114,7 +142,6 @@ public class WOLevelUp extends WindowMain {
         _txtLevel.x = -130;
         _txtLevel.y = -360;
         _source.addChild(_txtLevel);
-
         createArrow();
         _callbackClickBG = null;
 
@@ -277,6 +304,7 @@ public class WOLevelUp extends WindowMain {
             };
             Utils.createDelay(3,f1);
         }
+
         super.showIt();
     }
     

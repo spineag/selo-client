@@ -115,6 +115,26 @@ public class LevelUpHint {
             return;
         }
 
+        if (_data.buildType == BuildType.FABRICA) {
+            _txtName.text = _data.name;
+            _txtName.x = -100;
+            _txtName.y = 15;
+            _txtText.text = String(g.managerLanguage.allTexts[429]);
+            _txtText.x = -100;
+            _txtText.y = 15;
+            _source.x = int(start.x + source.width/2);
+            _source.y = int(start.y + source.height + 5);
+            wText = int(_txtText.textBounds.width + 40);
+            wName = int(_txtName.textBounds.width + 40);
+            if (wText > wName) bg = new HintBackground(wText, 35, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 35, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            _source.addChild(bg);
+            _source.addChild(_txtName);
+//            _source.addChild(_txtText);
+            g.cont.hintCont.addChild(_source);
+            return;
+        }
+
         if (_data.buildType == BuildType.DAILY_BONUS) {
             _txtName.text = _data.name;
             _txtName.x = -100;
