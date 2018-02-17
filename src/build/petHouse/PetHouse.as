@@ -175,6 +175,7 @@ public class PetHouse extends WorldObject {
         if (obj.buildType == BuildType.PLANT)  texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
             else texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
         new RawItem(point, texture, 1, 0);
+        g.userInventory.addResource(obj.id, -1);
     }
 
     override public function onHover():void {

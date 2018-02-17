@@ -76,7 +76,7 @@ public class XPPanel {
         _source.endClickCallback = onClick;
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
         _countXP = g.user.xp;
-        checkXP();
+        updateProgressBarXP();
         onResize();
     }
     
@@ -110,7 +110,7 @@ public class XPPanel {
             g.user.level++;
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
             _txtLevel.text = String(g.user.level);
-            checkXP();
+            updateProgressBarXP();
 
             g.userValidates.updateInfo('xp', g.user.xp);
             g.userValidates.updateInfo('level', g.user.level);
@@ -129,7 +129,7 @@ public class XPPanel {
                 g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             }
         } else 
-            checkXP();
+            updateProgressBarXP();
     }
     
     private function onGetNewLevel():void {
@@ -163,7 +163,7 @@ public class XPPanel {
         g.server.addUserXP(int (g.user.globalXP), null);
     }
 
-    public function checkXP():void{
+    public function updateProgressBarXP():void{
         _bar.progress = ((_countXP)/_maxXP)*.9 + .1; // get 10% for better view
         _txtXPCount.text = String(_countXP) + '/' + _maxXP;
         _txtLevel.text = String(g.user.level);

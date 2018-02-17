@@ -401,7 +401,7 @@ public class Vars {
         }
         softHardCurrency.checkHard();
         softHardCurrency.checkSoft();
-        xpPanel.checkXP();
+        xpPanel.updateProgressBarXP();
         managerOrder.checkOrders();
         gameDispatcher.addEnterFrame(onEnterFrameGlobal);
         updateAmbarIndicator();

@@ -21,11 +21,12 @@ public class DropXPObject extends DropObjectInterface{
 
     override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {
         var d:DropXPObject = this;
+        var cnt:int = _count;
         p = new Point(g.managerResize.stageWidth - 168, 35);
-        g.xpPanel.serverAddXP(_count);
+        g.xpPanel.serverAddXP(cnt);
         var f:Function = _flyCallback;
         _flyCallback = function():void {
-            g.xpPanel.visualAddXP(_count);
+            g.xpPanel.visualAddXP(cnt);
             if (f!=null) f.apply(null, [d]);
         };
         super.flyIt(p);

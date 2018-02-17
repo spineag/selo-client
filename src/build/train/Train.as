@@ -70,7 +70,7 @@ public class Train extends WorldObject{
 
     public function fillFromServer(ob:Object):void {
         if (!g.isAway) {
-            _train_db_id = ob.id;
+            _train_db_id = String(ob.id);
             if (int(ob.state)) _stateBuild = int(ob.state);
             if (_stateBuild == STATE_ACTIVE) _stateBuild = STATE_READY;
             if (_stateBuild == STATE_WAIT_BACK) {
@@ -280,13 +280,8 @@ public class Train extends WorldObject{
 
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
-            if (g.selectedBuild) {
-                if (g.selectedBuild == this) {
-                    g.toolsModifier.onTouchEnded();
-                }
-            } else {
-                if (g.isActiveMapEditor)
-                    g.townArea.moveBuild(this);
+            if (g.selectedBuild) {  if (g.selectedBuild == this)  g.toolsModifier.onTouchEnded();
+            } else {  if (g.isActiveMapEditor) g.townArea.moveBuild(this);
             }
             return;
         }
@@ -359,7 +354,6 @@ public class Train extends WorldObject{
             _counter = TIME_READY;
             clearBuildingBuildSprite();
             g.server.openBuildedBuilding(this, onOpenTrain);
-            g.server.updateUserTrainState(_stateBuild, _train_db_id, null);
             startRenderTrainWork();
             onOut();
             onJustOpenedTrain();
@@ -407,17 +401,13 @@ public class Train extends WorldObject{
     }
 
     public function get allXPCount():int {
-        if (_dataPack) {
-            return int(_dataPack.count_xp);
-        } else {
-            return 0;
-        }
+        if (_dataPack) return int(_dataPack.count_xp);
+        else return 0;
     }
 
     public function get allCoinsCount():int {
-        if (_dataPack) {
-            return int(_dataPack.count_money);
-        } return 0;
+        if (_dataPack) return int(_dataPack.count_money);
+        return 0;
     }
 
     private function fillList(ob:Object,t:Train = null):void {
@@ -445,13 +435,9 @@ public class Train extends WorldObject{
             if (_counter < 0) {
                 _stateBuild = STATE_WAIT_BACK;
                 _arriveAnim.visible = true;
-                if (_stateBuild == STATE_UNACTIVE) {
-                    createBrokenTrain();
-                } else if (_stateBuild == STATE_READY) {
-                    onArrivedKorzina();
-                } else {
-                    leaveTrain();
-                }
+                if (_stateBuild == STATE_UNACTIVE) createBrokenTrain();
+                else if (_stateBuild == STATE_READY) onArrivedKorzina();
+                else leaveTrain();
             }
         }
     }
@@ -468,8 +454,6 @@ public class Train extends WorldObject{
     }
 
     public function fullTrain(full:Boolean, showWindow:Boolean = false):void {
-//        trace('sasdsd');
-//        return;
         if (!full && !showWindow) {
             g.windowsManager.openWindow(WindowsManager.WO_TRAIN_SEND, fullTrain);
             return;
@@ -580,11 +564,13 @@ public class Train extends WorldObject{
 
     private function showBoom():void {
         _armatureOpenBoom = g.allData.factory['explode'].buildArmature("expl");
-        _source.addChild(_armatureOpenBoom.display as StarlingArmatureDisplay);
-        WorldClock.clock.add(_armatureOpenBoom);
-        _armatureOpenBoom.addEventListener(EventObject.COMPLETE, onBoom);
-        _armatureOpenBoom.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
-        _armatureOpenBoom.animation.gotoAndPlayByFrame("start");
+        if (_armatureOpenBoom) {
+            _source.addChild(_armatureOpenBoom.display as StarlingArmatureDisplay);
+            WorldClock.clock.add(_armatureOpenBoom);
+            _armatureOpenBoom.addEventListener(EventObject.COMPLETE, onBoom);
+            _armatureOpenBoom.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
+            _armatureOpenBoom.animation.gotoAndPlayByFrame("start");
+        }
     }
 
     private function onBoom(e:Event=null):void {

@@ -507,10 +507,14 @@ public class Fabrica extends WorldObject {
     }
 
     private function workAloneAnimation(e:Event=null):void {
-        if (!_armature) return;
-        if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, workAloneAnimation);
-        if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, workAloneAnimation);
-        _armature.animation.gotoAndPlayByFrame('idle1');
+        try {
+            if (!_armature) return;
+            if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, workAloneAnimation);
+            if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, workAloneAnimation);
+            _armature.animation.gotoAndPlayByFrame('idle1');
+        } catch(e:Error) {
+            workAloneAnimation();
+        }
     }
 
     override public function clearIt():void {

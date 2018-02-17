@@ -2,6 +2,8 @@
  * Created by andy on 10/15/17.
  */
 package windows.miniSceneOrderCat {
+import com.junkbyte.console.Cc;
+
 import flash.display.Bitmap;
 
 import manager.ManagerFilters;
@@ -103,7 +105,11 @@ public class WOMiniSceneOrderCat extends WindowMain{
     override public function showItParams(callback:Function, params:Array):void {
         _dataCat = params[0];
         _callback = callback;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + _dataCat.namePng, onLoad);
+        if (_dataCat) g.load.loadImage(g.dataPath.getGraphicsPath() + _dataCat.namePng, onLoad);
+        else {
+            Cc.error('WOMiniSceneOrderCat showItParams:: _dataCat == null!');
+            onClickExit();
+        }
     }
 
     private function onLoad(bitmap:Bitmap):void {
