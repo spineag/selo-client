@@ -85,7 +85,7 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     override public function get urlApp():String {
-        return "https://vk.com/app6353765";
+        return "https://vk.com/app6360136";
     }
 
     override public function get urlSocialGroup():String {
