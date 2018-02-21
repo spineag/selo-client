@@ -202,12 +202,10 @@
             <filename>baloon_3.png</filename>
             <filename>baloon_4.png</filename>
             <filename>bank</filename>
-            <filename>bg</filename>
             <filename>blue_coupone.png</filename>
             <filename>bonus.png</filename>
             <filename>bt_close.png</filename>
             <filename>button_yel_left.png</filename>
-            <filename>carton</filename>
             <filename>cat_blue.png</filename>
             <filename>cat_icon.png</filename>
             <filename>cat_shadow.png</filename>
@@ -230,7 +228,6 @@
             <filename>fs_friend_panel.png</filename>
             <filename>green_coupone.png</filename>
             <filename>green_tile.png</filename>
-            <filename>hint_new</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
             <filename>hintSidePixels2.png</filename>
@@ -249,7 +246,6 @@
             <filename>order_small_bg.png</filename>
             <filename>order_window_del_clock.png</filename>
             <filename>order_window_del_or.png</filename>
-            <filename>orders_babble.png</filename>
             <filename>orders_cell.png</filename>
             <filename>particles</filename>
             <filename>plant_wo</filename>
@@ -267,7 +263,6 @@
             <filename>rubins.png</filename>
             <filename>sale_icon.png</filename>
             <filename>server_clock</filename>
-            <filename>shop</filename>
             <filename>silo_bg_progres_bar_center.png</filename>
             <filename>silo_bg_progres_bar.png</filename>
             <filename>silo_yellow_cell.png</filename>
@@ -290,6 +285,8 @@
             <filename>coins_market.png</filename>
             <filename>friends_board_yellow_bg.png</filename>
             <filename>blue_cell_big_white_2.png</filename>
+            <filename>hint_new</filename>
+            <filename>shared.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

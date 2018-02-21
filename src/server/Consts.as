@@ -168,6 +168,8 @@ public class Consts {
     public static var INQ_FB_FAKE_APP_USERS:String = 'fake_social_network/FB_getAppUsers.php';
     public static var INQ_ADD_USER_SALE_PACK:String = 'a_game/addUserSalePack.php';
     public static var INQ_GET_USER_SALE_PACK:String = 'a_userData/getUserSalePack.php';
+    public static var INQ_GET_DATA_NEWS:String = 'a_gameData/getDataNews.php';
+    public static var INQ_UPDATE_NEWS_NEW:String = 'a_game/updateNewsNew.php';
 
 }
 }

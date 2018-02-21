@@ -6,6 +6,8 @@ import manager.Vars;
 
 import starling.display.Sprite;
 
+import utils.Utils;
+
 public class Confetti {
     private var _source:Sprite;
     private var g:Vars = Vars.getInstance();
@@ -34,9 +36,12 @@ public class Confetti {
     private function createNewItem():void {
         _countEnterFrame ++;
         _countAll++;
-        if (_countAll >= 140) {
+        if (_countAll >= 130) {
             g.gameDispatcher.removeEnterFrame(createNewItem);
-            deleteIt();
+            var f1:Function = function ():void {
+                deleteIt();
+            };
+            Utils.createDelay(2,f1);
             return;
         }
         if (_countEnterFrame >= int(Math.random()* 5)) {
@@ -50,6 +55,17 @@ public class Confetti {
                 _source.addChild(confetti.item);
             }
             g.gameDispatcher.addEnterFrame(createNewItem);
+        }
+    }
+
+    public function hideIt():void {
+        if (_countAll >= 130) return;
+        else {
+            g.gameDispatcher.removeEnterFrame(createNewItem);
+            var f1:Function = function ():void {
+                deleteIt();
+            };
+            Utils.createDelay(2,f1);
         }
     }
 

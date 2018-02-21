@@ -298,12 +298,12 @@ public class WOOrderItem {
         g.gameDispatcher.removeFromTimer(renderLeftTime);
         _leftSeconds = 5;
         g.gameDispatcher.addToTimer(renderLeftTimeOrder);
-        g.managerOrder.onSkipTimer(_order);
         if (_order) _order.delOb = false;
         if (_checkImage) _checkImage.visible = false;
         if (_delImage)_delImage.visible = false;
         if (_clockImage) _clockImage.visible = true;
         if (_order) _order.startTime = TimeUtils.currentSeconds + 5;
+        g.managerOrder.onSkipTimer(_order);
     }
 
     private function onHover():void {

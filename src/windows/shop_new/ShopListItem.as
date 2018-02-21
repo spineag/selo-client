@@ -323,8 +323,9 @@ public class ShopListItem {
                             _isThisItemBlocked = true;
                         } else {
                             _txtInfo.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
-                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-                            _bg.filter = ManagerFilters.getButtonDisableFilter();
+                            if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
+//                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
+//                            _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
                             if (g.user.isTester) _txtName.text = String(_data.id) +':'+ String(_data.name);
                                 else _txtName.text = String(_data.name);

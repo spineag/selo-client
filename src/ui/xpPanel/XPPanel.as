@@ -138,8 +138,6 @@ public class XPPanel {
             else {
                 g.server.updateUserLevel(null);
                 if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-                var c:Confetti = new Confetti();
-                c.showIt();
                 g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             }
         } else 
@@ -196,15 +194,15 @@ public class XPPanel {
         _bar.progress = ((_countXP)/_maxXP)*.9 + .1; // get 10% for better view
         _txtXPCount.text = String(_countXP) + '/' + _maxXP;
         _txtLevel.text = String(g.user.level);
-        if (_maxXP - g.user.xp <= 10) {
-            if (!g.allData.atlas['levelAtlas'] && !_bAtlas) {
-                _st = g.dataPath.getGraphicsPath();
-                _count = 0;
-                _bAtlas = true;
-                g.load.loadImage(_st + 'levelAtlas.png' + g.getVersion('levelAtlas'), onLoad);
-                g.load.loadXML(_st + 'levelAtlas.xml' + g.getVersion('levelAtlas'), onLoad);
-            }
-        }
+//        if (_maxXP - g.user.xp <= 50) {
+//            if (!g.allData.atlas['levelAtlas'] && !_bAtlas) {
+//                _st = g.dataPath.getGraphicsPath();
+//                _count = 0;
+//                _bAtlas = true;
+//                g.load.loadImage(_st + 'levelAtlas.png' + g.getVersion('levelAtlas'), onLoad);
+//                g.load.loadXML(_st + 'levelAtlas.xml' + g.getVersion('levelAtlas'), onLoad);
+//            }
+//        }
     }
 
     private function onHover():void {

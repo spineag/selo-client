@@ -73,13 +73,23 @@ public class ManagerOrderCats {
 
         // move queue
         var pos:int = cat.queuePosition;
+        var catPosition:int = 0;
+        var b:Boolean = false;
         for (i=0; i<_arrCats.length; i++) {
-            if (_arrCats[i].queuePosition > pos) {
+            for (var j:int = 0; j < g.managerOrder.arrOrders.length; j++) {
+                if (g.managerOrder.arrOrders[j].cat != cat && g.managerOrder.arrOrders[j].cat ==_arrCats[i] &&  g.managerOrder.arrOrders[j].saleCat) {
+                    catPosition ++;
+                    _arrCats[i].setPositionInQueue(_arrCats[i].queuePosition-catPosition);
+                    b = true;
+//                    moveQueue(_arrCats[i]);
+                }
+            }
+            if (_arrCats[i].queuePosition > pos && !b) {
                 if (_arrCats[i].walkPosition == OrderCat.STAY_IN_QUEUE) {
                     _arrCats[i].setPositionInQueue(_arrCats[i].queuePosition-1);
                     moveQueue(_arrCats[i]);
                 }
-            }
+            } else b = false;
         }
 
         // cat go away
@@ -278,6 +288,12 @@ public class ManagerOrderCats {
             cat.sayHIAnimation(onFinishArrive);
             cat.checkArriveCallback();
             if (cat.isMiniScene) g.miniScenes.oCat.onArriveToOrder();
+            for (var i:int = 0; i < g.managerOrder.arrOrders.length; i++) {
+                if (g.managerOrder.arrOrders[i].cat == cat && g.managerOrder.arrOrders[i].saleCat) {
+                    g.managerOrder.arrOrders[i].saleCat = false;
+                }
+            }
+
         }
     }
 

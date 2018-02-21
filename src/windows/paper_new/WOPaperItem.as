@@ -69,7 +69,7 @@ public class WOPaperItem {
         _txtPrice.x = 118;
         _txtPrice.y = 130;
         _source.addChild(_txtPrice);
-        _txtClick = new CTextField(222, 28, "Visit market");
+        _txtClick = new CTextField(222, 28, String(g.managerLanguage.allTexts[1278]));
         _txtClick.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _txtClick.x = 9;
         _txtClick.y = 184;

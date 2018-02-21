@@ -15,6 +15,7 @@ public class OrderItemStructure {
     public var cat:OrderCat;
     public var catOb:Object;
     public var delOb:Boolean = false;
+    public var saleCat:Boolean = false;
     public var fasterBuy:Boolean = false;
 }
 }

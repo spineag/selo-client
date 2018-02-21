@@ -66,25 +66,34 @@ public class HintBackground extends Sprite {
             var im:Image;
             var h:int = 29;
             if (typeTriangle == SMALL_TRIANGLE) {
-                im = new Image(te.getTexture('center_part_top_s_hint'));
+                if (trianglePosition == BOTTOM_CENTER) im = new Image(te.getTexture('center_part_bottom_s_hint'));
+                else im = new Image(te.getTexture('center_part_top_s_hint'));
                 h = 23;
-            } else if (typeTriangle == LONG_TRIANGLE) im = new Image(te.getTexture('center_part_top_m_hint'));
-            else if (typeTriangle == BIG_TRIANGLE) im = new Image(te.getTexture('center_part_top_b_hint'));
+            } else if (typeTriangle == LONG_TRIANGLE) {
+                if (trianglePosition == BOTTOM_CENTER) im = new Image(te.getTexture('center_part_bottom_m_hint'));
+                else im = new Image(te.getTexture('center_part_top_m_hint'));
+//                im = new Image(te.getTexture('center_part_top_m_hint'));
+            }
+            else if (typeTriangle == BIG_TRIANGLE) {
+                if (trianglePosition == BOTTOM_CENTER) im = new Image(te.getTexture('center_part_bottom_b_hint'));
+                else im = new Image(te.getTexture('center_part_top_b_hint'));
+//                im = new Image(te.getTexture('center_part_top_b_hint'));
+            }
             im.pivotX = im.width/2;
             im.pivotY = im.height;
             switch (trianglePosition) {
                 case TOP_LEFT:
-                    im.scaleY = -1;
+                    im.y = h;
                     _bg.x = int(-16 - im.width/2);
                     _bg.y = h;
                     break;
                 case TOP_CENTER:
-                    im.scaleY = -1;
+                    im.y = h + im.height/2 - 7;
                     _bg.x = int(-_width/2);
                     _bg.y = h;
                     break;
                 case TOP_RIGHT:
-                    im.scaleY = -1;
+                    im.y = h;
                     _bg.x = int(-_width+16+im.width/2);
                     _bg.y = h;
                     break;

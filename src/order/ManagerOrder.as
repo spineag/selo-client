@@ -651,7 +651,7 @@ public class ManagerOrder {
                 or.resourceCounts.push(getRandomIntBetween(2, 6));
             }
         }
-        if (!or.resourceIds[0] || or.resourceIds[0] == 0) add_1_Item(or, arProducts, arPlants, userLevel);
+        if (!or.resourceIds || !or.resourceIds[0] || or.resourceIds[0] == 0) add_1_Item(or, arProducts, arPlants, userLevel);
     }
 
     private function add_2_Item(or:OrderItemStructure, arProducts:Array, arPlants:Array, userLevel:int):void {
@@ -788,7 +788,7 @@ public class ManagerOrder {
                 or.resourceCounts = [count, count];
             }
         }
-        if (!or.resourceIds[0] || or.resourceIds[0] == 0) add_2_Item(or, arProducts, arPlants, userLevel);
+        if (!or.resourceIds || !or.resourceIds[0] || or.resourceIds[0] == 0) add_2_Item(or, arProducts, arPlants, userLevel);
     }
 
     private function add_3_Item(or:OrderItemStructure, arProducts:Array, arPlants:Array, userLevel:int):void {
@@ -898,7 +898,7 @@ public class ManagerOrder {
                 or.resourceCounts = [count, count, count];
             }
         }
-        if (!or.resourceIds[0] || or.resourceIds[0] == 0) add_3_Item(or, arProducts, arPlants, userLevel);
+        if (!or.resourceIds || !or.resourceIds[0] || or.resourceIds[0] == 0) add_3_Item(or, arProducts, arPlants, userLevel);
 
     }
 
@@ -939,7 +939,7 @@ public class ManagerOrder {
                 or.resourceCounts = [count, count, count, count];
             }
         }
-        if (!or.resourceIds[0] || or.resourceIds[0] == 0) add_4_Item(or, arProducts, arPlants, userLevel);
+        if (!or.resourceIds || !or.resourceIds[0] || or.resourceIds[0] == 0) add_4_Item(or, arProducts, arPlants, userLevel);
     }
 
     private function add_5_Item(or:OrderItemStructure, arProducts:Array, arPlants:Array, userLevel:int):void {
@@ -959,7 +959,7 @@ public class ManagerOrder {
             or.resourceIds.push(arrTemp[1]);
             or.resourceCounts = [1, 1, 1, 1, 1];
         }
-        if (!or.resourceIds[0] || or.resourceIds[0] == 0) add_5_Item(or, arProducts, arPlants, userLevel);
+        if (!or.resourceIds || !or.resourceIds[0] || or.resourceIds[0] == 0) add_5_Item(or, arProducts, arPlants, userLevel);
     }
 
     public function getFreeCatObj():Object {

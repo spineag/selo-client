@@ -40,6 +40,7 @@ public class User extends Someone {
     public var lastVisitPlant:int = 1;
     public var cutScenes:Array;
     public var miniScenes:Array;
+    public var newsNew:Array;
     public var miniScenesOrderCats:Array;
     public var arrNoAppFriend:Array;
     public var wallTrainItem:Boolean;

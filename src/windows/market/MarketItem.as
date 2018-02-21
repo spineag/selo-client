@@ -370,14 +370,18 @@ public class MarketItem {
                     if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount > g.user.ambarMaxCount) {
                         p = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
-                        new FlyMessage(p,String(g.managerLanguage.allTexts[394]));
+                        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+//                        new FlyMessage(p,String(g.managerLanguage.allTexts[394]));
+                        g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
                         return;
                     }
                 } else if (d.placeBuild == BuildType.PLACE_SKLAD) {
                     if (g.userInventory.currentCountInSklad + _dataFromServer.resourceCount > g.user.skladMaxCount) {
                         p = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
-                        new FlyMessage(p, String(g.managerLanguage.allTexts[395]));
+//                        new FlyMessage(p, String(g.managerLanguage.allTexts[395]));
+                        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+                        g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                         return;
                     }
                 }

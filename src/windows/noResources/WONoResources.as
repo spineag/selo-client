@@ -289,6 +289,7 @@ public class WONoResources extends WindowMain {
             case 'voucher':
                 _countCost = 0;
                 _arrItems = [];
+                _text.text = String(g.managerLanguage.allTexts[1277]);
                 for (i = 0; i<_paramData.data.currency.length; i++) {
                     if (item) item = null;
                     if (_paramData.data.currency[i] == DataMoney.GREEN_COUPONE && g.user.greenCouponCount < _paramData.data.cost[i] && g.user.greenCouponCount != _paramData.data.cost[i]) {

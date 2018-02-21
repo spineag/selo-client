@@ -80,9 +80,12 @@ public class WOLevelUp extends WindowMain {
     private var _arrow:SimpleArrow;
     private var _st:String;
     private var count:int;
+    private var _confetti:Confetti;
 
     public function WOLevelUp() {
         super ();
+        _confetti = new Confetti();
+        _confetti.showIt();
         SOUND_OPEN = SoundConst.LEVEL_COMPLETED;
         _windowType = WindowsManager.WO_LEVEL_UP;
         if (g.managerResize.stageHeight < 750) _isBigWO = false;  else _isBigWO = true;
@@ -114,6 +117,7 @@ public class WOLevelUp extends WindowMain {
         delete  g.pXMLs[_st + 'levelAtlas.xml' + g.getVersion('levelAtlas')];
         g.load.removeByUrl(_st + 'levelAtlas.png' + g.getVersion('levelAtlas'));
         g.load.removeByUrl(_st + 'levelAtlas.xml' + g.getVersion('levelAtlas'));
+        photoFromTexture();
     }
 //    private function onLoad(bitmap:Bitmap):void {
 //        var st:String = g.dataPath.getGraphicsPath();
@@ -122,34 +126,34 @@ public class WOLevelUp extends WindowMain {
 //    }
 
     private function photoFromTexture():void {
-        var im:Image;
-        im = new Image(g.allData.atlas['levelAtlas'].getTexture('windows_new_level'));
-        im.x = -im.width/2;
-        im.y = -im.height/2;
-        _source.addChild(im);
-        createExitButton(hideIt);
-        _callbackClickBG = hideIt;
-        _count = 1;
-        _txtNewLvl = new CTextField(500,100,String(g.managerLanguage.allTexts[420]));
-        _txtNewLvl.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-        _txtNewLvl.leading = -3;
-        _txtNewLvl.x = -220;
-        _txtNewLvl.y = -220;
-        _source.addChild(_txtNewLvl);
+            var im:Image;
+            im = new Image(g.allData.atlas['levelAtlas'].getTexture('windows_new_level'));
+            im.x = -im.width / 2;
+            im.y = -im.height / 2;
+            _source.addChild(im);
+            createExitButton(hideIt);
+            _callbackClickBG = hideIt;
+            _count = 1;
+            _txtNewLvl = new CTextField(500, 100, String(g.managerLanguage.allTexts[420]));
+            _txtNewLvl.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+            _txtNewLvl.leading = -3;
+            _txtNewLvl.x = -220;
+            _txtNewLvl.y = -220;
+            _source.addChild(_txtNewLvl);
 
-        _txtLevel = new CTextField(300,150,"");
-        _txtLevel.setFormat(CTextField.BOLD72, 72, 0xf77a3f, Color.WHITE);
-        _txtLevel.x = -130;
-        _txtLevel.y = -360;
-        _source.addChild(_txtLevel);
-        createArrow();
-        _callbackClickBG = null;
+            _txtLevel = new CTextField(300, 150, "");
+            _txtLevel.setFormat(CTextField.BOLD72, 72, 0xf77a3f, Color.WHITE);
+            _txtLevel.x = -130;
+            _txtLevel.y = -360;
+            _source.addChild(_txtLevel);
+            createArrow();
+            _callbackClickBG = null;
 
-        if (g.user.level >= 11) g.couponePanel.openPanel(true);
-        _txtLevel.text = String(g.user.level);
-        createList();
-        _source.y -= 40;
-    }
+            if (g.user.level >= 11) g.couponePanel.openPanel(true);
+            _txtLevel.text = String(g.user.level);
+            createList();
+            _source.y -= 40;
+        }
 
     private function shareClick():void {
         _bolShare = !_bolShare;
@@ -314,6 +318,7 @@ public class WOLevelUp extends WindowMain {
 
     override public function hideIt():void {
         super.hideIt();
+        _confetti.hideIt();
         if (g.user.level == 4) {
             var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
             arr[0].showArrow(120);

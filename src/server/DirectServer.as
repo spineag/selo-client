@@ -876,6 +876,10 @@ public class DirectServer {
                 }
                 if (!g.user.miniScenes) g.user.miniScenes = [];
             } else g.user.miniScenes = [];
+
+            if (ob.news_new) g.user.newsNew = Utils.intArray( String(ob.news_new).split('&') );
+            else g.user.newsNew = [];
+
             g.user.miniScenesOrderCats = Utils.intArray( String(ob.order_cat_scene).split('') );
 
             g.user.isOpenOrder = Boolean(ob.open_order == '1');
@@ -9114,6 +9118,111 @@ public class DirectServer {
         } else {
             Cc.error('getUserSalePack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getDataNews(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_DATA_NEWS);
+
+        Cc.ch('server', 'start getDataNews', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteNews);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getDataNews'); });
+        function onCompleteNews(e:Event):void { completeNews(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataNews error:' + error.errorID);
+        }
+    }
+
+    private function completeNews(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataNews: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataNews: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getDataNews OK', 5);
+            for (var i:int = 0; i < d.message.length; i++) {
+                g.managerNews.addArr(d.message[i]);
+            }
+            g.managerNews.checkNotificationBottomInterface();
+
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getDataNews: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function updateUserNewsNew(news:String, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_NEWS_NEW);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserNewsNew', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.newsNew = news;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.newsNew)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateNewsNew);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserNewsNew'); });
+        function onCompleteUpdateNewsNew(e:Event):void { completeUpdateNewsNew(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserNewsNew error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateNewsNew(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserNewsNew: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserNewsNew: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserNewsNew OK', 5);
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserNewsNew: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserNewsNew: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 

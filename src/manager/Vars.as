@@ -141,6 +141,7 @@ public class Vars {
     public var managerStarterPack:ManagerStarterPack;
     public var managerLanguage:ManagerLanguage;
     public var managerPets:ManagerPets;
+    public var managerNews:ManagerNews;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -429,6 +430,7 @@ public class Vars {
         managerVisibleObjects.checkInStaticPosition();
         gameDispatcher.addNextFrameFunction(afterLoadAll_4);
         managerPets = new ManagerPets();
+        managerNews = new ManagerNews();
     }
 
     private function afterLoadAll_4():void {

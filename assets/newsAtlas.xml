@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:7d4cebd5d9a3bc5766b7f884c8ad9bcb:af34b711956d355409481675e8aaef2c:14df9ea82677058447c526970667e84e$ -->
+<TextureAtlas imagePath="newsAtlas.png" width="482" height="240">
+    <SubTexture name="apple_juice_icon" x="1" y="153" width="94" height="86" frameX="-1" frameY="-3" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="ww" x="1" y="1" width="480" height="150"/>
+</TextureAtlas>

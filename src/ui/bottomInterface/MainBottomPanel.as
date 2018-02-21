@@ -39,6 +39,7 @@ public class MainBottomPanel {
     private var _shopBtn:CButton;
     private var _toolsBtn:CButton;
     private var _optionBtn:CSprite;
+    private var _newsBtn:CSprite;
     private var _cancelBtn:CButton;
     private var _homeBtn:CButton;
     private var _friendBtn:CButton;
@@ -50,6 +51,8 @@ public class MainBottomPanel {
     private var _arrow:SimpleArrow;
     private var _imNotification:Image;
     private var _txtNotification:CTextField;
+    private var _imNotificationNews:Image;
+    private var _txtNotificationNews:CTextField;
     private var _txtHome:CTextField;
     public var _questBoolean:Boolean;
     public var _questBuilId:int = 0;
@@ -170,11 +173,34 @@ public class MainBottomPanel {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('options_button'));
         _optionBtn.addChild(im);
         _optionBtn.x = 203;
-        _optionBtn.y = -90;
+        _optionBtn.y = -155;
         _source.addChild(_optionBtn);
         _optionBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[480])); };
         _optionBtn.outCallback = function():void { g.hint.hideIt(); };
         _optionBtn.endClickCallback = function():void {onClick('option')};
+
+        _newsBtn = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('options_button'));
+        _newsBtn.addChild(im);
+        _newsBtn.x = 203;
+        _newsBtn.y = -90;
+        _imNotificationNews = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+        _imNotificationNews.x = -5;
+        _imNotificationNews.y = -20;
+        _newsBtn.addChild(_imNotificationNews);
+        _imNotificationNews.touchable = false;
+        _txtNotificationNews = new CTextField(60,60,'');
+        _txtNotificationNews.setFormat(CTextField.BOLD24, 24, Color.WHITE);
+        _txtNotificationNews.x = -17;
+        _txtNotificationNews.y = -33;
+        _newsBtn.addChild(_txtNotificationNews);
+        _imNotificationNews.visible = false;
+        _txtNotificationNews.visible = false;
+        _source.addChild(_newsBtn);
+        _newsBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[480])); };
+        _newsBtn.outCallback = function():void { g.hint.hideIt(); };
+        _newsBtn.endClickCallback = function():void {onClick('news')};
+
     }
 
     private function onClick(reason:String):void {
@@ -393,6 +419,11 @@ public class MainBottomPanel {
                 if (g.isAway) g.townArea.backHome();
                 if (g.partyPanel) g.partyPanel.visiblePartyPanel(true);
                 break;
+            case 'news':
+                if (g.managerCutScenes.isCutScene) return;
+                if (g.tuts.isTuts) return;
+              g.windowsManager.openWindow(WindowsManager.WO_NEWS, null);
+                break;
         }
     }
 
@@ -523,6 +554,17 @@ public class MainBottomPanel {
                     }
                 }
             }
+        }
+    }
+
+    public function needNotificationNews(count:int = 0):void {
+        if (count > 0) {
+            _txtNotificationNews.text = String(count);
+            _imNotificationNews.visible = true;
+            _txtNotificationNews.visible = true;
+        } else {
+            _imNotificationNews.visible = false;
+            _txtNotificationNews.visible = false;
         }
     }
 

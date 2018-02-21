@@ -98,19 +98,19 @@ public class TutorialManager extends IManagerTutorial{
 
     private function initScene_1():void { // for mult or smth like that
         _subStep = 0;
-        g.startPreloader.hideIt(); // delete When Comix been
-        g.startPreloader = null; // delete When Comix been
-//        var tutComix:TutorialComix = new TutorialComix(nextStepa);
+//        g.startPreloader.hideIt(); // delete When Comix been
+//        g.startPreloader = null; // delete When Comix been
+        var tutComix:TutorialComix = new TutorialComix(nextStepa);
+//        g.user.tutorialStep = 2;
+//        updateTutorialStep();
+//        initScenes();
+    }
+
+    private function nextStepa():void {
         g.user.tutorialStep = 2;
         updateTutorialStep();
         initScenes();
     }
-
-//    private function nextStepa():void {
-//        g.user.tutorialStep = 2;
-//        updateTutorialStep();
-//        initScenes();
-//    }
 
     private function initScene_2():void {
         if (!cutScene) cutScene = new CutScene();

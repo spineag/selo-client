@@ -101,9 +101,9 @@ public class WOOrder extends WindowMain {
         createItems();
         createRightBlock();
         createRightBlockTimer();
+        createTopCats();
         _srcBaloon = new Sprite();
         _source.addChild(_srcBaloon);
-        createTopCats();
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -375,9 +375,9 @@ public class WOOrder extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        _activeOrderItem.onSkipTimer();
         g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -n);
         _btnSkipDelete.visible = false;
+        _activeOrderItem.onSkipTimer();
     }
 
 
@@ -505,8 +505,9 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         var f:Function = function ():void {
             hideIt();
             for (i = 0; i < _arrOrders.length; i++) {
-                if (!_arrOrders[i].cat) {
-//                    g.managerOrder.checkCatId();
+                if (!_arrOrders[i].cat && !_arrOrders[i].saleCat) {
+                    g.managerOrder.checkCatId();
+                    _arrOrders[i].saleCat = true;
                     _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                     break;
                 }
@@ -627,7 +628,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
     private function createTopCats():void {
         _armature = g.allData.factory['order_window'].buildArmature("cat");
         _source.addChild(_armature.display as StarlingArmatureDisplay);
-        (_armature.display as StarlingArmatureDisplay).x = 140;
+        (_armature.display as StarlingArmatureDisplay).x = 145;
         (_armature.display as StarlingArmatureDisplay).y = 47;
         WorldClock.clock.add(_armature);
         animateCustomerCat();
@@ -688,7 +689,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
             _srcBaloon.addChild(_txtBaloon);
             _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
             _srcBaloon.x = (_armature.display as StarlingArmatureDisplay).x + 30;
-            _srcBaloon.y = (_armature.display as StarlingArmatureDisplay).y - 210;
+            _srcBaloon.y = (_armature.display as StarlingArmatureDisplay).y - 200;
             new TweenMax(_srcBaloon, 1, {scaleX: 1, scaleY: 1, y: _srcBaloon + 83, ease: Back.easeOut});
         }
         var n:Number = Math.random();
