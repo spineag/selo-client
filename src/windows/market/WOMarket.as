@@ -529,15 +529,15 @@ public class WOMarket  extends WindowMain {
             return;
         }
         if (_curUser.userSocialId == g.user.userSocialId) {
-            _txtName.text = String(g.managerLanguage.allTexts[157]);
+            _txtName.text = String(g.managerLanguage.allTexts[1280]);
         } else {
             if (paper) {
-                if (_curUser.name == null ) _txtName.text = String(g.managerLanguage.allTexts[157]);
+                if (_curUser.name == null ) _txtName.text = String(g.managerLanguage.allTexts[1280]);
                 else {
                     _txtName.text = _curUser.name;
                 }
             } else {
-                if (_arrFriends[_shiftFriend].name == null ) _txtName.text = String(g.managerLanguage.allTexts[157]);
+                if (_arrFriends[_shiftFriend].name == null ) _txtName.text = String(g.managerLanguage.allTexts[1280]);
                 else {
                     _txtName.text = _arrFriends[_shiftFriend].name;
                 }

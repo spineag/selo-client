@@ -31,7 +31,7 @@ public class WOCave extends WindowMain {
 //        _bgPlant.x = -_woWidth/2;
 //        _bgPlant.y = -_woHeight/2;
         _source.addChild(_bgPlant);
-        _txtWindowName = new CTextField(380, 50, String(g.managerLanguage.allTexts[160]));
+        _txtWindowName = new CTextField(380, 50, String(g.managerLanguage.allTexts[1282]));
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         if (g.user.language == ManagerLanguage.ENGLISH) _txtWindowName.x = -_txtWindowName.textBounds.width-80;
         else _txtWindowName.x = -_txtWindowName.textBounds.width-50;

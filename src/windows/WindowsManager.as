@@ -27,6 +27,7 @@ import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
 import windows.miniSceneOrderCat.WOMiniSceneOrderCat;
 import windows.missYou.WOMissYou;
 import windows.newsWindow.WONews;
+import windows.openOnLevel.WOOpenOnLevel;
 import windows.orderWindow.WOOrder;
 import windows.paper_new.WOPaper;
 import windows.partyWindow.WOPartyHelp;
@@ -133,6 +134,7 @@ public class WindowsManager {
     public static const WO_TUTORIAL_NYASHUK:String = 'tutorial_nyashuk';
     public static const WO_TRAIN_SEND:String = 'send_train';
     public static const WO_NEWS:String = 'news';
+    public static const WO_OPEN_ON_LEVEL:String = 'open_on_level';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -356,6 +358,9 @@ public class WindowsManager {
                 break;
             case WO_NEWS:
                 wo = new WONews();
+                break;
+            case WO_OPEN_ON_LEVEL:
+                wo = new WOOpenOnLevel();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

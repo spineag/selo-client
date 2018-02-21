@@ -64,7 +64,7 @@ public class WOAmbars extends WindowMain {
         createMainPart();
         createUpgradePart();
 
-        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[132]);
+        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[1286]);
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -150;
         _txtWindowName.y = -_woHeight/2 + 15;
@@ -89,6 +89,8 @@ public class WOAmbars extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         if (params && params[0]) _isAmbar = params[0];
             else _isAmbar = g.user.isAmbar;
+        if (_isAmbar) _txtWindowName.text = g.managerLanguage.allTexts[1286];
+        else _txtWindowName.text = g.managerLanguage.allTexts[1287];
         _tabs.activate(_isAmbar);
         fillCells();
         updateProgress();
@@ -184,8 +186,8 @@ public class WOAmbars extends WindowMain {
         _isAmbar = !_isAmbar;
         g.user.isAmbar = _isAmbar;
         _tabs.activate(_isAmbar);
-        if (_isAmbar) _txtWindowName.text = g.managerLanguage.allTexts[132];
-            else _txtWindowName.text = g.managerLanguage.allTexts[133];
+        if (_isAmbar) _txtWindowName.text = g.managerLanguage.allTexts[1286];
+            else _txtWindowName.text = g.managerLanguage.allTexts[1287];
         updateCells();
         updateForUpdates();
     }

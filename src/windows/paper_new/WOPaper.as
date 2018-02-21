@@ -50,7 +50,7 @@ public class WOPaper extends WindowMain {
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
 
-        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[161]);
+        _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[1281]);
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         if (_isBigWO) _txtWindowName.y = -_woHeight/2 + 25;  else _txtWindowName.y = -_woHeight/2 + 3;
         _txtWindowName.x = -150;

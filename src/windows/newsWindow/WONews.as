@@ -127,7 +127,7 @@ public class WONews extends WindowMain {
         _shift++;
         animList();
         for (var i:int = 0; i < g.user.newsNew.length; i++) {
-            if (g.user.newsNew[i] == _arrNews[_shift]) return;
+            if (g.user.newsNew[i] == _arrNews[_shift].id) return;
         }
         g.managerNews.addArrNewsNew(_arrNews[_shift].id);
 //        var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'

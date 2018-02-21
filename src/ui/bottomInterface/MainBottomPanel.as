@@ -180,24 +180,24 @@ public class MainBottomPanel {
         _optionBtn.endClickCallback = function():void {onClick('option')};
 
         _newsBtn = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('options_button'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_button'));
         _newsBtn.addChild(im);
-        _newsBtn.x = 203;
-        _newsBtn.y = -90;
+        _newsBtn.x = 195;
+        _newsBtn.y = -100;
         _imNotificationNews = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
-        _imNotificationNews.x = -5;
-        _imNotificationNews.y = -20;
+        _imNotificationNews.x = -10;
+//        _imNotificationNews.y = -20;
         _newsBtn.addChild(_imNotificationNews);
-        _imNotificationNews.touchable = false;
+//        _imNotificationNews.touchable = false;
         _txtNotificationNews = new CTextField(60,60,'');
         _txtNotificationNews.setFormat(CTextField.BOLD24, 24, Color.WHITE);
-        _txtNotificationNews.x = -17;
-        _txtNotificationNews.y = -33;
+        _txtNotificationNews.x = -22;
+        _txtNotificationNews.y = -13;
         _newsBtn.addChild(_txtNotificationNews);
         _imNotificationNews.visible = false;
         _txtNotificationNews.visible = false;
         _source.addChild(_newsBtn);
-        _newsBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[480])); };
+        _newsBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1285])); };
         _newsBtn.outCallback = function():void { g.hint.hideIt(); };
         _newsBtn.endClickCallback = function():void {onClick('news')};
 

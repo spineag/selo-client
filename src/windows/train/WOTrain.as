@@ -74,11 +74,11 @@ public class WOTrain extends WindowMain {
         if (_isBigWO) _milkBG.y = -_woHeight/2 + 223;  else _milkBG.y = -_woHeight/2 + 160;
         _source.addChild(_milkBG);
         if (_isBigWO) {
-            _txtWindowName = new CTextField(300, 70, g.managerLanguage.allTexts[293]);
+            _txtWindowName = new CTextField(300, 70, g.managerLanguage.allTexts[1283]);
             _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
             _txtWindowName.y = -_woHeight / 2 + 20;
         } else {
-            _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[293]);
+            _txtWindowName = new CTextField(300, 50, g.managerLanguage.allTexts[1283]);
             _txtWindowName.setFormat(CTextField.BOLD30, 36, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
             _txtWindowName.y = -_woHeight / 2 + 5;
         }
