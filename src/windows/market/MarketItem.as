@@ -421,7 +421,7 @@ public class MarketItem {
                     var dr:DropObject = new DropObject();
                     p = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
                     dr.addDropPartyResource(p);
-                    dr.releaseIt();
+                    dr.releaseIt(null, false);
                 }
 
                 animCoin();
@@ -624,11 +624,16 @@ public class MarketItem {
         _isUser = value;
     }
 
-    private function showFlyResource(d:StructureDataResource, count:int):void {
-        var resource:ResourceItem = new ResourceItem();
-        resource.fillIt(d);
-        var item:CraftItem = new CraftItem(0,0,resource,source,count);
-        item.releaseIt(false,false);
+    private function showFlyResource(dat:StructureDataResource, count:int):void {
+//        var resource:ResourceItem = new ResourceItem();
+//        resource.fillIt(d);
+        var d:DropObject = new DropObject();
+        var p:Point = new Point(0, 0);
+        p = _imageCont.localToGlobal(p);
+        d.addDropItemNewByResourceId(_dataFromServer.resourceId, p, count);
+        d.releaseIt(null, false);
+//        var item:CraftItem = new CraftItem(0,0,resource,source,count);
+//        item.releaseIt(null,false);
     }
 
     private function showSaleImage(data:Object, cost:int):void {

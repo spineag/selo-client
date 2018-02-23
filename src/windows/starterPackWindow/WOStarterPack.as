@@ -78,6 +78,11 @@ public class WOStarterPack extends WindowMain{
         image.x = 80;
         image.y = 130;
         _source.addChild(image);
+        _txtlabel = new CTextField(150,60,String('-' + _data.profit) + '%');
+        _txtlabel.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
+        _txtlabel.x = 87;
+        _txtlabel.y = 180;
+        _source.addChild(_txtlabel);
         createExitButton(hideIt);
     }
 
@@ -190,12 +195,6 @@ public class WOStarterPack extends WindowMain{
 //        _imLabel.x = 80;
 //        _imLabel.y = 130;
 //        _source.addChild(_imLabel);
-
-        _txtlabel = new CTextField(150,60,String('-' + _data.profit) + '%');
-        _txtlabel.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
-        _txtlabel.x = 87;
-        _txtlabel.y = 180;
-        _source.addChildAt(_txtlabel,2);
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(140, CButton.HEIGHT_55, CButton.GREEN, true);
