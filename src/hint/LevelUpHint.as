@@ -116,7 +116,7 @@ public class LevelUpHint {
         }
 
         if (_data.buildType == BuildType.FABRICA) {
-            _txtName.text = _data.name;
+            _txtName.text = String(g.managerLanguage.allTexts[429]);
             _txtName.x = -100;
             _txtName.y = 15;
             _txtText.text = String(g.managerLanguage.allTexts[429]);
@@ -155,11 +155,52 @@ public class LevelUpHint {
             return;
         }
 
+        if ( _data.buildType == BuildType.ANIMAL) {
+            _txtName.text = String(g.managerLanguage.allTexts[1288]);
+            _txtName.x = -100;
+            _txtName.y = 15;
+            _txtText.text = String(g.managerLanguage.allTexts[1288]);
+            _txtText.x = -100;
+            _txtText.y = 15;
+            _source.x = int(start.x + source.width/2);
+            _source.y = int(start.y + source.height + 5);
+            wText = int(_txtText.textBounds.width + 40);
+            wName = int(_txtName.textBounds.width + 40);
+            if (wText > wName) bg = new HintBackground(wText, 35, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 35, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            _source.addChild(bg);
+            _source.addChild(_txtName);
+//            _source.addChild(_txtText);
+            g.cont.hintCont.addChild(_source);
+            return;
+        }
+
+
+        if (_data.buildType == BuildType.FARM) {
+            _txtName.text = String(g.managerLanguage.allTexts[1289]);
+            _txtName.x = -100;
+            _txtName.y = 15;
+            _txtText.text = String(g.managerLanguage.allTexts[1289]);
+            _txtText.x = -100;
+            _txtText.y = 15;
+            _source.x = int(start.x + source.width/2);
+            _source.y = int(start.y + source.height + 5);
+            wText = int(_txtText.textBounds.width + 40);
+            wName = int(_txtName.textBounds.width + 40);
+            if (wText > wName) bg = new HintBackground(wText, 35, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 35, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            _source.addChild(bg);
+            _source.addChild(_txtName);
+//            _source.addChild(_txtText);
+            g.cont.hintCont.addChild(_source);
+            return;
+        }
+
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
                 || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE
                 || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) {
             if (_data.buildType == BuildType.FABRICA || _data.buildType == BuildType.TREE
-                    || _data.buildType == BuildType.ANIMAL || _data.buildType == BuildType.CAT_HOUSE || _data.buildType == BuildType.CAVE || _data.buildType == BuildType.FARM
+                    || _data.buildType == BuildType.CAT_HOUSE || _data.buildType == BuildType.CAVE
                     || _data.buildType == BuildType.PET_HOUSE || _data.buildType == BuildType.PET_HOUSE || _data.buildType == BuildType.TRAIN) _txtName.text = _data.name;
             else _txtName.text = String(g.managerLanguage.allTexts[351]);
             _txtName.x = -100;

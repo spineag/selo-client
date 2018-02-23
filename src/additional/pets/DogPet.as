@@ -43,6 +43,7 @@ public class DogPet extends PetMain  {
                 _animation.changeTexture("Orange_first_R_leg_big_front.png",      "Orange_first_R_leg_big_front", true);
                 _animation.changeTexture("Orange_second_R_leg_big_front.png",     "Orange_second_L_leg_big_front", true);
                 _animation.changeTexture("Orange_tail-end_big_front.png",         "Orange_tail-end_big_front", true);
+
                 _animation.changeTexture("Orange_head_big_back.png",              "Orange_head_big_back", false);
                 _animation.changeTexture("Orange_body_big_back.png",              "Orange_body_big_back", false);
                 _animation.changeTexture("Orange_first_R_leg_big_back.png",       "Orange_first_R_leg_big_back", false);

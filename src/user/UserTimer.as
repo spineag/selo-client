@@ -85,6 +85,7 @@ public class UserTimer {
 
     private function nyashukTimerBlue():void {
         timerAtNyashukBlue--;
+
         if (timerAtNyashukBlue <= 0 && !g.isAway) {
             timerAtNyashukBlue = 0;
             g.managerBuyerNyashuk.timeToNewNyashuk();

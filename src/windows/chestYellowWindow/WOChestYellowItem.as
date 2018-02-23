@@ -51,13 +51,13 @@ public class WOChestYellowItem {
                 break;
 
             case ManagerChest.SOFT_MONEY:
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
                 _txt = new CTextField(80, 60, '+' + String(_data.money_count));
                 _txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
                 break;
 
             case ManagerChest.XP:
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
                 _txt = new CTextField(80, 60, '+' + String(_data.xp_count));
                 _txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
                 break;
@@ -106,7 +106,7 @@ public class WOChestYellowItem {
     }
 
     private function removeParticle():void {
-        if (_particle) {
+        if (_particle && source) {
             if (source.contains(_particle))source.removeChild(_particle);
             TweenMax.killTweensOf(_particle);
             _particle.dispose();
@@ -135,21 +135,21 @@ public class WOChestYellowItem {
 
     private function flyIt():void {
         hideParticle(0);
-        var p:Point = new Point();
-        p = source.localToGlobal(p);
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         var d:DropObject = new DropObject();
-        switch (_data.type) {
+        switch (int(_data.types)) {
             case ManagerChest.RESOURCE:
                 d.addDropItemNewByResourceId(_data.resource_id, p, _data.resource_count);
                 break;
             case ManagerChest.SOFT_MONEY:
-                d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.money_count, p);
+                d.addDropMoney(DataMoney.HARD_CURRENCY, _data.money_count, p);
                 break;
             case ManagerChest.XP:
                 d.addDropXP(_data.xp_count, p);
                 break;
         }
         d.releaseIt(null, false);
+//        d.releaseIt();
         deleteIt();
     }
 

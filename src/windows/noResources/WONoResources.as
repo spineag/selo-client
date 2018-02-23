@@ -273,7 +273,6 @@ public class WONoResources extends WindowMain {
                 _countOfResources = 1;
                 _countCost = g.allData.getResourceById(_paramData.pet.petData.eatId).priceHard * _countOfResources;
                 _txtHardCost.text = String(g.managerLanguage.allTexts[331]) + ' ' + String(_countCost);
-                _text.text = String(g.managerLanguage.allTexts[1251]);
                 if (_sensi) _sensi.deleteIt();
                 _sensi = new SensibleBlock();
                 _sensi.textAndImage(_txtHardCost,_imRubin,265);
@@ -515,7 +514,7 @@ public class WONoResources extends WindowMain {
         _paramData.dataNyashuk.visible = false;
         g.userInventory.addResource(_paramData.data.id,-_countCost );
         g.server.updateUserPapperBuy(_paramData.dataNyashuk.buyerId,0,0,0,0,0,0);
-        if (_paramData.dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
+        if (_paramData.dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(600);
         else  g.userTimer.buyerNyashukRed(1200);
         g.managerBuyerNyashuk.onReleaseOrder(_params[2] as BuyerNyashuk, false);
         g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);

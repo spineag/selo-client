@@ -115,7 +115,7 @@ public class XPPanel {
         animationStar();
         _countXP += count;
         g.soundManager.playSound(SoundConst.XP_PLUS);
-        if (_countXP >= _maxXP){
+        if (_countXP >= _maxXP) {
             if (!g.userValidates.checkInfo('level', g.user.level)) return;
             _countXP -= _maxXP;
             g.user.xp -= _maxXP;

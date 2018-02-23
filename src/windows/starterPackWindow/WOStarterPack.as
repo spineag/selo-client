@@ -64,6 +64,7 @@ public class WOStarterPack extends WindowMain{
         image.pivotX = image.width/2;
         image.pivotY = image.height/2;
         _source.addChildAt(image,0);
+        createWindow();
     }
 
     private function onLoadLabel(bitmap:Bitmap):void {
@@ -78,7 +79,6 @@ public class WOStarterPack extends WindowMain{
         image.y = 130;
         _source.addChild(image);
         createExitButton(hideIt);
-        createWindow();
     }
 
     private function callbackServer(ob:Object):void {

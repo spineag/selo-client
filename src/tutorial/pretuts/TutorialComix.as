@@ -16,6 +16,7 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import utils.CSprite;
@@ -52,20 +53,19 @@ public class TutorialComix {
         _srcImage = new Sprite();
         _srcImage.alpha = 0;
         _source.addChild(_srcImage);
-        _txtBabble = new CTextField(500, 200, 'Они крепко подружились еще в раннем детстве');
+        _txtBabble = new CTextField(1000, 200, 'Они крепко подружились еще в раннем детстве');
         _txtBabble.setFormat(CTextField.BOLD72, 60, Color.BLACK, Color.WHITE);
         _txtBabble.visible = false;
         _txtBabble.pivotX = _txtBabble.width/2;
-        _txtBabble.x = int(g.managerResize.stageWidth)/2;
-        _txtBabble.y = 25;
-        _source.addChild(_txtBabble);
+//        _txtBabble.x = int(g.managerResize.stageWidth)/2;
+//        _txtBabble.y = 25;
 
         _srcNextTxt = new Sprite();
-        _source.addChild(_srcNextTxt);
+        _srcImage.addChild(_srcNextTxt);
         _txtNext = new CTextField(1000, 200, String(g.managerLanguage.allTexts[1276]));
         _txtNext.setFormat(CTextField.BOLD72, 40, Color.BLACK, Color.WHITE);
-        _srcNextTxt.x = 610;
-        _srcNextTxt.y = 570;
+//        _srcNextTxt.x = 610;
+//        _srcNextTxt.y = 570;
         _srcNextTxt.visible = false;
         _srcNextTxt.addChild(_txtNext);
         _srcNextTxt.pivotX = _srcNextTxt.width/2;
@@ -116,7 +116,12 @@ public class TutorialComix {
 
     private function photoFromTexture(tex:Texture):void {
         switch (_stLoad) {
-            case 'comix/comics_1_small_rus.jpg' || 'comix/comics_1_small_eng.jpg':
+            case 'comix/comics_1_small_rus.jpg':
+                _im1 = new Image(tex);
+                _im1.x = int(g.managerResize.stageWidth)/2 - _im1.width/2;
+                _im1.y = int(g.managerResize.stageHeight)/2 - _im1.height/2;
+                break;
+            case 'comix/comics_1_small_eng.jpg':
                 _im1 = new Image(tex);
                 _im1.x = int(g.managerResize.stageWidth)/2 - _im1.width/2;
                 _im1.y = int(g.managerResize.stageHeight)/2 - _im1.height/2;
@@ -149,68 +154,77 @@ public class TutorialComix {
 
         switch (_countImage) {
             case 1:
-                _srcImage.addChild(_im1);
+                _srcImage.addChildAt(_im1,0);
+                _srcImage.addChild(_txtBabble);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1271]);
                 break;
             case 2:
                 _srcImage.removeChild(_im1);
                 _srcImage.alpha = 0;
-                _srcImage.addChild(_im2);
+                _srcImage.addChildAt(_im2,0);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1272]);
                 _txtBabble.changeSize = 40;
-                _txtBabble.y = 30;
-//                _txtBabble.width = 300;
+//                _txtBabble.x = _im2.x +_im2.width/2;
+//                _txtBabble.y = 30;
+                _txtBabble.width = 700;
                 break;
             case 3:
                 _srcImage.removeChild(_im2);
                 _srcImage.alpha = 0;
-                _srcImage.addChild(_im3);
+                _srcImage.addChildAt(_im3,0);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1273]);
                 _txtBabble.changeSize = 40;
-                _txtBabble.y = 35;
-//                _txtBabble.width = 300;
+//                _txtBabble.x = _im3.x +_im3.width/2;
+//                _txtBabble.y = 35;
+                _txtBabble.width = 700;
                 break;
             case 4:
                 _srcImage.removeChild(_im3);
                 _srcImage.alpha = 0;
-                _srcImage.addChild(_im4);
+                _srcImage.addChildAt(_im4,0);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1274]);
                 _txtBabble.changeSize = 40;
-                _txtBabble.y = 35;
-                _txtBabble.width = 600;
-
-
+//                _txtBabble.x = _im4.x +_im4.width/2;
+//                _txtBabble.y = 35;
+                _txtBabble.width = 700;
                 break;
             case 5:
                 _srcImage.removeChild(_im4);
                 _srcImage.alpha = 0;
-                _srcImage.addChild(_im5);
+                _srcImage.addChildAt(_im5,0);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1275]);
                 _txtBabble.changeSize = 40;
-                _txtBabble.y = 38;
+                _txtBabble.width = 750;
+//                _txtBabble.x = _im5.x +_im5.width/2;
+//                _txtBabble.y = 38;
 //                _txtBabble.width = 300;
                 break;
         }
+        _txtBabble.pivotX = _txtBabble.width/2;
+        _txtBabble.alignV = Align.TOP;
+//        _txtBabble.alignH = Align.BOTTOM;
+        _txtBabble.x = _im1.x +_im1.width/2;
+        _txtBabble.y = _im1.y + 15;
         var tween:Tween;
         tween = new Tween(_srcImage, 0.6);
         tween.fadeTo(1);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-            _txtBabble.pivotX = _txtBabble.width/2;
-            _txtBabble.x = int(g.managerResize.stageWidth)/2;
+//            _txtBabble.x = int(g.managerResize.stageWidth)/2;
             _txtBabble.visible = true;
             _countTimer = 0;
             g.gameDispatcher.addToTimer(timerToText);
         };
         g.starling.juggler.add(tween);
-
     }
 
     private function timerToText():void {
         _countTimer ++;
-        if (_countTimer >= 7) {
+        if (_countTimer >= 6) {
             g.gameDispatcher.removeFromTimer(timerToText);
             _countTimer = 0;
+            _srcNextTxt.x = _im1.x +_im1.width/2;
+            _srcNextTxt.y = _im1.height - _txtNext.textBounds.height - 5;
             _srcNextTxt.visible = true;
             animationNextTxt();
             _source.endClickCallback = onClick;

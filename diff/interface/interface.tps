@@ -200,7 +200,6 @@
             <filename>baloon_1.png</filename>
             <filename>baloon_2.png</filename>
             <filename>baloon_3.png</filename>
-            <filename>baloon_4.png</filename>
             <filename>bank</filename>
             <filename>blue_coupone.png</filename>
             <filename>bonus.png</filename>
@@ -287,6 +286,7 @@
             <filename>blue_cell_big_white_2.png</filename>
             <filename>hint_new</filename>
             <filename>shared.png</filename>
+            <filename>orders_cat_babble.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

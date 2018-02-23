@@ -36,6 +36,7 @@ public class CutScene {
         _xEnd = 125;
         if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigShop = false;
         else _isBigShop = true;
+//        _isBigShop = false;////AHTUNG
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
        if (_isBigShop) {
             (_armature.display as StarlingArmatureDisplay).x = 430;
@@ -44,7 +45,7 @@ public class CutScene {
            (_armature.display as StarlingArmatureDisplay).pivotX = (_armature.display as StarlingArmatureDisplay).width/2;
            (_armature.display as StarlingArmatureDisplay).pivotY = (_armature.display as StarlingArmatureDisplay).height/2;
            (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2 -100;
-           (_armature.display as StarlingArmatureDisplay).y = -100;
+           (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/2;
        }
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         onResize();

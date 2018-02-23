@@ -680,8 +680,10 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         var or:OrderItemStructure = _activeOrderItem.getOrder();
 
         if (g.user.level >= 4) {
-            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_4'));
+            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('orders_cat_babble'));
             _srcBaloon.addChild(_imBaloon);
+            _imBaloon.x = 5;
+            _imBaloon.y = -20;
             _txtBaloon = new CTextField(200, 200, '');
             _txtBaloon.setFormat(CTextField.BOLD18, 16, ManagerFilters.LIGHT_BLUE_COLOR);
             _txtBaloon.x = 40;

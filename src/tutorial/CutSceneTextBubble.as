@@ -84,6 +84,7 @@ public class CutSceneTextBubble {
         _st = st;
         if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) _isBigShop = false;
         else _isBigShop = true;
+//        _isBigShop = false ;///AHTUNG
         if (_isBigShop) _stPNG = 'qui/grey_cat_tutorial_babble.png';
         else _stPNG = 'qui/babble_cat_window.png';
         g.load.loadImage(g.dataPath.getGraphicsPath() + _stPNG, onLoad);

@@ -306,20 +306,20 @@ public class MarketHint {
                     _imageItem.x = 15;
                     _txtName.text = String(g.allData.getResourceById(_dataId).name);
                     _txtName.x = -100;
-                    _txtName.y = 20;
+                    _txtName.y = _txtName.textBounds.height/2;
                     _txtText.text = String(g.managerLanguage.allTexts[610]);
                     _txtText.x = -100;
-                    _txtText.y = 5;
+                    _txtText.y = _txtName.textBounds.height + 4;
                     _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
-                    _txtCount.x = 35;
-                    _txtCount.y = 70;
+                    _txtCount.x = -40;
+                    _txtCount.y = _txtName.textBounds.height + _txtText.textBounds.height + 10;
                     _txtSklad.text = String(g.managerLanguage.allTexts[612]);
-                    _txtSklad.x = -50;
-                    _txtSklad.y = 75;
+                    _txtSklad.x = -105;
+                    _txtSklad.y = _txtName.textBounds.height + _txtText.textBounds.height + 10;
                     wText = int(_txtText.textBounds.width + 20);
                     wName = int(_txtName.textBounds.width + 40);
-                    if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                    else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    if (wText > wName) bg = new HintBackground(wText, _txtCount.textBounds.height + _txtSklad.textBounds.height + _txtName.textBounds.height + 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                    else bg = new HintBackground(wName, _txtCount.textBounds.height + _txtSklad.textBounds.height + _txtName.textBounds.height + 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 }
                     _source.addChild(bg);
                     _source.addChild(_txtName);

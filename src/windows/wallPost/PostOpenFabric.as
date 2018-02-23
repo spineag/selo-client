@@ -71,55 +71,18 @@ public class PostOpenFabric  extends WindowMain {
     }
 
     private function photoFromTexture(tex:Texture):void {
-        if (!_data) {
-            Cc.error('PostOpenFabric:: empty data');
-            super.hideIt();
-            return;
-        }
         _image = new Image(tex);
         _image.pivotX = _image.width/2;
         _image.pivotY = _image.height/2;
         _source.addChild(_image);
         _btn = new CButton();
-        _btn.addButtonTexture(200, 45, CButton.GREEN, true);
+        _btn.addButtonTexture(200, CButton.HEIGHT_41, CButton.GREEN, true);
+        _btn.addTextField(200, 40, -3, -5, String(g.managerLanguage.allTexts[291]));
+        _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _source.addChild(_btn);
         _btn.clickCallback = onClick;
-        _txt1 = new CTextField(100,30,String(g.managerLanguage.allTexts[291]));
-        _txt1.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txt1.x = 5;
-        _txt1.y = 7;
-        _btn.addChild(_txt1);
-        _txt2 = new CTextField(50,50,'200');
-        _txt2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txt2.x = 119;
-        _txt2.y = -2;
-        _btn.addChild(_txt2);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins_small"));
-        im.x = 165;
-        im.y = 8;
-        _btn.addChild(im);
         _btn.y = 240;
         _source.addChild(_btn);
-        if (g.socialNetworkID != SocialNetworkSwitch.SN_FB_ID) {
-            if (_data.image) {
-                var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
-                if (!texture) {
-                    texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
-                }
-            }
-            if (texture) {
-                im = new Image(texture);
-                if (im) {
-                    if (_data.id == 3) {
-                        im.y = 10;
-                        im.x = -115;
-                    } else {
-                        im.y = -40;
-                        im.x = -115;
-                    }
-                }
-                _source.addChild(im);
-            }
-        }
         createExitButton(hideIt);
     }
 

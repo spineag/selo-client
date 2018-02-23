@@ -24,7 +24,8 @@ public class StartPreloader {
 
     private var _source:Sprite;
     private var _bg:Image;
-    private var _quad:Quad;
+//    private var _quad:Quad;
+    private var _progresBar:Image;
     private var _txt:CTextField;
     private var _leftIm:Image;
     private var _rightIm:Image;
@@ -39,22 +40,20 @@ public class StartPreloader {
 
     public function StartPreloader(f:Function) {
         var arBGs:Array;
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) arBGs = ['list_of_tips_decor_eng', 'list_of_tips_farm_stand_eng', 'list_of_tips_inventory_eng'];
-            else arBGs = ['list_of_tips_decor_rus', 'list_of_tips_farm_stand_rus', 'list_of_tips_inventory_rus'];
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) arBGs = ['list_of_tips_decor_eng', 'list_of_tips_farm_stand_eng', 'list_of_tips_inventory_eng', 'list_of_tips_barn_eng', 'list_of_tips_order_eng', 'list_of_tips_silo_eng'];
+            else arBGs = ['list_of_tips_decor_rus', 'list_of_tips_farm_stand_rus', 'list_of_tips_inventory_rus', 'list_of_tips_barn_rus', 'list_of_tips_order_rus', 'list_of_tips_silo_rus'];
         _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/' + arBGs[int(Math.random()*arBGs.length)] + '.jpg';
         _callbackInit = f;
         _source = new Sprite();
-        g.load.loadImage(_jpgUrl, onLoad);
-        _quad = new Quad(3, 3, 0x33a2f4);
-        _quad.x = 410;
-        _quad.y = 609;
-        _quad.visible = false;
-        _source.addChild(_quad);
-        _txt = new CTextField(75,50,'0');
-        _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
-        _source.addChild(_txt);
-        _txt.x = 530;
-        _txt.y = 536;
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'preloader/progres_bar_splash_screen.png', onLoadProgres);
+//        _quad = new Quad(3, 3, 0x33a2f4);
+//
+//        _quad.visible = false;
+//        _source.addChild(_quad);
+        _txt = new CTextField(75,60,'0');
+        _txt.setFormat(CTextField.BOLD30, 26,Color.WHITE, 0x0659b6);
+        _txt.x = 460;
+        _txt.y = 575;
         _txt.visible = false;
 //        createBitmap();
 //        addIms();
@@ -72,6 +71,16 @@ public class StartPreloader {
         g.pBitmaps['bigBG'] = new PBitmap(b);
     }
 
+    private function onLoadProgres(b:Bitmap):void {
+        _progresBar = new Image(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'preloader/progres_bar_splash_screen.png'].create() as Bitmap));
+        _progresBar.x = 345;
+        _progresBar.y = 589;
+        g.load.loadImage(_jpgUrl, onLoad);
+//        (g.pBitmaps[_jpgUrl] as PBitmap).deleteIt();
+//        delete g.pBitmaps[_jpgUrl];
+//        g.load.removeByUrl(_jpgUrl);
+    }
+
     private function onLoad(b:Bitmap):void {
         _whiteQuad = new Quad(1000 + 2*_whiteShift, 640 + 2*_whiteShift, Color.WHITE);
         _whiteQuad.x = -_whiteShift;
@@ -79,11 +88,13 @@ public class StartPreloader {
         _source.addChildAt(_whiteQuad, 1);
         _bg = new Image(Texture.fromBitmap(g.pBitmaps[_jpgUrl].create() as Bitmap));
         _source.addChildAt(_bg, 2);
+        _source.addChild(_progresBar);
+        _source.addChild(_txt);
         (g.pBitmaps[_jpgUrl] as PBitmap).deleteIt();
         delete g.pBitmaps[_jpgUrl];
         g.load.removeByUrl(_jpgUrl);
         _txt.visible = true;
-        _quad.visible = true;
+//        _quad.visible = true;
         onResize();
         if (_callbackInit != null) {
             _callbackInit.apply();
@@ -99,7 +110,7 @@ public class StartPreloader {
 //    }
 
     public function setProgress(a:int):void {
-        _quad.scaleX = a;
+        _progresBar.width = a*3.1;
         _txt.text = String(a + '%');
     }
 

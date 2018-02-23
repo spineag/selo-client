@@ -73,16 +73,16 @@ public class ManagerBuyerNyashuk {
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
 
-            } else if (ar[i].visible == false && (ar[i].time_to_new - TimeUtils.currentSeconds) * (-1) >= 1200) {
+            } else if (ar[i].visible == false && (ar[i].time_to_new - TimeUtils.currentSeconds) * (-1) >= 600) {
                     newBot(false,ar[i]);
                 } else {
                     if (ar[i].buyer_id == 1) {
-                        g.userTimer.buyerNyashukBlue(1200 - (TimeUtils.currentSeconds - ar[i].time_to_new));
+                        g.userTimer.buyerNyashukBlue(600 - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         _table1.showTable(true,26, 25);
 
                     }
                     else {
-                        g.userTimer.buyerNyashukRed( 1200 - (TimeUtils.currentSeconds) - ar[i].time_to_new);
+                        g.userTimer.buyerNyashukRed(600 - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         _table2.showTable(true, 25, 27);
                     }
                 }
