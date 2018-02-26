@@ -283,7 +283,7 @@ public class OptionPanel {
         if (!_source) return;
         _source.x = g.managerResize.stageWidth;
         _source.y = g.managerResize.stageHeight - 557;
-        if (_source.visible) _source.x -= 58;
+        if (_source.visible) _source.x -= 70;
     }
 
 

@@ -192,7 +192,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../../assets/qui/windows_new_level.png</filename>
+            <filename>windows_new_level.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

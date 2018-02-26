@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:0f94126dd979880733e95fcde9dedbf8:4490d5ce3c7969be93b2e93444a10a9b:58bfa1459ee8b8ddbc46180dd0a6ab34$ -->
+<!-- $TexturePacker:SmartUpdate:81787485d64ef60b484b78b0a4b4829b:4490d5ce3c7969be93b2e93444a10a9b:58bfa1459ee8b8ddbc46180dd0a6ab34$ -->
 <TextureAtlas imagePath="levelAtlas.png" width="1577" height="897">
     <SubTexture name="windows_new_level" x="1" y="1" width="1575" height="895"/>
 </TextureAtlas>

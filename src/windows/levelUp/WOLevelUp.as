@@ -152,7 +152,7 @@ public class WOLevelUp extends WindowMain {
             if (g.user.level >= 11) g.couponePanel.openPanel(true);
             _txtLevel.text = String(g.user.level);
             createList();
-            _source.y -= 40;
+//            _source.y -= 40;
         }
 
     private function shareClick():void {

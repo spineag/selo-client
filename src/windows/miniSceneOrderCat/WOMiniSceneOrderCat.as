@@ -35,8 +35,8 @@ public class WOMiniSceneOrderCat extends WindowMain{
     public function WOMiniSceneOrderCat() {
         super();
         _windowType = WindowsManager.WO_ORDER_CAT_MINI;
-        _woWidth = 500;
-        _woHeight = 400;
+        _woWidth = g.managerResize.stageWidth;
+        _woHeight = g.managerResize.stageHeight;
 //        _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 130);
 //        _source.addChild(_woBGNew);
         _callbackClickBG = onClickExit;
@@ -96,7 +96,7 @@ public class WOMiniSceneOrderCat extends WindowMain{
         _imBabble = new Image(tex);
         _source.addChild(_imBabble);
         _imBabble.x = -90;
-        _imBabble.y = -_imBabble.height - 20;
+        _imBabble.y = -_imBabble.height;
         _source.addChild(_txtName);
         _source.addChild(_txt);
         _source.addChild(_btn);
@@ -121,8 +121,8 @@ public class WOMiniSceneOrderCat extends WindowMain{
     private function photoFromTexture(tex:Texture):void {
         _imCat = new Image(tex);
         _source.addChild(_imCat);
-        _imCat.x = -_imCat.width + 70;
-        _imCat.y = -_imCat.height/2-50;
+        _imCat.x = -_imCat.width;
+        _imCat.y = -_imCat.height/2;
         _txt.text = g.managerLanguage.allTexts[_dataCat.txtMiniScene];
         if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _dataCat.nameENG;
         else _txtName.text = _dataCat.nameRU;

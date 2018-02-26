@@ -61,14 +61,14 @@ public class TutorialComix {
 //        _txtBabble.y = 25;
 
         _srcNextTxt = new Sprite();
-        _srcImage.addChild(_srcNextTxt);
-        _txtNext = new CTextField(1000, 200, String(g.managerLanguage.allTexts[1276]));
+        _txtNext = new CTextField(1000, 640, String(g.managerLanguage.allTexts[1276]));
         _txtNext.setFormat(CTextField.BOLD72, 40, Color.BLACK, Color.WHITE);
 //        _srcNextTxt.x = 610;
 //        _srcNextTxt.y = 570;
         _srcNextTxt.visible = false;
         _srcNextTxt.addChild(_txtNext);
         _srcNextTxt.pivotX = _srcNextTxt.width/2;
+        _srcImage.addChild(_srcNextTxt);
 
         _stMustLoad = 'comix/comics_1_small.jpg';
         loadImage();
@@ -224,7 +224,7 @@ public class TutorialComix {
             g.gameDispatcher.removeFromTimer(timerToText);
             _countTimer = 0;
             _srcNextTxt.x = _im1.x +_im1.width/2;
-            _srcNextTxt.y = _im1.height - _txtNext.textBounds.height - 5;
+            _srcNextTxt.y = int(g.managerResize.stageHeight)/2 - _txtNext.textBounds.height;
             _srcNextTxt.visible = true;
             animationNextTxt();
             _source.endClickCallback = onClick;

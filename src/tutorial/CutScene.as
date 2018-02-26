@@ -42,11 +42,14 @@ public class CutScene {
             (_armature.display as StarlingArmatureDisplay).x = 430;
             (_armature.display as StarlingArmatureDisplay).y = -115;
        } else {
-           (_armature.display as StarlingArmatureDisplay).pivotX = (_armature.display as StarlingArmatureDisplay).width/2;
-           (_armature.display as StarlingArmatureDisplay).pivotY = (_armature.display as StarlingArmatureDisplay).height/2;
+
            (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2 -100;
            (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/2;
        }
+        (_armature.display as StarlingArmatureDisplay).pivotX = (_armature.display as StarlingArmatureDisplay).width/2;
+        (_armature.display as StarlingArmatureDisplay).pivotY = (_armature.display as StarlingArmatureDisplay).height/2;
+        (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2;
+        (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/3;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         onResize();
     }
@@ -74,13 +77,15 @@ public class CutScene {
                 }
             }
             _bubble.showBubble(st, stBtn, callback, callbackNo, startClick);
-        if (_isBigShop) {
-            _sourceBubble.x = 530;
-            _sourceBubble.y = -420;
-        } else {
-            _sourceBubble.x = 420;
-            _sourceBubble.y = -420;
-        }
+//        if (_isBigShop) {
+//            _sourceBubble.x = 530;
+//            _sourceBubble.y = -420;
+//        } else {
+//            _sourceBubble.x = 420;
+//            _sourceBubble.y = -420;
+//        }
+        _sourceBubble.x = (_armature.display as StarlingArmatureDisplay).x - (_armature.display as StarlingArmatureDisplay).width/3;
+        _sourceBubble.y = -g.managerResize.stageHeight/2;
 //        } catch (e:Error) {
 //            Cc.error('CutScene showBubble: error ' + e.message);
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'cutScene showBubble');
