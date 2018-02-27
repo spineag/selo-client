@@ -113,12 +113,13 @@ public class DailyBonus extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (!_source.wasGameContMoved) {
                 if (g.user.level < _dataBuild.blockByLevel) {
-                    g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-                    var p:Point = new Point(_source.x, _source.y - 100);
-                    p = _source.parent.localToGlobal(p);
-                    var myPattern:RegExp = /count/;
-                    var str:String =  String(g.managerLanguage.allTexts[342]);
-                    new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
+//                    g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+//                    var p:Point = new Point(_source.x, _source.y - 100);
+//                    p = _source.parent.localToGlobal(p);
+//                    var myPattern:RegExp = /count/;
+//                    var str:String =  String(g.managerLanguage.allTexts[342]);
+//                    new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
+                    g.windowsManager.openWindow(WindowsManager.WO_OPEN_ON_LEVEL,null,'dailyBonus');
                     return;
                 }
                 onOut();

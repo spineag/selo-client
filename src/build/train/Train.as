@@ -326,12 +326,13 @@ public class Train extends WorldObject{
                 return;
             }
             if (g.user.level < _dataBuild.blockByLevel[0]) {
-                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-                var p:Point = new Point(_source.x, _source.y - 100);
-                p = _source.parent.localToGlobal(p);
-                var myPattern:RegExp = /count/;
-                var str:String =  String(g.managerLanguage.allTexts[342]);
-                new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
+//                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+//                var p:Point = new Point(_source.x, _source.y - 100);
+//                p = _source.parent.localToGlobal(p);
+//                var myPattern:RegExp = /count/;
+//                var str:String =  String(g.managerLanguage.allTexts[342]);
+//                new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
+                g.windowsManager.openWindow(WindowsManager.WO_OPEN_ON_LEVEL,null,'train');
                 return;
             }
             onOut();

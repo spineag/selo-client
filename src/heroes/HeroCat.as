@@ -392,9 +392,8 @@ public class HeroCat extends BasicCat{
     private function onArrivedCatToRidgePoint():void {
         var onFinishWork:Function = function():void {
             _isRandomWork = false;
-            if (_type == MAN) g.managerCats.timerRandomWorkMan();
-            else g.managerCats.timerRandomWorkWoman();
-            removeWorker();
+            if (Math.random() > .7) workWithPlant(onFinishWork);
+            else removeWorker();
         };
         if ((activeRandomWorkBuild as Ridge).plant)
             workWithPlant(onFinishWork);

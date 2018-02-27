@@ -316,12 +316,13 @@ public class Cave extends WorldObject{
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             if (g.user.level < _dataBuild.blockByLevel) {
-                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-                var p1:Point = new Point(_source.x, _source.y - 100);
-                p1 = _source.parent.localToGlobal(p1);
-                var myPattern:RegExp = /count/;
-                var str:String =  String(g.managerLanguage.allTexts[342]);
-                new FlyMessage(p1,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
+//                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+//                var p1:Point = new Point(_source.x, _source.y - 100);
+//                p1 = _source.parent.localToGlobal(p1);
+//                var myPattern:RegExp = /count/;
+//                var str:String =  String(g.managerLanguage.allTexts[342]);
+//                new FlyMessage(p1,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
+                g.windowsManager.openWindow(WindowsManager.WO_OPEN_ON_LEVEL,null,'cave');
                 return;
             }
             if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, String(g.managerLanguage.allTexts[618]), 'cave');

@@ -73,7 +73,7 @@ public class StartPreloader {
 
     private function onLoadProgres(b:Bitmap):void {
         _progresBar = new Image(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'preloader/progres_bar_splash_screen.png'].create() as Bitmap));
-        _progresBar.x = 345;
+        _progresBar.x = 340;
         _progresBar.y = 589;
         g.load.loadImage(_jpgUrl, onLoad);
 //        (g.pBitmaps[_jpgUrl] as PBitmap).deleteIt();
@@ -110,7 +110,7 @@ public class StartPreloader {
 //    }
 
     public function setProgress(a:int):void {
-        _progresBar.width = a*3.1;
+        _progresBar.width = a*3.2;
         _txt.text = String(a + '%');
     }
 
