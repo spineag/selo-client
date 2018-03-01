@@ -34,6 +34,7 @@ public class DogPet extends PetMain  {
                 _animation.changeTexture("Orange_second_L_leg_big_back.png",      "Pink_second_L_leg_big_back", false);
                 _animation.changeTexture("Orange_second_R_leg_big_back.png",      "Pink_second_R_leg_big_back", false);
                 _animation.changeTexture("Orange_tail-end_big_back.png",          "Pink_tail-end_big_back", false);
+                _animation.changeTexture("red_dog_pets_eyelids.png",              "red_dog_pets_eyelids", false);
                 break;
             case 7: // red_dog_big
                 _animation.changeTexture("Orange_head_big_front.png",             "Orange_head_big_front", true);
@@ -52,6 +53,7 @@ public class DogPet extends PetMain  {
                 _animation.changeTexture("Orange_second_L_leg_big_back.png",      "Orange_second_L_leg_big_back", false);
                 _animation.changeTexture("Orange_second_R_leg_big_back.png",      "Orange_second_R_leg_big_back", false);
                 _animation.changeTexture("Orange_tail-end_big_back.png",          "Orange_tail-end_big_back", false);
+                _animation.changeTexture("red_dog_pets_eyelids.png",              "pink_dog_pets_eyelids", false);
                 break;
             case 8: // grey_dog_big
                 _animation.changeTexture("Orange_head_big_front.png",             "Grey_head_big_front", true);
@@ -69,6 +71,7 @@ public class DogPet extends PetMain  {
                 _animation.changeTexture("Orange_second_L_leg_big_back.png",      "Grey_second_L_leg_big_back", false);
                 _animation.changeTexture("Orange_second_R_leg_big_back.png",      "Grey_R_leg_big_back", false);
                 _animation.changeTexture("Orange_tail-end_big_back.png",          "Grey_tail-end_big_back", false);
+                _animation.changeTexture("red_dog_pets_eyelids.png",              "grey_dog_pets_eyelids", false);
                 break;
         }
         super.releaseTexture();

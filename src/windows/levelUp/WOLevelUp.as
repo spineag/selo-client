@@ -320,6 +320,8 @@ public class WOLevelUp extends WindowMain {
         super.hideIt();
         _confetti.hideIt();
         if (g.user.level == 4) {
+            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
             var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
             arr[0].showArrow(120);
         }

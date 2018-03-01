@@ -42,7 +42,7 @@ public class WOBuyerNyashuk extends WindowMain{
         var btn:CButton;
         btn = new CButton();
         btn.addButtonTexture(150, CButton.HEIGHT_55, CButton.GREEN, true);
-        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[448]));
+        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[1292]));
         btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
         btn.x = 180;
         btn.y = _woHeight / 2 - 40;
@@ -52,7 +52,7 @@ public class WOBuyerNyashuk extends WindowMain{
 
         btn = new CButton();
         btn.addButtonTexture(150, CButton.HEIGHT_55, CButton.GREEN, true);
-        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[1155]));
+        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[1290]));
         btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
         btn.y = _woHeight / 2 - 40;
         btn.clickCallback = onClickExit;
@@ -61,7 +61,7 @@ public class WOBuyerNyashuk extends WindowMain{
 
         btn = new CButton();
         btn.addButtonTexture(150, CButton.HEIGHT_55, CButton.RED, true);
-        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[449]));
+        btn.addTextField(150, 45, 0, 0, String(g.managerLanguage.allTexts[1291]));
         btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.RED_COLOR);
         btn.clickCallback = onClickDelete;
         btn.x = - 180;

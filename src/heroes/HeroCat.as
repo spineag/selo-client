@@ -47,6 +47,7 @@ public class HeroCat extends BasicCat{
     private var _bubble:TutorialTextBubble;
     private var _isFlip:Boolean;
     public var bShowBubble:Boolean;
+    private var _countAnimation:int;
 
     public function HeroCat(type:int) {
         super();
@@ -286,7 +287,7 @@ public class HeroCat extends BasicCat{
 
 // SIMPLE IDLE
     private var timer:int;
-    public function makeFreeCatIdle():void {
+    public function makeFreeCatIdle(showCatEmotion:Boolean = false):void {
         freeIdleGo = !freeIdleGo;
         if (g.tuts.isTuts && _type == MAN) {
             idleAnimation();
@@ -295,7 +296,7 @@ public class HeroCat extends BasicCat{
 //            renderForIdleFreeCat();
             return;
         }
-        if (freeIdleGo && Math.random() > .5) {
+        if (freeIdleGo && Math.random() > .4 && !showCatEmotion) {
             g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(), makeFreeCatIdle);
         } else {
             var b:Boolean = false;
@@ -393,7 +394,17 @@ public class HeroCat extends BasicCat{
         var onFinishWork:Function = function():void {
             _isRandomWork = false;
             if (Math.random() > .7) workWithPlant(onFinishWork);
-            else removeWorker();
+            else {
+                if (_type == MAN) {
+                    g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+                    (activeRandomWorkBuild as Ridge).catOnAnimation = false;
+                }
+                else {
+                    g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
+                    (activeRandomWorkBuild as Ridge).catOnAnimation = false;
+                }
+                removeWorker();
+            }
         };
         if ((activeRandomWorkBuild as Ridge).plant)
             workWithPlant(onFinishWork);
@@ -413,6 +424,7 @@ public class HeroCat extends BasicCat{
         }
         flipIt(isLeftForFeedAndWatering);
         _animation.playIt('open', true, makeWatering, callback);
+        _countAnimation = 2 + Math.random()* 3;
     }
 
     private function makeWatering(callback:Function):void {
@@ -420,12 +432,17 @@ public class HeroCat extends BasicCat{
     }
 
     private function makeWateringIdle(callback:Function):void {
-        var fClose:Function = function():void {
-            if (callback != null) {
-                callback.apply();
-            }
-        };
-        _animation.playIt('close', true, fClose);
+        _countAnimation --;
+        if (_countAnimation > 0) {
+            makeWatering(callback);
+        } else {
+            var fClose:Function = function ():void {
+                if (callback != null) {
+                    callback.apply();
+                }
+            };
+            _animation.playIt('close', true, fClose);
+        }
     }
 
     public function removeWorker():void {
@@ -455,8 +472,14 @@ public class HeroCat extends BasicCat{
     private function onArrivedCatToFarmPoint():void {
         var onFinishWork:Function = function():void {
             _isRandomWork = false;
-            if (_type == MAN) g.managerCats.timerRandomWorkMan();
-            else g.managerCats.timerRandomWorkWoman();
+            if (_type == MAN) {
+                g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+                (activeRandomWorkBuild as Farm).catOnAnimation = false;
+            }
+            else {
+                g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
+                (activeRandomWorkBuild as Farm).catOnAnimation = false;
+            }
             removeWorker();
         };
         if ((activeRandomWorkBuild as Farm).dataAnimal.id == 6) workWithPlant(onFinishWork);
@@ -476,6 +499,7 @@ public class HeroCat extends BasicCat{
         flipIt(isLeftForFeedAndWatering);
 
         makeFeeding(callback);
+        _countAnimation = 2 + Math.random()* 3;
     }
 
     private function makeFeeding(callback:Function):void {
@@ -498,7 +522,10 @@ public class HeroCat extends BasicCat{
     }
 
     private function onFinishFeeding(callback:Function):void {
-        if (callback != null) callback.call();
+        _countAnimation--;
+        if (_countAnimation <= 0) {
+            if (callback != null) callback.call();
+        } else makeFeeding(callback);
     }
 
     private function makeFeedingParticles():void {
@@ -514,9 +541,15 @@ public class HeroCat extends BasicCat{
         var onFinishWork:Function = function():void {
             _isRandomWork = false;
             visible = true;
-            if (_type == MAN) g.managerCats.timerRandomWorkMan();
-            else g.managerCats.timerRandomWorkWoman();
-            removeWorker();
+                if (_type == MAN) {
+                    g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+                    (activeRandomWorkBuild as Fabrica).catOnAnimation = false;
+                }
+                else {
+                    g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
+                    (activeRandomWorkBuild as Fabrica).catOnAnimation = false;
+                }
+                removeWorker();
         };
         visible = false;
         (activeRandomWorkBuild as Fabrica).onHeroAnimation(onFinishWork, this);

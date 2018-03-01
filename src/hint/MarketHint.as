@@ -420,14 +420,14 @@ public class MarketHint {
             if (noResource) {
                 _txtName.text = g.allData.getResourceById(_dataId).name;
                 _txtName.x = -100;
-                _txtName.y = -115;
+                _txtName.y = -135;
                 _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_dataId].buildId).name;
                 _txtText.x = -100;
-                _txtText.y = -104;
+                _txtText.y = -114;
                 wText = int(_txtText.textBounds.width + 20);
                 wName = int(_txtName.textBounds.width + 40);
-                if (wText > wName) bg = new HintBackground(wText, 85, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-                else bg = new HintBackground(wName, 85, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                if (wText > wName) bg = new HintBackground(wText, 105, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+                else bg = new HintBackground(wName, 105, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
             } else {
                 _txtName.text = g.allData.getResourceById(_dataId).name;
                 _txtName.x = -100;

@@ -125,6 +125,8 @@ public class IManagerTutorial {
 //        if (_cat) _cat.deleteIt();
         g.user.tutorialStep = MAX_STEPS;
         updateTutorialStep();
+        g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+        g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
     }
 }
 }

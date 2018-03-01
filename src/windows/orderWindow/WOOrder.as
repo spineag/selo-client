@@ -457,7 +457,7 @@ public class WOOrder extends WindowMain {
             }
         }
 
-        g.managerOrder.sellOrder(or, f);
+        g.managerOrder.sellOrder(or, or.catOb.id, f);
         g.managerOrder.cancelAnimateSmallHero();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.tuts.isTuts && g.tuts.action == TutsAction.ORDER) g.tuts.checkTutsCallback();
@@ -471,6 +471,7 @@ import windows.orderWindow.WOOrderItem;
 
 private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
+        or = _activeOrderItem.getOrder();
         var p1:Point = new Point(134, 147);
         p1 = _source.localToGlobal(p1);
         var d:DropObject = new DropObject();
@@ -490,6 +491,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level)
             d.addDropPartyResource(p1);
         d.releaseIt();
+    _btnDel.visible = false;
+    _btnSell.visible = false;
             or.startTime = TimeUtils.currentSeconds + 6;
             orderItem.fillIt(or, or.placeNumber, onItemClick);
             for (var i:int = 0; _arrOrders.length; i++) {
@@ -541,8 +544,9 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 }
             }
             var tOrderItem:WOOrderItem = _activeOrderItem;
+            var orS:OrderItemStructure = _activeOrderItem.getOrder();
             var f:Function = function (or:OrderItemStructure):void { afterDeleteOrder(or, tOrderItem); };
-            g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
+            g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), orS.catOb.id, f);
         }
     }
 

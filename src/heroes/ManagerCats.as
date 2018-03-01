@@ -3,6 +3,7 @@
  */
 package heroes {
 import build.fabrica.Fabrica;
+import build.farm.Animal;
 import build.farm.Farm;
 import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
@@ -25,6 +26,8 @@ public class ManagerCats {
     private var _arrRidge:Array;
     private var _arrFabrica:Array;
     private var _arrFarm:Array;
+    private var _timeWorkWooman:int;
+    private var _timeWorkMan:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -43,6 +46,19 @@ public class ManagerCats {
         _catInfo.cost = 0;
         _catInfo.currency = DataMoney.SOFT_CURRENCY;
         _catInfo.buildType = BuildType.CAT;
+        createTimeForWork(true);
+        createTimeForWork(false);
+    }
+
+    private function createTimeForWork(man:Boolean):void {
+        var time:int = 0;
+        if (g.user.level <= 6) time = 15 + Math.random()*6;
+        else if (g.user.level <= 10) time = 20 + Math.random()*6;
+        else time = 25 + Math.random()*6;
+        if (_arrFabrica.length > 0 && _arrFarm.length > 0 && _arrRidge.length) time -= 4;
+        if (g.user.level <= 3) time = 5 + Math.random()*4;
+        if (man) _timeWorkMan = time;
+        else _timeWorkWooman = time
     }
 
     public function addAllHeroCats():void {
@@ -60,30 +76,93 @@ public class ManagerCats {
     }
 
     public function timerRandomWorkMan():void {
-        var delay:int;
-        if (g.user.level <= 8) delay = 10 + int(Math.random()*60);
-       else  delay = 30 + int(Math.random()*60);
-        Utils.createDelay(delay, function():void {chooseRandomWork(_catsArray[0])});
+        _timeWorkMan --;
+        if (_timeWorkMan <= 0) {
+            g.gameDispatcher.removeFromTimer(timerRandomWorkMan);
+            createTimeForWork(true);
+            chooseRandomWork(_catsArray[0]);
+        }
     }
 
     public function timerRandomWorkWoman():void {
-        var delay:int;
-        if (g.user.level <= 8) delay = 15 + int(Math.random()*60);
-        else  delay = 30 + int(Math.random()*60);
-        Utils.createDelay(delay,  function():void {chooseRandomWork(_catsArray[1])});
+        _timeWorkWooman --;
+        if (_timeWorkWooman <= 0) {
+            g.gameDispatcher.removeFromTimer(timerRandomWorkWoman);
+            createTimeForWork(false);
+            chooseRandomWork(_catsArray[1]);
+        }
     }
 
     private function chooseRandomWork(cat:HeroCat):void {
         if (!cat.isFree) return;
         if (cat.isWorkRandom) return;
-        var t:int = _arrFabrica.length + _arrFarm.length + _arrRidge.length;
-        if (t>0) {
-            cat.workRandom = true;
-            t = int(t*Math.random());
-            if (t < _arrFabrica.length)  cat.activeRandomWorkBuild = _arrFabrica[t];
-            else if (t < _arrFabrica.length + _arrFarm.length) cat.activeRandomWorkBuild = _arrFarm[t - _arrFabrica.length];
-            else cat.activeRandomWorkBuild = _arrRidge[t - _arrFabrica.length - _arrFarm.length];
-            goCatToPoint(cat, new Point(cat.activeRandomWorkBuild.posX, cat.activeRandomWorkBuild.posY), onArrivedForRandomWork, cat);
+        _arrFabrica = [];
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FABRICA);
+        for (var i:int = 0; i < arr.length; i ++) {
+            if (arr[i].arrList.length > 0) {
+                _arrFabrica.push(arr[i]);
+            }
+        }
+        _arrFarm = [];
+        arr = g.townArea.getCityObjectsByType(BuildType.FARM);
+        for (i = 0; i < arr.length; i ++) {
+            for (var j:int = 0; j < arr[i].arrAnimals.length; j++) {
+                if (int(arr[i].arrAnimals[j].state) == Animal.WORK) {
+                    _arrFarm.push(arr[i]);
+                    break;
+                }
+            }
+        }
+        var t:int;
+        if (_arrFabrica.length > 0) t = 15;
+        if (_arrFarm.length > 0) t += 20;
+        if (_arrRidge.length > 0) t += 30;
+
+        if (t > 0) {
+            if (t == 15) {
+                cat.activeRandomWorkBuild = _arrFabrica[int(_arrFabrica.length*Math.random())];
+            } // only fabric
+            else if (t == 20) {
+                cat.activeRandomWorkBuild = _arrFarm[int(_arrFarm.length*Math.random())];
+            } // only farm
+            else if (t == 30) {
+                cat.activeRandomWorkBuild = _arrRidge[int(_arrRidge.length*Math.random())];
+            } //only ridge
+            else if (t == 35) {
+                if (Math.random() > .5) cat.activeRandomWorkBuild = _arrFabrica[int(_arrFabrica.length*Math.random())];
+                else cat.activeRandomWorkBuild = _arrFarm[int(_arrFarm.length*Math.random())];
+            } // only fabric & farm
+            else if (t == 45) {
+                if (Math.random() > .5) cat.activeRandomWorkBuild = _arrFabrica[int(_arrFabrica.length*Math.random())];
+                else cat.activeRandomWorkBuild = _arrRidge[int(_arrRidge.length*Math.random())];
+            }//only fabric & Ridge
+            else if (t == 50) {
+                if (Math.random() > .5) cat.activeRandomWorkBuild = _arrFarm[int(_arrFarm.length*Math.random())];
+                else cat.activeRandomWorkBuild = _arrRidge[int(_arrRidge.length*Math.random())];
+            }//only farm &ridge
+            else if (t == 65) {
+                t = int(3 * Math.random());
+                if (t == 0) cat.activeRandomWorkBuild = _arrFarm[int(_arrFarm.length*Math.random())];
+                else if (t == 1) cat.activeRandomWorkBuild = _arrRidge[int(_arrRidge.length*Math.random())];
+                else cat.activeRandomWorkBuild = _arrFabrica[int(_arrFabrica.length*Math.random())];
+            }//all
+            if (cat.activeRandomWorkBuild.catOnAnimation) {
+                if (cat.typeMan == BasicCat.MAN)  g.gameDispatcher.addToTimer(timerRandomWorkMan);
+                else  g.gameDispatcher.addToTimer(timerRandomWorkWoman);
+//                cat.killAllAnimations();
+//                cat.showFront(true);
+//                cat.makeFreeCatIdle(true);
+            } else {
+                cat.workRandom = true;
+                cat.activeRandomWorkBuild.catOnAnimation = true;
+                goCatToPoint(cat, new Point(cat.activeRandomWorkBuild.posX, cat.activeRandomWorkBuild.posY), onArrivedForRandomWork, cat);
+            }
+        } else {
+            if (cat.typeMan == BasicCat.MAN)  g.gameDispatcher.addToTimer(timerRandomWorkMan);
+            else  g.gameDispatcher.addToTimer(timerRandomWorkWoman);
+//            cat.killAllAnimations();
+//            cat.showFront(true);
+//            cat.makeFreeCatIdle(true);
         }
     }
 

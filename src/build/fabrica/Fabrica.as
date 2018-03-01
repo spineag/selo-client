@@ -471,9 +471,10 @@ public class Fabrica extends WorldObject {
     }
 
     public function onHeroAnimation(f:Function, cat:HeroCat):void {
-        _countAnimation = 3;
+        _countAnimation = int (5 + Math.random()* 9);
         _callOnRandomWork = f;
         stopAnimation();
+
         releaseHeroCatWoman(cat);
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimationHero);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimationHero);
@@ -634,11 +635,11 @@ public class Fabrica extends WorldObject {
     private function releaseManBackTexture():void {
         changeTexture("head", "grey_c_m_worker_head_back");
         changeTexture("body", "grey_c_m_worker_body_back");
-        changeTexture("handLeft", "grey_c_m_worker_l_leg_back");
-        changeTexture("legLeft", "grey_c_m_worker_l_hand_back");
+        changeTexture("legLeft", "grey_c_m_worker_l_leg_back");
+        changeTexture("handLeft", "grey_c_m_worker_l_hand_back");
         changeTexture("handRight", "grey_c_m_worker_r_hand_back");
         changeTexture("legRight", "grey_c_m_worker_r_leg_back");
-        changeTexture("tail11", "grey_c_m_worker_tail_front");
+        changeTexture("tail", "grey_c_m_worker_tail_front");
 
         if (_dataBuild.id == 10) changeTexture("handRight2", "grey_c_m_worker_r_hand_back");
     }
@@ -665,7 +666,7 @@ public class Fabrica extends WorldObject {
         changeTexture("legLeft", "orange_c_w_worker_l_leg_back");
         changeTexture("handRight", "orange_c_w_worker_r_hand_back");
         changeTexture("legRight", "orange_c_w_worker_r_leg_back");
-        changeTexture("tail11", "orange_c_w_worker_tail_front");
+        changeTexture("tail", "orange_c_w_worker_tail_front");
     }
 
     private function changeTexture(oldName:String, newName:String):void {

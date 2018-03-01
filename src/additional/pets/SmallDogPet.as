@@ -33,6 +33,7 @@ public class SmallDogPet extends PetMain  {
                 _animation.changeTexture("Orange_second_L_leg_small_back.png",      "Pink_second_L_leg_small_back", false);
                 _animation.changeTexture("Orange_second_R_leg_small_back.png",      "Pink_second_R_leg_small_back", false);
                 _animation.changeTexture("Orange_tail-end_small_back.png",          "Pink_tail-end_small_back", false);
+                _animation.changeTexture("Orange_eye_close_small_front.png",        "Pink_eye_close_small_front", false);
                 break;
             case 9: // red_dog_small
                 _animation.changeTexture("Orange_head_small_front.png",             "Orange_head_small_front", true);
@@ -51,6 +52,7 @@ public class SmallDogPet extends PetMain  {
                 _animation.changeTexture("Orange_second_L_leg_small_back.png",      "Orange_second_L_leg_small_back", false);
                 _animation.changeTexture("Orange_second_R_leg_small_back.png",      "Orange_second_R_leg_small_back", false);
                 _animation.changeTexture("Orange_tail-end_small_back.png",          "Orange_tail-end_small_back", false);
+                _animation.changeTexture("Orange_eye_close_small_front.png",        "Orange_eye_close_small_front", false);
                 break;
             case 10: // grey_dog_small
                 _animation.changeTexture("Orange_head_small_front.png",             "Grey_head_small_front", true);
@@ -69,6 +71,7 @@ public class SmallDogPet extends PetMain  {
                 _animation.changeTexture("Orange_second_L_leg_small_back.png",      "Grey_second_L_leg_small_back", false);
                 _animation.changeTexture("Orange_second_R_leg_small_back.png",      "Grey_second_R_leg_small_back", false);
                 _animation.changeTexture("Orange_tail-end_small_back.png",          "Grey_tail-end_small_back", false);
+                _animation.changeTexture("Orange_eye_close_small_front.png",        "Grey_eye_close_small_front", false);
                 break;
         }
         super.releaseTexture();

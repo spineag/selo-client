@@ -492,8 +492,8 @@ public class Vars {
         
         if ((user as User).level >= 4) managerAnnouncement = new ManagerAnnouncement();
         if ((user as User).level >= 4) {
-            managerCats.timerRandomWorkMan();
-            managerCats.timerRandomWorkWoman();
+            gameDispatcher.addToTimer(managerCats.timerRandomWorkMan);
+            gameDispatcher.addToTimer(managerCats.timerRandomWorkWoman);
         }
     }
 

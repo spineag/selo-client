@@ -61,6 +61,7 @@ public class WorldObject {
     protected var _armature:Armature;
     private var _buildingBuild:BuildingBuild;
     public var countShopCost:int;
+    public var catOnAnimation:Boolean;
 
     protected static var g:Vars = Vars.getInstance();
 
@@ -79,6 +80,7 @@ public class WorldObject {
         else _sizeX = 2;
         if (_dataBuild) _sizeY = _dataBuild.height;
         else _sizeY = 2;
+        catOnAnimation = false;
     }
 
     public function onOut():void {}
