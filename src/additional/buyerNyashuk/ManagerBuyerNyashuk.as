@@ -77,12 +77,14 @@ public class ManagerBuyerNyashuk {
                     newBot(false,ar[i]);
                 } else {
                     if (ar[i].buyer_id == 1) {
-                        g.userTimer.buyerNyashukBlue(600 - (TimeUtils.currentSeconds - ar[i].time_to_new));
+                        if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600 - (TimeUtils.currentSeconds - ar[i].time_to_new));
+                        else g.userTimer.buyerNyashukBlue(g.managerOrder.delayBeforeNextOrder - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         _table1.showTable(true,26, 25);
 
                     }
                     else {
-                        g.userTimer.buyerNyashukRed(600 - (TimeUtils.currentSeconds - ar[i].time_to_new));
+                        if (g.user.level >= 14) g.userTimer.buyerNyashukRed(600 - (TimeUtils.currentSeconds - ar[i].time_to_new));
+                        else g.userTimer.buyerNyashukRed(g.managerOrder.delayBeforeNextOrder - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         _table2.showTable(true, 25, 27);
                     }
                 }

@@ -56,7 +56,6 @@ public class ManagerCats {
         else if (g.user.level <= 10) time = 20 + Math.random()*6;
         else time = 25 + Math.random()*6;
         if (_arrFabrica.length > 0 && _arrFarm.length > 0 && _arrRidge.length) time -= 4;
-        if (g.user.level <= 3) time = 5 + Math.random()*4;
         if (man) _timeWorkMan = time;
         else _timeWorkWooman = time
     }

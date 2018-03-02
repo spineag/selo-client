@@ -202,8 +202,14 @@ public class WOBuyerNyashuk extends WindowMain{
         _data.visible = false;
         g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
         g.server.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
-        if (_data.buyerId == 1) g.userTimer.buyerNyashukBlue(600);
-        else  g.userTimer.buyerNyashukRed(600);
+        if (_data.buyerId == 1) {
+            if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600);
+            else g.userTimer.buyerNyashukBlue(g.managerOrder.delayBeforeNextOrder);
+        }
+        else {
+            if (g.user.level >= 14) g.userTimer.buyerNyashukRed(600);
+            else g.userTimer.buyerNyashukRed(g.managerOrder.delayBeforeNextOrder);
+        }
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
         g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);
         g.managerAchievement.addAll(1,1);
@@ -212,8 +218,14 @@ public class WOBuyerNyashuk extends WindowMain{
 
     private function onClickDelete():void {
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
-        if (_data.buyerId == 1) g.userTimer.buyerNyashukBlue(600);
-        else  g.userTimer.buyerNyashukRed(600);
+        if (_data.buyerId == 1) {
+            if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600);
+            else g.userTimer.buyerNyashukBlue(g.managerOrder.delayBeforeNextOrder);
+        }
+        else {
+            if (g.user.level >= 14) g.userTimer.buyerNyashukRed(600);
+            else g.userTimer.buyerNyashukRed(g.managerOrder.delayBeforeNextOrder);
+        }
         _data.timeToNext = TimeUtils.currentSeconds;
         g.server.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         super.hideIt();

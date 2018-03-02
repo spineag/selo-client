@@ -1024,11 +1024,12 @@ public class ManagerOrder {
         return -1;
     }
 
-    public function deleteOrder(or:OrderItemStructure, lastActiveCatId:int, f:Function):void {
-        _lastActiveCatId = lastActiveCatId;
+    public function deleteOrder(or:OrderItemStructure, f:Function):void {
+//        _lastActiveCatId = lastActiveCatId;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == or.dbId) {
                 g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat, false);
+                _lastActiveCatId = _arrOrders[i].cat.dataCatId;
                 _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;
@@ -1054,11 +1055,12 @@ public class ManagerOrder {
         else if (g.user.level >= 20) addNewOrders(1, 1, null, placeNumber,true);
     }
 
-    public function sellOrder(or:OrderItemStructure, lastActive:int,  f:Function):void {
-        _lastActiveCatId = lastActive;
+    public function sellOrder(or:OrderItemStructure, f:Function):void {
+//        _lastActiveCatId = lastActive;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == or.dbId) {
                 g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat, true);
+                _lastActiveCatId = _arrOrders[i].cat.dataCatId;
                 _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;

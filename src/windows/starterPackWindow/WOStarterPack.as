@@ -35,6 +35,8 @@ public class WOStarterPack extends WindowMain{
     private var _txtName:CTextField;
     private var _btnBuy:CButton;
     private var _txtLastCost:CTextField;
+    private var _txtOldCost:CTextField;
+    private var _txtValue:CTextField;
     private var _txtNewCost:CTextField;
     private var _txtlabel:CTextField;
     private var _imLabel:Image;
@@ -146,47 +148,54 @@ public class WOStarterPack extends WindowMain{
         im.x = 85;
         im.y = -65;
 
-        txt = new CTextField(200,100,String(_data.old_cost));
-        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        txt.x = -270;
-        txt.y = 47;
-        _source.addChild(txt);
-        var myPattern:RegExp = /count/;
-        var str:String =  String(g.managerLanguage.allTexts[1242]);
+
+//        var myPattern:RegExp = /count/;
+//        var str:String =  String(g.managerLanguage.allTexts[1242]);
         var st:String;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = ' USD';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = ' ОК';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' ВК';
         _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
-        _txtLastCost.text = String(str.replace(myPattern, st));
+//        _txtLastCost.text = String(str.replace(myPattern, st));
         _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtLastCost.alignH = Align.LEFT;
-        _txtLastCost.x = -215;
+        _txtLastCost.x = -230;
         _txtLastCost.y = 50;
         _source.addChild(_txtLastCost);
 
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            st = ' ' + String(g.managerLanguage.allTexts[328]);
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            st = ' ' + String(g.managerLanguage.allTexts[330]);
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
-            st = ' USD';
-        }
+        _txtOldCost = new CTextField(200,100,String(_data.old_cost) + st);
+        _txtOldCost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtOldCost.alignH = Align.LEFT;
+        _txtOldCost.x = _txtLastCost.x + _txtLastCost.textBounds.width;
+        _txtOldCost.y = 47;
+        _source.addChild(_txtOldCost);
 
-        txt = new CTextField(200,100,String(_data.new_cost) + st);
-        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
-        txt.x = -153;
-        txt.y = 87;
-        _source.addChild(txt);
+        _txtValue = new CTextField(250,100,String(' ' +g.managerLanguage.allTexts[1293]));
+        _txtValue.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtValue.alignH = Align.LEFT;
+        _txtValue.x = _txtOldCost.x + _txtOldCost.textBounds.width;
+        _txtValue.y = 50;
+        _source.addChild(_txtValue);
+
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = ' ' + String(g.managerLanguage.allTexts[328]);
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' ' + String(g.managerLanguage.allTexts[330]);
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) st = ' USD';
 
         _txtNewCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1243]));
         _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txtNewCost.x = -298;
+        _txtNewCost.alignH = Align.LEFT;
+        _txtNewCost.x = -228;
         _txtNewCost.y = 90;
         _source.addChild(_txtNewCost);
 
-        var quad:Quad = new Quad(_txtLastCost.textBounds.width, 3, Color.RED);
-        quad.x = -215;
+        txt = new CTextField(200,100,String(_data.new_cost) + st);
+        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
+        txt.alignH = Align.LEFT;
+        txt.x = _txtNewCost.x + _txtNewCost.textBounds.width;
+        txt.y = 87;
+        _source.addChild(txt);
+        var quad:Quad = new Quad(_txtLastCost.textBounds.width + _txtOldCost.textBounds.width + _txtValue.textBounds.width, 3, Color.RED);
+        quad.x = -230;
         quad.y = 103;
         quad.alpha = .6;
         _source.addChild(quad);

@@ -514,8 +514,14 @@ public class WONoResources extends WindowMain {
         _paramData.dataNyashuk.visible = false;
         g.userInventory.addResource(_paramData.data.id,-_countCost );
         g.server.updateUserPapperBuy(_paramData.dataNyashuk.buyerId,0,0,0,0,0,0);
-        if (_paramData.dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(600);
-        else  g.userTimer.buyerNyashukRed(1200);
+        if (_paramData.dataNyashuk.buyerId == 1) {
+            if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600);
+            else g.userTimer.buyerNyashukBlue(g.managerOrder.delayBeforeNextOrder);
+        }
+        else {
+            if (g.user.level >= 14) g.userTimer.buyerNyashukRed(600);
+            else g.userTimer.buyerNyashukRed(g.managerOrder.delayBeforeNextOrder);
+        }
         g.managerBuyerNyashuk.onReleaseOrder(_params[2] as BuyerNyashuk, false);
         g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);
         super.hideIt();

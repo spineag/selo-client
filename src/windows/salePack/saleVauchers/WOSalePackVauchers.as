@@ -49,6 +49,8 @@ public class WOSalePackVauchers  extends WindowMain{
     private var _txtBtn:CTextField;
     private var _txtProfit:CTextField;
     private var _txtNewCost:CTextField;
+    private var _txtOldCost:CTextField;
+    private var _txtValue:CTextField;
     private var _sprItem:Sprite;
     private var _imPercent:Image;
     private var _btnBuy:CButton;
@@ -98,28 +100,33 @@ public class WOSalePackVauchers  extends WindowMain{
         _source.addChild(_txtTimeLeft);
         var _txt:CTextField;
 
-        _txt = new CTextField(200,100,String(g.managerSalePack.dataSale.oldCost));
-        _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txt.x = -61;
-        _txt.y = 20;
-        _source.addChild(_txt);
-
-        var myPattern:RegExp = /count/;
-        var str:String =  String(g.managerLanguage.allTexts[1242]);
         var st:String;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'USD';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = 'ОК';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = 'ВК';
         _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
-        _txtLastCost.text = String(str.replace(myPattern, st));
         _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtLastCost.alignH = Align.LEFT;
-        _txtLastCost.x = -5;
+        _txtLastCost.x = -15;
         _txtLastCost.y = 23;
         _source.addChild(_txtLastCost);
 
-        var quad:Quad = new Quad(_txtLastCost.textBounds.width, 3, Color.RED);
-        quad.x = -6;
+        _txtOldCost = new CTextField(200,100, String(g.managerSalePack.dataSale.oldCost) + st);
+        _txtOldCost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtOldCost.alignH = Align.LEFT;
+        _txtOldCost.x = _txtLastCost.x + _txtLastCost.textBounds.width;
+        _txtOldCost.y = 20;
+        _source.addChild(_txtOldCost);
+
+        _txtValue = new CTextField(250,100,String(g.managerLanguage.allTexts[1293]));
+        _txtValue.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtValue.alignH = Align.LEFT;
+        _txtValue.x = _txtOldCost.x + _txtOldCost.textBounds.width;
+        _txtValue.y = 23;
+        _source.addChild(_txtValue);
+
+        var quad:Quad = new Quad(_txtLastCost.textBounds.width + _txtOldCost.textBounds.width + _txtValue.textBounds.width, 3, Color.RED);
+        quad.x = -16;
         quad.y = 77;
         quad.alpha = .6;
         _source.addChild(quad);
@@ -137,17 +144,19 @@ public class WOSalePackVauchers  extends WindowMain{
             st = ' USD';
         }
 
-        _txt = new CTextField(200,100,String(g.managerSalePack.dataSale.newCost) + st);
-        _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
-        _txt.x = 45;
-        _txt.y = 58;
-        _source.addChild(_txt);
-
         _txtNewCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1243]));
         _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txtNewCost.x = -90;
+        _txtNewCost.alignH = Align.LEFT;
+        _txtNewCost.x = -20;
         _txtNewCost.y = 60;
         _source.addChild(_txtNewCost);
+
+        _txt = new CTextField(200,100, String(g.managerSalePack.dataSale.newCost) + st);
+        _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
+        _txt.alignH = Align.LEFT;
+        _txt.x = _txtNewCost.x + _txtNewCost.textBounds.width;
+        _txt.y = 58;
+        _source.addChild(_txt);
 
         _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.dataSale.profit) + '%');
         _txtProfit.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);

@@ -233,8 +233,14 @@ public class WOLastResource extends WindowMain {
         _dataResource.visible = false;
         g.userInventory.addResource(_dataResource.resourceId,-_dataResource.resourceCount);
         g.server.updateUserPapperBuy(_dataResource.buyerId,0,0,0,0,0,0);
-        if (_dataResource.buyerId == 1) g.userTimer.buyerNyashukBlue(600);
-        else  g.userTimer.buyerNyashukRed(1800);
+        if (_dataResource.buyerId == 1) {
+            if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600);
+            else g.userTimer.buyerNyashukBlue(g.managerOrder.delayBeforeNextOrder);
+        }
+        else {
+            if (g.user.level >= 14) g.userTimer.buyerNyashukRed(600);
+            else g.userTimer.buyerNyashukRed(g.managerOrder.delayBeforeNextOrder);
+        }
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
         super.hideIt();
     }
