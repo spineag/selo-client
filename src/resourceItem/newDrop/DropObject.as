@@ -49,10 +49,8 @@ public class DropObject {
                 d = new DropXPObject();
                 if (c>0) {
                     c--;
-                    trace(cd+1);
                     d.fillIt(cd + 1, p);
                 } else {
-                    trace(cd);
                     d.fillIt(cd, p);
                 }
                 _arrDrops.push(d);
