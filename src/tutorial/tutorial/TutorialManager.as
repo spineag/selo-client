@@ -965,9 +965,9 @@ public class TutorialManager extends IManagerTutorial{
         g.cont.moveCenterToPos((_tutorialObjects[0] as BuyerNyashuk).posX, (_tutorialObjects[0] as BuyerNyashuk).posY, false, 1);
         if (!_cat) {
             _cat = g.managerCats.getFreeCatDecor();
-            g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as BuyerNyashuk).posX - 1, (_tutorialObjects[0] as BuyerNyashuk).posY + 1), subStep18_2);
+            g.managerCats.goCatToPoint(_cat, new Point(24, 27), subStep18_2);
             if (_cat.isOnMap) _cat.addToMap();
-        } else g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as BuyerNyashuk).posX - 2, (_tutorialObjects[0] as BuyerNyashuk).posY + 1), subStep18_2);
+        } else g.managerCats.goCatToPoint(_cat, new Point(24, 27), subStep18_2);
     }
 
     private function subStep18_2():void {

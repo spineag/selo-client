@@ -67,7 +67,6 @@ public class PostOpenTrain extends WindowMain {
     }
 
     override public function hideIt():void {
-        g.managerCats.jumpCatsFunny();
         super.hideIt();
     }
 

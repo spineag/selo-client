@@ -205,10 +205,12 @@ public class WOBuyerNyashuk extends WindowMain{
         if (_data.buyerId == 1) {
             if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600);
             else g.userTimer.buyerNyashukBlue(g.managerOrder.delayBeforeNextOrder);
+            if (g.user.level == 3) g.userTimer.buyerNyashukBlue(60);
         }
         else {
             if (g.user.level >= 14) g.userTimer.buyerNyashukRed(600);
             else g.userTimer.buyerNyashukRed(g.managerOrder.delayBeforeNextOrder);
+            if (g.user.level == 3) g.userTimer.buyerNyashukRed(60);
         }
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
         g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);
@@ -221,10 +223,12 @@ public class WOBuyerNyashuk extends WindowMain{
         if (_data.buyerId == 1) {
             if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600);
             else g.userTimer.buyerNyashukBlue(g.managerOrder.delayBeforeNextOrder);
+            if (g.user.level == 3) g.userTimer.buyerNyashukBlue(60);
         }
         else {
             if (g.user.level >= 14) g.userTimer.buyerNyashukRed(600);
             else g.userTimer.buyerNyashukRed(g.managerOrder.delayBeforeNextOrder);
+            if (g.user.level == 3) g.userTimer.buyerNyashukRed(60);
         }
         _data.timeToNext = TimeUtils.currentSeconds;
         g.server.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);

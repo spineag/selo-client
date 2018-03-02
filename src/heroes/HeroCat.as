@@ -393,18 +393,15 @@ public class HeroCat extends BasicCat{
     private function onArrivedCatToRidgePoint():void {
         var onFinishWork:Function = function():void {
             _isRandomWork = false;
-            if (Math.random() > .7) workWithPlant(onFinishWork);
-            else {
-                if (_type == MAN) {
-                    g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
-                    (activeRandomWorkBuild as Ridge).catOnAnimation = false;
-                }
-                else {
-                    g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
-                    (activeRandomWorkBuild as Ridge).catOnAnimation = false;
-                }
-                removeWorker();
+            if (_type == MAN) {
+                g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+                (activeRandomWorkBuild as Ridge).catOnAnimation = false;
             }
+            else {
+                g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
+                (activeRandomWorkBuild as Ridge).catOnAnimation = false;
+            }
+            removeWorker();
         };
         if ((activeRandomWorkBuild as Ridge).plant)
             workWithPlant(onFinishWork);
