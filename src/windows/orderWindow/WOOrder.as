@@ -510,7 +510,8 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         var f:Function = function ():void {
             hideIt();
             for (i = 0; i < _arrOrders.length; i++) {
-                if (!_arrOrders[i].cat) {
+                if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
+                    trace('lol');
                     g.managerOrder.checkCatId();
                     _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                     break;

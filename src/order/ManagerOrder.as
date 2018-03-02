@@ -1071,7 +1071,7 @@ public class ManagerOrder {
         or = null;
         addNewOrders(1, 0, f, pl);
         for (i = 0; i < _arrOrders.length; i++) {
-            if (!_arrOrders[i].cat) {
+            if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
 //                checkCatId();
                 _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 break;

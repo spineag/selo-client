@@ -5,10 +5,14 @@ package build.orders {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 
+import dragonBones.Armature;
+
 import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
@@ -32,7 +36,7 @@ public class Order extends WorldObject{
     private var _boomOpen:Image;
     private var _topOpen:Image;
     private var _hintCheck:Bone;
-
+    private var _armatureOpen:Armature;
 
     public function Order (data:Object) {
         super (data);
@@ -213,6 +217,7 @@ public class Order extends WorldObject{
         _armature.addEventListener(EventObject.COMPLETE, fEndOver);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
         _armature.animation.gotoAndPlayByFrame('open');
+        showBoom();
     }
     
     private function showBtnCellArrow():void {
@@ -238,6 +243,25 @@ public class Order extends WorldObject{
         if (k < .9) _armature.animation.gotoAndPlayByFrame('idle');
         else if (k < .95) _armature.animation.gotoAndPlayByFrame('idle1');
         else _armature.animation.gotoAndPlayByFrame('idle2');
+    }
+
+    private function showBoom():void {
+        _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        if (!_armatureOpen) return;
+        (_armatureOpen.display as Sprite).scaleX = (_armatureOpen.display as StarlingArmatureDisplay).scaleY = 1.5;
+        _source.addChild(_armatureOpen.display as Sprite);
+        WorldClock.clock.add(_armatureOpen);
+        _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlayByFrame("start");
+    }
+
+    private function onBoom(e:Event=null):void {
+        if (_armatureOpen.hasEventListener(EventObject.COMPLETE)) _armatureOpen.removeEventListener(EventObject.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        WorldClock.clock.remove(_armatureOpen);
+        _source.removeChild(_armatureOpen.display as Sprite);
+        _armatureOpen = null;
     }
 }
 }
