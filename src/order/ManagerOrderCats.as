@@ -47,6 +47,8 @@ public class ManagerOrderCats {
                 arr[r].cat = cat;
                 cat.idleFrontAnimation();
                 r++;
+            } else {
+                cat = new OrderCat(arr[i].catOb, true, arr[i].startTime - TimeUtils.currentSeconds, arr[i].placeNumber);
             }
         }
     }
@@ -85,11 +87,13 @@ public class ManagerOrderCats {
 //                }
 //            }
 //            if (_arrCats[i].queuePosition > pos && !b) {
+            if (_arrCats[i].queuePosition > pos) {
                 if (_arrCats[i].walkPosition == OrderCat.STAY_IN_QUEUE) {
-                    _arrCats[i].setPositionInQueue(_arrCats[i].queuePosition-1);
+                    _arrCats[i].setPositionInQueue(_arrCats[i].queuePosition - 1);
                     moveQueue(_arrCats[i]);
                 }
 //            } else b = false;
+            }
         }
 
         // cat go away

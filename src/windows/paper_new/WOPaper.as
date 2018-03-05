@@ -75,7 +75,7 @@ public class WOPaper extends WindowMain {
         _txtTimer = new CTextField(85, 30, '');
         _txtTimer.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _txtTimer.x = -_woWidth/2 + 395;
-        if (_isBigWO) _txtTimer.y = -_woHeight/2 + 588;  _txtTimer.y = -_woHeight/2 + 493;
+        if (_isBigWO) _txtTimer.y = -_woHeight/2 + 588; else _txtTimer.y = -_woHeight/2 + 493;
         _ims.addChild(_txtTimer);
         _btnRefresh = new CButton();
         _btnRefresh.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);

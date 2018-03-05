@@ -71,6 +71,7 @@ public class TableNyashuk {
         }
 
     private function onClick():void {
+        if (g.isAway) return;
         g.soundManager.playSound(SoundConst.EMPTY_CLICK);
         var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
         p.y -= 50;

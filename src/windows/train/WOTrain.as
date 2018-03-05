@@ -159,7 +159,7 @@ public class WOTrain extends WindowMain {
         _btnLoad = new CButton();
         _btnLoad.addButtonTexture(90, CButton.HEIGHT_32, CButton.GREEN, true);
         _btnLoad.x = -_woWidth / 2 + 736;
-        if (_isBigWO) _btnLoad.y = -_woHeight / 2 + 405; _btnLoad.y = -_woHeight/2 + 340;
+        if (_isBigWO) _btnLoad.y = -_woHeight / 2 + 405; else _btnLoad.y = -_woHeight/2 + 340;
         _btnLoad.addTextField(90, 30, 0, 0, g.managerLanguage.allTexts[294]);
         _btnLoad.setTextFormat(CTextField.BOLD24, 21, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnLoad.clickCallback = onResourceLoad;
@@ -174,7 +174,7 @@ public class WOTrain extends WindowMain {
         _btnHelp.addTextField(180, 34, 47, 0, g.managerLanguage.allTexts[301]);
         _btnHelp.setTextFormat(CTextField.BOLD24, 21, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnHelp.x = -_woWidth/2 + 803;
-        if (_isBigWO) _btnHelp.y = -_woHeight/2 + 463;  _btnHelp.y = -_woHeight/2 + 400;
+        if (_isBigWO) _btnHelp.y = -_woHeight/2 + 463; else _btnHelp.y = -_woHeight/2 + 400;
         _source.addChild(_btnHelp);
         _btnHelp.clickCallback = wantHelpClick;
 
@@ -204,7 +204,7 @@ public class WOTrain extends WindowMain {
         MCScaler.scale(im, 36, 36);
         _sensXP.imageAndText(im, t, 110, 2);
         _sensXP.x = -_woWidth / 2 + 660;
-        if (_isBigWO) _sensXP.y = -_woHeight / 2 + 554;  _sensXP.y = -_woHeight/2 + 485;
+        if (_isBigWO) _sensXP.y = -_woHeight / 2 + 554; else _sensXP.y = -_woHeight/2 + 485;
         _source.addChild(_sensXP);
         _sensMoney = new SensibleBlock();
         t = new CTextField(60, 30, '8888');

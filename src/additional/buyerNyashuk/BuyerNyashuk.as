@@ -150,6 +150,7 @@ public class BuyerNyashuk {
     }
 
     private function onClick():void {
+        if (g.isAway) return;
         if (g.tuts.isTuts && g.tuts.action == TutsAction.NYASHIK)  {
             g.tuts.checkTutsCallback();
             g.windowsManager.openWindow(WindowsManager.WO_TUTORIAL_NYASHUK, null, _buyerId, _data, this);

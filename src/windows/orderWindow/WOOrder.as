@@ -458,14 +458,23 @@ public class WOOrder extends WindowMain {
         }
 
         var p1:Point = new Point(134, 147);
-        p1 = _source.localToGlobal(p1);
+        if (!b)p1 = _source.localToGlobal(p1);
+        else {
+            p1.x = g.managerResize.stageWidth/2;
+            p1.y = g.managerResize.stageHeight/2;
+        }
         var d:DropObject = new DropObject();
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
             d.addDropXP(or.xp * g.managerParty.coefficient, p1);
         else d.addDropXP(or.xp, p1);
         p1.x = 186;
         p1.y = 147;
-        p1 = _source.localToGlobal(p1);
+        if (!b)p1 = _source.localToGlobal(p1);
+        else {
+            p1.x = g.managerResize.stageWidth/2;
+            p1.y = g.managerResize.stageHeight/2;
+        }
+//        p1 = _source.localToGlobal(p1);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
             d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins * g.managerParty.coefficient, p1);
         else d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins, p1);

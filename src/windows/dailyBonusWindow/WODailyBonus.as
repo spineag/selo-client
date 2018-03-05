@@ -97,8 +97,14 @@ public class WODailyBonus extends WindowMain {
                  break;
             case 'qui/wheels_of_fortune_flag_l.png':
                 im = new Image(tex);
-                im.x = -272;
-                im.y = -191;
+                    if (_isBigWO) {
+                        im.x = -272;
+                        im.y = -242;
+                    } else {
+                        im.x = -272;
+                        im.y = -191;
+
+                    }
                 im.touchable = false;
                 _source.addChild(im);
                 _namePng = 'qui/wheels_of_fortune_flag_r.png';
@@ -106,8 +112,14 @@ public class WODailyBonus extends WindowMain {
                 break;
             case 'qui/wheels_of_fortune_flag_r.png':
                 im = new Image(tex);
-                im.x = 90;
-                im.y = -191;
+                if (_isBigWO) {
+                    im.x = 90;
+                    im.y = -242;
+                } else {
+                    im.x = 90;
+                    im.y = -191;
+
+                }
                 im.touchable = false;
                 _source.addChild(im);
                 _namePng = 'qui/wheels_of_fortune_disk.png';

@@ -62,31 +62,47 @@ public class OrderCat {
     private var _callbackHi:Function;
     private var _catData:Object;
     private var _rect:Rectangle;
+    private var _timerForNewCat:int;
+    private var _position:int;
 
     private var _isWoman:Boolean;
     protected var g:Vars = Vars.getInstance();
 
-    public function OrderCat(ob:Object) {
-        _posX = _posY = -1;
-        _catData = ob;
-        _source = new TownAreaBuildSprite();
-        _source.isTouchable = false;
-        _catImage = new Sprite();
-        _catBackImage = new Sprite();
-        armature = g.allData.factory['cat_queue'].buildArmature("cat");
-        armatureBack = g.allData.factory['cat_queue'].buildArmature("cat_back");
-        _catImage.addChild(armature.display as StarlingArmatureDisplay);
-        _catBackImage.addChild(armatureBack.display as StarlingArmatureDisplay);
-        WorldClock.clock.add(armature);
-        WorldClock.clock.add(armatureBack);
-        bant = 0;
-        changeCatTexture();
-        _source.addChild(_catImage);
-        _source.addChild(_catBackImage);
-        showFront(true);
-        _rect = _source.getBounds(_source);
+    public function OrderCat(ob:Object, del:Boolean = false, timeToNew:int = 0, position:int = 0) {
+        if (del) {
+            _timerForNewCat = timeToNew;
+            _position = position;
+            g.gameDispatcher.addToTimer(delTimer);
+        } else {
+            _posX = _posY = -1;
+            _catData = ob;
+            _source = new TownAreaBuildSprite();
+            _source.isTouchable = false;
+            _catImage = new Sprite();
+            _catBackImage = new Sprite();
+            armature = g.allData.factory['cat_queue'].buildArmature("cat");
+            armatureBack = g.allData.factory['cat_queue'].buildArmature("cat_back");
+            _catImage.addChild(armature.display as StarlingArmatureDisplay);
+            _catBackImage.addChild(armatureBack.display as StarlingArmatureDisplay);
+            WorldClock.clock.add(armature);
+            WorldClock.clock.add(armatureBack);
+            bant = 0;
+            changeCatTexture();
+            _source.addChild(_catImage);
+            _source.addChild(_catBackImage);
+            showFront(true);
+            _rect = _source.getBounds(_source);
+            addShadow();
+        }
+    }
 
-        addShadow();
+    private function delTimer():void {
+        _timerForNewCat --;
+        if (_timerForNewCat <= 16) {
+            _timerForNewCat = 0;
+            g.gameDispatcher.removeFromTimer(delTimer);
+            g.userTimer.newCatOrder(_position);
+        }
     }
 
     public function get rect():Rectangle { return _rect; }
