@@ -25,6 +25,8 @@ import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
 
+import media.SoundConst;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
@@ -157,6 +159,7 @@ public class BuyerNyashuk {
         } else {
             g.windowsManager.openWindow(WindowsManager.WO_BUYER_NYASHUK, null, _buyerId, _data, this);
         }
+        g.soundManager.playSound(SoundConst.NYASHUK_CLICK);
     }
 
     public function get id():int { return _buyerId; }

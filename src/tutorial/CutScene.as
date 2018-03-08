@@ -38,18 +38,15 @@ public class CutScene {
         else _isBigShop = true;
 //        _isBigShop = false;////AHTUNG
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
-       if (_isBigShop) {
-            (_armature.display as StarlingArmatureDisplay).x = 430;
-            (_armature.display as StarlingArmatureDisplay).y = -115;
-       } else {
-
-           (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2 -100;
-           (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/2;
-       }
         (_armature.display as StarlingArmatureDisplay).pivotX = (_armature.display as StarlingArmatureDisplay).width/2;
         (_armature.display as StarlingArmatureDisplay).pivotY = (_armature.display as StarlingArmatureDisplay).height/2;
-        (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2;
-        (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/3;
+       if (_isBigShop) {
+           (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2;
+           (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/3;
+       } else {
+           (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2;
+//           (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/2;
+       }
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         onResize();
     }
@@ -84,6 +81,9 @@ public class CutScene {
 //            _sourceBubble.x = 420;
 //            _sourceBubble.y = -420;
 //        }
+
+        g.soundManager.setTalk = true;
+        g.soundManager.playTalk();
         _sourceBubble.x = (_armature.display as StarlingArmatureDisplay).x - (_armature.display as StarlingArmatureDisplay).width/3;
         _sourceBubble.y = -g.managerResize.stageHeight/2;
 //        } catch (e:Error) {
@@ -107,6 +107,7 @@ public class CutScene {
             _bubble.hideBubble(f, f2);
             _bubble = null;
         }
+        g.soundManager.setTalk = false;
         TweenMax.to(_source, .3, {x:_xStart});
 
     }

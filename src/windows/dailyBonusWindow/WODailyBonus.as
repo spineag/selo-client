@@ -59,7 +59,7 @@ public class WODailyBonus extends WindowMain {
             _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[1206]));
             _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
             _txtName.x = -230;
-            _txtName.y = -315;
+            _txtName.y = -320;
         } else {
             _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[1206]));
             _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);

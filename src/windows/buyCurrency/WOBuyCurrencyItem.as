@@ -8,6 +8,7 @@ import data.DataMoney;
 import flash.display.StageDisplayState;
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
 import manager.Vars;
 import resourceItem.newDrop.DropObject;
 import social.SocialNetworkEvent;
@@ -18,6 +19,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
+import utils.MCScaler;
 
 public class WOBuyCurrencyItem {
     public var source:Sprite;
@@ -56,57 +58,23 @@ public class WOBuyCurrencyItem {
         if (sale > 0 && g.userTimer.stockTimerToEnd > 0) _txtCount.text = String(count - sale);
         _txtCount.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         source.addChild(_txtCount);
-//        var txt:CTextField;
-//        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) {
-//            txt = new CTextField(135, 52, '+ ' + String(sale));
-//            txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.RED_COLOR);
-//            txt.alignH = Align.LEFT;
-//            txt.x = 70 + _txtCount.textBounds.width + 5;
-//            txt.y = 4;
-//            source.addChild(txt);
-//            _arrCTex.push(txt);
-//        }
+        if (bonus[0] > 0) {
+            if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_purple_rus'));
+            else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_purple_eng'));
+            im.x = 160;
+            MCScaler.scale(im,im.height/1.4, im.width/1.4);
+            im.y = -8;
+            source.addChild(im);
+        }
 
-//        _action = new Sprite();
-//        var im:Image;
-//        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) {
-//            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale_icon'));
-//            _action.addChild(im);
-//            txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[454]));
-//            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PINK_COLOR);
-//            txt.y = 12;
-//            _action.addChild(txt);
-//            _arrCTex.push(txt);
-//            source.addChild(_action);
-//            _action.x = 350;
-//        } else {
-//            if (bonus[0] == 1) {
-//                if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
-//                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_eng'));
-//                im.x = 280;
-//                source.addChild(im);
-//            } else if (bonus[0] == 2) {
-//                if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
-//                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_eng'));
-//                im.x = 280;
-//                source.addChild(im);
-//            }
-//            if (bonus[1] > 0) {
-//                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bonus'));
-//                _action.addChild(im);
-//                txt = new CTextField(60, 30, bonus[1] + '%');
-//                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-//                txt.y = 5;
-//                _action.addChild(txt);
-//                txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[354]));
-//                txt.y = 20;
-//                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-//                _arrCTex.push(txt);
-//                _action.addChild(txt);
-//                source.addChild(_action);
-//                _action.x = 350;
-//            }
-//        }
+        if (bonus[1] > 0) {
+            if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_red_eng'));
+            else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_red_rus'));
+            im.x = 160;
+            MCScaler.scale(im,im.height/1.4, im.width/1.4);
+            im.y = -8;
+            source.addChild(im);
+        }
         _btn.clickCallback = onClick;
         addIcon();
     }

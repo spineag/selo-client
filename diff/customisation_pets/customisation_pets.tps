@@ -192,6 +192,8 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>blue_rabbit</filename>
+            <filename>brown_deer</filename>
             <filename>coffe_cat_small</filename>
             <filename>coffee_cat_big</filename>
             <filename>dark_brown_deer</filename>

@@ -96,7 +96,8 @@ public class LevelUpHint {
         _txtText.leading = -1;
 
         if (_data.buildType == BuildType.RIDGE || _data.buildType == BuildType.MARKET || _data.buildType == BuildType.ORDER || _data.buildType == BuildType.PAPER) {
-            _txtName.text = _data.name;
+            if (_data.buildType == BuildType.PAPER) _txtName.text = String(g.managerLanguage.allTexts[1295]);
+            else if (_data.buildType == BuildType.MARKET) _txtName.text = String(g.managerLanguage.allTexts[1294]);
             _txtName.x = -100;
             _txtName.y = 15;
             _txtText.text = String(g.managerLanguage.allTexts[608]);
@@ -136,7 +137,7 @@ public class LevelUpHint {
         }
 
         if (_data.buildType == BuildType.DAILY_BONUS) {
-            _txtName.text = _data.name;
+            _txtName.text = String(g.managerLanguage.allTexts[1296]);
             _txtName.x = -100;
             _txtName.y = 30;
             _txtText.text = String(g.managerLanguage.allTexts[608]);

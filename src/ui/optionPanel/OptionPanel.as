@@ -250,7 +250,7 @@ public class OptionPanel {
                 g.server.updateUserMusic(null);
                 if (g.soundManager.isPlayingMusic) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_on_button"));
-                    g.soundManager.playMusic();
+                    g.soundManager.managerMusic();
                 } else {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("music_off_button"));
                 }

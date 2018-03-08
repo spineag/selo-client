@@ -350,17 +350,18 @@ public class DecorAnimation extends WorldObject{
     private function stopAnimationWithSingleCatOrNone():void {
         if (!_dataBuild) return;
         catRunAnimation(false);
-        if (_armature) {
-            _armature.animation.gotoAndPlayByFrame('idle');
-            _armature.removeEventListener(EventObject.COMPLETE, chooseAnimationWithSingleCatOrNone);
-            _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimationWithSingleCatOrNone);
-        }
         if (_heroCatArray.length) {
             (_heroCatArray[0] as HeroCat).visible = true;
             (_heroCatArray[0] as HeroCat).isFree = true;
             (_heroCatArray[0] as HeroCat).decorAnimation = null;
             _heroCatArray.length = 0;
         }
+        if (_armature) {
+            _armature.animation.gotoAndPlayByFrame('idle');
+            _armature.removeEventListener(EventObject.COMPLETE, chooseAnimationWithSingleCatOrNone);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimationWithSingleCatOrNone);
+        }
+
     }
 
     private function chooseAnimationWithSingleCatOrNoneBefore(e:Event=null):void {
@@ -517,6 +518,10 @@ public class DecorAnimation extends WorldObject{
         changeTexture("legRight", "grey_c_m_worker_r_leg_front", armature);
         changeTexture("tail", "grey_c_m_worker_tail_front", armature);
         changeTexture("handRight copy", "grey_c_m_worker_r_hand_front", armature);
+        if (_armature.getBone('lid_l')) {
+            changeTexture("lid_l", "lid_l", armature);
+            changeTexture("lid_r", "lid_r", armature);
+        }
 //        changeTexture("head", "head",armature);
 //        changeTexture("body", "body",armature);
 //        changeTexture("handLeft", "hand_l",armature);
@@ -527,17 +532,33 @@ public class DecorAnimation extends WorldObject{
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "hand_r",armature);
         }
-        var viyi:Bone;
-        if (armature) viyi = armature.getBone('viyi');
-        else viyi = _armature.getBone('viyi');
-        if (viyi) {
-            viyi.visible = false;
-        }
-        var viyi_0:Bone;
-        if (armature)  viyi_0 = armature.getBone('viyi_0');
-        else viyi_0 = _armature.getBone('viyi_0');
-        if (viyi_0) {
-            viyi_0.visible = false;
+
+        if (_armature.getBone('vii1')) {
+            var viyi1:Bone;
+            if (armature)  viyi1 = armature.getBone('vii1');
+            else viyi1 = _armature.getBone('vii1');
+            if (viyi1) {
+                viyi1.visible = false;
+            }
+            var viyi2:Bone;
+            if (armature)  viyi2 = armature.getBone('vii2');
+            else viyi2 = _armature.getBone('vii2');
+            if (viyi2) {
+                viyi2.visible = false;
+            }
+        } else {
+            var viyi:Bone;
+            if (armature)  viyi = armature.getBone('viyi');
+            else viyi = _armature.getBone('viyi');
+            if (viyi) {
+                viyi.visible = false;
+            }
+            var viyi_0:Bone;
+            if (armature)  viyi_0 = armature.getBone('viyi_0');
+            else viyi_0 = _armature.getBone('viyi_0');
+            if (viyi_0) {
+                viyi_0.visible = false;
+            }
         }
     }
 
@@ -572,7 +593,10 @@ public class DecorAnimation extends WorldObject{
         changeTexture("legRight", "orange_c_w_worker_r_leg_front", armature);
         changeTexture("tail", "orange_c_w_worker_tail_front", armature);
         changeTexture("handRight copy", "orange_c_w_worker_r_hand_front", armature);
-
+        if (_armature.getBone('lid_l')) {
+            changeTexture("lid_l", "lid_l_w", armature);
+            changeTexture("lid_r", "lid_r_w", armature);
+        }
 //        changeTexture("head", "head_w",armature);
 //        changeTexture("body", "body_w",armature);
 //        changeTexture("handLeft", "hand_w_l",armature);
@@ -583,17 +607,32 @@ public class DecorAnimation extends WorldObject{
         if (_dataBuild.id == 10) {
             changeTexture("handRight2", "hand_w_r",armature);
         }
-        var viyi:Bone;
-        if (armature)  viyi = armature.getBone('viyi');
-        else viyi = _armature.getBone('viyi');
+        if (_armature.getBone('vii1')) {
+            var viyi1:Bone;
+            if (armature)  viyi1 = armature.getBone('vii1');
+            else viyi1 = _armature.getBone('vii1');
+            if (viyi1) {
+                viyi1.visible = true;
+            }
+            var viyi2:Bone;
+            if (armature)  viyi2 = armature.getBone('vii2');
+            else viyi2 = _armature.getBone('vii2');
+            if (viyi2) {
+                viyi2.visible = true;
+            }
+        } else {
+            var viyi:Bone;
+            if (armature)  viyi = armature.getBone('viyi');
+            else viyi = _armature.getBone('viyi');
             if (viyi) {
                 viyi.visible = true;
             }
-        var viyi_0:Bone;
-        if (armature)  viyi_0 = armature.getBone('viyi_0');
-        else viyi_0 = _armature.getBone('viyi_0');
-        if (viyi_0) {
-            viyi_0.visible = true;
+            var viyi_0:Bone;
+            if (armature)  viyi_0 = armature.getBone('viyi_0');
+            else viyi_0 = _armature.getBone('viyi_0');
+            if (viyi_0) {
+                viyi_0.visible = true;
+            }
         }
     }
 

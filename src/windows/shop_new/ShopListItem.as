@@ -314,11 +314,17 @@ public class ShopListItem {
 
                     if (maxCount == curCount) {
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
-                            _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
+                            if (g.user.notif.isNewAnimalId(_data.id)) {
+                                addNotification();
+                                _txtInfo.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
+                            } else {
+                                _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
+                                _txtCount.text = String(maxCount) + '/' + String(maxCount);
+
+                            }
 //                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
 //                            _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
-                            _txtCount.text = String(maxCount) + '/' + String(maxCount);
                             _costCount = 0;
                             _isThisItemBlocked = true;
                         } else {
@@ -845,6 +851,7 @@ public class ShopListItem {
                         g.tuts.checkTutsCallback();
                     } else {
                         (arr[i] as Farm).addAnimal();
+                        g.soundManager.checkAnimal();
                         checkState();
                         g.bottomPanel.cancelBoolean(false);
                     }

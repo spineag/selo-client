@@ -1,296 +1,310 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:728042afa6a7ea7fa93219c3e400bba1:7e012f8e1fee56148a8019f35af7a4d6:87d64ae7b3043c3093d120a2e53e2fb6$ -->
-<TextureAtlas imagePath="interfaceAtlas.png" width="1027" height="2045">
-    <SubTexture name="Green_packet_closed" x="365" y="1172" width="134" height="136"/>
-    <SubTexture name="Green_packet_open" x="356" y="1310" width="134" height="106"/>
-    <SubTexture name="Red_packet_closed" x="201" y="1899" width="134" height="136"/>
-    <SubTexture name="Red_packet_open" x="492" y="1314" width="134" height="106"/>
-    <SubTexture name="White_packet_closed" x="464" y="1478" width="134" height="136"/>
-    <SubTexture name="White_packet_open" x="468" y="1750" width="134" height="106"/>
-    <SubTexture name="add_button_light" x="635" y="1990" width="53" height="53"/>
-    <SubTexture name="animated_decor" x="983" y="1212" width="42" height="42" frameX="-1" frameY="-1" frameWidth="44" frameHeight="44"/>
-    <SubTexture name="arrow_friends_left" x="901" y="1160" width="37" height="69"/>
-    <SubTexture name="arrow_icon" x="738" y="1580" width="61" height="62"/>
-    <SubTexture name="ask_button" x="835" y="1245" width="75" height="67"/>
+<!-- $TexturePacker:SmartUpdate:11fd9d028669e205115c375056cf12af:fdd55439cd5b4d2fd236ce8d92f14b4d:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<TextureAtlas imagePath="interfaceAtlas.png" width="2038" height="1063">
+    <SubTexture name="Green_packet_closed" x="1134" y="600" width="134" height="136"/>
+    <SubTexture name="Green_packet_open" x="1628" y="267" width="134" height="106"/>
+    <SubTexture name="Red_packet_closed" x="1415" y="229" width="134" height="136"/>
+    <SubTexture name="Red_packet_open" x="1420" y="367" width="134" height="106"/>
+    <SubTexture name="White_packet_closed" x="1134" y="738" width="134" height="136"/>
+    <SubTexture name="White_packet_open" x="1764" y="267" width="134" height="106"/>
+    <SubTexture name="add_button_light" x="703" y="1008" width="53" height="53"/>
+    <SubTexture name="animated_decor" x="762" y="520" width="42" height="42" frameX="-1" frameY="-1" frameWidth="44" frameHeight="44"/>
+    <SubTexture name="arrow_friends_left" x="1999" y="377" width="37" height="69"/>
+    <SubTexture name="arrow_icon" x="1884" y="714" width="61" height="62"/>
+    <SubTexture name="ask_button" x="574" y="931" width="75" height="67"/>
     <SubTexture name="baloon_1" x="2" y="141" width="385" height="252"/>
     <SubTexture name="baloon_2" x="2" y="395" width="385" height="210"/>
     <SubTexture name="baloon_3" x="2" y="607" width="385" height="157"/>
-    <SubTexture name="bank_coins_1" x="188" y="1514" width="163" height="111"/>
-    <SubTexture name="bank_coins_2" x="188" y="1364" width="151" height="148"/>
-    <SubTexture name="bank_coins_3" x="636" y="589" width="189" height="147"/>
-    <SubTexture name="bank_coins_4" x="627" y="361" width="168" height="159"/>
-    <SubTexture name="bank_coins_5" x="2" y="1583" width="179" height="174"/>
-    <SubTexture name="bank_coins_6" x="737" y="2" width="211" height="172"/>
+    <SubTexture name="bank_coins_1" x="1109" y="188" width="163" height="111"/>
+    <SubTexture name="bank_coins_2" x="981" y="630" width="151" height="148"/>
+    <SubTexture name="bank_coins_3" x="737" y="130" width="189" height="147"/>
+    <SubTexture name="bank_coins_4" x="806" y="520" width="168" height="159"/>
+    <SubTexture name="bank_coins_5" x="928" y="130" width="179" height="174"/>
+    <SubTexture name="bank_coins_6" x="418" y="757" width="211" height="172"/>
     <SubTexture name="bank_panel_cell" x="389" y="361" width="236" height="239"/>
-    <SubTexture name="bank_panel_tab_big" x="389" y="757" width="361" height="65"/>
-    <SubTexture name="bank_panel_tab_small" x="378" y="824" width="372" height="59"/>
-    <SubTexture name="bank_rubins_1" x="183" y="1627" width="173" height="109"/>
-    <SubTexture name="bank_rubins_2" x="177" y="1172" width="186" height="126"/>
-    <SubTexture name="bank_rubins_3" x="797" y="348" width="147" height="157"/>
-    <SubTexture name="bank_rubins_4" x="2" y="1759" width="176" height="163"/>
-    <SubTexture name="bank_rubins_5" x="2" y="1924" width="197" height="119"/>
-    <SubTexture name="bank_rubins_6" x="735" y="176" width="191" height="170"/>
-    <SubTexture name="basket_big" x="468" y="1616" width="122" height="132" frameX="-5" frameY="-6" frameWidth="134" frameHeight="142"/>
-    <SubTexture name="basket_send" x="665" y="1451" width="78" height="86"/>
-    <SubTexture name="blue_button" x="754" y="1401" width="83" height="44"/>
-    <SubTexture name="blue_button_b_C" x="889" y="1538" width="23" height="69"/>
-    <SubTexture name="blue_button_b_L" x="673" y="1850" width="23" height="69"/>
-    <SubTexture name="blue_button_m_C" x="811" y="1834" width="23" height="53"/>
-    <SubTexture name="blue_button_m_L" x="886" y="1646" width="23" height="53"/>
-    <SubTexture name="blue_button_s_C" x="928" y="308" width="16" height="36"/>
-    <SubTexture name="blue_button_s_L" x="612" y="1024" width="16" height="36"/>
-    <SubTexture name="blue_cell_big_white_2" x="454" y="1858" width="154" height="64"/>
-    <SubTexture name="blue_coupone" x="950" y="2" width="75" height="100" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="bonus" x="948" y="677" width="62" height="59"/>
-    <SubTexture name="bt_close" x="972" y="1337" width="53" height="53"/>
-    <SubTexture name="build_window_down" x="743" y="2015" width="40" height="27"/>
-    <SubTexture name="build_window_down_left" x="977" y="1392" width="48" height="48"/>
-    <SubTexture name="build_window_down_right" x="927" y="1465" width="50" height="48"/>
-    <SubTexture name="build_window_left" x="905" y="1921" width="27" height="40"/>
-    <SubTexture name="build_window_right" x="888" y="2003" width="32" height="40"/>
-    <SubTexture name="build_window_top" x="911" y="1717" width="40" height="26"/>
-    <SubTexture name="build_window_top_left" x="807" y="1698" width="49" height="48"/>
-    <SubTexture name="build_window_top_right" x="807" y="1748" width="50" height="48"/>
-    <SubTexture name="button_blue" x="358" y="1625" width="108" height="108"/>
-    <SubTexture name="button_yel_left" x="614" y="1596" width="48" height="98"/>
-    <SubTexture name="c_part_b_hint" x="1023" y="1256" width="2" height="79"/>
-    <SubTexture name="c_part_s_hint" x="734" y="1612" width="2" height="64"/>
-    <SubTexture name="cat_blue" x="868" y="738" width="65" height="146" frameX="-5" frameY="-3" frameWidth="73" frameHeight="155"/>
-    <SubTexture name="cat_icon" x="805" y="1960" width="37" height="50"/>
-    <SubTexture name="cat_shadow" x="265" y="969" width="91" height="53"/>
-    <SubTexture name="cencel_icon" x="955" y="464" width="70" height="71"/>
-    <SubTexture name="center_bottom_s_hint" x="184" y="1364" width="2" height="30"/>
-    <SubTexture name="center_hint" x="978" y="1875" width="10" height="10"/>
-    <SubTexture name="center_part_bottom_b_hint" x="823" y="1602" width="51" height="42" frameX="0" frameY="0" frameWidth="51" frameHeight="51"/>
-    <SubTexture name="center_part_bottom_m_hint" x="805" y="2012" width="40" height="31" frameX="0" frameY="0" frameWidth="40" frameHeight="40"/>
-    <SubTexture name="center_part_bottom_s_hint" x="922" y="2018" width="34" height="23" frameX="0" frameY="0" frameWidth="34" frameHeight="32"/>
-    <SubTexture name="center_part_top_b_hint" x="858" y="1701" width="51" height="42" frameX="0" frameY="-9" frameWidth="51" frameHeight="51"/>
-    <SubTexture name="center_part_top_m_hint" x="905" y="1745" width="40" height="31" frameX="0" frameY="-9" frameWidth="40" frameHeight="40"/>
-    <SubTexture name="center_part_top_s_hint" x="924" y="1515" width="34" height="23" frameX="0" frameY="-9" frameWidth="34" frameHeight="32"/>
-    <SubTexture name="center_right_s_hint" x="450" y="1418" width="30" height="2"/>
-    <SubTexture name="center_top_s_hint" x="183" y="1583" width="2" height="30"/>
-    <SubTexture name="clock" x="940" y="1158" width="52" height="52"/>
-    <SubTexture name="clock_1" x="844" y="1963" width="39" height="39"/>
-    <SubTexture name="clock_2" x="876" y="1602" width="11" height="5"/>
-    <SubTexture name="clock_3" x="1015" y="1302" width="6" height="10"/>
-    <SubTexture name="coins" x="661" y="885" width="92" height="90" frameX="-3" frameY="-5" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="coins_market" x="341" y="1418" width="107" height="94"/>
-    <SubTexture name="coins_medium" x="864" y="1791" width="40" height="40"/>
-    <SubTexture name="coins_small" x="906" y="1888" width="30" height="30"/>
-    <SubTexture name="corner_right_bottom_s_hint" x="938" y="1888" width="30" height="30"/>
-    <SubTexture name="corner_right_top_s_hint" x="958" y="2013" width="30" height="30"/>
-    <SubTexture name="coupons_icon" x="832" y="507" width="121" height="107"/>
-    <SubTexture name="currency_buy_window" x="177" y="993" width="86" height="177" frameX="-10" frameY="0" frameWidth="107" frameHeight="177"/>
-    <SubTexture name="cursor_basket" x="839" y="1399" width="65" height="57"/>
-    <SubTexture name="cursor_circle_pt_1" x="737" y="1313" width="86" height="86"/>
-    <SubTexture name="cursor_circle_pt_2" x="614" y="1696" width="46" height="49"/>
-    <SubTexture name="cursor_clock" x="664" y="1612" width="68" height="68"/>
-    <SubTexture name="cursor_fertilizer" x="983" y="1256" width="38" height="44" frameX="-1" frameY="0" frameWidth="41" frameHeight="45"/>
-    <SubTexture name="cursor_sickle" x="927" y="1398" width="48" height="65"/>
-    <SubTexture name="decor_cell" x="805" y="1646" width="50" height="50"/>
-    <SubTexture name="default_avatar_big" x="755" y="879" width="100" height="100"/>
-    <SubTexture name="done_icon" x="885" y="1963" width="35" height="38"/>
-    <SubTexture name="empty_green_tile" x="642" y="1272" width="80" height="40"/>
-    <SubTexture name="empty_red_tile" x="745" y="1496" width="80" height="40"/>
-    <SubTexture name="exclamation_point" x="956" y="1769" width="30" height="30"/>
-    <SubTexture name="friend_cats_icon" x="935" y="918" width="88" height="87"/>
-    <SubTexture name="friend_frame" x="946" y="308" width="79" height="76"/>
-    <SubTexture name="friends_board_yellow_bg" x="627" y="522" width="203" height="65"/>
-    <SubTexture name="friends_level_icon" x="690" y="1992" width="51" height="50"/>
-    <SubTexture name="friends_panel_brown_center" x="628" y="1314" width="20" height="106" frameX="0" frameY="-2" frameWidth="20" frameHeight="108"/>
-    <SubTexture name="friends_panel_brown_right" x="592" y="1616" width="20" height="106" frameX="0" frameY="-2" frameWidth="20" frameHeight="108"/>
-    <SubTexture name="friends_panel_brown_tab" x="337" y="2003" width="139" height="40"/>
-    <SubTexture name="friends_panel_center" x="912" y="1231" width="23" height="105"/>
-    <SubTexture name="friends_panel_right" x="937" y="1231" width="23" height="105"/>
-    <SubTexture name="friends_panel_tab_light" x="713" y="1083" width="139" height="41"/>
-    <SubTexture name="fs_add_button" x="955" y="537" width="70" height="68"/>
-    <SubTexture name="fs_blue_cell_big" x="2" y="1224" width="168" height="180"/>
-    <SubTexture name="fs_blue_cell_big_white" x="449" y="1924" width="154" height="64"/>
-    <SubTexture name="fs_blue_panel_center" x="735" y="348" width="10" height="10"/>
-    <SubTexture name="fs_blue_panel_corner_top" x="962" y="1302" width="33" height="33"/>
-    <SubTexture name="fs_blue_panel_left" x="928" y="176" width="20" height="20"/>
-    <SubTexture name="fs_blue_panel_top" x="243" y="969" width="20" height="20"/>
-    <SubTexture name="fs_friend_bg" x="501" y="1170" width="139" height="142"/>
-    <SubTexture name="fs_friend_panel" x="337" y="1898" width="110" height="103"/>
-    <SubTexture name="fs_out_button" x="955" y="607" width="70" height="68"/>
-    <SubTexture name="fs_white_panel_bottom" x="1004" y="1442" width="21" height="21"/>
-    <SubTexture name="fs_white_panel_c_top" x="592" y="1724" width="20" height="20"/>
-    <SubTexture name="fs_white_panel_center" x="341" y="1364" width="10" height="10"/>
-    <SubTexture name="fs_white_panel_corner_bottom" x="793" y="1798" width="34" height="34"/>
-    <SubTexture name="fs_white_panel_corner_top" x="829" y="1798" width="33" height="33"/>
-    <SubTexture name="fs_white_panel_left" x="950" y="1603" width="20" height="20"/>
-    <SubTexture name="fs_yellow_panel_bottom" x="673" y="738" width="17" height="17"/>
-    <SubTexture name="fs_yellow_panel_center" x="450" y="1478" width="10" height="10"/>
-    <SubTexture name="fs_yellow_panel_corner_bottom" x="180" y="1899" width="19" height="19"/>
-    <SubTexture name="fs_yellow_panel_corner_top" x="940" y="1212" width="17" height="17"/>
-    <SubTexture name="fs_yellow_panel_left" x="692" y="738" width="17" height="17"/>
-    <SubTexture name="fs_yellow_panel_top" x="711" y="738" width="17" height="17"/>
-    <SubTexture name="green_button_b_C" x="698" y="1850" width="23" height="69"/>
-    <SubTexture name="green_button_b_L" x="700" y="1921" width="23" height="69"/>
-    <SubTexture name="green_button_center_part" x="1012" y="1174" width="2" height="36"/>
-    <SubTexture name="green_button_left_part" x="907" y="1489" width="15" height="36"/>
-    <SubTexture name="green_button_m_C" x="836" y="1833" width="23" height="53"/>
-    <SubTexture name="green_button_m_L" x="936" y="1646" width="23" height="53"/>
-    <SubTexture name="green_button_s_C" x="994" y="1174" width="16" height="36"/>
-    <SubTexture name="green_button_s_L" x="358" y="969" width="16" height="36"/>
-    <SubTexture name="green_coupone" x="950" y="104" width="75" height="100" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="green_tile" x="827" y="1496" width="78" height="40"/>
-    <SubTexture name="hintMiddle" x="358" y="1735" width="1" height="1"/>
-    <SubTexture name="hintSidePixels" x="180" y="1795" width="1" height="7"/>
-    <SubTexture name="hintSidePixels2" x="478" y="2042" width="7" height="1"/>
-    <SubTexture name="hintTopLeftPart" x="636" y="1422" width="8" height="7"/>
-    <SubTexture name="hint_arrow" x="857" y="886" width="76" height="99"/>
-    <SubTexture name="home_icon" x="934" y="1007" width="91" height="84"/>
-    <SubTexture name="inventory_icon" x="744" y="1644" width="59" height="62" frameX="-1" frameY="0" frameWidth="62" frameHeight="62"/>
-    <SubTexture name="invite_friend_frame" x="946" y="386" width="79" height="76"/>
-    <SubTexture name="invite_friend_frame_1" x="929" y="1093" width="63" height="63"/>
-    <SubTexture name="left_part_b_hint" x="994" y="1093" width="31" height="79"/>
-    <SubTexture name="left_part_s_hint" x="605" y="1924" width="30" height="64"/>
-    <SubTexture name="main_quest_icon" x="928" y="206" width="97" height="100" frameX="-1" frameY="0" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="map_editor_button" x="612" y="1069" width="99" height="99"/>
-    <SubTexture name="map_editor_panel_center" x="906" y="1399" width="19" height="88"/>
-    <SubTexture name="map_editor_panel_left" x="962" y="1212" width="19" height="88"/>
-    <SubTexture name="move_icon" x="825" y="1538" width="62" height="62"/>
-    <SubTexture name="music_off_button" x="744" y="1708" width="61" height="61"/>
-    <SubTexture name="music_on_button" x="667" y="1724" width="61" height="61"/>
-    <SubTexture name="neighbor" x="755" y="981" width="100" height="100"/>
-    <SubTexture name="new_m" x="934" y="1920" width="35" height="36"/>
-    <SubTexture name="newspaper_button" x="665" y="1539" width="71" height="71"/>
+    <SubTexture name="bank_panel_tab_big" x="737" y="63" width="361" height="65"/>
+    <SubTexture name="bank_panel_tab_small" x="737" y="2" width="372" height="59"/>
+    <SubTexture name="bank_rubins_1" x="806" y="681" width="173" height="109"/>
+    <SubTexture name="bank_rubins_2" x="1111" y="60" width="186" height="126"/>
+    <SubTexture name="bank_rubins_3" x="976" y="471" width="147" height="157"/>
+    <SubTexture name="bank_rubins_4" x="948" y="306" width="176" height="163"/>
+    <SubTexture name="bank_rubins_5" x="1646" y="2" width="197" height="119"/>
+    <SubTexture name="bank_rubins_6" x="1845" y="2" width="191" height="170"/>
+    <SubTexture name="basket_big" x="631" y="784" width="122" height="132" frameX="-5" frameY="-6" frameWidth="134" frameHeight="142"/>
+    <SubTexture name="basket_send" x="831" y="920" width="78" height="86"/>
+    <SubTexture name="best_price_purple_eng" x="755" y="792" width="126" height="126"/>
+    <SubTexture name="best_price_purple_rus" x="883" y="792" width="126" height="126"/>
+    <SubTexture name="blue_button" x="1010" y="981" width="83" height="44"/>
+    <SubTexture name="blue_button_b_C" x="1794" y="708" width="23" height="69"/>
+    <SubTexture name="blue_button_b_L" x="2011" y="735" width="23" height="69"/>
+    <SubTexture name="blue_button_m_C" x="868" y="1008" width="23" height="53"/>
+    <SubTexture name="blue_button_m_L" x="1824" y="843" width="23" height="53"/>
+    <SubTexture name="blue_button_s_C" x="1628" y="83" width="16" height="36"/>
+    <SubTexture name="blue_button_s_L" x="1278" y="505" width="16" height="36"/>
+    <SubTexture name="blue_cell_big_white_2" x="385" y="997" width="154" height="64"/>
+    <SubTexture name="blue_coupone" x="1551" y="231" width="75" height="100" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="bonus" x="1947" y="745" width="62" height="59"/>
+    <SubTexture name="bt_close" x="758" y="1008" width="53" height="53"/>
+    <SubTexture name="build_window_down" x="1599" y="915" width="40" height="27"/>
+    <SubTexture name="build_window_down_left" x="1594" y="769" width="48" height="48"/>
+    <SubTexture name="build_window_down_right" x="1541" y="997" width="50" height="48"/>
+    <SubTexture name="build_window_left" x="1478" y="938" width="27" height="40"/>
+    <SubTexture name="build_window_right" x="1850" y="779" width="32" height="40"/>
+    <SubTexture name="build_window_top" x="1746" y="992" width="40" height="26"/>
+    <SubTexture name="build_window_top_left" x="1695" y="948" width="49" height="48"/>
+    <SubTexture name="build_window_top_right" x="1643" y="935" width="50" height="48"/>
+    <SubTexture name="button_blue" x="1900" y="267" width="108" height="108"/>
+    <SubTexture name="button_yel_left" x="1848" y="375" width="48" height="98"/>
+    <SubTexture name="c_part_b_hint" x="1391" y="756" width="2" height="79"/>
+    <SubTexture name="c_part_s_hint" x="1924" y="841" width="2" height="64"/>
+    <SubTexture name="cat_blue" x="1561" y="83" width="65" height="146" frameX="-5" frameY="-3" frameWidth="73" frameHeight="155"/>
+    <SubTexture name="cat_icon" x="1497" y="874" width="37" height="50"/>
+    <SubTexture name="cat_shadow" x="1420" y="693" width="91" height="53"/>
+    <SubTexture name="cencel_icon" x="1556" y="333" width="70" height="71"/>
+    <SubTexture name="center_bottom_s_hint" x="1391" y="837" width="2" height="30"/>
+    <SubTexture name="center_hint" x="981" y="780" width="10" height="10"/>
+    <SubTexture name="center_part_bottom_b_hint" x="1644" y="891" width="51" height="42" frameX="0" frameY="0" frameWidth="51" frameHeight="51"/>
+    <SubTexture name="center_part_bottom_m_hint" x="1046" y="1027" width="40" height="31" frameX="0" frameY="0" frameWidth="40" frameHeight="40"/>
+    <SubTexture name="center_part_bottom_s_hint" x="1769" y="241" width="34" height="23" frameX="0" frameY="0" frameWidth="34" frameHeight="32"/>
+    <SubTexture name="center_part_top_b_hint" x="1697" y="904" width="51" height="42" frameX="0" frameY="-9" frameWidth="51" frameHeight="51"/>
+    <SubTexture name="center_part_top_m_hint" x="1686" y="998" width="40" height="31" frameX="0" frameY="-9" frameWidth="40" frameHeight="40"/>
+    <SubTexture name="center_part_top_s_hint" x="1928" y="997" width="34" height="23" frameX="0" frameY="-9" frameWidth="34" frameHeight="32"/>
+    <SubTexture name="center_right_s_hint" x="207" y="993" width="30" height="2"/>
+    <SubTexture name="center_top_s_hint" x="976" y="630" width="2" height="30"/>
+    <SubTexture name="clock" x="1770" y="843" width="52" height="52"/>
+    <SubTexture name="clock_1" x="893" y="1022" width="39" height="39"/>
+    <SubTexture name="clock_2" x="1770" y="897" width="11" height="5"/>
+    <SubTexture name="clock_3" x="1270" y="600" width="6" height="10"/>
+    <SubTexture name="coins" x="1841" y="580" width="92" height="90" frameX="-3" frameY="-5" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="coins_market" x="1739" y="375" width="107" height="94"/>
+    <SubTexture name="coins_medium" x="1436" y="938" width="40" height="40"/>
+    <SubTexture name="coins_small" x="1676" y="1031" width="30" height="30"/>
+    <SubTexture name="corner_right_bottom_s_hint" x="1708" y="1031" width="30" height="30"/>
+    <SubTexture name="corner_right_top_s_hint" x="1800" y="1008" width="30" height="30"/>
+    <SubTexture name="coupons_icon" x="1011" y="780" width="121" height="107"/>
+    <SubTexture name="currency_buy_window" x="1299" y="60" width="86" height="177" frameX="-10" frameY="0" frameWidth="107" frameHeight="177"/>
+    <SubTexture name="cursor_basket" x="636" y="1004" width="65" height="57"/>
+    <SubTexture name="cursor_circle_pt_1" x="1649" y="528" width="86" height="86"/>
+    <SubTexture name="cursor_circle_pt_2" x="1596" y="819" width="46" height="49"/>
+    <SubTexture name="cursor_clock" x="1724" y="708" width="68" height="68"/>
+    <SubTexture name="cursor_fertilizer" x="1750" y="904" width="38" height="44" frameX="-1" frameY="0" frameWidth="41" frameHeight="45"/>
+    <SubTexture name="cursor_sickle" x="1594" y="702" width="48" height="65"/>
+    <SubTexture name="decor_cell" x="1541" y="945" width="50" height="50"/>
+    <SubTexture name="default_avatar_big" x="1547" y="476" width="100" height="100"/>
+    <SubTexture name="done_icon" x="1865" y="912" width="35" height="38"/>
+    <SubTexture name="empty_green_tile" x="1828" y="672" width="80" height="40"/>
+    <SubTexture name="empty_red_tile" x="1544" y="660" width="80" height="40"/>
+    <SubTexture name="exclamation_point" x="1832" y="1008" width="30" height="30"/>
+    <SubTexture name="friend_cats_icon" x="1649" y="439" width="88" height="87"/>
+    <SubTexture name="friend_frame" x="1095" y="981" width="79" height="76"/>
+    <SubTexture name="friend_frame_blue" x="1385" y="980" width="79" height="76"/>
+    <SubTexture name="friends_board_yellow_bg" x="2" y="993" width="203" height="65"/>
+    <SubTexture name="friends_level_icon" x="1483" y="822" width="51" height="50"/>
+    <SubTexture name="friends_panel_brown_center" x="1398" y="628" width="20" height="106" frameX="0" frameY="-2" frameWidth="20" frameHeight="108"/>
+    <SubTexture name="friends_panel_brown_right" x="988" y="920" width="20" height="106" frameX="0" frameY="-2" frameWidth="20" frameHeight="108"/>
+    <SubTexture name="friends_panel_brown_tab" x="1278" y="586" width="139" height="40"/>
+    <SubTexture name="friends_panel_center" x="1274" y="188" width="23" height="105"/>
+    <SubTexture name="friends_panel_right" x="2013" y="628" width="23" height="105"/>
+    <SubTexture name="friends_panel_tab_light" x="1278" y="543" width="139" height="41"/>
+    <SubTexture name="fs_add_button" x="1556" y="406" width="70" height="68"/>
+    <SubTexture name="fs_blue_cell_big" x="636" y="564" width="168" height="180"/>
+    <SubTexture name="fs_blue_cell_big_white" x="418" y="931" width="154" height="64"/>
+    <SubTexture name="fs_blue_panel_center" x="1872" y="821" width="10" height="10"/>
+    <SubTexture name="fs_blue_panel_corner_top" x="975" y="1028" width="33" height="33"/>
+    <SubTexture name="fs_blue_panel_left" x="1850" y="821" width="20" height="20"/>
+    <SubTexture name="fs_blue_panel_top" x="1805" y="241" width="20" height="20"/>
+    <SubTexture name="fs_friend_bg" x="1628" y="123" width="139" height="142"/>
+    <SubTexture name="fs_friend_panel" x="1136" y="876" width="110" height="103"/>
+    <SubTexture name="fs_out_button" x="1176" y="981" width="70" height="68"/>
+    <SubTexture name="fs_white_panel_bottom" x="1626" y="660" width="21" height="21"/>
+    <SubTexture name="fs_white_panel_c_top" x="1800" y="1040" width="20" height="20"/>
+    <SubTexture name="fs_white_panel_center" x="1999" y="466" width="10" height="10"/>
+    <SubTexture name="fs_white_panel_corner_bottom" x="1010" y="1027" width="34" height="34"/>
+    <SubTexture name="fs_white_panel_corner_top" x="1641" y="1028" width="33" height="33"/>
+    <SubTexture name="fs_white_panel_left" x="1822" y="1040" width="20" height="20"/>
+    <SubTexture name="fs_yellow_panel_bottom" x="1626" y="683" width="17" height="17"/>
+    <SubTexture name="fs_yellow_panel_center" x="993" y="780" width="10" height="10"/>
+    <SubTexture name="fs_yellow_panel_corner_bottom" x="1628" y="439" width="19" height="19"/>
+    <SubTexture name="fs_yellow_panel_corner_top" x="1928" y="681" width="17" height="17"/>
+    <SubTexture name="fs_yellow_panel_left" x="1991" y="220" width="17" height="17"/>
+    <SubTexture name="fs_yellow_panel_top" x="1398" y="736" width="17" height="17"/>
+    <SubTexture name="green_button_b_C" x="1395" y="756" width="23" height="69"/>
+    <SubTexture name="green_button_b_L" x="1466" y="980" width="23" height="69"/>
+    <SubTexture name="green_button_center_part" x="2013" y="580" width="2" height="36"/>
+    <SubTexture name="green_button_left_part" x="1783" y="1020" width="15" height="36"/>
+    <SubTexture name="green_button_m_C" x="1790" y="897" width="23" height="53"/>
+    <SubTexture name="green_button_m_L" x="1815" y="898" width="23" height="53"/>
+    <SubTexture name="green_button_s_C" x="1910" y="672" width="16" height="36"/>
+    <SubTexture name="green_button_s_L" x="1928" y="841" width="16" height="36"/>
+    <SubTexture name="green_coupone" x="1940" y="478" width="75" height="100" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="green_tile" x="1947" y="806" width="78" height="40"/>
+    <SubTexture name="hintMiddle" x="1593" y="819" width="1" height="1"/>
+    <SubTexture name="hintSidePixels" x="1544" y="639" width="1" height="7"/>
+    <SubTexture name="hintSidePixels2" x="2" y="1060" width="7" height="1"/>
+    <SubTexture name="hintTopLeftPart" x="389" y="757" width="8" height="7"/>
+    <SubTexture name="hint_arrow" x="1935" y="580" width="76" height="99"/>
+    <SubTexture name="home_icon" x="651" y="918" width="91" height="84"/>
+    <SubTexture name="inventory_icon" x="1436" y="874" width="59" height="62" frameX="-1" frameY="0" frameWidth="62" frameHeight="62"/>
+    <SubTexture name="invite_friend_frame" x="1513" y="702" width="79" height="76"/>
+    <SubTexture name="invite_friend_frame_1" x="1819" y="714" width="63" height="63"/>
+    <SubTexture name="left_part_b_hint" x="1511" y="603" width="31" height="79"/>
+    <SubTexture name="left_part_s_hint" x="541" y="997" width="30" height="64"/>
+    <SubTexture name="main_quest_icon" x="1841" y="478" width="97" height="100" frameX="-1" frameY="0" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="map_editor_button" x="1898" y="377" width="99" height="99"/>
+    <SubTexture name="map_editor_panel_center" x="2017" y="448" width="19" height="88"/>
+    <SubTexture name="map_editor_panel_left" x="2017" y="538" width="19" height="88"/>
+    <SubTexture name="move_icon" x="1947" y="681" width="62" height="62"/>
+    <SubTexture name="music_off_button" x="573" y="1000" width="61" height="61"/>
+    <SubTexture name="music_on_button" x="1884" y="778" width="61" height="61"/>
+    <SubTexture name="neighbor" x="1739" y="471" width="100" height="100"/>
+    <SubTexture name="new_m" x="1946" y="848" width="35" height="36"/>
+    <SubTexture name="newspaper_button" x="1248" y="989" width="71" height="71"/>
     <SubTexture name="newspaper_cell" x="2" y="766" width="239" height="225"/>
-    <SubTexture name="newspaper_icon_small" x="719" y="1167" width="100" height="80" frameX="0" frameY="-1" frameWidth="100" frameHeight="82"/>
-    <SubTexture name="newspaper_offers_b" x="378" y="885" width="281" height="56"/>
-    <SubTexture name="newspaper_timer_s" x="650" y="1406" width="102" height="43"/>
-    <SubTexture name="nyash_blue" x="265" y="1024" width="171" height="146" frameX="0" frameY="-7" frameWidth="174" frameHeight="153"/>
-    <SubTexture name="nyash_red" x="438" y="1024" width="172" height="144" frameX="0" frameY="-9" frameWidth="174" frameHeight="153"/>
-    <SubTexture name="options_button" x="610" y="1858" width="61" height="61"/>
+    <SubTexture name="newspaper_icon_small" x="1547" y="578" width="100" height="80" frameX="0" frameY="-1" frameWidth="100" frameHeight="82"/>
+    <SubTexture name="newspaper_offers_b" x="1111" y="2" width="281" height="56"/>
+    <SubTexture name="newspaper_timer_s" x="1737" y="573" width="102" height="43"/>
+    <SubTexture name="nyash_blue" x="1126" y="301" width="171" height="146" frameX="0" frameY="-7" frameWidth="174" frameHeight="153"/>
+    <SubTexture name="nyash_red" x="1387" y="83" width="172" height="144" frameX="0" frameY="-9" frameWidth="174" frameHeight="153"/>
+    <SubTexture name="options_button" x="1724" y="778" width="61" height="61"/>
     <SubTexture name="order_small_bg" x="389" y="141" width="344" height="218"/>
-    <SubTexture name="order_white_s_panel_center" x="341" y="1364" width="10" height="10"/>
-    <SubTexture name="order_white_s_panel_center_bottom" x="1004" y="1503" width="8" height="8"/>
-    <SubTexture name="order_white_s_panel_center_top" x="797" y="507" width="10" height="10"/>
-    <SubTexture name="order_white_s_panel_corner_bottom" x="454" y="1830" width="10" height="10"/>
-    <SubTexture name="order_white_s_panel_corner_top" x="449" y="1990" width="10" height="10"/>
-    <SubTexture name="order_window_del_clock" x="847" y="2004" width="39" height="39"/>
-    <SubTexture name="order_window_del_or" x="865" y="1089" width="62" height="69"/>
+    <SubTexture name="order_white_s_panel_center" x="1999" y="466" width="10" height="10"/>
+    <SubTexture name="order_white_s_panel_center_bottom" x="1387" y="229" width="8" height="8"/>
+    <SubTexture name="order_white_s_panel_center_top" x="1788" y="1007" width="10" height="10"/>
+    <SubTexture name="order_white_s_panel_corner_bottom" x="1176" y="1051" width="10" height="10"/>
+    <SubTexture name="order_white_s_panel_corner_top" x="1188" y="1051" width="10" height="10"/>
+    <SubTexture name="order_window_del_clock" x="934" y="1022" width="39" height="39"/>
+    <SubTexture name="order_window_del_or" x="1321" y="989" width="62" height="69"/>
     <SubTexture name="orders_cat_babble" x="389" y="602" width="245" height="153"/>
-    <SubTexture name="orders_cell" x="752" y="738" width="114" height="139"/>
-    <SubTexture name="p_1" x="978" y="1865" width="8" height="8"/>
-    <SubTexture name="p_10" x="1014" y="1503" width="8" height="8"/>
-    <SubTexture name="p_11" x="600" y="1596" width="8" height="8"/>
-    <SubTexture name="p_12" x="600" y="1606" width="8" height="8"/>
-    <SubTexture name="p_2" x="901" y="1231" width="8" height="8"/>
-    <SubTexture name="p_3" x="378" y="802" width="8" height="8"/>
-    <SubTexture name="p_4" x="652" y="1811" width="8" height="8"/>
-    <SubTexture name="p_5" x="730" y="1724" width="8" height="8"/>
-    <SubTexture name="p_6" x="730" y="1834" width="8" height="8"/>
-    <SubTexture name="p_7" x="793" y="1771" width="8" height="8"/>
-    <SubTexture name="p_8" x="785" y="2015" width="8" height="8"/>
-    <SubTexture name="p_9" x="795" y="2015" width="8" height="8"/>
-    <SubTexture name="particle_yelow" x="333" y="1804" width="20" height="20"/>
-    <SubTexture name="plants_factory_arrow_red" x="600" y="1478" width="63" height="116"/>
-    <SubTexture name="plants_factory_b_panel_c_top" x="876" y="1609" width="35" height="35"/>
-    <SubTexture name="plants_factory_b_panel_center" x="358" y="1007" width="15" height="15"/>
-    <SubTexture name="plants_factory_b_panel_left" x="636" y="738" width="35" height="17"/>
-    <SubTexture name="plants_factory_b_panel_top" x="913" y="1609" width="35" height="35"/>
-    <SubTexture name="plants_factory_b_y_panel_center" x="990" y="1513" width="35" height="35"/>
-    <SubTexture name="plants_factory_b_y_panel_left" x="990" y="1550" width="35" height="35"/>
+    <SubTexture name="orders_cell" x="1299" y="239" width="114" height="139"/>
+    <SubTexture name="p_1" x="1497" y="926" width="8" height="8"/>
+    <SubTexture name="p_10" x="1697" y="891" width="8" height="8"/>
+    <SubTexture name="p_11" x="2028" y="360" width="8" height="8"/>
+    <SubTexture name="p_12" x="1986" y="257" width="8" height="8"/>
+    <SubTexture name="p_2" x="1397" y="229" width="8" height="8"/>
+    <SubTexture name="p_3" x="1996" y="257" width="8" height="8"/>
+    <SubTexture name="p_4" x="1918" y="997" width="8" height="8"/>
+    <SubTexture name="p_5" x="631" y="918" width="8" height="8"/>
+    <SubTexture name="p_6" x="641" y="918" width="8" height="8"/>
+    <SubTexture name="p_7" x="893" y="1008" width="8" height="8"/>
+    <SubTexture name="p_8" x="1100" y="99" width="8" height="8"/>
+    <SubTexture name="p_9" x="1834" y="157" width="8" height="8"/>
+    <SubTexture name="particle_yelow" x="1844" y="1040" width="20" height="20"/>
+    <SubTexture name="plants_factory_arrow_red" x="1769" y="123" width="63" height="116"/>
+    <SubTexture name="plants_factory_b_panel_c_top" x="1983" y="848" width="35" height="35"/>
+    <SubTexture name="plants_factory_b_panel_center" x="1516" y="1046" width="15" height="15"/>
+    <SubTexture name="plants_factory_b_panel_left" x="1865" y="952" width="35" height="17"/>
+    <SubTexture name="plants_factory_b_panel_top" x="1863" y="971" width="35" height="35"/>
+    <SubTexture name="plants_factory_b_y_panel_center" x="1946" y="886" width="35" height="35"/>
+    <SubTexture name="plants_factory_b_y_panel_left" x="1983" y="885" width="35" height="35"/>
     <SubTexture name="plants_factory_white_panel" x="2" y="2" width="733" height="137"/>
-    <SubTexture name="plants_factory_y_cell_b" x="243" y="766" width="133" height="201"/>
-    <SubTexture name="plants_factory_y_cell_s" x="353" y="1514" width="109" height="109"/>
-    <SubTexture name="plants_factory_y_panel_c_bottom" x="990" y="1587" width="35" height="35"/>
-    <SubTexture name="plants_factory_y_panel_center" x="805" y="1629" width="15" height="15"/>
-    <SubTexture name="plants_factory_y_panel_center_bottom" x="990" y="1624" width="35" height="35"/>
-    <SubTexture name="plants_factory_y_panel_left" x="990" y="1661" width="35" height="35"/>
-    <SubTexture name="product_particle" x="2" y="1406" width="184" height="175" frameX="-10" frameY="-25" frameWidth="200" frameHeight="200"/>
-    <SubTexture name="progres_bar" x="713" y="1126" width="150" height="39"/>
-    <SubTexture name="progress_bar_center" x="172" y="1224" width="3" height="32"/>
-    <SubTexture name="progress_bar_left" x="172" y="1364" width="10" height="32"/>
-    <SubTexture name="progress_bar_right" x="854" y="1089" width="9" height="32"/>
-    <SubTexture name="question_mark_button" x="863" y="1878" width="41" height="41"/>
-    <SubTexture name="red_button_b_C" x="723" y="1850" width="23" height="69"/>
-    <SubTexture name="red_button_b_L" x="725" y="1921" width="23" height="69"/>
-    <SubTexture name="red_button_m_C" x="922" y="1963" width="23" height="53"/>
-    <SubTexture name="red_button_m_L" x="906" y="1778" width="23" height="53"/>
-    <SubTexture name="red_button_s_C" x="1004" y="1465" width="16" height="36"/>
-    <SubTexture name="red_button_s_L" x="972" y="1547" width="16" height="36"/>
-    <SubTexture name="red_coupone" x="642" y="1170" width="75" height="100" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="red_m_big" x="859" y="1745" width="44" height="44"/>
-    <SubTexture name="red_tile" x="664" y="1682" width="78" height="40"/>
-    <SubTexture name="refresh_icon" x="630" y="943" width="28" height="32"/>
-    <SubTexture name="rotate_icon" x="604" y="1747" width="61" height="62" frameX="0" frameY="0" frameWidth="62" frameHeight="62"/>
-    <SubTexture name="rubins" x="935" y="828" width="89" height="88" frameX="-5" frameY="-6" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="rubins_medium" x="863" y="1921" width="40" height="40"/>
-    <SubTexture name="rubins_small" x="956" y="1801" width="30" height="30"/>
-    <SubTexture name="rug" x="333" y="1830" width="119" height="66"/>
-    <SubTexture name="sale_icon" x="912" y="1338" width="58" height="58" frameX="-2" frameY="0" frameWidth="62" frameHeight="59"/>
-    <SubTexture name="select_color" x="636" y="1451" width="23" height="25" frameX="-3" frameY="-2" frameWidth="30" frameHeight="30"/>
-    <SubTexture name="select_lblue" x="944" y="1547" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
-    <SubTexture name="select_lgreen" x="944" y="1575" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
-    <SubTexture name="select_light" x="956" y="1833" width="30" height="30"/>
-    <SubTexture name="select_orange" x="914" y="1579" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
-    <SubTexture name="select_pink" x="988" y="1846" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
-    <SubTexture name="select_red" x="970" y="1887" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
-    <SubTexture name="select_yellow" x="971" y="1915" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
-    <SubTexture name="shared" x="956" y="1865" width="20" height="20"/>
-    <SubTexture name="shop_at_limit" x="745" y="1458" width="159" height="36"/>
-    <SubTexture name="shop_blue_cell" x="2" y="993" width="173" height="229"/>
-    <SubTexture name="shop_icon" x="650" y="1314" width="85" height="90"/>
-    <SubTexture name="shop_more" x="946" y="464" width="7" height="23"/>
-    <SubTexture name="shop_panel_tab_big" x="172" y="1300" width="182" height="62"/>
-    <SubTexture name="shop_panel_tab_small" x="478" y="1990" width="155" height="50"/>
-    <SubTexture name="show_all_button" x="637" y="1921" width="61" height="61"/>
-    <SubTexture name="silo_bg_progres_bar" x="801" y="1580" width="20" height="47"/>
-    <SubTexture name="silo_bg_progres_bar_center" x="857" y="1646" width="27" height="47"/>
-    <SubTexture name="silo_panel_tab_big" x="183" y="1738" width="176" height="64"/>
-    <SubTexture name="silo_panel_tab_small" x="450" y="1422" width="184" height="54"/>
-    <SubTexture name="silo_yellow_cell" x="827" y="616" width="119" height="120"/>
-    <SubTexture name="sound_off_button" x="667" y="1787" width="61" height="61"/>
-    <SubTexture name="sound_on_button" x="730" y="1771" width="61" height="61"/>
-    <SubTexture name="star_particle" x="730" y="738" width="17" height="17"/>
-    <SubTexture name="star_small_new" x="604" y="1811" width="46" height="45"/>
-    <SubTexture name="storage_window_prl_c" x="961" y="1515" width="27" height="30"/>
-    <SubTexture name="storage_window_prl_l" x="997" y="1302" width="16" height="30"/>
-    <SubTexture name="storage_window_prl_r" x="972" y="1737" width="16" height="30"/>
-    <SubTexture name="storage_window_scr_c" x="861" y="1833" width="43" height="43"/>
-    <SubTexture name="storage_window_scr_line" x="713" y="1167" width="3" height="1"/>
-    <SubTexture name="trash" x="750" y="1960" width="53" height="53"/>
-    <SubTexture name="tutorial_arrow_pink" x="630" y="977" width="123" height="90" frameX="0" frameY="-1" frameWidth="123" frameHeight="94"/>
-    <SubTexture name="tutorial_nyam" x="378" y="943" width="250" height="79" frameX="0" frameY="-2" frameWidth="252" frameHeight="81"/>
-    <SubTexture name="vaucher" x="914" y="1540" width="28" height="37"/>
-    <SubTexture name="vauchers_icon" x="180" y="1804" width="151" height="93"/>
-    <SubTexture name="vauchers_pt_1_icon" x="361" y="1735" width="105" height="93"/>
-    <SubTexture name="vauchers_pt_2_icon" x="724" y="1249" width="109" height="62"/>
-    <SubTexture name="wait" x="825" y="1314" width="85" height="83" frameX="0" frameY="-2" frameWidth="85" frameHeight="85"/>
-    <SubTexture name="watering_can" x="935" y="738" width="90" height="88" frameX="-6" frameY="-11" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="white" x="1012" y="677" width="10" height="10"/>
-    <SubTexture name="white_milk_panel_center" x="341" y="1364" width="10" height="10"/>
-    <SubTexture name="white_milk_panel_center_bottom" x="713" y="1069" width="10" height="10"/>
-    <SubTexture name="white_milk_panel_center_top" x="797" y="507" width="10" height="10"/>
-    <SubTexture name="white_milk_panel_l_corner_bottom" x="454" y="1830" width="10" height="10"/>
-    <SubTexture name="white_milk_panel_r_corner_top" x="449" y="1990" width="10" height="10"/>
-    <SubTexture name="windows_plants_y_panel_bottom" x="990" y="1624" width="35" height="35"/>
-    <SubTexture name="windows_plants_y_panel_center" x="990" y="1698" width="35" height="35"/>
-    <SubTexture name="windows_plants_y_panel_corner_bottom" x="990" y="1735" width="35" height="35"/>
-    <SubTexture name="windows_plants_y_panel_corner_top" x="990" y="1772" width="35" height="35"/>
-    <SubTexture name="windows_plants_y_panel_right" x="990" y="1661" width="35" height="35"/>
-    <SubTexture name="windows_plants_y_panel_top" x="990" y="1809" width="35" height="35"/>
-    <SubTexture name="xp_icon" x="821" y="1167" width="78" height="76"/>
-    <SubTexture name="xp_line_pr_bar_right" x="378" y="766" width="9" height="34"/>
-    <SubTexture name="xp_line_progres_bar_center" x="180" y="1759" width="1" height="34"/>
-    <SubTexture name="yellow_button_b_C" x="979" y="1442" width="23" height="69"/>
-    <SubTexture name="yellow_button_b_L" x="813" y="1889" width="23" height="69"/>
-    <SubTexture name="yellow_button_m_C" x="906" y="1833" width="23" height="53"/>
-    <SubTexture name="yellow_button_m_L" x="931" y="1778" width="23" height="53"/>
-    <SubTexture name="yellow_button_s_C" x="972" y="1585" width="16" height="36"/>
-    <SubTexture name="yellow_button_s_L" x="972" y="1623" width="16" height="36"/>
-    <SubTexture name="yellow_coupone" x="857" y="987" width="75" height="100" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="yellow_light_button_b_C" x="911" y="1646" width="23" height="69"/>
-    <SubTexture name="yellow_light_button_b_L" x="838" y="1888" width="23" height="69"/>
-    <SubTexture name="yellow_light_button_m_C" x="931" y="1833" width="23" height="53"/>
-    <SubTexture name="yellow_light_button_m_L" x="947" y="1958" width="23" height="53"/>
-    <SubTexture name="yellow_light_button_s_C" x="972" y="1661" width="16" height="36"/>
-    <SubTexture name="yellow_light_button_s_L" x="972" y="1699" width="16" height="36"/>
-    <SubTexture name="yellow_tile" x="745" y="1538" width="78" height="40"/>
-    <SubTexture name="zoom_in_button" x="748" y="1834" width="61" height="61"/>
-    <SubTexture name="zoom_out_button" x="750" y="1897" width="61" height="61"/>
+    <SubTexture name="plants_factory_y_cell_b" x="627" y="361" width="133" height="201"/>
+    <SubTexture name="plants_factory_y_cell_s" x="1248" y="878" width="109" height="109"/>
+    <SubTexture name="plants_factory_y_panel_c_bottom" x="1927" y="923" width="35" height="35"/>
+    <SubTexture name="plants_factory_y_panel_center" x="1947" y="1022" width="15" height="15"/>
+    <SubTexture name="plants_factory_y_panel_center_bottom" x="1964" y="923" width="35" height="35"/>
+    <SubTexture name="plants_factory_y_panel_left" x="2001" y="924" width="35" height="35"/>
+    <SubTexture name="pn_1" x="735" y="343" width="16" height="16"/>
+    <SubTexture name="pn_2" x="1999" y="448" width="16" height="16"/>
+    <SubTexture name="pn_3" x="1513" y="684" width="16" height="16"/>
+    <SubTexture name="pn_4" x="2010" y="360" width="16" height="15" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="pn_5" x="1395" y="854" width="16" height="16"/>
+    <SubTexture name="pn_6" x="1986" y="239" width="16" height="16"/>
+    <SubTexture name="pn_7" x="1888" y="1041" width="16" height="16"/>
+    <SubTexture name="pn_8" x="1906" y="1041" width="16" height="16"/>
+    <SubTexture name="pn_9" x="1924" y="1041" width="16" height="16"/>
+    <SubTexture name="product_particle" x="762" y="343" width="184" height="175" frameX="-10" frameY="-25" frameWidth="200" frameHeight="200"/>
+    <SubTexture name="progres_bar" x="1834" y="226" width="150" height="39"/>
+    <SubTexture name="progress_bar_center" x="1551" y="333" width="3" height="32"/>
+    <SubTexture name="progress_bar_left" x="1828" y="618" width="10" height="32"/>
+    <SubTexture name="progress_bar_right" x="1834" y="123" width="9" height="32"/>
+    <SubTexture name="question_mark_button" x="1643" y="985" width="41" height="41"/>
+    <SubTexture name="red_button_b_C" x="1491" y="980" width="23" height="69"/>
+    <SubTexture name="red_button_b_L" x="1516" y="975" width="23" height="69"/>
+    <SubTexture name="red_button_m_C" x="1840" y="898" width="23" height="53"/>
+    <SubTexture name="red_button_m_L" x="1849" y="843" width="23" height="53"/>
+    <SubTexture name="red_button_s_C" x="2020" y="848" width="16" height="36"/>
+    <SubTexture name="red_button_s_L" x="1928" y="879" width="16" height="36"/>
+    <SubTexture name="red_coupone" x="1359" y="878" width="75" height="100" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="red_m_big" x="1991" y="174" width="44" height="44"/>
+    <SubTexture name="red_tile" x="1644" y="786" width="78" height="40"/>
+    <SubTexture name="refresh_icon" x="1483" y="787" width="28" height="32"/>
+    <SubTexture name="rotate_icon" x="1787" y="779" width="61" height="62" frameX="0" frameY="0" frameWidth="62" frameHeight="62"/>
+    <SubTexture name="rubins" x="1420" y="603" width="89" height="88" frameX="-5" frameY="-6" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="rubins_medium" x="1746" y="950" width="40" height="40"/>
+    <SubTexture name="rubins_small" x="1864" y="1008" width="30" height="30"/>
+    <SubTexture name="rug" x="1299" y="380" width="119" height="66"/>
+    <SubTexture name="sale_icon" x="1536" y="822" width="58" height="58" frameX="-2" frameY="0" frameWidth="62" frameHeight="59"/>
+    <SubTexture name="select_color" x="1395" y="827" width="23" height="25" frameX="-3" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="select_lblue" x="2010" y="220" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="select_lgreen" x="2010" y="248" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="select_light" x="1896" y="1009" width="30" height="30"/>
+    <SubTexture name="select_orange" x="2010" y="276" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="select_pink" x="2010" y="304" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="select_red" x="2010" y="332" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="select_yellow" x="1964" y="997" width="26" height="26" frameX="-2" frameY="-2" frameWidth="30" frameHeight="30"/>
+    <SubTexture name="shared" x="1866" y="1040" width="20" height="20"/>
+    <SubTexture name="shop_at_limit" x="636" y="746" width="159" height="36"/>
+    <SubTexture name="shop_blue_cell" x="243" y="766" width="173" height="229"/>
+    <SubTexture name="shop_icon" x="1649" y="616" width="85" height="90"/>
+    <SubTexture name="shop_more" x="627" y="564" width="7" height="23"/>
+    <SubTexture name="shop_panel_tab_big" x="735" y="279" width="182" height="62"/>
+    <SubTexture name="shop_panel_tab_small" x="1834" y="174" width="155" height="50"/>
+    <SubTexture name="show_all_button" x="1420" y="748" width="61" height="61"/>
+    <SubTexture name="silo_bg_progres_bar" x="948" y="471" width="20" height="47"/>
+    <SubTexture name="silo_bg_progres_bar_center" x="1507" y="926" width="27" height="47"/>
+    <SubTexture name="silo_panel_tab_big" x="207" y="997" width="176" height="64"/>
+    <SubTexture name="silo_panel_tab_small" x="1126" y="449" width="184" height="54"/>
+    <SubTexture name="silo_yellow_cell" x="1270" y="756" width="119" height="120"/>
+    <SubTexture name="sound_off_button" x="1420" y="811" width="61" height="61"/>
+    <SubTexture name="sound_on_button" x="1644" y="828" width="61" height="61"/>
+    <SubTexture name="star_particle" x="1928" y="1022" width="17" height="17"/>
+    <SubTexture name="star_small_new" x="1593" y="1016" width="46" height="45"/>
+    <SubTexture name="storage_window_prl_c" x="919" y="306" width="27" height="30"/>
+    <SubTexture name="storage_window_prl_l" x="1728" y="998" width="16" height="30"/>
+    <SubTexture name="storage_window_prl_r" x="2000" y="998" width="16" height="30"/>
+    <SubTexture name="storage_window_scr_c" x="1599" y="870" width="43" height="43"/>
+    <SubTexture name="storage_window_scr_line" x="1676" y="1028" width="3" height="1"/>
+    <SubTexture name="top_red_eng" x="1419" y="475" width="126" height="126"/>
+    <SubTexture name="top_red_rus" x="1270" y="628" width="126" height="126"/>
+    <SubTexture name="trash" x="813" y="1008" width="53" height="53"/>
+    <SubTexture name="tutorial_arrow_pink" x="1011" y="889" width="123" height="90" frameX="0" frameY="-1" frameWidth="123" frameHeight="94"/>
+    <SubTexture name="tutorial_nyam" x="1394" y="2" width="250" height="79" frameX="0" frameY="-2" frameWidth="252" frameHeight="81"/>
+    <SubTexture name="vaucher" x="1483" y="748" width="28" height="37"/>
+    <SubTexture name="vauchers_icon" x="1125" y="505" width="151" height="93"/>
+    <SubTexture name="vauchers_pt_1_icon" x="1312" y="448" width="105" height="93"/>
+    <SubTexture name="vauchers_pt_2_icon" x="1628" y="375" width="109" height="62"/>
+    <SubTexture name="wait" x="744" y="920" width="85" height="83" frameX="0" frameY="-2" frameWidth="85" frameHeight="85"/>
+    <SubTexture name="watering_can" x="1736" y="618" width="90" height="88" frameX="-6" frameY="-11" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="white" x="1200" y="1051" width="10" height="10"/>
+    <SubTexture name="white_milk_panel_center" x="1999" y="466" width="10" height="10"/>
+    <SubTexture name="white_milk_panel_center_bottom" x="1212" y="1051" width="10" height="10"/>
+    <SubTexture name="white_milk_panel_center_top" x="1788" y="1007" width="10" height="10"/>
+    <SubTexture name="white_milk_panel_l_corner_bottom" x="1176" y="1051" width="10" height="10"/>
+    <SubTexture name="white_milk_panel_r_corner_top" x="1188" y="1051" width="10" height="10"/>
+    <SubTexture name="windows_plants_y_panel_bottom" x="1964" y="923" width="35" height="35"/>
+    <SubTexture name="windows_plants_y_panel_center" x="1746" y="1020" width="35" height="35"/>
+    <SubTexture name="windows_plants_y_panel_corner_bottom" x="1927" y="960" width="35" height="35"/>
+    <SubTexture name="windows_plants_y_panel_corner_top" x="1964" y="960" width="35" height="35"/>
+    <SubTexture name="windows_plants_y_panel_right" x="2001" y="924" width="35" height="35"/>
+    <SubTexture name="windows_plants_y_panel_top" x="2001" y="961" width="35" height="35"/>
+    <SubTexture name="xp_icon" x="1644" y="708" width="78" height="76"/>
+    <SubTexture name="xp_line_pr_bar_right" x="1100" y="63" width="9" height="34"/>
+    <SubTexture name="xp_line_progres_bar_center" x="1544" y="603" width="1" height="34"/>
+    <SubTexture name="yellow_button_b_C" x="1593" y="945" width="23" height="69"/>
+    <SubTexture name="yellow_button_b_L" x="1618" y="944" width="23" height="69"/>
+    <SubTexture name="yellow_button_m_C" x="1788" y="952" width="23" height="53"/>
+    <SubTexture name="yellow_button_m_L" x="1813" y="953" width="23" height="53"/>
+    <SubTexture name="yellow_button_s_C" x="2020" y="886" width="16" height="36"/>
+    <SubTexture name="yellow_button_s_L" x="1900" y="971" width="16" height="36"/>
+    <SubTexture name="yellow_coupone" x="911" y="920" width="75" height="100" frameX="-12" frameY="0" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="yellow_light_button_b_C" x="1874" y="841" width="23" height="69"/>
+    <SubTexture name="yellow_light_button_b_L" x="1899" y="841" width="23" height="69"/>
+    <SubTexture name="yellow_light_button_m_C" x="1838" y="953" width="23" height="53"/>
+    <SubTexture name="yellow_light_button_m_L" x="1902" y="912" width="23" height="53"/>
+    <SubTexture name="yellow_light_button_s_C" x="1964" y="1025" width="16" height="36"/>
+    <SubTexture name="yellow_light_button_s_L" x="1982" y="1025" width="16" height="36"/>
+    <SubTexture name="yellow_tile" x="1513" y="780" width="78" height="40"/>
+    <SubTexture name="zoom_in_button" x="1536" y="882" width="61" height="61"/>
+    <SubTexture name="zoom_out_button" x="1707" y="841" width="61" height="61"/>
 </TextureAtlas>

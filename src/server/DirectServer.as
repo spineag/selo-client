@@ -827,10 +827,11 @@ public class DirectServer {
                     else g.soundManager.enabledMusic(false);
                 if (ob.sound == '1') g.soundManager.enabledSound(true);
                     else g.soundManager.enabledSound(false);
-            } else {
-                g.soundManager.enabledMusic(false);
-                g.soundManager.enabledSound(false);
             }
+//            else {
+//                g.soundManager.enabledMusic(false);
+//                g.soundManager.enabledSound(false);
+//            }
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
                 else g.userTimer.timerAtPapper = 300 - TimeUtils.currentSeconds - int(ob.time_paper);
             if (g.userTimer.timerAtPapper > 300) g.userTimer.timerAtPapper = 300;

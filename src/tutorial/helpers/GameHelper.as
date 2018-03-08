@@ -271,7 +271,7 @@ public class GameHelper {
     private function releaseBuy():void {
         _btnShow.visible = false;
         var ob:Object = g.bottomPanel.getShopButtonProperties();
-        _source.x = ob.x + ob.width/2 - 130;
+        _source.x = ob.x + ob.width/2 - 180;
         _source.y = ob.y + ob.height/2 - 200;
         g.cont.hintGameCont.addChild(_source);
 
@@ -279,12 +279,11 @@ public class GameHelper {
         _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _spArrow);
         _arrow.scaleIt(.5);
         _arrow.animateAtPosition(0, -150);
-        _spArrow.rotation = Math.PI;
-        _spArrow.x = _source.x + 130;
+        _spArrow.rotation = 6;
+        _spArrow.scaleY = -1;
+        _spArrow.x = _source.x + 100;
         _spArrow.y = _source.y;
         g.cont.hintGameCont.addChildAt(_spArrow, 0);
     }
-
-
 }
 }

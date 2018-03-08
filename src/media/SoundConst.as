@@ -3,10 +3,16 @@
  */
 package media {
 public class SoundConst {
+   //MUSIC
    public static const MAIN_MUSIC:int = 1;
+   public static const MAIN_MUSIC_TREE2:int = 2;
+   public static const MAIN_MUSIC_WATER:int = 3;
+   public static const MAIN_MUSIC_TREE:int = 4;
+   public static const MAIN_MUSIC_SHORT:int = 5;
 
+   //SOUND
    public static const OPEN_MARKET_WINDOW:int = 1;
-   public static const LEVEL_COMPLETED:int = 2;
+   public static const ORDER_COMPLETED:int = 2;
    public static const ORDER_DONE:int = 3;
    public static const START_BONUS_USE:int = 4; //?
    public static const CRAFT_RAW_PLANT:int = 5;
@@ -23,7 +29,7 @@ public class SoundConst {
    public static const DELETE_WILD:int = 16;
    public static const WO_AHTUNG:int = 17;
    public static const OPEN_BUILD:int = 18;
-   public static const RAW_SHEEP:int = 19;
+   public static const SHEEP_CLICK:int = 19;
    public static const RAW_COW:int = 20;
    public static const RAW_CHICKEN:int = 21;
    public static const RAW_PIG:int = 22;
@@ -34,5 +40,9 @@ public class SoundConst {
    public static const BEE_CLICK:int = 27;
    public static const CHICKEN_CLICK:int = 28;
    public static const COW_CLICK:int = 29;
+   public static const GOAT_CLICK:int = 30;
+   public static const NYASHUK_CLICK:int = 31;
+   public static const LEVEL_COMPLETED:int = 32;
+
 }
 }

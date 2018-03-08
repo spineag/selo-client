@@ -8,6 +8,9 @@ import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
 import manager.ManagerFilters;
+
+import media.SoundConst;
+
 import quest.ManagerQuest;
 import resourceItem.newDrop.DropObject;
 import starling.display.Image;
@@ -215,6 +218,7 @@ public class WOBuyerNyashuk extends WindowMain{
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
         g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);
         g.managerAchievement.addAll(1,1);
+        g.soundManager.playSound(SoundConst.ORDER_COMPLETED);
         super.hideIt();
     }
 

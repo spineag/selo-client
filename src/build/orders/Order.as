@@ -217,6 +217,7 @@ public class Order extends WorldObject{
         _armature.addEventListener(EventObject.COMPLETE, fEndOver);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
         _armature.animation.gotoAndPlayByFrame('open');
+        g.soundManager.playSound(SoundConst.DELETE_WILD);
         showBoom();
     }
     

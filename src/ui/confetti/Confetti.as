@@ -97,19 +97,29 @@ internal class ConfettiItem {
     public var item:Sprite;
     private var itemIm:Image;
     private var _arrParticleImages:Array = ['p_1', 'p_2', 'p_3', 'p_4', 'p_5', 'p_6', 'p_7', 'p_8', 'p_9', 'p_10', 'p_11', 'p_12'];
+    private var _arrParticleImagesNew:Array = ['pn_1', 'pn_2', 'pn_3', 'pn_4', 'pn_5', 'pn_6', 'pn_7', 'pn_8', 'pn_9'];
 
     public function ConfettiItem() {
         item = new Sprite();
-        itemIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture(_arrParticleImages[int(Math.random()*12)]));
+        var l:Number = Math.random();
+        if (l <= .5) itemIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture(_arrParticleImages[int(Math.random()*12)]));
+        else itemIm = new Image(g.allData.atlas['interfaceAtlas'].getTexture(_arrParticleImagesNew[int(Math.random()*9)]));
         item.addChild(itemIm);
-        if (Math.random()<= .3) item.scale = 2;
-        else if (Math.random()<= .4) item.scale = 3;
-        else item.scale = 1.5;
+        if (l <= .5) {
+            if (Math.random() <= .3) item.scale = 2;
+            else if (Math.random() <= .4) item.scale = 3;
+            else item.scale = 1.5;
 
-        if (Math.random() <= .1) item.alpha = .4;
-        else if (Math.random() <= .2)item.alpha = .7;
+            if (Math.random() <= .1) item.alpha = .4;
+            else if (Math.random() <= .2)item.alpha = .7;
 
-        if (Math.random() <= .3) itemIm.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            if (Math.random() <= .3) itemIm.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        } else {
+            if (Math.random() <= .3) item.scale = 0.8;
+            else if (Math.random() <= .4) item.scale = 1.5;
+            else item.scale = 1;
+        }
+
 //        flyIt();
     }
 

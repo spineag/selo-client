@@ -488,7 +488,7 @@ public class WOOrder extends WindowMain {
 
         g.managerOrder.sellOrder(or, f);
         g.managerOrder.cancelAnimateSmallHero();
-        g.soundManager.playSound(SoundConst.ORDER_DONE);
+        g.soundManager.playSound(SoundConst.ORDER_COMPLETED);
         if (g.tuts.isTuts && g.tuts.action == TutsAction.ORDER) g.tuts.checkTutsCallback();
             else g.miniScenes.onBuyOrder();
         g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);

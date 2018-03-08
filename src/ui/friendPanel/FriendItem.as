@@ -55,7 +55,9 @@ public class FriendItem {
         _ava.x = 10;
         _ava.y = 8;
         source.addChildAt(_ava,0);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friend_frame"));
+        var im:Image;
+        if (g.user.userSocialId == _person.userSocialId) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friend_frame_blue"));
+        else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("friend_frame"));
         source.addChildAt(im,1);
         _preloader = new FlashAnimatedPreloader();
         _preloader.source.x = 40;
