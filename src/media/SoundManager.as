@@ -229,6 +229,7 @@ public class SoundManager {
     }
 
     public function playTalk():void {
+        return; //Костиль поки немає
         var random:int = 1 + Math.random() * 11;
         var sound:GSound;
         if (_isPlayingSound) {
@@ -275,6 +276,5 @@ public class SoundManager {
     public function get isPlayingSound():Boolean {
         return _isPlayingSound;
     }
-
 }
 }
