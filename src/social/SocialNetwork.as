@@ -61,7 +61,7 @@ public class SocialNetwork extends EventDispatcher {
         return st;
     }
 
-    public function init():void {
+    public function onInit(e:*=null):void {
         Cc.ch("social", "SocialNetwork:: channel API initialization finished successfully", 14);
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.INIT));
     }

@@ -1,7 +1,5 @@
 package com.vk {
-import com.vk.CustomEvent;
-import com.vk.DataProvider;
-
+import com.junkbyte.console.Cc;
 import flash.events.*;
 import flash.net.LocalConnection;
 
@@ -12,7 +10,6 @@ public class APIConnection extends EventDispatcher {
     private var sendingLC:LocalConnection;
     private var connectionName:String;
     private var receivingLC:LocalConnection;
-
     private var pendingRequests:Array;
     private var loaded:Boolean = false;
 
@@ -64,11 +61,15 @@ public class APIConnection extends EventDispatcher {
         };
         try {
             receivingLC.connect('_out_' + connectionName);
-        } catch (error:ArgumentError) {
-            debug('Can\'t connect from App. The connection name is already being used by another SWF');
+        } catch (error:Error) {
+            Cc.ch('VK', 'RECEIVING_LC connect error:: id: ' + error.errorID + ', message: ' + error.message);
         }
         sendingLC.addEventListener(StatusEvent.STATUS, onInitStatus);
-        sendingLC.send('_in_' + connectionName, 'initConnection');
+        try {
+            sendingLC.send('_in_' + connectionName, 'initConnection');
+        } catch (error:Error) {
+            Cc.ch('VK', 'sendingLC.send error:: id: ' + error.errorID + ', message: ' + error.message);
+        }
     }
 
     /*
@@ -77,13 +78,18 @@ public class APIConnection extends EventDispatcher {
     public function callMethod(...params):void {
         var paramsArr:Array = params as Array;
         paramsArr.unshift('callMethod');
-        sendData.apply(this, paramsArr);
+        try {
+            sendData.apply(this, paramsArr);
+        } catch (e:Error) {
+            Cc.ch('VK', 'callMethod -> sendData error:: id: ' + e.errorID + ', message: ' + e.message);
+        }
     }
 
     public function debug(msg:*):void {
         if (!msg || !msg.toString) {
             return;
         }
+        Cc.ch('VK', 'DEBUG info: ' + msg.toString());
         sendData('debug', msg.toString());
     }
 
@@ -99,16 +105,20 @@ public class APIConnection extends EventDispatcher {
             options['onComplete'] = onComplete;
             options['onError'] = onError;
             dp.request(method, options);
+            Cc.ch('VK', 'dp.request method: ' + method);
         } else {
             var callId:Number = apiCallId++;
             apiCalls[callId] = function (data:Object):void {
                 if (data.error) {
+                    Cc.ch('VK', 'apiCall callId: ' + callId + ', error: ' + data.error);
                     onError(data.error);
                 } else {
                     onComplete(data.response);
+                    Cc.ch('VK', 'apiCall callId: ' + callId + ', complete: ' + data.response);
                 }
             };
             sendData('api', callId, method, params);
+            Cc.ch('VK', 'sendData method: ' + method);
         }
     }
 
@@ -123,6 +133,7 @@ public class APIConnection extends EventDispatcher {
         if (loaded) return;
         loaded = true;
         debug('Connection initialized.');
+        Cc.ch('VK', 'on init conection');
         dispatchEvent(new CustomEvent(CustomEvent.CONN_INIT));
         sendPendingRequests();
     }
@@ -131,6 +142,7 @@ public class APIConnection extends EventDispatcher {
         var paramsArr:Array = params as Array;
         var eventName:String = paramsArr.shift();
         debug(eventName);
+        Cc.ch('VK', 'customEvent: ' + eventName + ', params: ' + paramsArr);
         var e:CustomEvent = new CustomEvent(eventName);
         e.params = paramsArr;
         dispatchEvent(e);
@@ -224,7 +236,12 @@ public class APIConnection extends EventDispatcher {
     }
 
     private function apiCallback(callId:Number, data:Object):void {
-        apiCalls[callId](data);
+        Cc.ch('VK', 'apiCallback: ' + callId);
+        try {
+            apiCalls[callId](data);
+        } catch (e:Error) {
+            Cc.ch('VK', 'apiCalls[callId] error: ' + e.errorID + ', message: ' + e.message);
+        }
         delete apiCalls[callId];
     }
 
@@ -233,25 +250,41 @@ public class APIConnection extends EventDispatcher {
      */
     private function sendPendingRequests():void {
         while (pendingRequests.length) {
-            sendData.apply(this, pendingRequests.shift());
+            Cc.ch('VK', 'remove pendingRequests for: ' + pendingRequests[0][0]);
+            try {
+                sendData.apply(this, pendingRequests.shift());
+            } catch (e:Error) {
+                Cc.ch('VK', 'sendData.apply error: ' + e.errorID + ', message: ' + e.message);
+            }
         }
     }
 
     private function sendData(...params):void {
         var paramsArr:Array = params as Array;
         if (loaded) {
+            Cc.ch('VK', 'sendData for: ' + paramsArr[0]);
             paramsArr.unshift('_in_' + connectionName);
-            sendingLC.send.apply(null, paramsArr);
+            try {
+                sendingLC.send.apply(null, paramsArr);
+            } catch (error:Error) {
+                Cc.ch('VK', 'sendingLC.send.apply error:: id: ' + error.errorID + ', message: ' + error.message);
+            }
         } else {
+            Cc.ch('VK', 'add to pendingRequests for: ' + paramsArr[0]);
             pendingRequests.push(paramsArr);
         }
     }
 
     private function onInitStatus(e:StatusEvent):void {
+        Cc.ch('VK', 'onInitStatus code: ' + e.code + ', level: ' + e.level);
         debug('StatusEvent: ' + e.level);
         e.target.removeEventListener(e.type, onInitStatus);
         if (e.level == 'status') {
-            receivingLC.client.initConnection();
+            try {
+                receivingLC.client.initConnection();
+            } catch (e:Error) {
+                Cc.ch('VK', 'receivingLC.client.initConnection error:: id: ' + e.errorID + ', message: ' + e.message);
+            }
         }
     }
 }

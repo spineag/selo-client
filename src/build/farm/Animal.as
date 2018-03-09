@@ -182,7 +182,7 @@ public class Animal {
     }
 
     public function fillItFromServer(ob:Object):void {
-        if (ob.id) animal_db_id = ob.id;
+        if (ob.id) animal_db_id = String(ob.id);
             else animal_db_id = '0';
         if (int(ob.time_work) > 0) {
             if (int(ob.time_work) > g.allData.getResourceById(_data.idResource).buildTime) {

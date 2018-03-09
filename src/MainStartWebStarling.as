@@ -146,7 +146,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
     private function onPreload():void {
         SocialNetworkSwitch.init(g.socialNetworkID, g.flashVars, g.isDebug);
         g.socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-        g.socialNetwork.init();
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID) g.socialNetwork.onInit();
     }
 
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
