@@ -3,10 +3,10 @@
  */
 package social.vk {
 import com.junkbyte.console.Cc;
-
 import flash.external.ExternalInterface;
+import starling.events.EventDispatcher;
 
-public class VK_JSconnection {
+public class VK_JSconnection extends EventDispatcher {
     private var _func:Object;
 
     public function VK_JSconnection(initCallback:Function) {
@@ -55,6 +55,10 @@ public class VK_JSconnection {
                 } else Cc.ch('VK', 'errorCallback is NULL');
             }
         }
+    }
+    
+    public function callMethod(method:String, ...params):void {
+        ExternalInterface.call("callMethod", method, params);
     }
 }
 }

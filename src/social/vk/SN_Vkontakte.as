@@ -1,6 +1,5 @@
 package social.vk {
 import com.junkbyte.console.Cc;
-import com.vk.APIConnection;
 import com.vk.CustomEvent;
 import flash.display.Bitmap;
 import flash.display.DisplayObject;
@@ -16,13 +15,8 @@ import user.Friend;
 public class SN_Vkontakte extends SocialNetwork {
     private static const MASK_ADD_LEFT_MENU:int = 256;
 
-    private var _uidWall:String;
-    private var _apiConnection:APIConnection;
-    private var _messageWall:String;
-    private var _urlWall:String;
     private var _isAlbum:Boolean = false;
     private var _idAlbum:int;
-    private var _typePost:String = "";
     private var _js:VK_JSconnection;
 
     protected static var g:Vars = Vars.getInstance();
@@ -30,17 +24,7 @@ public class SN_Vkontakte extends SocialNetwork {
     public function SN_Vkontakte(flashVars:Object, pathArg:String) {
         flashVars["channelGuid"] ||= "d3a603c8017548938c30c3f13a2d7741";
         flashVars["applicationGuid"] ||= '42815205f51644a1abe3774fb9a68d22';
-
-//               _apiConnection = new APIConnection(flashVars);
-//        _apiConnection.addEventListener(CustomEvent.CONN_INIT, onInit);
-//        _apiConnection.addEventListener(CustomEvent.WALL_SAVE, wallPostSaveHandler);
-//        _apiConnection.addEventListener(CustomEvent.WALL_CANCEL, wallPostCancelHandler);
-//        _apiConnection.addEventListener(CustomEvent.ORDER_CANCEL, orderCancelHandler);
-//        _apiConnection.addEventListener(CustomEvent.ORDER_FAIL, orderFailHandler);
-//        _apiConnection.addEventListener(CustomEvent.ORDER_SUCCESS, orderSuccessHandler);
-        
         _js = new VK_JSconnection(onInit);
-
         if (ExternalInterface.available) {
             try {
                 ExternalInterface.addCallback("showPayment", showPayment);
@@ -49,7 +33,6 @@ public class SN_Vkontakte extends SocialNetwork {
                 Cc.error(e.toString(), "Social network do not use ExternalInterface. Callback showPayment ignored.");
             }
         }
-
         super(flashVars);
     }
 
@@ -66,7 +49,6 @@ public class SN_Vkontakte extends SocialNetwork {
     }
     
     override public function onInit(e:* = null):void {
-        //_apiConnection.removeEventListener(CustomEvent.CONN_INIT, onInit);
         Cc.ch('VK', 'SN_Vkontakte:: onInit');
         super.onInit();
     }
@@ -77,7 +59,6 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function get referrer():String {
         var result:String;
-
         result = _flashVars["referrer"] || "unknown";
         if (result.indexOf("wall") > 0) {
             var st:String = result;
@@ -90,7 +71,6 @@ public class SN_Vkontakte extends SocialNetwork {
         } else if (result.indexOf("group_posting") > 0) {
             result = result.replace("ad=", "");
         }
-
         return result;
     }
 
@@ -116,7 +96,6 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function getProfile(uid:String):void {
         super.getProfile(uid);
-//        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100, bdate, sex, city, country", https: 1}, getProfileHandler, onErrorProfile);
         _js.api("users.get", {fields: "first_name, last_name, photo_100, bdate, sex", https: 1}, getProfileHandler, onErrorProfile);
     }
 
@@ -134,14 +113,12 @@ public class SN_Vkontakte extends SocialNetwork {
         _paramsUser.photo = String(e.response[0].photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : e.response[0].photo_100;
         _paramsUser.sex = e.response[0].sex;
         _paramsUser.bdate = e.response[0].bdate;
-
         super.getProfileSuccess(_paramsUser);
         forSimpleDevelopers();
     }
 
     override public function getAllFriends():void {
         super.getAllFriends();
-//        _apiConnection.api("friends.get", {fields: "first_name,last_name,photo_100", https: 1}, getFriendsHandler, onError);
         _js.api("friends.get", {fields: "first_name,last_name,photo_100", https: 1}, getFriendsHandler, onError);
     }
 
@@ -164,7 +141,6 @@ public class SN_Vkontakte extends SocialNetwork {
     // friends in App
     override protected function getFriendsByIDs(friends:Array):void {
         var arr:Array;
-
         _friendsApp = friends;
         if (_friendsApp.length > COUNT_PER_ONCE) {
             arr = _friendsApp.slice(0, COUNT_PER_ONCE);
@@ -188,7 +164,6 @@ public class SN_Vkontakte extends SocialNetwork {
         for (var i:int = 0; i < ids.length; i++) {
             arr.push(ids[i]);
         }
-//        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getFriendsByIdsHandler, onError);
         _js.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getFriendsByIdsHandler, onError);
     }
 
@@ -196,7 +171,6 @@ public class SN_Vkontakte extends SocialNetwork {
         for (var i:int = 0; i < e.length; i++) {
            g.user.addFriendInfo(e[i]);
         }
-
         if (_friendsApp.length) {
             getFriendsByIDs(_friendsApp);
         } else {
@@ -207,7 +181,6 @@ public class SN_Vkontakte extends SocialNetwork {
     // friends not in App
     override public function getNoAppFriendsByIDs(friends:Array):void {
         var arr:Array;
-
         _friendsNoApp = friends;
         if (_friendsNoApp.length > COUNT_PER_ONCE) {
             arr = _friendsNoApp.slice(0, COUNT_PER_ONCE);
@@ -216,7 +189,6 @@ public class SN_Vkontakte extends SocialNetwork {
             arr = _friendsNoApp.slice();
             _friendsNoApp = [];
         }
-
         super.getNoAppFriendsByIDs(arr);
         if (getTimer() - _timerRender < 1000) {
             g.gameDispatcher.addToTimerWithParams(getNoAppFriendsByIDsWithDelay, 1000, 1, arr);
@@ -228,18 +200,15 @@ public class SN_Vkontakte extends SocialNetwork {
 
     public function getNoAppFriendsByIDsWithDelay(ids:Array):void {
         var arr:Array = [];
-
         for (var i:int = 0; i < ids.length; i++) {
             arr.push(ids[i].uid);
         }
-//        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getNoAppFriendsByIdsHandler, onError);
         _js.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getNoAppFriendsByIdsHandler, onError);
     }
 
     private function getNoAppFriendsByIdsHandler(e:Array):void {
         var buffer:Object;
         var bufferIds:Array = [];
-
         for (var i:int = 0; i < e.length; i++) {
             buffer = e[i];
             buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : buffer.photo_100;
@@ -256,7 +225,6 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function getTempUsersInfoById(arr:Array):void {
         super.getTempUsersInfoById(arr);
-//        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getTempFriendsByIDsHandler, onError);
         _js.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getTempFriendsByIDsHandler, onError);
     }
 
@@ -272,14 +240,8 @@ public class SN_Vkontakte extends SocialNetwork {
         super.getTempUsersInfoByIdSucces();
     }
 
-//    override public function getPostsByIds(postIds:String):void {
-//        super.getPostsByIds(postIds);
-//        _apiConnection.api("wall.getById", {posts: postIds, extended: 0, v: 5.21}, getPostsByIdsHandler, onError);
-//    }
-
     override public function getAppUsers():void { // друзья в игре
         super.getAppUsers();
-//        _apiConnection.api("friends.getAppUsers", {https: 1}, getAppUsersHandler, onError);
         _js.api("friends.getAppUsers", {https: 1}, getAppUsersHandler, onError);
     }
 
@@ -299,7 +261,6 @@ public class SN_Vkontakte extends SocialNetwork {
     override public function getUsersOnline():void {
         super.getUsersOnline();
         _friendsApp = [];
-//        _apiConnection.api("friends.getOnline", {https: 1}, getUsersOnlineHandler, onError);
         _js.api("friends.getOnline", {https: 1}, getUsersOnlineHandler, onError);
     }
 
@@ -307,7 +268,6 @@ public class SN_Vkontakte extends SocialNetwork {
         for (var key:String in e) {
             _friendsApp.push(String(e[key]));
         }
-
         super.getUsersOnlineSuccess(_friendsApp);
     }
 
@@ -318,14 +278,11 @@ public class SN_Vkontakte extends SocialNetwork {
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
         url = url || "icon_vk.png";
         title = title || "Вязаный мир";
-
         super.wallPostBitmap(uid, message, image, url, title, posttype);
-
         if (g.isDebug) {
             super.wallSave();
             return;
         }
-
         new VKWallPost(uid, message, image, url, title, posttype, this, _js);
     }
 
@@ -350,17 +307,14 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     override public function showInviteWindow():void {
-        if (g.isDebug) {
-            return;
-        }
-        _apiConnection.callMethod("showInviteBox");
-        _apiConnection.addEventListener(CustomEvent.WINDOW_FOCUS, inviteBoxCompleteHandler);
+        if (g.isDebug) return;
+        _js.callMethod("showInviteBox");
+        _js.addEventListener(CustomEvent.WINDOW_FOCUS, inviteBoxCompleteHandler);
         super.showInviteWindow();
     }
 
     private function inviteBoxCompleteHandler(e:CustomEvent):void {
-        _apiConnection.removeEventListener(CustomEvent.WINDOW_FOCUS, inviteBoxCompleteHandler);
-
+        _js.removeEventListener(CustomEvent.WINDOW_FOCUS, inviteBoxCompleteHandler);
         super.inviteBoxComplete();
     }
 
@@ -370,16 +324,13 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function requestBoxArray(arr:Array, message:String, requestKey:String):void {
         super.requestBoxArray(arr, message, requestKey);
-
         _requestBoxArray = arr;
         _requestBoxMessage = message;
-
         releaseArrayRequestBox();
     }
 
     private function releaseArrayRequestBox():void {
         var uid:String;
-
         if (_requestBoxArray.length) {
             uid = _requestBoxArray.shift();
             requestBox(uid, _requestBoxMessage, g.user.userSocialId);
@@ -391,18 +342,16 @@ public class SN_Vkontakte extends SocialNetwork {
             dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.REQUEST_WINDOW_CANCEL, false, false));
             return;
         }
-
         if (_isSendingNow) {
             _requestBoxArray.push(uid);
             return;
         }
-
         if (uid) {
             _isSendingNow = true;
-            _apiConnection.callMethod("showRequestBox", int(uid), message, requestKey);
-            _apiConnection.addEventListener(CustomEvent.REQUEST_COMPLETE, requestBoxCompleteHandler);
-            _apiConnection.addEventListener(CustomEvent.REQUEST_CANCEL, requestBoxCancelHandler);
-            _apiConnection.addEventListener(CustomEvent.REQUEST_FAIL, requestBoxFailHandler);
+            _js.callMethod("showRequestBox", int(uid), message, requestKey);
+            _js.addEventListener(CustomEvent.REQUEST_COMPLETE, requestBoxCompleteHandler);
+            _js.addEventListener(CustomEvent.REQUEST_CANCEL, requestBoxCancelHandler);
+            _js.addEventListener(CustomEvent.REQUEST_FAIL, requestBoxFailHandler);
             super.requestBox(uid, message, requestKey);
         } else {
             showInviteWindow();
@@ -410,35 +359,29 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function requestBoxCompleteHandler(e:CustomEvent):void {
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_COMPLETE, requestBoxCompleteHandler);
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_CANCEL, requestBoxCancelHandler);
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_FAIL, requestBoxFailHandler);
-
+        _js.removeEventListener(CustomEvent.REQUEST_COMPLETE, requestBoxCompleteHandler);
+        _js.removeEventListener(CustomEvent.REQUEST_CANCEL, requestBoxCancelHandler);
+        _js.removeEventListener(CustomEvent.REQUEST_FAIL, requestBoxFailHandler);
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.REQUEST_WINDOW_COMPLETE, false, false));
         super.inviteBoxComplete();
-
         _isSendingNow = false;
         releaseArrayRequestBox();
     }
 
     private function requestBoxCancelHandler(e:CustomEvent):void {
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_COMPLETE, requestBoxCompleteHandler);
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_CANCEL, requestBoxCancelHandler);
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_FAIL, requestBoxFailHandler);
-
+        _js.removeEventListener(CustomEvent.REQUEST_COMPLETE, requestBoxCompleteHandler);
+        _js.removeEventListener(CustomEvent.REQUEST_CANCEL, requestBoxCancelHandler);
+        _js.removeEventListener(CustomEvent.REQUEST_FAIL, requestBoxFailHandler);
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.REQUEST_WINDOW_CANCEL, false, false));
-
         _isSendingNow = false;
         releaseArrayRequestBox();
     }
 
     private function requestBoxFailHandler(e:CustomEvent):void {
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_COMPLETE, requestBoxCompleteHandler);
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_CANCEL, requestBoxCancelHandler);
-        _apiConnection.removeEventListener(CustomEvent.REQUEST_FAIL, requestBoxFailHandler);
-
+        _js.removeEventListener(CustomEvent.REQUEST_COMPLETE, requestBoxCompleteHandler);
+        _js.removeEventListener(CustomEvent.REQUEST_CANCEL, requestBoxCancelHandler);
+        _js.removeEventListener(CustomEvent.REQUEST_FAIL, requestBoxFailHandler);
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.REQUEST_WINDOW_CANCEL, false, false));
-
         _isSendingNow = false;
         releaseArrayRequestBox();
     }
@@ -446,7 +389,6 @@ public class SN_Vkontakte extends SocialNetwork {
     override public function saveScreenshotToAlbum(oid:String):void {
         //g.managerCutSceneWarning.visible = false;
         findAlbum(oid);
-
         super.saveScreenshotToAlbum(oid);
     }
 
@@ -456,31 +398,22 @@ public class SN_Vkontakte extends SocialNetwork {
                 _isAlbum = true;
                 _idAlbum = data[Key].aid;
 
-//                _apiConnection.api("photos.getUploadServer", {aid: _idAlbum, save_big: 1, https: 1}, getAlbumUploadServerComplete, onError);
                 _js.api("photos.getUploadServer", {aid: _idAlbum, save_big: 1, https: 1}, getAlbumUploadServerComplete, onError);
             }
         }
-//        if (!_isAlbum) {
-//            createAlbum("Птичий Островок", "http://vk.com/app4677235");
-//        }
-
     }
 
     private function findAlbum(oid:String):void {
-//        _apiConnection.api("photos.getAlbums", {oid: oid, https: 1}, onGetAlbums, onError);
         _js.api("photos.getAlbums", {oid: oid, https: 1}, onGetAlbums, onError);
     }
 
     private function createAlbum(title:String, description:String, comment_privacy:int = 0, privacy:int = 0):void {
-//        _apiConnection.api("photos.createAlbum", {title: title, description: description, comment_privacy: comment_privacy, privacy: privacy, https: 1}, onCreateAlbum);
         _js.api("photos.createAlbum", {title: title, description: description, comment_privacy: comment_privacy, privacy: privacy, https: 1}, onCreateAlbum, onError);
     }
 
     private function onCreateAlbum(data:Object):void {
         _idAlbum = data.aid;
         _isAlbum = true;
-
-//        _apiConnection.api("photos.getUploadServer", {aid: _idAlbum, save_big: 1, https: 1}, getAlbumUploadServerComplete, onError);
         _js.api("photos.getUploadServer", {aid: _idAlbum, save_big: 1, https: 1}, getAlbumUploadServerComplete, onError);
     }
 
@@ -540,7 +473,7 @@ public class SN_Vkontakte extends SocialNetwork {
         }
         var item:String = "item_" + String(e.id);
 
-        _apiConnection.callMethod("showOrderBox", {"type": "item", item: item});
+        _js.callMethod("showOrderBox", {"type": "item", item: item});
         super.showOrderWindow(e);
     }
 
@@ -585,16 +518,13 @@ public class SN_Vkontakte extends SocialNetwork {
     private function getOffersInfoHandler(e:Object):void {
 //        for testing offers system uncomment next line
         (e.items as Array).push({currency_amount:6, description:"test", id:2169, price:1, img:"http://cs310421.vk.me/u00100/b_3a685ddb.jpg",title:"", short_description:"TestOffer"});
-
         Cc.ch("offer", "Got " + e.count + " offers");
 //        g.managerOffer.setSocialOffer(e.items);
     }
 
     override public function showOfferBox(offer_id:String):void {
-        if (g.isDebug) {
-            return;
-        }
-        _apiConnection.callMethod("showOrderBox", {"type": "offers", offer_id: offer_id});
+        if (g.isDebug) return;
+        _js.callMethod("showOrderBox", {"type": "offers", offer_id: offer_id});
         super.showOfferBox(offer_id);
     }
 
@@ -603,44 +533,34 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     override public function checkLeftMenu():void {
-        if (g.isDebug) {
-            g.managerQuest.onActionForTaskType(ManagerQuest.ADD_LEFT_MENU);
-//        } else _apiConnection.api("getUserSettings", {}, onCheckLeftMenu, onError);
-        } else _js.api("getUserSettings", {}, onCheckLeftMenu, onError);
+        if (g.isDebug) g.managerQuest.onActionForTaskType(ManagerQuest.ADD_LEFT_MENU);
+        else _js.api("getUserSettings", {}, onCheckLeftMenu, onError);
     }
 
     private function onCheckLeftMenu(value:int, needCheck:Boolean = true):void {
-        if (Boolean(value & MASK_ADD_LEFT_MENU)) {
-            g.managerQuest.onActionForTaskType(ManagerQuest.ADD_LEFT_MENU);
-        } else {
+        if (Boolean(value & MASK_ADD_LEFT_MENU)) g.managerQuest.onActionForTaskType(ManagerQuest.ADD_LEFT_MENU);
+        else {
             if (needCheck) {
-                _apiConnection.addEventListener(CustomEvent.SETTINGS_CHANGED, onSmthChanged);
-                _apiConnection.callMethod("showSettingsBox", MASK_ADD_LEFT_MENU);
+                _js.addEventListener(CustomEvent.SETTINGS_CHANGED, onSmthChanged);
+                _js.callMethod("showSettingsBox", MASK_ADD_LEFT_MENU);
             }
         }
     }
 
     private function onSmthChanged(e:CustomEvent):void {
-        _apiConnection.removeEventListener(CustomEvent.SETTINGS_CHANGED, onSmthChanged);
-        if (e.params[0]) {
-            onCheckLeftMenu(int(e.params[0]), false);
-        } else {
-            Cc.ch('social', 'no value e.params[0] at onSettingsChanged');
-        }
+        _js.removeEventListener(CustomEvent.SETTINGS_CHANGED, onSmthChanged);
+        if (e.params[0]) onCheckLeftMenu(int(e.params[0]), false);
+        else  Cc.ch('social', 'no value e.params[0] at onSettingsChanged');
     }
 
     public override function checkIsInSocialGroup(id:String):void {
-//        _apiConnection.api("groups.isMember", {group_id: id, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
         _js.api("groups.isMember", {group_id: id, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
         super.checkIsInSocialGroup(id);
     }
 
     private function getIsInGroupHandler(e:String):void {
-        if (e == '1') {
-            g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
-//        } else {
-//            Link.openURL(urlSocialGroup);
-        }
+        if (e == '1') g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
+//      else Link.openURL(urlSocialGroup);
     }
 }
 }
@@ -650,7 +570,6 @@ import utils.Multipart;
 import com.adobe.images.JPGEncoder;
 import com.adobe.serialization.json.JSONuse;
 import com.junkbyte.console.Cc;
-import com.vk.APIConnection;
 import flash.display.Bitmap;
 import flash.events.Event;
 import flash.net.URLLoader;
@@ -665,10 +584,8 @@ internal class VKWallPost {
     private var _typePost:String = "";
     private var _imageWallPost:Bitmap;
     private var _network:SN_Vkontakte;
-//    private var _apiConnection:APIConnection;
     private var _js:VK_JSconnection;
     private var _saveWallPhoto:Object;
-    private var _idObj:int;
 
     protected var g:Vars = Vars.getInstance();
 
@@ -682,7 +599,6 @@ internal class VKWallPost {
         _js = js;
 
         Cc.ch('social', 'start photos.getWallUploadServer');
-//        _apiConnection.api("photos.getWallUploadServer", {uid: _uidWall, https: 1}, continueWallPost, _network.onError);
         _js.api("photos.getWallUploadServer", {uid: _uidWall, https: 1}, continueWallPost, _network.onError);
     }
 
@@ -723,15 +639,12 @@ internal class VKWallPost {
 
     private function wallPostSavePhoto(e:Event):void {
         _saveWallPhoto = JSONuse.decode(e.target.data);
-
         continueWallPostSavePhoto();
     }
 
     private function wallPostSavePhotoComplete(e:Object):void {
         var message:String;
-
         message = 'Вязаный мир' + "\n" + _messageWall + "\n" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost;
-//        message = "[" + _network.urlApp + "?ad_id=wall" + _uidWall + "_" + _network.currentUID + "_" + _typePost + "|Умелые Лапки]" + "\n" + _messageWall;
         _js.api("wall.post", {owner_id: _uidWall, message: message, attachments: e[0].id, https: 1}, wallPostSavePostComplete, onErrorPost);
     }
 
