@@ -55,7 +55,7 @@ public class GSound {
             _soundChanell.addEventListener(Event.SOUND_COMPLETE, f2);
 //            _sound.
             if (!_soundChanell) return;
-            TweenMax.to(_soundChanell, 1.5, {volume:volume});
+            TweenMax.to(_soundChanell, 0, {volume:volume});
         } else {
             _soundChanell = _sound.play(0, count);
         }

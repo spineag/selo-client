@@ -94,7 +94,7 @@ public class StructureDataBuilding {
             _buildType = BuildType.DECOR_FENCE_GATE;
             obj.innerX = [];
             obj.innerY = [];
-            obj.innerX.push(-28 * g.scaleFactor); obj.innerY.push(-30 * g.scaleFactor); // main (top) part of gate
+            obj.innerX.push(-50 * g.scaleFactor); obj.innerY.push(-35 * g.scaleFactor); // main (top) part of gate
             obj.innerX.push(-14 * g.scaleFactor); obj.innerY.push(-21 * g.scaleFactor); // second part of gate
             obj.innerX.push(-54 * g.scaleFactor); obj.innerY.push(0 * g.scaleFactor); // second part for shop view
             obj.innerX.push(45 * g.scaleFactor);  obj.innerY.push(-34 * g.scaleFactor); // line for main part
@@ -130,7 +130,7 @@ public class StructureDataBuilding {
             _buildType = BuildType.DECOR_FENCE_GATE;
             obj.innerX = [];
             obj.innerY = [];
-            obj.innerX.push(-43 * g.scaleFactor); obj.innerY.push(-52 * g.scaleFactor); // main (top) part of gate
+            obj.innerX.push(-58 * g.scaleFactor); obj.innerY.push(-37 * g.scaleFactor); // main (top) part of gate
             obj.innerX.push(-15 * g.scaleFactor); obj.innerY.push(-37 * g.scaleFactor); // second part of gate
             obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-17 * g.scaleFactor); // second part for shop view
             obj.innerX.push(48 * g.scaleFactor);  obj.innerY.push(-41 * g.scaleFactor); // line for main part
@@ -138,12 +138,11 @@ public class StructureDataBuilding {
             // main part if is open
             // second part if is open
         }
-
         if (_id == 74) {
             _buildType = BuildType.DECOR_POST_FENCE_ARKA;
             obj.innerX = [];
             obj.innerY = [];
-            obj.innerX.push(-40 * g.scaleFactor); obj.innerY.push(-158 * g.scaleFactor); // main (top) part of gate
+            obj.innerX.push(-150 * g.scaleFactor); obj.innerY.push(-141 * g.scaleFactor); // main (top) part of gate
             obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-185 * g.scaleFactor); // second part of gate
             obj.innerX.push(-147 * g.scaleFactor); obj.innerY.push(-143 * g.scaleFactor); // second part for shop view
             obj.innerX.push(47 * g.scaleFactor); obj.innerY.push(-47 * g.scaleFactor); // line for main part

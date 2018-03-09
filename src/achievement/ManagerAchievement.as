@@ -15,6 +15,7 @@ public class ManagerAchievement {
     private var g:Vars = Vars.getInstance();
 
     public function ManagerAchievement() {
+        return;// ACHIEVENTOFF
         dataAchievement = [];
         userAchievement = [];
         g.server.getDataAchievement(null);
@@ -22,6 +23,7 @@ public class ManagerAchievement {
     }
 
     public function achievementCountFriend(count:int):void {
+        return;// ACHIEVENTOFF
         var ob:Object;
         var b:Boolean = false;
         if (userAchievement.length > 0) {
@@ -74,7 +76,8 @@ public class ManagerAchievement {
     }
 
      public function achievementCountSoft(count:int):void {
-            var ob:Object;
+         return;// ACHIEVENTOFF
+         var ob:Object;
             var b:Boolean = false;
             if (userAchievement.length > 0) {
                 for (var i:int = 0; i < userAchievement.length; i++) {
@@ -126,6 +129,7 @@ public class ManagerAchievement {
         }
 
     public function addResource(idResource:int):void {
+        return;// ACHIEVENTOFF
         var i:int = 0;
         var b:Boolean = false;
         var ob:Object = {};
@@ -189,6 +193,7 @@ public class ManagerAchievement {
     }
 
     public function addAll(achievementId:int,count:int = 1):void {
+        return;// ACHIEVENTOFF
         var i:int = 0;
         var b:Boolean = false;
         var ob:Object = {};
@@ -242,6 +247,7 @@ public class ManagerAchievement {
     }
 
     public function checkAchievement():Boolean {
+        return false;// ACHIEVENTOFF
         var b:Boolean = false;
         if (userAchievement.length > 0) {
             for (var i:int = 0; i < userAchievement.length; i++) {

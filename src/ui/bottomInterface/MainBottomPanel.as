@@ -371,7 +371,7 @@ public class MainBottomPanel {
                 if (g.managerSalePack) g.managerSalePack.onUserAction();
                 if (g.managerStarterPack) g.managerStarterPack.onUserAction();
                 if (g.managerCutScenes.isCutScene) return;
-                if (g.tuts.isTuts) return;
+//                if (g.tuts.isTuts) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     cancelBoolean(false);

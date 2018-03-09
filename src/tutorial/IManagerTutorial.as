@@ -127,6 +127,7 @@ public class IManagerTutorial {
         updateTutorialStep();
         g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
         g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
+        g.managerNews.checkNotificationBottomInterface();
     }
 }
 }

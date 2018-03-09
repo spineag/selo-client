@@ -42,7 +42,7 @@ public class WOShop extends WindowMain {
             _woHeight = 486;
         }
         if (_isBigWO) _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 154);
-            else _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 124);
+            else _woBGNew = new WindowBackgroundNew(_woWidth, _woHeight, 144);
         _source.addChild(_woBGNew);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
@@ -52,9 +52,9 @@ public class WOShop extends WindowMain {
             _bigYellowBG.x = -434;
             _bigYellowBG.y = -185;
         } else {
-            _bigYellowBG = new BackgroundYellowOut(810, 346);
+            _bigYellowBG = new BackgroundYellowOut(810, 326);
             _bigYellowBG.x = -405;
-            _bigYellowBG.y = -120;
+            _bigYellowBG.y = -100;
         }
         _bigYellowBG.source.touchable = true;
         _source.addChild(_bigYellowBG);
@@ -66,7 +66,7 @@ public class WOShop extends WindowMain {
             _decorFilter.source.y = -_woHeight / 2 + 170;
         } else {
             _decorFilter.source.x = -_woWidth / 2 + 81;
-            _decorFilter.source.y = -_woHeight / 2 + 142;
+            _decorFilter.source.y = -_woHeight / 2 + 162;
         }
         _source.addChild(_decorFilter.source);
         _decorFilter.source.visible = false;
@@ -77,7 +77,7 @@ public class WOShop extends WindowMain {
         _txtWindowName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtWindowName.x = -150;
         if (_isBigWO) _txtWindowName.y = -_woHeight/2 + 20;
-            else _txtWindowName.y = -_woHeight/2 + 3;
+            else _txtWindowName.y = -_woHeight/2 + 10;
         _source.addChild(_txtWindowName);
         _txtDecorInventory = new CTextField(300, 70, g.managerLanguage.allTexts[1235]);
         _txtDecorInventory.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);

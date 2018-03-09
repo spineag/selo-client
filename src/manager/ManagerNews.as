@@ -79,7 +79,7 @@ public class ManagerNews {
             }
             g.server.updateUserNewsNew(st, null);
         } else g.server.updateUserNewsNew(String(g.user.newsNew[0]), null);
-        checkNotificationBottomInterface();
+        if (!g.tuts.isTuts) checkNotificationBottomInterface();
     }
 
     public function checkNotificationBottomInterface():void {

@@ -84,6 +84,7 @@ public class WONews extends WindowMain {
         }
         if (_arrNews[0].notification) g.managerNews.addArrNewsNew(_arrNews[0].id);
         if (_arrItems.length > 1) createArrows();
+        updateTxtPages();
         super.showIt();
 
     }
@@ -120,6 +121,7 @@ public class WONews extends WindowMain {
     }
 
     private function updateTxtPages():void {
+        if (_arrItems.length <= 0) _txtPageNumber.visible = false;
         _txtPageNumber.text = String(_shift+1) + "/" + String(_arrItems.length);
     }
 

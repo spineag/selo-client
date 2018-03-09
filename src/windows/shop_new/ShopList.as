@@ -9,6 +9,8 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
+import starling.utils.Color;
+
 import utils.CButton;
 import utils.CTextField;
 
@@ -37,7 +39,7 @@ public class ShopList {
         _isBigShop = isBigShop;
         _mask = new Sprite();
         if (isBigShop) _mask.y = -676/2 + 171;
-            else _mask.y = -676/2 + 171 + 92;
+            else _mask.y = -676/2 + 171 + 122;
         _woSource.addChild(_mask);
         _cont = new Sprite();
         _mask.addChild(_cont);
@@ -46,10 +48,15 @@ public class ShopList {
         createArrows();
 
         _txtPages = new CTextField(120, 30, '0/0');
-        _txtPages.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
-        _txtPages.cacheIt = false;
-        if (_isBigShop) _txtPages.y = 300;
-            else _txtPages.y = 180;
+        if (_isBigShop) {
+            _txtPages.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
+            _txtPages.cacheIt = false;
+            _txtPages.y = 300;
+        } else {
+            _txtPages.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR,Color.WHITE);
+            _txtPages.cacheIt = false;
+            _txtPages.y = 195;
+        }
         _txtPages.x = -60;
         _woSource.addChild(_txtPages);
     }
@@ -161,7 +168,7 @@ public class ShopList {
             _leftArrow.y = -676 / 2 + 397;
         } else {
             _leftArrow.x = -810 / 2 + 32;
-            _leftArrow.y = -346 / 2 + 210;
+            _leftArrow.y = -346 / 2 + 230;
         }
         _woSource.addChild(_leftArrow);
         _rightArrow = new CButton();
@@ -175,7 +182,7 @@ public class ShopList {
             _rightArrow.y = -676 / 2 + 397;
         } else {
             _rightArrow.x = 810 / 2 - 32;
-            _rightArrow.y = -346 / 2 + 210;
+            _rightArrow.y = -346 / 2 + 230;
         }
         _woSource.addChild(_rightArrow);
     }

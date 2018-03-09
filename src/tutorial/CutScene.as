@@ -44,8 +44,8 @@ public class CutScene {
            (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2;
            (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/3;
        } else {
-           (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2;
-//           (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/2;
+           (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2 - (_armature.display as StarlingArmatureDisplay).width/4;
+           (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/2 - (_armature.display as StarlingArmatureDisplay).height/4;
        }
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         onResize();

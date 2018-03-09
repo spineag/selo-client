@@ -220,7 +220,7 @@ public class TutorialComix {
 
     private function timerToText():void {
         _countTimer ++;
-        if (_countTimer >= 6) {
+        if (_countTimer >= 3) {
             g.gameDispatcher.removeFromTimer(timerToText);
             _countTimer = 0;
             _srcNextTxt.x = _im1.x +_im1.width/2;

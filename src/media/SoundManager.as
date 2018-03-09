@@ -155,14 +155,15 @@ public class SoundManager {
         }
     }
 
-    public function managerMusic():void {
+    public function managerMusic(onStart:Boolean = false):void {
         if (!_isPlayingMusic) return;
         if (g.tuts.isTuts && g.user.tutorialStep == 1) {
             _idMainPlay = SoundConst.MAIN_MUSIC;
             playMusic(_idMainPlay, 1, 1);
         } else {
             var random:Number;
-            if (_idMainPlay == 1) _idMainPlay = SoundConst.MAIN_MUSIC_SHORT;
+            if (onStart) _idMainPlay = SoundConst.MAIN_MUSIC;
+            else if (_idMainPlay == 1) _idMainPlay = SoundConst.MAIN_MUSIC_SHORT;
             else {
                 random = Math.random();
                 if (random <= .2) {

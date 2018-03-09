@@ -374,7 +374,7 @@ public class Vars {
     private function afterLoadAll():void {
         cont.onLoadAll();
         startPreloader.setProgress(100);
-        soundManager.managerMusic();
+        soundManager.managerMusic(true);
         soundManager.checkAnimal();
         if (currentGameScale != 1) cont.makeScaling(currentGameScale, false, true);
         cont.moveCenterToXY(350, realGameTilesHeight / 2 - 700 * scaleFactor, true);

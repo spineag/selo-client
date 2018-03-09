@@ -48,7 +48,7 @@ public class WOStarterPack extends WindowMain{
         _decorSpr = new Sprite();
         _arrCTex = [];
         if (g.managerResize.stageHeight < 750) _isBigWO = false;  else _isBigWO = true;
-        if (!_isBigWO) _source.scale = .7;
+        if (!_isBigWO) _source.scale = .8;
         _woHeight = 460;
         _woWidth = 610;
         _windowType = WindowsManager.WO_STARTER_PACK;

@@ -26,7 +26,7 @@ public class WONewsItem {
     public function WONewsItem(name:int, imItem:String, txtPrev:int, txtMain:int, txtPs:int, time:String, notification:Boolean) {
         source = new CSprite();
         _imItem = new Image(g.allData.atlas['newsAtlas'].getTexture(imItem));
-        _imItem.x = 10;
+        _imItem.x = 7;
         _imItem.y = 60;
         source.addChild(_imItem);
         if (notification) {

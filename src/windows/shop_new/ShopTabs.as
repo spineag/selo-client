@@ -200,13 +200,25 @@ internal class TabButton {
         _tabActive.x = xA - delta;
         _tabActive.visible = isActive;
         _tabUnactive.visible = !isActive;
-        if (_notif) {
-            if (isActive) {
-                _notif.x = xA + 74;
-                _notif.y = -42;
-            } else {
-                _notif.x = xU + 62;
-                _notif.y = -30;
+        if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) {
+            if (_notif) {
+                if (isActive) {
+                    _notif.x = xA + 44;
+                    _notif.y = -42;
+                } else {
+                    _notif.x = xU + 32;
+                    _notif.y = -30;
+                }
+            }
+        } else {
+            if (_notif) {
+                if (isActive) {
+                    _notif.x = xA + 74;
+                    _notif.y = -42;
+                } else {
+                    _notif.x = xU + 62;
+                    _notif.y = -30;
+                }
             }
         }
     }
@@ -222,6 +234,7 @@ internal class TabButton {
         _notifTxt.x = -18;
         _notifTxt.y = -18;
         _notif.addChild(_notifTxt);
+
         var c:int;
         switch (tabNumber) {
             case 1: c = g.user.notif.countNewFarm(); if (g.user.notif.isNewRidge) c++; break;
