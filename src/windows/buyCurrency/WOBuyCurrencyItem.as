@@ -62,17 +62,27 @@ public class WOBuyCurrencyItem {
             if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_purple_rus'));
             else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_purple_eng'));
             im.x = 163;
-            MCScaler.scale(im,im.height/1.4, im.width/1.4);
-            im.y = -9;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) {
+                MCScaler.scale(im,im.height/1.6, im.width/1.6);
+                im.x = 155;
+            } else {
+                MCScaler.scale(im,im.height/1.4, im.width/1.4);
+                im.y = -9;
+            }
             source.addChild(im);
         }
 
         if (bonus[1] > 0) {
-            if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_red_eng'));
-            else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_red_rus'));
+            if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_red_rus'));
+            else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_red_eng'));
             im.x = 163;
-            MCScaler.scale(im,im.height/1.4, im.width/1.4);
-            im.y = -9;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) {
+                MCScaler.scale(im,im.height/1.6, im.width/1.6);
+                im.x = 155;
+            } else {
+                MCScaler.scale(im,im.height/1.4, im.width/1.4);
+                im.y = -9;
+            }
             source.addChild(im);
         }
         _btn.clickCallback = onClick;

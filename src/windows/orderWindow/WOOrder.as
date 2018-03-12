@@ -902,9 +902,15 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
 
     public function addArrow():void {
         if (_btnSell && !_arrow && _canArrow) {
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _source);
-            _arrow.animateAtPosition(_btnSell.x, _btnSell.y + _btnSell.height/2 - 2);
-            _arrow.scaleIt(.7);
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) {
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+                _arrow.animateAtPosition(_btnSell.x + _btnSell.width/2, _btnSell.y);
+                _arrow.scaleIt(.7);
+            } else {
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _source);
+                _arrow.animateAtPosition(_btnSell.x, _btnSell.y + _btnSell.height/2 - 2);
+                _arrow.scaleIt(.7);
+            }
         }
     }
 

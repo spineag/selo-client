@@ -239,9 +239,13 @@ public class FriendPanel {
     }
 
     public function showIt():void {
+        if ((g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) && g.toolsPanel.isShowed) {
+            g.bottomPanel.boolTools = false;
+            g.toolsPanel.hideIt();
+        }
         _source.visible  = true;
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, .5, {y:g.managerResize.stageHeight - 105, ease:Back.easeOut, delay:.2});
+        new TweenMax(_source, .5, {y:g.managerResize.stageHeight - 105});
     }
 
     public function hideIt(quick:Boolean = false, time:Number = .5):void {
@@ -350,7 +354,8 @@ public class FriendPanel {
         if (_arrFriends.length == 0) {
             Cc.ch('social', 'friendUI: fill 3 add');
             bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame_1'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            MCScaler.scale(im,63,63);
             im.x = 10;
             im.y = 6;
             bt.addDisplayObject(im);
@@ -368,7 +373,8 @@ public class FriendPanel {
             bt.clickCallback = inviteFriends;
 
             bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame_1'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            MCScaler.scale(im,63,63);
             im.x = 10;
             im.y = 6;
             bt.addDisplayObject(im);
@@ -386,7 +392,8 @@ public class FriendPanel {
             bt.clickCallback = inviteFriends;
 
             bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame_1'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            MCScaler.scale(im,63,63);
             im.x = 10;
             im.y = 6;
             bt.addDisplayObject(im);
@@ -405,7 +412,8 @@ public class FriendPanel {
         } else if (_arrFriends.length == 1) {
             Cc.ch('social', 'friendUI: fill 2 add');
             bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame_1'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            MCScaler.scale(im,63,63);
             im.x = 10;
             im.y = 6;
             bt.addDisplayObject(im);
@@ -423,7 +431,8 @@ public class FriendPanel {
             bt.clickCallback = inviteFriends;
 
             bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame_1'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            MCScaler.scale(im,63,63);
             im.x = 10;
             im.y = 6;
             bt.addDisplayObject(im);
@@ -442,7 +451,8 @@ public class FriendPanel {
         } else if (_arrFriends.length == 2) {
             Cc.ch('social', 'friendUI: fill 1 add');
             bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('invite_friend_frame_1'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            MCScaler.scale(im,63,63);
             im.x = 10;
             im.y = 6;
             bt.addDisplayObject(im);

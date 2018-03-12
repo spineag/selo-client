@@ -181,7 +181,10 @@ public class WOLevelUpItem {
             || _data.buildType == BuildType.RESOURCE || _data.buildType == BuildType.PLANT || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA
             || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.ANIMAL
             || _data.buildType == BuildType.INSTRUMENT || _data.buildType == BuildType.MARKET || _data.buildType == BuildType.PAPER || _data.buildType == BuildType.TRAIN || _data.buildType == BuildType.FARM
-            || _data.buildType == BuildType.CAVE || _data.buildType == BuildType.DAILY_BONUS || _data.buildType == BuildType.ORDER || _data.buildType == BuildType.DECOR_ANIMATION) g.levelUpHint.showIt(_data,source.x-30,source.y-50,source);
+            || _data.buildType == BuildType.CAVE || _data.buildType == BuildType.DAILY_BONUS || _data.buildType == BuildType.ORDER || _data.buildType == BuildType.DECOR_ANIMATION) {
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) g.levelUpHint.showIt(_data,source.x-60,source.y-130,source);
+            else g.levelUpHint.showIt(_data,source.x-30,source.y-50,source);
+        }
     }
 
     private function onOut():void {

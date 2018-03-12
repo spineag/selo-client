@@ -37,6 +37,7 @@ public class ToolsPanel {
         g.cont.interfaceCont.addChildAt(repositoryBox.source, 0);
         createBtns();
         _source.visible = false;
+        _source.x = g.managerResize.stageWidth - 405;
         onResize();
     }
 
@@ -100,23 +101,26 @@ public class ToolsPanel {
 
     public function onResize():void {
         if (!_source) return;
-        if (_source.visible) _source.x = g.managerResize.stageWidth - 405;
-            else _source.x = g.managerResize.stageWidth - 271;
+        _source.x = g.managerResize.stageWidth - 405;
         if (repositoryBox.source.visible) repositoryBox.source.y = g.managerResize.stageHeight - 83;
             else repositoryBox.source.y = g.managerResize.stageHeight + 10;
         repositoryBox.source.x = g.managerResize.stageWidth - 740;
-        _source.y = g.managerResize.stageHeight - 87;
+        _source.y = g.managerResize.stageWidth + 10;
     }
 
     public function showIt(time:Number=.5, delay:Number = .2):void {
+        if ((g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) && g.friendPanel.isShowed) {
+            g.bottomPanel.boolFriend = true;
+            g.friendPanel.hideIt();
+        }
         _source.visible = true;
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, time, {x:g.managerResize.stageWidth - 405, ease:Back.easeOut, delay:delay});
+        new TweenMax(_source, time, {y:g.managerResize.stageHeight - 87});
     }
 
-    public function hideIt(time:Number=.5):void {
+    public function hideIt(time:Number=.9):void {
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, time, {x:g.managerResize.stageWidth - 271, ease:Back.easeOut, onComplete: function():void {_source.visible = false}});
+        new TweenMax(_source, time, {y:g.managerResize.stageWidth + 10, ease:Back.easeOut, onComplete: function():void {_source.visible = false}});
     }
 
     private function onClick(reason:String):void {

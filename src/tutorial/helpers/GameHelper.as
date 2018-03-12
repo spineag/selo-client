@@ -18,6 +18,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CTextField;
+import utils.MCScaler;
 import utils.SimpleArrow;
 import utils.CButton;
 import utils.CSprite;
@@ -45,12 +46,12 @@ public class GameHelper {
     public function GameHelper() {
         _source = new Sprite();
         _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
-        _bg.x = -208;
+        _bg.x = -190;
         _bg.y = -81;
         _source.addChild(_bg);
         _txt = new CTextField(220, 80, "");
         _txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
-        _txt.x = -100;
+        _txt.x = -112;
         _txt.y = -55;
         _txt.autoScale = true;
         _source.addChild(_txt);
@@ -91,11 +92,13 @@ public class GameHelper {
 
     private function createCatHead():void {
         _catHead = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_icon'));
-        im.scaleX = 1.3;
-        im.scaleY = 1.3;
-        im.x = 3;
-        im.y = 14;
+        var im:Image;
+        if (Math.random() >.5) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('orange_cat_help'));
+        else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('grey_cat_help'));
+//        im.scaleX = 1.3;
+//        im.scaleY = 1.3;
+        im.x = -30;
+        im.y = -5;
         _catHead.addChild(im);
         _catHead.x = -200;
         _catHead.y = -29;

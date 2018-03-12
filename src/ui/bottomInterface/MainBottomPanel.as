@@ -443,6 +443,21 @@ public class MainBottomPanel {
         _cancelBtn.visible = b;
     }
 
+    public function set boolTools(b:Boolean):void {
+        _boolTools = b;
+        if (_boolTools) {
+            _imArrow.scaleX = -1;
+            _imArrow.x = 77;
+        } else {
+            _imArrow.scaleX = 1;
+            _imArrow.x = 19;
+        }
+    }
+
+    public function set boolFriend(b:Boolean):void {
+        _boolFriend = b;
+    }
+
     public function doorBoolean(b:Boolean,person:Someone = null):void {
         _person = person;
         _homeBtn.visible = b;

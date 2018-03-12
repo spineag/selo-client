@@ -12,6 +12,9 @@ import manager.ManagerFilters;
 import media.SoundConst;
 import quest.ManagerQuest;
 import resourceItem.newDrop.DropObject;
+
+import social.SocialNetworkSwitch;
+
 import utils.CButton;
 import utils.CTextField;
 import utils.SensibleBlock;
@@ -123,7 +126,11 @@ public class WONoResources extends WindowMain {
                 break;
             case 'money':
                 _countOfResources = _paramData.count;
-                _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
+                var hardSoft:int = 0;
+                if (SocialNetworkSwitch.SN_OK_ID == g.socialNetworkID) hardSoft = g.HARD_IN_SOFT_OK;
+                else if (SocialNetworkSwitch.SN_VK_ID == g.socialNetworkID) hardSoft = g.HARD_IN_SOFT_VK;
+                else if (SocialNetworkSwitch.SN_FB_ID == g.socialNetworkID) hardSoft = g.HARD_IN_SOFT_FB;
+                _countCost = Math.ceil(_countOfResources / hardSoft);
                 _text.text = String(g.managerLanguage.allTexts[1202]);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
                     Cc.error('hard currency can"t be in woNoResourceWindow');

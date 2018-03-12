@@ -206,7 +206,6 @@
             <filename>bt_close.png</filename>
             <filename>button_yel_left.png</filename>
             <filename>cat_blue.png</filename>
-            <filename>cat_icon.png</filename>
             <filename>cat_shadow.png</filename>
             <filename>cave</filename>
             <filename>coins_medium.png</filename>
@@ -275,7 +274,6 @@
             <filename>train</filename>
             <filename>trash.png</filename>
             <filename>tutorial_arrow_pink.png</filename>
-            <filename>tutorial_nyam.png</filename>
             <filename>vaucher.png</filename>
             <filename>wait.png</filename>
             <filename>watering_can.png</filename>
@@ -287,6 +285,8 @@
             <filename>hint_new</filename>
             <filename>shared.png</filename>
             <filename>orders_cat_babble.png</filename>
+            <filename>grey_cat_help.png</filename>
+            <filename>orange_cat_help.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

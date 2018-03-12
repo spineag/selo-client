@@ -306,7 +306,6 @@
             <filename>grape_gnome_icon.png</filename>
             <filename>hammock_icon.png</filename>
             <filename>hay_icon.png</filename>
-            <filename>heart_balabas_icon.png</filename>
             <filename>ice_cream_maker_icon.png</filename>
             <filename>jam_machine_icon.png</filename>
             <filename>jeweler_icon.png</filename>
@@ -331,7 +330,6 @@
             <filename>pie_oven_icon.png</filename>
             <filename>pier_icon.png</filename>
             <filename>pig_icon.png</filename>
-            <filename>pink_fence_icon.png</filename>
             <filename>pumpkin_1_icon.png</filename>
             <filename>pumpkin_2_icon.png</filename>
             <filename>pumpkin_3_icon.png</filename>
@@ -398,7 +396,6 @@
             <filename>wheelbarrow_icon.png</filename>
             <filename>wheelbarrow_top_1_icon.png</filename>
             <filename>wheelbarrow_top_2_icon.png</filename>
-            <filename>white_fence_heart_icon.png</filename>
             <filename>white_fence_icon.png</filename>
             <filename>witch_pot</filename>
             <filename>wood_bench_icon.png</filename>

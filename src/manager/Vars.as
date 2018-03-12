@@ -92,7 +92,9 @@ import dragonBones.animation.WorldClock;
 //148.251.121.199
 public class Vars {
     private static var _instance:Vars;
-    public const HARD_IN_SOFT:int = 5; // 1 хард стоит 20 софт
+    public const HARD_IN_SOFT_FB:int = 5; // 1 хард стоит 20 софт
+    public const HARD_IN_SOFT_OK:int = 5; // 1 хард стоит 20 софт
+    public const HARD_IN_SOFT_VK:int = 20; // 1 хард стоит 20 софт
 
     public var starling:Starling;
     public var mainStage:Stage;
