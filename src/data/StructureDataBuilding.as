@@ -95,8 +95,8 @@ public class StructureDataBuilding {
             obj.innerX = [];
             obj.innerY = [];
             obj.innerX.push(-50 * g.scaleFactor); obj.innerY.push(-35 * g.scaleFactor); // main (top) part of gate
-            obj.innerX.push(-14 * g.scaleFactor); obj.innerY.push(-21 * g.scaleFactor); // second part of gate
-            obj.innerX.push(-54 * g.scaleFactor); obj.innerY.push(0 * g.scaleFactor); // second part for shop view
+            obj.innerX.push(-5 * g.scaleFactor); obj.innerY.push(-21 * g.scaleFactor); // second part of gate
+            obj.innerX.push(-45 * g.scaleFactor); obj.innerY.push(0 * g.scaleFactor); // second part for shop view
             obj.innerX.push(45 * g.scaleFactor);  obj.innerY.push(-34 * g.scaleFactor); // line for main part
             obj.innerX.push(-36 * g.scaleFactor); obj.innerY.push(10 * g.scaleFactor); // line for second part
             // main part if is open
@@ -182,9 +182,9 @@ public class StructureDataBuilding {
             _buildType = BuildType.DECOR_POST_FENCE_ARKA;
             obj.innerX = [];
             obj.innerY = [];
-            obj.innerX.push(-29 * g.scaleFactor); obj.innerY.push(-150 * g.scaleFactor); // main (top) part of gate
-            obj.innerX.push(-68 * g.scaleFactor); obj.innerY.push(-217 * g.scaleFactor); // second part of gate
-            obj.innerX.push(-154 * g.scaleFactor); obj.innerY.push(-174 * g.scaleFactor); // second part for shop view
+            obj.innerX.push(-150 * g.scaleFactor); obj.innerY.push(-204 * g.scaleFactor); // main (top) part of gate
+            obj.innerX.push(-66*g.scaleFactor); obj.innerY.push(-243 * g.scaleFactor); // second part of gate
+            obj.innerX.push(-150 * g.scaleFactor); obj.innerY.push(-200 * g.scaleFactor); // second part for shop view
             obj.innerX.push(42 * g.scaleFactor); obj.innerY.push(-34 * g.scaleFactor); // line for main part
             obj.innerX.push(-85 * g.scaleFactor); obj.innerY.push(29 * g.scaleFactor); // line for second part
         }

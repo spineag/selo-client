@@ -1836,7 +1836,7 @@ public class TownArea extends Sprite {
         _awayPreloader.deleteIt(onDeleteAwayPreloader);
         _awayPreloader = null;
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
-        startDecorAnimation();
+//        startDecorAnimation();
         g.managerMouseHero.addMouse();
         g.user.calculateReasonForHelpAway();
         g.managerPets.addAwayPets(p);
