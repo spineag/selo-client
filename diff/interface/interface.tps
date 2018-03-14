@@ -287,6 +287,7 @@
             <filename>orders_cat_babble.png</filename>
             <filename>grey_cat_help.png</filename>
             <filename>orange_cat_help.png</filename>
+            <filename>backgroundQuest</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

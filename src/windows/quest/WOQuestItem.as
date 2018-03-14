@@ -12,7 +12,7 @@ public class WOQuestItem {
     public function WOQuestItem(p:Sprite, ar:Array) {
         _parent = p;
         _source = new Sprite();
-        _source.x = -230;
+        _source.x = -260;
         _source.y = 12;
         _parent.addChild(_source);
 
@@ -25,8 +25,8 @@ public class WOQuestItem {
             _arItems.push(it);
         }
         switch (c) {
-            case 1: _arItems[0].y = 120; break;
-            case 2: _arItems[0].y = 60; _arItems[1].y = 180; break;
+            case 1: _arItems[0].y = 40; break;
+            case 2: _arItems[0].y = 40; _arItems[1].y = 120; break;
             case 3: _arItems[0].y = 40; _arItems[1].y = 120; _arItems[2].y = 200; break;
         }
     }
@@ -56,12 +56,18 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
+
+import windows.WOComponents.BackgroundQuest;
+
+import windows.WOComponents.BackgroundQuestDone;
 import windows.WOComponents.BackgroundWhiteIn;
+import windows.WOComponents.BackgroundYellowOut;
 
 internal class Item extends Sprite {
     private var g:Vars = Vars.getInstance();
     private var _task:QuestTaskStructure;
-    private var _bg:BackgroundWhiteIn;
+    private var _bg:BackgroundQuest;
+    private var _bgDone:BackgroundQuestDone;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
     private var _txt:CTextField;
@@ -78,84 +84,62 @@ internal class Item extends Sprite {
             _galo4ka.alignPivot();
             _galo4ka.x = 390;
         } else {
-            if (c == 1) {
-                _btn = new CButton();
-                _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-                _txtBtn = new CTextField(120, 40, g.managerLanguage.allTexts[312]);
-                _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
-                _btn.x = 390;
-                _btn.y = 25;
-                _countTxt = new CTextField(80, 30, '');
-                _countTxt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR);
-                _countTxt.y = -40;
-                _countTxt.x = 350;
-            } else if (c == 2) {
-                _btn = new CButton();
-                _btn.addButtonTexture(100, 40, CButton.GREEN, true);
-                _txtBtn = new CTextField(96, 40, g.managerLanguage.allTexts[312]);
-                _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
-                _txtBtn.x = 2;
-                _btn.x = 397;
-                _countTxt = new CTextField(60, 30, '');
-                _countTxt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR);
-                _countTxt.y = -15;
-                _countTxt.x = 285;
-            } else if (c == 3) {
-                _btn = new CButton();
-                _btn.addButtonTexture(80, 30, CButton.GREEN, true);
-                _txtBtn = new CTextField(76, 30, g.managerLanguage.allTexts[312]);
-                _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
-                _txtBtn.x = 2;
-                _btn.x = 410;
-                _countTxt = new CTextField(60, 30, '');
-                _countTxt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
-                _countTxt.y = -15;
-                _countTxt.x = 305;
-            }
+            _btn = new CButton();
+            _btn.addButtonTexture(120, CButton.HEIGHT_55, CButton.GREEN, true);
+            _btn.addTextField(120, 51, -2, -5, String(g.managerLanguage.allTexts[312]));
+            _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            _btn.x = 455;
+            _btn.y = -5;
+            _countTxt = new CTextField(60, 30, '');
+            _countTxt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _countTxt.x = 210;
+            _countTxt.y = -7;
         }
-        if (c == 1) {
-            _bg = new BackgroundWhiteIn(460, 160);
-            _txt = new CTextField(220, 120, _task.description);
-            _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR);
-            _txt.y = -62;
-            _txt.x = 100;
-        } else if (c == 2) {
-            _bg = new BackgroundWhiteIn(460, 100);
-            _txt = new CTextField(210, 80, _task.description);
-            _txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.BROWN_COLOR);
-            _txt.y = -40;
-            _txt.x = 75;
-        } else if (c == 3) {
-            _bg = new BackgroundWhiteIn(460, 70);
-            _txt = new CTextField(240, 60, _task.description);
-            _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
-            _txt.y = -30;
-            _txt.x = 60;
+        if (_task.isDone) {
+            _bgDone = new BackgroundQuestDone(520, 70);
+            _bgDone.touchable = false;
+            _bgDone.y = -_bgDone.height/2;
+            addChild(_bgDone);
+        } else {
+            _bg = new BackgroundQuest(520, 70);
+            _bg.touchable = false;
+            _bg.y = -_bg.height/2;
+            addChild(_bg);
         }
- 
-        _bg.touchable = false;
+            _txt = new CTextField(300, 60, _task.description);
+            _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txt.x = 85;
+            _txt.y = -39;
+
         _txt.touchable = false;
-        _bg.y = -_bg.height/2;
-        addChild(_bg);
-        if (_btn) {
-            _btn.addChild(_txtBtn);
-            addChild(_btn);
-            _btn.clickCallback = onClick;
-            if (_task.typeAction == ManagerQuest.POST) {
-                _txtBtn.text = g.managerLanguage.allTexts[291];
-            } else if (_task.typeAction == ManagerQuest.ADD_LEFT_MENU) {
-                _txtBtn.text = g.managerLanguage.allTexts[624];
-            } else if (_task.typeAction == ManagerQuest.INVITE_FRIENDS) {
-                _txtBtn.text = g.managerLanguage.allTexts[415];
-            } else if (_task.typeAction == ManagerQuest.ADD_TO_GROUP) {
-                _txtBtn.text = g.managerLanguage.allTexts[625];
-            }
-        }
+
+
         addChild(_txt);
         if (_countTxt) {
             _countTxt.text = String(_task.countDone) + '/' + String(_task.countNeed);
             _countTxt.touchable = false;
             addChild(_countTxt);
+        }
+
+        if (_btn) {
+            addChild(_btn);
+            _btn.clickCallback = onClick;
+            if (_task.typeAction == ManagerQuest.POST) {
+                _btn.text = g.managerLanguage.allTexts[291];
+                _countTxt.visible = false;
+            } else if (_task.typeAction == ManagerQuest.ADD_LEFT_MENU) {
+                _btn.text = g.managerLanguage.allTexts[624];
+                _countTxt.visible = false;
+            } else if (_task.typeAction == ManagerQuest.INVITE_FRIENDS) {
+                _btn.text = g.managerLanguage.allTexts[415];
+                _countTxt.visible = false;
+            } else if (_task.typeAction == ManagerQuest.ADD_TO_GROUP) {
+                _btn.text = g.managerLanguage.allTexts[625];
+                _countTxt.visible = false;
+            }
+        }
+        if (_countTxt.visible) {
+            _txt.y = -50;
         }
         if (_galo4ka) addChild(_galo4ka);
 
@@ -167,25 +151,27 @@ internal class Item extends Sprite {
         }
     }
 
+
     private function onLoadIcon(bitmap:Bitmap):void {
         addIm(new Image(Texture.fromBitmap(bitmap)));
     }
 
     private function addIm(im:Image):void {
         if (!im) return;
-        if (_c == 1) {
+//        if (_c == 1) {
             MCScaler.scale(im, 90, 90);
             im.alignPivot();
-            im.x = 55;
-        } else if (_c == 2) {
-            MCScaler.scale(im, 70, 70);
-            im.alignPivot();
             im.x = 45;
-        } else {
-            MCScaler.scale(im, 50, 50);
-            im.alignPivot();
-            im.x = 30;
-        }
+            im.y = -5;
+//        } else if (_c == 2) {
+//            MCScaler.scale(im, 70, 70);
+//            im.alignPivot();
+//            im.x = 45;
+//        } else {
+//            MCScaler.scale(im, 50, 50);
+//            im.alignPivot();
+//            im.x = 30;
+//        }
         im.touchable = false;
         addChild(im);
     }
@@ -197,12 +183,16 @@ internal class Item extends Sprite {
 
     public function deleteIt():void {
         if (_btn) {
-            removeChild(_btn);
+//            removeChild(_btn);
             _btn.deleteIt();
         }
-        removeChild(_bg);
-        _bg.deleteIt();
+        if (_bg) {
+            removeChild(_bg);
+            _bg.deleteIt();
+        } else {
+            removeChild(_bgDone);
+            _bgDone.deleteIt();
+        }
         dispose();
     }
-
 }

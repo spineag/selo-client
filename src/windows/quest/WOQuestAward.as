@@ -17,7 +17,7 @@ public class WOQuestAward {
     public function WOQuestAward(p:Sprite, ar:Array) {
         _parent = p;
         _source = new Sprite();
-        _source.x = -60;
+        _source.x = -140;
         _source.y = -100;
         _source.touchable = false;
         _parent.addChild(_source);
@@ -25,8 +25,8 @@ public class WOQuestAward {
 //        _source.addChild(q);
 
         _txtAward = new CTextField(176,48,g.managerLanguage.allTexts[363]);
-        _txtAward.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
-        _txtAward.y = -3;
+        _txtAward.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+        _txtAward.y = 6;
         _source.addChild(_txtAward);
 
         _arItems = [];
@@ -35,14 +35,14 @@ public class WOQuestAward {
         for (var i:int=0; i<c; i++) {
             it = new Item(ar[i], c);
             it.alignPivot();
-            it.y = 51;
+            it.y = 30;
             _source.addChild(it);
             _arItems.push(it);
         }
         switch (c) {
-            case 1: _arItems[0].x = 80; break;
-            case 2: _arItems[0].x = 45; _arItems[1].x = 126; break;
-            case 3: _arItems[0].x = 32; _arItems[1].x = 87; _arItems[2].x = 141; break;
+            case 1: _arItems[0].x = _txtAward.x + _txtAward.textBounds.width + 60; break;
+            case 2: _arItems[0].x = _txtAward.x + _txtAward.textBounds.width + 60; _arItems[1].x = _txtAward.x + _txtAward.textBounds.width + 130; break;
+            case 3: _arItems[0].x = _txtAward.x + _txtAward.textBounds.width + 60; _arItems[1].x = _txtAward.x + _txtAward.textBounds.width + 130; _arItems[2].x = _txtAward.x + _txtAward.textBounds.width + 190; break;
         }
     }
 
@@ -104,33 +104,33 @@ internal class Item extends Sprite {
         } else if (_aw.typeResource == 'instrument') {
             im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(_aw.idResource).imageShop));
         } else if (_aw.typeResource == 'xp') {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star_small_new"));
         }
 
         switch (c) {
-            case 1: _txt = new CTextField(45, 30, String(aw.countResource));
+            case 1: _txt = new CTextField(45, 48, String(aw.countResource));
                 _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -15;
-                if (im) MCScaler.scale(im, 40, 40);
+                if (im) MCScaler.scale(im, 30, 30);
                 break;
-            case 2: _txt = new CTextField(45, 30, String(aw.countResource));
-                _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+            case 2: _txt = new CTextField(45, 48, String(aw.countResource));
+                _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -14;
                 if (im) MCScaler.scale(im, 30, 30);
                 break;
-            case 3: _txt = new CTextField(45, 30, String(aw.countResource));
-                _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+            case 3: _txt = new CTextField(45, 48, String(aw.countResource));
+                _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -16;
-                if (im) MCScaler.scale(im, 22, 22);
+                if (im) MCScaler.scale(im, 30, 30);
                 break;
         }
 
         _sp.addChild(_txt);
         if (im) {
-            im.y = -im.height/2;
+            im.y = -im.height/2+10;
             im.x = _txt.textBounds.width + 2;
             _sp.addChild(im);
         }

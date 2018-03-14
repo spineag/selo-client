@@ -135,7 +135,6 @@ public class ManagerQuest {
                     Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
                     continue;
                 }
-//                trace(d.quests[i].quest_data.only_testers);
                 q = getUserQuestById(int(d.quests[i].id));
                 if (q) {
                     Cc.info('QuestStructure addQuest:: already has quest with id: ' + d.quests[i].id);

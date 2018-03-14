@@ -14,11 +14,12 @@ import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOQuest extends WindowMain{
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _bgC:BackgroundYellowOut;
     private var _quest:QuestStructure;
     private var _txtName:CTextField;
@@ -30,30 +31,31 @@ public class WOQuest extends WindowMain{
     public function WOQuest() {
         super();
         _windowType = WindowsManager.WO_QUEST;
-        _woWidth = 550;
-        _woHeight = 570;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woWidth = 520;
+        _woHeight = 600;
+        _woBG = new WindowBackgroundNew(_woWidth, 270, 90);
+        _woBG.y = -170;
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        _bgC = new BackgroundYellowOut(480, 240);
-        _bgC.filter =  ManagerFilters.SHADOW;
-        _bgC.x = -240;
-        _bgC.y = 12;
-        _source.addChild(_bgC);
+//        _bgC = new BackgroundYellowOut(480, 240);
+//        _bgC.filter =  ManagerFilters.SHADOW;
+//        _bgC.x = -240;
+//        _bgC.y = 12;
+//        _source.addChild(_bgC);
 
-        _txtName = new CTextField(300, 100, '');
-        _txtName.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
-        _txtName.x = -150;
-        _txtName.y = -295;
+        _txtName = new CTextField(400, 100, '');
+        _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtName.x = -205;
+        _txtName.y = -310;
         _txtName.touchable = false;
         _source.addChild(_txtName);
 
-        _txtDescription = new CTextField(260, 95, '');
-        _txtDescription.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
-        _txtDescription.x = -120;
-        _txtDescription.y = -200;
+        _txtDescription = new CTextField(515, 200, '');
+        _txtDescription.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_LIGHT_NEW);
+        _txtDescription.x = -260;
+        _txtDescription.y = -255;
         _txtDescription.touchable = false;
         _source.addChild(_txtDescription);
     }
@@ -63,20 +65,20 @@ public class WOQuest extends WindowMain{
         if (!_quest.tasks.length) { Cc.error('WOQuest showItParams: no tasks for questId: ' + _quest.id); return; }
         if (!_quest.awards.length) { Cc.error('WOQuest showItParams: no awards for questId: ' + _quest.id); return; }
         if (g.managerQuest.checkQuestForDone(_quest)) return;
-        if (g.allData.atlas['questAtlas']) {
-            var im:Image;
-            im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_back'));
-            if (im) {
-                im.x = -im.width/2;
-                im.y = -270;
-                im.touchable = false;
-                _source.addChild(im);
-            } else {
-                Cc.error('WOQuest showItParams:: no image for bg quest');
-            }
-        } else {
-            Cc.error('WOQuest showItParams:: no questAtlas');
-        }
+//        if (g.allData.atlas['questAtlas']) {
+//            var im:Image;
+//            im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_back'));
+//            if (im) {
+//                im.x = -im.width/2;
+//                im.y = -270;
+//                im.touchable = false;
+//                _source.addChild(im);
+//            } else {
+//                Cc.error('WOQuest showItParams:: no image for bg quest');
+//            }
+//        } else {
+//            Cc.error('WOQuest showItParams:: no questAtlas');
+//        }
         _txtDescription.text = _quest.description;
         if (g.user.isTester) _txtName.text = String(_quest.id) + ': ' + _quest.questName;
             else _txtName.text = _quest.questName;
@@ -87,17 +89,17 @@ public class WOQuest extends WindowMain{
         _questItem = new WOQuestItem(_source, _quest.tasks);
         super.showIt();
 
-        var st:String = _quest.iconPath;
-        if (st == '0') {
-            st = _quest.getUrlFromTask();
-            if (st == '0') {
-                addIm(_quest.iconImageFromAtlas());
-            } else {
-                g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
-            }
-        } else {
-            g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
-        }
+//        var st:String = _quest.iconPath;
+//        if (st == '0') {
+//            st = _quest.getUrlFromTask();
+//            if (st == '0') {
+//                addIm(_quest.iconImageFromAtlas());
+//            } else {
+//                g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
+//            }
+//        } else {
+//            g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
+//        }
         Cc.info("woQuest showItParams 7");
     }
 
