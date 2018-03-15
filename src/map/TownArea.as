@@ -1218,7 +1218,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function getRandomFreeCell():Point { if (g.isAway)  return _freePlace.getAwayFreeCell();  else  return _freePlace.getFreeCell(); }
+    public function getRandomFreeCell(x:int = -1, y:int = -1):Point { if (g.isAway)  return _freePlace.getAwayFreeCell();  else  return _freePlace.getFreeCell(x,y); }
 
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false, inventory:Boolean = false):void {
         if (!tail) {

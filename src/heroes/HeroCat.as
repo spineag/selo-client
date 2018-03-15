@@ -165,7 +165,7 @@ public class HeroCat extends BasicCat{
     }
     override public function idleAnimation():void {
         if (Math.random() > .2 || (g.tuts.isTuts && _type == MAN)) {
-            if (!_isFlip)showFront(true);
+            showFront(true);
             var r:int = int(Math.random()*12);
             if (r > 8) {
                 _animation.playIt('idle', true, makeFreeCatIdle);
@@ -297,7 +297,7 @@ public class HeroCat extends BasicCat{
             return;
         }
         if (freeIdleGo && Math.random() > .4 && !showCatEmotion) {
-            g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(), makeFreeCatIdle);
+            g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(posX,posY), makeFreeCatIdle);
         } else {
             var b:Boolean = false;
             var r:Number = Math.random();
@@ -317,6 +317,7 @@ public class HeroCat extends BasicCat{
                 }
             }
             if (!b) {
+//                trace(_type + ' SEX + MAMAMAMAMAM');
                 idleAnimation();
 //                timer = 5 + int(Math.random() * 10);
 //                g.gameDispatcher.addToTimer(renderForIdleFreeCat);

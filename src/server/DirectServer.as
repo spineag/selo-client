@@ -2501,6 +2501,7 @@ public class DirectServer {
                 ob.dbId = int(d.message[i].user_db_building_id);
                 g.user.userDataCity.animals.push(ob);
             }
+//            g.managerAnimal.checkPositionAnimals();
             if (callback != null) {
                 callback.apply();
             }

@@ -220,8 +220,19 @@ public class Farm extends WorldObject{
             } else {
                 p = g.farmGrid.getRandomPoint();
             }
+        if (g.tuts.isTuts && _arrAnimals.length == 1) {
+            an.source.x = 20;
+            an.source.y = 107.5
+        } else if (g.tuts.isTuts && _arrAnimals.length == 2) {
+            an.source.x = 75;
+            an.source.y = 77.5;
+        } else if (g.tuts.isTuts && _arrAnimals.length == 3 ){
+            an.source.x = -15;
+            an.source.y = 62.5;
+        } else {
             an.source.x = p.x;
             an.source.y = p.y;
+        }
 
             var arm:Armature;
             var f2:Function = function():void {

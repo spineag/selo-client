@@ -230,7 +230,7 @@ public class ManagerCats {
         var f2:Function = function ():void {
             cat.flipIt(false);
             cat.showFront(true);
-            cat.idleAnimation();
+//            cat.idleAnimation();
             var fT:Function = cat.walkCallback;
             var arrT:Array = cat.walkCallbackParams;
             cat.walkCallback = null;
@@ -268,7 +268,7 @@ public class ManagerCats {
             if (cat.posX == p.x && cat.posY == p.y) {
                 cat.flipIt(false);
                 cat.showFront(true);
-                cat.idleAnimation();
+//                cat.idleAnimation();
                 if (callback != null) {
                     callback.apply(null, callbackParams);
                 }

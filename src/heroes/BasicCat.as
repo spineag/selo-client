@@ -163,7 +163,7 @@ public class BasicCat {
             if (_currentPath.length) {
                 gotoPoint(_currentPath.shift(), callbackOnWalking);
             } else {
-                idleAnimation();
+//                idleAnimation();
                 if (callbackOnWalking != null) {
                     callbackOnWalking.apply();
                     callbackOnWalking = null;

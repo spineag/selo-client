@@ -326,6 +326,7 @@ public class BuyerNyashuk {
     }
 
     public function walkAnimation():void {
+        if (!_armature) return;
         if (_booleanFront) _armature.animation.gotoAndPlayByFrame("run");
         else _armature.animation.gotoAndPlayByFrame("run_b");
     }

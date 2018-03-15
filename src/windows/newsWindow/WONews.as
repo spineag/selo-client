@@ -152,6 +152,31 @@ public class WONews extends WindowMain {
     }
 
     override protected function deleteIt():void {
+       if (_nameTxt) {
+           _nameTxt.deleteIt();
+           _nameTxt.dispose();
+       }
+
+        if (_leftArrow) {
+            _leftArrow.deleteIt();
+            _leftArrow.dispose();
+        }
+        if (_rightArrow) {
+            _rightArrow.deleteIt();
+            _rightArrow.dispose();
+        }
+        if (_txtPageNumber) {
+            _txtPageNumber.deleteIt();
+            _txtPageNumber.dispose();
+        }
+        if (_contClipRect) {
+            _contClipRect.dispose();
+            _contClipRect = null;
+        }
+        if (_contItem) {
+            _contItem.dispose();
+            _contItem = null;
+        }
         super.deleteIt();
     }
 }

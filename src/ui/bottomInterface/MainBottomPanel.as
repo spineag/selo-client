@@ -12,6 +12,7 @@ import manager.Vars;
 import mouse.ToolsModifier;
 import social.SocialNetworkSwitch;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.utils.Color;
@@ -59,6 +60,7 @@ public class MainBottomPanel {
     private var _typeHelp:int = 0;
     private var _btnPlusMinus:CButton;
     private var _imArrow:Image;
+    private var _spArrow:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
@@ -717,8 +719,16 @@ public class MainBottomPanel {
         deleteArrow();
         switch (btnName) {
             case 'shop':
-                _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
-                _arrow.animateAtPosition(_shopBtn.x, _shopBtn.y - _shopBtn.height/2 - 10);
+                _spArrow = new Sprite();
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _spArrow);
+                _arrow.scaleIt(.5);
+                _arrow.animateAtPosition(50, -108);
+                _spArrow.rotation = 6;
+                _spArrow.scaleY = -1;
+                _spArrow.x = _shopBtn.x - _shopBtn.width;
+                _spArrow.y = _shopBtn.y - _shopBtn.height;
+               _source.addChild(_spArrow);
+//                _arrow.animateAtPosition(_shopBtn.x, _shopBtn.y - _shopBtn.height/2 - 10);
                 if (resourceId >= 1) {
                     _questBoolean = true;
                     _questBuilId = resourceId;
@@ -732,13 +742,17 @@ public class MainBottomPanel {
                 break;
         }
         if (g.tuts.isTuts) {
-            if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) _arrow.scaleIt(1.2);
-                else _arrow.scaleIt(1.4);
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700)  _arrow.scaleIt(.7);
+                else _arrow.scaleIt(1.2);
         } else _arrow.scaleIt(.7);
         if (t) _arrow.activateTimer(t, deleteArrow);
     }
 
     public function deleteArrow():void {
+        if (_spArrow) {
+            _spArrow.dispose();
+            _spArrow = null;
+        }
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;

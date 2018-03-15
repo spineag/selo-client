@@ -126,6 +126,21 @@ public class ManagerAnimal {
         }
     }
 
+    public function checkPositionAnimals():void {
+        return;
+        for (var i:int = 0; i < _arrFarm.length; i++) {
+            for (var j:int = 0; j < _arrFarm[i].arrAnimals.length; j++) {
+                if (j + 1 < _arrFarm[i].arrAnimals.length) {
+                    for (var k:int = j+1; k < _arrFarm[i].arrAnimals.length; k++) {
+                            if (((_arrFarm[i].arrAnimals[j].source.x - _arrFarm[i].arrAnimals[k].source.x) <= _arrFarm[i].arrAnimals[k].source.width && (_arrFarm[i].arrAnimals[j].source.x - _arrFarm[i].arrAnimals[k].source.x) >= - _arrFarm[i].arrAnimals[k].source.width) &&
+                                    ((_arrFarm[i].arrAnimals[j].source.y - _arrFarm[i].arrAnimals[k].source.y) <= _arrFarm[i].arrAnimals[k].source.height  && (_arrFarm[i].arrAnimals[j].source.y - _arrFarm[i].arrAnimals[k].source.y) >= - _arrFarm[i].arrAnimals[k].source.height)) {
+                            }
+                    }
+                }
+            }
+        }
+    }
+
     private function checkForFeeding():void {
         _tempPoint.x = g.ownMouse.mouseX;
         _tempPoint.y = g.ownMouse.mouseY;

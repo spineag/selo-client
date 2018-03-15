@@ -40,16 +40,47 @@ public class TownAreaFreePlace {
         if (_arr.indexOf(s) == -1) _arr.push(s);
     }
 
-    public function getFreeCell():Point {
+    public function getFreeCell(x:int = -1, y:int = -1):Point {
         var p:Point = new Point();
         if (!_arr.length) {
             return p;
         }
-        var s:String = _arr[int(_arr.length*Math.random())];
-        var arr:Array = s.split('&');
-        p.x = int(arr[0]);
-        p.y = int(arr[1]);
-        return p;
+        var s:String;
+        var arr:Array;
+        if (x == -1) {
+            s = _arr[int(_arr.length*Math.random())];
+            arr = s.split('&');
+            p.x = int(arr[0]);
+            p.y = int(arr[1]);
+            return p;
+        } else {
+            p.x = -1;
+            p.y = -1;
+            function randomize ( a : *, b : * ) : int {
+                return ( Math.random() > .5 ) ? 1 : -1;
+            }
+            _arr.sort(randomize);
+            for (var i:int = 0; i < _arr.length; i++) {
+                arr = [];
+                s = _arr[i];
+                arr = s.split('&');
+                if ((p.x == -1 && arr[0] - x > 10 && p.x == -1 && arr[0] - x < (10 + Math.random() * 26)) || (arr[0] - x < - 10 && arr[0] - x > -1* (10 + Math.random() * 26))) {
+                    p.x = int(arr[0]);
+                }
+                if ((p.y == -1 && arr[1] - y > 10 && p.y == -1 && arr[1] - y < (10 + Math.random() * 15)) || (arr[1] - y < - 10 && arr[1] - y > -1* (10 + Math.random() * 15)))  {
+                    p.y = int(arr[1]);
+                }
+                if (p.y != -1 && p.x != -1) break;
+            }
+            if (p.y != -1 && p.x != -1) {
+                s = _arr[int(_arr.length*Math.random())];
+                arr = s.split('&');
+                p.x = int(arr[0]);
+                p.y = int(arr[1]);
+            }
+
+            return p;
+        }
     }
 
     public function fillAway():void {

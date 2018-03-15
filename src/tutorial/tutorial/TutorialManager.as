@@ -294,6 +294,7 @@ public class TutorialManager extends IManagerTutorial{
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep6_2, 0, '', 'shop_icon');
         g.bottomPanel.tutorialCallback = subStep6_2;
         addBlackUnderInterface();
+        g.bottomPanel.addArrow('shop',500);
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
     }
@@ -305,6 +306,7 @@ public class TutorialManager extends IManagerTutorial{
         cutScene.hideIt(deleteCutScene);
         _tutorialResourceIDs = [1];
         removeBlack();
+        g.bottomPanel.deleteArrow();
         _onShowWindowCallback = subStep6_3;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
     }
@@ -516,6 +518,7 @@ public class TutorialManager extends IManagerTutorial{
             g.bottomPanel.tutorialCallback = subStep10_1;
             var ob:Object = g.bottomPanel.getShopButtonProperties();
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            g.bottomPanel.addArrow('shop',500);
         }
     }
 
@@ -525,6 +528,7 @@ public class TutorialManager extends IManagerTutorial{
         deleteArrowAndDust();
         g.bottomPanel.tutorialCallback = null;
         removeBlack();
+        g.bottomPanel.deleteArrow();
         _subStep = 1;
         _onShowWindowCallback = subStep10_2;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
@@ -720,10 +724,12 @@ public class TutorialManager extends IManagerTutorial{
             Utils.createDelay(5, g.managerBuyerNyashuk.addNyashuksOnTutorial);
         }
         if (!_cat) {
-            if (_cat.isOnMap) _cat.addToMap();
+//            if (_cat.isOnMap) _cat.addToMap();
             if ((_tutorialObjects[0] as Fabrica).isAnyCrafted) {
+                if (!texts) texts = (new TextsTutorial()).objText;
                 g.cont.moveCenterToPos((_tutorialObjects[0] as Fabrica).posX, (_tutorialObjects[0] as Fabrica).posY);
                 _cat = g.managerCats.getFreeCatDecor();
+                if (_cat.isOnMap) _cat.addToMap();
                 g.managerCats.goCatToPoint(_cat, new Point((_tutorialObjects[0] as Fabrica).posX - 1, (_tutorialObjects[0] as Fabrica).posY + 4), subStep14_1);
             } else  subStep14_2();
         } else {
@@ -785,6 +791,7 @@ public class TutorialManager extends IManagerTutorial{
             g.bottomPanel.tutorialCallback = subStep15_1;
             var ob:Object = g.bottomPanel.getShopButtonProperties();
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            g.bottomPanel.addArrow('shop',500);
         }
     }
 
@@ -794,6 +801,7 @@ public class TutorialManager extends IManagerTutorial{
         deleteArrowAndDust();
         g.bottomPanel.tutorialCallback = null;
         removeBlack();
+        g.bottomPanel.deleteArrow();
         _subStep = 1;
         _onShowWindowCallback = subStep15_2;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
@@ -839,6 +847,7 @@ public class TutorialManager extends IManagerTutorial{
         addBlackUnderInterface();
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        g.bottomPanel.addArrow('shop',500);
         g.bottomPanel.tutorialCallback = subStep16_2;
     }
 
@@ -849,6 +858,7 @@ public class TutorialManager extends IManagerTutorial{
         deleteArrowAndDust();
         _tutorialResourceIDs = [11];
         removeBlack();
+        g.bottomPanel.deleteArrow();
         _onShowWindowCallback = subStep16_3;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
     }
