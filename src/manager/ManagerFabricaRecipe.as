@@ -133,9 +133,9 @@ public class ManagerFabricaRecipe {
         return arr;
     }
 
-    public function onGoAwayCats(v:Boolean):void {
+    public function onGoAwayCats():void {
         for (var i:int=0; i<_arrFabrica.length; i++) {
-            (_arrFabrica[i] as Fabrica).onGoAway(v);
+            (_arrFabrica[i] as Fabrica).onGoAway(true);
         }
     }
 }

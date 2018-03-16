@@ -215,7 +215,7 @@ public class ManagerCats {
             (_catsArray[i] as HeroCat).pauseIt(v);
         }
         g.managerAnimal.onGoAwayCats(v);
-        g.managerFabricaRecipe.onGoAwayCats(v);
+        g.managerFabricaRecipe.onGoAwayCats();
     }
 
     public function setAllCatsToRandomPositionsAtStartGame():void {
@@ -230,7 +230,7 @@ public class ManagerCats {
         var f2:Function = function ():void {
             cat.flipIt(false);
             cat.showFront(true);
-//            cat.idleAnimation();
+            if (g.tuts.isTuts) cat.idleAnimation();
             var fT:Function = cat.walkCallback;
             var arrT:Array = cat.walkCallbackParams;
             cat.walkCallback = null;

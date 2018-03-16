@@ -408,7 +408,10 @@ public class Fabrica extends WorldObject {
     }
 
     public function onGoAway(v:Boolean):void {
-        if (v && _arrList.length) workAloneAnimation();
+        if (v && _arrList.length) {
+            catOnAnimation = false;
+            workAloneAnimation();
+        }
         else stopAnimation();
     }
 

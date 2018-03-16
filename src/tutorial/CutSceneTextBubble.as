@@ -141,15 +141,15 @@ public class CutSceneTextBubble {
 
     private function createBubble(st:String):void {
         if (_isBigShop) {
-            _txtBubble = new CTextField(400, 200, st);
+            _txtBubble = new CTextField(420, 200, st);
             _txtBubble.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
             switch (_type) {
                 case BIG:
-                    _txtBubble.x = 145;
+                    _txtBubble.x = 135;
                     _txtBubble.y = -130;
                     if (_imageBtn) {
                         _imageBtn.x = 350;
-                        _imageBtn.y = 90;
+                        _imageBtn.y = 105;
                     }
                     break;
                 case MIDDLE:
@@ -163,7 +163,7 @@ public class CutSceneTextBubble {
                     _txtBubble.y = -94;
                     if (_imageBtn) {
                         _imageBtn.x = 350;
-                        _imageBtn.y = 90;
+                        _imageBtn.y = 105;
                     }
                     break;
             }
