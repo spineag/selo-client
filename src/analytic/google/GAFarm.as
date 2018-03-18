@@ -13,7 +13,7 @@ import social.SocialNetworkSwitch;
 import starling.events.Event;
 
 public class GAFarm {
-    private static const ACCOUNT_VK:String = "UA-78805451-1";
+    private static const ACCOUNT_VK:String = "UA-78805451-4";
     private static const ACCOUNT_OK:String = "UA-78805451-2";
     private static const ACCOUNT_FB:String = "UA-78805451-3";
     private static const GA_URL:String = 'https://www.google-analytics.com/collect';

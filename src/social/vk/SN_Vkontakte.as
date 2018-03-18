@@ -29,6 +29,9 @@ public class SN_Vkontakte extends SocialNetwork {
             try {
                 ExternalInterface.addCallback("showPayment", showPayment);
                 ExternalInterface.addCallback("useActiveOffers", getOffersInfoHandler);
+                ExternalInterface.addCallback("orderCancelHandler", orderCancelHandler);
+                ExternalInterface.addCallback("orderFailHandler", orderFailHandler);
+                ExternalInterface.addCallback("orderSuccessHandler", orderSuccessHandler);
             } catch (e:Error) {
                 Cc.error(e.toString(), "Social network do not use ExternalInterface. Callback showPayment ignored.");
             }
@@ -105,7 +108,6 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function getProfileHandler(e:Object):void {
-        
         Cc.ch('social', "SN_Vkontakte:: got info about current user and start processing it");
         _paramsUser = {};
         _paramsUser.firstName = e.response[0].first_name;
@@ -167,14 +169,15 @@ public class SN_Vkontakte extends SocialNetwork {
         _js.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getFriendsByIdsHandler, onError);
     }
 
-    private function getFriendsByIdsHandler(e:Array):void {
-        for (var i:int = 0; i < e.length; i++) {
-           g.user.addFriendInfo(e[i]);
+    private function getFriendsByIdsHandler(e:Object):void {
+        for (var i:int = 0; i < e.response.length; i++) {
+            e.response[i].uid = e.response[i].id;
+            g.user.addFriendInfo(e.response[i]);
         }
         if (_friendsApp.length) {
             getFriendsByIDs(_friendsApp);
         } else {
-            super.getFriendsByIDsSuccess(e);
+            super.getFriendsByIDsSuccess(e.response);
         }
     }
 
@@ -206,14 +209,14 @@ public class SN_Vkontakte extends SocialNetwork {
         _js.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getNoAppFriendsByIdsHandler, onError);
     }
 
-    private function getNoAppFriendsByIdsHandler(e:Array):void {
+    private function getNoAppFriendsByIdsHandler(e:Object):void {
         var buffer:Object;
         var bufferIds:Array = [];
-        for (var i:int = 0; i < e.length; i++) {
-            buffer = e[i];
+        for (var i:int = 0; i < e.response.length; i++) {
+            buffer = e.response[i];
             buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : buffer.photo_100;
             bufferIds.push(buffer);
-            setFriendInfo(buffer.uid, buffer.first_name, buffer.last_name, buffer.photo_100);
+            setFriendInfo(buffer.id, buffer.first_name, buffer.last_name, buffer.photo_100);
         }
 
         if (_friendsNoApp.length) {
@@ -228,11 +231,12 @@ public class SN_Vkontakte extends SocialNetwork {
         _js.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getTempFriendsByIDsHandler, onError);
     }
 
-    private function getTempFriendsByIDsHandler(arr:Array):void {
+    private function getTempFriendsByIDsHandler(e:Object):void {
         var ar:Array = [];
         var buffer:Object;
-        for (var i:int=0; i < arr.length; i++) {
-            buffer = arr[i];
+        for (var i:int=0; i < e.response.length; i++) {
+            e.response[i].uid = e.response[i].id;
+            buffer = e.response[i];
             buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : buffer.photo_100;
             ar.push(buffer);
         }
@@ -246,7 +250,7 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function getAppUsersHandler(e:Object):void { // создает массив друзей в игре
-        _friendsApp = e as Array;
+        _friendsApp = e.response as Array;
         var f:Friend;
         for (var i:int=0; i<_friendsApp.length; i++) {
             f = new Friend();
@@ -265,8 +269,8 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function getUsersOnlineHandler(e:Object):void {
-        for (var key:String in e) {
-            _friendsApp.push(String(e[key]));
+        for (var key:String in e.response) {
+            _friendsApp.push(String(e.response[key]));
         }
         super.getUsersOnlineSuccess(_friendsApp);
     }
@@ -477,15 +481,15 @@ public class SN_Vkontakte extends SocialNetwork {
         super.showOrderWindow(e);
     }
 
-    private function orderCancelHandler(e:CustomEvent):void {
+    private function orderCancelHandler():void {
         super.orderCancel();
     }
 
-    private function orderFailHandler(e:CustomEvent):void {
+    private function orderFailHandler():void {
         super.orderFail();
     }
 
-    private function orderSuccessHandler(e:CustomEvent):void {
+    private function orderSuccessHandler(d:int):void {
         super.orderSuccess();
     }
 
