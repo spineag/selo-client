@@ -230,7 +230,7 @@ public class ManagerCats {
         var f2:Function = function ():void {
             cat.flipIt(false);
             cat.showFront(true);
-            if (g.tuts.isTuts) cat.idleAnimation();
+            if (g.tuts.isTuts || g.miniScenes.isMiniScene) cat.idleAnimation();
             var fT:Function = cat.walkCallback;
             var arrT:Array = cat.walkCallbackParams;
             cat.walkCallback = null;

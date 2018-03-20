@@ -26,7 +26,7 @@ public class Confetti {
         for (var i:int = 0; i < 30; i++) {
             confetti = new ConfettiItem();
             confetti.item.x = int(Math.random() * g.managerResize.stageWidth);
-            if (Math.random()<= .3) confetti.item.y = int(Math.random() * g.managerResize.stageHeight);
+            if (Math.random()<= .3) confetti.item.y = int(Math.random() * g.managerResize.stageHeight) - 5;
             _source.addChild(confetti.item);
             confetti.flyIt(confetti.item.x);
         }
@@ -50,7 +50,7 @@ public class Confetti {
             for (var i:int = 0; i < 2; i++) {
                 confetti = new ConfettiItem();
                 confetti.item.x = int(Math.random() * g.managerResize.stageWidth);
-                if (Math.random()<= .3) confetti.item.y = int(Math.random() * g.managerResize.stageHeight);
+                if (Math.random()<= .3) confetti.item.y = int(Math.random() * g.managerResize.stageHeight) - 5;
                 confetti.flyIt(confetti.item.x);
                 _source.addChild(confetti.item);
             }

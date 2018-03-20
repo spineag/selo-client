@@ -38,6 +38,7 @@ public class QuestItemIcon {
         _onHover = false;
         _source = new CSprite();
         _quest = q;
+
         var st:String = _quest.iconPath;
         if (st == '0') {
             st = _quest.getUrlFromTask();

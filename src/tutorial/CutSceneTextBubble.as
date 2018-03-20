@@ -194,11 +194,12 @@ public class CutSceneTextBubble {
             _txtBubble.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
             switch (_type) {
                 case BIG:
-                    _txtBubble.x = 48;
-                    _txtBubble.y = -135;
+                    _txtBubble.x = 54;
+                    _txtBubble.y = -134;
                     if (_imageBtn) {
+                        _imageBtn.scaleX = _imageBtn.scaleY = .8;
                         _imageBtn.x = 230;
-                        _imageBtn.y = 60;
+                        _imageBtn.y = 67;
                     }
                     break;
                 case MIDDLE:

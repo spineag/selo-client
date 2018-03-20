@@ -3,11 +3,19 @@
  */
 package windows.quest {
 import com.junkbyte.console.Cc;
+
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.display.Bitmap;
+
 import manager.ManagerFilters;
 import quest.ManagerQuest;
 import quest.QuestStructure;
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CTextField;
@@ -27,6 +35,8 @@ public class WOQuest extends WindowMain{
     private var _award:WOQuestAward;
     private var _txtDescription:CTextField;
     private var _questIcon:Image;
+    private var _sA:Sprite;
+    private var _armature:Armature;
 
     public function WOQuest() {
         super();
@@ -38,7 +48,8 @@ public class WOQuest extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-
+        if (g.allData.factory['cat_quest_m']) onLoad();
+        else g.loadAnimation.load('animations_json/cat_quest_m', 'cat_quest_m', onLoad);
 //        _bgC = new BackgroundYellowOut(480, 240);
 //        _bgC.filter =  ManagerFilters.SHADOW;
 //        _bgC.x = -240;
@@ -58,6 +69,47 @@ public class WOQuest extends WindowMain{
         _txtDescription.y = -255;
         _txtDescription.touchable = false;
         _source.addChild(_txtDescription);
+    }
+
+    private function onLoad():void {
+        _armature = g.allData.factory['cat_quest_m'].buildArmature("cat");
+        _sA = new Sprite();
+        _sA.addChild(_armature.display as StarlingArmatureDisplay);
+        _sA.y = (_armature.display as StarlingArmatureDisplay).height/2-10;
+        _sA.x = -400;
+        _source.addChild(_sA);
+        WorldClock.clock.add(_armature);
+        catAnimation();
+    }
+
+    private function catAnimation():void {
+        var r:int = int(Math.random()*8);
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, catAnimation);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, catAnimation);
+
+        _armature.addEventListener(EventObject.COMPLETE, catAnimation);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, catAnimation);
+        if (r > 4) {
+            _armature.animation.gotoAndPlayByFrame('idle');
+        } else {
+            switch (r) {
+                case 0:
+                    _armature.animation.gotoAndPlayByFrame('talk1');
+                    break;
+                case 1:
+                    _armature.animation.gotoAndPlayByFrame('talk2');
+                    break;
+                case 2:
+                    _armature.animation.gotoAndPlayByFrame('talk3');
+                    break;
+                case 3:
+                    _armature.animation.gotoAndPlayByFrame('laugh');
+                    break;
+                case 4:
+                    _armature.animation.gotoAndPlayByFrame('look');
+                    break;
+            }
+        }
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -88,7 +140,7 @@ public class WOQuest extends WindowMain{
         _award = new WOQuestAward(_source, _quest.awards);
         _questItem = new WOQuestItem(_source, _quest.tasks);
         super.showIt();
-
+        _source.x = g.managerResize.stageWidth/2 + 150;
 //        var st:String = _quest.iconPath;
 //        if (st == '0') {
 //            st = _quest.getUrlFromTask();

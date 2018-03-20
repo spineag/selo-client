@@ -372,6 +372,7 @@ public class MarketItem {
                         p = source.parent.localToGlobal(p);
                         g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
 //                        new FlyMessage(p,String(g.managerLanguage.allTexts[394]));
+                        g.marketHint.hideIt();
                         g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
                         return;
                     }

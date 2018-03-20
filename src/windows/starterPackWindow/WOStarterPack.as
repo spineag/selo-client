@@ -154,7 +154,7 @@ public class WOStarterPack extends WindowMain{
         var st:String;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = ' USD';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = ' ОК';
-        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' ВК';
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' Голоса';
         _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
 //        _txtLastCost.text = String(str.replace(myPattern, st));
         _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
@@ -178,7 +178,7 @@ public class WOStarterPack extends WindowMain{
         _source.addChild(_txtValue);
 
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = ' ' + String(g.managerLanguage.allTexts[328]);
-        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' ' + String(g.managerLanguage.allTexts[330]);
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' Голос';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) st = ' USD';
 
         _txtNewCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1243]));
@@ -235,13 +235,13 @@ public class WOStarterPack extends WindowMain{
     }
 
     override public function hideIt():void {
-//        if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.server.getDailyGift(null);
-//        else {
-//            var todayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
-//            var today:Date = new Date(g.user.day * 1000);
-//            if (g.user.level >= 5 && todayDailyGift.date != today.date) {
-//                g.server.getDailyGift(null);
-//            } else {
+        if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.server.getDailyGift(null);
+        else {
+            var todayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
+            var today:Date = new Date(g.user.day * 1000);
+            if (g.user.level >= 5 && todayDailyGift.date != today.date) {
+                g.server.getDailyGift(null);
+            } else {
 ////                g.managerCats.helloCats();
                 if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >=g. managerParty.dataParty.countToGift[0] && (g.managerParty.dataParty.typeParty == 1 || g.managerParty.dataParty.typeParty == 2))
                     g.managerParty.endPartyWindow();
@@ -250,8 +250,8 @@ public class WOStarterPack extends WindowMain{
                 } else if (g.userTimer.partyToEndTimer <= 0 && g.managerParty.userParty && !g.managerParty.userParty.showWindow &&
                         (g.managerParty.dataParty.typeParty == 3 || g.managerParty.dataParty.typeParty == 4)) g.managerParty.endPartyWindow();
 
-//            }
-//        }
+            }
+        }
      super.hideIt();
     }
 

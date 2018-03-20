@@ -18,11 +18,12 @@ import utils.MCScaler;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.BackgroundWhiteIn;
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WODailyGift extends WindowMain {
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _cont:Sprite;
     private var _btnGet:CButton;
     private var _arrayItem:Array;
@@ -34,41 +35,40 @@ public class WODailyGift extends WindowMain {
     public function WODailyGift() {
         super();
         _windowType = WindowsManager.WO_DAILY_GIFT;
-        _woHeight = 550;
-        _woWidth = 800;
+        _woHeight = 400;
+        _woWidth = 765;
         _sprItem = new Sprite();
         _arrCTex = [];
 
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight, 70);
         _source.addChild(_woBG);
         _cont = new Sprite();
         _source.addChild(_cont);
-        var c:BackgroundYellowOut = new BackgroundYellowOut(735, 485);
-        c.x = -_woWidth/2 + 30;
-        c.y = -_woHeight/2 + 30 ;
-        _cont.filter = ManagerFilters.SHADOW;
+        var c:BackgroundYellowOut = new BackgroundYellowOut(735, 315);
+        c.x = -_woWidth/2 + 15;
+        c.y = -_woHeight/2+70;
         _cont.addChild(c);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         _btnGet = new CButton();
-        _btnGet.addButtonTexture(160,40,CButton.GREEN,true);
-        var _txt:CTextField = new CTextField(160,40,String(g.managerLanguage.allTexts[437]));
-        _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
-        _btnGet.addChild(_txt);
-        _btnGet.y = 270;
+        _btnGet.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);
+        _btnGet.addTextField(160, 40, -5, -5, String(g.managerLanguage.allTexts[437]));
+        _btnGet.setTextFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_btnGet);
+        _btnGet.y = 200;
         _btnGet.clickCallback = onClickExit;
+        var _txt:CTextField;
         _txt = new CTextField(680, 340, String(g.managerLanguage.allTexts[438]));
-        _txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD72, 50,  ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txt.x = -350;
-        _txt.y = -393;
+        _txt.y = -340;
         _source.addChild(_txt);
         _arrCTex.push(_txt);
 
         _txt = new CTextField(600,40, String(g.managerLanguage.allTexts[439]));
         _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -300;
-        _txt.y = -208;
+        _txt.y = -128;
         _source.addChild(_txt);
         _arrCTex.push(_txt);
         _itemToday = {};
@@ -83,7 +83,7 @@ public class WODailyGift extends WindowMain {
 //        var yesterdayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
 //        yesterday.setTime(yesterday.getTime() - day);
         g.user.countDailyGift++;
-        if (g.user.countDailyGift > 15) {
+        if (g.user.countDailyGift > 10) {
             g.user.countDailyGift = 1;
         }
 //
@@ -98,7 +98,7 @@ public class WODailyGift extends WindowMain {
             _sprItem.addChild(source);
         }
         _sprItem.x = -340;
-        _sprItem.y = -168;
+        _sprItem.y = -90;
         _source.addChild(_sprItem);
         super.showIt();
     }
@@ -144,23 +144,23 @@ public class WODailyGift extends WindowMain {
         var im:Image;
 
         if (id == 1 && type == '1') {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_icon'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             MCScaler.scale(im,im.height-20,im.width-20);
-            im.x = bg.width/2 - 10;
+            im.x = bg.width/2 ;
             im.y = bg.width/2;
             id = DataMoney.HARD_CURRENCY;
             type = DropResourceVariaty.DROP_TYPE_MONEY;
         } else if (id == 2 && type == '2') {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_icon'));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
             MCScaler.scale(im,im.height-20,im.width-20);
-            im.x = bg.width/2 - 10;
+            im.x = bg.width/2 ;
             im.y = bg.width/2;
             id = DataMoney.SOFT_CURRENCY;
             type = DropResourceVariaty.DROP_TYPE_MONEY;
         } else if (int(type) == BuildType.INSTRUMENT) {
             im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(id).imageShop));
             MCScaler.scale(im,im.height-10,im.width-10);
-            im.x = bg.width/2 - 5;
+            im.x = bg.width/2;
             im.y = bg.width/2;
             type = DropResourceVariaty.DROP_TYPE_RESOURSE;
         } else if (int(type) == BuildType.DECOR) {
@@ -187,19 +187,19 @@ public class WODailyGift extends WindowMain {
         source.addChild(txt);
         _arrCTex.push(txt);
         if (number < g.user.countDailyGift-1) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check_big'));
-            MCScaler.scale(im,im.height-20,im.width-20);
-            im.x = 35;
-            im.y = 35;
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
+//            MCScaler.scale(im,im.height-20,im.width-20);
+            im.x = 5;
+            im.y = 15;
             source.addChild(im);
             source.alpha = .5;
         }
 
         if (number == g.user.countDailyGift-1) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check_big'));
-            MCScaler.scale(im,im.height-20,im.width-20);
-            im.x = 35;
-            im.y = 35;
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
+//            MCScaler.scale(im,im.height-20,im.width-20);
+            im.x = 5;
+            im.y = 15;
             source.addChild(im);
             _itemToday.id = id;
             _itemToday.type = type;

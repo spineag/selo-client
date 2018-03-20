@@ -202,6 +202,7 @@ public class Order extends WorldObject{
     private function onOpenOrder():void {
         if (_topOpen) _topOpen.visible = false;
         if (_boomOpen) _boomOpen.visible = false;
+        if (g.miniScenes.isMiniScene) g.miniScenes.closeOrderOpenMiniScene();
         if (g.miniScenes.isMiniScene && g.user.level == _dataBuild.blockByLevel) {
             g.miniScenes.checkMiniSceneCallback();
         } else {

@@ -36,6 +36,7 @@ import starling.textures.TextureAtlas;
 import starling.utils.Color;
 import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
+import tutorial.miniScenes.MiniSceneOpenOrder;
 
 import ui.confetti.Confetti;
 
@@ -319,10 +320,20 @@ public class WOLevelUp extends WindowMain {
     override public function hideIt():void {
         super.hideIt();
         _confetti.hideIt();
+        var arr:Array;
         if (g.user.level == 4) {
-            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+            g.miniScenes.startOrderOpenMiniScene();
+//            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
             g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
-            var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            arr = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            arr[0].showArrow(120);
+        } else if (g.user.level == 7) {
+            arr= g.townArea.getCityObjectsByType(BuildType.PAPER);
+            arr[0].showArrow(120);
+            arr = g.townArea.getCityObjectsByType(BuildType.MARKET);
+            arr[0].showArrow(120);
+        } else if (g.user.level == 8) {
+            arr = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS);
             arr[0].showArrow(120);
         }
         if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
