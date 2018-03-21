@@ -337,6 +337,7 @@ public class WOLevelUp extends WindowMain {
             arr[0].showArrow(120);
         }
         if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
+        g.managerParty.checkAndCreateIvent();
 //        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
     }
 

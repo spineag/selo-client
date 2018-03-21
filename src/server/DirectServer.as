@@ -7042,33 +7042,67 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataParty: wrong JSON:' + String(response));
             return;
         }
-        obj.timeToStart = d.message.time_to_start;
-        obj.timeToEnd = d.message.time_to_end;
-        obj.levelToStart = int(d.message.level_to_start);
-        obj.idResource = int(d.message.id_resource);
-        obj.typeBuilding = int(d.message.type_building);
-        obj.coefficient = int(d.message.coefficient);
-        obj.typeParty = int(d.message.type_party);
-        obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
-        obj.description = String(g.managerLanguage.allTexts[int(d.message.text_id_description)]);
-        obj.idDecorBest = int(d.message.id_decor_best);
-        obj.filterOn = int(d.message.filter_on);
+//        for (var i:int = 0; i < d.message.length; i++) {
+//            obj = {};
+//            obj.timeToStart = d.message[i].time_to_start;
+//            obj.timeToEnd = d.message[i].time_to_end;
+//            obj.levelToStart = int(d.message[i].level_to_start);
+//            obj.idResource = int(d.message[i].id_resource);
+//            obj.typeBuilding = int(d.message[i].type_building);
+//            obj.coefficient = int(d.message[i].coefficient);
+//            obj.typeParty = int(d.message[i].type_party);
+//            obj.name = String(g.managerLanguage.allTexts[int(d.message[i].text_id_name)]);
+//            obj.description = String(g.managerLanguage.allTexts[int(d.message[i].text_id_description)]);
+//            obj.idDecorBest = int(d.message[i].id_decor_best);
+//            obj.filterOn = int(d.message[i].filter_on);
+//            obj.tester = Boolean(int(d.message[i].tester));
+//
+//            if (d.message[i].id_gift) obj.idGift = String(d.message[i].id_gift).split('&');
+//            for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
+//
+//            if (d.message[i].type_gift) obj.typeGift = String(d.message[i].type_gift).split('&');
+//            for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
+//
+//            if (d.message[i].count_gift) obj.countGift = String(d.message[i].count_gift).split('&');
+//            for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
+//
+//            if (d.message[i].count_to_gift) obj.countToGift = String(d.message[i].count_to_gift).split('&');
+//            for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
+//            g.managerParty.allArrParty.push(obj);
+//        }
+//        for (var i:int = 0; i < d.message.length; i++) {
+            obj = {};
+            obj.timeToStart = d.message.time_to_start;
+            obj.timeToEnd = d.message.time_to_end;
+            obj.levelToStart = int(d.message.level_to_start);
+            obj.idResource = int(d.message.id_resource);
+            obj.typeBuilding = int(d.message.type_building);
+            obj.coefficient = int(d.message.coefficient);
+            obj.typeParty = int(d.message.type_party);
+            obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
+            obj.description = String(g.managerLanguage.allTexts[int(d.message.text_id_description)]);
+            obj.idDecorBest = int(d.message.id_decor_best);
+            obj.filterOn = int(d.message.filter_on);
+            obj.tester = Boolean(int(d.message.tester));
 
-        if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
-        for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
+            if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
+            for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
 
-        if (d.message.type_gift) obj.typeGift = String(d.message.type_gift).split('&');
-        for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
+            if (d.message.type_gift) obj.typeGift = String(d.message.type_gift).split('&');
+            for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
 
-        if (d.message.count_gift) obj.countGift = String(d.message.count_gift).split('&');
-        for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
+            if (d.message.count_gift) obj.countGift = String(d.message.count_gift).split('&');
+            for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
 
-        if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
-        for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
+            if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
+            for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
+            g.managerParty.allArrParty.push(obj);
+
+//        g.managerParty.findDataParty();
         if ((obj.timeToStart - TimeUtils.currentSeconds < 0 && obj.timeToEnd - TimeUtils.currentSeconds > 0) || (Boolean(int(d.message.tester)) && g.user.isTester)) {
             if (Boolean(int(d.message.tester))&& g.user.isTester) g.userTimer.partyToEnd(300);
             else g.userTimer.partyToEnd(obj.timeToEnd - TimeUtils.currentSeconds);
-            g.managerParty.dataParty = obj;
+            g.managerParty.dataPartyNowUse = obj;
             g.managerParty.eventOn = true;
             if (obj.levelToStart <= g.user.level) {
                 var f:Function = function ():void {
@@ -7079,10 +7113,10 @@ public class DirectServer {
             }
         } else if (obj.timeToStart - TimeUtils.currentSeconds > 0) {
             g.userTimer.partyToStart(obj.timeToStart - TimeUtils.currentSeconds);
-            g.managerParty.dataParty = obj;
+            g.managerParty.dataPartyNowUse = obj;
             g.managerParty.eventOn = false;
         } else {
-            g.managerParty.dataParty = obj;
+            g.managerParty.dataPartyNowUse = obj;
             getUserParty();
             getRatingParty(null);
         }

@@ -449,7 +449,7 @@ public class ManagerBuyerNyashuk {
     // ------ new Nyashuk arrived --------
     public function getNewNyaForOrder(onArriveCallback:Function = null, ob:Object = null, id:int = 1):BuyerNyashuk{
 //        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return null;
-
+        if (_arrayNya.length >= 2) return null;
         if (id == 1)_table1.showTable(false,26, 25);
         else _table2.showTable(false, 25, 27);
         var nya:BuyerNyashuk = new BuyerNyashuk(id, ob, afterNewLvl);

@@ -22,21 +22,24 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
+
+import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackground;
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOPartyWindow extends WindowMain {
 
-    private var _woBG:WindowBackground;
+    private var _woBG:WindowBackgroundNew;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
     private var _txtCoefficient:CTextField;
     private var _arrItem:Array;
     private var _sprItem:Sprite;
     private var _imTime:Image;
-    private var _txtBabl:CTextField;
+    private var _txtDescrition:CTextField;
     private var _txtTime:CTextField;
     private var _txtTimeLost:CTextField;
     private var _isHover:Boolean;
@@ -44,9 +47,10 @@ public class WOPartyWindow extends WindowMain {
     private var _btnPlus:CButton;
     private var _btnLoad:CButton;
     private var _txtCountLoad:CTextField;
+    private var _txtName:CTextField;
+    private var _txtPrev:CTextField;
     private var _countLoad:int;
-    private var _imName:Image;
-    private var _btnParty:CButton;
+    private var _btnOK:CButton;
     private var _activityType:int;
     private var _btnEvent:CButton;
     private var _imEvent:Image;
@@ -59,15 +63,19 @@ public class WOPartyWindow extends WindowMain {
     private var _sprLast:Sprite;
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _arrItemRating:Array;
+    private var _bgYellowLeft:BackgroundYellowOut;
+    private var _bgYellowRight:BackgroundYellowOut;
 
     public function WOPartyWindow() {
         _windowType = WindowsManager.WO_PARTY;
         _arrItem= [];
-        _woHeight = 500;
-        _woWidth = 690;
+        _woHeight = 600;
+        _woWidth = 800;
         _isHover = false;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight, 115);
         _source.addChild(_woBG);
+        createExitButton(onClickExit);
+        _callbackClickBG = onClickExit;
         _activityType = ManagerPartyNew.TYPE_EVENT;
 
         _sprEvent = new Sprite();
@@ -81,7 +89,7 @@ public class WOPartyWindow extends WindowMain {
         _sprItem = new Sprite();
         if (g.allData.atlas['partyAtlas']) {
             fuckingButton();
-            eventWO(false);
+            createEventWO(false);
             if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4 || g.managerParty.typeParty == 5) {
                 ratingWO();
                 lastWO();
@@ -94,12 +102,50 @@ public class WOPartyWindow extends WindowMain {
         if (g.allData.atlas['partyAtlas']) {
             g.gameDispatcher.removeEnterFrame(afterAtlas);
             fuckingButton();
-            eventWO(false);
+            createEventWO(false);
             if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4 || g.managerParty.typeParty == 5) {
                 ratingWO();
                 lastWO();
             }
         }
+    }
+
+    private function createEventWO(b:Boolean = false):void {
+//        if (g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER
+//                || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA
+//                || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
+            _txtName = new CTextField(300, 60, g.managerLanguage.allTexts[1279]);
+            _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+            _txtName.x = -150;
+            _txtName.y = -_woHeight/2 + 25;
+            _sprEvent.addChild(_txtName);
+            _bgYellowLeft = new BackgroundYellowOut(380,420);
+            _bgYellowLeft.x = -_bgYellowLeft.width + 5;
+            _bgYellowLeft.y = -_bgYellowLeft.height/2 + 40;
+            _sprEvent.addChild(_bgYellowLeft);
+
+            _bgYellowRight = new BackgroundYellowOut(380,420);
+            _bgYellowRight.x = 7;
+            _bgYellowRight.y = -_bgYellowRight.height/2 + 40;
+            _sprEvent.addChild(_bgYellowRight);
+            _btnOK = new CButton();
+            _btnOK.addButtonTexture(140, CButton.HEIGHT_41, CButton.BLUE, true);
+            _btnOK.addTextField(140, 38, 0, -5, String(g.managerLanguage.allTexts[308]));
+            _btnOK.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _btnOK.y = 270;
+            _sprEvent.addChild(_btnOK);
+
+            _txtPrev = new CTextField(375, 200, String(g.managerLanguage.allTexts[465]));
+            _txtPrev.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+            _txtPrev.x = -390;
+            _txtPrev.y = -220;
+            _sprEvent.addChild(_txtPrev);
+            _txtDescrition = new CTextField(375, 200, String(g.managerLanguage.allTexts[474]));
+            _txtDescrition.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtDescrition.x = -390;
+            _txtDescrition.y = -20;
+            _sprEvent.addChild(_txtDescrition);
+//        }
     }
 
     private function onClickShow():void {
@@ -258,22 +304,19 @@ public class WOPartyWindow extends WindowMain {
                 _arrItem.push(item);
             }
 
-            _imTime = new Image(g.allData.atlas['partyAtlas'].getTexture('valik_timer'));
-            _imTime.x = 275;
-            _imTime.y = -205;
-            _sprEvent.addChild(_imTime);
             _sprItem.x = -195;
             _sprItem.y = -125;
 
-            _txtTimeLost = new CTextField(120, 60, String(g.managerLanguage.allTexts[357]));
-            _txtTimeLost.setFormat(CTextField.BOLD18, 16, 0xff7575);
+            _txtTimeLost = new CTextField(130, 60, String(g.managerLanguage.allTexts[357]));
+            _txtTimeLost.setFormat(CTextField.BOLD30, 28, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
             _sprEvent.addChild(_txtTimeLost);
-            _txtTimeLost.x = 287;
-            _txtTimeLost.y = -183;
-            _txtTime = new CTextField(120, 60, '');
-            _txtTime.setFormat(CTextField.BOLD18, 16, 0xd30102);
-            _txtTime.x = 286;
-            _txtTime.y = -150;
+            _txtTimeLost.alignH = Align.LEFT;
+            _txtTimeLost.x = -310;
+            _txtTimeLost.y = -85;
+            _txtTime = new CTextField(130, 60, '');
+            _txtTime.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+            _txtTime.alignH = Align.LEFT;
+            _txtTime.y = -85;
             _sprEvent.addChild(_txtTime);
             g.gameDispatcher.addToTimer(startTimer);
         }
@@ -283,7 +326,7 @@ public class WOPartyWindow extends WindowMain {
     private function startTimer():void {
         if (g.userTimer.partyToEndTimer > 0) {
             if (_txtTime)_txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.partyToEndTimer);
-            if (_txtTime && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) && _txtTime.x == 0) _txtTime.x = -(160 + _txtTime.textBounds.width/2);
+            if (_txtTime && _txtTime.x == 0) _txtTime.x = _txtTimeLost.x + _txtTimeLost.textBounds.width;
         } else {
             onClickExit();
             g.gameDispatcher.removeFromTimer(startTimer);
@@ -395,187 +438,6 @@ public class WOPartyWindow extends WindowMain {
             _btnLast.setEnabled = false;
             _imLast.visible = true;
         }
-    }
-
-    private function eventWO(open:Boolean = true):void {
-//        if (g.allData.atlas['partyAtlas']) {
-//            g.gameDispatcher.removeEnterFrame(eventWO);
-            var im:Image;
-            if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_l'));
-                im.x = -10 - im.width;
-                im.y = -im.height / 2 + 30;
-                _sprEvent.addChild(im);
-                if (g.managerParty.typeBuilding == BuildType.ORDER) im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_r_2'));
-                else if (g.managerParty.typeBuilding == BuildType.TRAIN) im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_r'));
-                im.y = -im.height / 2 + 30;
-                _sprEvent.addChild(im);
-                if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('market_bonus'));
-                else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('market_bonus_rus'));
-//                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('market_bonus_rus'));
-                _imName.x = -_imName.width / 2 + 5;
-                _imName.y = -205;
-                _sprEvent.addChild(_imName);
-                _txtTime = new CTextField(120, 60, '    ');
-                _txtTime.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-                _txtTime.alignH = Align.LEFT;
-                _txtTime.y = 130;
-                _sprEvent.addChild(_txtTime);
-                g.gameDispatcher.addToTimer(startTimer);
-                _txtTimeLost = new CTextField(250, 100, String(g.managerLanguage.allTexts[357]));
-                _txtTimeLost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-                _sprEvent.addChild(_txtTimeLost);
-                _txtTimeLost.alignH = Align.LEFT;
-                _txtTimeLost.x = -(160 + _txtTimeLost.textBounds.width / 2);
-                _txtTimeLost.y = 85;
-                _txtBabl = new CTextField(260, 200, String(g.managerParty.description));
-                _txtBabl.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-                _sprEvent.addChild(_txtBabl);
-                _txtBabl.x = -295;
-                _txtBabl.y = -130;
-                if (g.managerParty.typeParty == 1) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
-                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_medium'));
-                MCScaler.scale(im, im.height, im.width);
-                im.x = 154;
-                im.y = -133;
-                _sprEvent.addChild(im);
-
-                _txtCoefficient = new CTextField(172, 200, 'X' + g.managerParty.coefficient);
-                _txtCoefficient.setFormat(CTextField.BOLD30, 30, 0xffde00, ManagerFilters.BROWN_COLOR);
-                _sprEvent.addChild(_txtCoefficient);
-                _txtCoefficient.x = 38;
-                _txtCoefficient.y = -214;
-            } else {
-//                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_standard'));
-//                } else {
-//                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_independence_day'));
-//                }
-                im.x = -im.width / 2 - 4;
-//                im.y = -im.height / 2 - 12;
-                im.y = -im.height / 2 - 6;
-                _sprEvent.addChild(im);
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_baloon'));
-                im.x = -im.width / 2 - 295;
-                im.y = -im.height / 2 - 115;
-                _sprEvent.addChild(im);
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('cornbread_rus'));
-                    _imName.x = -_imName.width / 2 + 41;
-                    _imName.y = -211;
-                } else {
-                    if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('seven_milk_desserts'));
-                    else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('milk_text'));
-                    _imName.x = -_imName.width / 2 + 45;
-                    _imName.y = -218;
-                }
-
-                _sprEvent.addChild(_imName);
-                _txtBabl = new CTextField(220, 200, String(g.managerParty.description));
-                _txtBabl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-                _sprEvent.addChild(_txtBabl);
-                _txtBabl.x = -410;
-                _txtBabl.y = -225;
-                _sprEvent.addChild(_sprItem);
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
-                im.x = -158;
-                im.y = 31;
-
-                _sprEvent.addChild(im);
-                if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) {
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_w'));
-                    im.x = -215;
-                    im.y = 17;
-                    _sprEvent.addChild(im);
-
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
-                    MCScaler.scale(im, 45, 45);
-                    im.x = -199;
-                    im.y = 33;
-                    _sprEvent.addChild(im);
-                } else {
-//                    if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
-                        im = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
-                        im.x = -59;
-                        im.y = 75;
-                        _sprEvent.addChild(im);
-                        _countLoad = g.userInventory.getCountResourceById(g.managerParty.idResource);
-                        _btnMinus = new CButton();
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-                        MCScaler.scale(im, 27, 27);
-                        _btnMinus.addDisplayObject(im);
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
-                        MCScaler.scale(im, 16, 16);
-                        im.x = 6;
-                        im.y = 10;
-                        _btnMinus.addDisplayObject(im);
-                        _btnMinus.x = -79;
-                        _btnMinus.y = 125;
-                        _sprEvent.addChild(_btnMinus);
-                        if (_countLoad <= 1) _btnMinus.setEnabled = false;
-                        _btnMinus.clickCallback = onClickMinus;
-                        _btnPlus = new CButton();
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-                        MCScaler.scale(im, 27, 27);
-                        _btnPlus.addDisplayObject(im);
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-                        MCScaler.scale(im, 16, 16);
-                        im.x = 6;
-                        im.y = 6;
-                        _btnPlus.addDisplayObject(im);
-                        _btnPlus.x = 50;
-                        _btnPlus.y = 125;
-                        _sprEvent.addChild(_btnPlus);
-                        if (_countLoad <= 0) _btnPlus.setEnabled = false;
-                        _btnPlus.clickCallback = onClickPlus;
-
-                        _btnLoad = new CButton();
-                        _btnLoad.addButtonTexture(92, 24, CButton.GREEN, true);
-                        _txtBtn = new CTextField(92, 24, String(g.managerLanguage.allTexts[294]));
-                        _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-                        _btnLoad.addChild(_txtBtn);
-                        _btnLoad.clickCallback = onClickLoad;
-                        _btnLoad.y = 198;
-                        _sprEvent.addChild(_btnLoad);
-                        if (_countLoad <= 0) _btnLoad.setEnabled = false;
-                        if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
-                            im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
-                        } else if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
-                            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
-                        }
-                        MCScaler.scale(im, 80, 80);
-                        im.y = 90;
-                        im.x = -im.width / 2;
-                        _sprEvent.addChild(im);
-                        if (_countLoad > 0) {
-                            _countLoad = _countLoad / 2;
-                            if (_countLoad <= 0) {
-                                _countLoad = 1;
-                                _btnMinus.setEnabled = false;
-                                _btnPlus.setEnabled = false;
-                            } else if (_countLoad == 1) _btnMinus.setEnabled = false;
-                        }
-                        _txtCountLoad = new CTextField(220, 200, String(_countLoad));
-                        _txtCountLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-                        _txtCountLoad.alignH = Align.RIGHT;
-                        _sprEvent.addChild(_txtCountLoad);
-                        _txtCountLoad.x = -190;
-                        _txtCountLoad.y = 60;
-//                    }
-                }
-            }
-            _btnParty = new CButton();
-            _btnParty.addButtonTexture(172, 45, CButton.RED, true);
-            _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[1029]));
-            _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
-            _btnParty.addChild(_txtBtn);
-            _btnParty.clickCallback = onClickShow;
-            _btnParty.y = 255;
-            _sprEvent.addChild(_btnParty);
-            createExitButton(onClickExit);
-            _callbackClickBG = onClickExit;
-//        }
-        if (open) showItParams(null, null);
     }
 
     private function ratingWO():void {
@@ -818,10 +680,10 @@ public class WOPartyWindow extends WindowMain {
             _txtBtn.deleteIt();
             _txtBtn = null;
         }
-        if (_txtBabl) {
-            if (_sprEvent) _sprEvent.removeChild(_txtBabl);
-            _txtBabl.deleteIt();
-            _txtBabl = null;
+        if (_txtDescrition) {
+            if (_sprEvent) _sprEvent.removeChild(_txtDescrition);
+            _txtDescrition.deleteIt();
+            _txtDescrition = null;
         }
         if (_txtTime) {
             if (_sprEvent) _sprEvent.removeChild(_txtTime);

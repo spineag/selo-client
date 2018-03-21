@@ -530,48 +530,48 @@ public class MainBottomPanel {
         txt.x = 48;
         txt.y = 45;
         _friendBoard.addChild(txt);
-        if (_person != g.user.neighbor) {
-            var i:int;
-            var b:Boolean = false;
-                for (i = 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
-                    if (_person.userId == g.friendPanel.arrNeighborFriends[i].userId) {
-                        b = true;
-                        break;
-                    }
-                }
-            if (g.friendPanel.arrNeighborFriends.length != 5 && !b) {
-                for (i= 0; i < g.user.arrFriends.length; i++) {
-                    if (_person.userSocialId == g.user.arrFriends[i].userSocialId) return;
-                }
-                _btnPlusMinus = new CButton();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_add_button'));
-                MCScaler.scale(im, 27, 27);
-                _btnPlusMinus.addDisplayObject(im);
-                _btnPlusMinus.clickCallback = onClickAddNeighbor;
-                _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1076])) };
-                _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
-                _friendBoard.addChild(_btnPlusMinus);
-                _btnPlusMinus.y = 60;
-                _btnPlusMinus.x = -10;
-            } else if (g.friendPanel.arrNeighborFriends.length == 5 || b) {
-                for (i= 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
-                    if (g.friendPanel.arrNeighborFriends[i].userId == _person.userId) {
-                        _btnPlusMinus = new CButton();
-                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_out_button'));
-                        MCScaler.scale(im, 27, 27);
-                        _btnPlusMinus.addDisplayObject(im);
-                        _btnPlusMinus.addDisplayObject(im);
-                        _btnPlusMinus.clickCallback = onClickDeleteNeighbor;
-                        _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1077])) };
-                        _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
-                        _friendBoard.addChild(_btnPlusMinus);
-                        _btnPlusMinus.y = 60;
-                        _btnPlusMinus.x = -10;
-                        break;
-                    }
-                }
-            }
-        }
+//        if (_person != g.user.neighbor) {
+//            var i:int;
+//            var b:Boolean = false;
+//                for (i = 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
+//                    if (_person.userId == g.friendPanel.arrNeighborFriends[i].userId) {
+//                        b = true;
+//                        break;
+//                    }
+//                }
+//            if (g.friendPanel.arrNeighborFriends.length != 5 && !b) {
+//                for (i= 0; i < g.user.arrFriends.length; i++) {
+//                    if (_person.userSocialId == g.user.arrFriends[i].userSocialId) return;
+//                }
+//                _btnPlusMinus = new CButton();
+//                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_add_button'));
+//                MCScaler.scale(im, 27, 27);
+//                _btnPlusMinus.addDisplayObject(im);
+//                _btnPlusMinus.clickCallback = onClickAddNeighbor;
+//                _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1076])) };
+//                _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
+//                _friendBoard.addChild(_btnPlusMinus);
+//                _btnPlusMinus.y = 60;
+//                _btnPlusMinus.x = -10;
+//            } else if (g.friendPanel.arrNeighborFriends.length == 5 || b) {
+//                for (i= 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
+//                    if (g.friendPanel.arrNeighborFriends[i].userId == _person.userId) {
+//                        _btnPlusMinus = new CButton();
+//                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_out_button'));
+//                        MCScaler.scale(im, 27, 27);
+//                        _btnPlusMinus.addDisplayObject(im);
+//                        _btnPlusMinus.addDisplayObject(im);
+//                        _btnPlusMinus.clickCallback = onClickDeleteNeighbor;
+//                        _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1077])) };
+//                        _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
+//                        _friendBoard.addChild(_btnPlusMinus);
+//                        _btnPlusMinus.y = 60;
+//                        _btnPlusMinus.x = -10;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
     }
 
     public function needNotificationNews(count:int = 0):void {

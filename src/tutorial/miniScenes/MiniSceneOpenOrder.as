@@ -36,8 +36,12 @@ public class MiniSceneOpenOrder {
     }
 
     public function deleteCat():void {
-        _cat.hideBubble();
-        g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+        if(_cat) {
+            _cat.stopAnimation();
+            _cat.makeFreeCatIdle();
+            _cat.hideBubble();
+            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+        }
     }
 }
 }

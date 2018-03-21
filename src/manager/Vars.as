@@ -471,7 +471,7 @@ public class Vars {
                }
             var f1:Function = function ():void {
                 if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
-                        && (managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4 || managerParty.typeParty == 5)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
+                        && (managerParty.dataPartyNowUse.typeParty == 3 || managerParty.dataPartyNowUse.typeParty == 4 || managerParty.typeParty == 5)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
                 };
                 Utils.createDelay(5,f1);
             if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
