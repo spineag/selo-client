@@ -83,6 +83,7 @@ public class WODailyGift extends WindowMain {
 //        var yesterdayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
 //        yesterday.setTime(yesterday.getTime() - day);
         g.user.countDailyGift++;
+        g.user.dayDailyGift = int(new Date(g.user.day));
         if (g.user.countDailyGift > 10) {
             g.user.countDailyGift = 1;
         }

@@ -90,7 +90,7 @@ public class WOLevelUp extends WindowMain {
         SOUND_OPEN = SoundConst.LEVEL_COMPLETED;
         _windowType = WindowsManager.WO_LEVEL_UP;
         if (g.managerResize.stageHeight < 750) _isBigWO = false;  else _isBigWO = true;
-        if (!_isBigWO) _source.scale = .75;
+        if (!_isBigWO) _source.scale = .77;
         _woWidth = 745;
         _woHeight = 409;
         _arrCells = [];

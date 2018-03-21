@@ -220,7 +220,7 @@ public class WOMarket  extends WindowMain {
                 if (_curUser.userSocialId == g.user.userSocialId) createMarketTabBtns();
                 else {
                     createAva();
-                    _visitBtn.visible = true;
+                    if ((g.visitedUser && _curUser != g.visitedUser) || !g.visitedUser) _visitBtn.visible = true;
                     createMarketTabBtns(true);
                 }
             } else {
