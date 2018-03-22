@@ -30,6 +30,8 @@ import tutorial.IManagerTutorial;
 import tutorial.TutsAction;
 import tutorial.pretuts.TutorialComix;
 
+import ui.confetti.Confetti;
+
 import utils.SimpleArrow;
 import utils.Utils;
 import utils.Utils;
@@ -40,6 +42,8 @@ import windows.shop_new.WOShop;
 public class TutorialManager extends IManagerTutorial{
     private var _count:int = 0;
     private var _bolAtlas:Boolean = false;
+    private var _confetti:Confetti;
+
     public function TutorialManager() {  super(); }
 
     override protected function initScenes():void {
@@ -294,7 +298,7 @@ public class TutorialManager extends IManagerTutorial{
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep6_2, 0, '', 'shop_icon');
         g.bottomPanel.tutorialCallback = subStep6_2;
         addBlackUnderInterface();
-        g.bottomPanel.addArrow('shop',500);
+//        g.bottomPanel.addArrow('shop',500);
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
     }
@@ -306,7 +310,7 @@ public class TutorialManager extends IManagerTutorial{
         cutScene.hideIt(deleteCutScene);
         _tutorialResourceIDs = [1];
         removeBlack();
-        g.bottomPanel.deleteArrow();
+//        g.bottomPanel.deleteArrow();
         _onShowWindowCallback = subStep6_3;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
     }
@@ -518,7 +522,7 @@ public class TutorialManager extends IManagerTutorial{
             g.bottomPanel.tutorialCallback = subStep10_1;
             var ob:Object = g.bottomPanel.getShopButtonProperties();
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            g.bottomPanel.addArrow('shop',500);
+//            g.bottomPanel.addArrow('shop',500);
         }
     }
 
@@ -528,7 +532,7 @@ public class TutorialManager extends IManagerTutorial{
         deleteArrowAndDust();
         g.bottomPanel.tutorialCallback = null;
         removeBlack();
-        g.bottomPanel.deleteArrow();
+//        g.bottomPanel.deleteArrow();
         _subStep = 1;
         _onShowWindowCallback = subStep10_2;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
@@ -772,6 +776,11 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function initScene_15():void {
+        if (g.user.level < 3) {
+            g.xpPanel.visualAddXP(3);
+            Utils.createDelay(4,initScene_15);
+            return;
+        }
         _subStep = 0;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (!g.managerBuyerNyashuk) {
@@ -791,7 +800,7 @@ public class TutorialManager extends IManagerTutorial{
             g.bottomPanel.tutorialCallback = subStep15_1;
             var ob:Object = g.bottomPanel.getShopButtonProperties();
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            g.bottomPanel.addArrow('shop',500);
+//            g.bottomPanel.addArrow('shop',500);
         }
     }
 
@@ -801,7 +810,7 @@ public class TutorialManager extends IManagerTutorial{
         deleteArrowAndDust();
         g.bottomPanel.tutorialCallback = null;
         removeBlack();
-        g.bottomPanel.deleteArrow();
+//        g.bottomPanel.deleteArrow();
         _subStep = 1;
         _onShowWindowCallback = subStep15_2;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
@@ -847,7 +856,7 @@ public class TutorialManager extends IManagerTutorial{
         addBlackUnderInterface();
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        g.bottomPanel.addArrow('shop',500);
+//        g.bottomPanel.addArrow('shop',500);
         g.bottomPanel.tutorialCallback = subStep16_2;
     }
 
@@ -858,7 +867,7 @@ public class TutorialManager extends IManagerTutorial{
         deleteArrowAndDust();
         _tutorialResourceIDs = [11];
         removeBlack();
-        g.bottomPanel.deleteArrow();
+//        g.bottomPanel.deleteArrow();
         _onShowWindowCallback = subStep16_3;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
     }
@@ -1011,11 +1020,14 @@ public class TutorialManager extends IManagerTutorial{
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TextsTutorial()).objText;
         addBlack();
+        _confetti = new Confetti();
+        _confetti.showIt();
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep19_1);
     }
     
     private function subStep19_1():void {
         removeBlack();
+        _confetti.hideIt();
         cutScene.hideIt(deleteCutScene);
         finishTutorial();
     }

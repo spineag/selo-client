@@ -16,6 +16,7 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.textures.Texture;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import tutorial.managerCutScenes.ManagerCutScenes;
@@ -198,8 +199,9 @@ public class WOMarket  extends WindowMain {
         _arrFriends.unshift(g.user);
         _txtName = new CTextField(300, 80, '');
         _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
+        _txtName.alignH = Align.LEFT;
         _txtName.y = -295;
-        _txtName.x = -150;
+        _txtName.x = -120;
         _ma = new MarketAllFriend(_arrFriends, this, btnFriend);
         _source.addChild(_ma.source);
     }
@@ -219,17 +221,21 @@ public class WOMarket  extends WindowMain {
             }
             if(_shiftFriend == 0)  {
                 if (_curUser.userSocialId == g.user.userSocialId) createMarketTabBtns();
-                else createMarketTabBtns(true);
+                else {
+                    createAva();
+                    if ((g.visitedUser && _curUser != g.visitedUser) || !g.visitedUser) _visitBtn.visible = true;
+                    createMarketTabBtns(true);
+                }
             } else {
                 if (_curUser == g.user) {
                     _visitBtn.visible = false;
                     deleteAva();
-                    _txtName.x = -150;
+                    _txtName.x = -120;
                 } else {
                     _visitBtn.visible = true;
+                    _txtName.x = -110;
                     createAva();
                     _shiftFriendVisit = _shiftFriend;
-                    _txtName.x = -110;
                 }
                 createMarketTabBtns();
             }
@@ -558,18 +564,8 @@ public class WOMarket  extends WindowMain {
                 if (_arrFriends[_shiftFriend].userSocialId == g.visitedUser.userSocialId) {
                     _visitBtn.visible = false;
                     deleteAva();
-                    _txtName.x = -150;
+                    _txtName.x = -120;
                 }
-            } else {
-//                if (_arrFriends[_shiftFriend] == g.user) {
-//                    _visitBtn.visible = false;
-//                    deleteAva();
-//                    _txtName.x = -150;
-//                } else {
-//                    _visitBtn.visible = true;
-//                    createAva();
-//                    _txtName.x = -110;
-//                }
             }
             _item.source.x = 10;
             _item.source.y = 25;
@@ -585,26 +581,14 @@ public class WOMarket  extends WindowMain {
             return;
         }
         if (paper) {
-            _item = new MarketFriendItem(_curUser, this, 0);
-//            if (g.visitedUser) {
-//                if (_curUser.userSocialId == g.visitedUser.userSocialId) {
-//                    _visitBtn.visible = false;
-//                    deleteAva();
-//                    _txtName.x = -150;
-//                }
-//                else {
-//                    _visitBtn.visible = true;
-//                    createAva();
-//                    _txtName.x = -110;
-//                }
-//            } else {
-//                _visitBtn.visible = true;
-//                createAva();
-//                _txtName.x = -110;
-//            }
+            _item = new MarketFriendItem(g.user, this, 0);
             if (_shiftFriend + 2 >= _arrFriends.length) {
                 _shiftFriend = -1;
             }
+            _shiftFriend = 1;
+            _item.source.x = 10;
+            _item.source.y = 25;
+            _sprRightFr.addChild(_item.source);
         } else {
             if (_shiftFriend == 0) _shiftFriend++;
             else if (_shiftFriend + 1 >= _arrFriends.length) _shiftFriend = 0;
@@ -613,18 +597,6 @@ public class WOMarket  extends WindowMain {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
             _item.source.x = 10;
             _item.source.y = 25;
-//            if (g.isAway) {
-//                if (_arrFriends[_shiftFriend] == g.visitedUser) {
-//                    _visitBtn.visible = false;
-//                    deleteAva();
-//                    _txtName.x = -150;
-//                }
-//                else {
-//                    _visitBtn.visible = true;
-//                    createAva();
-//                    _txtName.x = -110;
-//                }
-//            }
             _sprRightFr.addChild(_item.source);
             if (_shiftFriend + 1 >= _arrFriends.length) _shiftFriend = 0;
             else _shiftFriend ++;
@@ -688,12 +660,11 @@ public class WOMarket  extends WindowMain {
         if (p == g.user) {
             _visitBtn.visible = false;
             deleteAva();
-            _txtName.x = -150;
+            _txtName.x = -120;
         } else {
             _visitBtn.visible = true;
             createAva();
             _shiftFriendVisit = _shiftFriend;
-            _txtName.x = -110;
         }
         deleteFriends();
         createMarketTabBtns();
@@ -928,18 +899,16 @@ public class WOMarket  extends WindowMain {
     }
 
     private function createAva():void {
-//        var shift:int = 0;
-//        if (_shiftFriend != 0) shift = _shiftFriend - 1;
-        if (_arrFriends[_shiftFriend] is NeighborBot) {
-            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
-        } else {
-            if (_arrFriends[_shiftFriend].photo) {
-                g.load.loadImage(_arrFriends[_shiftFriend].photo, onLoadPhoto);
+            if (_curUser is NeighborBot) {
+                photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
             } else {
-                g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-                g.socialNetwork.getTempUsersInfoById([_arrFriends[_shiftFriend].userSocialId]);
+                if (_curUser.photo) {
+                    g.load.loadImage(_curUser.photo, onLoadPhoto);
+                } else {
+                    g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                    g.socialNetwork.getTempUsersInfoById([_curUser.userSocialId]);
+                }
             }
-        }
     }
 
     private function deleteAva():void {
@@ -953,18 +922,22 @@ public class WOMarket  extends WindowMain {
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-        if (!_arrFriends[_shiftFriend].name) _arrFriends[_shiftFriend] = g.user.getSomeoneBySocialId(_arrFriends[_shiftFriend].userSocialId);
-        _txtName.text = _arrFriends[_shiftFriend].name;
-        if (_arrFriends[_shiftFriend].photo =='' || _arrFriends[_shiftFriend].photo == 'unknown') _arrFriends[_shiftFriend].photo =  SocialNetwork.getDefaultAvatar();
-        g.load.loadImage(_arrFriends[_shiftFriend].photo, onLoadPhoto);
+        if (!_curUser.name) _curUser = g.user.getSomeoneBySocialId(_curUser.userSocialId);
+        _txtName.text = _curUser.name;
+        if (_curUser.photo =='' || _curUser.photo == 'unknown') {
+            onLoadPhoto(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+//            _arrFriends[_shiftFriend].photo =  SocialNetwork.getDefaultAvatar();
+        } else {
+            g.load.loadImage(_curUser.photo, onLoadPhoto);
+        }
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!bitmap) {
-            bitmap = g.pBitmaps[_arrFriends[_shiftFriend].photo].create() as Bitmap;
+            bitmap = g.pBitmaps[_curUser.photo].create() as Bitmap;
         }
         if (!bitmap) {
-            Cc.error('MarketFriendItem:: no photo for userId: ' + _arrFriends[_shiftFriend].userSocialId);
+            Cc.error('MarketFriendItem:: no photo for userId: ' + _curUser.userSocialId);
             return;
         }
         photoFromTexture(Texture.fromBitmap(bitmap));
@@ -981,13 +954,14 @@ public class WOMarket  extends WindowMain {
         _ramkaIm.y = -300;
         _ramkaIm.x = -170;
         _source.addChild(_ramkaIm);
+        _txtName.x = _ramkaIm.x + _ramkaIm.width;
     }
 
     private function visitPerson():void {
         if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
         g.windowsManager.uncasheWindow();
         onClickExit();
-        g.townArea.goAway(_arrFriends[_shiftFriendVisit]);
+        g.townArea.goAway(_curUser);
     }
 }
 }

@@ -164,7 +164,7 @@ public class HeroCat extends BasicCat{
         super.stopAnimation();
     }
     override public function idleAnimation():void {
-        if (Math.random() > .2 || (g.tuts.isTuts && _type == MAN)) {
+        if (Math.random() > .2 || (g.tuts.isTuts && _type == MAN) || (g.miniScenes.isMiniScene && _type == MAN)) {
             showFront(true);
             var r:int = int(Math.random()*12);
             if (r > 8) {
@@ -289,7 +289,7 @@ public class HeroCat extends BasicCat{
     private var timer:int;
     public function makeFreeCatIdle(showCatEmotion:Boolean = false):void {
         freeIdleGo = !freeIdleGo;
-        if (g.tuts.isTuts && _type == MAN) {
+        if ((g.tuts.isTuts && _type == MAN) || (g.miniScenes.isMiniScene && _type == MAN)) {
             idleAnimation();
 //            timer = 5 + int(Math.random() * 10);
 //            g.gameDispatcher.addToTimer(renderForIdleFreeCat);

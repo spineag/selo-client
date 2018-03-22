@@ -36,6 +36,7 @@ import starling.textures.TextureAtlas;
 import starling.utils.Color;
 import tutorial.TutsAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
+import tutorial.miniScenes.MiniSceneOpenOrder;
 
 import ui.confetti.Confetti;
 
@@ -89,7 +90,7 @@ public class WOLevelUp extends WindowMain {
         SOUND_OPEN = SoundConst.LEVEL_COMPLETED;
         _windowType = WindowsManager.WO_LEVEL_UP;
         if (g.managerResize.stageHeight < 750) _isBigWO = false;  else _isBigWO = true;
-        if (!_isBigWO) _source.scale = .75;
+        if (!_isBigWO) _source.scale = .77;
         _woWidth = 745;
         _woHeight = 409;
         _arrCells = [];
@@ -319,13 +320,24 @@ public class WOLevelUp extends WindowMain {
     override public function hideIt():void {
         super.hideIt();
         _confetti.hideIt();
+        var arr:Array;
         if (g.user.level == 4) {
-            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
+            g.miniScenes.startOrderOpenMiniScene();
+//            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
             g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
-            var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            arr = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            arr[0].showArrow(120);
+        } else if (g.user.level == 7) {
+            arr= g.townArea.getCityObjectsByType(BuildType.PAPER);
+            arr[0].showArrow(120);
+            arr = g.townArea.getCityObjectsByType(BuildType.MARKET);
+            arr[0].showArrow(120);
+        } else if (g.user.level == 8) {
+            arr = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS);
             arr[0].showArrow(120);
         }
         if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
+        g.managerParty.checkAndCreateIvent();
 //        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
     }
 

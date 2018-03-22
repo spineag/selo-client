@@ -115,16 +115,9 @@ public class UserTimer {
     private function partyTimerToStart():void {
         partyToStartTimer--;
         if (partyToStartTimer <= 0) {
-            partyToEnd(g.managerParty.timeToEnd - TimeUtils.currentSeconds);
-            g.managerParty.eventOn = true;
-            if ( g.managerParty.levelToStart <= g.user.level) {
-                var f:Function = function ():void {
-                    g.managerParty.atlasLoad();
-                };
-                g.server.getUserParty(f);
-            }
-            partyToStartTimer = 0;
             g.gameDispatcher.removeFromTimer(partyTimerToStart);
+            g.managerParty.checkAndCreateIvent();
+            partyToStartTimer = 0;
         }
     }
 

@@ -110,6 +110,11 @@ public class WOPaperItem {
         _personSeller = g.user.getSomeoneBySocialId(_data.userSocialId);
         if (_personSeller.photo) {
             if (_ava) return;
+            _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            _ava.x = 13;
+            _ava.y = 11;
+            MCScaler.scale(_ava, 56, 56);
+            _source.addChildAt(_ava, 1);
             _txtSellerName.text = _personSeller.name + ' ' + _personSeller.lastName;
             g.load.loadImage(_personSeller.photo, onLoadPhoto);
         } else {
@@ -153,6 +158,11 @@ public class WOPaperItem {
         if (!_source) return;
         if (!bitmap) bitmap = g.pBitmaps[_personSeller.photo].create() as Bitmap;
         if (!bitmap) { Cc.error('WOPapperItem:: no photo for userId: ' + _personSeller.userSocialId); return; }
+        if (_ava) {
+            _source.removeChild(_ava);
+            _ava.dispose();
+            _ava = null;
+        }
         _ava = new Image(Texture.fromBitmap(bitmap));
         _ava.x = 13;
         _ava.y = 11;

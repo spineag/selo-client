@@ -102,8 +102,9 @@ public class MarketAllFriendItem{
 //        _person.lastName = ar[0].last_name;
 //        _person.photo = ar[0].photo_100;
         _txtPersonName.text = _person.name;
-        if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
-        g.load.loadImage(_person.photo, onLoadPhoto);
+        if (_person.photo =='' || _person.photo == 'unknown') {
+            onLoadPhoto(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+        } else g.load.loadImage(_person.photo, onLoadPhoto);
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {

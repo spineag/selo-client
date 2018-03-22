@@ -46,6 +46,7 @@ public class ManagerMiniScenes {
     private var _onHideWindowCallback:Function;
     private var _counter:int;
     private var _oCat:MiniSceneOrderCat;
+    private var _mOrderOpenCat:MiniSceneOpenOrder;
 
     public function ManagerMiniScenes() {
         _properties = (new MiniSceneProps()).properties;
@@ -58,6 +59,16 @@ public class ManagerMiniScenes {
         if (_curMiniScenePropertie) {
             return _curMiniScenePropertie.reason == reason;
         } else return false;
+    }
+
+    public function startOrderOpenMiniScene():void {
+        isMiniScene = true;
+        _mOrderOpenCat = new MiniSceneOpenOrder();
+    }
+
+    public function closeOrderOpenMiniScene():void {
+        isMiniScene = false;
+        _mOrderOpenCat.deleteCat();
     }
 
     public function deleteArrowAndDust():void {

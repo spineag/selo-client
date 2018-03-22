@@ -810,27 +810,27 @@ internal class FriendTabs {
         bg.addChildAt(_unactiveNeedHelp, 0);
         _unactiveNeedHelp.endClickCallback = onClickNeedHelp;
 
-        _imActiveNeighbors = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab_light'));
-        _imActiveNeighbors.pivotX = _imActiveNeighbors.width/2;
-        _imActiveNeighbors.pivotY = _imActiveNeighbors.height;
-        _imActiveNeighbors.x = 348;
-        _imActiveNeighbors.y = 15;
-        bg.addChild(_imActiveNeighbors);
-        _txtActiveNeighbors = new CTextField(154, 48, g.managerLanguage.allTexts[1030]);
-        _txtActiveNeighbors.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtActiveNeighbors.x = 268;
-        _txtActiveNeighbors.y = -32;
-        bg.addChild(_txtActiveNeighbors);
-
-        _unactiveNeighbors = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_tab'));
-        im.pivotX = im.width/2;
-        im.pivotY = im.height;
-        _unactiveNeighbors.addChild(im);
-        _unactiveNeighbors.x = 348;
-        _unactiveNeighbors.y = 18;
-        bg.addChildAt(_unactiveNeighbors, 0);
-        _unactiveNeighbors.endClickCallback = onClickNeighbors;
+//        _imActiveNeighbors = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab_light'));
+//        _imActiveNeighbors.pivotX = _imActiveNeighbors.width/2;
+//        _imActiveNeighbors.pivotY = _imActiveNeighbors.height;
+//        _imActiveNeighbors.x = 348;
+//        _imActiveNeighbors.y = 15;
+//        bg.addChild(_imActiveNeighbors);
+//        _txtActiveNeighbors = new CTextField(154, 48, g.managerLanguage.allTexts[1030]);
+//        _txtActiveNeighbors.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//        _txtActiveNeighbors.x = 268;
+//        _txtActiveNeighbors.y = -32;
+//        bg.addChild(_txtActiveNeighbors);
+//
+//        _unactiveNeighbors = new CSprite();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_brown_tab'));
+//        im.pivotX = im.width/2;
+//        im.pivotY = im.height;
+//        _unactiveNeighbors.addChild(im);
+//        _unactiveNeighbors.x = 348;
+//        _unactiveNeighbors.y = 18;
+//        bg.addChildAt(_unactiveNeighbors, 0);
+//        _unactiveNeighbors.endClickCallback = onClickNeighbors;
     }
 
     private function onClickFriend():void { if (_callback!=null) _callback.apply(null, [1]); }
@@ -839,14 +839,20 @@ internal class FriendTabs {
 
     public function activate(isFriend:int):void {
         if (isFriend == 1) {
-            _unactiveNeedHelp.visible = _unactiveNeighbors.visible = _imActiveFriend.visible = true;
-            _imActiveNeighbors.visible = _imActiveNeedHelp.visible =  _unactiveFriend.visible = false
+            _unactiveNeedHelp.visible = _imActiveFriend.visible = true;
+//            _unactiveNeedHelp.visible = _unactiveNeighbors.visible = _imActiveFriend.visible = true;
+//            _imActiveNeighbors.visible = _imActiveNeedHelp.visible =  _unactiveFriend.visible = false
+            _imActiveNeedHelp.visible =  _unactiveFriend.visible = false
         } else if (isFriend == 2) {
-            _unactiveFriend.visible = _unactiveNeighbors.visible = _imActiveNeedHelp.visible = true;
-            _imActiveNeighbors.visible = _imActiveFriend.visible =  _unactiveNeedHelp.visible = false
+            _unactiveFriend.visible =_imActiveNeedHelp.visible = true;
+//            _unactiveFriend.visible = _unactiveNeighbors.visible = _imActiveNeedHelp.visible = true;
+            _imActiveFriend.visible =  _unactiveNeedHelp.visible = false;
+//            _imActiveNeighbors.visible = _imActiveFriend.visible =  _unactiveNeedHelp.visible = false
         } else {
-            _unactiveFriend.visible = _unactiveNeedHelp.visible = _imActiveNeighbors.visible = true;
-            _imActiveFriend.visible = _imActiveNeedHelp.visible =  _unactiveNeighbors.visible = false
+            _unactiveFriend.visible = _unactiveNeedHelp.visible = true;
+//            _unactiveFriend.visible = _unactiveNeedHelp.visible = _imActiveNeighbors.visible = true;
+            _imActiveFriend.visible = _imActiveNeedHelp.visible = false;
+//            _imActiveFriend.visible = _imActiveNeedHelp.visible =  _unactiveNeighbors.visible = false
         }
     }
 

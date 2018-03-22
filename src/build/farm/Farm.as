@@ -431,7 +431,7 @@ public class Farm extends WorldObject{
         _arrCrafted.push(item);
         checkForCraft();
         if (g.managerTips) g.managerTips.calculateAvailableTips();
-        if (g.tuts.isTuts) {
+        if (g.tuts.isTuts && g.user.level < 2) {
             (_arrCrafted[0] as CraftItem).releaseIt();
             checkForCraft();
         }
