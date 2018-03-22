@@ -182,11 +182,16 @@ public class WOSalePackVauchers  extends WindowMain{
 
     override public function showItParams(callback:Function, params:Array):void {
         var item:WOSalePackVauchersItem;
+        var ar:Array = g.managerSalePack.userSale.objectId;
+        if (!ar) {
+            onClickExit();
+            return;
+        }
         _sprItem = new Sprite();
         _source.addChild(_sprItem);
         _arrItem = [];
-        for (var i:int = 0; i < g.managerSalePack.userSale.objectId.length; i++) {
-            item = new WOSalePackVauchersItem(g.managerSalePack.userSale.objectId[i],g.managerSalePack.userSale.objectType[i],g.managerSalePack.userSale.objectCount[i]);
+        for (var i:int = 0; i < ar.length; i++) {
+            item = new WOSalePackVauchersItem(ar[i],g.managerSalePack.userSale.objectType[i],g.managerSalePack.userSale.objectCount[i]);
             item.source.x = -20 + 130 * i;
             _sprItem.addChild(item.source);
             _arrItem.push(item);

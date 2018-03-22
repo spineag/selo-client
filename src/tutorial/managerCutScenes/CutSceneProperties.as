@@ -80,6 +80,15 @@ public class CutSceneProperties {
         obj.text = String(g.managerLanguage.allTexts[530]);
         obj.text2 = String(g.managerLanguage.allTexts[531]);
         _prop.push(obj);
+        
+        obj ={};
+        obj.reason = ManagerCutScenes.REASON_DIRECT;
+        obj.id_action = ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR;
+        obj.level = 5;
+        obj.text = 'Сосед ждет тебя';
+        obj.text2 = 'Добро пожаловать к соседу! Пошли на рінок!';
+        obj.text3 = 'Іді домой! Но можешь вернуться';
+        _prop.push(obj);
     }
 }
 }

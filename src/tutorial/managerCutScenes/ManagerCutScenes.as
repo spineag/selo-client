@@ -34,6 +34,7 @@ public class ManagerCutScenes {
     public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
     public static const REASON_OPEN_TRAIN:int = 2;  // use if user open Train, cap
     public static const REASON_ADD_TO_PAPPER:int = 4;  
+    public static const REASON_DIRECT:int = 3;  // start after direct command
 
     public static const ID_ACTION_SHOW_MARKET:int = 0;
     public static const ID_ACTION_SHOW_PAPPER:int = 1;
@@ -42,6 +43,7 @@ public class ManagerCutScenes {
     public static const ID_ACTION_FROM_INVENTORY_DECOR:int = 4;
     public static const ID_ACTION_TRAIN_AVAILABLE:int = 5;
     public static const ID_ACTION_OPEN_TRAIN:int = 6;
+    public static const ID_ACTION_GO_TO_NEIGHBOR:int = 7;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -51,6 +53,7 @@ public class ManagerCutScenes {
     private var _arrow:SimpleArrow;
     private var _dustRectangle:DustRectangle;
     private var _black:Sprite;
+    private var blackUnderInterface:Sprite;
     private var _cutSceneResourceIDs:Array;
     private var _cutSceneBuildings:Array;
     private var _cutSceneCallback:Function;
@@ -133,13 +136,9 @@ public class ManagerCutScenes {
         }
     }
 
-    public function get closeMarket():Boolean { return _closeMarket; }
-    public function isType(id:int):Boolean { return id == _curCutScenePropertie.id_action; }
-    private function onStartMiniScenes():void { if (g.managerHelpers.isActiveHelper) g.managerHelpers.onEnd();  }
-    
     public function checkCutSceneForAddToPapper(it:MarketItem):void {
-        if (!_properties || !_properties[8] || _properties[8].level > g.user.level || g.user.cutScenes[8]) return;
-        _curCutScenePropertie = _properties[8];
+        if (!_properties || !_properties[7] || _properties[7].level > g.user.level || g.user.cutScenes[7]) return;
+        _curCutScenePropertie = _properties[7];
         var f:Function = function():void {
             releaseAddToPapper(it);
         };
@@ -714,24 +713,104 @@ public class ManagerCutScenes {
         deleteArrow();
         deleteAirBubble();
         isCutScene = false;
+        g.user.cutScenes[7] = 1;
+        saveUserCutScenesData();
+    }
+
+    public function goToNeighbor():void {
+        if (g.user.cutScenes[8] == 1) return;
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+        isCutScene = true;
+        g.windowsManager.closeAllWindows();
+        _curCutScenePropertie = _properties[8];
+        _cutSceneStep = 1;
+        addBlackUnderInterface();
+        _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text, _NEXT);
+        if (!g.bottomPanel.boolFriend) neighbor_2();
+        else {
+            var ob:Object = g.bottomPanel.getBtnProperties('friend');
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+            _arrow.scaleIt(.5);
+            _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+            _cutSceneCallback = neighbor_1;
+        }
+    }
+
+    private function neighbor_1():void {
+        deleteArrow();
+        _cutSceneCallback = null;
+        _cutScene.hideIt(deleteCutScene);
+        Utils.createDelay(1, neighbor_2);
+    }
+
+    private function neighbor_2():void {
+        _cutSceneStep = 2;
+        var ob:Object = g.friendPanel.getNeighborItemProperties();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(ob.x, ob.y + 10);
+        _cutSceneCallback = neighbor_3;
+    }
+
+    private function neighbor_3():void {
+        _cutSceneStep = 3;
+        if (_cutScene) _cutScene.hideIt(deleteCutScene);
+        deleteArrow();
+        removeBlack();
+        _cutSceneCallback = function():void { Utils.createDelay(2, neighbor_4); };
+    }
+
+    private function neighbor_4():void {
+        _cutSceneStep = 4;
+        _cutSceneCallback = null;
+        _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text2, _NEXT, neighbor_5);
+        addBlack();
+    }
+
+    private function neighbor_5():void {
+        _cutSceneStep = 5;
+        removeBlack();
+        _cutScene.hideIt(deleteCutScene);
+        _cutSceneBuildings = g.townArea.getAwayCityObjectsByType(BuildType.MARKET);
+        (_cutSceneBuildings[0] as Market).showArrow();
+        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80, false, .7);
+        _cutSceneCallback = neighbor_6;
         g.user.cutScenes[8] = 1;
         saveUserCutScenesData();
     }
 
-    public function get curCutSceneProperties():Object {
-        return _curCutScenePropertie;
+    private function neighbor_6():void {
+        _cutSceneStep = 6;
+        (_cutSceneBuildings[0] as Market).hideArrow();
+        _cutSceneCallback = neighbor_7;
+    }
+
+    private function neighbor_7():void { // on hide wo MARKET
+        _cutSceneCallback = null;
+        _cutSceneStep = 7;
+        addBlack();
+        _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text3, _NEXT, neighbor_8);
+    }
+
+    private function neighbor_8():void {
+        _cutSceneStep = 8;
+        removeBlack();
+        _cutScene.hideIt(deleteCutScene);
+        isCutScene = false;
+        g.bottomPanel.addArrow('home', 180);
     }
 
 
-    public function isCutSceneResource(id:int):Boolean {
-        return _cutSceneResourceIDs.indexOf(id) > -1;
-    }
-
-    public function checkCutSceneCallback():void {
-        if (_cutSceneCallback != null) {
-            _cutSceneCallback.apply();
-        }
-    }
+    public function get closeMarket():Boolean { return _closeMarket; }
+    public function isType(id:int):Boolean { return id == _curCutScenePropertie.id_action; }
+    private function onStartMiniScenes():void { if (g.managerHelpers.isActiveHelper) g.managerHelpers.onEnd();  }
+    public function get curCutSceneProperties():Object { return _curCutScenePropertie; }
+    public function isCutSceneResource(id:int):Boolean { return _cutSceneResourceIDs.indexOf(id) > -1; }
+    public function checkCutSceneCallback():void {  if (_cutSceneCallback != null) {  _cutSceneCallback.apply(); }  }
+    public function isCutSceneBuilding(wo:WorldObject):Boolean {   if(_cutSceneBuildings)  return _cutSceneBuildings.indexOf(wo) > -1;  else return false; }
 
     private function addBlack():void {
         if (!_black) {
@@ -743,11 +822,26 @@ public class ManagerCutScenes {
         }
     }
 
+    private function addBlackUnderInterface():void {
+        if (!blackUnderInterface) {
+            var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
+            blackUnderInterface = new Sprite();
+            blackUnderInterface.addChild(q);
+            blackUnderInterface.alpha = .6;
+            g.cont.hintGameCont.addChildAt(blackUnderInterface, 0);
+        }
+    }
+
     private function removeBlack():void {
         if (_black) {
             if (g.cont.popupCont.contains(_black)) g.cont.popupCont.removeChild(_black);
             _black.dispose();
             _black = null;
+        }
+        if (blackUnderInterface) {
+            if (g.cont.hintGameCont.contains(blackUnderInterface)) g.cont.hintGameCont.removeChild(blackUnderInterface);
+            blackUnderInterface.dispose();
+            blackUnderInterface = null;
         }
     }
 
@@ -778,11 +872,6 @@ public class ManagerCutScenes {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
-    }
-
-    public function isCutSceneBuilding(wo:WorldObject):Boolean {
-        if(_cutSceneBuildings)  return _cutSceneBuildings.indexOf(wo) > -1;
-        else return false;
     }
 
     public function onResize():void {
