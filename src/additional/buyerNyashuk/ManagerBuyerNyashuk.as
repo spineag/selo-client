@@ -454,6 +454,7 @@ public class ManagerBuyerNyashuk {
         else _table2.showTable(false, 25, 27);
         var nya:BuyerNyashuk = new BuyerNyashuk(id, ob, afterNewLvl);
         nya.noClick();
+        nya.nyashukGo = true;
         nya.arriveCallback = onArriveCallback;
         nya.setPositionInQueue(getFreeQueuePosition());
         _arrayNya.push(nya);
@@ -517,6 +518,7 @@ public class ManagerBuyerNyashuk {
         if (id == 1) nya.setTailPositions(26, 25);
         else nya.setTailPositions(25, 27);
         nya.flipIt(false);
+        nya.nyashukGo = false;
         nya.yesClick();
         nya.forceStopAnimation();
         nya.idleFrontAnimation();
@@ -555,6 +557,7 @@ public class ManagerBuyerNyashuk {
         g.townArea.addBuyerNyashukToCont(nya);
         g.townArea.addBuyerNyashukToCityObjects(nya);
         nya.flipIt(false);
+        nya.nyashukGo = false;
         nya.yesClick();
         nya.idleFrontAnimation();
         nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;

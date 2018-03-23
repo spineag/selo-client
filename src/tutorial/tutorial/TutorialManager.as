@@ -994,15 +994,17 @@ public class TutorialManager extends IManagerTutorial{
         _cat.showFront(true);
         _cat.idleAnimation();
         _cat.showBubble(texts[g.user.tutorialStep][_subStep]);
+        (_tutorialObjects[0] as BuyerNyashuk).addClckontutorial();
         (_tutorialObjects[0] as BuyerNyashuk).addArrow();
+        (_tutorialObjects[1] as BuyerNyashuk).addClckontutorial();
         (_tutorialObjects[1] as BuyerNyashuk).addArrow();
         _tutorialCallback = subStep18_3;
     }
 
     private function subStep18_3():void {
         _subStep = 4;
-        (_tutorialObjects[0] as BuyerNyashuk).removeArrow();
-        (_tutorialObjects[1] as BuyerNyashuk).removeArrow();
+         if (_tutorialObjects[0]) (_tutorialObjects[0] as BuyerNyashuk).removeArrow();
+        if (_tutorialObjects[1]) (_tutorialObjects[1] as BuyerNyashuk).removeArrow();
         _cat.hideBubble();
         _tutorialCallback = subStep18_4;
     }
@@ -1030,6 +1032,9 @@ public class TutorialManager extends IManagerTutorial{
         _confetti.hideIt();
         cutScene.hideIt(deleteCutScene);
         finishTutorial();
+        var arr:Array = g.managerBuyerNyashuk.arrNyashuk;
+        if (arr[0]) (arr[0] as BuyerNyashuk).addClckontutorial();
+        if (arr[1]) (arr[1] as BuyerNyashuk).addClckontutorial();
     }
 
 

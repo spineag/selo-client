@@ -75,6 +75,7 @@ public class BuyerNyashuk {
     private var _isHover:Boolean;
     private var _arrow:SimpleArrow;
     private var _afterNewLvl:Boolean;
+    public var nyashukGo:Boolean;
 
     public function BuyerNyashuk(id:int, ob:Object, firstB:Boolean = false) {
         _buyerId = id;
@@ -83,6 +84,7 @@ public class BuyerNyashuk {
         _spriteTxt = new Sprite();
         _spriteTxt.touchable = true;
         _isHover = false;
+        nyashukGo= false;
         _afterNewLvl = firstB;
         var dataResource:StructureDataResource = g.allData.getResourceById(_data.resourceId);
         var im:Image;
@@ -111,7 +113,8 @@ public class BuyerNyashuk {
         _source.addChild(_build);
         _source.releaseContDrag = true;
         if (!g.isAway) {
-            _source.endClickCallback = onClick;
+            if (g.tuts.isTuts) _source.endClickCallback = null;
+            else _source.endClickCallback = onClick;
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }
@@ -150,6 +153,13 @@ public class BuyerNyashuk {
         }
         return _depth;
     }
+    public function addClckontutorial():void {
+        if (nyashukGo) {
+            g.gameDispatcher.addEnterFrame(addClckontutorial);
+            return;
+        }
+        _source.endClickCallback = onClick;
+    }
 
     private function onClick():void {
         if (g.isAway) return;
@@ -181,7 +191,8 @@ public class BuyerNyashuk {
 
     public function yesClick():void {
         if (!g.isAway) {
-            _source.endClickCallback = onClick;
+            if (g.tuts.isTuts) _source.endClickCallback = null;
+            else _source.endClickCallback = onClick;
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }

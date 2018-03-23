@@ -72,6 +72,8 @@ public class WOMarket  extends WindowMain {
     private var _visitBtn:CButton;
     private var _ava:Image;
     private var _ramkaIm:Image;
+    private var _imBabbleCutScene:Image;
+    private var _txtBabbleCutScene:CTextField;
 
     public function WOMarket() {
         super();
@@ -232,7 +234,7 @@ public class WOMarket  extends WindowMain {
                     deleteAva();
                     _txtName.x = -120;
                 } else {
-                    _visitBtn.visible = true;
+                    if (_curUser != g.visitedUser) _visitBtn.visible = true;
                     _txtName.x = -110;
                     createAva();
                     _shiftFriendVisit = _shiftFriend;
@@ -241,6 +243,8 @@ public class WOMarket  extends WindowMain {
             }
             choosePerson(_curUser);
         }
+
+        if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) babbleMiniScene();
         _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         onWoShowCallback = onShow;
@@ -962,6 +966,21 @@ public class WOMarket  extends WindowMain {
         g.windowsManager.uncasheWindow();
         onClickExit();
         g.townArea.goAway(_curUser);
+    }
+
+    private function babbleMiniScene():void {
+        _imBabbleCutScene = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
+        MCScaler.scale(_imBabbleCutScene,_imBabbleCutScene.height,_imBabbleCutScene.width-40);
+        _imBabbleCutScene.scaleX = -1;
+        _imBabbleCutScene.x = -150;
+        _imBabbleCutScene.y = -310;
+        _source.addChild(_imBabbleCutScene);
+
+        _txtBabbleCutScene = new CTextField(300,100,String(g.managerLanguage.allTexts[1308]));
+        _txtBabbleCutScene.setFormat(CTextField.BOLD24, 24,ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txtBabbleCutScene.x = -487;
+        _txtBabbleCutScene.y = -305;
+        _source.addChild(_txtBabbleCutScene);
     }
 }
 }

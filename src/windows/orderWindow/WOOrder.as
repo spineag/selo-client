@@ -144,7 +144,7 @@ public class WOOrder extends WindowMain {
     private function onClickExit(e:Event=null):void {
         if (g.tuts.isTuts) return;
         g.miniScenes.onHideOrder();
-        super.hideIt();
+        hideIt();
     }
 
     private function createItems():void {
@@ -373,7 +373,7 @@ public class WOOrder extends WindowMain {
         var n:int = ManagerOrder.COST_SKIP_WAIT;
         if (g.user.hardCurrency < n) {
             isCashed = false;
-            super.hideIt();
+            hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
@@ -532,7 +532,10 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         Utils.createDelay(1,f);
     }
 
-    override  public function hideIt():void { super.hideIt(); }
+    override  public function hideIt():void {
+        if (g.user.level == 5 && g.user.cutScenes[8] != 1) g.managerCutScenes.goToNeighbor();
+        super.hideIt();
+    }
 
 
     private function updateItemsCheck():void {

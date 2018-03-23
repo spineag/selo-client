@@ -719,7 +719,7 @@ public class ManagerCutScenes {
 
     public function goToNeighbor():void {
         if (g.user.cutScenes[8] == 1) return;
-        if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+        if (g.managerQuest.userQuests && g.managerQuest.userQuests.length>0) g.managerQuest.hideQuestsIcons(true);
         isCutScene = true;
         g.windowsManager.closeAllWindows();
         _curCutScenePropertie = _properties[8];
@@ -747,10 +747,10 @@ public class ManagerCutScenes {
     private function neighbor_2():void {
         _cutSceneStep = 2;
         var ob:Object = g.friendPanel.getNeighborItemProperties();
+        _cutSceneCallback = neighbor_3;
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
         _arrow.scaleIt(.5);
         _arrow.animateAtPosition(ob.x, ob.y + 10);
-        _cutSceneCallback = neighbor_3;
     }
 
     private function neighbor_3():void {
@@ -758,7 +758,8 @@ public class ManagerCutScenes {
         if (_cutScene) _cutScene.hideIt(deleteCutScene);
         deleteArrow();
         removeBlack();
-        _cutSceneCallback = function():void { Utils.createDelay(2, neighbor_4); };
+        if (g.isAway)  Utils.createDelay(3,neighbor_4);
+        else _cutSceneCallback = function():void { Utils.createDelay(2, neighbor_4); };
     }
 
     private function neighbor_4():void {

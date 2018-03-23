@@ -68,7 +68,7 @@ public class MainBottomPanel {
         _questBoolean = false;
         _source = new Sprite();
         _boolTools = false;
-        _boolFriend = false;
+        _boolFriend = true;
         _friendBoard = new Sprite();
         onResize();
         _friendSpr = new Sprite();
@@ -138,7 +138,7 @@ public class MainBottomPanel {
         _friendBtn.hoverCallback = function():void {g.hint.showIt(String(g.managerLanguage.allTexts[485]));};
         _friendBtn.outCallback = function():void { g.hint.hideIt(); };
         _friendBtn.clickCallback = function():void {onClick('friend')};
-
+        if (g.user.level < 5) _friendBtn.visible = false;
         _cancelBtn = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('map_editor_button'));
         _cancelBtn.addDisplayObject(im);
@@ -203,6 +203,10 @@ public class MainBottomPanel {
         _newsBtn.outCallback = function():void { g.hint.hideIt(); };
         _newsBtn.endClickCallback = function():void {onClick('news')};
 
+    }
+
+    public function friendBtnVisible(b:Boolean):void {
+        _friendBtn.visible = b;
     }
 
     private function onClick(reason:String):void {
@@ -332,7 +336,10 @@ public class MainBottomPanel {
             case 'friend':
                 if (g.tuts.isTuts) return;
                 if (_boolFriend) g.friendPanel.showIt();
-                else g.friendPanel.hideIt();
+                else {
+                    if (!g.managerCutScenes.isCutScene) g.friendPanel.hideIt();
+                    else return;
+                }
                 _boolFriend = !_boolFriend;
                 if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) {
                     deleteArrow();

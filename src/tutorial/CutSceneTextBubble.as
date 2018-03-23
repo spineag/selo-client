@@ -70,8 +70,10 @@ public class CutSceneTextBubble {
     private function photoFromTexture(tex:Texture):void {
         _innerImage = new Image(tex);
         createBubble(_st);
-        _source.scaleX = _source.scaleY = .3;
-        TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:onCompleteShow});
+        if (_source) {
+            _source.scaleX = _source.scaleY = .3;
+            TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete: onCompleteShow});
+        }
     }
 
     public function showBubble(st:String, btnSt:String, callback:Function, callbackNo:Function=null, startClick:Function=null):void {
@@ -141,7 +143,7 @@ public class CutSceneTextBubble {
 
     private function createBubble(st:String):void {
         if (_isBigShop) {
-            _txtBubble = new CTextField(420, 200, st);
+            _txtBubble = new CTextField(430, 200, st);
             _txtBubble.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
             switch (_type) {
                 case BIG:
@@ -190,16 +192,19 @@ public class CutSceneTextBubble {
                 _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width / 2 + 20, _imageBtn.y);
             }
         } else {
-            _txtBubble = new CTextField(350, 200, st);
+            _txtBubble = new CTextField(370, 200, st);
             _txtBubble.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
             switch (_type) {
                 case BIG:
-                    _txtBubble.x = 54;
-                    _txtBubble.y = -134;
+                    _txtBubble.x = 40;
                     if (_imageBtn) {
                         _imageBtn.scaleX = _imageBtn.scaleY = .8;
                         _imageBtn.x = 230;
                         _imageBtn.y = 67;
+                        _txtBubble.y = -134;
+                    } else {
+                        _txtBubble.y = -114;
+
                     }
                     break;
                 case MIDDLE:
@@ -217,22 +222,24 @@ public class CutSceneTextBubble {
                     }
                     break;
             }
-            _source.addChild(_innerImage);
-            _innerImage.x = -15;
-            _innerImage.y = -_innerImage.height / 2;
 
-            _txtBubble.autoScale = true;
+            if (_innerImage) {
+                if (_source) _source.addChild(_innerImage);
+                _innerImage.x = -15;
+                _innerImage.y = -_innerImage.height / 2;
+            }
+            if (_txtBubble) _txtBubble.autoScale = true;
             if (_btn) {
                 _btn.x = 230;
                 _btn.y = 80;
-                _source.addChild(_btn);
+                if (_source) _source.addChild(_btn);
             }
-            _source.addChild(_txtBubble);
+            if (_source) _source.addChild(_txtBubble);
             if (_imageBtn) _source.addChild(_imageBtn);
             if (_btnExit) {
                 _btnExit.x = _innerImage.x + _innerImage.width - 20;
                 _btnExit.y = _innerImage.y + 35;
-                _source.addChild(_btnExit);
+                if (_source) _source.addChild(_btnExit);
             }
             if (_imageBtn && _btnUrl != '') {
                 _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);

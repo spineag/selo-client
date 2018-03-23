@@ -100,13 +100,13 @@ public class ManagerOrder {
         if (g.user.level < 4 || g.managerOrder.stateOrderBuild != WorldObject.STATE_ACTIVE) return;
         var f1:Function = function():void {
             addNewOrders(_curMaxCountOrders - _arrOrders.length, 0, null, -1);
-            checkForNewCats(f2);
+            checkForNewCats();
         };
-        var f2:Function = function ():void {
-            if (!g.managerCutScenes.isCutScene && !g.miniScenes.isMiniScene && g.user.level >= 5) g.managerCutScenes.goToNeighbor(); // check for miniScene for visit neighbor
-        };
+//        var f2:Function = function ():void {
+//            if (!g.managerCutScenes.isCutScene && !g.miniScenes.isMiniScene && g.user.level >= 5) g.managerCutScenes.goToNeighbor(); // check for miniScene for visit neighbor
+//        };
         if (_arrOrders.length < _curMaxCountOrders) Utils.createDelay(3, f1);
-        else Utils.createDelay(2, f2);
+//        else Utils.createDelay(2, f2);
     }
 
     public function countCellAtLevel(r:int):int {

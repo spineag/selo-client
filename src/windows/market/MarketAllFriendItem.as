@@ -103,7 +103,7 @@ public class MarketAllFriendItem{
 //        _person.photo = ar[0].photo_100;
         _txtPersonName.text = _person.name;
         if (_person.photo =='' || _person.photo == 'unknown') {
-            onLoadPhoto(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
         } else g.load.loadImage(_person.photo, onLoadPhoto);
     }
 

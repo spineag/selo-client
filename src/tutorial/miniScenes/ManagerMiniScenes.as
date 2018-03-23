@@ -68,7 +68,7 @@ public class ManagerMiniScenes {
 
     public function closeOrderOpenMiniScene():void {
         isMiniScene = false;
-        _mOrderOpenCat.deleteCat();
+        if(_mOrderOpenCat) _mOrderOpenCat.deleteCat();
     }
 
     public function deleteArrowAndDust():void {

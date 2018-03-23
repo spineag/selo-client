@@ -309,7 +309,10 @@ public class WOLevelUp extends WindowMain {
             };
             Utils.createDelay(3,f1);
         }
-
+        if (g.user.level == 5) {
+            g.bottomPanel.boolFriend = true;
+            g.friendPanel.hideIt();
+        }
         super.showIt();
     }
     
@@ -335,7 +338,7 @@ public class WOLevelUp extends WindowMain {
         } else if (g.user.level == 8) {
             arr = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS);
             arr[0].showArrow(120);
-        }
+        } else if (g.user.level == 5) g.bottomPanel.friendBtnVisible(true);
         if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
         g.managerParty.checkAndCreateIvent();
 //        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);

@@ -192,8 +192,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../resources/part_products/apple_juice_icon.png</filename>
             <filename>screen-1_vk_ok.png</filename>
+            <filename>screen-2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
