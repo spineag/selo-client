@@ -289,19 +289,13 @@ public class FriendPanel {
             if (_shift <= 0) {
                 _leftArrow.setEnabled = false;
                 _leftArrow.setEnabled = true;
-
-            } else {
-                _leftArrow.setEnabled = true;
-            }
+            } else _leftArrow.setEnabled = true;
         }
         if (_rightArrow) {
             if (_shift + 5 >= _arrFriends.length) {
                 _rightArrow.setEnabled = false;
                 _rightArrow.setEnabled = true;
-
-            } else {
-                _rightArrow.setEnabled = true;
-            }
+            } else _rightArrow.setEnabled = true;
         }
     }
 
@@ -322,11 +316,8 @@ public class FriendPanel {
     }
 
     public function updateFriendsPanel():void {
-        if (_activeTabType == TYPE_NEED_HELP) {
-            fillFriends();
-        } else {
-            checkHelpIcon();
-        }
+        if (_activeTabType == TYPE_NEED_HELP) fillFriends();
+        else checkHelpIcon();
     }
 
     private function fillFriends():void {
@@ -341,9 +332,7 @@ public class FriendPanel {
                 if ((ar[i] as Someone).needHelpCount > 0) _arrFriends.push(ar[i]);
             }
         }
-        if (_activeTabType == TYPE_NORMAL) {
-            addButtonsAddFriends();
-        }
+        if (_activeTabType == TYPE_NORMAL) addButtonsAddFriends();
         createLevel();
     }
 
@@ -684,25 +673,20 @@ public class FriendPanel {
             }
         }
     }
-    public function get arrNeighborFriends():Array {
-        return _arrNeighborFriends;
-    }
-
-    public function get arrFriends():Array {
-        return _arrFriends;
-    }
+    public function get arrNeighborFriends():Array { return _arrNeighborFriends; }
+    public function get arrFriends():Array { return _arrFriends; }
 
     public function getNeighborItemProperties():Object {
-            var ob:Object = {};
-            ob.x = 173;
-            ob.y = 7;
-            var p:Point = new Point(ob.x, ob.y);
-            p = _source.localToGlobal(p);
-            ob.x = p.x;
-            ob.y = p.y;
-            ob.width = 60;
-            ob.height = 70;
-            return ob;
+        var ob:Object = {};
+        ob.x = 173;
+        ob.y = 7;
+        var p:Point = new Point(ob.x, ob.y);
+        p = _source.localToGlobal(p);
+        ob.x = p.x;
+        ob.y = p.y;
+        ob.width = 60;
+        ob.height = 70;
+        return ob;
     }
 
     private function noFriends():void {
@@ -740,13 +724,13 @@ public class FriendPanel {
             else if (p.photo) userIds.push(_arrNeighborFriends[i].userSocialId);
         }
         if (userIds.length) {
-            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettInfo);
+            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGetInfo);
             g.socialNetwork.getTempUsersInfoById(userIds);
         }
     }
 
-    private function onGettInfo(e:SocialNetworkEvent):void {
-        if (e) g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettInfo);
+    private function onGetInfo(e:SocialNetworkEvent):void {
+        if (e) g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGetInfo);
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].updateAvatar(_arrItems[i].person.level,_arrItems[i].person.userId);
         }

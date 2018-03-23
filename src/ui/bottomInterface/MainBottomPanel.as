@@ -331,13 +331,13 @@ public class MainBottomPanel {
                 break;
             case 'friend':
                 if (g.tuts.isTuts) return;
-                if (_boolFriend == true) {
-                    _boolFriend = false;
-                    g.friendPanel.showIt();
-                } else {
-                    _boolFriend = true;
-                    g.friendPanel.hideIt();
-                }
+                if (_boolFriend) g.friendPanel.showIt();
+                else g.friendPanel.hideIt();
+                _boolFriend = !_boolFriend;
+                if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) {
+                    deleteArrow();
+                    g.managerCutScenes.checkCutSceneCallback();
+                }    
                 break;
             case 'tools':
                 if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
@@ -456,9 +456,8 @@ public class MainBottomPanel {
         }
     }
 
-    public function set boolFriend(b:Boolean):void {
-        _boolFriend = b;
-    }
+    public function set boolFriend(b:Boolean):void {  _boolFriend = b; }
+    public function get boolFriend():Boolean {  return _boolFriend; }
 
     public function doorBoolean(b:Boolean,person:Someone = null):void {
         _person = person;
@@ -585,7 +584,7 @@ public class MainBottomPanel {
         }
     }
 
-    private function onClickAddNeighbor ():void {
+    private function onClickAddNeighbor():void {
         g.friendPanel.addNeighborFriend(_person);
         if (_btnPlusMinus) {
             _friendBoard.removeChild(_btnPlusMinus);
@@ -609,7 +608,7 @@ public class MainBottomPanel {
         _btnPlusMinus.x = -10;
     }
 
-    private function onClickDeleteNeighbor ():void {
+    private function onClickDeleteNeighbor():void {
         g.friendPanel.deleteNeighborFriend(_person);
         if (_btnPlusMinus) {
             _friendBoard.removeChild(_btnPlusMinus);
@@ -708,7 +707,15 @@ public class MainBottomPanel {
                 ob.y = p.y;
                 ob.width = _homeBtn.width;
                 ob.height = _homeBtn.height;
-                return ob;
+                break;
+            case 'friend':
+                p.x = 0;
+                p.y = 0;
+                p = _friendBtn.localToGlobal(p);
+                ob.x = p.x;
+                ob.y = p.y;
+                ob.width = _friendBtn.width;
+                ob.height = _friendBtn.height;
                 break;
         }
 
@@ -739,6 +746,10 @@ public class MainBottomPanel {
             case 'home':
                 _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
                 _arrow.animateAtPosition(_homeBtn.x, _homeBtn.y - _homeBtn.height/2 - 10);
+                break;
+            case 'friend': 
+                _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
+                _arrow.animateAtPosition(_friendBtn.x - _friendSpr.x, _friendBtn.y - _friendBtn.height/2 - 10);  // smth wrong, need fix :(
                 break;
         }
         if (g.tuts.isTuts) {

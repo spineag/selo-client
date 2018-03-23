@@ -509,7 +509,7 @@ public class Vars {
     }
 
     private function openMapEditorInterface():void {
-        if((user as User).isMegaTester) {
+        if ((user as User).isMegaTester) {
             mapEditor = new MapEditorInterface();
             editorButtons = new EditorButtonInterface();
             deactivatedAreaManager = new DeactivatedAreaManager();

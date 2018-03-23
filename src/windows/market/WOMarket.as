@@ -18,6 +18,9 @@ import starling.events.Event;
 import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
+
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import user.NeighborBot;
 import user.Someone;
 import utils.CButton;
@@ -249,7 +252,11 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
+        if (g.tuts.isTuts) return;
+        if (g.managerCutScenes.isCutScene) {
+            if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) g.managerCutScenes.checkCutSceneCallback();
+            else return;
+        }
         _timer = 15;
         g.gameDispatcher.removeFromTimer(refreshMarketTemp);
         super.hideIt();

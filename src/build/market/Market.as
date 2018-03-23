@@ -17,6 +17,8 @@ import mouse.ToolsModifier;
 import starling.events.Event;
 
 import tutorial.TutsAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
+
 import user.NeighborBot;
 import windows.WindowsManager;
 
@@ -116,9 +118,11 @@ public class Market extends WorldObject{
                 return;
             }
             if (g.isAway && g.visitedUser) {
-                if (g.tuts.isTuts && g.tuts.action != TutsAction.VISIT_NEIGHBOR) return;
+                if (g.managerCutScenes.isCutScene) {
+                    if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) g.managerCutScenes.checkCutSceneCallback();
+                    else return;
+                }
                 g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, g.visitedUser);
-                if (g.tuts.isTuts) g.tuts.checkTutsCallback();
             } else {
                 g.windowsManager.openWindow(WindowsManager.WO_MARKET, fillIt, g.user);
             }

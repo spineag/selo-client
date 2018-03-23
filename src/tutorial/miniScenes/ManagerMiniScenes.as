@@ -443,13 +443,12 @@ public class ManagerMiniScenes {
             saveUserMiniScenesData();
             isMiniScene = false;
         }
-        if (g.user.miniScenes[3] == 0) letsGoToNeighbor();
+        //if (g.user.miniScenes[3] == 0) letsGoToNeighbor();
     }
 
-    private function letsGoToNeighbor():void {
-        return;
-        
-        
+    public function letsGoToNeighbor():void {
+        return; // move to cutscene
+        if (g.user.miniScenes[3] > 0) return;
         g.friendPanel.showIt();
         if (!g.allData.factory['tutorialCatBig']) {
             var st:String;

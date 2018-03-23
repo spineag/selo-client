@@ -19,7 +19,10 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 import tutorial.TutsAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
+
+import user.NeighborBot;
 
 import user.NeighborBot;
 import user.Someone;
@@ -124,11 +127,14 @@ public class FriendItem {
     private function visitPerson():void {
         g.bottomPanel.deleteArrow();
         if (g.miniScenes.isMiniScene && (g.miniScenes.isReason(ManagerMiniScenes.BUY_ORDER) || g.miniScenes.isReason(ManagerMiniScenes.OPEN_ORDER))) return;
+        if (g.managerCutScenes.isCutScene) {
+            if (_person is NeighborBot && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) g.managerCutScenes.checkCutSceneCallback();
+            else return;
+        }
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
         if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         if (g.visitedUser && g.visitedUser == _person) return;
-        if (g.managerCutScenes.isCutScene) return;
         if (g.tuts.isTuts) {
             if (g.tuts.action == TutsAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
                 g.tuts.checkTutsCallback();

@@ -1688,9 +1688,7 @@ public class TownArea extends Sprite {
         if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(false);
-        if (g.starterPanel) {
-            g.starterPanel.visibleStaterPanel(false);
-        }
+        if (g.starterPanel)  g.starterPanel.visibleStaterPanel(false);
         g.visitedUser = person;
         _freePlace.deleteAway();
         _freePlace.fillAway();
@@ -1731,7 +1729,6 @@ public class TownArea extends Sprite {
         _townAwayMatrix = [];
         setDefaultAwayMatrix();
         addAwayTownAreaSortCheking();
-        
         g.cont.moveCenterToPos(24, 26, true, 2);
     }
 
@@ -1840,6 +1837,7 @@ public class TownArea extends Sprite {
         g.managerMouseHero.addMouse();
         g.user.calculateReasonForHelpAway();
         g.managerPets.addAwayPets(p);
+        if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) g.managerCutScenes.checkCutSceneCallback();
     }
 
     public function addAwayPet(pet:PetMain):void {
