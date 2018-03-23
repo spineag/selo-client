@@ -161,6 +161,10 @@ public class TutorialComix {
             case 2:
                 _srcImage.removeChild(_im1);
                 _srcImage.alpha = 0;
+                if (!_im2) {
+                    g.gameDispatcher.addEnterFrame(showImage);
+                    return;
+                }  else if (_im2) g.gameDispatcher.removeEnterFrame(showImage);
                 _srcImage.addChildAt(_im2,0);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1272]);
                 _txtBabble.changeSize = 40;
@@ -171,6 +175,10 @@ public class TutorialComix {
             case 3:
                 _srcImage.removeChild(_im2);
                 _srcImage.alpha = 0;
+                if (!_im3) {
+                    g.gameDispatcher.addEnterFrame(showImage);
+                    return;
+                }  else if (_im3) g.gameDispatcher.removeEnterFrame(showImage);
                 _srcImage.addChildAt(_im3,0);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1273]);
                 _txtBabble.changeSize = 40;
@@ -181,6 +189,10 @@ public class TutorialComix {
             case 4:
                 _srcImage.removeChild(_im3);
                 _srcImage.alpha = 0;
+                if (!_im4) {
+                    g.gameDispatcher.addEnterFrame(showImage);
+                    return;
+                }  else if (_im4) g.gameDispatcher.removeEnterFrame(showImage);
                 _srcImage.addChildAt(_im4,0);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1274]);
                 _txtBabble.changeSize = 40;
@@ -191,6 +203,10 @@ public class TutorialComix {
             case 5:
                 _srcImage.removeChild(_im4);
                 _srcImage.alpha = 0;
+                if (!_im5) {
+                    g.gameDispatcher.addEnterFrame(showImage);
+                    return;
+                }  else if (_im5) g.gameDispatcher.removeEnterFrame(showImage);
                 _srcImage.addChildAt(_im5,0);
                 _txtBabble.text = String(g.managerLanguage.allTexts[1275]);
                 _txtBabble.changeSize = 40;
@@ -202,7 +218,6 @@ public class TutorialComix {
         }
         _txtBabble.pivotX = _txtBabble.width/2;
         _txtBabble.alignV = Align.TOP;
-//        _txtBabble.alignH = Align.BOTTOM;
         _txtBabble.x = _im1.x +_im1.width/2;
         _txtBabble.y = _im1.y + 15;
         var tween:Tween;

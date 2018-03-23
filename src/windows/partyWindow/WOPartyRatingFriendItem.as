@@ -47,6 +47,7 @@ public class WOPartyRatingFriendItem {
     private var _imResource:Image;
     private var _personS:Someone;
     private var _data:Object;
+    private var _imRamka:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -72,21 +73,33 @@ public class WOPartyRatingFriendItem {
         }
         source = new Sprite();
         source.y = 35;
-        if (number == 1) {
-            var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_top_1'));
-            source.addChild(im);
-            im.y =-55;
-            im.x = 9;
-            var cSp:CSprite  = new CSprite();
-            source.addChild(cSp);
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('star_event_winner_45x45'));
-            MCScaler.scale(im,45,45);
-            cSp.addChild(im);
-            cSp.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1085])); };
-            cSp.outCallback = function():void { g.hint.hideIt(); };
-            cSp.y =-43;
-            cSp.x = 125;
-        }
+//        if (number == 1) {
+//            var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_top_1'));
+//            source.addChild(im);
+//            im.y =-55;
+//            im.x = 9;
+//            var cSp:CSprite  = new CSprite();
+//            source.addChild(cSp);
+//            im = new Image(g.allData.atlas['partyAtlas'].getTexture('star_event_winner_45x45'));
+//            MCScaler.scale(im,45,45);
+//            cSp.addChild(im);
+//            cSp.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1085])); };
+//            cSp.outCallback = function():void { g.hint.hideIt(); };
+//            cSp.y =-43;
+//            cSp.x = 125;
+//        }
+        _srcAva = new CSprite();
+        source.addChild(_srcAva);
+        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+        MCScaler.scale(_ava, 60, 60);
+        _ava.x = 10;
+        _ava.y = 8;
+//        _ava.x = 55;
+//        _ava.y = 10;
+        _srcAva.addChild(_ava);
+        _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
+        _srcAva.addChild(_imRamka);
+
         if ((user || ob.userSocialId == g.user.userSocialId) && g.pBitmaps[_personS.photo]) {
 //            _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
 //            MCScaler.scale(_ava, 50, 50);
@@ -96,17 +109,17 @@ public class WOPartyRatingFriendItem {
             onLoadPhoto(g.pBitmaps[_personS.photo].create() as Bitmap);
         }
 
-        if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
-        else {
-            if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
-                _imResource = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
-            } else if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
-                _imResource = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
-            }
-        }
-        MCScaler.scale(_imResource,50,50);
-        source.addChild(_imResource);
-        _imResource.x = 215;
+//        if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
+//        else {
+//            if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
+//                _imResource = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
+//            } else if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
+//                _imResource = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
+//            }
+//        }
+//        MCScaler.scale(_imResource,50,50);
+//        source.addChild(_imResource);
+//        _imResource.x = 215;
 //        _imResource.y = -5;
 
         if (user) _txtCountResource = new CTextField(250, 100, String(g.managerParty.userParty.countResource));
@@ -114,8 +127,8 @@ public class WOPartyRatingFriendItem {
         _txtCountResource.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCountResource.alignH = Align.LEFT;
         source.addChild(_txtCountResource);
-        _txtCountResource.x = 241 - _txtCountResource.textBounds.width/2;
-        _txtCountResource.y = -5;
+        _txtCountResource.x = 55 + _txtCountResource.textBounds.width/2;
+        _txtCountResource.y = 5;
 
         var txt:CTextField = new CTextField(250, 100, String(number));
         if (user || _personS.userId == g.user.userId && number != 1) txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -123,9 +136,10 @@ public class WOPartyRatingFriendItem {
         else if (number == 1) txt.setFormat(CTextField.BOLD18, 18, 0xfdffd3, 0xc78d00);
         else txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;
-        txt.y = -15;
-        txt.x = 28 - txt.textBounds.width/2;
+        txt.y = -70;
+//        txt.x = 28 - txt.textBounds.width/2;
         source.addChild(txt);
+
         _txtNamePerson = new CTextField(90, 120, '');
         _txtNamePerson.needCheckForASCIIChars = true;
         if (user || _personS.userId == g.user.userId && number != 1) _txtNamePerson.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -135,8 +149,8 @@ public class WOPartyRatingFriendItem {
         _txtNamePerson.alignH = Align.LEFT;
         if (user) _txtNamePerson.text = g.user.name + ' ' + g.user.lastName;
         else _txtNamePerson.text = _personS.name;
-        _txtNamePerson.x = 120;
-        _txtNamePerson.y = -27;
+        _txtNamePerson.x = -_txtNamePerson.textBounds.width/2 + 39;
+        _txtNamePerson.y = 25;
         source.addChild(_txtNamePerson);
     }
 
@@ -160,13 +174,28 @@ public class WOPartyRatingFriendItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
+//        _srcAva = new CSprite();
+//        source.addChild(_srcAva);
+//        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+//        MCScaler.scale(_ava, 50, 50);
+//        _ava.x = 55;
+//        _ava.y = 10;
+//        _srcAva.addChild(_ava);
         if (!tex) return;
+        if (_srcAva && _ava) {
+            _srcAva.removeChild(_ava);
+            _srcAva.deleteIt();
+            _srcAva.dispose();
+            _srcAva = null;
+            _ava.dispose();
+            _ava = null;
+        }
         _srcAva = new CSprite();
         source.addChild(_srcAva);
         _ava = new Image(tex);
-        MCScaler.scale(_ava, 50, 50);
-        _ava.x = 55;
-        _ava.y = 10;
+        MCScaler.scale(_ava, 60, 60);
+        _ava.x = 10;
+        _ava.y = 8;
         _srcAva.addChild(_ava);
         if (_data.userSocialId != g.user.userSocialId) {
             _srcAva.endClickCallback = visitPerson;

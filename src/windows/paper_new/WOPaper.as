@@ -136,7 +136,7 @@ public class WOPaper extends WindowMain {
         im.alignPivot();
         _leftArrow.addChild(im);
         _leftArrow.clickCallback = onClickLeft;
-        if (_isBigWO) _leftArrow.x = -_woWidth/2 + 33; _leftArrow.x = -_woWidth/2 + 37;
+        if (_isBigWO) _leftArrow.x = -_woWidth/2 + 33; else _leftArrow.x = -_woWidth/2 + 37;
         if (_isBigWO) _leftArrow.y = -_woHeight/2 + 350;  else _leftArrow.y = -_woHeight/2 + 275;
         _source.addChild(_leftArrow);
 
@@ -146,7 +146,7 @@ public class WOPaper extends WindowMain {
         im.alignPivot();
         _rightArrow.addChild(im);
         _rightArrow.clickCallback = onClickRight;
-        if (_isBigWO) _rightArrow.x = _woWidth/2 - 33;  _rightArrow.x = _woWidth/2 - 37;
+        if (_isBigWO) _rightArrow.x = _woWidth/2 - 33; else _rightArrow.x = _woWidth/2 - 37;
         if (_isBigWO) _rightArrow.y = -_woHeight/2 + 350;  else  _rightArrow.y = -_woHeight/2 + 275;
         _source.addChild(_rightArrow);
     }

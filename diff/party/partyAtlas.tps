@@ -192,35 +192,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>place_1.png</filename>
-            <filename>place_2.png</filename>
-            <filename>progress.png</filename>
-            <filename>valik_timer.png</filename>
-            <filename>hint_button.png</filename>
-            <filename>new_event_window_l.png</filename>
-            <filename>event_window_w.png</filename>
-            <filename>new_event_window_r.png</filename>
-            <filename>event_window_baloon.png</filename>
-            <filename>new_event_window_r_2.png</filename>
-            <filename>tabs_bonus_on.png</filename>
-            <filename>tabs_event_on.png</filename>
-            <filename>tabs_top_on.png</filename>
-            <filename>tabs_bt_2.png</filename>
-            <filename>tabs_bt_1.png</filename>
-            <filename>best_players_3.png</filename>
-            <filename>tabs_congratulations.png</filename>
-            <filename>best_players_1.png</filename>
-            <filename>best_players_2.png</filename>
-            <filename>end_event_title.png</filename>
-            <filename>congratulations.png</filename>
-            <filename>tabs_top_1.png</filename>
-            <filename>tabs_top_2.png</filename>
-            <filename>star_event_winner_45x45.png</filename>
-            <filename>new_year_icon.png</filename>
-            <filename>new_year_bg.png</filename>
-            <filename>new_year_rus.png</filename>
-            <filename>new_year_sheton.png</filename>
-            <filename>new_year.png</filename>
+            <filename>event_tab_active.png</filename>
+            <filename>event_tab_nactive.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
