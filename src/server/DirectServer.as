@@ -858,14 +858,9 @@ public class DirectServer {
             g.managerChest.fillFromServer(ob.chest_day, int(ob.count_chest));
 
             if (ob.scale) g.currentGameScale = int(ob.scale) / 100;
-            if (ob.cut_scene) {
+            if (ob.cut_scene && ob.cut_scene.length < 10) {
                 Cc.info('User cutscenes:: ' + ob.cut_scene);
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    g.user.cutScenes = Utils.intArray( String(ob.cut_scene).split('&') );
-                } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
-                    g.user.cutScenes = Utils.intArray( Utils.convert16to2(ob.cut_scene).split('') );
-                    Cc.info('g.user.cutScenes: ' + g.user.cutScenes.join(' - '));
-                }
+                g.user.cutScenes = Utils.intArray( Utils.convert16to2(ob.cut_scene).split('') );
             } else g.user.cutScenes = [];
             if (ob.mini_scene) {
                 Cc.info('User miniscenes:: ' + ob.mini_scene);
@@ -5569,12 +5564,8 @@ public class DirectServer {
         Cc.ch('server', 'updateUserCutScenesData', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            variables.cutScene = g.user.cutScenes.join('&');
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
-            variables.cutScene = Utils.convert2to16(g.user.cutScenes.join(''));
-            Cc.info('OK updateUserCutSceneData variables.cutScene: ' + variables.cutScene);
-        }
+        variables.cutScene = Utils.convert2to16(g.user.cutScenes.join(''));
+        Cc.info('OK updateUserCutSceneData variables.cutScene: ' + variables.cutScene);
         variables.hash = MD5.hash(String(g.user.userId)+String(variables.cutScene)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;

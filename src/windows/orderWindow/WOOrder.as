@@ -537,7 +537,6 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         super.hideIt();
     }
 
-
     private function updateItemsCheck():void {
         for (var i:int = 0; i < _arrItems.length; i++) {
             if (_arrItems[i]) (_arrItems[i] as WOOrderItem).updateCheck();

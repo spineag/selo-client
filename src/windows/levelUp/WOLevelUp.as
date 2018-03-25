@@ -310,7 +310,7 @@ public class WOLevelUp extends WindowMain {
             Utils.createDelay(3,f1);
         }
         if (g.user.level == 5) {
-            g.bottomPanel.boolFriend = true;
+            g.bottomPanel.isShowFriendPanel = false;
             g.friendPanel.hideIt();
         }
         super.showIt();

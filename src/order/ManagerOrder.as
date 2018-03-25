@@ -102,11 +102,11 @@ public class ManagerOrder {
             addNewOrders(_curMaxCountOrders - _arrOrders.length, 0, null, -1);
             checkForNewCats();
         };
-//        var f2:Function = function ():void {
-//            if (!g.managerCutScenes.isCutScene && !g.miniScenes.isMiniScene && g.user.level >= 5) g.managerCutScenes.goToNeighbor(); // check for miniScene for visit neighbor
-//        };
+        var f2:Function = function ():void {
+            if (!g.managerCutScenes.isCutScene && !g.miniScenes.isMiniScene && g.user.level == 5 && g.user.cutScenes[8] != 1) g.managerCutScenes.goToNeighbor(); // check for miniScene for visit neighbor
+        };
         if (_arrOrders.length < _curMaxCountOrders) Utils.createDelay(3, f1);
-//        else Utils.createDelay(2, f2);
+        else Utils.createDelay(2, f2);
     }
 
     public function countCellAtLevel(r:int):int {

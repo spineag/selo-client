@@ -71,7 +71,6 @@ public class ManagerCutScenes {
     }
 
     private function saveUserCutScenesData():void {
-        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         g.server.updateUserCutScenesData();
     }
 
@@ -246,6 +245,7 @@ public class ManagerCutScenes {
         g.user.cutScenes[0] = 1;
         saveUserCutScenesData();
         isCutScene = false;
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         checkCutScene(REASON_NEW_LEVEL);
     }
 
@@ -348,6 +348,7 @@ public class ManagerCutScenes {
         g.user.cutScenes[2] = 1;
         saveUserCutScenesData();
         isCutScene = false;
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         checkCutScene(REASON_NEW_LEVEL);
     }
 
@@ -416,6 +417,7 @@ public class ManagerCutScenes {
 
     private function toInventory_4():void {
         isCutScene = false;
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         checkCutScene(REASON_NEW_LEVEL);
     }
 
@@ -668,6 +670,7 @@ public class ManagerCutScenes {
 
     private function openTrain_7():void {
         deleteArrow();
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         _cutScene.hideIt(deleteCutScene);
         isCutScene = false;
     }
@@ -713,12 +716,14 @@ public class ManagerCutScenes {
         deleteArrow();
         deleteAirBubble();
         isCutScene = false;
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         g.user.cutScenes[7] = 1;
         saveUserCutScenesData();
     }
 
     public function goToNeighbor():void {
         if (g.user.cutScenes[8] == 1) return;
+        if (g.managerCutScenes.isCutScene) return;
         if (g.managerQuest.userQuests && g.managerQuest.userQuests.length>0) g.managerQuest.hideQuestsIcons(true);
         isCutScene = true;
         g.windowsManager.closeAllWindows();
@@ -727,14 +732,16 @@ public class ManagerCutScenes {
         addBlackUnderInterface();
         _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text, _NEXT);
-        if (!g.bottomPanel.boolFriend) neighbor_2();
-        else {
-            var ob:Object = g.bottomPanel.getBtnProperties('friend');
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
-            _arrow.scaleIt(.5);
-            _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
-            _cutSceneCallback = neighbor_1;
+        if (g.bottomPanel.isShowFriendPanel) {
+            g.bottomPanel.isShowFriendPanel = false;
+            g.friendPanel.hideIt(true);
         }
+        var ob:Object = g.bottomPanel.getBtnProperties('friend');
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+        _cutSceneCallback = neighbor_1;
+
     }
 
     private function neighbor_1():void {
@@ -759,7 +766,7 @@ public class ManagerCutScenes {
         deleteArrow();
         removeBlack();
         if (g.isAway)  Utils.createDelay(3,neighbor_4);
-        else _cutSceneCallback = function():void { Utils.createDelay(2, neighbor_4); };
+        else _cutSceneCallback = function():void { Utils.createDelay(3, neighbor_4); };
     }
 
     private function neighbor_4():void {
@@ -799,6 +806,7 @@ public class ManagerCutScenes {
     private function neighbor_8():void {
         _cutSceneStep = 8;
         removeBlack();
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         _cutScene.hideIt(deleteCutScene);
         isCutScene = false;
         g.bottomPanel.addArrow('home', 180);

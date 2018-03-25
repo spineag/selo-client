@@ -110,7 +110,7 @@ public class ToolsPanel {
 
     public function showIt(time:Number=.5, delay:Number = .2):void {
         if ((g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) && g.friendPanel.isShowed) {
-            g.bottomPanel.boolFriend = true;
+            g.bottomPanel.isShowFriendPanel = false;
             g.friendPanel.hideIt();
         }
         _source.visible = true;

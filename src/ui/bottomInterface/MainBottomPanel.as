@@ -45,7 +45,7 @@ public class MainBottomPanel {
     private var _homeBtn:CButton;
     private var _friendBtn:CButton;
     private var _boolTools:Boolean;
-    private var _boolFriend:Boolean;
+    private var _isShowFriendPanel:Boolean;
     private var _person:Someone;
     private var _ava:Image;
     private var _tutorialCallback:Function;
@@ -68,7 +68,7 @@ public class MainBottomPanel {
         _questBoolean = false;
         _source = new Sprite();
         _boolTools = false;
-        _boolFriend = true;
+        _isShowFriendPanel = true;
         _friendBoard = new Sprite();
         onResize();
         _friendSpr = new Sprite();
@@ -335,12 +335,12 @@ public class MainBottomPanel {
                 break;
             case 'friend':
                 if (g.tuts.isTuts) return;
-                if (_boolFriend) g.friendPanel.showIt();
+                _isShowFriendPanel = !_isShowFriendPanel;
+                if (_isShowFriendPanel) g.friendPanel.showIt();
                 else {
                     if (!g.managerCutScenes.isCutScene) g.friendPanel.hideIt();
                     else return;
                 }
-                _boolFriend = !_boolFriend;
                 if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) {
                     deleteArrow();
                     g.managerCutScenes.checkCutSceneCallback();
@@ -463,8 +463,8 @@ public class MainBottomPanel {
         }
     }
 
-    public function set boolFriend(b:Boolean):void {  _boolFriend = b; }
-    public function get boolFriend():Boolean {  return _boolFriend; }
+    public function set isShowFriendPanel(b:Boolean):void {  _isShowFriendPanel = b; }
+    public function get isShowFriendPanel():Boolean {  return _isShowFriendPanel; }
 
     public function doorBoolean(b:Boolean,person:Someone = null):void {
         _person = person;
