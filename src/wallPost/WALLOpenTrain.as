@@ -38,7 +38,9 @@ public class WALLOpenTrain {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[474]), null, stUrl);
         } else {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_open_train.jpg';
-            g.load.loadImage(stUrl, onLoad);
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[474]), null, stUrl);
+//            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_open_train.jpg';
+//            g.load.loadImage(stUrl, onLoad);
         }
     }
 

@@ -22,15 +22,17 @@ public class SocialNetworkSwitch {
             case SN_VK_ID:
                 SECRET_KEY = SECRET_KEY_VK;
                 if (isDebug) {
-//                    flashVars["api_id"] = "5448769";
-//                    flashVars["viewer_id"] = "146353874";
-//                    flashVars["sid"] = "bdf6b395622ac77221cf8936a953fc34186f3a31be83f5d7a48592cde76a9b9c855b681ed93e7cd107600";
-//                    flashVars["secret"] = "4d42d4d4e3";
+                    flashVars["api_id"] = "6360136";
+                    flashVars["viewer_id"] = "191561520";
+                    flashVars["sid"] = "8524544630161c7e6a736c1d05354eeda7b5a67be95a3374acc0de0f8dc591ca6532cd83e2e2726467e1c";
+                    flashVars["secret"] = "698d393d02";
+                    g.socialNetwork = new SN_Blank(flashVars);
+                    g.user.userSocialId = flashVars["viewer_id"];
+                } else {
+                    flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);
+                    g.socialNetwork = new SN_Vkontakte(flashVars, g.dataPath.getMainPath());
+                    g.user.userSocialId = flashVars["viewer_id"];
                 }
-
-                flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);
-                g.socialNetwork = new SN_Vkontakte(flashVars, g.dataPath.getMainPath());
-                g.user.userSocialId =  flashVars["viewer_id"];
                 break;
             case SN_OK_ID:
                     // Application ID: .

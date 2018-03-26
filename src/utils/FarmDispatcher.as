@@ -10,6 +10,8 @@ import flash.utils.Timer;
 import flash.utils.getQualifiedClassName;
 import flash.utils.getTimer;
 
+import manager.Vars;
+
 import starling.display.Stage;
 import starling.events.Event;
 
@@ -22,6 +24,7 @@ public class FarmDispatcher {
     private var _nextFrameFunctionsLength:int;
     private var _timerListenersWithParams:Dictionary;
     private var timer:Timer;
+    private var g:Vars = Vars.getInstance();
 
     public function FarmDispatcher(stage:Stage) {
         _enterFrameListeners = new Vector.<Function>;
@@ -88,12 +91,18 @@ public class FarmDispatcher {
             tempANFF.length = 0;
         }
         if (_nextFrameFunctionsLength) {
-            for (i = 0; i < _nextFrameFunctionsLength; i++) {
-                try {
+            if (g.isDebug) {
+                for (i = 0; i < _nextFrameFunctionsLength; i++) {
                     (_nextFrameFunctions[i] as Function).apply();
-                } catch(e:Error) {
-                    tempANFF.push(_nextFrameFunctions[i]);
-                    Cc.error('Some error during NextFrameFunction');
+                }
+            } else {
+                for (i = 0; i < _nextFrameFunctionsLength; i++) {
+                    try {
+                        (_nextFrameFunctions[i] as Function).apply();
+                    } catch (e:Error) {
+                        tempANFF.push(_nextFrameFunctions[i]);
+                        Cc.error('Some error during NextFrameFunction');
+                    }
                 }
             }
             _nextFrameFunctions.length = 0;

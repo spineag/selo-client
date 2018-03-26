@@ -35,8 +35,10 @@ public class WALLDoneTrain {
             }
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]), null, stUrl);
         } else {
-            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_done_train.jpg';
-            g.load.loadImage(stUrl, onLoad);
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_2.jpg';
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]), null, stUrl);
+//            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_done_train.jpg';
+//            g.load.loadImage(stUrl, onLoad);
         }
     }
 

@@ -135,7 +135,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.socialNetwork = new SocialNetwork(g.flashVars);
         
         if (g.isDebug) {
-            g.socialNetworkID = SocialNetworkSwitch.SN_FB_ID;
+            g.socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
         } else {
             g.socialNetworkID = int(g.flashVars['channel']);
         }
@@ -146,7 +146,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
     private function onPreload():void {
         SocialNetworkSwitch.init(g.socialNetworkID, g.flashVars, g.isDebug);
         g.socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID) g.socialNetwork.onInit();
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID || g.isDebug) g.socialNetwork.onInit();
     }
 
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {

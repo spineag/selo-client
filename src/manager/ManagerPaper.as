@@ -28,7 +28,7 @@ public class ManagerPaper {
             ob = new StructureMarketItem(ar[i]);
             if (ob.resourceCount > 0 && ob.cost > 0) _arr.push(ob);
         }
-        if (g.isDebug && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) addFakeForDebugAtFB();
+        //if (g.isDebug && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) addFakeForDebugAtFB();
     }
 
     public function get arr():Array { return _arr; }

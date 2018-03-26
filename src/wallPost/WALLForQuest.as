@@ -20,7 +20,8 @@ public class WALLForQuest {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[469]), null, stUrl);
         } else {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/quest_posting.jpg';
-            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/quest_posting.jpg',onLoad);
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[469]), null, stUrl);
+//            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/quest_posting.jpg',onLoad);
         }
     }
 

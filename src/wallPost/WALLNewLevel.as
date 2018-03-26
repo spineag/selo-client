@@ -47,7 +47,8 @@ public class WALLNewLevel {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, stUrl);
         } else {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_new_level.jpg';
-            g.load.loadImage(stUrl, onLoad);
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, stUrl);
+//            g.load.loadImage(stUrl, onLoad);
         }
     }
 

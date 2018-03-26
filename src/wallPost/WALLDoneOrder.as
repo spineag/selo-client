@@ -36,7 +36,8 @@ public class WALLDoneOrder {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, stUrl);
         } else {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_done_order.jpg';
-            g.load.loadImage(stUrl,onLoad);
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, stUrl);
+//            g.load.loadImage(stUrl,onLoad);
         }
     }
 
