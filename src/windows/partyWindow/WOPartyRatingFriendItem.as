@@ -48,7 +48,7 @@ public class WOPartyRatingFriendItem {
     private var _personS:Someone;
     private var _data:Object;
     private var _imRamka:Image;
-
+    private var _number:int;
     private var g:Vars = Vars.getInstance();
 
     public function WOPartyRatingFriendItem(ob:Object, number:int, user:Boolean = false) {
@@ -71,23 +71,11 @@ public class WOPartyRatingFriendItem {
             _data.userId = _personS.userId;
             _data.userSocialId = _personS.userSocialId;
         }
+        _number = number;
         source = new Sprite();
-        source.y = 35;
-//        if (number == 1) {
-//            var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_top_1'));
-//            source.addChild(im);
-//            im.y =-55;
-//            im.x = 9;
-//            var cSp:CSprite  = new CSprite();
-//            source.addChild(cSp);
-//            im = new Image(g.allData.atlas['partyAtlas'].getTexture('star_event_winner_45x45'));
-//            MCScaler.scale(im,45,45);
-//            cSp.addChild(im);
-//            cSp.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1085])); };
-//            cSp.outCallback = function():void { g.hint.hideIt(); };
-//            cSp.y =-43;
-//            cSp.x = 125;
-//        }
+        source.y = 40;
+        var im:Image;
+
         _srcAva = new CSprite();
         source.addChild(_srcAva);
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
@@ -97,31 +85,15 @@ public class WOPartyRatingFriendItem {
 //        _ava.x = 55;
 //        _ava.y = 10;
         _srcAva.addChild(_ava);
-        _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
+        if (_number == 1) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_1'));
+        else if (_number == 2) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_2'));
+        else if (_number == 3) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_3'));
+        else  _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
         _srcAva.addChild(_imRamka);
 
         if ((user || ob.userSocialId == g.user.userSocialId) && g.pBitmaps[_personS.photo]) {
-//            _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-//            MCScaler.scale(_ava, 50, 50);
-//            _ava.x = 55;
-//            _ava.y = 10;
-//            source.addChild(_ava);
             onLoadPhoto(g.pBitmaps[_personS.photo].create() as Bitmap);
         }
-
-//        if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
-//        else {
-//            if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
-//                _imResource = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
-//            } else if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
-//                _imResource = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
-//            }
-//        }
-//        MCScaler.scale(_imResource,50,50);
-//        source.addChild(_imResource);
-//        _imResource.x = 215;
-//        _imResource.y = -5;
-
         if (user) _txtCountResource = new CTextField(250, 100, String(g.managerParty.userParty.countResource));
         else _txtCountResource = new CTextField(250, 100, String(ob.countResource));
         _txtCountResource.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -129,16 +101,23 @@ public class WOPartyRatingFriendItem {
         source.addChild(_txtCountResource);
         _txtCountResource.x = 55 + _txtCountResource.textBounds.width/2;
         _txtCountResource.y = 5;
-
+        if (number == 1)im = new Image(g.allData.atlas['partyAtlas'].getTexture('first_top_event_window'));
+        else if (number == 2) im = new Image(g.allData.atlas['partyAtlas'].getTexture('second_top_event_window'));
+        else if (number == 3)im = new Image(g.allData.atlas['partyAtlas'].getTexture('third_top_event_window'));
+        else {
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('other_top_event_window'));
+            im.x = 15;
+        }
+        im.y =-40;
+        source.addChild(im);
         var txt:CTextField = new CTextField(250, 100, String(number));
-        if (user || _personS.userId == g.user.userId && number != 1) txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        else if (user || _personS.userId == g.user.userId && number == 1) txt.setFormat(CTextField.BOLD18, 18, 0xfdffd3, 0xc78d00);
-        else if (number == 1) txt.setFormat(CTextField.BOLD18, 18, 0xfdffd3, 0xc78d00);
-        else txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
-        txt.alignH = Align.LEFT;
-        txt.y = -70;
-//        txt.x = 28 - txt.textBounds.width/2;
-        source.addChild(txt);
+        if (number > 3) {
+            txt.setFormat(CTextField.BOLD30, 26, 0xb116cc, Color.WHITE);
+            txt.alignH = Align.LEFT;
+            txt.y = -70;
+    //        txt.x = 28 - txt.textBounds.width/2;
+            source.addChild(txt);
+        }
 
         _txtNamePerson = new CTextField(90, 120, '');
         _txtNamePerson.needCheckForASCIIChars = true;

@@ -87,7 +87,7 @@ public class ManagerPartyNew {
                 atlasLoad();
             };
             g.server.getUserParty(f);
-            if (EVENT_COLLECT_TOKEN_WIN_GIFT == dataPartyNowUse.typeParty || EVENT_COLLECT_RESOURCE_WIN_GIFT == dataPartyNowUse.typeParty) g.server.getRatingParty(null);
+//            if (EVENT_COLLECT_TOKEN_WIN_GIFT == dataPartyNowUse.typeParty || EVENT_COLLECT_RESOURCE_WIN_GIFT == dataPartyNowUse.typeParty) g.server.getRatingParty(null);
         } else if (((dataPartyNowUse.timeToStart - TimeUtils.currentSeconds > 0 && dataPartyNowUse.timeToEnd - TimeUtils.currentSeconds > 0) && !dataPartyNowUse.tester && dataPartyNowUse.levelToStart <= g.user.level && !eventOn)
                 || (dataPartyNowUse.tester && g.user.isTester)) {
             g.userTimer.partyToStart(dataPartyNowUse.timeToStart - TimeUtils.currentSeconds);

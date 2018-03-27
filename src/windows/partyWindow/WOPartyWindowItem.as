@@ -17,8 +17,11 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 
+import windows.WOComponents.BackgroundQuestDone;
+
 public class WOPartyWindowItem {
     public var source:CSprite;
+    private var _bg:BackgroundQuestDone;
     private var _sprItem:CSprite;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
@@ -26,9 +29,9 @@ public class WOPartyWindowItem {
     private var _txtCountToGift:CTextField;
     private var _txtCountUser:CTextField;
     private var g:Vars = Vars.getInstance();
-    private var _bg:Image;
     private var _data:Object;
     private var _imCheck:Image;
+    private var _bgWhite:Image;
 
     public function WOPartyWindowItem(id:int, type:int, countResource:int, countToGift:int, number:int) {
         source = new CSprite();
@@ -40,22 +43,33 @@ public class WOPartyWindowItem {
         _data.countResource = countResource;
         _data.countToGift = countToGift;
         _data.number = number;
-
-        _txtCountResource = new CTextField(119,100,' ');
-        _txtCountResource.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCountResource.alignH = Align.RIGHT;
-        _txtCountResource.x = -19;
-        _txtCountResource.y = 35;
-        var im:Image;
-        if (number == 5) {
-            _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_2'));
-            _bg.y = -30;
-        }
-        else _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
-//        _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
+        _bg = new BackgroundQuestDone(700, 110);
         source.addChild(_bg);
+        _txtCountResource = new CTextField(119,100,' ');
+        _txtCountResource.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCountResource.alignH = Align.RIGHT;
+        _txtCountResource.x = 570;
+        _txtCountResource.y = -35;
+        _bgWhite = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_white_cell'));
+        _bgWhite.x = 5;
+        _bgWhite.y = 5;
+        source.addChild(_bgWhite);
+        var im:Image;
+        if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
+        } else {
+            im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
+        }
+        im.x = 5;
+        im.y = 5;
+        _sprItem.addChild(im);
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_white_cell'));
+        im.x = 595;
+        im.y = 5;
+        _sprItem.addChild(im);
         if (id == 1 && type  == 1) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+
             _sprItem.addChild(im);
             _txtCountResource.text = String(countResource);
         } else if (id == 2 && type == 2) {
@@ -81,23 +95,25 @@ public class WOPartyWindowItem {
             _sprItem.outCallback = function():void { g.hint.hideIt(); };
 
         }
+        im.x = 645;
+        im.y = 45;
         im.alignPivot();
-        MCScaler.scale(im, 80,80);
+        MCScaler.scale(im, 80, 80);
         source.addChild(_sprItem);
 
-        if (number == 5) {
-            im.x = _bg.width/2;
-            im.y = _bg.height/2 - 30;
-        } else {
-            im.x = _bg.width/2;
-            im.y = _bg.height/2;
-        }
-        _btn.addButtonTexture(80, 20, CButton.GREEN, true);
-        _txtBtn = new CTextField(80,20,String(g.managerLanguage.allTexts[358]));
-        _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btn.addChild(_txtBtn);
-        _btn.y = 120;
-        _btn.x = 60;
+
+        _btn = new CButton();
+        _btn.addButtonTexture(100, CButton.HEIGHT_32, CButton.GREEN, true);
+        _btn.addTextField(100, 31, 0, 0, String(g.managerLanguage.allTexts[358]));
+        _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        source.addChild(_btn);
+
+//        _btn.addButtonTexture(80, 20, CButton.GREEN, true);
+//        _txtBtn = new CTextField(80,20,String(g.managerLanguage.allTexts[358]));
+//        _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//        _btn.addChild(_txtBtn);
+        _btn.x = 645;
+        _btn.y = 90;
         _btn.clickCallback = onClick;
         if (!Boolean(g.managerParty.userParty.tookGift[_data.number - 1]) && g.managerParty.userParty.countResource >= _data.countToGift)  {
             _btn.setEnabled = true;
@@ -113,21 +129,29 @@ public class WOPartyWindowItem {
         source.addChild(_btn);
         source.addChild(_txtCountResource);
 
-        _txtCountToGift = new CTextField(119,100,String(countToGift));
-        _txtCountToGift.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCountToGift.y = 93;
-        source.addChild(_txtCountToGift);
 
         _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty.countResource));
-        _txtCountUser.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PURPLE_COLOR);
-        _txtCountUser.y = 130;
-        if (_txtCountUser) {
-            if (number == 1)        _txtCountUser.x = 22;
-            else if (number == 2)   _txtCountUser.x = 15;
-            else if (number == 3)   _txtCountUser.x = 10;
-            else if (number == 4)   _txtCountUser.x = 0;
-            else if (number == 5)   _txtCountUser.x = -6; 
-        }
+        _txtCountUser.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.PURPLE_COLOR);
+        _txtCountUser.alignH = Align.LEFT;
+        _txtCountUser.x = 330;
+        _txtCountUser.y = 35;
+        source.addChild(_txtCountUser);
+
+        _txtCountToGift = new CTextField(119,100,'/' + String(countToGift));
+        _txtCountToGift.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCountToGift.alignH = Align.LEFT;
+        _txtCountToGift.x = _txtCountUser.x + _txtCountUser.textBounds.width-1;
+        _txtCountToGift.y = 35;
+        source.addChild(_txtCountToGift);
+
+
+//        if (_txtCountUser) {
+//            if (number == 1)        _txtCountUser.x = 22;
+//            else if (number == 2)   _txtCountUser.x = 15;
+//            else if (number == 3)   _txtCountUser.x = 10;
+//            else if (number == 4)   _txtCountUser.x = 0;
+//            else if (number == 5)   _txtCountUser.x = -6;
+//        }
         var _quad:Quad;
         var width:int;
         if (number > 1) {
@@ -145,7 +169,6 @@ public class WOPartyWindowItem {
                 _quad.y = 165;
                 source.addChild(_quad);
             }
-            source.addChild(_txtCountUser);
         } else if (number == 1 && g.managerParty.userParty.countResource > 0) {
             if (width > 0) {
                 _quad = new Quad(width, 30, 0xff3da5);
@@ -153,10 +176,7 @@ public class WOPartyWindowItem {
                 _quad.y = 165;
                 source.addChild(_quad);
             }
-            source.addChild(_txtCountUser);
         }
-        if (number == 1 && g.managerParty.userParty.countResource == 0) source.addChild(_txtCountUser);
-        if (number == 5 && g.managerParty.userParty.countResource > countToGift) source.addChild(_txtCountUser);
         if (_quad) {
             if (number == 1) {
                 _quad.x = 50;
@@ -190,26 +210,18 @@ public class WOPartyWindowItem {
         } else _btn.setEnabled = false;
         source.addChild(_btn);
         source.addChild(_txtCountResource);
-        _txtCountToGift = new CTextField(119,100,String(_data.countToGift));
-        _txtCountToGift.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCountToGift.y = 93;
-        source.addChild(_txtCountToGift);
         _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty.countResource));
-        _txtCountUser.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PURPLE_COLOR);
-        _txtCountUser.y = 130;
-        if (_txtCountUser) {
-            if (_data.number == 1) {
-                _txtCountUser.x = 18;
-            } else if (_data.number == 2) {
-                _txtCountUser.x = 11;
-            } else if (_data.number == 3) {
-                _txtCountUser.x = 5;
-            } else if (_data.number == 4) {
-                _txtCountUser.x = -3;
-            } else if (_data.number == 5) {
-                _txtCountUser.x = -11;
-            }
-        }
+        _txtCountUser.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.PURPLE_COLOR);
+        _txtCountUser.alignH = Align.LEFT;
+        _txtCountUser.x = 330;
+        _txtCountUser.y = 35;
+        source.addChild(_txtCountUser);
+        _txtCountToGift = new CTextField(119,100,String(_data.countToGift));
+        _txtCountToGift.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCountToGift.alignH = Align.LEFT;
+        _txtCountToGift.x = _txtCountUser.x + _txtCountUser.textBounds.width-1;
+        _txtCountToGift.y = 35;
+        source.addChild(_txtCountToGift);
         var _quad:Quad;
         var width:int;
         if (_data.number > 1) {
@@ -229,7 +241,6 @@ public class WOPartyWindowItem {
                 _quad.y = 165;
                 source.addChild(_quad);
             }
-            source.addChild(_txtCountUser);
 
         } else if (_data.number == 1 && g.managerParty.userParty.countResource > 0) {
             if (width > 0) {
@@ -238,13 +249,6 @@ public class WOPartyWindowItem {
                 _quad.y = 165;
                 source.addChild(_quad);
             }
-            source.addChild(_txtCountUser);
-        }
-        if (_data.number == 1 && g.managerParty.userParty.countResource == 0) {
-            source.addChild(_txtCountUser);
-        }
-        if (_data.number == 5 && g.managerParty.userParty.countResource > _data.countToGift) {
-            source.addChild(_txtCountUser);
         }
         if (_quad) {
             if (_data.number == 1) {

@@ -1705,7 +1705,7 @@ public class TownArea extends Sprite {
             if (g.managerTips) g.managerTips.setUnvisible(true);
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;
-            g.managerLohmatic.onGoAway();
+//            g.managerLohmatic.onGoAway();
             removeTownAreaSortCheking();
             for (var i:int = 0; i < _cityObjects.length; i++) {
                 if (_cont.contains(_cityObjects[i].source)) _cont.removeChild(_cityObjects[i].source);

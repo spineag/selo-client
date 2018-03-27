@@ -64,7 +64,7 @@ public class WOPartyWindow extends WindowMain {
     private var _arrItemRating:Array;
     private var _bgYellowLeft:BackgroundYellowOut;
     private var _bgYellowRight:BackgroundYellowOut;
-    private var _bgWhiteRating:BackgroundMilkIn;
+    private var _bgWhiteRating:BackgroundPartyLight;
     private var _bgRedRating:BackgroundQuest;
     private var _txtPrevRating:CTextField;
     private var _txtMainRating:CTextField;
@@ -78,6 +78,8 @@ public class WOPartyWindow extends WindowMain {
     private var _arrRating:Array;
     private var _tabs:PartyTabs;
     private var _isMain:Boolean;
+    private var _bgMainRed:BackgroundQuest;
+    private var _scrollSprite:DefaultVerticalScrollSprite;
 
     public function WOPartyWindow() {
         _windowType = WindowsManager.WO_PARTY;
@@ -105,6 +107,19 @@ public class WOPartyWindow extends WindowMain {
         _txtName.x = -375;
         _txtName.y = -_woHeight/2 + 25;
         _source.addChild(_txtName);
+        _txtTimeLost = new CTextField(130, 60, String(g.managerLanguage.allTexts[357]));
+        _txtTimeLost.setFormat(CTextField.BOLD30, 28, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtTimeLost.alignH = Align.LEFT;
+
+        _txtTime = new CTextField(130, 60, '');
+        _txtTime.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+        _txtTime.alignH = Align.LEFT;
+
+        _scrollSprite = new DefaultVerticalScrollSprite(700, 230, 700, 115);
+//        _scrollSprite.source.y = 159 - _woHeight / 2;
+        _scrollSprite.source.x = - 370;
+        _scrollSprite.createScoll(720, 0, 260, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+//        _sprItem.addChild(_scrollSprite.source);
         ratingWO();
         if (g.allData.atlas['partyAtlas']) {
             _tabs = new PartyTabs(_source,callbackTab);
@@ -115,6 +130,7 @@ public class WOPartyWindow extends WindowMain {
 //                lastWO();
             }
         } else g.gameDispatcher.addEnterFrame(afterAtlas);
+
 
     }
 
@@ -273,37 +289,29 @@ public class WOPartyWindow extends WindowMain {
 //        }
         _isMain = true;
         _tabs.activate(_isMain);
-        if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) {
+        if (g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER
+                || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA
+                || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
             super.showIt();
             _source.x = g.managerResize.stageWidth/2 + 50;
             return;
-        }
-        if (params[0]) _activityType = params[0];
+        }  else if ( g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT || g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT) {
+            if (params[0]) _activityType = params[0];
             var item:WOPartyWindowItem;
+            _sprEvent.addChild(_scrollSprite.source);
             for (var i:int = 0; i < 5; i++) {
                 item = new WOPartyWindowItem(g.managerParty.idGift[i], g.managerParty.typeGift[i], g.managerParty.countGift[i], g.managerParty.countToGift[i], i + 1);
-                item.source.x = (98 * i);
-                _sprItem.addChild(item.source);
+//                item.source.x = (98 * i);
+                _scrollSprite.addNewCell(item.source);
                 _arrItem.push(item);
             }
 
             _sprItem.x = -195;
             _sprItem.y = -125;
-
-            _txtTimeLost = new CTextField(130, 60, String(g.managerLanguage.allTexts[357]));
-            _txtTimeLost.setFormat(CTextField.BOLD30, 28, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-            _sprEvent.addChild(_txtTimeLost);
-            _txtTimeLost.alignH = Align.LEFT;
-            _txtTimeLost.x = -310;
-            _txtTimeLost.y = -85;
-            _txtTime = new CTextField(130, 60, '');
-            _txtTime.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
-            _txtTime.alignH = Align.LEFT;
-            _txtTime.y = -85;
-            _sprEvent.addChild(_txtTime);
             g.gameDispatcher.addToTimer(startTimer);
-        super.showIt();
-        _source.x = g.managerResize.stageWidth/2 + 50;
+            super.showIt();
+            _source.x = g.managerResize.stageWidth / 2 + 50;
+        }
     }
 
     private function startTimer():void {
@@ -317,40 +325,70 @@ public class WOPartyWindow extends WindowMain {
     }
 
     private function createEventWO(b:Boolean = false):void {
-//        if (g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER
-//                || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA
-//                || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
-        _bgYellowLeft = new BackgroundYellowOut(380,420);
-        _bgYellowLeft.x = -_bgYellowLeft.width + 5;
-        _bgYellowLeft.y = -_bgYellowLeft.height/2 + 40;
-        _sprEvent.addChild(_bgYellowLeft);
+        if (g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER
+                || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA
+                || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
+            _bgYellowLeft = new BackgroundYellowOut(380,420);
+            _bgYellowLeft.x = -_bgYellowLeft.width + 5;
+            _bgYellowLeft.y = -_bgYellowLeft.height/2 + 40;
+            _sprEvent.addChild(_bgYellowLeft);
 
-        _bgYellowRight = new BackgroundYellowOut(380,420);
-        _bgYellowRight.x = 7;
-        _bgYellowRight.y = -_bgYellowRight.height/2 + 40;
-        _sprEvent.addChild(_bgYellowRight);
-        _btnOK = new CButton();
-        _btnOK.addButtonTexture(140, CButton.HEIGHT_41, CButton.BLUE, true);
-        _btnOK.addTextField(140, 38, 0, -5, String(g.managerLanguage.allTexts[308]));
-        _btnOK.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _btnOK.y = 270;
-        _sprEvent.addChild(_btnOK);
+            _bgYellowRight = new BackgroundYellowOut(380,420);
+            _bgYellowRight.x = 7;
+            _bgYellowRight.y = -_bgYellowRight.height/2 + 40;
+            _sprEvent.addChild(_bgYellowRight);
+            _btnOK = new CButton();
+            _btnOK.addButtonTexture(140, CButton.HEIGHT_41, CButton.BLUE, true);
+            _btnOK.addTextField(140, 38, 0, -5, String(g.managerLanguage.allTexts[308]));
+            _btnOK.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _btnOK.y = 270;
+            _sprEvent.addChild(_btnOK);
 
-        _txtPrev = new CTextField(375, 200, String(g.managerLanguage.allTexts[465]));
-        _txtPrev.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
-        _txtPrev.x = -390;
-        _txtPrev.y = -220;
-        _sprEvent.addChild(_txtPrev);
-        _txtDescription = new CTextField(375, 200, String(g.managerLanguage.allTexts[474]));
-        _txtDescription.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtDescription.x = -390;
-        _txtDescription.y = -20;
-        _sprEvent.addChild(_txtDescription);
-//        }
+            _txtPrev = new CTextField(375, 200, String(g.managerLanguage.allTexts[465]));
+            _txtPrev.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+            _txtPrev.x = -390;
+            _txtPrev.y = -220;
+            _sprEvent.addChild(_txtPrev);
+            _txtDescription = new CTextField(375, 200, String(g.managerLanguage.allTexts[474]));
+            _txtDescription.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtDescription.x = -390;
+            _txtDescription.y = -20;
+            _sprEvent.addChild(_txtDescription);
+            _txtTimeLost.x = -310;
+            _txtTimeLost.y = -85;
+            _txtTime.y = -85;
+        } else if ( g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT || g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT) {
+            _bgMainRed = new BackgroundQuest(760,420);
+            _bgMainRed.x = -_bgMainRed.width/2 + 5;
+            _bgMainRed.y = -_bgMainRed.height/2 + 40;
+            _sprEvent.addChild(_bgMainRed);
+            _txtTimeLost.x = -120;
+            _txtTimeLost.y = -65;
+            _txtTime.y = -65;
+            _btnOK = new CButton();
+            _btnOK.addButtonTexture(140, CButton.HEIGHT_41, CButton.BLUE, true);
+            _btnOK.addTextField(140, 38, 0, -5, String(g.managerLanguage.allTexts[308]));
+            _btnOK.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _btnOK.y = 270;
+            _sprEvent.addChild(_btnOK);
+            _txtPrev = new CTextField(755, 200, String(g.managerLanguage.allTexts[465]));
+            _txtPrev.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, ManagerFilters.BLUE_COLOR);
+            _txtPrev.x = -383;
+            _txtPrev.y = -260;
+            _sprEvent.addChild(_txtPrev);
+            _txtDescription = new CTextField(755, 200, String(g.managerLanguage.allTexts[474]));
+            _txtDescription.setFormat(CTextField.BOLD30, 30,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            _txtDescription.x = -383;
+            _txtDescription.y = -200;
+            _sprEvent.addChild(_txtDescription);
+        }
+        _sprEvent.addChild(_txtTime);
+        _sprEvent.addChild(_txtTimeLost);
+
     }
 
     private function ratingWO():void {
-        _bgWhiteRating = new BackgroundMilkIn(740,260);
+        _bgWhiteRating = new BackgroundPartyLight(740,260);
         _bgWhiteRating.x = -_bgWhiteRating.width/2;
         _bgWhiteRating.y = -_bgWhiteRating.height/2 - 30;
         _sprRating.addChild(_bgWhiteRating);
@@ -525,6 +563,7 @@ import starling.utils.Color;
 import utils.CSprite;
 
 import utils.CTextField;
+import utils.MCScaler;
 
 import windows.WOComponents.BackgroundYellowOut;
 
@@ -535,38 +574,61 @@ internal class PartyTabs {
     private var _sprUnActiveTabRating:CSprite;
     private var _imActiveTabMain:Image;
     private var _imActiveTabMainRating:Image;
+    private var _imRating:Image;
+    private var _imMain:Image;
 
     public function PartyTabs(source:Sprite, f:Function) {
         _callback = f;
         _sprUnActiveTabMain = new CSprite();
-        _sprUnActiveTabMain.x = -511;
+        _sprUnActiveTabMain.x = -510;
         _sprUnActiveTabMain.y = -120;
         _sprUnActiveTabRating = new CSprite();
-        _sprUnActiveTabRating.x = -511;
+        _sprUnActiveTabRating.x = -510;
         _sprUnActiveTabRating.y = 40;
         var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('event_tab_nactive'));
         _sprUnActiveTabMain.addChild(im);
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('big_event_tap'));
+        MCScaler.scale(im, im.height-10, im.width-10);
+        im.x = 20;
+        im.y = 30;
+        _sprUnActiveTabMain.addChild(im);
         _sprUnActiveTabMain.endClickCallback = onClick;
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_tab_nactive'));
+        _sprUnActiveTabRating.addChild(im);
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('big_top_tap'));
+        MCScaler.scale(im, im.height-10, im.width-10);
+        im.x = 20;
+        im.y = 30;
         _sprUnActiveTabRating.addChild(im);
         _sprUnActiveTabRating.endClickCallback = onClick;
         source.addChild(_sprUnActiveTabMain);
         source.addChild(_sprUnActiveTabRating);
         _imActiveTabMain = new Image(g.allData.atlas['partyAtlas'].getTexture('event_tab_active'));
-        _imActiveTabMain.x = -511;
+        _imActiveTabMain.x = -510;
         _imActiveTabMain.y = -120;
         source.addChildAt(_imActiveTabMain,1);
         _imActiveTabMainRating = new Image(g.allData.atlas['partyAtlas'].getTexture('event_tab_active'));
-        _imActiveTabMainRating.x = -511;
+        _imActiveTabMainRating.x = -510;
         _imActiveTabMainRating.y = 40;
         source.addChildAt(_imActiveTabMainRating,1);
+        _imMain = new Image(g.allData.atlas['partyAtlas'].getTexture('big_event_tap'));
+        _imMain.x = -490;
+        _imMain.y = -90;
+        source.addChild(_imMain);
+        MCScaler.scale(_imMain, _imMain.height-10, _imMain.width-10);
+
+        _imRating = new Image(g.allData.atlas['partyAtlas'].getTexture('big_top_tap'));
+        _imRating.x = -490;
+        _imRating.y = 70;
+        source.addChild(_imRating);
+        MCScaler.scale(_imRating, _imRating.height-10, _imRating.width-10);
     }
 
     private function onClick():void { if (_callback!=null) _callback.apply(); }
 
     public function activate(isMain:Boolean):void {
-        _imActiveTabMainRating.visible =_sprUnActiveTabMain.visible = !isMain;
-        _sprUnActiveTabRating.visible = _imActiveTabMain.visible = isMain
+        _imRating.visible = _imActiveTabMainRating.visible =_sprUnActiveTabMain.visible = !isMain;
+        _imMain.visible = _sprUnActiveTabRating.visible = _imActiveTabMain.visible = isMain;
     }
 
     public function deleteIt():void {

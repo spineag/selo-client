@@ -67,7 +67,7 @@ public class WOMiniSceneOrderCat extends WindowMain{
             _txtName = new CTextField(300, 70, '');
             _txtName.setFormat(CTextField.BOLD72, 50, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
 //            _txtName.x = 20;
-            _txtName.y = -_woHeight / 2 - 60;
+            _txtName.y = -_woHeight / 2 + 82;
 
             _txt = new CTextField(360, 140, '');
             _txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);

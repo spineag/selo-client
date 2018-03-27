@@ -36,7 +36,7 @@ public class WOBuyCouponeItem {
             _btn = new CButton();
             _btn.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
             _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, CButton.GREEN);
-            _txtBtn = new CTextField(100,100,'+' + String(_cost));
+            _txtBtn = new CTextField(100,100,String(_cost));
             _txtBtn.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             var sens:SensibleBlock = new SensibleBlock();

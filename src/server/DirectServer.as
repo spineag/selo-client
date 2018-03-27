@@ -7100,7 +7100,7 @@ public class DirectServer {
                     g.managerParty.atlasLoad();
                 };
                 getUserParty(f);
-                getRatingParty(null);
+//                getRatingParty(null);
             }
         } else if (obj.timeToStart - TimeUtils.currentSeconds > 0) {
             g.userTimer.partyToStart(obj.timeToStart - TimeUtils.currentSeconds);
@@ -7109,7 +7109,7 @@ public class DirectServer {
         } else {
             g.managerParty.dataPartyNowUse = obj;
             getUserParty();
-            getRatingParty(null);
+//            getRatingParty(null);
         }
         if (d.id == 0) {
             Cc.ch('server', 'getDataParty OK', 5);

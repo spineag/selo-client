@@ -194,6 +194,19 @@
         <array>
             <filename>event_tab_active.png</filename>
             <filename>event_tab_nactive.png</filename>
+            <filename>second_top_event_window.png</filename>
+            <filename>third_top_event_window.png</filename>
+            <filename>big_event_tap.png</filename>
+            <filename>big_top_tap.png</filename>
+            <filename>first_top_event_window.png</filename>
+            <filename>ne_light</filename>
+            <filename>ne_pastel</filename>
+            <filename>ne_pastel_dark</filename>
+            <filename>ne_window_frame_1.png</filename>
+            <filename>ne_window_frame_2.png</filename>
+            <filename>ne_window_frame_3.png</filename>
+            <filename>ne_window_white_cell.png</filename>
+            <filename>other_top_event_window.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
