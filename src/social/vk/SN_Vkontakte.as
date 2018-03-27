@@ -12,6 +12,8 @@ import social.SocialNetwork;
 import social.SocialNetworkEvent;
 import user.Friend;
 
+import utils.Utils;
+
 public class SN_Vkontakte extends SocialNetwork {
     private static const MASK_ADD_LEFT_MENU:int = 256;
 
@@ -51,15 +53,6 @@ public class SN_Vkontakte extends SocialNetwork {
         Cc.info(forSimpleDevelopers);
     }
     
-    override public function onInit(e:* = null):void {
-        Cc.ch('VK', 'SN_Vkontakte:: onInit');
-        super.onInit();
-    }
-
-    override public function get currentUID():String {
-        return _flashVars["viewer_id"];
-    }
-
     override public function get referrer():String {
         var result:String;
         result = _flashVars["referrer"] || "unknown";
@@ -77,25 +70,14 @@ public class SN_Vkontakte extends SocialNetwork {
         return result;
     }
 
-    override public function get urlApp():String {
-        return "https://vk.com/app6360136";
-    }
-
-    override public function get urlSocialGroup():String {
-        return "https://vk.com/club" + idSocialGroup;
-    }
-
-    override public function get urlForAnySocialGroup():String {
-        return "https://vk.com/club";
-    }
-
-    override public function get idSocialGroup():String {
-        return "110081720";
-    }
-
-    override public function get protocol():String {
-        return (_flashVars["protocol"] || "http");
-    }
+    override public function onInit(e:* = null):void { Cc.ch('VK', 'SN_Vkontakte:: onInit');   super.onInit();  }
+    override public function get currentUID():String { return _flashVars["viewer_id"]; }
+    override public function get urlApp():String { return "https://vk.com/app6360136"; }
+    override public function get urlSocialGroup():String { return "https://vk.com/club" + idSocialGroup;  }
+    override public function get urlForAnySocialGroup():String { return "https://vk.com/club"; }
+    override public function get idSocialGroup():String { return "161199045"; }
+    override public function get protocol():String { return (_flashVars["protocol"] || "http"); }
+    override public function setUserLevel():void { g.server.setUserLevelToVK(); }
 
     override public function getProfile(uid:String):void {
         super.getProfile(uid);
@@ -291,25 +273,10 @@ public class SN_Vkontakte extends SocialNetwork {
         _js.wallPost(uid, message, url, wallSavePublic, wallCancelPublic);
     }
 
-    public function wallCancelPublic():void {
-        super.wallCancel();
-    }
-
-    public function wallSavePublic():void {
-        super.wallSave();
-    }
-
-    private function wallPostSaveHandler(e:CustomEvent):void {
-        super.wallSave();
-    }
-
-    private function wallPostCancelHandler(e:CustomEvent):void {
-        super.wallCancel();
-    }
-
-    override public function setUserLevel():void {
-        g.server.setUserLevelToVK();
-    }
+    public function wallCancelPublic():void { super.wallCancel(); }
+    public function wallSavePublic():void { super.wallSave(); }
+    private function wallPostSaveHandler(e:CustomEvent):void { super.wallSave(); }
+    private function wallPostCancelHandler(e:CustomEvent):void { super.wallCancel(); }
 
     override public function showInviteWindow():void {
         if (g.isDebug) return;
@@ -408,9 +375,7 @@ public class SN_Vkontakte extends SocialNetwork {
         }
     }
 
-    private function findAlbum(oid:String):void {
-        _js.api("photos.getAlbums", {oid: oid, https: 1}, onGetAlbums, onError);
-    }
+    private function findAlbum(oid:String):void {  _js.api("photos.getAlbums", {oid: oid, https: 1}, onGetAlbums, onError); }
 
     private function createAlbum(title:String, description:String, comment_privacy:int = 0, privacy:int = 0):void {
         _js.api("photos.createAlbum", {title: title, description: description, comment_privacy: comment_privacy, privacy: privacy, https: 1}, onCreateAlbum, onError);
@@ -482,17 +447,9 @@ public class SN_Vkontakte extends SocialNetwork {
         super.showOrderWindow(e);
     }
 
-    private function orderCancelHandler():void {
-        super.orderCancel();
-    }
-
-    private function orderFailHandler():void {
-        super.orderFail();
-    }
-
-    private function orderSuccessHandler(d:int):void {
-        super.orderSuccess();
-    }
+    private function orderCancelHandler():void { super.orderCancel(); }
+    private function orderFailHandler():void { super.orderFail(); }
+    private function orderSuccessHandler(d:int):void { super.orderSuccess(); }
 
     private function showPayment(e:Object):void {
 //        if (g.tuts.isTuts || g.selectedBuild || g.isAway || g.area.handler.selectedBuild) {
@@ -564,8 +521,9 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function getIsInGroupHandler(e:String):void {
-        if (e == '1') g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
-//      else Link.openURL(urlSocialGroup);
+        if (e != '1') Utils.openURL(urlSocialGroup);
+        g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
+      
     }
 }
 }
