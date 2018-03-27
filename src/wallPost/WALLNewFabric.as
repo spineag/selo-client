@@ -33,9 +33,10 @@ public class WALLNewFabric {
             }
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]), null, stUrl);
         } else {
-            _data = params;
             stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_new_fabric.jpg';
-            g.load.loadImage(stUrl, onLoad);
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]), null, stUrl)
+//            _data = params;
+//            g.load.loadImage(stUrl, onLoad);
         }
     }
 

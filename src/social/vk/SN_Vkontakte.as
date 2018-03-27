@@ -287,7 +287,8 @@ public class SN_Vkontakte extends SocialNetwork {
             super.wallSave();
             return;
         }
-        new VKWallPost(uid, message, image, url, title, posttype, this, _js);
+//        new VKWallPost(uid, message, image, url, title, posttype, this, _js);
+        _js.wallPost(uid, message, url, wallSavePublic, wallCancelPublic);
     }
 
     public function wallCancelPublic():void {
@@ -606,10 +607,6 @@ internal class VKWallPost {
         _js.api("photos.getWallUploadServer", {uid: _uidWall, https: 1}, continueWallPost, _network.onError);
     }
 
-    private function continueWallPostSavePhoto():void {
-        _js.api("photos.saveWallPhoto", {uid: _uidWall, server: _saveWallPhoto.server, photo: _saveWallPhoto.photo, hash: _saveWallPhoto.hash, https: 1}, wallPostSavePhotoComplete, _network.onError);
-    }
-
     private function destroy():void {
         _uidWall = null;
         _messageWall = null;
@@ -623,9 +620,7 @@ internal class VKWallPost {
 
     private function continueWallPost(e:Object):void {
         var loader:URLLoader = new URLLoader();
-        if (!_imageWallPost || !e) {
-            return;
-        }
+        if (!_imageWallPost || !e)  return;
 
         Cc.obj("social", e, "before loading", 5);
         var form:Multipart = new Multipart(e.upload_url);
@@ -637,6 +632,7 @@ internal class VKWallPost {
         try {
             loader.load(form.request);
         } catch (error:Error) {
+            Cc.stackch('VK', 'error at wallpost', 10);
             Cc.ch("social", "Problem with wallpost on VK: " + error.message, 9);
         }
     }
@@ -644,6 +640,10 @@ internal class VKWallPost {
     private function wallPostSavePhoto(e:Event):void {
         _saveWallPhoto = JSONuse.decode(e.target.data);
         continueWallPostSavePhoto();
+    }
+
+    private function continueWallPostSavePhoto():void {
+        _js.api("photos.saveWallPhoto", {uid: _uidWall, server: _saveWallPhoto.server, photo: _saveWallPhoto.photo, hash: _saveWallPhoto.hash, https: 1}, wallPostSavePhotoComplete, _network.onError);
     }
 
     private function wallPostSavePhotoComplete(e:Object):void {

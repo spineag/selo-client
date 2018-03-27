@@ -859,9 +859,10 @@ public class DirectServer {
 
             if (ob.scale) g.currentGameScale = int(ob.scale) / 100;
             if (ob.cut_scene && ob.cut_scene.length < 10) {
-                Cc.info('User cutscenes:: ' + ob.cut_scene);
                 g.user.cutScenes = Utils.intArray( Utils.convert16to2(ob.cut_scene).split('') );
             } else g.user.cutScenes = [];
+            Cc.info('User cutscenes: ');
+            Cc.obj('info', g.user.cutScenes);
             if (ob.mini_scene) {
                 Cc.info('User miniscenes:: ' + ob.mini_scene);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
@@ -8213,6 +8214,8 @@ public class DirectServer {
     }
 
     public function getRatingParty(callback:Function):void {
+        return;
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_RATING_PARTY);
         var variables:URLVariables = new URLVariables();

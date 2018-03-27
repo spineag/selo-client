@@ -36,7 +36,8 @@ public class WALLOpenCave {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[472]), null, stUrl);
         } else {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_open_cave.jpg';
-            g.load.loadImage(stUrl, onLoad);
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[472]), null, stUrl);
+//            g.load.loadImage(stUrl, onLoad);
         }
     }
 

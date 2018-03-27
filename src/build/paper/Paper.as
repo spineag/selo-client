@@ -82,6 +82,7 @@ public class Paper extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            hideArrow();
             if (_source.wasGameContMoved) {
                 onOut();
                 return;

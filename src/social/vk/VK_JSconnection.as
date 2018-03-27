@@ -3,6 +3,8 @@
  */
 package social.vk {
 import com.junkbyte.console.Cc;
+
+import flash.display.Bitmap;
 import flash.external.ExternalInterface;
 import starling.events.EventDispatcher;
 
@@ -59,6 +61,11 @@ public class VK_JSconnection extends EventDispatcher {
     
     public function callMethod(method:String, ...params):void {
         ExternalInterface.call("callMethod", method, params);
+    }
+
+    public function wallPost(uid:String, message:String, url:String, fSuccess:Function, fCancel:Function):void {
+        Cc.ch('VK', 'try wallpost image: ' + url);
+        ExternalInterface.call("wallpost", {uid:uid, message:message, url:url, fSuccess:fSuccess, fCancel:fCancel});
     }
 }
 }

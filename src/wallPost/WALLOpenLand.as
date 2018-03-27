@@ -38,7 +38,8 @@ public class WALLOpenLand {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[473]), null, stUrl);
         } else {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_new_land.jpg';
-            g.load.loadImage(stUrl, onLoad);
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[473]), null, stUrl);
+//            g.load.loadImage(stUrl, onLoad);
         }
     }
 

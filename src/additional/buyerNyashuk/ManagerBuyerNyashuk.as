@@ -47,9 +47,7 @@ public class ManagerBuyerNyashuk {
         if (!g.tuts.isTuts) g.server.getUserPapperBuy(null);
     }
 
-    public function get arrNyashuk():Array {
-        return _arrayNya;
-    }
+    public function get arrNyashuk():Array { return _arrayNya; }
 
     public function fillBot(ar:Array):void {
         var ob:Object;
@@ -72,7 +70,6 @@ public class ManagerBuyerNyashuk {
                     ob.isBotBuy = true;
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
-
             } else if (ar[i].visible == false && (ar[i].time_to_new - TimeUtils.currentSeconds) * (-1) >= 600) {
                     newBot(false,ar[i]);
                 } else {
@@ -80,9 +77,7 @@ public class ManagerBuyerNyashuk {
                         if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600 - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         else g.userTimer.buyerNyashukBlue(g.managerOrder.delayBeforeNextOrder - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         _table1.showTable(true,26, 25);
-
-                    }
-                    else {
+                    } else {
                         if (g.user.level >= 14) g.userTimer.buyerNyashukRed(600 - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         else g.userTimer.buyerNyashukRed(g.managerOrder.delayBeforeNextOrder - (TimeUtils.currentSeconds - ar[i].time_to_new));
                         _table2.showTable(true, 25, 27);
@@ -158,10 +153,9 @@ public class ManagerBuyerNyashuk {
             else ob.buyer_id = 1;
         }
         if (tuttorial) newBotTutorial(ob);
-        else newBot(false,ob);
-
+            else newBot(false,ob);
         if (faste) getNewNyaForOrderFaste(null,_arr[_arr.length-1],_arr[_arr.length-1].buyerId);
-        else getNewNyaForOrder(null,_arr[_arr.length-1],_arr[_arr.length-1].buyerId);
+            else getNewNyaForOrder(null,_arr[_arr.length-1],_arr[_arr.length-1].buyerId);
     }
 
     private function newBotTutorial(objectNew:Object = null):void {
@@ -219,7 +213,6 @@ public class ManagerBuyerNyashuk {
             if (_arr && _arr.length > 0) {
                 if (arrMin[ra].id == _arr[0].resourceId)  ra =  int(Math.random() * arrMin.length);
             }
-
 
             ob = {};
             ob.buyerId = 1;
