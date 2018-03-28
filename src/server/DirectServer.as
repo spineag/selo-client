@@ -7095,17 +7095,22 @@ public class DirectServer {
             obj.prevRating = int (d.message.text_id_prev_rating);
             obj.giftRating = int (d.message.text_id_gift_rating);
 
-            if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
-            for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
-
-            if (d.message.type_gift) obj.typeGift = String(d.message.type_gift).split('&');
-            for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
-
-            if (d.message.count_gift) obj.countGift = String(d.message.count_gift).split('&');
-            for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
-
-            if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
-            for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
+            if (d.message.id_gift) {
+                obj.idGift = String(d.message.id_gift).split('&');
+                for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
+            }
+            if (d.message.type_gift) {
+                obj.typeGift = String(d.message.type_gift).split('&');
+                for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
+            }
+            if (d.message.count_gift) {
+                obj.countGift = String(d.message.count_gift).split('&');
+                for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
+            }
+            if (d.message.count_to_gift) {
+                obj.countToGift = String(d.message.count_to_gift).split('&');
+                for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
+            }
             g.managerParty.allArrParty.push(obj);
 
 //        g.managerParty.findDataParty();
