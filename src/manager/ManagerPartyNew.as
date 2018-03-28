@@ -22,7 +22,6 @@ public class ManagerPartyNew {
     public static const TYPE_LAST:int = 3;
 
 
-
     public static const EVENT_FIND_CHEST_ON_ANOTHER_MAP:int = 4; //Ищи сундуки с разными призами у соседей
     public static const EVENT_SKIP_PLANT_FRIEND:int = 5; // Помогай Ускорять Растения Друзьям
     public static const EVENT_WHEEL_OF_FORTUNE_FOR_TOKEN:int = 6; // Выигрывай призы крутя барабаны за жетон
@@ -42,10 +41,13 @@ public class ManagerPartyNew {
     public var eventOn:Boolean;
     public var arrBestPlayers:Array;
     public var playerPosition:int;
+    private var _arrImage:Array;
+    private var _loadImage:String;
 
     public function ManagerPartyNew() {
         arrBestPlayers = [];
         allArrParty = [];
+        _arrImage = [];
         eventOn = false;
     }
 
@@ -152,7 +154,23 @@ public class ManagerPartyNew {
         }
     }
 
+    private function onLoadImage(bitmap:Bitmap):void {
+        var st:String = g.dataPath.getGraphicsPath();
+        bitmap = g.pBitmaps[st + _loadImage].create() as Bitmap;
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
 
+    public function get arrImage():Array{
+        return _arrImage;
+    }
+
+    private function photoFromTexture(tex:Texture):void {
+        if (_loadImage == 'qui/' + dataPartyNowUse.imMain +'.png') {
+            _loadImage = 'qui/' + dataPartyNowUse.imRating +'.png';
+            g.load.loadImage(g.dataPath.getGraphicsPath() + _loadImage, onLoadImage);
+        }
+        _arrImage.push(tex);
+    }
 
     public function atlasLoad():void {
         g.load.loadImage(g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas'), onLoad);
@@ -172,17 +190,27 @@ public class ManagerPartyNew {
                 g.partyPanel = new PartyPanel();
                 if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
             }
-            if (!g.windowsManager.currentWindow && g.userTimer.partyToEndTimer > 0) {
-                if (!g.managerCutScenes.isCutScene) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null);
-            } else if ((g.userTimer.partyToEndTimer <= 0 && !eventOn) && (dataPartyNowUse.typeParty == 3 || dataPartyNowUse.typeParty == 4)) {
-                if (g.managerCutScenes && g.managerCutScenes.isCutScene) return;
-                if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-                if (g.managerParty.userParty.countResource >= dataPartyNowUse.countToGift[0]) {
-                    g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
-                    endParty();
-                    g.server.updateUserParty('1&1&1&1&1', userParty.countResource, 1, null);
-                }
+            if (typeParty == EVENT_MORE_XP_ORDER || typeParty == EVENT_MORE_COINS_ORDER
+                    || typeParty == EVENT_MORE_COINS_MARKET || typeParty == EVENT_MORE_COINS_VAGONETKA
+                    || typeParty == EVENT_SKIP_PLANT_FRIEND) {
+                _loadImage = 'qui/' +dataPartyNowUse.imMain +'.png';
+                g.load.loadImage(g.dataPath.getGraphicsPath() + _loadImage, onLoadImage);
+            } else {
+                _loadImage = 'qui/' +dataPartyNowUse.imRating +'.png';
+                g.load.loadImage(g.dataPath.getGraphicsPath() + _loadImage, onLoadImage);
             }
+
+//            if (!g.windowsManager.currentWindow && g.userTimer.partyToEndTimer > 0) {
+//                if (!g.managerCutScenes.isCutScene) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null);
+//            } else if ((g.userTimer.partyToEndTimer <= 0 && !eventOn) && (dataPartyNowUse.typeParty == 3 || dataPartyNowUse.typeParty == 4)) {
+//                if (g.managerCutScenes && g.managerCutScenes.isCutScene) return;
+//                if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
+//                if (g.managerParty.userParty.countResource >= dataPartyNowUse.countToGift[0]) {
+//                    g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
+//                    endParty();
+//                    g.server.updateUserParty('1&1&1&1&1', userParty.countResource, 1, null);
+//                }
+//            }
 
             delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')];
             delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')];
@@ -198,13 +226,20 @@ public class ManagerPartyNew {
     public function get  typeBuilding():int {return dataPartyNowUse.typeBuilding;}
     public function get  coefficient():int {return dataPartyNowUse.coefficient;}
     public function get  typeParty():int {return dataPartyNowUse.typeParty;}
-    public function get  name():String {return dataPartyNowUse.name;}
-    public function get  description():String {return dataPartyNowUse.description;}
     public function get  idGift():Array {return dataPartyNowUse.idGift;}
     public function get  countGift():Array {return dataPartyNowUse.countGift;}
     public function get  countToGift():Array {return dataPartyNowUse.countToGift;}
     public function get  typeGift():Array {return dataPartyNowUse.typeGift;}
     public function get  idDecorBest():int {return dataPartyNowUse.idDecorBest;}
     public function get  filterOn():int {return dataPartyNowUse.filterOn;}
+
+    public function get  nameMain():int {return dataPartyNowUse.nameMain;}
+    public function get  prevMain():int {return dataPartyNowUse.prevMain;}
+    public function get  descriptionMain():int {return dataPartyNowUse.descriptionMain;}
+    public function get  textIdItem():int {return dataPartyNowUse.textIdItem;}
+    public function get  nameRating():int {return dataPartyNowUse.nameRating;}
+    public function get  prevRating():int {return dataPartyNowUse.prevRating;}
+    public function get  descriptionRating():int {return dataPartyNowUse.descriptionRating;}
+    public function get  giftRating():int {return dataPartyNowUse.giftRating;}
 }
 }

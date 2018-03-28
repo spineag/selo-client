@@ -49,6 +49,8 @@ public class WOPartyRatingFriendItem {
     private var _data:Object;
     private var _imRamka:Image;
     private var _number:int;
+    private var _imBackCount:Image;
+
     private var g:Vars = Vars.getInstance();
 
     public function WOPartyRatingFriendItem(ob:Object, number:int, user:Boolean = false) {
@@ -82,53 +84,59 @@ public class WOPartyRatingFriendItem {
         MCScaler.scale(_ava, 60, 60);
         _ava.x = 10;
         _ava.y = 8;
-//        _ava.x = 55;
-//        _ava.y = 10;
         _srcAva.addChild(_ava);
         if (_number == 1) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_1'));
         else if (_number == 2) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_2'));
         else if (_number == 3) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_3'));
+        else if (user) _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame_blue'));
         else  _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
         _srcAva.addChild(_imRamka);
 
         if ((user || ob.userSocialId == g.user.userSocialId) && g.pBitmaps[_personS.photo]) {
             onLoadPhoto(g.pBitmaps[_personS.photo].create() as Bitmap);
         }
+        _imBackCount = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+        _imBackCount.x = 53;
+        _imBackCount.y = 40;
+        source.addChild(_imBackCount);
         if (user) _txtCountResource = new CTextField(250, 100, String(g.managerParty.userParty.countResource));
         else _txtCountResource = new CTextField(250, 100, String(ob.countResource));
         _txtCountResource.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCountResource.alignH = Align.LEFT;
+        _txtCountResource.alignH = Align.CENTER;
         source.addChild(_txtCountResource);
-        _txtCountResource.x = 55 + _txtCountResource.textBounds.width/2;
-        _txtCountResource.y = 5;
-        if (number == 1)im = new Image(g.allData.atlas['partyAtlas'].getTexture('first_top_event_window'));
-        else if (number == 2) im = new Image(g.allData.atlas['partyAtlas'].getTexture('second_top_event_window'));
-        else if (number == 3)im = new Image(g.allData.atlas['partyAtlas'].getTexture('third_top_event_window'));
-        else {
+        _txtCountResource.x = -52;
+        _txtCountResource.y = 9;
+        if (number == 1) {
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('first_top_event_window'));
+            im.x = 4;
+        } else if (number == 2) {
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('second_top_event_window'));
+            im.x = 4;
+        } else if (number == 3) {
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('third_top_event_window'));
+            im.x = 4;
+        } else {
             im = new Image(g.allData.atlas['partyAtlas'].getTexture('other_top_event_window'));
-            im.x = 15;
+            im.x = 16;
         }
         im.y =-40;
         source.addChild(im);
         var txt:CTextField = new CTextField(250, 100, String(number));
         if (number > 3) {
-            txt.setFormat(CTextField.BOLD30, 26, 0xb116cc, Color.WHITE);
-            txt.alignH = Align.LEFT;
+            txt.setFormat(CTextField.BOLD30, 28, 0xb116cc, Color.WHITE);
+            txt.alignH = Align.CENTER;
             txt.y = -70;
-    //        txt.x = 28 - txt.textBounds.width/2;
+            txt.x =  -88;
             source.addChild(txt);
         }
 
-        _txtNamePerson = new CTextField(90, 120, '');
+        _txtNamePerson = new CTextField(150, 120, '');
         _txtNamePerson.needCheckForASCIIChars = true;
-        if (user || _personS.userId == g.user.userId && number != 1) _txtNamePerson.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        else if (user || _personS.userId == g.user.userId && number == 1) _txtNamePerson.setFormat(CTextField.BOLD18, 18, 0xfdffd3, 0xc78d00);
-        else if (number == 1) _txtNamePerson.setFormat(CTextField.BOLD18, 18, 0xfdffd3, 0xc78d00);
-        else _txtNamePerson.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+        _txtNamePerson.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNamePerson.alignH = Align.LEFT;
-        if (user) _txtNamePerson.text = g.user.name + ' ' + g.user.lastName;
+        if (user) _txtNamePerson.text = g.user.name;
         else _txtNamePerson.text = _personS.name;
-        _txtNamePerson.x = -_txtNamePerson.textBounds.width/2 + 39;
+        _txtNamePerson.x = -_txtNamePerson.textBounds.width/2 + 43;
         _txtNamePerson.y = 25;
         source.addChild(_txtNamePerson);
     }
@@ -153,13 +161,6 @@ public class WOPartyRatingFriendItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
-//        _srcAva = new CSprite();
-//        source.addChild(_srcAva);
-//        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-//        MCScaler.scale(_ava, 50, 50);
-//        _ava.x = 55;
-//        _ava.y = 10;
-//        _srcAva.addChild(_ava);
         if (!tex) return;
         if (_srcAva && _ava) {
             _srcAva.removeChild(_ava);
@@ -168,6 +169,8 @@ public class WOPartyRatingFriendItem {
             _srcAva = null;
             _ava.dispose();
             _ava = null;
+            _imRamka.dispose();
+            _imRamka = null;
         }
         _srcAva = new CSprite();
         source.addChild(_srcAva);
@@ -176,6 +179,12 @@ public class WOPartyRatingFriendItem {
         _ava.x = 10;
         _ava.y = 8;
         _srcAva.addChild(_ava);
+        if (_number == 1) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_1'));
+        else if (_number == 2) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_2'));
+        else if (_number == 3) _imRamka = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_frame_3'));
+        else if ( _personS.userId == g.user.userId) _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame_blue'));
+        else  _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
+        _srcAva.addChild(_imRamka);
         if (_data.userSocialId != g.user.userSocialId) {
             _srcAva.endClickCallback = visitPerson;
             _srcAva.hoverCallback = function ():void {
@@ -185,19 +194,6 @@ public class WOPartyRatingFriendItem {
                 g.hint.hideIt();
             };
         }
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
-        MCScaler.scale(im, im.height-5, im.width-5);
-        im.x = 89;
-        im.y = 35;
-        source.addChild(im);
-        var txt:CTextField;
-        if (_data && _data.level > 0) txt = new CTextField(80, 100, String(_data.level));
-        else txt = new CTextField(80, 100, String(g.user.level));
-        txt.setFormat(CTextField.BOLD18, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.alignH = Align.LEFT;
-        txt.x = 105 - txt.textBounds.width/2;
-        txt.y = -3;
-        source.addChild(txt);
     }
 
     private function visitPerson():void {

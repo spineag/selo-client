@@ -200,12 +200,14 @@ public class ManagerDailyBonus {
                 for (i = 0; i < random; i++) {
                     if (_arrItems.length >= 10) return;
                     k = int(Math.random() * arP.length);
-                    obj = {};
-                    obj.id = arP[k].id;
-                    arP.splice(k, 1);
-                    obj.count = 1;
-                    obj.type = PLANT;
-                    _arrItems.push(obj);
+                    if (arP.length > 0) {
+                        obj = {};
+                        obj.id = arP[k].id;
+                        arP.splice(k, 1);
+                        obj.count = 1;
+                        obj.type = PLANT;
+                        _arrItems.push(obj);
+                    }
                 }
             }
         }

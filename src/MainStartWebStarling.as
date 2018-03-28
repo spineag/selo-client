@@ -135,7 +135,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.socialNetwork = new SocialNetwork(g.flashVars);
         
         if (g.isDebug) {
-            g.socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+            g.socialNetworkID = SocialNetworkSwitch.SN_FB_ID;
         } else {
             g.socialNetworkID = int(g.flashVars['channel']);
         }

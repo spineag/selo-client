@@ -7043,12 +7043,21 @@ public class DirectServer {
 //            obj.typeBuilding = int(d.message[i].type_building);
 //            obj.coefficient = int(d.message[i].coefficient);
 //            obj.typeParty = int(d.message[i].type_party);
-//            obj.name = String(g.managerLanguage.allTexts[int(d.message[i].text_id_name)]);
-//            obj.description = String(g.managerLanguage.allTexts[int(d.message[i].text_id_description)]);
 //            obj.idDecorBest = int(d.message[i].id_decor_best);
 //            obj.filterOn = int(d.message[i].filter_on);
 //            obj.tester = Boolean(int(d.message[i].tester));
-//
+//            obj.imMain = String(d.message[i].image_main);
+//            obj.imRating = String(d.message[i].image_rating);
+
+//        obj.nameMain = int (d.message[i].text_id_name_main);
+//        obj.prevMain = int (d.message[i].text_id_prev_main);
+//        obj.descriptionMain = int (d.message[i].text_id_description_main);
+//        obj.textIdItem = int (d.message[i].text_id_item_main);
+//        obj.nameRating = int (d.message[i].text_id_name_rating);
+//        obj.descriptionRating = int (d.message[i].text_id_description_main);
+//        obj.prevRating = int (d.message[i].text_id_prev_rating);
+//        obj.giftRating = int (d.message[i].text_id_gift_rating);
+
 //            if (d.message[i].id_gift) obj.idGift = String(d.message[i].id_gift).split('&');
 //            for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
 //
@@ -7071,11 +7080,20 @@ public class DirectServer {
             obj.typeBuilding = int(d.message.type_building);
             obj.coefficient = int(d.message.coefficient);
             obj.typeParty = int(d.message.type_party);
-            obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
-            obj.description = String(g.managerLanguage.allTexts[int(d.message.text_id_description)]);
             obj.idDecorBest = int(d.message.id_decor_best);
             obj.filterOn = int(d.message.filter_on);
             obj.tester = Boolean(int(d.message.tester));
+            obj.imMain = String(d.message.image_main);
+            obj.imRating = String(d.message.image_rating);
+
+            obj.nameMain = int (d.message.text_id_name_main);
+            obj.prevMain = int (d.message.text_id_prev_main);
+            obj.descriptionMain = int (d.message.text_id_description_main);
+            obj.textIdItem = int (d.message.text_id_item_main);
+            obj.nameRating = int (d.message.text_id_name_rating);
+            obj.descriptionRating = int (d.message.text_id_description_main);
+            obj.prevRating = int (d.message.text_id_prev_rating);
+            obj.giftRating = int (d.message.text_id_gift_rating);
 
             if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
             for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
@@ -8214,8 +8232,6 @@ public class DirectServer {
     }
 
     public function getRatingParty(callback:Function):void {
-        return;
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_RATING_PARTY);
         var variables:URLVariables = new URLVariables();
@@ -8260,7 +8276,7 @@ public class DirectServer {
                 ob.userSocialId = String(d.message[i].social_id);
                 ob.countResource = int(d.message[i].count_resource);
                 ob.photo = d.message[i].photo_url;
-                ob.name = String(d.message[i].name + ' ' + d.message[i].last_name);
+                ob.name = String(d.message[i].name);
                 ob.level = int(d.message[i].level);
                 g.managerParty.arrBestPlayers.push(ob);
             }
