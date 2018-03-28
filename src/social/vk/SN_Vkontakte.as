@@ -441,7 +441,7 @@ public class SN_Vkontakte extends SocialNetwork {
             super.showOrderWindow(e);
             return;
         }
-        var item:String = "item_" + String(e.id);
+        var item:String = e.type + "_" + String(e.id);
 
         _js.callMethod("showOrderBox", {"type": "item", item: item});
         super.showOrderWindow(e);
