@@ -243,7 +243,9 @@ public class WOStarterPack extends WindowMain{
                 g.server.getDailyGift(null);
             } else {
 ////                g.managerCats.helloCats();
-                if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >=g. managerParty.dataPartyNowUse.countToGift[0] && (g.managerParty.dataPartyNowUse.typeParty == 1 || g.managerParty.dataPartyNowUse.typeParty == 2))
+                if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.dataPartyNowUse && g.managerParty.dataPartyNowUse.countToGift 
+                        && g.managerParty.dataPartyNowUse.countToGift.length && g.managerParty.userParty.countResource >= g.managerParty.dataPartyNowUse.countToGift[0]
+                        && (g.managerParty.dataPartyNowUse.typeParty == 1 || g.managerParty.dataPartyNowUse.typeParty == 2))
                     g.managerParty.endPartyWindow();
                 else if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && g.allData.atlas['partyAtlas']) {
                     g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
