@@ -287,6 +287,11 @@ public class WOPartyWindow extends WindowMain {
 ////            g.windowsManager.closeAllWindows();
 //            return;
 //        }
+
+        hideIt();
+        return;
+
+
         _isMain = true;
         _tabs.activate(_isMain);
         if (g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER
@@ -295,7 +300,6 @@ public class WOPartyWindow extends WindowMain {
             super.showIt();
             g.gameDispatcher.addToTimer(startTimer);
             _source.x = g.managerResize.stageWidth/2 + 50;
-            return;
         }  else if ( g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT || g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT) {
             if (params[0]) _activityType = params[0];
             var item:WOPartyWindowItem;
