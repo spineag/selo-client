@@ -55,9 +55,9 @@ public class DecorAnimation extends WorldObject{
             _armature.animation.gotoAndPlayByFrame('idle');
             if (_dataBuild.color) {
                 var name:String = (_dataBuild.url as String).replace(new RegExp("_" + String(_dataBuild.color), ""), '');
-                _hitArea = g.managerHitArea.getHitArea(_source, name, ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, name);
             } else {
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url);
             }
             _source.registerHitArea(_hitArea);
             if (!g.isAway) {

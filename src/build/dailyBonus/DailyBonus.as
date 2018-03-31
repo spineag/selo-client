@@ -39,7 +39,7 @@ public class DailyBonus extends WorldObject{
         _armature.animation.gotoAndStopByFrame('idle');
         if (!g.isAway) {
             _source.endClickCallback = onClick;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'daily_bonus', ManagerHitArea.TYPE_LOADED);
+            _hitArea = g.managerHitArea.getHitArea(_source, 'daily_bonus');
             _source.registerHitArea(_hitArea);
         }
         _source.hoverCallback = onHover;

@@ -378,7 +378,7 @@ public class WorldObject {
         }
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuildDone');
         _source.registerHitArea(_hitArea);
     }
 
@@ -399,7 +399,7 @@ public class WorldObject {
             else _buildingBuild.workAnimation();
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
         _source.registerHitArea(_hitArea);
     }
 

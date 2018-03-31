@@ -776,11 +776,6 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function initScene_15():void {
-        if (g.user.level < 3) {
-            g.xpPanel.visualAddXP(3);
-            Utils.createDelay(4,initScene_15);
-            return;
-        }
         _subStep = 0;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (!g.managerBuyerNyashuk) {

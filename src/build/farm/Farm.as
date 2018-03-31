@@ -85,7 +85,7 @@ public class Farm extends WorldObject{
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _source.releaseContDrag = true;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'farm' + _dataBuild.image, ManagerHitArea.TYPE_TILES, _sizeX, _sizeY);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'farm' + _dataBuild.image);
         _source.registerHitArea(_hitArea);
         _source.addChild(_contAnimals);
         if (!g.isAway) {

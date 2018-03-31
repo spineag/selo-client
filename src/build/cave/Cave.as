@@ -82,7 +82,7 @@ public class Cave extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _hitArea = g.managerHitArea.getHitArea(_source, 'mine', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'mine');
         _source.registerHitArea(_hitArea);
     }
 

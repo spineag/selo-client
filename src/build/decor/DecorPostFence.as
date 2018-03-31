@@ -33,7 +33,7 @@ public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
             _source.endClickCallback = onClick;
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image, ManagerHitArea.TYPE_FROM_ATLAS);
+            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image);
             _source.registerHitArea(_hitArea);
         }
     }

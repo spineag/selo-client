@@ -30,7 +30,7 @@ public class Chest extends WorldObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'chest', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'chest');
         _source.registerHitArea(_hitArea);
         WorldClock.clock.add(_armature);
         animation();

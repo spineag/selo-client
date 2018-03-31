@@ -54,7 +54,7 @@ public class Missing extends WorldObject {
         _armature.animation.gotoAndPlayByFrame('idle_1');
         if (!g.isAway) {
             _source.endClickCallback = onClick;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'missing', ManagerHitArea.TYPE_LOADED);
+            _hitArea = g.managerHitArea.getHitArea(_source, 'missing');
             _source.registerHitArea(_hitArea);
         }
         _source.hoverCallback = onHover;

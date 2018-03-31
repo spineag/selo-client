@@ -171,7 +171,7 @@ public class Train extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _hitArea = g.managerHitArea.getHitArea(_source, 'aerial_tram', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'aerial_tram');
         _source.registerHitArea(_hitArea);
         if (!_arriveAnim) _arriveAnim = new ArrivedAnimation(_source);
         if (g.isAway) {

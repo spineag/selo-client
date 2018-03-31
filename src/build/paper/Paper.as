@@ -36,7 +36,7 @@ public class Paper extends WorldObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'newspaper', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'newspaper');
         _source.registerHitArea(_hitArea);
     }
 

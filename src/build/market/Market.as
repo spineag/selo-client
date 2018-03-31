@@ -53,7 +53,7 @@ public class Market extends WorldObject{
         _source.releaseContDrag = true;
         _arrItem = [];
         marketState();
-        _hitArea = g.managerHitArea.getHitArea(_source, 'market', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'market');
         _source.registerHitArea(_hitArea);
         _timer = 60;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
