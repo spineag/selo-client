@@ -56,10 +56,10 @@ public class WOPartyWindowItem {
         _bgWhite.y = 5;
         source.addChild(_bgWhite);
         var im:Image;
-        if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
-            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
+        if (g.allData.getResourceById(g.managerParty.idItemEvent[0]).buildType == BuildType.PLANT) {
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idItemEvent[0]).imageShop + '_icon'));
         } else {
-            im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
+            im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idItemEvent[0]).url].getTexture(g.allData.getResourceById(g.managerParty.idItemEvent[0]).imageShop));
         }
         im.x = 5;
         im.y = 5;
@@ -108,9 +108,9 @@ public class WOPartyWindowItem {
         _btn.x = 645;
         _btn.y = 90;
         _btn.clickCallback = onClick;
-        if (!Boolean(g.managerParty.userParty.tookGift[_data.number - 1]) && g.managerParty.userParty.countResource >= _data.countToGift)  {
+        if (!Boolean(g.managerParty.userParty[0].tookGift[_data.number - 1]) && g.managerParty.userParty[0].countResource >= _data.countToGift)  {
             _btn.setEnabled = true;
-        } else if (Boolean(g.managerParty.userParty.tookGift[_data.number - 1])) {
+        } else if (Boolean(g.managerParty.userParty[0].tookGift[_data.number - 1])) {
             _btn.setEnabled = false;
 //            _btn.visible = false;
             _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
@@ -121,8 +121,8 @@ public class WOPartyWindowItem {
 
         source.addChild(_btn);
         source.addChild(_txtCountResource);
-        _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty.countResource));
-        if (int(g.managerParty.userParty.countResource) < countToGift) _txtCountUser.setFormat(CTextField.BOLD30, 30,0xcf342f,Color.WHITE);
+        _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty[0].countResource));
+        if (int(g.managerParty.userParty[0].countResource) < countToGift) _txtCountUser.setFormat(CTextField.BOLD30, 30,0xcf342f,Color.WHITE);
         else _txtCountUser.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR,Color.WHITE);
         _txtCountUser.alignH = Align.LEFT;
         _txtCountUser.x = 325;
@@ -136,7 +136,7 @@ public class WOPartyWindowItem {
         _txtCountToGift.y = 35;
         source.addChild(_txtCountToGift);
 
-        _txtDescription = new CTextField(400,100,String(g.managerLanguage.allTexts[465]));
+        _txtDescription = new CTextField(400,100,String(g.managerLanguage.allTexts[g.managerParty.textIdItem]));
         _txtDescription.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtDescription.alignH = Align.CENTER;
         _txtDescription.x = 150;
@@ -150,9 +150,9 @@ public class WOPartyWindowItem {
         source.removeChild(_txtCountResource);
         source.removeChild(_txtCountToGift);
         source.removeChild(_txtCountUser);
-        if (!Boolean(g.managerParty.userParty.tookGift[_data.number - 1]) && g.managerParty.userParty.countResource >= _data.countToGift)  {
+        if (!Boolean(g.managerParty.userParty[0].tookGift[_data.number - 1]) && g.managerParty.userParty[0].countResource >= _data.countToGift)  {
             _btn.setEnabled = true;
-        } else if (Boolean(g.managerParty.userParty.tookGift[_data.number - 1])) {
+        } else if (Boolean(g.managerParty.userParty[0].tookGift[_data.number - 1])) {
             _btn.setEnabled = false;
             _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
             _imCheck.x = 598;
@@ -161,8 +161,8 @@ public class WOPartyWindowItem {
         } else _btn.setEnabled = false;
         source.addChild(_btn);
         source.addChild(_txtCountResource);
-        _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty.countResource));
-        if (int(g.managerParty.userParty.countResource) < _data.countToGift) _txtCountUser.setFormat(CTextField.BOLD30, 30,0xcf342f,Color.WHITE);
+        _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty[0].countResource));
+        if (int(g.managerParty.userParty[0].countResource) < _data.countToGift) _txtCountUser.setFormat(CTextField.BOLD30, 30,0xcf342f,Color.WHITE);
         else _txtCountUser.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR,Color.WHITE);
         _txtCountUser.alignH = Align.LEFT;
         _txtCountUser.x = 325;
@@ -179,11 +179,11 @@ public class WOPartyWindowItem {
 
     private function onClick():void {
         _btn.setEnabled = false;
-        g.managerParty.userParty.tookGift[_data.number - 1] = 1;
-        var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
-                + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
-        g.server.updateUserParty(st,g.managerParty.userParty.countResource,0, null);
-
+        g.managerParty.userParty[0].tookGift[_data.number - 1] = 1;
+//        var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
+//                + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
+//        g.server.updateUserParty(st,g.managerParty.userParty.countResource,0, g.managerParty.id, g.managerParty.userParty[0].idParty, null);
+        g.managerParty.updateUserParty();
         var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         var d:DropObject = new DropObject();
         if (_data.typeResource == BuildType.DECOR_ANIMATION || _data.typeResource == BuildType.DECOR) {

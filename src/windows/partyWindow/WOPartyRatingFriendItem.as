@@ -99,7 +99,7 @@ public class WOPartyRatingFriendItem {
         _imBackCount.x = 53;
         _imBackCount.y = 40;
         source.addChild(_imBackCount);
-        if (user) _txtCountResource = new CTextField(250, 100, String(g.managerParty.userParty.countResource));
+        if (user) _txtCountResource = new CTextField(250, 100, String(g.managerParty.userParty[0].countResource));
         else _txtCountResource = new CTextField(250, 100, String(ob.countResource));
         _txtCountResource.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCountResource.alignH = Align.CENTER;

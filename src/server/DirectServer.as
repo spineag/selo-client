@@ -7034,102 +7034,48 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataParty: wrong JSON:' + String(response));
             return;
         }
-//        for (var i:int = 0; i < d.message.length; i++) {
-//            obj = {};
-//            obj.timeToStart = d.message[i].time_to_start;
-//            obj.timeToEnd = d.message[i].time_to_end;
-//            obj.levelToStart = int(d.message[i].level_to_start);
-//            obj.idResource = int(d.message[i].id_resource);
-//            obj.typeBuilding = int(d.message[i].type_building);
-//            obj.coefficient = int(d.message[i].coefficient);
-//            obj.typeParty = int(d.message[i].type_party);
-//            obj.idDecorBest = int(d.message[i].id_decor_best);
-//            obj.filterOn = int(d.message[i].filter_on);
-//            obj.tester = Boolean(int(d.message[i].tester));
-//            obj.imMain = String(d.message[i].image_main);
-//            obj.imRating = String(d.message[i].image_rating);
-
-//        obj.nameMain = int (d.message[i].text_id_name_main);
-//        obj.prevMain = int (d.message[i].text_id_prev_main);
-//        obj.descriptionMain = int (d.message[i].text_id_description_main);
-//        obj.textIdItem = int (d.message[i].text_id_item_main);
-//        obj.nameRating = int (d.message[i].text_id_name_rating);
-//        obj.descriptionRating = int (d.message[i].text_id_description_main);
-//        obj.prevRating = int (d.message[i].text_id_prev_rating);
-//        obj.giftRating = int (d.message[i].text_id_gift_rating);
-
-//            if (d.message[i].id_gift) obj.idGift = String(d.message[i].id_gift).split('&');
-//            for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
-//
-//            if (d.message[i].type_gift) obj.typeGift = String(d.message[i].type_gift).split('&');
-//            for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
-//
-//            if (d.message[i].count_gift) obj.countGift = String(d.message[i].count_gift).split('&');
-//            for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
-//
-//            if (d.message[i].count_to_gift) obj.countToGift = String(d.message[i].count_to_gift).split('&');
-//            for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
-//            g.managerParty.allArrParty.push(obj);
-//        }
-//        for (var i:int = 0; i < d.message.length; i++) {
+        for (var i:int = 0; i < d.message.length; i++) {
             obj = {};
-            obj.timeToStart = d.message.time_to_start;
-            obj.timeToEnd = d.message.time_to_end;
-            obj.levelToStart = int(d.message.level_to_start);
-            obj.idResource = int(d.message.id_resource);
-            obj.typeBuilding = int(d.message.type_building);
-            obj.coefficient = int(d.message.coefficient);
-            obj.typeParty = int(d.message.type_party);
-            obj.idDecorBest = int(d.message.id_decor_best);
-            obj.filterOn = int(d.message.filter_on);
-            obj.tester = Boolean(int(d.message.tester));
-            obj.imMain = String(d.message.image_main);
-            obj.imRating = String(d.message.image_rating);
+            obj.id = d.message[i].id;
+            obj.timeToStart = d.message[i].time_to_start;
+            obj.timeToEnd = d.message[i].time_to_end;
+            obj.levelToStart = int(d.message[i].level_to_start);
+            obj.coefficient = int(d.message[i].coefficient);
+            obj.typeParty = int(d.message[i].type_party);
+            obj.idDecorBest = int(d.message[i].id_decor_best);
+            obj.typeDecorBest = int(d.message[i].type_decor_best);
+            obj.countDecorBest = int(d.message[i].count_decor_best);
+            obj.filterOn = int(d.message[i].filter_on);
+            obj.tester = Boolean(int(d.message[i].tester));
+            obj.imMain = String(d.message[i].image_main);
+            obj.imRating = String(d.message[i].image_rating);
+            obj.imIcon = String(d.message[i].image_icon);
+            obj.nameMain = int (d.message[i].text_id_name_main);
+            obj.prevMain = int (d.message[i].text_id_prev_main);
+            obj.descriptionMain = int (d.message[i].text_id_description_main);
+            obj.textIdItem = int (d.message[i].text_id_item_main);
+            obj.nameRating = int (d.message[i].text_id_name_rating);
+            obj.descriptionRating = int (d.message[i].text_id_description_rating);
+            obj.prevRating = int (d.message[i].text_id_prev_rating);
+            obj.giftRating = int (d.message[i].text_id_gift_rating);
 
-            obj.nameMain = int (d.message.text_id_name_main);
-            obj.prevMain = int (d.message.text_id_prev_main);
-            obj.descriptionMain = int (d.message.text_id_description_main);
-            obj.textIdItem = int (d.message.text_id_item_main);
-            obj.nameRating = int (d.message.text_id_name_rating);
-            obj.descriptionRating = int (d.message.text_id_description_main);
-            obj.prevRating = int (d.message.text_id_prev_rating);
-            obj.giftRating = int (d.message.text_id_gift_rating);
+            if (d.message[i].id_item_event) obj.idItemEvent = String(d.message[i].id_item_event).split('&');
+            for (k = 0; k < obj.idItemEvent.length; k++) obj.idItemEvent[k] = int(obj.idItemEvent[k]);
 
-            if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
+            if (d.message[i].id_gift) obj.idGift = String(d.message[i].id_gift).split('&');
             for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
 
-            if (d.message.type_gift) obj.typeGift = String(d.message.type_gift).split('&');
+            if (d.message[i].type_gift) obj.typeGift = String(d.message[i].type_gift).split('&');
             for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
 
-            if (d.message.count_gift) obj.countGift = String(d.message.count_gift).split('&');
+            if (d.message[i].count_gift) obj.countGift = String(d.message[i].count_gift).split('&');
             for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
 
-            if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
+            if (d.message[i].count_to_gift) obj.countToGift = String(d.message[i].count_to_gift).split('&');
             for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
             g.managerParty.allArrParty.push(obj);
-
-//        g.managerParty.findDataParty();
-        if ((obj.timeToStart - TimeUtils.currentSeconds < 0 && obj.timeToEnd - TimeUtils.currentSeconds > 0) || (Boolean(int(d.message.tester)) && g.user.isTester)) {
-            if (Boolean(int(d.message.tester))&& g.user.isTester) g.userTimer.partyToEnd(300);
-            else g.userTimer.partyToEnd(obj.timeToEnd - TimeUtils.currentSeconds);
-            g.managerParty.dataPartyNowUse = obj;
-            g.managerParty.eventOn = true;
-            if (obj.levelToStart <= g.user.level) {
-                var f:Function = function ():void {
-                    g.managerParty.atlasLoad();
-                };
-                getUserParty(f);
-//                getRatingParty(null);
-            }
-        } else if (obj.timeToStart - TimeUtils.currentSeconds > 0) {
-            g.userTimer.partyToStart(obj.timeToStart - TimeUtils.currentSeconds);
-            g.managerParty.dataPartyNowUse = obj;
-            g.managerParty.eventOn = false;
-        } else {
-            g.managerParty.dataPartyNowUse = obj;
-            getUserParty();
-//            getRatingParty(null);
         }
+        getUserParty(g.managerParty.findDataParty);
         if (d.id == 0) {
             Cc.ch('server', 'getDataParty OK', 5);
             if (callback != null) {
@@ -7145,64 +7091,7 @@ public class DirectServer {
         }
     }
 
-    public function addUserParty(callback:Function):void {
-        var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_PARTY);
-        var variables:URLVariables = new URLVariables();
-
-        Cc.ch('server', 'addUserParty', 1);
-        variables = addDefault(variables);
-        variables.userId = g.user.userId;
-        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
-        request.data = variables;
-        request.method = URLRequestMethod.POST;
-        iconMouse.startConnect();
-        loader.addEventListener(Event.COMPLETE, onCompleteAddUserParty);
-        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('addUserParty'); });
-        function onCompleteAddUserParty(e:Event):void { completeAddUserParty(e.target.data, callback); }
-        try {
-            loader.load(request);
-        } catch (error:Error) {
-            Cc.error('addUserEvent error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
-        }
-    }
-
-    private function completeAddUserParty(response:String, callback:Function = null):void {
-        iconMouse.endConnect();
-        var d:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('addUserParty: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserParty: wrong JSON:' + String(response));
-            if (callback != null) {
-                callback.apply();
-            }
-            return;
-        }
-
-        if (d.id == 0) {
-            Cc.ch('server', 'addUserEvent OK', 5);
-            if (callback != null) {
-                callback.apply(null, [true]);
-            }
-        } else if (d.id == 6) {
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
-        } else if (d.id == 13) {
-            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else {
-            Cc.error('addUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserEvent: wrong JSON:' + String(response));
-            if (callback != null) {
-                callback.apply(null, [false]);
-            }
-        }
-    }
-
-    public function updateUserParty(tookGift:String, countResource:int, showWindow:int, callback:Function):void {
+    public function updateUserParty(tookGift:String, countResource:int, showWindow:int, idPartyNew:int, idPartyOld:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_PARTY);
         var variables:URLVariables = new URLVariables();
@@ -7213,6 +7102,8 @@ public class DirectServer {
         variables.countResource = countResource;
         variables.tookGift = tookGift;
         variables.showWindow = showWindow;
+        variables.idPartyNew = idPartyNew;
+        variables.idPartyOld = idPartyOld;
         variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -7296,12 +7187,16 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserParty: wrong JSON:' + String(response));
             return;
         }
-        obj.countResource = int(d.message.count_resource);
-        if (d.message.took_gift) obj.tookGift = String(d.message.took_gift).split('&');
-        for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
-        obj.showWindow = Boolean(int(d.message.show_window));
-        obj.idParty = Boolean(int(d.message.id_party));
-        g.managerParty.userParty = obj;
+        for (var i:int = 0; i < d.message.length; i++) {
+            obj = {};
+            obj.countResource = int(d.message[i].count_resource);
+            if (d.message[i].took_gift) obj.tookGift = String(d.message[i].took_gift).split('&');
+            for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
+            obj.showWindow = Boolean(int(d.message[i].show_window));
+            obj.idParty = int(d.message[i].id_party);
+            g.managerParty.userParty.push(obj);
+        }
+        g.managerParty.userParty.sortOn("idParty", Array.DESCENDING | Array.NUMERIC);
         if (d.id == 0) {
             Cc.ch('server', 'getUserEvent OK', 5);
             if (callback != null) {
@@ -8231,7 +8126,7 @@ public class DirectServer {
         }
     }
 
-    public function getRatingParty(callback:Function):void {
+    public function getRatingParty(idParty:int, needaddArrBestPlayer:Boolean = true, callback:Function = null):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_RATING_PARTY);
         var variables:URLVariables = new URLVariables();
@@ -8239,13 +8134,14 @@ public class DirectServer {
         Cc.ch('server', 'getRatingParty', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.idParty = idParty;
 //        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onСompleteGetRatingParty);
         loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getRaitingParty'); });
-        function onСompleteGetRatingParty(e:Event):void { completeGetRatingParty(e.target.data, callback); }
+        function onСompleteGetRatingParty(e:Event):void { completeGetRatingParty(e.target.data, needaddArrBestPlayer, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -8253,7 +8149,7 @@ public class DirectServer {
         }
     }
 
-    private function completeGetRatingParty(response:String, callback:Function = null):void {
+    private function completeGetRatingParty(response:String, needaddArrBestPlayer:Boolean = true, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {
@@ -8264,21 +8160,35 @@ public class DirectServer {
             return;
         }
         var ob:Object;
-        if (g.managerParty.arrBestPlayers && g.managerParty.arrBestPlayers.length > 0) {
-            g.managerParty.arrBestPlayers = [];
-        }
-        for (var i:int = 0; i < d.message.length; i++) {
-            if (d.message[i] is Number) g.managerParty.playerPosition = int(d.message[i]);
-            else {
-                if (d.message[i].user_id == g.user.userId) g.managerParty.playerPosition = i + 1;
-                ob = {};
-                ob.userId = int(d.message[i].user_id);
-                ob.userSocialId = String(d.message[i].social_id);
-                ob.countResource = int(d.message[i].count_resource);
-                ob.photo = d.message[i].photo_url;
-                ob.name = String(d.message[i].name);
-                ob.level = int(d.message[i].level);
-                g.managerParty.arrBestPlayers.push(ob);
+        var i:int;
+        if (needaddArrBestPlayer) {
+            if (g.managerParty.arrBestPlayers && g.managerParty.arrBestPlayers.length > 0) {
+                g.managerParty.arrBestPlayers = [];
+            }
+            for (i = 0; i < d.message.length; i++) {
+                if (d.message[i] is Number) g.managerParty.playerPosition = int(d.message[i]);
+                else {
+                    if (d.message[i].user_id == g.user.userId) g.managerParty.playerPosition = i + 1;
+                    ob = {};
+                    ob.userId = int(d.message[i].user_id);
+                    ob.userSocialId = String(d.message[i].social_id);
+                    ob.countResource = int(d.message[i].count_resource);
+                    ob.photo = d.message[i].photo_url;
+                    ob.name = String(d.message[i].name);
+                    ob.level = int(d.message[i].level);
+                    g.managerParty.arrBestPlayers.push(ob);
+                }
+            }
+        } else {
+            for (i = 0; i < d.message.length; i++) {
+                if (d.message[i] is Number) {
+                    g.managerParty.setratingForEnd = int(d.message[i]);
+                    break;
+                }
+                if (d.message[i].user_id == g.user.userId) {
+                    g.managerParty.setratingForEnd = i + 1;
+                    break;
+                }
             }
         }
         if (d.id == 0) {
@@ -9269,6 +9179,107 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [false]);
             }
+        }
+    }
+
+    public function addUserParty(idParty:int,countResource:int, callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_PARTY);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'addUserParty', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.idParty = idParty;
+        variables.countResource = countResource;
+        variables.hash = MD5.hash(String(g.user.userId)+String(idParty)+String(countResource)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserParty);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('addUserParty'); });
+        function onCompleteAddUserParty(e:Event):void { completeAddUserParty(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserPapperBuy error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeAddUserParty(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserParty: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserParty: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'addUserParty OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('addUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function deleteUserParty(idParty:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_PARTY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'deleteUserParty', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.idParty = idParty;
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserParty);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('deleteUserParty'); });
+        function onCompleteDeleteUserParty(e:Event):void { completeDeleteUserParty(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('deleteUserParty error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeDeleteUserParty(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('deleteUserParty: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserParty: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'deleteUserParty OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('deleteUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

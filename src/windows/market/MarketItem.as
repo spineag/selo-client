@@ -11,6 +11,7 @@ import flash.display.Bitmap;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
 import manager.Vars;
 import quest.ManagerQuest;
 import resourceItem.CraftItem;
@@ -416,11 +417,10 @@ public class MarketItem {
                     }
                 }
                 g.managerAchievement.addAll(2,_countMoney);
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.MARKET && 
-                        g.allData.atlas['partyAtlas']&&g.managerParty.levelToStart <= g.user.level ||
-                        g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) {
+                if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT && g.allData.atlas['partyAtlas']) {
                     var dr:DropObject = new DropObject();
                     p = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+                    g.managerParty.addUserPartyCount(1);
                     dr.addDropPartyResource(p);
                     dr.releaseIt(null, false);
                 }

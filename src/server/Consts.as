@@ -46,6 +46,7 @@ public class Consts {
     public static var INQ_RAW_PLANT_RIDGE:String = 'a_game/rawPlantOnRidge.php';
     public static var INQ_GET_USER_PLANT_RIDGE:String = 'a_userData/getUserPlantRidge.php';
     public static var INQ_DELETE_USER_TREE:String = 'a_game/deleteUserTree.php';
+    public static var INQ_DELETE_USER_PARTY:String = 'a_game/deleteUserParty.php';
     public static var INQ_ADD_USER_TRAIN:String = 'a_game/addUserTrain.php';
     public static var INQ_GET_USER_TRAIN:String = 'a_userData/getUserTrain.php';
     public static var INQ_UPDATE_USER_TRAIN_STATE:String = 'a_game/updateUserTrainState.php';
@@ -133,7 +134,6 @@ public class Consts {
     public static var INQ_UPDATE_STARTER_PACK:String = 'a_game/updateStarterPack.php';
     public static var INQ_GET_USER_PARTY:String = 'a_userData/getUserParty.php';
     public static var INQ_GET_DATA_PARTY:String = 'a_gameData/getDataParty.php';
-    public static var INQ_ADD_USER_PARTY:String = 'a_game/addUserParty.php';
     public static var INQ_UPDATE_USER_PARTY:String = 'a_game/updateUserParty.php';
     public static var INQ_ON_TRANSACTION:String = 'a_diff/onOKtransaction.php';
     public static var INQ_FB_TRANSACTION:String = 'a_diff/onFBtransaction.php';
@@ -170,6 +170,7 @@ public class Consts {
     public static var INQ_GET_USER_SALE_PACK:String = 'a_userData/getUserSalePack.php';
     public static var INQ_GET_DATA_NEWS:String = 'a_gameData/getDataNews.php';
     public static var INQ_UPDATE_NEWS_NEW:String = 'a_game/updateNewsNew.php';
+    public static var INQ_ADD_USER_PARTY:String = 'a_game/addUserParty.php';
 
 }
 }

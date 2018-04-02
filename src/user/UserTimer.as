@@ -103,6 +103,7 @@ public class UserTimer {
         if (partyToEndTimer <= 0) {
             partyToEndTimer = 0;
             g.managerParty.eventOn = false;
+            g.managerParty.findDataParty(true);
             g.gameDispatcher.removeFromTimer(partyTimerToEnd);
         }
     }
@@ -116,7 +117,7 @@ public class UserTimer {
         partyToStartTimer--;
         if (partyToStartTimer <= 0) {
             g.gameDispatcher.removeFromTimer(partyTimerToStart);
-            g.managerParty.checkAndCreateIvent();
+            g.managerParty.checkAndCreateIvent(true);
             partyToStartTimer = 0;
         }
     }

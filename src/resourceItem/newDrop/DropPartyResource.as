@@ -20,10 +20,10 @@ public class DropPartyResource extends DropObjectInterface {
         setStartPoint(p);
 //        if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
 //            if (g.managerParty.userParty.countResource + 1 <= g.managerParty.countToGift[4]) {
-                g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 1;
-                var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
-                        + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
-                g.server.updateUserParty(st, g.managerParty.userParty.countResource, 0, null);
+//                var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
+//                        + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
+        g.managerParty.updateUserParty();
+//                g.server.updateUserParty(st, g.managerParty.userParty.countResource, 0, g.managerParty.id, g.managerParty.userParty[0].idParty, null);
 //            }
 //        }
     }

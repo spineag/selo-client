@@ -24,7 +24,7 @@ public class DropDecorNew extends DropObjectInterface {
     public function fillIt(data:StructureDataBuilding, p:Point, needAddServer:Boolean = false):void {
         _dataDecor = data;
         _needAddServer = needAddServer;
-        if (_data.image) {
+        if (_dataDecor.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_dataDecor.image + '_icon');
             if (!texture && g.allData.atlas[_dataDecor.url]) texture = g.allData.atlas[_dataDecor.url].getTexture(_dataDecor.image);
             if (!texture) texture = g.allData.atlas['iconAtlas'].getTexture(_dataDecor.url + '_icon');

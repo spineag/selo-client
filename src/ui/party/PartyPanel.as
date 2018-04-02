@@ -21,11 +21,7 @@ public class PartyPanel {
     public function PartyPanel() {
         _source = new CSprite();
         var im:Image;
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('corn_event_icon'));
-        } else {
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('milk'));
-        }
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture(g.managerParty.imIcon));
         _source.addChild(im);
         _txtTimer = new CTextField(100,60,'');
         _txtTimer.setFormat(CTextField.BOLD18, 18, 0xd30102);
@@ -53,7 +49,7 @@ public class PartyPanel {
             if (_txtTimer)_txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.partyToEndTimer);
         } else {
             visiblePartyPanel(false);
-            if (!g.managerParty.userParty.showWindow) {
+            if (!g.managerParty.userParty[0].showWindow) {
                 if (_txtTimer) {
                     _source.removeChild(_txtTimer);
                     _txtTimer.deleteIt();

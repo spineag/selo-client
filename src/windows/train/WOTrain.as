@@ -7,6 +7,8 @@ import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
+
 import resourceItem.newDrop.DropObject;
 import social.SocialNetworkEvent;
 import starling.display.Image;
@@ -261,12 +263,12 @@ public class WOTrain extends WindowMain {
             (_arrItems[i] as WOTrainItem).fillIt(list[i], onItemClick);
         }
         checkSocialInfoForArray();
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA)
             _sensMoney.updateText(String(_train.allCoinsCount * g.managerParty.coefficient));
             else _sensMoney.updateText(String(_train.allCoinsCount));
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-            _sensXP.updateText(String(_train.allXPCount * g.managerParty.coefficient));
-            else _sensXP.updateText(String(_train.allXPCount));
+//        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+//            _sensXP.updateText(String(_train.allXPCount * g.managerParty.coefficient));
+        _sensXP.updateText(String(_train.allXPCount));
 
         var num:int = 0;
         if (!g.managerCutScenes.isCutScene) {
@@ -308,12 +310,12 @@ public class WOTrain extends WindowMain {
             _btnLoad.visible = true;
             _btnHelp.visible = true;
         }
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA)
             _sensMoneyItem.updateText(String(_arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient));
             else _sensMoneyItem.updateText(String(_arrItems[_activeItemIndex].countCoins));
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-            _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient));
-            else  _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP));
+//        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+//            _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient));
+            _sensXPItem.updateText(String(_arrItems[_activeItemIndex].countXP));
         if (_imResource) {
             _source.removeChild(_imResource);
             _imResource.dispose();
@@ -355,10 +357,10 @@ public class WOTrain extends WindowMain {
         if (lastResource) {
             _btnHelp.visible = false;
             g.server.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
-            if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-                d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient, p);
-                else d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP, p);
-            if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+//            if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+//                d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient, p);
+            d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP, p);
+            if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA)
                 d.addDropMoney(DataMoney.SOFT_CURRENCY, (_arrItems[_activeItemIndex] as WOTrainItem).countCoins * g.managerParty.coefficient, p);
                 else d.addDropMoney(DataMoney.SOFT_CURRENCY, (_arrItems[_activeItemIndex] as WOTrainItem).countCoins, p);
             g.userInventory.addResource((_arrItems[_activeItemIndex] as WOTrainItem).idFree, - (_arrItems[_activeItemIndex] as WOTrainItem).countFree);
@@ -377,10 +379,10 @@ public class WOTrain extends WindowMain {
                 }
                 _btnHelp.visible = false;
                 g.server.updateTrainPackGetHelp(int((_arrItems[_activeItemIndex] as WOTrainItem).trainDbId), String(g.user.userSocialId), null);
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-                    d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient, p);
-                    else d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP, p);
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+//                if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
+//                    d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP * g.managerParty.coefficient, p);
+                d.addDropXP((_arrItems[_activeItemIndex] as WOTrainItem).countXP, p);
+                if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA)
                     d.addDropMoney(DataMoney.SOFT_CURRENCY, (_arrItems[_activeItemIndex] as WOTrainItem).countCoins * g.managerParty.coefficient, p);
                     else d.addDropMoney(DataMoney.SOFT_CURRENCY, (_arrItems[_activeItemIndex] as WOTrainItem).countCoins, p);
                 g.userInventory.addResource((_arrItems[_activeItemIndex] as WOTrainItem).idFree, - (_arrItems[_activeItemIndex] as WOTrainItem).countFree);

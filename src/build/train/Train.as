@@ -469,9 +469,7 @@ public class Train extends WorldObject{
         var d:DropObject = new DropObject();
         d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataPack.count_money, p);
         d.addDropMoney(DataMoney.randomVaucher, 1, p);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-            d.addDropXP(int(_dataPack.count_xp * g.managerParty.coefficient), p);
-        else d.addDropXP(int(_dataPack.count_xp), p);
+        d.addDropXP(int(_dataPack.count_xp), p);
         d.releaseIt();
         
         g.managerAchievement.addAll(10,1);

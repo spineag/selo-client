@@ -38,7 +38,7 @@ public class DecorShopFilter {
 
     private function createBtns():void {
         var arr:Array = [FILTER_ALL, FILTER_FENCE, FILTER_TAIL, FILTER_TREES,  FILTER_OTHER, FILTER_SPECIAL];
-        if (g.managerParty.filterOn && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level) arr.insertAt(0, FILTER_HOLIDAY);
+//        if (g.managerParty.eventOn && g.managerParty.filterOn && g.managerParty.levelToStart <= g.user.level) arr.insertAt(0, FILTER_HOLIDAY);
         var item:FilterButtonItem;
         for (var i:int=0; i<arr.length; i++) {
             item = new FilterButtonItem(arr[i], onClick, _isBigShop);

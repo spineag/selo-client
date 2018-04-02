@@ -17,6 +17,7 @@ import dragonBones.starling.StarlingArmatureDisplay;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.ManagerPartyNew;
+import manager.ManagerPartyNew;
 
 import media.SoundConst;
 import order.ManagerOrder;
@@ -185,7 +186,8 @@ public class WOOrder extends WindowMain {
         _rightBlock.addChild(_txtNagrada);
 
         var t:CTextField = new CTextField(60, 30, '8888');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER) t.setFormat(CTextField.BOLD24, 24, 0xcf342f, Color.WHITE);
+        else t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(im, 30, 30);
         _sensCoin = new SensibleBlock();
@@ -194,7 +196,8 @@ public class WOOrder extends WindowMain {
         _sensCoin.y = -_woWidth / 2 + 607;
         _rightBlock.addChild(_sensCoin);
         t = new CTextField(60, 30, '8888');
-        t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER) t.setFormat(CTextField.BOLD24, 24, 0xcf342f, Color.WHITE);
+        else t.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
         MCScaler.scale(im, 40, 40);
         im.y = -3;
@@ -349,10 +352,10 @@ public class WOOrder extends WindowMain {
     }
 
     private function fillResourceItems(or:OrderItemStructure):void {
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER)
             _sensXP.updateText(String(or.xp * g.managerParty.coefficient));
             else _sensXP.updateText(String(or.xp));
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level)
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER)
             _sensCoin.updateText(String(or.coins * g.managerParty.coefficient));
             else _sensCoin.updateText(String(or.coins));
         for (var i:int = 0; i < or.resourceIds.length; i++) {
@@ -466,9 +469,10 @@ public class WOOrder extends WindowMain {
             p1.y = g.managerResize.stageHeight/2;
         }
         var d:DropObject = new DropObject();
-        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER)
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER) {
+            g.managerParty.addUserPartyCount(1);
             d.addDropXP(or.xp * g.managerParty.coefficient, p1);
-        else d.addDropXP(or.xp, p1);
+        } else d.addDropXP(or.xp, p1);
         p1.x = 186;
         p1.y = 147;
         if (!b)p1 = _source.localToGlobal(p1);
@@ -477,9 +481,10 @@ public class WOOrder extends WindowMain {
             p1.y = g.managerResize.stageHeight/2;
         }
 //        p1 = _source.localToGlobal(p1);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER)
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER) {
+            g.managerParty.addUserPartyCount(1);
             d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins * g.managerParty.coefficient, p1);
-        else d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins, p1);
+        } else d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins, p1);
         p1.x = g.managerResize.stageWidth/2;
         p1.y = g.managerResize.stageHeight/2;
 //        if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER &&
@@ -522,7 +527,6 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
             hideIt();
             for (i = 0; i < _arrOrders.length; i++) {
                 if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
-                    trace('lol');
                     g.managerOrder.checkCatId();
                     _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                     break;

@@ -469,17 +469,25 @@ public class Vars {
                        if ((user as User).level >= 5 && todayDailyGift.date != today.date) (server as DirectServer).getDailyGift(null);
                    }
                }
-            var f1:Function = function ():void {
-                if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
-                        && (managerParty.dataPartyNowUse.typeParty == 3 || managerParty.dataPartyNowUse.typeParty == 4 || managerParty.typeParty == 5)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
-                };
-                Utils.createDelay(5,f1);
-            if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
-                        && (managerParty.typeParty == 3 || managerParty.typeParty == 4 || managerParty.typeParty == 5)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
-                else if (managerParty.userParty && !managerParty.userParty.showWindow && managerParty.userParty.countResource >= managerParty.countToGift[0] && (managerParty.typeParty == 1 || managerParty.typeParty == 2)) {
-                    managerParty.endPartyWindow();
+            var f:Function = function ():void {
+                if (managerParty.loadAll) {
+                    gameDispatcher.removeEnterFrame(f);
+                    if (managerParty.showEndWindow) windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE, null);
+                    else if (managerParty.eventOn) windowsManager.openWindow(WindowsManager.WO_PARTY, null);
                 }
-               Utils.createDelay(5,f1);
+            };
+            gameDispatcher.addEnterFrame(f);
+//            var f1:Function = function ():void {
+//                if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
+//                        && (managerParty.dataPartyNowUse.typeParty == 3 || managerParty.dataPartyNowUse.typeParty == 4 || managerParty.typeParty == 5)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
+//                };
+//                Utils.createDelay(5,f1);
+//            if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
+//                        && (managerParty.typeParty == 3 || managerParty.typeParty == 4 || managerParty.typeParty == 5)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
+//                else if (managerParty.userParty && !managerParty.userParty.showWindow && managerParty.userParty.countResource >= managerParty.countToGift[0] && (managerParty.typeParty == 1 || managerParty.typeParty == 2)) {
+//                    managerParty.endPartyWindow();
+//                }
+//               Utils.createDelay(5,f1);
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
             miniScenes.updateMiniScenesLengthOnGameStart();

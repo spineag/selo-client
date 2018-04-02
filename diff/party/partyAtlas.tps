@@ -207,6 +207,7 @@
             <filename>ne_window_frame_3.png</filename>
             <filename>ne_window_white_cell.png</filename>
             <filename>other_top_event_window.png</filename>
+            <filename>event_icons_1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

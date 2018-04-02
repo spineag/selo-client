@@ -283,14 +283,17 @@ public class WOSalePackVauchers  extends WindowMain{
                 var today:Date = new Date(g.user.day * 1000);
                 if (g.user.level >= 5 && todayDailyGift.date != today.date) {
                     g.server.getDailyGift(null);
-                } else {
-                    if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >= g. managerParty.countToGift[0] && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2)) {
-                        g.managerParty.endPartyWindow();
-                    } else if ( g.managerParty.eventOn && g.user.level >= g.managerParty.levelToStart && g.allData.atlas['partyAtlas']) {
-                        g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
-                    }
-                    else if (g.managerParty.userParty && g.userTimer.partyToEndTimer <= 0 && !g.managerParty.userParty.showWindow
-                            && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4 || g.managerParty.typeParty == 5)) g.managerParty.endPartyWindow();
+                }
+                else {
+//                    if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >= g. managerParty.countToGift[0] && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2)) {
+//                        g.managerParty.endPartyWindow();
+//                    } else if ( g.managerParty.eventOn && g.user.level >= g.managerParty.levelToStart && g.allData.atlas['partyAtlas']) {
+//                        g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+//                    }
+//                    else if (g.managerParty.userParty && g.userTimer.partyToEndTimer <= 0 && !g.managerParty.userParty.showWindow
+//                            && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4 || g.managerParty.typeParty == 5)) g.managerParty.endPartyWindow();
+                    if (g.managerParty.showEndWindow) g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE,null);
+                    else if (g.managerParty.eventOn) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null);
                 }
             }
         }

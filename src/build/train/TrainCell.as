@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
+
+import manager.ManagerPartyNew;
 import manager.Vars;
 import resourceItem.newDrop.DropObject;
 import starling.display.Image;
@@ -66,14 +68,15 @@ public class TrainCell {
         }
 
         var d:DropObject = new DropObject();
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN)
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA) {
+            g.managerParty.addUserPartyCount(1);
             d.addDropMoney(DataMoney.SOFT_CURRENCY, countMoney * g.managerParty.coefficient, p);
-            else d.addDropMoney(DataMoney.SOFT_CURRENCY, countMoney, p);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)
-            d.addDropXP(int(countXP * g.managerParty.coefficient), p);
-            else  d.addDropXP(countXP, p);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.TRAIN)
+        } else d.addDropMoney(DataMoney.SOFT_CURRENCY, countMoney, p);
+        d.addDropXP(countXP, p);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT) {
+            g.managerParty.addUserPartyCount(1);
             d.addDropPartyResource(p);
+        }
         d.releaseIt();
 
         _isFull = true;

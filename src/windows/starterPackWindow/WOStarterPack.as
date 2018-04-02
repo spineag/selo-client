@@ -241,15 +241,16 @@ public class WOStarterPack extends WindowMain{
             var today:Date = new Date(g.user.day * 1000);
             if (g.user.level >= 5 && todayDailyGift.date != today.date) {
                 g.server.getDailyGift(null);
-            } else {
+            }
+            else {
 ////                g.managerCats.helloCats();
-                if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >=g. managerParty.dataPartyNowUse.countToGift[0] && (g.managerParty.dataPartyNowUse.typeParty == 1 || g.managerParty.dataPartyNowUse.typeParty == 2))
-                    g.managerParty.endPartyWindow();
-                else if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && g.allData.atlas['partyAtlas']) {
-                    g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
-                } else if (g.userTimer.partyToEndTimer <= 0 && g.managerParty.userParty && !g.managerParty.userParty.showWindow &&
-                        (g.managerParty.dataPartyNowUse.typeParty == 3 || g.managerParty.dataPartyNowUse.typeParty == 4)) g.managerParty.endPartyWindow();
+//               if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && g.allData.atlas['partyAtlas']) {
+//                    g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+//                } else if (g.userTimer.partyToEndTimer <= 0 && g.managerParty.userParty && !g.managerParty.userParty.showWindow &&
+//                        (g.managerParty.dataPartyNowUse.typeParty == 3 || g.managerParty.dataPartyNowUse.typeParty == 4)) g.managerParty.endPartyWindow();
 
+                if (g.managerParty.showEndWindow) g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE,null);
+                else if (g.managerParty.eventOn) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null);
             }
         }
      super.hideIt();

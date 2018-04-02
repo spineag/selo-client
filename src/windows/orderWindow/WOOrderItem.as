@@ -6,6 +6,7 @@ import com.greensock.TweenMax;
 import data.BuildType;
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
+import manager.ManagerPartyNew;
 
 import order.OrderItemStructure;
 import manager.Vars;
@@ -75,8 +76,8 @@ public class WOOrderItem {
 //        _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
         _txtXP = new CTextField(64, 30, "8888");
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
-            _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER)
+            _txtXP.setFormat(CTextField.BOLD18, 18, 0xcf342f, Color.WHITE);
             else _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXP.alignPivot();
         _txtXP.x = 68;
@@ -87,11 +88,11 @@ public class WOOrderItem {
         _coinsImage.alignPivot();
         _coinsImage.x = 26;
         _coinsImage.y = 69;
-        _coinsImage.filter = ManagerFilters.SHADOW_TINY;
+//        _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
         _txtCoins = new CTextField(64, 30, "8888");
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) 
-            _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER)
+            _txtCoins.setFormat(CTextField.BOLD18, 18, 0xcf342f, Color.WHITE);
             else _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCoins.alignPivot();
         _txtCoins.x = 68;
@@ -143,9 +144,9 @@ public class WOOrderItem {
         }
         if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
         else _txtName.text = _order.catOb.nameRU;
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.text = String(_order.xp * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER) _txtXP.text = String(_order.xp * g.managerParty.coefficient);
             else _txtXP.text = String(_order.xp);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.text = String(_order.coins * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER) _txtCoins.text = String(_order.coins * g.managerParty.coefficient);
             else _txtCoins.text = String(_order.coins);
 
         source.visible = true;
@@ -355,8 +356,6 @@ public class WOOrderItem {
 //        g.gameDispatcher.removeFromTimer(renderLeftTime);
 //        g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
         if (!source) return;
-//        _starImage.filter.dispose();
-        _coinsImage.filter.dispose();
         if (_txtName) {
             source.removeChild(_txtName);
             _txtName.deleteIt();

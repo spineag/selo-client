@@ -422,7 +422,6 @@ public class ManagerHelpers {
             (g.windowsManager.currentWindow as WOFabrica).addArrowForPossibleRawItems();
         }
         _isActiveHelper = false;
-        trace('ads');
         _curReason = false;
     }
 

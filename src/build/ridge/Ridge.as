@@ -14,6 +14,7 @@ import dragonBones.Slot;
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
 import manager.hitArea.ManagerHitArea;
 import media.SoundConst;
 import mouse.ToolsModifier;
@@ -168,9 +169,32 @@ public class Ridge extends WorldObject{
             d.addDropItemNew(_resourceItem, p);
             d.addDropItemNew(_resourceItem, p);
             d.addDropXP(_resourceItem.craftXP, p);
+            if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_THREE_GIFT_MORE_PLANT) {
+                for (i = 0; i < g.managerParty.idItemEvent.length; i++) {
+                    if (g.managerParty.idItemEvent[i] == _resourceItem.resourceID) {
+                        for (var j:int = 0; j < g.managerParty.coefficient; j++) {
+                            d.addDropItemNew(_resourceItem, p);
+                            g.managerParty.addUserPartyCount(1);
+                        }
+                        break;
+                    }
+                }
+            }
+
+            if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT) {
+                for (i = 0; i < g.managerParty.idItemEvent.length; i++) {
+                    if (g.managerParty.idItemEvent[i] == _resourceItem.resourceID) {
+                        g.managerParty.addUserPartyCount(2);
+                        break;
+                    }
+                }
+            }
+
             if (g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(p.x, p.y, d);
-            if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level && Math.random() <= .1)
+            if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT && g.allData.atlas['partyAtlas'] && Math.random() <= .1) {
                 d.addDropPartyResource(p);
+                g.managerParty.addUserPartyCount(1);
+            }
             d.releaseIt();
 
             onOut();

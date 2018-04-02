@@ -2,6 +2,8 @@
  * Created by user on 2/10/17.
  */
 package windows.partyWindow {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 import data.DataMoney;
 import flash.display.Bitmap;
@@ -9,92 +11,195 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import resourceItem.newDrop.DropObject;
 import starling.display.Image;
+import starling.display.Sprite;
+import starling.events.Event;
 import starling.textures.Texture;
+import starling.utils.Align;
 import starling.utils.Color;
+import starling.utils.Padding;
+
 import utils.CButton;
 import utils.CTextField;
+import utils.MCScaler;
+
+import windows.WOComponents.BackgroundYellowOut;
+
+import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 
 public class WOPartyWindowClose extends WindowMain{
-    private var _txtResource:CTextField;
-    private var _txtText:CTextField;
-    private var _txtTextNagrada:CTextField;
-    private var _txtBtn:CTextField;
-    private var _btnClose:CButton;
+    private var _woBG:WindowBackgroundNew;
+    private var _txtName:CTextField;
+    private var _txtDescription:CTextField;
+    private var _ava:Image;
+    private var _ramka:Image;
+    private var _countLoad:CTextField;
+    private var _countRating:CTextField;
+    private var _txtRating:CTextField;
+    private var _youWind:CTextField;
+    private var _arrItem:Array;
+    private var _srcItem:Sprite;
+    private var _bgYellow:BackgroundYellowOut;
+    private var _userParty:Object;
+    private var _dataParty:Object;
 
     public function WOPartyWindowClose() {
-        _woHeight = 451;
-        _woWidth = 695;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/end_event_picnic_window.png',onLoad);
-    }
+        _woHeight = 500;
+        _woWidth = 550;
+        _woBG = new WindowBackgroundNew(_woWidth, _woHeight, 115);
+        _source.addChild(_woBG);
+        _srcItem = new Sprite();
+        createExitButton(onClickExit);
+        _callbackClickBG = onClickExit;
+        _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[1206]));
+        _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
+        _txtName.x = -230;
+        _txtName.y = -218;
+        _source.addChild(_txtName);
 
-    private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/end_event_picnic_window.png'].create() as Bitmap;
-        photoFromTexture(Texture.fromBitmap(bitmap));
-    }
+        _txtDescription = new CTextField(520, 120, String(g.managerLanguage.allTexts[289]));
+        _txtDescription.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtDescription.x = -262;
+        _txtDescription.y = -140;
+        _source.addChild(_txtDescription);
 
-    private function photoFromTexture(tex:Texture):void {
-        var image:Image = new Image(tex);
-        image.pivotX = image.width/2;
-        image.pivotY = image.height/2;
-        _source.addChild(image);
-        createExitButton(hideIt);
-        _txtResource = new CTextField(701, 172, 'Вы собрали ' + g.managerParty.userParty.countResource + ' зефира.');
-        _txtResource.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
-//        _txtResource.alignH = Align.LEFT;
-        _txtResource.x = -350;
-        _txtResource.y = -115;
-        _source.addChild(_txtResource);
-        _txtText = new CTextField(701, 172, 'Событие "Майский Пикник" завершено.');
-        _txtText.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
-//        _txtText.alignH = Align.LEFT;
-        _txtText.x = -350;
-        _txtText.y = -150;
-        _source.addChild(_txtText);
+        _youWind = new CTextField(450, 70, String(g.managerLanguage.allTexts[1064]));
+        _youWind.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _youWind.alignH = Align.LEFT;
+        _youWind.y = 160;
+        _source.addChild(_youWind);
+        _arrItem = [];
+        _source.addChild(_srcItem);
 
-        _txtTextNagrada = new CTextField(701, 172, 'Награда была начислена!');
-        _txtTextNagrada.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
-//        _txtTextNagrada.alignH = Align.LEFT;
-        _txtTextNagrada.x = -350;
-        _txtTextNagrada.y = -80;
-        _source.addChild(_txtTextNagrada);
-//        var _quad:Quad = new Quad(3.2, 3, 0xfbaaa7);
-//        _quad.x = 75;
-//        _quad.y = 40;
-//        _source.addChild(_quad);
-        _btnClose = new CButton();
-        _btnClose.addButtonTexture(172, 45, CButton.GREEN, true);
-        _txtBtn = new CTextField(172, 45, "ОК");
-        _txtBtn.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btnClose.addChild(_txtBtn);
-        _btnClose.clickCallback = hideIt;
-        _btnClose.y = 200;
-        _source.addChild(_btnClose);
+        _bgYellow = new BackgroundYellowOut(520,130);
+        _bgYellow.x = -_bgYellow.width/2 + 5;
+        _bgYellow.y = -15;
+        _source.addChild(_bgYellow);
+
+        _txtRating = new CTextField(520, 120, 'В общем рейтинге игроков Вы заняли');
+        _txtRating.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+//        _txtRating.alignH = Align.LEFT;
+        _txtRating.x = -262;
+        _txtRating.y = -40;
+        _source.addChild(_txtRating);
+
+        _countRating = new CTextField(450, 90, '');
+        _countRating.setFormat(CTextField.BOLD72, 46, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _countRating.alignH = Align.LEFT;
+        _countRating.x = -_countRating.textBounds.width/2;
+        _countRating.y = 35;
+        _source.addChild(_countRating);
+
+
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        g.server.getRatingParty(g.managerParty.obEndEvent.id,false, whenLoadShow);
+    }
+
+    private function whenLoadShow ():void {
+        var party:PartyItem;
+        _dataParty = g.managerParty.obEndEvent;
+        for (var i:int = 0; i < g.managerParty.userParty.length; i++) {
+            if (g.managerParty.userParty[i].idParty == _dataParty.id) {
+                _userParty = g.managerParty.userParty[i];
+                break;
+            }
+        }
+        for (i= 0; i < _dataParty.countToGift.length; i++) {
+            if (_userParty.countResource >= _dataParty.countToGift[i]) {
+                party = new PartyItem(_dataParty.idGift[i], _dataParty.typeGift[i]);
+                party.source.x = i*55 + 5;
+                party.source.y = 165;
+                _arrItem.push(party);
+                _srcItem.addChild(party.source);
+            }
+        }
+        if (g.managerParty.getratingForEnd <= 3) {
+            party = new PartyItem(_dataParty.idDecorBest, _dataParty.typeDecorBest);
+            party.source.x = _arrItem.length*55 + 5;
+            party.source.y = 165;
+            _srcItem.addChild(party.source);
+        }
+        _countRating.text = _userParty.countResource;
+        _countRating.x = -_countRating.textBounds.width/2;
+        _youWind.x = ((_woWidth - (_youWind.textBounds.width + _srcItem.width)) - _woWidth)/2;
+        _srcItem.x = _youWind.x + _youWind.textBounds.width;
         super.showIt();
     }
 
     override public function hideIt():void {
+//        g.managerParty.addEndForShowWindow();
         var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         var d:DropObject = new DropObject();
-        for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
-            if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.countToGift[i] ) {
-                if (g.managerParty.typeGift[i] == BuildType.DECOR_ANIMATION || g.managerParty.typeGift[i] == BuildType.DECOR) 
-                    d.addDropDecor(g.allData.getBuildingById( g.managerParty.idGift[i]), p, g.managerParty.countGift[i]);
+        for (var i:int = 0; i < _userParty.tookGift.length; i++) {
+            if (!_userParty.tookGift[i] && _userParty.countResource >= _dataParty.countToGift[i]) {
+                if (_dataParty.typeGift[i] == BuildType.DECOR_ANIMATION || _dataParty.typeGift[i] == BuildType.DECOR)
+                    d.addDropDecor(g.allData.getBuildingById(_dataParty.idGift[i]), p, _dataParty.countGift[i]);
                 else {
-                    if (g.managerParty.idGift[i] == 1 && g.managerParty.typeGift[i] == 1) 
-                        d.addDropMoney(DataMoney.SOFT_CURRENCY, g.managerParty.countGift[i], p);
-                    else if (g.managerParty.idGift[i] == 2 && g.managerParty.typeGift[i] == 2) 
-                        d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerParty.countGift[i], p);
-                    else d.addDropItemNewByResourceId(g.managerParty.idGift[i], p, g.managerParty.countGift[i]);
+                    if (_dataParty.idGift[i] == 1 && _dataParty.typeGift[i] == 1)
+                        d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataParty.countGift[i], p);
+                    else if (_dataParty.idGift[i] == 2 && _dataParty.typeGift[i] == 2)
+                        d.addDropMoney(DataMoney.HARD_CURRENCY, _dataParty.countGift[i], p);
+                    else d.addDropItemNewByResourceId(_dataParty.idGift[i], p, _dataParty.countGift[i]);
                 }
+            }
+        }
+        if (g.managerParty.getratingForEnd <= 3) {
+            if (_dataParty.typeDecorBest == BuildType.DECOR_ANIMATION || _dataParty.typeDecorBest == BuildType.DECOR) d.addDropDecor(g.allData.getBuildingById(_dataParty.idDecorBest), p, _dataParty.countDecorBest);
+            else {
+                if (_dataParty.idDecorBest == 1 && _dataParty.typeDecorBest == 1)
+                    d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataParty.countDecorBest, p);
+                else if (_dataParty.idDecorBest == 2 && _dataParty.typeDecorBest == 2)
+                    d.addDropMoney(DataMoney.HARD_CURRENCY, _dataParty.countDecorBest, p);
+                else d.addDropItemNewByResourceId(_dataParty.idDecorBest, p, _dataParty.countDecorBest);
             }
         }
         d.releaseIt(null, false);
         super.hideIt();
     }
+
+    private function onClickExit(e:Event=null):void {
+        hideIt();
+    }
+
 }
+}
+
+import data.BuildType;
+
+import manager.Vars;
+
+import starling.display.Image;
+import starling.display.Sprite;
+
+import utils.MCScaler;
+
+
+internal class PartyItem {
+    private var g:Vars = Vars.getInstance();
+    public var source:Sprite;
+    private var _item:Image;
+
+    public function PartyItem(id:int, type:int) {
+        source = new Sprite();
+        if (id == 1 && type  == 1) {
+            _item = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+            source.addChild(_item);
+        } else if (id == 2 && type == 2) {
+            _item = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            source.addChild(_item);
+        }  else if (type == BuildType.RESOURCE || type == BuildType.INSTRUMENT || type == BuildType.PLANT) {
+            _item = new Image(g.allData.atlas[g.allData.getResourceById(id).url].getTexture(g.allData.getResourceById(id).imageShop));
+            source.addChild(_item);
+        } else if (type == BuildType.DECOR_ANIMATION) {
+            _item = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).url + '_icon'));
+            source.addChild(_item);
+        } else if (type == BuildType.DECOR || type == BuildType.DECOR_TAIL) {
+            _item = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image +'_icon'));
+            source.addChild(_item);
+        }
+        MCScaler.scale(_item, 55,55);
+    }
+
 }
