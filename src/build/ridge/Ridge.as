@@ -372,8 +372,8 @@ public class Ridge extends WorldObject{
     }
 
     public function updateRidgeHitArea():void {
-        if (_stateRidge == EMPTY) _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild', ManagerHitArea.TYPE_RIDGE);
-        else _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge), ManagerHitArea.TYPE_RIDGE, 2, 2);
+        if (_stateRidge == EMPTY) _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild');
+        else _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge));
         _source.registerHitArea(_hitArea);
     }
 

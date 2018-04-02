@@ -34,7 +34,7 @@ public class Sklad extends WorldObject{
     private function onCreateBuild():void {
         if (!g.isAway) {
             _source.endClickCallback = onClick;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'sklad', ManagerHitArea.TYPE_LOADED);
+            _hitArea = g.managerHitArea.getHitArea(_source, 'sklad');
             _source.registerHitArea(_hitArea);
             WorldClock.clock.add(_armature);
         }

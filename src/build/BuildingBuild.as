@@ -26,11 +26,8 @@ public class BuildingBuild {
         armatureClip = armature.display as StarlingArmatureDisplay;
         source.addChild(armatureClip);
         WorldClock.clock.add(armature);
-        if (st == 'work') {
-            workAnimation();
-        } else {
-            doneAnimation();
-        }
+        if (st == 'work') workAnimation();
+        else doneAnimation();
     }
 
     public function workAnimation():void {

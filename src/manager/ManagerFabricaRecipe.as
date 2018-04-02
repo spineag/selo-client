@@ -46,7 +46,7 @@ public class ManagerFabricaRecipe {
         }
         var r:StructureDataRecipe = g.allData.getRecipeById(int(ob.recipe_id));
         resItem.fillIt(g.allData.getResourceById(r.idResource));
-        resItem.idFromServer = ob.id;
+        resItem.idFromServer = String(ob.id);
         if (int(ob.delay) > int(ob.time_work)) {
             curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), 0, int(ob.delay) - int(ob.time_work), int(ob.delay));
         } else if (int(ob.delay) + resItem.buildTime <= int(ob.time_work)) {

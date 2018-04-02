@@ -1187,11 +1187,8 @@ public class TownArea extends Sprite {
             }
         }
         if (build is Tree) (build as Tree).removeShopView();
-        if (build is DecorTail) {
-            pasteTailBuild(build as DecorTail, _x, _y);
-        } else {
-            pasteBuild(build, _x, _y);
-        }
+        if (build is DecorTail) pasteTailBuild(build as DecorTail, _x, _y);
+            else pasteBuild(build, _x, _y);
         if (build is Fabrica) (build as Fabrica).removeShopView();
         if (build is DecorFenceGate) (build as DecorFenceGate).removeFullView();
         if (build is DecorFenceArka) (build as DecorFenceArka).removeFullView();

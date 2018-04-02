@@ -56,7 +56,7 @@ public class Order extends WorldObject{
         _source.hoverCallback = onHover;
         if (!g.isAway) _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'order_area');
         _source.registerHitArea(_hitArea);
         if (!_hintCheck) _hintCheck = _armature.getBone('top');
         var b:Bone;

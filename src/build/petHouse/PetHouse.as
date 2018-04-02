@@ -45,7 +45,7 @@ public class PetHouse extends WorldObject {
         if (!g.isAway) _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-        _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image, ManagerHitArea.TYPE_CREATE);
+        _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image);
         _source.registerHitArea(_hitArea);
     }
 
@@ -53,7 +53,7 @@ public class PetHouse extends WorldObject {
         WorldClock.clock.add(_armature);
         stopAnimation();
         if (_source) {
-            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_CREATE);
+            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url);
             _source.registerHitArea(_hitArea);
         }
         if (_arrCraftedItems.length) _craftSprite.visible = true;

@@ -88,7 +88,7 @@ public class CButton extends Sprite {
     public function set hoverCallback(f:Function):void { _hoverCallback = f; }
     public function set outCallback(f:Function):void { _outCallback = f; }
     public function set onMovedCallback(f:Function):void { _onMovedCallback = f; }
-    public function createHitArea(name:String):void { _hitArea = g.managerHitArea.getHitArea(this, name, ManagerHitArea.TYPE_CREATE); }
+    public function createHitArea(name:String):void { _hitArea = g.managerHitArea.getHitArea(this, name); }
     public function setPivots():void {  this.alignPivot(); }
     public function addDisplayObject(d:DisplayObject):void { _bg.addChild(d); }
 

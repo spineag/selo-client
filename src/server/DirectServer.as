@@ -1201,8 +1201,6 @@ public class DirectServer {
         } catch (e:Error) {
             Cc.error('addUserXP: wrong JSON:' + String(response));
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-
             if (callback != null) {
                 callback.apply(null, [false]);
             }
@@ -1220,7 +1218,6 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('addUserXP: id: ' + d.id + '  with message: ' + d.message + d.status + ' '+ d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: id: ' + d.id + '  with message: ' + d.message);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
             if (callback != null) {
                 callback.apply(null, [false]);

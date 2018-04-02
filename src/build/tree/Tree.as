@@ -92,9 +92,8 @@ public class Tree extends WorldObject {
             _fruit4 = _armature.getBone('fruit4');
             setBuildImage();
             if (_needShopView) showShopView();
-            var quad:Quad = new Quad(20, 20);
-            quad = new Quad(20, 20, Color.AQUA);
-            quad.y = -(_source.y - _source.height / 2);
+            var q:Quad = new Quad(20, 20, Color.AQUA);
+            q.y = -(_source.y - _source.height / 2);
         }
     }
 
@@ -109,7 +108,7 @@ public class Tree extends WorldObject {
     }
 
     public function releaseTreeFromServer(ob:Object):void {
-        tree_db_id = ob.id;
+        tree_db_id = String(ob.id);
         _wateringUserSocialId = ob.fixed_user_id;
         ob.time_work = int(ob.time_work);
         _craftedCountFromServer = int(ob.crafted_count);
@@ -194,28 +193,28 @@ public class Tree extends WorldObject {
         switch (_state) {
             case GROW1:
                 _armature.animation.gotoAndStopByFrame("small");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER1:
                 _armature.animation.gotoAndStopByFrame("small_flower");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED1:
                 _armature.animation.gotoAndStopByFrame("small_fruits");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 2;
                 break;
             case GROW2:
                 _armature.animation.gotoAndStopByFrame("middle");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER2:
                 _armature.animation.gotoAndStopByFrame("middle_flower");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED2:
@@ -226,18 +225,18 @@ public class Tree extends WorldObject {
                 _armature.addBone(_fruit3);
                 _fruit2.visible = true;
                 _armature.animation.gotoAndStopByFrame("middle_fruits");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 3;
                 break;
             case GROW3:
                 _armature.animation.gotoAndStopByFrame("big");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER3:
                 _armature.animation.gotoAndStopByFrame("big_flower");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED3:
@@ -250,38 +249,38 @@ public class Tree extends WorldObject {
                 _armature.addBone(_fruit4);
                 _fruit4.visible = true;
                 _armature.animation.gotoAndStopByFrame("big_fruits");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
                 break;
             case DEAD:
                 _armature.animation.gotoAndStopByFrame("dead");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2');
                 _source.registerHitArea(_hitArea);
                 break;
             case FULL_DEAD:
                 _armature.animation.gotoAndStopByFrame("dead");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2');
                 _source.registerHitArea(_hitArea);
                 break;
             case ASK_FIX:
                 _armature.animation.gotoAndStopByFrame("dead");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2');
                 _source.registerHitArea(_hitArea);
                 break;
             case FIXED:
                 _armature.animation.gotoAndStopByFrame("dead");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED:
                 _armature.animation.gotoAndStopByFrame("big");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED_FLOWER:
                 _armature.animation.gotoAndStopByFrame("big_flower");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED_FIXED:
@@ -294,7 +293,7 @@ public class Tree extends WorldObject {
                 _armature.addBone(_fruit4);
                 _fruit4.visible = true;
                 _armature.animation.gotoAndStopByFrame("big_fruits");
-                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
                 break;

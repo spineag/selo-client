@@ -148,7 +148,7 @@ public class DecorFenceGate extends WorldObject {   // vorota
             _source.endClickCallback = onClick;
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image + '_1', ManagerHitArea.TYPE_FROM_ATLAS); // remake for hitArea !!
+            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image + '_1'); // remake for hitArea !!
             _source.registerHitArea(_hitArea);
         }
     }

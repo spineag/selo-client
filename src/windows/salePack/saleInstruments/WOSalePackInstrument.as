@@ -205,7 +205,7 @@ public class WOSalePackInstrument extends WindowMain{
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-            g.socialNetwork.showOrderWindow({id: 14, price: int(g.managerSalePack.dataSale.newCost)});
+            g.socialNetwork.showOrderWindow({id: 14, price: int(g.managerSalePack.dataSale.newCost), type:'sale_pack'});
             Cc.info('try to buy packId: ' + 14);
         }
     }

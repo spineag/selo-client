@@ -117,13 +117,13 @@ public class WOBuyCurrencyItem {
         _isActiveClick = true;
         if (g.isDebug) {
             onBuy();
-            g.socialNetwork.showOrderWindow({id: _packId});
+            g.socialNetwork.showOrderWindow({id: _packId, type:'item'});
         } else {
             if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) g.optionPanel.makeFullScreen();
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-            g.socialNetwork.showOrderWindow({id: _packId});
+            g.socialNetwork.showOrderWindow({id: _packId, type:'item'});
             Cc.info('try to buy packId: ' + _packId);
         }
     }

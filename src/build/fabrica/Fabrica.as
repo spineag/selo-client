@@ -44,6 +44,7 @@ public class Fabrica extends WorldObject {
     private var _armatureOpen:Armature;
     private var _countAnimation:int;
     private var _callOnRandomWork:Function;
+    private var _isShopView:Boolean;
 
     public function Fabrica(_data:Object) {
         super(_data);
@@ -53,15 +54,13 @@ public class Fabrica extends WorldObject {
             return;
         }
         if (!_dataBuild.countCell) _dataBuild.countCell = g.allData.getBuildingById(_dataBuild.id).startCountCell;
+        _isShopView = false;
         _arrRecipes = [];
         _arrList = [];
         _arrCrafted = [];
         _craftSprite = new Sprite();
-        if (g.isAway) {
-            g.cont.craftAwayCont.addChild(_craftSprite);
-        } else {
-            g.cont.craftCont.addChild(_craftSprite);
-        }
+        if (g.isAway) g.cont.craftAwayCont.addChild(_craftSprite);
+        else g.cont.craftCont.addChild(_craftSprite);
         _buildingBuildSprite = new Sprite();
         _source.addChild(_buildingBuildSprite);
         checkBuildState();
@@ -81,70 +80,64 @@ public class Fabrica extends WorldObject {
     }
 
     private function checkBuildState():void {
-//        try {
-            if (g.isAway) {
+        if (g.isAway) {
+            _stateBuild = STATE_ACTIVE;
+            createAnimatedBuild(onCreateBuild);
+        } else {
+            if (g.user.userBuildingData[_dataBuild.id]) {
+                if (g.user.userBuildingData[_dataBuild.id].isOpen) {
+                    _stateBuild = STATE_ACTIVE;
+                    createAnimatedBuild(onCreateBuild);                                                     // уже построенно и открыто
+                } else {
+                    _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding); // сколько времени уже строится
+                    var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
+                    _leftBuildTime = int(_dataBuild.buildTime[arr.length]) - _leftBuildTime;        // сколько времени еще до конца стройки
+                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                        _stateBuild = STATE_WAIT_ACTIVATE;
+                        animationYouCanOpen();
+                        addDoneBuilding();
+                    } else {  // еще строится
+                        _stateBuild = STATE_BUILD;
+                        addFoundationBuilding();
+                        g.gameDispatcher.addToTimer(renderBuildProgress);
+                    }
+                }
+            } else {
                 _stateBuild = STATE_ACTIVE;
                 createAnimatedBuild(onCreateBuild);
-            } else {
-                if (g.user.userBuildingData[_dataBuild.id]) {
-                    if (g.user.userBuildingData[_dataBuild.id].isOpen) {
-                        _stateBuild = STATE_ACTIVE;
-                        createAnimatedBuild(onCreateBuild);                                                     // уже построенно и открыто
-                    } else {
-                        _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding); // сколько времени уже строится
-                        var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
-                        _leftBuildTime = int(_dataBuild.buildTime[arr.length]) - _leftBuildTime;        // сколько времени еще до конца стройки
-                        if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
-                            _stateBuild = STATE_WAIT_ACTIVATE;
-                            animationYouCanOpen();
-                            addDoneBuilding();
-                        } else {  // еще строится
-                            _stateBuild = STATE_BUILD;
-                            addFoundationBuilding();
-                            g.gameDispatcher.addToTimer(renderBuildProgress);
-                        }
-                    }
-                } else {
-                    _stateBuild = STATE_ACTIVE;
-                    createAnimatedBuild(onCreateBuild);
-                }
             }
-//        } catch (e:Error) {
-//            Cc.error('Fabric checkBuildState:: error: ' + e.errorID + ' - ' + e.message);
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'Fabric checkBuildState');
-//        }
+        }
     }
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        if (_arrList.length) workAloneAnimation();
-            else stopAnimation();
-        if (_source) {
-            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
-            _source.registerHitArea(_hitArea);
+        if (!_isShopView) {
+            if (_arrList.length) workAloneAnimation();  else stopAnimation();
+            if (_source) {
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url);
+                _source.registerHitArea(_hitArea);
+            }
         }
     }
 
     public function showShopView():void {
+        _isShopView = true;
         _buildingBuildSprite.visible = false;
         createAnimatedBuild(onCreateBuild);
     }
 
     public function removeShopView():void {
+        _isShopView = false;
         if (_build) {
             if (_source.contains(_build)) _source.removeChild(_build);
             while (_build.numChildren) _build.removeChildAt(0);
         }
         _buildingBuildSprite.visible = true;
-        _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        if (_rect.width) {
-            _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
-            _source.registerHitArea(_hitArea);
-            if (g.isAway) _source.endClickCallback = null;
-            if (!g.isAway) _source.endClickCallback = onClick;
-            _source.hoverCallback = onHover;
-            _source.outCallback = onOut;
-        }
+        addFoundationBuilding();
+        if (g.isAway) _source.endClickCallback = null;
+        if (!g.isAway) _source.endClickCallback = onClick;
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
     }
 
     override public function onHover():void {

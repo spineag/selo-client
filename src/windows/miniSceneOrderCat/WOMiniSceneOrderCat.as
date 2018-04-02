@@ -134,7 +134,7 @@ public class WOMiniSceneOrderCat extends WindowMain{
             _callback.apply(null, [_dataCat]);
         }
         super.hideIt();
-        g.windowsManager.openWindow(WindowsManager.WO_ORDERS,null,_dataCat);
+        if (!g.managerCutScenes.isCutScene) g.windowsManager.openWindow(WindowsManager.WO_ORDERS,null,_dataCat);
     }
 
     override protected function deleteIt():void {

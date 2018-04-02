@@ -378,7 +378,7 @@ public class WorldObject {
         }
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild', ManagerHitArea.TYPE_LOADED);
+        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuildDone');
         _source.registerHitArea(_hitArea);
     }
 
@@ -395,17 +395,11 @@ public class WorldObject {
     }
 
     private function addFoundationBuilding1():void {
-        if (!_buildingBuild) {
-            _buildingBuild = new BuildingBuild('work');
-        } else {
-            _buildingBuild.workAnimation();
-        }
+        if (!_buildingBuild) _buildingBuild = new BuildingBuild('work');
+            else _buildingBuild.workAnimation();
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-//        var isVisible:Boolean = _buildingBuildSprite.visible;
-//        _buildingBuildSprite.visible = true;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild', ManagerHitArea.TYPE_LOADED);
-//        _buildingBuildSprite.visible = isVisible;
+        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
         _source.registerHitArea(_hitArea);
     }
 
