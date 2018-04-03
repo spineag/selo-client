@@ -125,7 +125,7 @@ public class WOPartyWindowItem {
         if (int(g.managerParty.userParty[0].countResource) < countToGift) _txtCountUser.setFormat(CTextField.BOLD30, 30,0xcf342f,Color.WHITE);
         else _txtCountUser.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR,Color.WHITE);
         _txtCountUser.alignH = Align.LEFT;
-        _txtCountUser.x = 325;
+        _txtCountUser.x = 320;
         _txtCountUser.y = 35;
         source.addChild(_txtCountUser);
 
@@ -136,7 +136,10 @@ public class WOPartyWindowItem {
         _txtCountToGift.y = 35;
         source.addChild(_txtCountToGift);
 
+        var myPattern:RegExp = /count/;
+        var str:String =  String(g.managerLanguage.allTexts[g.managerParty.textIdItem]);
         _txtDescription = new CTextField(400,100,String(g.managerLanguage.allTexts[g.managerParty.textIdItem]));
+        _txtDescription.text = String(str.replace(myPattern, String(countToGift)));
         _txtDescription.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtDescription.alignH = Align.CENTER;
         _txtDescription.x = 150;

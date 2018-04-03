@@ -340,7 +340,7 @@ public class WOLevelUp extends WindowMain {
             arr[0].showArrow(120);
         } else if (g.user.level == 5) g.bottomPanel.friendBtnVisible(true);
         if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
-//        g.managerParty.checkAndCreateIvent();
+        g.managerParty.checkAndCreateIvent();
 //        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
     }
 

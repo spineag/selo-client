@@ -2,9 +2,20 @@
  * Created by user on 1/30/17.
  */
 package windows.partyWindow {
+import build.fabrica.Fabrica;
+import build.farm.Farm;
+import build.market.Market;
+import build.orders.Order;
+import build.train.Train;
+
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.StructureDataAnimal;
+import data.StructureDataRecipe;
+
 import flash.geom.Point;
+import flash.trace.Trace;
+
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
 import manager.ManagerPartyNew;
@@ -25,6 +36,7 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
+import utils.Utils;
 
 import windows.WOComponents.BackgroundMilkIn;
 import windows.WOComponents.BackgroundQuest;
@@ -106,12 +118,13 @@ public class WOPartyWindow extends WindowMain {
 
         _scrollSprite = new DefaultVerticalScrollSprite(700, 230, 700, 115);
         _scrollSprite.source.x = - 370;
-        _scrollSprite.createScoll(720, 0, 260, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        _scrollSprite.createScoll(720, 0, 220, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
 //        _sprItem.addChild(_scrollSprite.source);
         if (g.allData.atlas['partyAtlas']) {
             _tabs = new PartyTabs(_source,callbackTab);
             createEventWO(false);
-            ratingWO();
+            g.server.getRatingParty(g.managerParty.dataPartyNowUse.id,true, ratingWO);
+//            ratingWO();
         } else g.gameDispatcher.addEnterFrame(afterAtlas);
     }
 
@@ -120,7 +133,8 @@ public class WOPartyWindow extends WindowMain {
             g.gameDispatcher.removeEnterFrame(afterAtlas);
             _tabs = new PartyTabs(_source,callbackTab);
             createEventWO(false);
-            ratingWO();
+            g.server.getRatingParty(g.managerParty.dataPartyNowUse.id,true, ratingWO);
+//            ratingWO();
         }
     }
 
@@ -225,7 +239,7 @@ public class WOPartyWindow extends WindowMain {
             _txtTime.y = -65;
             _btnOK = new CButton();
             _btnOK.addButtonTexture(140, CButton.HEIGHT_41, CButton.BLUE, true);
-            _btnOK.addTextField(140, 38, 0, -5, String(g.managerLanguage.allTexts[308]));
+            _btnOK.addTextField(140, 38, 0, -5, String(g.managerLanguage.allTexts[312]));
             _btnOK.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
             _btnOK.y = 270;
             _sprEvent.addChild(_btnOK);
@@ -234,7 +248,7 @@ public class WOPartyWindow extends WindowMain {
             _txtPrev = new CTextField(755, 200, String(g.managerLanguage.allTexts[g.managerParty.prevMain]));
             _txtPrev.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_LIGHT_NEW);
             _txtPrev.x = -383;
-            _txtPrev.y = -260;
+            _txtPrev.y = -255;
             _sprEvent.addChild(_txtPrev);
             _txtDescription = new CTextField(755, 200, String(g.managerLanguage.allTexts[g.managerParty.descriptionMain]));
             _txtDescription.setFormat(CTextField.BOLD30, 30,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
@@ -307,7 +321,7 @@ public class WOPartyWindow extends WindowMain {
         else if (_arrRating.length == 4) _contClipRect.x = -250;
         else  _contClipRect.x = -_bgRedRating.width / 2 + 85;
         if (g.managerParty.playerPosition > 20) {
-            item = new WOPartyRatingFriendItem(g.managerParty.arrBestPlayers[i], i + 1, true);
+            item = new WOPartyRatingFriendItem(null, g.managerParty.playerPosition, true);
             item.source.x = 260;
             item.source.y = 155;
             _sprRating.addChild(item.source);
@@ -334,6 +348,7 @@ public class WOPartyWindow extends WindowMain {
             _sprRating.addChild(_arrowRightRating);
             checkArrows();
         }
+        checkSocialInfoForArray();
         _txtBestGiftRating = new CTextField(200, 120, String(g.managerLanguage.allTexts[g.managerParty.giftRating]));
         _txtBestGiftRating.x = 140;
         _txtBestGiftRating.y = -100;
@@ -409,8 +424,8 @@ public class WOPartyWindow extends WindowMain {
 
     private function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
-        for (var i:int = 0; i < _arrItemRating.length; i++) {
-            (_arrItemRating[i] as WOPartyRatingFriendItem).updateAvatar();
+        for (var i:int = 0; i < _arrRating.length; i++) {
+            (_arrRating[i] as WOPartyRatingFriendItem).updateAvatar();
         }
     }
 
@@ -421,16 +436,39 @@ public class WOPartyWindow extends WindowMain {
             case ManagerPartyNew.EVENT_MORE_COINS_ORDER:
                     arr = g.townArea.getCityObjectsByType(BuildType.ORDER);
                     arr[0].showArrow(120);
+                    g.cont.moveCenterToPos((arr[0] as Order).posX, (arr[0] as Order).posY, false, .5);
                 break;
             case ManagerPartyNew.EVENT_MORE_XP_ORDER:
                 arr = g.townArea.getCityObjectsByType(BuildType.ORDER);
                 arr[0].showArrow(120);
+                g.cont.moveCenterToPos((arr[0] as Order).posX, (arr[0] as Order).posY, false, .5);
                 break;
             case ManagerPartyNew.EVENT_MORE_COINS_MARKET:
                 arr = g.townArea.getCityObjectsByType(BuildType.MARKET);
                 arr[0].showArrow(120);
+                g.cont.moveCenterToPos((arr[0] as Market).posX, (arr[0] as Market).posY, false, .5);
                 break;
             case ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA:
+                arr = g.townArea.getCityObjectsByType(BuildType.TRAIN);
+                arr[0].showArrow(120);
+                g.cont.moveCenterToPos((arr[0] as Train).posX, (arr[0] as Train).posY, false, .5);
+                break;
+            case ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT:
+                if (g.allData.getResourceById(g.managerParty.idItemEvent[0]).buildType == BuildType.RESOURCE) {
+                    var obj:Object;
+                    obj = Utils.objectFromStructureAnimaToObject(g.allData.getAnimalByResourceId(g.managerParty.idItemEvent[0]));
+                    if (!obj) {
+                        obj = Utils.objectFromStructureDataRecipeToObject(g.allData.getRecipeByResourceId(g.managerParty.idItemEvent[0]));
+                        arr = g.townArea.getCityObjectsById(obj.buildingId);
+                        g.cont.moveCenterToPos((arr[0] as Fabrica).posX, (arr[0] as Fabrica).posY, false, .5);
+                    } else {
+                        arr = g.townArea.getCityObjectsById(obj.buildId);
+                        g.cont.moveCenterToPos((arr[0] as Farm).posX, (arr[0] as Farm).posY, false, .5);
+                    }
+                    arr[0].showArrow(120);
+                } else if (g.allData.getResourceById(g.managerParty.idItemEvent[0]).buildType == BuildType.PLANT) {
+
+                }
                 arr = g.townArea.getCityObjectsByType(BuildType.TRAIN);
                 arr[0].showArrow(120);
                 break;

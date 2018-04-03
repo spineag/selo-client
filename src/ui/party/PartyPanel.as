@@ -40,8 +40,8 @@ public class PartyPanel {
 
     public function onResize():void {
         if (!_source) return;
-        _source.y = 180;
-        _source.x = g.managerResize.stageWidth - 65;
+        _source.y = 120;
+        _source.x = g.managerResize.stageWidth - 140;
     }
 
     private function startTimer():void {
@@ -64,7 +64,7 @@ public class PartyPanel {
     private function onHover():void {
         if (_isHover) return;
         _isHover = true;
-        g.hint.showIt(String(g.managerLanguage.allTexts[497]),'none', _source.x);
+        g.hint.showIt(String(g.managerLanguage.allTexts[g.managerParty.nameMain]),'none', _source.x);
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
     }
 

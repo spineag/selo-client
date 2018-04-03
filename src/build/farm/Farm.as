@@ -12,6 +12,7 @@ import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
 import manager.hitArea.ManagerHitArea;
 import mouse.ToolsModifier;
 import particle.FarmFeedParticles;

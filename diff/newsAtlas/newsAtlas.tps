@@ -194,6 +194,8 @@
         <array>
             <filename>screen-1_vk_ok.png</filename>
             <filename>screen-2.png</filename>
+            <filename>order_2xp.png</filename>
+            <filename>easter_news_vk.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

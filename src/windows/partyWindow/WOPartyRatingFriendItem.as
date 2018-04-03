@@ -171,6 +171,7 @@ public class WOPartyRatingFriendItem {
             _ava = null;
             _imRamka.dispose();
             _imRamka = null;
+            source.removeChild(_srcAva);
         }
         _srcAva = new CSprite();
         source.addChild(_srcAva);
@@ -185,6 +186,7 @@ public class WOPartyRatingFriendItem {
         else if ( _personS.userId == g.user.userId) _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame_blue'));
         else  _imRamka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
         _srcAva.addChild(_imRamka);
+        source.addChildAt(_srcAva,0);
         if (_data.userSocialId != g.user.userSocialId) {
             _srcAva.endClickCallback = visitPerson;
             _srcAva.hoverCallback = function ():void {

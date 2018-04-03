@@ -207,10 +207,8 @@
             <filename>arch_heart_icon.png</filename>
             <filename>arch_white_heart_icon.png</filename>
             <filename>arch_white_icon.png</filename>
-            <filename>bakery_icon.png</filename>
             <filename>balabas</filename>
             <filename>barrel_icon.png</filename>
-            <filename>bbq_grill_icon.png</filename>
             <filename>beach_chair</filename>
             <filename>beehive_icon.png</filename>
             <filename>bird_house_icon.png</filename>
@@ -221,7 +219,6 @@
             <filename>bridge_icon.png</filename>
             <filename>builds</filename>
             <filename>cactus_round</filename>
-            <filename>cake_icon.png</filename>
             <filename>camping_fire_icon.png</filename>
             <filename>camping_tent_green_icon.png</filename>
             <filename>camping_tent_yellow_icon.png</filename>
@@ -239,14 +236,12 @@
             <filename>cone_3_icon.png</filename>
             <filename>cone_4_icon.png</filename>
             <filename>cone_5_icon.png</filename>
-            <filename>confectionery_icon.png</filename>
             <filename>copper_bench_icon.png</filename>
             <filename>corn_fabric_icon.png</filename>
             <filename>cow_icon.png</filename>
             <filename>cupidon_statue_blue_icon.png</filename>
             <filename>cupidon_statue_pink_icon.png</filename>
             <filename>cycle_flower_icon.png</filename>
-            <filename>dairy_icon.png</filename>
             <filename>dandelion_blue_icon.png</filename>
             <filename>dandelion_green_icon.png</filename>
             <filename>dandelion_orange_icon.png</filename>
@@ -264,6 +259,7 @@
             <filename>easter_egg_yellow_icon.png</filename>
             <filename>easter_gnome_icon.png</filename>
             <filename>easter_tree_icon.png</filename>
+            <filename>factorys</filename>
             <filename>farm_bee_icon.png</filename>
             <filename>farm_chicken_icon.png</filename>
             <filename>farm_cow_icon.png</filename>
@@ -271,7 +267,6 @@
             <filename>farm_pig_icon.png</filename>
             <filename>farm_sheep_icon.png</filename>
             <filename>farming_table_icon.png</filename>
-            <filename>feed_mill_icon.png</filename>
             <filename>fir_1_icon.png</filename>
             <filename>fir_2_icon.png</filename>
             <filename>fir_3_icon.png</filename>
@@ -291,7 +286,6 @@
             <filename>fountain_pink_icon.png</filename>
             <filename>fountain_small_icon.png</filename>
             <filename>fountain_top_icon.png</filename>
-            <filename>fryer_icon.png</filename>
             <filename>garden_gnome_blue_hat_icon.png</filename>
             <filename>garden_gnome_coin_icon.png</filename>
             <filename>garden_gnome_red_hat_icon.png</filename>
@@ -306,15 +300,10 @@
             <filename>grape_gnome_icon.png</filename>
             <filename>hammock_icon.png</filename>
             <filename>hay_icon.png</filename>
-            <filename>ice_cream_maker_icon.png</filename>
-            <filename>jam_machine_icon.png</filename>
-            <filename>jeweler_icon.png</filename>
-            <filename>juice_press_icon.png</filename>
             <filename>kakao_icon.png</filename>
             <filename>kiss_bench_icon.png</filename>
             <filename>lemon_icon.png</filename>
             <filename>logs_icon.png</filename>
-            <filename>loom_icon.png</filename>
             <filename>love_tree_icon.png</filename>
             <filename>maslenitsa_statue_icon.png</filename>
             <filename>mushroom_house_1_icon.png</filename>
@@ -327,7 +316,6 @@
             <filename>pets_house</filename>
             <filename>picnic</filename>
             <filename>picnic_table_icon.png</filename>
-            <filename>pie_oven_icon.png</filename>
             <filename>pier_icon.png</filename>
             <filename>pig_icon.png</filename>
             <filename>pumpkin_1_icon.png</filename>
@@ -341,8 +329,6 @@
             <filename>shovel_icon.png</filename>
             <filename>sklad_icon.png</filename>
             <filename>sled_icon.png</filename>
-            <filename>smelter_icon.png</filename>
-            <filename>smoke_house_icon.png</filename>
             <filename>snowdrop_icon.png</filename>
             <filename>snowman_icon.png</filename>
             <filename>star_event_winner_icon.png</filename>
@@ -352,7 +338,6 @@
             <filename>street_lantern_icon.png</filename>
             <filename>street_light_red_icon.png</filename>
             <filename>street_light_wooden2_icon.png</filename>
-            <filename>sugar_mill_icon.png</filename>
             <filename>sunflower</filename>
             <filename>swamp_5x5_icon.png</filename>
             <filename>swamp_small_icon.png</filename>
@@ -361,7 +346,6 @@
             <filename>tail_usa_2_icon.png</filename>
             <filename>teleskope_icon.png</filename>
             <filename>tent</filename>
-            <filename>toy_factory_icon.png</filename>
             <filename>track_autumn_1_icon.png</filename>
             <filename>track_autumn_icon.png</filename>
             <filename>track_blue_cross_icon.png</filename>
@@ -399,7 +383,6 @@
             <filename>white_fence_icon.png</filename>
             <filename>witch_pot</filename>
             <filename>wood_bench_icon.png</filename>
-            <filename>yogurt_machine_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -123,18 +123,18 @@ public class ManagerQuest {
             var q:QuestStructure;
             var i:int;
             for (i=0; i<d.quests.length; i++) {
-                // Включить два квеста добавления в группу
-//                if (int(d.quests[i].quest_id) != ADD_TO_GROUP ) {//&& int(d.quests[i].quest_id) != ADD_LEFT_MENU) {
-//                    if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) {
-//                        Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
-//                        continue;
-//                    }
-//                }
-//
-                if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) {
-                    Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
-                    continue;
+//                 Включить два квеста добавления в группу
+                if (int(d.quests[i].quest_id) != ADD_TO_GROUP ) {//&& int(d.quests[i].quest_id) != ADD_LEFT_MENU) {
+                    if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) {
+                        Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
+                        continue;
+                    }
                 }
+//
+//                if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) {
+//                    Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
+//                    continue;
+//                }
                 q = getUserQuestById(int(d.quests[i].id));
                 if (q) {
                     Cc.info('QuestStructure addQuest:: already has quest with id: ' + d.quests[i].id);

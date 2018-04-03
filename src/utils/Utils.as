@@ -8,6 +8,8 @@ import data.StructureDataAnimal;
 
 import data.StructureDataBuilding;
 import data.StructureDataPet;
+import data.StructureDataRecipe;
+import data.StructureDataResource;
 
 import flash.events.TimerEvent;
 import flash.net.URLRequest;
@@ -245,6 +247,20 @@ public class Utils {
         if (oldOb.costRed) newOb.cost.push(oldOb.costRed);
         if (oldOb.costGreen) newOb.cost.push(oldOb.costGreen);
         if (oldOb.costYellow) newOb.cost.push(oldOb.costYellow);
+        return newOb;
+    }
+
+    public static function objectFromStructureDataRecipeToObject(oldOb:StructureDataRecipe):Object {
+        var newOb:Object = {};
+        newOb.id = int(oldOb.id);
+        newOb.idResource = int(oldOb.idResource);
+        newOb.numberCreate = int(oldOb.numberCreate);
+        newOb.ingridientsId = oldOb.ingridientsId;
+        newOb.ingridientsCount = oldOb.ingridientsCount;
+        newOb.buildingId = int(oldOb.buildingId);
+        newOb.priceSkipHard = int(oldOb.priceSkipHard);
+        if (oldOb.blockByLevel) newOb.blockByLevel = oldOb.blockByLevel;
+        if (oldOb.buildType) newOb.buildType = oldOb.buildType;
         return newOb;
     }
 

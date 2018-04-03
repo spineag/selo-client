@@ -7036,6 +7036,12 @@ public class DirectServer {
             obj.id = d.message[i].id;
             obj.timeToStart = d.message[i].time_to_start;
             obj.timeToEnd = d.message[i].time_to_end;
+//            if (i == 2) {
+//                obj.timeToStart = TimeUtils.currentSeconds - 50;
+//                obj.timeToEnd = TimeUtils.currentSeconds + 666;
+//            }
+
+
             obj.levelToStart = int(d.message[i].level_to_start);
             obj.coefficient = int(d.message[i].coefficient);
             obj.typeParty = int(d.message[i].type_party);

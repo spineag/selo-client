@@ -10,6 +10,7 @@ import data.StructureDataRecipe;
 
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
 import manager.Vars;
 import mouse.ToolsModifier;
 import particle.CraftItemParticle;
@@ -139,12 +140,22 @@ public class CraftItem {
         if (_callback != null) {
             _callback.apply(null, [_resourceItem, this]);
         }
+        var i:int = 0;
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT) {
+            for (i = 0; i < g.managerParty.idItemEvent.length; i++) {
+                if (g.managerParty.idItemEvent[i] == _resourceItem.resourceID) {
+                    g.managerParty.addUserPartyCount(1);
+                    break;
+                }
+            }
+        }
+
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         var drop:DropObject = new DropObject();
         if (_checkCount) { // use for fabrica for animal eat
             var r:StructureDataRecipe = g.allData.getRecipeByResourceId(_resourceItem.resourceID);
-            for (var i:int=0; i<r.numberCreate; i++) {
+            for (i = 0; i<r.numberCreate; i++) {
                 drop.addDropItemNew(_resourceItem, start);
             }
         } else drop.addDropItemNew(_resourceItem, start);

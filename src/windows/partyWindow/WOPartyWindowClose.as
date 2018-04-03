@@ -26,6 +26,7 @@ import windows.WOComponents.BackgroundYellowOut;
 
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
+import windows.WindowsManager;
 
 public class WOPartyWindowClose extends WindowMain{
     private var _woBG:WindowBackgroundNew;
@@ -42,8 +43,10 @@ public class WOPartyWindowClose extends WindowMain{
     private var _bgYellow:BackgroundYellowOut;
     private var _userParty:Object;
     private var _dataParty:Object;
+    private var _btnOk:CButton;
 
     public function WOPartyWindowClose() {
+        _windowType = WindowsManager.WO_PARTY_CLOSE;
         _woHeight = 500;
         _woWidth = 550;
         _woBG = new WindowBackgroundNew(_woWidth, _woHeight, 115);
@@ -51,19 +54,22 @@ public class WOPartyWindowClose extends WindowMain{
         _srcItem = new Sprite();
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-        _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[1206]));
+        _dataParty = g.managerParty.obEndEvent;
+        _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[_dataParty.nameMain]));
         _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
         _txtName.x = -230;
         _txtName.y = -218;
         _source.addChild(_txtName);
-
+        var myPattern:RegExp = /count/;
+        var str:String =  String(g.managerLanguage.allTexts[1320]);
         _txtDescription = new CTextField(520, 120, String(g.managerLanguage.allTexts[289]));
+        _txtDescription.text = String(str.replace(myPattern, '"' + String(g.managerLanguage.allTexts[_dataParty.nameMain]) + '"'));
         _txtDescription.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtDescription.x = -262;
         _txtDescription.y = -140;
         _source.addChild(_txtDescription);
 
-        _youWind = new CTextField(450, 70, String(g.managerLanguage.allTexts[1064]));
+        _youWind = new CTextField(450, 70, String(g.managerLanguage.allTexts[1322]));
         _youWind.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _youWind.alignH = Align.LEFT;
         _youWind.y = 160;
@@ -76,7 +82,7 @@ public class WOPartyWindowClose extends WindowMain{
         _bgYellow.y = -15;
         _source.addChild(_bgYellow);
 
-        _txtRating = new CTextField(520, 120, 'В общем рейтинге игроков Вы заняли');
+        _txtRating = new CTextField(520, 120, String(g.managerLanguage.allTexts[1321]));
         _txtRating.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
 //        _txtRating.alignH = Align.LEFT;
         _txtRating.x = -262;
@@ -90,7 +96,14 @@ public class WOPartyWindowClose extends WindowMain{
         _countRating.y = 35;
         _source.addChild(_countRating);
 
-
+        _btnOk = new CButton();
+        _btnOk.addButtonTexture(100, CButton.HEIGHT_55, CButton.BLUE, true);
+        _btnOk.addTextField(100, 40, 0, 0, String(g.managerLanguage.allTexts[328]));
+        _btnOk.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _btnOk.y = 185;
+        _source.addChild(_btnOk);
+        _btnOk.clickCallback = hideIt;
+        _btnOk.visible = false;
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -99,7 +112,6 @@ public class WOPartyWindowClose extends WindowMain{
 
     private function whenLoadShow ():void {
         var party:PartyItem;
-        _dataParty = g.managerParty.obEndEvent;
         for (var i:int = 0; i < g.managerParty.userParty.length; i++) {
             if (g.managerParty.userParty[i].idParty == _dataParty.id) {
                 _userParty = g.managerParty.userParty[i];
@@ -120,6 +132,9 @@ public class WOPartyWindowClose extends WindowMain{
             party.source.x = _arrItem.length*55 + 5;
             party.source.y = 165;
             _srcItem.addChild(party.source);
+        } else if (_arrItem.length <= 0) {
+            _youWind.visible = false;
+            _btnOk.visible = true;
         }
         _countRating.text = _userParty.countResource;
         _countRating.x = -_countRating.textBounds.width/2;
@@ -129,7 +144,7 @@ public class WOPartyWindowClose extends WindowMain{
     }
 
     override public function hideIt():void {
-//        g.managerParty.addEndForShowWindow();
+        g.managerParty.addEndForShowWindow();
         var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         var d:DropObject = new DropObject();
         for (var i:int = 0; i < _userParty.tookGift.length; i++) {

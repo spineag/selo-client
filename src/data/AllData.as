@@ -189,6 +189,13 @@ public class AllData {
         return null;
     }
 
+    public function getAnimalByResourceId(idResource:int):StructureDataAnimal {
+        for (var i:int=0; i<_animal.length; i++) {
+            if ((_animal[i] as StructureDataAnimal).idResource == idResource) return _animal[i];
+        }
+        return null;
+    }
+
     public function getTreeByCraftResourceId(resId:int):StructureDataBuilding {
         for (var i:int=0; i<_building.length; i++) {
             if (_building[i].buildType == BuildType.TREE && _building[i].craftIdResource == resId) return _building[i];
