@@ -3708,7 +3708,9 @@ public class DirectServer {
             for (i=0; i<d.message['animal'].length; i++) {
                 ob = {};
                 ob.animalId = int(d.message['animal'][i].animal_id);
-                ob.timeWork = int(d.message['animal'][i].time_work);
+                if (int(d.message['animal'][i].time_work) > 0) {
+                    ob.time_work = TimeUtils.currentSeconds - int(d.message['animal'][i].time_work);
+                } else ob.time_work = int(d.message['animal'][i].time_work);
                 ob.dbId = int(d.message['animal'][i].user_db_building_id);
                 p.userDataCity.animals.push(ob);
             }
@@ -7036,10 +7038,10 @@ public class DirectServer {
             obj.id = d.message[i].id;
             obj.timeToStart = d.message[i].time_to_start;
             obj.timeToEnd = d.message[i].time_to_end;
-//            if (i == 2) {
-//                obj.timeToStart = TimeUtils.currentSeconds - 50;
-//                obj.timeToEnd = TimeUtils.currentSeconds + 666;
-//            }
+            if (i == 2) {
+                obj.timeToStart = TimeUtils.currentSeconds - 50;
+                obj.timeToEnd = TimeUtils.currentSeconds + 666;
+            }
 
 
             obj.levelToStart = int(d.message[i].level_to_start);

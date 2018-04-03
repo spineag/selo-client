@@ -492,8 +492,7 @@ public class Fabrica extends WorldObject {
     }
 
     public function awayImitationOfWork():void {
-        if (Math.random() > .2) stopAnimation();
-            else workAloneAnimation();
+        workAloneAnimation();
     }
 
     private function stopAnimation():void {
