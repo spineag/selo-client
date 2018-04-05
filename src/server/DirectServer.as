@@ -7038,12 +7038,10 @@ public class DirectServer {
             obj.id = d.message[i].id;
             obj.timeToStart = d.message[i].time_to_start;
             obj.timeToEnd = d.message[i].time_to_end;
-            if (i == 2) {
-                obj.timeToStart = TimeUtils.currentSeconds - 50;
-                obj.timeToEnd = TimeUtils.currentSeconds + 666;
-            }
-
-
+//            if (i == 2) {
+//                obj.timeToStart = TimeUtils.currentSeconds - 50;
+//                obj.timeToEnd = TimeUtils.currentSeconds + 666;
+//            }
             obj.levelToStart = int(d.message[i].level_to_start);
             obj.coefficient = int(d.message[i].coefficient);
             obj.typeParty = int(d.message[i].type_party);
@@ -7081,6 +7079,7 @@ public class DirectServer {
             g.managerParty.allArrParty.push(obj);
         }
         getUserParty(g.managerParty.findDataParty);
+        getDataMiniParty(null);
         if (d.id == 0) {
             Cc.ch('server', 'getDataParty OK', 5);
             if (callback != null) {
@@ -9285,6 +9284,137 @@ public class DirectServer {
             Cc.error('deleteUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserTree: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserSalePackBuy(buy:int, saleId:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_SALE_PACK_BUY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserSalePackBuy', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buy = buy;
+        variables.saleId = saleId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserSalePackBuy);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserSalePackBuy'); });
+        function onCompleteUpdateUserSalePackBuy(e:Event):void { completeUpdateUserSalePackBuy(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserSalePackBuy error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserSalePackBuy(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserSalePackBuy: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserSalePackBuy: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserEvent OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserSalePackBuy: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function getDataMiniParty(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_DATA_MINI_PARTY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getDataMiniParty', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetDataMiniParty);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getDataMiniParty'); });
+        function onCompleteGetDataMiniParty(e:Event):void { completeGetDataMiniParty(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataMiniParty error:' + error.errorID);
+        }
+    }
+
+    private function completeGetDataMiniParty(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var obj:Object = {};
+        var k:int = 0;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataMiniParty: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataMiniParty: wrong JSON:' + String(response));
+            return;
+        }
+        for (var i:int = 0; i < d.message.length; i++) {
+            obj = {};
+            obj.id = d.message[i].id;
+            obj.timeToStart = d.message[i].time_start;
+            obj.timeToEnd = d.message[i].time_end;
+            obj.levelToStart = int(d.message[i].level);
+            obj.typeMiniParty = int(d.message[i].type_mini_party);
+            obj.tester = Boolean(int(d.message[i].tester));
+            obj.iconUI = String(d.message[i].icon);
+            obj.nameMain = int(d.message[i].txt_id_name);
+            obj.descriptionMain = int(d.message[i].txt_id_description);
+            if (d.message[i].id_item) obj.idItemEvent = String(d.message[i].id_item).split('&');
+            for (k = 0; k < obj.idItemEvent.length; k++) obj.idItemEvent[k] = int(obj.idItemEvent[k]);
+
+            if (d.message[i].id_gift) obj.idGift = String(d.message[i].id_gift).split('&');
+            for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
+
+            if (d.message[i].type_gift) obj.typeGift = String(d.message[i].type_gift).split('&');
+            for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
+
+            if (d.message[i].count_gift) obj.countGift = String(d.message[i].count_gift).split('&');
+            for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
+
+            g.managerMiniParty.arrAllMiniParty.push(obj);
+        }
+       g.managerMiniParty.findDataParty();
+        if (d.id == 0) {
+            Cc.ch('server', 'getDataMiniParty OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getDataMiniParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
 

@@ -24,6 +24,7 @@ import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
 import windows.fabricaWindow.WOFabricDeleteItem;
 import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
+import windows.miniPartyWindow.WOMiniPartyWindow;
 import windows.miniSceneOrderCat.WOMiniSceneOrderCat;
 import windows.missYou.WOMissYou;
 import windows.newsWindow.WONews;
@@ -135,6 +136,7 @@ public class WindowsManager {
     public static const WO_TRAIN_SEND:String = 'send_train';
     public static const WO_NEWS:String = 'news';
     public static const WO_OPEN_ON_LEVEL:String = 'open_on_level';
+    public static const WO_MINI_PARTY:String = 'mini_party';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -313,6 +315,9 @@ public class WindowsManager {
                 break;
             case WO_PARTY:
                 wo = new WOPartyWindow();
+                break;
+            case WO_MINI_PARTY:
+                wo = new WOMiniPartyWindow();
                 break;
             case WO_PARTY_HELP:
                 wo = new WOPartyHelp();

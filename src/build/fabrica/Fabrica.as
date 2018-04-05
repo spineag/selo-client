@@ -31,6 +31,8 @@ import starling.textures.Texture;
 import tutorial.TutsAction;
 import tutorial.helpers.HelperReason;
 
+import user.NeighborBot;
+
 import utils.Utils;
 
 import windows.WindowsManager;
@@ -118,6 +120,9 @@ public class Fabrica extends WorldObject {
                 _source.registerHitArea(_hitArea);
             }
         }
+
+        if (g.isAway && g.visitedUser is NeighborBot && Math.random() > .2) workAloneAnimation();
+
     }
 
     public function showShopView():void {

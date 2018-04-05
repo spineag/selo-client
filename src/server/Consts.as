@@ -134,6 +134,7 @@ public class Consts {
     public static var INQ_UPDATE_STARTER_PACK:String = 'a_game/updateStarterPack.php';
     public static var INQ_GET_USER_PARTY:String = 'a_userData/getUserParty.php';
     public static var INQ_GET_DATA_PARTY:String = 'a_gameData/getDataParty.php';
+    public static var INQ_GET_DATA_MINI_PARTY:String = 'a_gameData/getDataMiniParty.php';
     public static var INQ_UPDATE_USER_PARTY:String = 'a_game/updateUserParty.php';
     public static var INQ_ON_TRANSACTION:String = 'a_diff/onOKtransaction.php';
     public static var INQ_FB_TRANSACTION:String = 'a_diff/onFBtransaction.php';
@@ -171,6 +172,7 @@ public class Consts {
     public static var INQ_GET_DATA_NEWS:String = 'a_gameData/getDataNews.php';
     public static var INQ_UPDATE_NEWS_NEW:String = 'a_game/updateNewsNew.php';
     public static var INQ_ADD_USER_PARTY:String = 'a_game/addUserParty.php';
+    public static var INQ_UPDATE_USER_SALE_PACK_BUY:String = 'a_game/updateUserSalePackBuy.php';
 
 }
 }

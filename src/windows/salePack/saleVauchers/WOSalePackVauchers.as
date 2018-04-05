@@ -60,9 +60,9 @@ public class WOSalePackVauchers  extends WindowMain{
     private var _boolOpen:Boolean = false;
 
     public function WOSalePackVauchers() {
+        _windowType = WindowsManager.WO_SALE_PACK_VAUCHERS;
         _woHeight = 490;
         _woWidth = 565;
-        _windowType = WindowsManager.WO_SALE_PACK_VAUCHERS;
         g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/vaucher_windows.png', onLoad);
     }
 
@@ -77,7 +77,8 @@ public class WOSalePackVauchers  extends WindowMain{
         im = new Image(tex);
         im.x = -im.width/2;
         im.y = -im.height/2;
-        _source.addChildAt(im,0);
+        if (_source) _source.addChildAt(im,0);
+        else _source.addChild(im);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
@@ -103,7 +104,7 @@ public class WOSalePackVauchers  extends WindowMain{
         var st:String;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'USD';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = 'ОК';
-        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = 'ВК';
+        else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' Голосов';
         _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
         _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtLastCost.alignH = Align.LEFT;
@@ -139,7 +140,7 @@ public class WOSalePackVauchers  extends WindowMain{
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             st = ' ' + String(g.managerLanguage.allTexts[328]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            st = ' ' + String(g.managerLanguage.allTexts[330]);
+            st = ' Голоса';
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
             st = ' USD';
         }
@@ -218,8 +219,8 @@ public class WOSalePackVauchers  extends WindowMain{
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-            g.socialNetwork.showOrderWindow({id: 14, price: int(g.managerSalePack.dataSale.newCost), type:'sale_pack'});
-            Cc.info('try to buy packId: ' + 14);
+            g.socialNetwork.showOrderWindow({id: g.managerSalePack.userSale.saleId, price: int(g.managerSalePack.dataSale.newCost), type:'sale_pack'});
+            Cc.info('try to buy packId: ' + g.managerSalePack.userSale.saleId);
         }
     }
 
@@ -239,7 +240,9 @@ public class WOSalePackVauchers  extends WindowMain{
     }
 
     private function onBuy():void {
-        g.server.updateUserSalePack(null);
+        g.server.updateUserSalePackBuy(1,g.managerSalePack.userSale.saleId,null);
+        g.userTimer.saleToEnd(0);
+        g.managerParty.userParty.buy = true;
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
         var d:DropObject = new DropObject();

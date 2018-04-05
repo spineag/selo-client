@@ -150,7 +150,7 @@ public class WOPartyWindowClose extends WindowMain{
         for (var i:int = 0; i < _userParty.tookGift.length; i++) {
             if (!_userParty.tookGift[i] && _userParty.countResource >= _dataParty.countToGift[i]) {
                 if (_dataParty.typeGift[i] == BuildType.DECOR_ANIMATION || _dataParty.typeGift[i] == BuildType.DECOR)
-                    d.addDropDecor(g.allData.getBuildingById(_dataParty.idGift[i]), p, _dataParty.countGift[i]);
+                    d.addDropDecor(g.allData.getBuildingById(_dataParty.idGift[i]), p, _dataParty.countGift[i], true);
                 else {
                     if (_dataParty.idGift[i] == 1 && _dataParty.typeGift[i] == 1)
                         d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataParty.countGift[i], p);
@@ -161,7 +161,7 @@ public class WOPartyWindowClose extends WindowMain{
             }
         }
         if (g.managerParty.getratingForEnd <= 3) {
-            if (_dataParty.typeDecorBest == BuildType.DECOR_ANIMATION || _dataParty.typeDecorBest == BuildType.DECOR) d.addDropDecor(g.allData.getBuildingById(_dataParty.idDecorBest), p, _dataParty.countDecorBest);
+            if (_dataParty.typeDecorBest == BuildType.DECOR_ANIMATION || _dataParty.typeDecorBest == BuildType.DECOR) d.addDropDecor(g.allData.getBuildingById(_dataParty.idDecorBest), p, _dataParty.countDecorBest, true);
             else {
                 if (_dataParty.idDecorBest == 1 && _dataParty.typeDecorBest == 1)
                     d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataParty.countDecorBest, p);

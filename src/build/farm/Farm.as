@@ -136,6 +136,7 @@ public class Farm extends WorldObject{
     }
 
     private function onClick():void {
+        if (g.isAway) return;
         if (g.tuts.isTuts) {
             if (g.tuts.action == TutsAction.ANIMAL_CRAFT) {
 

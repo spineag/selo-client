@@ -113,6 +113,7 @@ public class CraftItem {
     public function set checkCount(v:Boolean):void { _checkCount = v; }
 
     public function releaseIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
+        if (g.isAway && animal != null) return;
         if (!_source) {
             Cc.error('CraftItem releaseIt:: _ source = null');
             return;

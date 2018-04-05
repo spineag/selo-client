@@ -190,7 +190,7 @@ public class WOPartyWindowItem {
         var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         var d:DropObject = new DropObject();
         if (_data.typeResource == BuildType.DECOR_ANIMATION || _data.typeResource == BuildType.DECOR) {
-            d.addDropDecor(g.allData.getBuildingById(_data.idResource), p, _data.countResource);
+            d.addDropDecor(g.allData.getBuildingById(_data.idResource), p, _data.countResource, true);
         } else {
             if (_data.idResource == 1 && _data.typeResource == 1)
                 d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.countResource, p);

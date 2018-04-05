@@ -121,7 +121,7 @@ public class WODailyGift extends WindowMain {
         var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         var d:DropObject = new DropObject();
         if (int(_itemToday.type) == BuildType.DECOR || int(_itemToday.type) == BuildType.DECOR_ANIMATION)
-            d.addDropDecor(g.allData.getBuildingById(_itemToday.id), p);
+            d.addDropDecor(g.allData.getBuildingById(_itemToday.id), p, _itemToday.count, true);
         else if (_itemToday.type == DropResourceVariaty.DROP_TYPE_MONEY) 
             d.addDropMoney(_itemToday.id, _itemToday.count, p);
         else d.addDropItemNewByResourceId(_itemToday.id, p, _itemToday.count);

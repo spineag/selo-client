@@ -304,7 +304,7 @@ public class WOStarterPack extends WindowMain{
         if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT)
             d.addDropItemNewByResourceId(_data.object_id, p, _data.object_count);
         else if (_data.object_type == BuildType.DECOR_ANIMATION || _data.object_type == BuildType.DECOR)
-            d.addDropDecor(g.allData.getBuildingById(_data.object_id), p, 1);
+            d.addDropDecor(g.allData.getBuildingById(_data.object_id), p, 1, true);
         d.releaseIt(null, false);
         hideIt();
     }

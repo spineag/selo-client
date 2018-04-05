@@ -29,6 +29,8 @@ public class UserTimer {
     public var stockTimerToStart:int;
     public var starterTimerToEnd:int;
     public var starterTimerToStart:int;
+    public var miniPartyToEndTimer:int;
+    public var miniPartyToStartTimer:int;
 
     public function UserTimer() {
         _arrOrderItem = [];
@@ -119,6 +121,33 @@ public class UserTimer {
             g.gameDispatcher.removeFromTimer(partyTimerToStart);
             g.managerParty.checkAndCreateIvent(true);
             partyToStartTimer = 0;
+        }
+    }
+
+    public function miniPartyToEnd(time:int):void {
+        miniPartyToEndTimer = time;
+        g.gameDispatcher.addToTimer(miniPartyTimerToEnd);
+    }
+
+    private function miniPartyTimerToEnd():void {
+        miniPartyToEndTimer--;
+        if (miniPartyToEndTimer <= 0) {
+            miniPartyToEndTimer = 0;
+            g.gameDispatcher.removeFromTimer(miniPartyTimerToEnd);
+        }
+    }
+
+    public function miniPartyToStart(time:int):void {
+        miniPartyToStartTimer = time;
+        g.gameDispatcher.addToTimer(miniPartyTimerToStart);
+    }
+
+    private function miniPartyTimerToStart():void {
+        miniPartyToStartTimer--;
+        if (miniPartyToStartTimer <= 0) {
+            miniPartyToStartTimer = 0;
+            g.managerMiniParty.checkAndCreateIvent();
+            g.gameDispatcher.removeFromTimer(miniPartyTimerToStart);
         }
     }
 

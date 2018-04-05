@@ -1813,6 +1813,7 @@ public class TownArea extends Sprite {
         ar = p.userDataCity.animals;
         l = ar.length;
         for (i=0; i<l; i++) {
+            if (g.isAway && g.visitedUser is NeighborBot && Math.random() > .2) ar[i].time_work = 1200;
             fillAwayAnimal(ar[i]);
         }
         ar = p.userDataCity.recipes;

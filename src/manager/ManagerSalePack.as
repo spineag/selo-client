@@ -84,11 +84,11 @@ public class ManagerSalePack {
     }
 
     public function checkNeedShowSalePack():void {
-        if (g.user.level < 7 || g.userTimer.starterTimerToEnd > 0 || g.user.salePack || g.user.timeStarterPack == 0|| int((TimeUtils.currentSeconds - g.user.timeStarterPack)) < 691200) return;
+        if (g.user.level < 7 || g.userTimer.starterTimerToEnd > 0 || g.user.salePack || g.user.timeStarterPack == 0|| int((TimeUtils.currentSeconds - g.user.timeStarterPack)) < 259200) return;
         if (arrUserSale.length <= 0) {
             thisUser(1);
         } else if (arrUserSale.length > 0) {
-            if (int(TimeUtils.currentSeconds - int(arrUserSale[arrUserSale.length-1].timeStart)) < 172800) return;
+            if (int(TimeUtils.currentSeconds - int(arrUserSale[arrUserSale.length-1].timeStart)) < 86400) return;
             if (obRubies.buy1) {
                 balanceStructure();
             } else {

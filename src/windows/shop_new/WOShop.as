@@ -156,7 +156,8 @@ public class WOShop extends WindowMain {
                                 if (arR[i].group && !g.allData.isFirstInGroupDecor(arR[i].group, arR[i].id))
                                     continue;
                             }
-                            arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
+                            if (arR[i].visibleAction) arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
+                            else if (g.user.shopDecorFilter == DecorShopFilter.FILTER_OTHER) arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
                         }
                     }
                 }
