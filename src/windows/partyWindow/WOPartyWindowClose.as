@@ -84,7 +84,6 @@ public class WOPartyWindowClose extends WindowMain{
 
         _txtRating = new CTextField(520, 120, String(g.managerLanguage.allTexts[1321]));
         _txtRating.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-//        _txtRating.alignH = Align.LEFT;
         _txtRating.x = -262;
         _txtRating.y = -40;
         _source.addChild(_txtRating);
@@ -107,7 +106,7 @@ public class WOPartyWindowClose extends WindowMain{
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        g.server.getRatingParty(g.managerParty.obEndEvent.id,false, whenLoadShow);
+        g.server.getRatingParty(int(g.managerParty.obEndEvent.id),false, whenLoadShow);
     }
 
     private function whenLoadShow ():void {
@@ -136,7 +135,7 @@ public class WOPartyWindowClose extends WindowMain{
             _youWind.visible = false;
             _btnOk.visible = true;
         }
-        _countRating.text = _userParty.countResource;
+        _countRating.text = String(g.managerParty.getratingForEnd);
         _countRating.x = -_countRating.textBounds.width/2;
         _youWind.x = ((_woWidth - (_youWind.textBounds.width + _srcItem.width)) - _woWidth)/2;
         _srcItem.x = _youWind.x + _youWind.textBounds.width;

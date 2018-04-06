@@ -88,7 +88,7 @@ public class ManagerSalePack {
         if (arrUserSale.length <= 0) {
             thisUser(1);
         } else if (arrUserSale.length > 0) {
-            if (int(TimeUtils.currentSeconds - int(arrUserSale[arrUserSale.length-1].timeStart)) < 86400) return;
+            if (int(TimeUtils.currentSeconds - int(arrUserSale[arrUserSale.length-1].timeStart)) < 172800) return;
             if (obRubies.buy1) {
                 balanceStructure();
             } else {

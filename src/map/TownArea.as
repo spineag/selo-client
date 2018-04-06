@@ -1002,12 +1002,24 @@ public class TownArea extends Sprite {
                         return;
                     }
                 }
+                if (!g.allData.getBuildingById(worldObject.dataBuild.id).visibleAction) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.bottomPanel.cancelBoolean(false);
+                    g.buyHint.hideIt();
+                    return;
+                }
                 g.bottomPanel.cancelBoolean(true);
                 g.toolsModifier.modifierType = ToolsModifier.MOVE;
                 build = createNewBuild( worldObject.dataBuild);
                 g.selectedBuild = build;
                 (build as WorldObject).source.filter = null;
                 g.toolsModifier.startMove(build, afterMoveReturn, true);
+                return;
+            }
+            if (!g.allData.getBuildingById(worldObject.dataBuild.id).visibleAction) {
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.bottomPanel.cancelBoolean(false);
+                g.buyHint.hideIt();
                 return;
             }
             var decorMax:int = 0;
@@ -1111,6 +1123,7 @@ public class TownArea extends Sprite {
         if (build is DecorTail) {
             pasteTailBuild(build as DecorTail, _x, _y,true,false,true);
         } else {
+
             pasteBuild(build, _x, _y,true,false,true);
         }
         if (g.toolsPanel.repositoryBox.source.visible) g.toolsPanel.repositoryBox.updateThis();

@@ -249,7 +249,9 @@ public class WOStarterPack extends WindowMain{
 //                } else if (g.userTimer.partyToEndTimer <= 0 && g.managerParty.userParty && !g.managerParty.userParty.showWindow &&
 //                        (g.managerParty.dataPartyNowUse.typeParty == 3 || g.managerParty.dataPartyNowUse.typeParty == 4)) g.managerParty.endPartyWindow();
 
-                if (g.managerParty.showEndWindow) g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE,null);
+                if (g.managerParty.showEndWindow) {
+                    g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE,null);
+                }
                 else if (g.managerParty.eventOn) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null);
             }
         }

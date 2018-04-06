@@ -154,6 +154,14 @@ public class WOMiniPartyWindow extends WindowMain{
 
     private function rotateKoleso():void {
         if (_isAnimate) return;
+        if (_forRubieRotate) {
+            if (5 > g.user.hardCurrency) {
+                g.windowsManager.uncasheWindow();
+                super.hideIt();
+                g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+                return;
+            }
+        }
         _isAnimate = true;
         _curActivePosition = int(5 + Math.random()*5); // choose random item position as prise
         var rotation:Number = _curActivePosition * -1.256;

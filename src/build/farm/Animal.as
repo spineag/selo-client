@@ -306,6 +306,7 @@ public class Animal {
     }
 
     public function onEndClick(last:Boolean = false):void {
+        if (g.isAway) return;
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerSalePack) g.managerSalePack.onUserAction();
         if (g.managerStarterPack) g.managerStarterPack.onUserAction();
