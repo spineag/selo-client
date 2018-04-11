@@ -111,7 +111,16 @@ public class XPPanel {
     public function getPanelPoints():Point {
         return new Point(g.managerResize.stageWidth - 170,17);
     }
-    
+
+    public function serverAddXP(count:int):void {
+        if (count <=0) return;
+        if (!g.userValidates.checkInfo('xp', g.user.xp)) return;
+        g.user.xp += count;
+        g.user.globalXP += count;
+        g.userValidates.updateInfo('xp', int (g.user.xp ));
+        g.server.addUserXP(int (g.user.globalXP), null);
+    }
+
     public function visualAddXP(count:int):void{
         animationStar();
         _countXP += count;
@@ -181,14 +190,6 @@ public class XPPanel {
         if (!g.isDebug) g.socialNetwork.setUserLevel();
         if (g.managerInviteFriend) g.managerInviteFriend.onUpdateLevel();
         g.user.notif.checkOnNewLevel();
-    }
-
-    public function serverAddXP(count:int):void {
-        if (!g.userValidates.checkInfo('xp', g.user.xp)) return;
-        g.user.xp += count;
-        g.user.globalXP += count;
-        g.userValidates.updateInfo('xp', int (g.user.xp ));
-        g.server.addUserXP(int (g.user.globalXP), null);
     }
 
     public function updateProgressBarXP():void{

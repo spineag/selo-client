@@ -9,9 +9,17 @@ import starling.display.Image;
 public class DropMoneyObject extends DropObjectInterface{
     private var _type:int;
     private var _count:int;
+    private var needSend:Boolean;
+    private var GLOBAL_COUNT:int; // for save to server if need
 
     public function DropMoneyObject() {
+        needSend = false;
         super();
+    }
+
+    public function needSaveToServer(gCount:int):void {
+        needSend = true;
+        GLOBAL_COUNT = gCount;
     }
 
     public function fillIt(type:int, count:int, p:Point):void {
@@ -36,7 +44,11 @@ public class DropMoneyObject extends DropObjectInterface{
             else p = g.couponePanel.getPoint();
         var f:Function = _flyCallback;
         _flyCallback = function():void {
-            g.userInventory.addMoney(_type, _count);
+            if (needSend) {
+                needSend = false;
+                g.userInventory.addMoneyDirectToServer(_type, GLOBAL_COUNT);
+            }
+            g.userInventory.addMoney(_type, _count, false);
             if (_type == DataMoney.HARD_CURRENCY) g.softHardCurrency.animationBuy(true);
             else if (_type == DataMoney.SOFT_CURRENCY)  g.softHardCurrency.animationBuy(false);
             else g.couponePanel.animationBuy();

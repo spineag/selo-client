@@ -1172,7 +1172,6 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_XP);
         var variables:URLVariables = new URLVariables();
-
         Cc.ch('server', 'addUserXP', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
@@ -1183,7 +1182,7 @@ public class DirectServer {
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserXP);
         loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('addUserXP'); });
-        function onCompleteAddUserXP(e:Event):void { completeAddUserXP(e.target.data, callback,loader); }
+        function onCompleteAddUserXP(e:Event):void { completeAddUserXP(e.target.data, countAll, callback,loader); }
 
         try {
             loader.load(request);
@@ -1192,12 +1191,12 @@ public class DirectServer {
         }
     }
 
-    private function completeAddUserXP(response:String, callback:Function = null, loader:URLLoader = null):void {
+    private function completeAddUserXP(response:String, countXP:int, callback:Function = null, loader:URLLoader = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
-
+            trace('callback save server xp: ' + countXP);
         } catch (e:Error) {
             Cc.error('addUserXP: wrong JSON:' + String(response));
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: wrong JSON:' + String(response));
