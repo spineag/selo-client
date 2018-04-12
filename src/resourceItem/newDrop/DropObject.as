@@ -24,6 +24,7 @@ public class DropObject {
             var cd:int = int(count/5);
             for (i = 0; i < 5; i++) {
                 d = new DropMoneyObject();
+                if (i==0) d.needSaveToServer(count);
                 if (c>0) {
                     c--;
                     d.fillIt(type, cd + 1, p);
@@ -33,6 +34,7 @@ public class DropObject {
         } else {
             for (i = 0; i < count; i++ ) {
                 d = new DropMoneyObject();
+                if (i==0) d.needSaveToServer(count);
                 d.fillIt(type, 1, p);
                 _arrDrops.push(d);
             }
@@ -47,17 +49,17 @@ public class DropObject {
             var cd:int = int(count/5);
             for (i = 0; i < 5; i++) {
                 d = new DropXPObject();
+                if (i==0) d.needSaveToServer(count);
                 if (c>0) {
                     c--;
                     d.fillIt(cd + 1, p);
-                } else {
-                    d.fillIt(cd, p);
-                }
+                } else d.fillIt(cd, p);
                 _arrDrops.push(d);
             }
         } else {
             for (i = 0; i < count; i++ ) {
                 d = new DropXPObject();
+                if (i==0) d.needSaveToServer(count);
                 d.fillIt(1, p);
                 _arrDrops.push(d);
             }

@@ -180,8 +180,22 @@ public class UserInventory {
         else return null;
     }
 
+    public function addMoneyDirectToServer(typeCurrency:int, count:int):void {
+        if (count < 0) return;
+        var newCount:int = 0;
+        switch (typeCurrency) {
+            case DataMoney.HARD_CURRENCY:  newCount = g.user.hardCurrency;  break;
+            case DataMoney.SOFT_CURRENCY:  newCount = g.user.softCurrencyCount; break;
+            case DataMoney.BLUE_COUPONE:   newCount = g.user.blueCouponCount; break;
+            case DataMoney.YELLOW_COUPONE: newCount = g.user.yellowCouponCount; break;
+            case DataMoney.RED_COUPONE:    newCount = g.user.redCouponCount; break;
+            case DataMoney.GREEN_COUPONE:  newCount = g.user.greenCouponCount; break;
+        }
+        g.server.addUserMoney(typeCurrency, newCount + count, null);
+    }
+
     public function addMoney(typeCurrency:int, count:int, needSendToServer:Boolean = true):void {
-        if (count == 0) return;
+        if (count < 0) return;
         var newCount:int = 0;
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
