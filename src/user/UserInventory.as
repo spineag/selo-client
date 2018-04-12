@@ -195,7 +195,6 @@ public class UserInventory {
     }
 
     public function addMoney(typeCurrency:int, count:int, needSendToServer:Boolean = true):void {
-        if (count < 0) return;
         var newCount:int = 0;
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
