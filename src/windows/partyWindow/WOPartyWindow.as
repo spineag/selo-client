@@ -162,7 +162,7 @@ public class WOPartyWindow extends WindowMain {
         _tabs.activate(_isMain);
         if (g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER
                 || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA
-                || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
+                || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND || g.managerParty.typeParty == ManagerPartyNew.EVENT_THREE_GIFT_MORE_PLANT) {
             super.showIt();
             g.gameDispatcher.addToTimer(startTimer);
             _source.x = g.managerResize.stageWidth/2 + 50;
@@ -194,7 +194,7 @@ public class WOPartyWindow extends WindowMain {
     private function createEventWO(b:Boolean = false):void {
         if (g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER
                 || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA
-                || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
+                || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND || g.managerParty.typeParty == ManagerPartyNew.EVENT_THREE_GIFT_MORE_PLANT) {
             _bgYellowLeft = new BackgroundYellowOut(380,420);
             _bgYellowLeft.x = -_bgYellowLeft.width + 5;
             _bgYellowLeft.y = -_bgYellowLeft.height/2 + 40;

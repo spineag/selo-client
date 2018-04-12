@@ -41,6 +41,9 @@ import data.DataMoney;
 import flash.geom.Point;
 import heroes.AddNewHero;
 import heroes.BasicCat;
+
+import manager.ManagerPartyNew;
+
 import order.OrderCat;
 import hint.FlyMessage;
 import manager.Vars;
@@ -1695,11 +1698,11 @@ public class TownArea extends Sprite {
         }
         if (g.managerHelpers) g.managerHelpers.stopIt();
         g.hideAllHints();
-        if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(false);
         if (g.starterPanel)  g.starterPanel.visibleStaterPanel(false);
         g.visitedUser = person;
+        if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
         _freePlace.deleteAway();
         _freePlace.fillAway();
         Cc.info('goAway to: ' + person.userSocialId);
@@ -1731,7 +1734,15 @@ public class TownArea extends Sprite {
         }
         g.isAway = true;
         if (person.userDataCity.objects) {
-            setAwayCity(person);
+            if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
+                person.userDataCity.trees = [];
+                person.userDataCity.animals = [];
+                person.userDataCity.objects = [];
+                person.userDataCity.plants = [];
+                person.userDataCity.recipes = [];
+                person.userDataCity.pets = [];
+                g.server.getAllCityData(person, setAwayCity);
+            } else setAwayCity(person);
         } else {
             g.server.getAllCityData(person, setAwayCity);
         }
@@ -2493,7 +2504,7 @@ public class TownArea extends Sprite {
     private function fillAwayPlant(ob:Object):void {
         var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
         if (b && b is Ridge) {
-            (b as Ridge).fillPlant(g.allData.getResourceById(ob.plantId), true, ob.timeWork);
+            (b as Ridge).fillPlant(g.allData.getResourceById(ob.plantId), true, ob.timeWork, ob.friendId);
         } else {
             Cc.error('TownArea fillAwayRidge:: no such Ridge with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }

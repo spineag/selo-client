@@ -8,6 +8,7 @@ import com.junkbyte.console.Cc;
 import data.StructureDataResource;
 
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
 import manager.Vars;
 
 import media.SoundConst;
@@ -37,6 +38,7 @@ public class WOBuyPlantItem {
     private var _defaultY:int;
     private var _maxAlpha:Number;
     private var _isOnHover:Boolean;
+    private var _txtEvent:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -68,6 +70,19 @@ public class WOBuyPlantItem {
             return;
         }
         _clickCallback = f;
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_THREE_GIFT_MORE_PLANT) {
+            for (var i:int = 0; i < g.managerParty.idItemEvent.length; i++) {
+                if (_dataPlant.id == g.managerParty.idItemEvent[i]) {
+                    _txtEvent = new CTextField(90,70,'+' + g.managerParty.coefficient);
+                    _txtEvent.setFormat(CTextField.BOLD30, 30, 0xcf342f, Color.WHITE);
+                    _txtEvent.alignH = Align.RIGHT;
+                    _txtEvent.rotation = -0.5;
+                    _txtEvent.x = -40;
+                    _txtEvent.y = -35;
+                    source.addChild(_txtEvent);
+                }
+            }
+        }
         if (_dataPlant.blockByLevel > g.user.level) _maxAlpha = .5;
             else if (_dataPlant.blockByLevel <= g.user.level) _maxAlpha = 1;
             else _maxAlpha = 0;

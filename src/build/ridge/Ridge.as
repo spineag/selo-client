@@ -11,9 +11,12 @@ import data.BuildType;
 
 import data.StructureDataResource;
 import dragonBones.Slot;
+
+import flash.display.Bitmap;
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
 import manager.ManagerPartyNew;
 import manager.hitArea.ManagerHitArea;
 import media.SoundConst;
@@ -23,12 +26,23 @@ import resourceItem.newDrop.DropObject;
 import resourceItem.newDrop.DropPartyResource;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
+
+import social.SocialNetworkEvent;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
+import starling.textures.Texture;
 import starling.utils.Color;
 import tutorial.TutsAction;
+
+import user.Friend;
+import user.Someone;
+
 import utils.CSprite;
+import utils.MCScaler;
+
+import windows.WOComponents.HintBackground;
 import windows.WindowsManager;
 
 public class Ridge extends WorldObject{
@@ -45,6 +59,8 @@ public class Ridge extends WorldObject{
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
     public var lastBuyResource:Boolean;
+    private var _srcParty:Sprite;
+    private var _person:Someone;
 
     public function Ridge(_data:Object) {
         super(_data);
@@ -62,7 +78,7 @@ public class Ridge extends WorldObject{
     }
 
     private function onCreateBuild():void {
-        if (!g.isAway) {
+        if (!g.isAway || g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
             _source.hoverCallback = onHover;
             _source.endClickCallback = onEndClick;
             _source.startClickCallback = onStartClick;
@@ -91,10 +107,15 @@ public class Ridge extends WorldObject{
         g.managerPlantRidge.checkFreeRidges();
     }
 
-    public function fillPlant(d:StructureDataResource, isFromServer:Boolean = false, timeWork:int = 0):void {
+    public function fillPlant(d:StructureDataResource, isFromServer:Boolean = false, timeWork:int = 0, friend_id:String = ''):void {
         if (_stateRidge != EMPTY) {
-            Cc.error('Try to plant already planted ridge data.name: ' + d.name);
-            return;
+            if (!g.managerParty || g.managerParty.eventOn && g.managerParty.typeParty != ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
+                Cc.error('Try to plant already planted ridge data.name: ' + d.name);
+                return;
+            } else {
+                _plant.clearIt();
+                cleatSrcParty();
+            }
         }
         if (!d) {
             Cc.error('no data for fillPlant at Ridge');
@@ -134,6 +155,52 @@ public class Ridge extends WorldObject{
             g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PLANT, {id: _dataPlant.id});
         }
         updateRidgeHitArea();
+        if (int(friend_id) > 0) createSrcParty(friend_id);
+    }
+
+    private function createSrcParty(friend_id:String):void {
+            _person = new Someone();
+        _person = g.user.getSomeoneBySocialId(friend_id);
+//            _person.userSocialId = friend_id;
+            _srcParty = new Sprite();
+            _source.addChild(_srcParty);
+            var _bgParty:HintBackground = new HintBackground(100, 100, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+            _srcParty.addChild(_bgParty);
+//            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+            g.socialNetwork.getTempUsersInfoById([_person.userSocialId]);
+    }
+
+    private function onGettingUserInfo(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+        if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+        if (_person.photo =='' || _person.photo == 'unknown') {
+            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+        } else g.load.loadImage(_person.photo, onLoadPhoto);
+    }
+
+    private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!bitmap) {
+            bitmap = g.pBitmaps[_person.photo].create() as Bitmap;
+        }
+        if (!bitmap) {
+            Cc.error('MarketFriendItem:: no photo for userId: ' + _person.userSocialId);
+            return;
+        }
+        photoFromTexture(Texture.fromBitmap(bitmap));
+//        photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar'));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
+        var ava:Image = new Image(tex);
+        MCScaler.scale(ava, 60, 60);
+        ava.x = -ava.width/2;
+        ava.y = -105;
+        _srcParty.addChild(ava);
+        ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
+        ava.x = -ava.width/2;
+        ava.y = -110;
+        _srcParty.addChild(ava);
     }
 
     public function craftThePlant():void {
@@ -220,19 +287,36 @@ public class Ridge extends WorldObject{
                 // nothing
             } else if (!g.tuts.isTutsBuilding(this) || _tutorialCallback == null) return;
         }
-        if (g.isActiveMapEditor || g.isAway) return;
-        super.onHover();
-        _isOnHover = true;
-        if (_stateRidge == GROWED) _plant.hoverGrowed();
-        _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-        if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
-        } else {
-            if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
-            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
+        if (g.isActiveMapEditor) return;
+        if (g.isAway) {
+            if ((g.managerParty.eventOn && g.managerParty.typeParty != ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) || !g.managerParty.eventOn) return;
+        }
+        if ((_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) && g.isAway) {
+            super.onHover();
+            _isOnHover = true;
+            g.mouseHint.showMouseHint(MouseHint.LEYKA);
+        } else if (!g.isAway) {
+            super.onHover();
+            _isOnHover = true;
+            if (_stateRidge == GROWED) _plant.hoverGrowed();
+            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+            if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
+            } else {
+                if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
+                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                     g.mouseHint.showMouseHint(MouseHint.CLOCK);
-            } else if (_stateRidge == GROWED) {
-                g.mouseHint.showMouseHint(MouseHint.SERP);
+                } else if (_stateRidge == GROWED) {
+                    g.mouseHint.showMouseHint(MouseHint.SERP);
+                }
             }
+        }
+    }
+
+    private function cleatSrcParty():void {
+        if (_srcParty) {
+        _source.removeChild(_srcParty);
+        _srcParty.dispose();
+        _srcParty = null;
         }
     }
 
@@ -299,6 +383,7 @@ public class Ridge extends WorldObject{
             }
         } else if (_stateRidge == GROWED) {
             if (g.tuts.isTuts && g.tuts.action != TutsAction.CRAFT_RIDGE) return;
+            cleatSrcParty();
             craftThePlant();
             g.timerHint.hideIt(true);
             if (!g.tuts.isTuts) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
@@ -319,7 +404,10 @@ public class Ridge extends WorldObject{
 //                if (g.selectedBuild != this) return;
             } else if (!g.tuts.isTutsBuilding(this) || _tutorialCallback == null) return;
         }
-        if (g.isActiveMapEditor || g.isAway) return;
+        if (g.isAway) {
+            if ((g.managerParty.eventOn && g.managerParty.typeParty != ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) || !g.managerParty.eventOn || _stateRidge == EMPTY) return;
+        }
+        if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) { g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED; return;
         } else if (g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) { g.toolsModifier.modifierType = ToolsModifier.NONE; return;
         } else if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
@@ -336,11 +424,22 @@ public class Ridge extends WorldObject{
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 if (g.tuts.isTuts) return;
                 onOut();
-                if (!lastBuyResource) {
-                    if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
-                     else g.timerHint.showIt(50, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
+                if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND && g.isAway && g.visitedUser is Friend) {
+                    for (var i:int = 0; i < g.managerParty.userParty[0].friendId.length; i++) {
+                        if (g.managerParty.userParty[0].friendId[i] == g.visitedUser.userId) {
+                            if (g.managerParty.userParty[0].friendCount[i] >= 10) return;
+                            break;
+                        }
+                    }
+                    g.partyHint.showIt(50, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y + _source.height / 2 - _plantSprite.height) /*_source.height/10) */ * g.currentGameScale, _dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name, callbackSkip, onOut, true);
+                } else {
+                    if (g.isAway) return;
+                    if (!lastBuyResource) {
+                        if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
+                        else g.timerHint.showIt(50, g.cont.gameContX + _source.x * g.currentGameScale, g.cont.gameContY + (_source.y + _source.height / 2 - _plantSprite.height) /*_source.height/10) */ * g.currentGameScale, _dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name, callbackSkip, onOut, true);
+                    }
+                    lastBuyResource = false;
                 }
-                lastBuyResource = false;
             }
             if (_stateRidge == EMPTY) {
                 onOut();
@@ -403,9 +502,37 @@ public class Ridge extends WorldObject{
         _source.filter = null;
         _isOnHover = false;
         _plant.checkStateRidge(false);
-        g.server.skipTimeOnRidge(_plant._timeToEndState, _dbBuildingId, null);
-        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_PLANT_ID, info: _plant.dataPlant.id});
-        _plant.renderSkip();
+        if (g.isAway && g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) {
+            g.server.skipTimeOnRidgeParty(g.visitedUser.userId, _plant._timeToEndState, _dbBuildingId, g.user.userSocialId, null);
+            if (g.managerParty.userParty[0].friendId.length == 0) {
+                g.managerParty.userParty[0].friendId.push(g.visitedUser.userId);
+                g.managerParty.userParty[0].friendCount.push(1);
+            } else {
+                var b:Boolean = false;
+                for (var i:int = 0; i < g.managerParty.userParty[0].friendId.length; i++) {
+                    if (g.managerParty.userParty[0].friendId[i] == g.visitedUser.userId) {
+                        g.managerParty.userParty[0].friendCount[i] += 1;
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b) {
+                    g.managerParty.userParty[0].friendId.push(g.visitedUser.userId);
+                    g.managerParty.userParty[0].friendCount.push(1);
+                }
+            }
+            g.managerParty.addUserPartyCount(1);
+            _plant.renderSkip();
+            g.partyPanel.checkCountHelp();
+        }
+        else {
+            g.server.skipTimeOnRidge(_plant._timeToEndState, _dbBuildingId, null);
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {
+                id: AnalyticManager.SKIP_TIMER_PLANT_ID,
+                info: _plant.dataPlant.id
+            });
+            _plant.renderSkip();
+        }
     }
 
     public function lockIt(v:Boolean):void {

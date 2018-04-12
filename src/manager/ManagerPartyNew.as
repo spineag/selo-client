@@ -43,6 +43,7 @@ public class ManagerPartyNew {
     private var _needShowEndThisEvent:Object;
     private var _loadAll:Boolean;
     private var _ratingForEnd:int;
+    private var _timerCheckParty:int;
 
     public function ManagerPartyNew() {
         arrBestPlayers = [];
@@ -174,9 +175,32 @@ public class ManagerPartyNew {
     }
 
     public function updateUserParty(showEnd:Boolean = false, callBack:Function = null):void {
-        var st:String = userParty[0].tookGift[0] + '&' + userParty[0].tookGift[1] + '&' + userParty[0].tookGift[2] + '&'
+        var stTookGift:String = userParty[0].tookGift[0] + '&' + userParty[0].tookGift[1] + '&' + userParty[0].tookGift[2] + '&'
                 + userParty[0].tookGift[3] + '&' + userParty[0].tookGift[4];
-        g.server.updateUserParty(st, userParty[0].countResource, int(showEnd), g.managerParty.id, userParty[0].idParty, callBack);
+        var i:int = 0;
+        var stFriendId:String = '';
+        var stFriendCount:String = '';
+        if (userParty[0].friendId && userParty[0].friendId.length > 0) {
+            if (userParty[0].friendId.length == 1) stFriendId = String(userParty[0].friendId[0]);
+            else {
+                for (i = 0; i < userParty[0].friendId.length; i++) {
+                    if (i == 0) stFriendId = String(userParty[0].friendId[i]);
+                    else stFriendId += '&' + String(userParty[0].friendId[i]);
+                }
+            }
+        } else stFriendId = '0';
+
+        if (userParty[0].friendCount && userParty[0].friendCount.length > 0) {
+            if (userParty[0].friendCount.length == 1) stFriendCount = String(userParty[0].friendCount[0]);
+            else {
+                for (i = 0; i < userParty[0].friendCount.length; i++) {
+                    if (i == 0) stFriendCount = String(userParty[0].friendCount[i]);
+                    else stFriendCount += '&' + String(userParty[0].friendCount[i]);
+                }
+            }
+        } else stFriendCount = '0';
+
+        g.server.updateUserParty(stFriendId, stFriendCount, stTookGift, userParty[0].countResource, int(showEnd), g.managerParty.id, userParty[0].idParty, callBack);
     }
 
     public function addUserPartyCount(count:int):void {
@@ -217,7 +241,7 @@ public class ManagerPartyNew {
         _showEndWindow = false;
         for (var i:int = 0; i < userParty.length; i ++) {
             if (userParty[i].idParty == _needShowEndThisEvent.id) {
-                g.server.updateUserParty('0&0&0&0&0',userParty[i].countResource, int(true),userParty[i].idParty,userParty[i].idParty,null);
+                g.server.updateUserParty('0', '0', '0&0&0&0&0',userParty[i].countResource, int(true),userParty[i].idParty,userParty[i].idParty,null);
                 userParty[i].showWindow = true;
                 break;
             }
@@ -274,14 +298,28 @@ public class ManagerPartyNew {
             }
         }
         _arrImage = [];
+        if ( typeParty == EVENT_SKIP_PLANT_FRIEND) checkPlantOnParty();
         if (typeParty == EVENT_MORE_XP_ORDER || typeParty == EVENT_MORE_COINS_ORDER
                 || typeParty == EVENT_MORE_COINS_MARKET || typeParty == EVENT_MORE_COINS_VAGONETKA
-                || typeParty == EVENT_SKIP_PLANT_FRIEND) {
+                || typeParty == EVENT_SKIP_PLANT_FRIEND || typeParty == EVENT_THREE_GIFT_MORE_PLANT) {
             _loadImage = 'event/' + dataPartyNowUse.imMain + '.png';
             g.load.loadImage(g.dataPath.getGraphicsPath() + _loadImage, onLoadImage);
         } else {
             _loadImage = 'event/' + dataPartyNowUse.imRating + '.png';
             g.load.loadImage(g.dataPath.getGraphicsPath() + _loadImage, onLoadImage);
+        }
+    }
+
+    private function checkPlantOnParty():void {
+        _timerCheckParty = 30;
+        g.gameDispatcher.addToTimer(timerCheck);
+    }
+
+    private function timerCheck():void {
+        _timerCheckParty --;
+        if (_timerCheckParty <= 0) {
+            g.gameDispatcher.removeFromTimer(timerCheck);
+            g.server.getUserPlantRidge(checkPlantOnParty);
         }
     }
 

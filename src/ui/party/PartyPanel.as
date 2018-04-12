@@ -1,14 +1,23 @@
 package ui.party {
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
 import manager.Vars;
 
 import social.SocialNetworkSwitch;
 
 import starling.animation.Tween;
 import starling.display.Image;
+import starling.display.Sprite;
+import starling.utils.Align;
+import starling.utils.Color;
+
+import user.Friend;
+
 import utils.CSprite;
 import utils.CTextField;
+import utils.MCScaler;
+import utils.MCScaler;
 import utils.TimeUtils;
 import windows.WindowsManager;
 
@@ -17,15 +26,25 @@ public class PartyPanel {
     private var g:Vars = Vars.getInstance();
     private var _txtTimer:CTextField;
     private var _isHover:Boolean;
+    private var _imHelp:Image;
+    private var _imHelpLeyka:Image;
+    private var _imHelpCursor:Image;
+    private var _srcHelp:Sprite;
+    private var _srcParty:Sprite;
+    private var _txtHelp:CTextField;
 
     public function PartyPanel() {
         _source = new CSprite();
+        _srcParty = new Sprite();
+        _source.addChild(_srcParty);
+        _srcHelp = new Sprite();
+        _source.addChild(_srcHelp);
         var im:Image;
         im = new Image(g.allData.atlas['partyAtlas'].getTexture(g.managerParty.imIcon));
-        _source.addChild(im);
+        _srcParty.addChild(im);
         _txtTimer = new CTextField(100,60,'');
         _txtTimer.setFormat(CTextField.BOLD18, 18, 0xd30102);
-        _source.addChild(_txtTimer);
+        _srcParty.addChild(_txtTimer);
         _txtTimer.y = 55;
 
         g.cont.interfaceCont.addChild(_source);
@@ -51,7 +70,7 @@ public class PartyPanel {
             visiblePartyPanel(false);
             if (!g.managerParty.userParty[0].showWindow) {
                 if (_txtTimer) {
-                    _source.removeChild(_txtTimer);
+                    _srcParty.removeChild(_txtTimer);
                     _txtTimer.deleteIt();
                     _txtTimer = null;
                 }
@@ -75,12 +94,91 @@ public class PartyPanel {
     }
 
     public function visiblePartyPanel(b:Boolean):void {
-        if (b && _source && g.managerParty.eventOn) _source.visible = true;
-        else if (_source) _source.visible = false;
+        if (b && _source && _srcParty && g.managerParty.eventOn) {
+            if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) showBoardHelpFriend(false);
+            _srcParty.visible = true;
+        }
+        else if (_source && _srcParty) {
+            _srcParty.visible = false;
+            if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND && g.visitedUser is Friend) {
+                showBoardHelpFriend();
+            }
+        }
         if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
     }
     
     public function get isVisible():Boolean { return _source.visible; }
+
+    public function checkCountHelp():void {
+        var bFor:Boolean = false;
+        for (var i:int = 0; i < g.managerParty.userParty[0].friendId.length; i++) {
+            if (g.visitedUser.userId == g.managerParty.userParty[0].friendId[i]) {
+                bFor = true;
+                _txtHelp.text = g.managerParty.userParty[0].friendCount[i] + '/10';
+                break;
+            }
+        }
+        if (!bFor) {
+            _txtHelp.text = '0/10';
+        }
+    }
+
+    private function showBoardHelpFriend(b:Boolean = true):void {
+        if (b) {
+            _srcHelp.y = 20;
+            _srcHelp.x = 40;
+            _imHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_button'));
+            _imHelp.scaleX = 1.5;
+            _imHelp.x = -35;
+//            MCScaler.scale(_imHelp, _imHelp.height -5, _imHelp.width-_imHelp.width/2);
+            _srcHelp.addChild(_imHelp);
+            _txtHelp = new CTextField(122, 30, ' ');
+            _txtHelp.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtHelp.cacheIt = false;
+            _txtHelp.alignH = Align.RIGHT;
+            _txtHelp.x = -50;
+            _txtHelp.y = 5;
+            _srcHelp.addChild(_txtHelp);
+            _imHelpCursor = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_pt_1'));
+            MCScaler.scale(_imHelpCursor,_imHelpCursor.height/1.5,_imHelpCursor.width/1.5);
+            _srcHelp.addChild(_imHelpCursor);
+            _imHelpCursor.x = -48;
+            _imHelpCursor.y = -5;
+            _imHelpLeyka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
+            _imHelpLeyka.scale = .5;
+//            _imHelpLeyka.scaleX = -1;
+            _srcHelp.addChild(_imHelpLeyka);
+            _imHelpLeyka.x = -43;
+            _imHelpLeyka.y = -5;
+
+            checkCountHelp();
+        } else {
+            if (_imHelp) {
+                _srcHelp.removeChild(_imHelp);
+                _imHelp.dispose();
+                _imHelp = null;
+            }
+
+            if (_imHelpCursor) {
+                _srcHelp.removeChild(_imHelpCursor);
+                _imHelpCursor.dispose();
+                _imHelpCursor = null;
+            }
+
+            if (_imHelpLeyka) {
+                _srcHelp.removeChild(_imHelpLeyka);
+                _imHelpLeyka.dispose();
+                _imHelpLeyka = null;
+            }
+
+            if (_txtHelp) {
+                _srcHelp.removeChild(_txtHelp);
+                _txtHelp.dispose();
+                _txtHelp = null;
+            }
+        }
+
+    }
 
     private function onClick():void {
         if (g.userTimer.partyToEndTimer > 0) {

@@ -2033,6 +2033,7 @@ public class DirectServer {
                 else if (timeWork > 2/3*time) ob.state = Ridge.GROW3;
                 else if (timeWork > time/3) ob.state = Ridge.GROW2;
                 else ob.state = Ridge.GROW1;
+                if (d.message[i].friend_id) ob.friendId = int(d.message[i].friend_id);
                 g.user.userDataCity.plants.push(ob);
             }
             if (callback != null) {
@@ -3693,6 +3694,7 @@ public class DirectServer {
                 ob.plantId = int(d.message['plant'][i].plant_id);
                 ob.dbId = int(d.message['plant'][i].user_db_building_id);
                 ob.timeWork = int(d.message['plant'][i].time_work);
+                ob.friendId = String(d.message['plant'][i].friend_id);
                 p.userDataCity.plants.push(ob);
             }
             p.userDataCity.trees = new Array();
@@ -7095,7 +7097,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserParty(tookGift:String, countResource:int, showWindow:int, idPartyNew:int, idPartyOld:int, callback:Function):void {
+    public function updateUserParty(friendId:String, friendCount:String, tookGift:String, countResource:int, showWindow:int, idPartyNew:int, idPartyOld:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_PARTY);
         var variables:URLVariables = new URLVariables();
@@ -7103,6 +7105,8 @@ public class DirectServer {
         Cc.ch('server', 'updateUserParty', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.friendId = friendId;
+        variables.friendCount = friendCount;
         variables.countResource = countResource;
         variables.tookGift = tookGift;
         variables.showWindow = showWindow;
@@ -7198,6 +7202,16 @@ public class DirectServer {
             for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
             obj.showWindow = Boolean(int(d.message[i].show_window));
             obj.idParty = int(d.message[i].id_party);
+
+            if (d.message[i].friend_id) {
+                obj.friendId = String(d.message[i].friend_id).split('&');
+                for (k = 0; k < obj.friendId.length; k++) obj.friendId[k] = int(obj.friendId[k]);
+            } else obj.friendId = [];
+
+            if (d.message[i].friend_count) {
+                obj.friendCount = String(d.message[i].friend_count).split('&');
+                for (k = 0; k < obj.friendCount.length; k++) obj.friendCount[k] = int(obj.friendCount[k]);
+            } else obj.friendCount = [];
             g.managerParty.userParty.push(obj);
         }
         g.managerParty.userParty.sortOn("idParty", Array.DESCENDING | Array.NUMERIC);
@@ -9415,6 +9429,59 @@ public class DirectServer {
         } else {
             Cc.error('getDataMiniParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function skipTimeOnRidgeParty(userId:int, plantTime:int,buildDbId:int, friendId:String, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_RIDGE_PARTY);
+        var variables:URLVariables = new URLVariables();
+        var time:Number = getTimer();
+
+        Cc.ch('server', 'skipTimeOnRidge', 1);
+        variables = addDefault(variables);
+        variables.userId = userId;
+        variables.friendId = friendId;
+        variables.plantTime = time - plantTime;
+        variables.buildDbId = buildDbId;
+        variables.hash = MD5.hash(String(userId)+String(variables.plantTime)+String(buildDbId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteSkipTimeOnRidgeParty);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('skipTimeOnRidge'); });
+        function onCompleteSkipTimeOnRidgeParty(e:Event):void { completeSkipTimeOnRidgeParty(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipTimeOnRidge error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeSkipTimeOnRidgeParty(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipTimeOnRidge: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnRidge: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'skipTimeOnRidge OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnRidge: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

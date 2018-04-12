@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:0a7bc28a20c11951344881f58df7ee20:9cd4dcc06b4c5b66e5deb188f4751065:14df9ea82677058447c526970667e84e$ -->
-<TextureAtlas imagePath="newsAtlas.png" width="972" height="458">
-    <SubTexture name="easter_news_eggs_vk" x="491" y="1" width="480" height="150"/>
-    <SubTexture name="easter_news_vk" x="491" y="153" width="480" height="150"/>
-    <SubTexture name="order_2xp" x="1" y="305" width="484" height="152"/>
-    <SubTexture name="screen-1_vk_ok" x="487" y="305" width="484" height="152"/>
+<!-- $TexturePacker:SmartUpdate:c698e10ae567526ac2834ef477d45812:2019b05612ce32f2d8e808e9c9ca6906:14df9ea82677058447c526970667e84e$ -->
+<TextureAtlas imagePath="newsAtlas.png" width="976" height="461">
+    <SubTexture name="easter_news_eggs_vk" x="1" y="158" width="480" height="150"/>
+    <SubTexture name="easter_news_vk" x="483" y="309" width="480" height="150"/>
+    <SubTexture name="event_news_vk" x="1" y="310" width="480" height="150"/>
+    <SubTexture name="order_2xp" x="491" y="1" width="484" height="152"/>
+    <SubTexture name="screen-1_vk_ok" x="491" y="155" width="484" height="152"/>
     <SubTexture name="screen-2" x="1" y="1" width="488" height="155"/>
 </TextureAtlas>

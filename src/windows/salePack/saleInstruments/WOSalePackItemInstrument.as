@@ -41,11 +41,11 @@ public class WOSalePackItemInstrument {
         _txtCount.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtCount.y = 85;
         _txtCount.x = 14;
-        if (objectId == 1 && objectType  == 1) {
+        if (objectId == 2 && objectType  == 2) {
             _txtName.text = String(g.managerLanguage.allTexts[325]);
             _txtCount.text = String(_objectCount);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-        } else if (objectId == 2 && objectType == 2) {
+        } else if (objectId == 1 && objectType == 1) {
             _txtName.text = String(g.managerLanguage.allTexts[326]);
             _txtCount.text = String(_objectCount);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
