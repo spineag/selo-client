@@ -85,6 +85,7 @@ public class Consts {
     public static var INQ_SKIP_RECIPE_FABRICA:String = 'a_game/skipRecipeOnFabrica.php';
     public static var INQ_DELETE_RECIPE_FABRICA:String = 'a_game/deleteRecipeOnFabrica.php';
     public static var INQ_SKIP_TIME_RIDGE:String = 'a_game/skipTimeOnRidge.php';
+    public static var INQ_SKIP_TIME_RIDGE_PARTY:String = 'a_game/skipTimeOnRidgeParty.php';
     public static var INQ_SKIP_TIME_TREE:String = 'a_game/skipTimeOnTree.php';
     public static var INQ_SKIP_TIME_ANIMAL:String = 'a_game/skipTimeOnAnimal.php';
     public static var INQ_SKIP_TIME_FABRIC_BUILD:String = 'a_game/skipTimeOnFabricBuild.php';

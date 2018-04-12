@@ -15,6 +15,8 @@ import build.farm.FarmGrid;
 import data.AllData;
 import data.BuildType;
 import heroes.ManagerCats;
+
+import hint.PartyHint;
 import hint.PetHint;
 import order.DataOrderCat;
 import order.ManagerOrder;
@@ -161,6 +163,7 @@ public class Vars {
     public var dataCats:Array;
 
     public var timerHint:TimerHint;
+    public var partyHint:PartyHint;
     public var wildHint:WildHint;
     public var hint:Hint;
     public var buyHint:BuyHint;
@@ -347,6 +350,7 @@ public class Vars {
 //               ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true; // для ТЕСТЕРІВ ОНЛІ ДЛЯ ТЕСТЕРІВ АХТУНГ АХТУНГ АХТУНГ АХТУНГ АХТУНГ АХТНУГ АХТУНГ АХТУНГ
         useQuests = true;
         timerHint = new TimerHint();
+        partyHint = new PartyHint();
         wildHint = new WildHint();
         hint = new Hint();
         buyHint = new BuyHint();
@@ -544,6 +548,7 @@ public class Vars {
 
     public function hideAllHints():void {
         if (timerHint) timerHint.managerHide();
+        if (partyHint) partyHint.managerHide();
         if (wildHint) wildHint.managerHide();
 //        if (farmHint) farmHint.hideIt();
         if (mouseHint) mouseHint.hideIt();

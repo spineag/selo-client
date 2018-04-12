@@ -103,7 +103,7 @@ public class WOSalePackInstrument extends WindowMain{
         _txtLastCost.y = 60;
         _source.addChild(_txtLastCost);
 
-        _txtOldCost = new CTextField(200,100,String(g.managerSalePack.dataSale.oldCost) + st);
+        _txtOldCost = new CTextField(200,100,String(g.managerSalePack.userSale.oldCost) + st);
         _txtOldCost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtOldCost.alignH = Align.LEFT;
         _txtOldCost.x = _txtLastCost.x + _txtLastCost.textBounds.width;
@@ -123,7 +123,7 @@ public class WOSalePackInstrument extends WindowMain{
         quad.alpha = .6;
         _source.addChild(quad);
 
-        _txtDescription = new CTextField(740,70,String(g.managerSalePack.dataSale.description));
+        _txtDescription = new CTextField(740,70,String(g.managerSalePack.userSale.description));
         _txtDescription.setFormat(CTextField.BOLD30, 26, 0xff8000, Color.WHITE);
         _txtDescription.x = -360;
         _txtDescription.y = 40;
@@ -143,14 +143,14 @@ public class WOSalePackInstrument extends WindowMain{
         _txtNewCost.y = 100;
         _source.addChild(_txtNewCost);
 
-        _txt = new CTextField(200,100,String(g.managerSalePack.dataSale.newCost) + st);
+        _txt = new CTextField(200,100,String(g.managerSalePack.userSale.newCost) + st);
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
         _txt.alignH = Align.LEFT;
         _txt.x = _txtNewCost.x + _txtNewCost.textBounds.width;
         _txt.y = 97;
         _source.addChild(_txt);
 
-        _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.dataSale.profit) + '%');
+        _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.userSale.profit) + '%');
         _txtProfit.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
         _txtProfit.x = -398;
         _txtProfit.y = -160;
@@ -164,6 +164,7 @@ public class WOSalePackInstrument extends WindowMain{
         _source.addChild(_btnBuy);
         _btnBuy.x = -15;
         _btnBuy.y = 200;
+        _btnBuy.clickCallback = onClick;
 
         _txtName = new CTextField(400,100,String(g.managerLanguage.allTexts[276]));
         _txtName.setFormat(CTextField.BOLD72, 70, 0xcf302f, Color.WHITE);
@@ -177,8 +178,8 @@ public class WOSalePackInstrument extends WindowMain{
         _sprItem = new Sprite();
         _source.addChild(_sprItem);
         _arrItem = [];
-        for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
-            item = new WOSalePackItemInstrument(g.managerSalePack.dataSale.objectId[i],g.managerSalePack.dataSale.objectType[i],g.managerSalePack.dataSale.objectCount[i]);
+        for (var i:int = 0; i < g.managerSalePack.userSale.objectId.length; i++) {
+            item = new WOSalePackItemInstrument(g.managerSalePack.userSale.objectId[i],g.managerSalePack.userSale.objectType[i],g.managerSalePack.userSale.objectCount[i]);
             item.source.x = 140 * i;
             _sprItem.addChild(item.source);
             _arrItem.push(item);
@@ -205,7 +206,7 @@ public class WOSalePackInstrument extends WindowMain{
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-            g.socialNetwork.showOrderWindow({id: g.managerSalePack.userSale.saleId, price: int(g.managerSalePack.dataSale.newCost), type:'sale_pack'});
+            g.socialNetwork.showOrderWindow({id: g.managerSalePack.userSale.saleId, price: int(g.managerSalePack.userSale.newCost), type:'sale_pack'});
             Cc.info('try to buy packId: ' + g.managerSalePack.userSale.saleId);
         }
     }
@@ -232,11 +233,11 @@ public class WOSalePackInstrument extends WindowMain{
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
         var d:DropObject = new DropObject();
-        for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
-            if (g.managerSalePack.dataSale.objectId[i] == 1 && g.managerSalePack.dataSale.objectType[i]  == 1)
-                d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectType[i] == BuildType.INSTRUMENT)
-                d.addDropItemNewByResourceId(g.managerSalePack.dataSale.objectId[i], p, g.managerSalePack.dataSale.objectCount[i]);
+        for (var i:int = 0; i < g.managerSalePack.userSale.objectId.length; i++) {
+            if (g.managerSalePack.userSale.objectId[i] == 1 && g.managerSalePack.userSale.objectType[i]  == 1)
+                d.addDropMoney(DataMoney.HARD_CURRENCY, g.managerSalePack.userSale.objectCount[i], p);
+            else if (g.managerSalePack.userSale.objectType[i] == BuildType.INSTRUMENT)
+                d.addDropItemNewByResourceId(g.managerSalePack.userSale.objectId[i], p, g.managerSalePack.userSale.objectCount[i]);
         }
         d.releaseIt(null, false);
         hideIt();

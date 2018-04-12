@@ -553,6 +553,9 @@ public class MarketItem {
             _inPapper = _dataFromServer.inPapper;
             if (_person.userSocialId == g.user.userSocialId) { //sale yours item
                 try {
+                    if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET) {
+                        _dataFromServer.cost *= g.managerParty.coefficient;
+                    }
                     showSaleImage(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.cost);
                 } catch (e:Error) {
                     Cc.error('at showSaleImage');
@@ -650,6 +653,7 @@ public class MarketItem {
         if (_btnAdditem) _btnAdditem.visible = false;
         _countMoney = cost;
         if (_plawkaCoins) _plawkaCoins.visible = true;
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET) _costTxt.setFormat(CTextField.BOLD24, 24, 0xcf342f, Color.WHITE);
         if (_costTxt) _costTxt.text = String(cost);
         if (_dataFromServer.buyerSocialId == '1') {
             _personBuyer = g.user.neighbor;

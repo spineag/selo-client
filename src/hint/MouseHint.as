@@ -30,6 +30,7 @@ public class MouseHint {
     public static const KORZINA:String = "cursor_basket";
     public static const HELP:String = "help_icon";
     public static const ANIMAL:String = "animal";
+    public static const LEYKA:String = "watering_can";
     private var _curType:String;
 
     private var _source:Sprite;
@@ -112,6 +113,12 @@ public class MouseHint {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(VEDRO));
                 _image.x = 10;
                 _image.y = 12;
+                break;
+            case LEYKA:
+                _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('watering_can'));
+                MCScaler.scale(_image, 65, 65);
+                _image.x = 10;
+                _image.y = 8;
                 break;
             case KORZINA:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(KORZINA));
