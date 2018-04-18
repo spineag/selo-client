@@ -159,7 +159,7 @@ public class WOPartyWindow extends WindowMain {
 //            return;
 //        }
         _isMain = true;
-        _tabs.activate(_isMain);
+        if (_tabs) _tabs.activate(_isMain);
         if (g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER
                 || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET || g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_VAGONETKA
                 || g.managerParty.typeParty == ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND || g.managerParty.typeParty == ManagerPartyNew.EVENT_THREE_GIFT_MORE_PLANT) {
@@ -471,6 +471,9 @@ public class WOPartyWindow extends WindowMain {
                 }
                 arr = g.townArea.getCityObjectsByType(BuildType.TRAIN);
                 arr[0].showArrow(120);
+                break;
+            case ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND:
+                g.friendPanel.addArrow(5);
                 break;
         }
     }

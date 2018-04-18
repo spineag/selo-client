@@ -198,6 +198,7 @@
             <filename>easter_news_vk.png</filename>
             <filename>easter_news_eggs_vk.png</filename>
             <filename>event_news_vk.png</filename>
+            <filename>news_event_vk.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

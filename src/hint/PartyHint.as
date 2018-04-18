@@ -72,7 +72,7 @@ public class PartyHint {
 
         _btn = new CButton();
         _btn.addButtonTexture(70, CButton.HEIGHT_32, CButton.BLUE, true);
-        _btn.addTextField(70, 40, 0, 0, String(g.managerLanguage.allTexts[379]) );
+        _btn.addTextField(70, 40, 0, -5, String(g.managerLanguage.allTexts[379]) );
         _btn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
 
 //        _txtCost = new CTextField(50,50,"");

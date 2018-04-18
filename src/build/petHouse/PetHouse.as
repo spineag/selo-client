@@ -93,7 +93,7 @@ public class PetHouse extends WorldObject {
     }
 
     public function getMiskaForPet(pet:PetMain):Miska {
-        if (pet == _miska1.pet) return _miska1;
+        if (_miska1 && pet == _miska1.pet) return _miska1;
         if (_miska2 && pet == _miska2.pet) return _miska2;
         if (_miska3 && pet == _miska3.pet) return _miska3;
         return null;

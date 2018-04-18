@@ -25,15 +25,16 @@ import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
 import utils.CSprite;
+import utils.MCScaler;
 
 import windows.WindowsManager;
 
 public class Cafe extends WorldObject {
 
     private var _isHover:Boolean;
-    private var _spriteFirst:Sprite;
-    private var _spriteSecond:Sprite;
-    private var _spriteThird:Sprite;
+    private var _spriteFirst:CSprite;
+    private var _spriteSecond:CSprite;
+    private var _spriteThird:CSprite;
     private var _imDoor:Image;
     private var _imDoorTent:Image;
     private var _imBaner:Image;
@@ -52,14 +53,14 @@ public class Cafe extends WorldObject {
     private var _imFence2:Image;
     private var _imFence3:Image;
     private var _imFence4:Image;
-    private var _imFence5:Image;
+//    private var _imFence5:Image;
     private var _imFence6:Image;
     private var _imFence7:Image;
     private var _imFlowerS1:Image;
     private var _imFlowerS2:Image;
-    private var _imFlowerB1:Image;
+//    private var _imFlowerB1:Image;
     private var _imFlowerR1:Image;
-    private var _imFlowerR2:Image;
+//    private var _imFlowerR2:Image;
     private var _imFlowerR3:Image;
 
     private var _imTable1:Image;
@@ -73,9 +74,9 @@ public class Cafe extends WorldObject {
             return;
         }
         useIsometricOnly = false;
-        _spriteSecond = new Sprite();
-        _spriteThird = new Sprite();
-        _spriteFirst = new Sprite();
+        _spriteSecond = new CSprite();
+        _spriteThird = new CSprite();
+        _spriteFirst = new CSprite();
         _csprMenu = new CSprite();
         _source.addChild(_spriteFirst);
         _source.addChild(_spriteSecond);
@@ -126,18 +127,19 @@ public class Cafe extends WorldObject {
         _imRoad = new Image(g.allData.atlas['cafeAtlas'].getTexture('paving_road'));
         _imFence1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_1'));
         _imFence2 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_2'));
-        _imFence3 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_3'));
+        _imFence3 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_2'));
         _imFence4 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_4'));
-        _imFence5 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_5'));
+//        _imFence5 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_5'));
         _imFence6 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_6'));
         _imFence7 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_7'));
         _imFlowerS1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_1'));
         _imFlowerS2 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_1'));
-        _imFlowerB1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_2'));
+//        _imFlowerB1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_2'));
         _imFlowerR1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
-        _imFlowerR2 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
+//        _imFlowerR2 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
         _imFlowerR3 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
-        _imTable1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
+        _imTable1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('table_cafe_3'));
+        MCScaler.scale(_imTable1, _imTable1.height/1.5, _imTable1.width/1.5);
         _imLeftWindow.x = -90;
         _spriteFirst.addChild(_imLeftWindow);
 
@@ -190,13 +192,17 @@ public class Cafe extends WorldObject {
         _imFence3.y = 232;
         _spriteThird.addChild(_imFence3);
 
-        _imFence4.x = 260;
-        _imFence4.y = 254;
+        _imFence4.x = 174;
+        _imFence4.y = 211;
         _spriteThird.addChild(_imFence4);
 
-        _imFence7.x = 285;
+        _imFence7.x = 282;
         _imFence7.y = 140;
         _spriteFirst.addChild(_imFence7);
+
+        _imTable1.x = 166;
+        _imTable1.y = 140;
+        _spriteSecond.addChild(_imTable1);
 
         _imFlowerS1.x = -151;
         _imFlowerS1.y = 70;
@@ -206,13 +212,14 @@ public class Cafe extends WorldObject {
         _imFlowerS2.y = 224;
         _spriteSecond.addChild(_imFlowerS2);
 
+
         _imFlowerR1.x = 63;
         _imFlowerR1.y = 165;
         _spriteSecond.addChild(_imFlowerR1);
 
-        _imFlowerR2.x = 240;
-        _imFlowerR2.y = 255;
-        _spriteSecond.addChild(_imFlowerR2);
+//        _imFlowerR2.x = 240;
+//        _imFlowerR2.y = 255;
+//        _spriteSecond.addChild(_imFlowerR2);
 
         _imFlowerR3.x = 337;
         _imFlowerR3.y = 114;
@@ -222,13 +229,14 @@ public class Cafe extends WorldObject {
         _imFence6.y = 188;
         _spriteSecond.addChild(_imFence6);
 
-        _imFence5.x = 338;
-        _imFence5.y = 212;
-        _spriteSecond.addChild(_imFence5);
 
-        _imFlowerB1.x = 379;
-        _imFlowerB1.y = 179;
-        _spriteSecond.addChild(_imFlowerB1);
+//        _imFence5.x = 338;
+//        _imFence5.y = 212;
+//        _spriteSecond.addChild(_imFence5);
+
+//        _imFlowerB1.x = 379;
+//        _imFlowerB1.y = 179;
+//        _spriteSecond.addChild(_imFlowerB1);
 
         _csprMenu.x = -75;
         _csprMenu.y = 105;
@@ -237,24 +245,42 @@ public class Cafe extends WorldObject {
         _csprMenu.endClickCallback = onClickMenu;
         _csprMenu.hoverCallback = onHoverMenu;
         _csprMenu.outCallback = onOutMenu;
-
+        _spriteFirst.endClickCallback = onClickMenu;
+        _spriteFirst.hoverCallback = onHoverMenu;
+        _spriteFirst.outCallback = onOutMenu;
+        _spriteSecond.endClickCallback = onClickMenu;
+        _spriteSecond.hoverCallback = onHoverMenu;
+        _spriteSecond.outCallback = onOutMenu;
+        _spriteThird.endClickCallback = onClickMenu;
+        _spriteThird.hoverCallback = onHoverMenu;
+        _spriteThird.outCallback = onOutMenu;
     }
 
     private function onClickMenu():void {
         _csprMenu.filter = null;
         _isHover = false;
-        g.windowsManager.openWindow(WindowsManager.WO_AMBAR,null,true);
+        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+        var p:Point = new Point(_source.x, _source.y + 10);
+        p = _source.parent.localToGlobal(p);
+        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
+//        g.windowsManager.openWindow(WindowsManager.WO_AMBAR,null,true);
     }
 
     private function onHoverMenu():void {
         if (_isHover) return;
         _isHover = true;
         _csprMenu.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        _spriteFirst.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        _spriteSecond.filter = ManagerFilters.BUILDING_HOVER_FILTER;
+        _spriteThird.filter = ManagerFilters.BUILDING_HOVER_FILTER;
     }
 
     private function onOutMenu():void {
         _isHover = false;
         _csprMenu.filter = null;
+        _spriteFirst.filter = null;
+        _spriteSecond.filter = null;
+        _spriteThird.filter = null;
     }
 
     override public function clearIt():void {

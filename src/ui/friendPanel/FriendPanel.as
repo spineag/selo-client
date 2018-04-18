@@ -38,6 +38,7 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SimpleArrow;
 
 import windows.WOComponents.HorizontalPlawka;
 
@@ -64,6 +65,8 @@ public class FriendPanel {
     private var _helpIcon:Image;
     private var _arrNeighborFriends:Array;
     private var _tabs:FriendTabs;
+    private var _spArrow:Sprite;
+    private var  _arrow:SimpleArrow;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
@@ -733,6 +736,40 @@ public class FriendPanel {
         if (e) g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGetInfo);
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].updateAvatar(_arrItems[i].person.level,_arrItems[i].person.userId);
+        }
+    }
+
+    public function addArrow(time:int = 5):void {
+        _spArrow = new Sprite();
+        _source.addChild(_spArrow);
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            addArowItem(time, i * 82);
+        }
+        addArowItem(time, 455);
+    }
+
+    public function addArowItem(time:int, x:int):void {
+        var spr:Sprite = new Sprite();
+        _spArrow.addChild(spr);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, spr);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(50, -108);
+        spr.scaleY = -1;
+        spr.x = x + 41;
+        spr.y = -80;
+        _arrow.activateTimer(time, deleteArrow);
+    }
+
+    private function deleteArrow():void {
+        if (_spArrow) {
+            _source.removeChild(_spArrow);
+            _spArrow.removeChildren();
+            _spArrow.dispose();
+            _spArrow = null;
+        }
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
         }
     }
 }

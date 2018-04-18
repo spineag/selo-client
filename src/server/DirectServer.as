@@ -8034,37 +8034,37 @@ public class DirectServer {
         }
     }
 
-    public function getUserCafe(callback:Function):void {
+    public function getUserCafeRating(callback:Function):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_BUILDING_FLIP);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_CAFE_RATING);
         var variables:URLVariables = new URLVariables();
 
-        Cc.ch('server', 'getUserCafe', 1);
+        Cc.ch('server', 'getUserCafeRating', 1);
         variables = addDefault(variables);
-//        variables.userId = userId;
+        variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
-        loader.addEventListener(Event.COMPLETE, onCompleteGetUserCafe);
-        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserCafe'); });
-        function onCompleteGetUserCafe(e:Event):void { completeGetUserCafe(e.target.data, callback); }
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserCafeRating);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserCafeRating'); });
+        function onCompleteGetUserCafeRating(e:Event):void { completeGetUserCafeRating(e.target.data, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
-            Cc.error('getUserCafe error:' + error.errorID);
+            Cc.error('getUserCafeRating error:' + error.errorID);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
         }
     }
 
-    private function completeGetUserCafe(response:String, callback:Function = null):void {
+    private function completeGetUserCafeRating(response:String, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
-            Cc.error('getUserCafe: wrong JSON:' + String(response));
+            Cc.error('getUserCafeRating: wrong JSON:' + String(response));
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserCafe: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserCafeRating: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply(null);
             }
@@ -8072,14 +8072,14 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
-            Cc.ch('server', 'getUserCafe OK', 5);
+            Cc.ch('server', 'getUserCafeRating OK', 5);
             if (callback != null) {
                 callback.apply(null);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
-            Cc.error('getUserCafe: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            Cc.error('getUserCafeRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
             if (callback != null) {

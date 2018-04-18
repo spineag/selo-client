@@ -1,265 +1,265 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:d538551b6b5b7ff92d687688c39c5d7b:fb6d79450d31b7281911e4fa1104d042:4793af12d87b93b48c95ed9be00d1ca8$ -->
-<TextureAtlas imagePath="iconAtlas.png" width="2044" height="2020">
+<!-- $TexturePacker:SmartUpdate:bf8aa437f62b810ed93d3dfb642d316f:cb847d0c654bdaf3427c7045f90d6504:4793af12d87b93b48c95ed9be00d1ca8$ -->
+<TextureAtlas imagePath="iconAtlas.png" width="2047" height="2027">
     <SubTexture name="8_march_statue_icon" x="148" y="154" width="116" height="150" frameX="-18" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="aerial_tram_icon" x="1015" y="567" width="127" height="141" frameX="0" frameY="-4" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="aerial_tram_icon" x="506" y="898" width="127" height="141" frameX="0" frameY="-4" frameWidth="150" frameHeight="150"/>
     <SubTexture name="alive_fence_icon" x="2" y="458" width="145" height="148" frameX="-3" frameY="-1" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="alpine_garden_big_icon" x="635" y="864" width="148" height="91" frameX="-1" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="alpine_garden_big_icon" x="352" y="1562" width="148" height="91" frameX="-1" frameY="-32" frameWidth="150" frameHeight="150"/>
     <SubTexture name="alpine_garden_icon" x="777" y="287" width="147" height="132" frameX="0" frameY="-10" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="alpine_garden_medium_icon" x="785" y="862" width="127" height="122" frameX="-12" frameY="-14" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="amanita_1_red_icon" x="83" y="1952" width="45" height="63"/>
-    <SubTexture name="amanita_2_red_icon" x="1973" y="585" width="64" height="71"/>
-    <SubTexture name="ambar_icon" x="1593" y="1719" width="73" height="120"/>
+    <SubTexture name="alpine_garden_medium_icon" x="1657" y="1128" width="127" height="122" frameX="-12" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="amanita_1_red_icon" x="1512" y="1959" width="45" height="63"/>
+    <SubTexture name="amanita_2_red_icon" x="1973" y="761" width="64" height="71"/>
+    <SubTexture name="ambar_icon" x="1182" y="1330" width="73" height="120"/>
     <SubTexture name="apple_icon" x="266" y="152" width="108" height="150" frameX="-29" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="arbor_for_both_icon" x="283" y="757" width="132" height="144" frameX="-8" frameY="-3" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="arbor_icon" x="914" y="861" width="122" height="127" frameX="-4" frameY="-6" frameWidth="130" frameHeight="133"/>
+    <SubTexture name="arbor_icon" x="393" y="1047" width="122" height="127" frameX="-4" frameY="-6" frameWidth="130" frameHeight="133"/>
     <SubTexture name="arch_alive_icon" x="376" y="150" width="100" height="150" frameX="-27" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="arch_heart_icon" x="266" y="304" width="114" height="150"/>
     <SubTexture name="arch_white_heart_icon" x="149" y="458" width="118" height="149" frameX="-17" frameY="-1" frameWidth="150" frameHeight="150"/>
     <SubTexture name="arch_white_icon" x="269" y="456" width="114" height="150" frameX="-18" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="bakery_icon" x="1821" y="139" width="150" height="118" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="bakery_icon" x="1821" y="140" width="150" height="118" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
     <SubTexture name="balabas_pink_icon" x="457" y="2" width="150" height="144" frameX="0" frameY="-4" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="barrel_icon" x="1946" y="1644" width="96" height="119" frameX="-27" frameY="-16" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="bbq_grill_icon" x="892" y="1396" width="144" height="83" frameX="-3" frameY="-7" frameWidth="150" frameHeight="91"/>
-    <SubTexture name="beach_chair_blue_icon" x="1513" y="823" width="146" height="119" frameX="-2" frameY="-2" frameWidth="150" frameHeight="123"/>
-    <SubTexture name="beach_chair_green_icon" x="372" y="903" width="146" height="119" frameX="-2" frameY="-2" frameWidth="150" frameHeight="123"/>
-    <SubTexture name="beach_chair_orange_icon" x="397" y="1281" width="146" height="119" frameX="-2" frameY="-2" frameWidth="150" frameHeight="123"/>
-    <SubTexture name="beach_chair_yellow_icon" x="387" y="1504" width="146" height="119" frameX="-2" frameY="-2" frameWidth="150" frameHeight="123"/>
-    <SubTexture name="beehive_icon" x="1377" y="276" width="138" height="133" frameX="-6" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="barrel_icon" x="1200" y="1727" width="96" height="119" frameX="-27" frameY="-16" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="bbq_grill_icon" x="434" y="1942" width="144" height="83" frameX="-3" frameY="-7" frameWidth="150" frameHeight="91"/>
+    <SubTexture name="beach_chair_blue_icon" x="514" y="1183" width="146" height="119" frameX="-2" frameY="-2" frameWidth="150" frameHeight="123"/>
+    <SubTexture name="beach_chair_green_icon" x="783" y="1202" width="146" height="119" frameX="-2" frameY="-2" frameWidth="150" frameHeight="123"/>
+    <SubTexture name="beach_chair_orange_icon" x="931" y="1207" width="146" height="119" frameX="-2" frameY="-2" frameWidth="150" frameHeight="123"/>
+    <SubTexture name="beach_chair_yellow_icon" x="506" y="1304" width="146" height="119" frameX="-2" frameY="-2" frameWidth="150" frameHeight="123"/>
+    <SubTexture name="beehive_icon" x="1377" y="277" width="138" height="133" frameX="-6" frameY="-14" frameWidth="150" frameHeight="150"/>
     <SubTexture name="bird_house_icon" x="417" y="757" width="87" height="144" frameX="-32" frameY="-3" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="blue_rabbit_icon" x="1969" y="1765" width="73" height="100" frameX="-39" frameY="-25" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="blue_rabbit_icon" x="1171" y="1204" width="73" height="100" frameX="-39" frameY="-25" frameWidth="150" frameHeight="150"/>
     <SubTexture name="blueberry_icon" x="926" y="282" width="145" height="131" frameX="-3" frameY="-10" frameWidth="150" frameHeight="150"/>
     <SubTexture name="box_plant_icon" x="609" y="2" width="150" height="144" frameX="0" frameY="-6" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="boxes3_icon" x="1513" y="700" width="146" height="121" frameX="-2" frameY="-18" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="boxes_icon" x="1952" y="1218" width="90" height="120" frameX="-30" frameY="-15" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="bridge_icon" x="1369" y="660" width="138" height="93" frameX="-6" frameY="-1" frameWidth="150" frameHeight="94"/>
-    <SubTexture name="brown_deer_icon" x="1205" y="1692" width="90" height="106" frameX="-30" frameY="-22" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cactus_round_blue_icon" x="1029" y="415" width="92" height="150" frameX="-29" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cactus_round_orange_icon" x="1144" y="561" width="92" height="150" frameX="-29" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cactus_round_pink_icon" x="1144" y="713" width="92" height="150" frameX="-29" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cake_icon" x="666" y="1173" width="137" height="124" frameX="-6" frameY="-26" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="camping_fire_icon" x="1480" y="1719" width="111" height="120" frameX="-20" frameY="-17" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="camping_tent_green_icon" x="1499" y="1031" width="149" height="120" frameX="0" frameY="-14" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="camping_tent_yellow_icon" x="1650" y="1032" width="149" height="120" frameX="0" frameY="-14" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cat_bouquet_icon" x="1119" y="1598" width="84" height="144" frameX="-29" frameY="-5" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cat_cosmonaut_1_icon" x="1375" y="411" width="133" height="135" frameX="-9" frameY="-11" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="boxes3_icon" x="245" y="903" width="146" height="121" frameX="-2" frameY="-18" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="boxes_icon" x="1079" y="1207" width="90" height="120" frameX="-30" frameY="-15" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="bridge_icon" x="1646" y="1252" width="138" height="93" frameX="-6" frameY="-1" frameWidth="150" frameHeight="94"/>
+    <SubTexture name="brown_deer_icon" x="1181" y="1867" width="90" height="106" frameX="-30" frameY="-22" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cactus_round_blue_icon" x="883" y="713" width="92" height="150" frameX="-29" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cactus_round_orange_icon" x="884" y="561" width="92" height="150" frameX="-29" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cactus_round_pink_icon" x="901" y="865" width="92" height="150" frameX="-29" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cake_icon" x="781" y="1446" width="137" height="124" frameX="-6" frameY="-26" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="camping_fire_icon" x="1456" y="1718" width="111" height="120" frameX="-20" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="camping_tent_green_icon" x="1506" y="886" width="149" height="120" frameX="0" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="camping_tent_yellow_icon" x="1506" y="1008" width="149" height="120" frameX="0" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cat_bouquet_icon" x="1029" y="415" width="84" height="144" frameX="-29" frameY="-5" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cat_cosmonaut_1_icon" x="1224" y="705" width="133" height="135" frameX="-9" frameY="-11" frameWidth="150" frameHeight="150"/>
     <SubTexture name="cat_cosmonaut_2_icon" x="2" y="608" width="141" height="146" frameX="-3" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cat_house_icon" x="1238" y="696" width="127" height="140" frameX="-11" frameY="-5" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cat_icon" x="1973" y="363" width="68" height="123" frameX="-10" frameY="-5" frameWidth="84" frameHeight="128"/>
+    <SubTexture name="cat_house_icon" x="1918" y="1062" width="127" height="140" frameX="-11" frameY="-5" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cat_icon" x="1973" y="448" width="68" height="123" frameX="-10" frameY="-5" frameWidth="84" frameHeight="128"/>
     <SubTexture name="cat_nail_blue_icon" x="2" y="1506" width="133" height="147" frameX="-8" frameY="-2" frameWidth="150" frameHeight="150"/>
     <SubTexture name="cat_nail_green_icon" x="2" y="1655" width="133" height="147" frameX="-8" frameY="-1" frameWidth="150" frameHeight="150"/>
     <SubTexture name="cat_nail_orange_icon" x="2" y="1804" width="133" height="146" frameX="-8" frameY="-2" frameWidth="150" frameHeight="150"/>
     <SubTexture name="cat_nail_yellow_icon" x="2" y="908" width="136" height="149" frameX="-7" frameY="-1" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cat_small_house_icon" x="1821" y="259" width="150" height="93" frameX="0" frameY="-33" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="chair_1_icon" x="1234" y="1933" width="57" height="73" frameX="-9" frameY="-15" frameWidth="69" frameHeight="92"/>
-    <SubTexture name="chair_2_icon" x="1133" y="1835" width="67" height="89" frameX="0" frameY="0" frameWidth="69" frameHeight="92"/>
-    <SubTexture name="cherry_icon" x="1144" y="865" width="117" height="148" frameX="-21" frameY="-2" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="chicken_icon" x="1862" y="1779" width="105" height="108" frameX="0" frameY="-11" frameWidth="105" frameHeight="119"/>
-    <SubTexture name="coffee_cat_big_icon" x="789" y="1663" width="109" height="125" frameX="-21" frameY="-13" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="coffee_cat_small_icon" x="1486" y="1551" width="119" height="88" frameX="-16" frameY="-31" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cone_1_icon" x="1157" y="1390" width="100" height="148" frameX="-25" frameY="-2" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cat_small_house_icon" x="1821" y="260" width="150" height="93" frameX="0" frameY="-33" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="chair_1_icon" x="1973" y="834" width="57" height="73" frameX="-9" frameY="-15" frameWidth="69" frameHeight="92"/>
+    <SubTexture name="chair_2_icon" x="1973" y="670" width="67" height="89" frameX="0" frameY="0" frameWidth="69" frameHeight="92"/>
+    <SubTexture name="cherry_icon" x="1115" y="412" width="117" height="148" frameX="-21" frameY="-2" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="chicken_icon" x="1075" y="1342" width="105" height="108" frameX="0" frameY="-11" frameWidth="105" frameHeight="119"/>
+    <SubTexture name="coffee_cat_big_icon" x="1059" y="1452" width="109" height="125" frameX="-21" frameY="-13" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="coffee_cat_small_icon" x="653" y="1689" width="119" height="88" frameX="-16" frameY="-31" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cone_1_icon" x="258" y="1658" width="100" height="148" frameX="-25" frameY="-2" frameWidth="150" frameHeight="150"/>
     <SubTexture name="cone_2_icon" x="140" y="1212" width="109" height="144" frameX="-20" frameY="-6" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cone_3_icon" x="1386" y="1412" width="95" height="146" frameX="-27" frameY="-4" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cone_4_icon" x="1965" y="772" width="77" height="146" frameX="-37" frameY="-4" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cone_5_icon" x="599" y="1790" width="71" height="142" frameX="-39" frameY="-8" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="confectionery_icon" x="396" y="1402" width="147" height="100" frameX="0" frameY="-7" frameWidth="147" frameHeight="108"/>
-    <SubTexture name="copper_bench_icon" x="663" y="1299" width="137" height="125" frameX="-6" frameY="-13" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cone_3_icon" x="1257" y="1118" width="95" height="146" frameX="-27" frameY="-4" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cone_4_icon" x="1572" y="1428" width="77" height="146" frameX="-37" frameY="-4" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="cone_5_icon" x="1973" y="2" width="71" height="142" frameX="-39" frameY="-8" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="confectionery_icon" x="905" y="1579" width="147" height="100" frameX="0" frameY="-7" frameWidth="147" frameHeight="108"/>
+    <SubTexture name="copper_bench_icon" x="920" y="1452" width="137" height="125" frameX="-6" frameY="-13" frameWidth="150" frameHeight="150"/>
     <SubTexture name="corn_fabric_icon" x="1669" y="142" width="150" height="134" frameX="0" frameY="-15" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="cow_icon" x="912" y="990" width="124" height="123"/>
+    <SubTexture name="cow_icon" x="1228" y="993" width="124" height="123"/>
     <SubTexture name="cupidon_statue_blue_icon" x="382" y="302" width="110" height="150" frameX="-26" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="cupidon_statue_pink_icon" x="385" y="454" width="110" height="150" frameX="-26" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="cycle_flower_icon" x="145" y="609" width="134" height="146" frameX="-7" frameY="-4" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="daily_bonus_icon" x="800" y="1790" width="88" height="135" frameX="-31" frameY="-6" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="dairy_icon" x="251" y="1271" width="144" height="118"/>
-    <SubTexture name="dandelion_blue_icon" x="625" y="284" width="150" height="127" frameX="0" frameY="-11" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="dandelion_green_icon" x="1517" y="278" width="150" height="127" frameX="0" frameY="-11" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="dandelion_orange_icon" x="1073" y="279" width="150" height="128" frameX="0" frameY="-10" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="dandelion_red_icon" x="1225" y="277" width="150" height="128" frameX="0" frameY="-10" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="dark_brown_deer_icon" x="811" y="1540" width="85" height="121" frameX="-33" frameY="-15" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="deer_house_icon" x="1386" y="1560" width="98" height="145" frameX="-26" frameY="-2" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="daily_bonus_icon" x="1370" y="1567" width="88" height="135" frameX="-31" frameY="-6" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="dairy_icon" x="1821" y="2" width="150" height="136" frameX="0" frameY="-12" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="dandelion_blue_icon" x="625" y="285" width="150" height="127" frameX="0" frameY="-11" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="dandelion_green_icon" x="1669" y="278" width="150" height="127" frameX="0" frameY="-11" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="dandelion_orange_icon" x="1225" y="279" width="150" height="128" frameX="0" frameY="-10" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="dandelion_red_icon" x="1517" y="278" width="150" height="128" frameX="0" frameY="-10" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="dark_brown_deer_icon" x="1170" y="1452" width="85" height="121" frameX="-33" frameY="-15" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="deer_house_icon" x="1569" y="1576" width="98" height="145" frameX="-26" frameY="-2" frameWidth="150" frameHeight="150"/>
     <SubTexture name="dog_house_icon" x="478" y="148" width="145" height="140" frameX="-2" frameY="-5" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="dog_small_house_icon" x="1821" y="2" width="150" height="135" frameX="0" frameY="-7" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="easel_blue_icon" x="1869" y="1499" width="77" height="126" frameX="-4" frameY="0" frameWidth="88" frameHeight="130"/>
-    <SubTexture name="easel_clear_icon" x="1656" y="1844" width="84" height="127" frameX="-3" frameY="0" frameWidth="88" frameHeight="130"/>
-    <SubTexture name="easel_red_icon" x="1668" y="1716" width="77" height="126" frameX="-4" frameY="0" frameWidth="88" frameHeight="130"/>
-    <SubTexture name="easel_yellow_icon" x="1920" y="1889" width="77" height="126" frameX="-4" frameY="0" frameWidth="88" frameHeight="130"/>
+    <SubTexture name="dog_small_house_icon" x="625" y="148" width="150" height="135" frameX="0" frameY="-7" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="easel_blue_icon" x="1298" y="1722" width="77" height="126" frameX="-4" frameY="0" frameWidth="88" frameHeight="130"/>
+    <SubTexture name="easel_clear_icon" x="1866" y="1696" width="84" height="127" frameX="-3" frameY="0" frameWidth="88" frameHeight="130"/>
+    <SubTexture name="easel_red_icon" x="1273" y="1850" width="77" height="126" frameX="-4" frameY="0" frameWidth="88" frameHeight="130"/>
+    <SubTexture name="easel_yellow_icon" x="1352" y="1850" width="77" height="126" frameX="-4" frameY="0" frameWidth="88" frameHeight="130"/>
     <SubTexture name="easter_bunny_icon" x="902" y="421" width="125" height="138" frameX="-12" frameY="-7" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="easter_chick_icon" x="535" y="1535" width="126" height="125" frameX="-10" frameY="-12" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="easter_egg_light_blue_icon" x="802" y="1451" width="79" height="71"/>
-    <SubTexture name="easter_egg_pink_icon" x="1293" y="1936" width="79" height="70"/>
-    <SubTexture name="easter_egg_purple_icon" x="1386" y="1919" width="79" height="70"/>
-    <SubTexture name="easter_egg_red_icon" x="1153" y="1933" width="79" height="71"/>
-    <SubTexture name="easter_egg_yellow_icon" x="2" y="1952" width="79" height="66"/>
-    <SubTexture name="easter_gnome_icon" x="1168" y="1192" width="92" height="102" frameX="-14" frameY="-16" frameWidth="120" frameHeight="134"/>
+    <SubTexture name="easter_chick_icon" x="1786" y="1128" width="126" height="125" frameX="-10" frameY="-12" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="easter_egg_light_blue_icon" x="873" y="1950" width="79" height="71"/>
+    <SubTexture name="easter_egg_pink_icon" x="1680" y="1860" width="79" height="70"/>
+    <SubTexture name="easter_egg_purple_icon" x="1761" y="1860" width="79" height="70"/>
+    <SubTexture name="easter_egg_red_icon" x="954" y="1950" width="79" height="71"/>
+    <SubTexture name="easter_egg_yellow_icon" x="1431" y="1959" width="79" height="66"/>
+    <SubTexture name="easter_gnome_icon" x="1952" y="1771" width="92" height="102" frameX="-14" frameY="-16" frameWidth="120" frameHeight="134"/>
     <SubTexture name="easter_tree_icon" x="147" y="306" width="117" height="150" frameX="-16" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="farm_bee_icon" x="1607" y="1532" width="145" height="85" frameX="0" frameY="-1" frameWidth="147" frameHeight="86"/>
-    <SubTexture name="farm_chicken_icon" x="1023" y="1163" width="143" height="96"/>
-    <SubTexture name="farm_cow_icon" x="1006" y="1500" width="143" height="96"/>
-    <SubTexture name="farm_goat_icon" x="1821" y="354" width="150" height="92" frameX="0" frameY="-29" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="farm_pig_icon" x="1607" y="1435" width="142" height="95"/>
-    <SubTexture name="farm_sheep_icon" x="1645" y="1338" width="143" height="95"/>
-    <SubTexture name="farming_table_icon" x="1025" y="1261" width="134" height="116" frameX="-1" frameY="-2" frameWidth="137" frameHeight="121"/>
-    <SubTexture name="feed_mill_icon" x="1486" y="1641" width="144" height="76" frameX="-3" frameY="-1" frameWidth="150" frameHeight="78"/>
-    <SubTexture name="fir_1_icon" x="1123" y="409" width="112" height="150" frameX="-19" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="fir_2_icon" x="1263" y="838" width="115" height="150" frameX="-17" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="fir_3_icon" x="520" y="898" width="113" height="144" frameX="-19" frameY="-3" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="fir_4_icon" x="374" y="1790" width="111" height="142" frameX="-17" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="fireworks_event_icon" x="397" y="1156" width="117" height="123" frameX="-17" frameY="-14" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="flag_usa_icon" x="137" y="1506" width="115" height="150" frameX="-17" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="flower_boot_icon" x="137" y="1658" width="116" height="150" frameX="-17" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="flower_pot_1_icon" x="251" y="1147" width="144" height="122" frameX="-3" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="farm_bee_icon" x="889" y="1863" width="145" height="85" frameX="0" frameY="-1" frameWidth="147" frameHeight="86"/>
+    <SubTexture name="farm_chicken_icon" x="1055" y="1678" width="143" height="96"/>
+    <SubTexture name="farm_cow_icon" x="1036" y="1867" width="143" height="96"/>
+    <SubTexture name="farm_goat_icon" x="1821" y="355" width="150" height="92" frameX="0" frameY="-29" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="farm_pig_icon" x="1498" y="1331" width="142" height="95"/>
+    <SubTexture name="farm_sheep_icon" x="1354" y="1152" width="143" height="95"/>
+    <SubTexture name="farming_table_icon" x="1782" y="1010" width="134" height="116" frameX="-1" frameY="-2" frameWidth="137" frameHeight="121"/>
+    <SubTexture name="feed_mill_icon" x="1054" y="1579" width="144" height="97" frameX="-3" frameY="-52" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="fir_1_icon" x="787" y="865" width="112" height="150" frameX="-19" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="fir_2_icon" x="978" y="561" width="115" height="150" frameX="-17" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="fir_3_icon" x="391" y="1416" width="113" height="144" frameX="-19" frameY="-3" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="fir_4_icon" x="393" y="903" width="111" height="142" frameX="-17" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="fireworks_event_icon" x="774" y="1691" width="117" height="123" frameX="-17" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="flag_usa_icon" x="995" y="865" width="115" height="150" frameX="-17" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="flower_boot_icon" x="977" y="713" width="116" height="150" frameX="-17" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="flower_pot_1_icon" x="929" y="1328" width="144" height="122" frameX="-3" frameY="-14" frameWidth="150" frameHeight="150"/>
     <SubTexture name="flower_pot_2_icon" x="281" y="608" width="112" height="147" frameX="-21" frameY="-3" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="flower_pot_3_icon" x="912" y="1115" width="109" height="144" frameX="-21" frameY="-6" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="flowerbed_square_3x3_icon" x="1669" y="406" width="150" height="90" frameX="0" frameY="-30" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="flowerbed_square_blue_icon" x="1517" y="407" width="150" height="95" frameX="0" frameY="-27" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="flowerbed_square_red_icon" x="1821" y="448" width="150" height="95" frameX="0" frameY="-27" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="flowerbed_usa_icon" x="1669" y="498" width="150" height="91" frameX="0" frameY="-29" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="forks_icon" x="140" y="908" width="80" height="150" frameX="-35" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="fountain_flowers_icon" x="890" y="1790" width="96" height="140" frameX="-27" frameY="-10" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="flower_pot_3_icon" x="1349" y="1421" width="109" height="144" frameX="-21" frameY="-6" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="flowerbed_square_3x3_icon" x="1669" y="407" width="150" height="90" frameX="0" frameY="-30" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="flowerbed_square_blue_icon" x="1517" y="408" width="150" height="95" frameX="0" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="flowerbed_square_red_icon" x="1821" y="449" width="150" height="95" frameX="0" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="flowerbed_usa_icon" x="1669" y="499" width="150" height="91" frameX="0" frameY="-29" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="forks_icon" x="1965" y="910" width="80" height="150" frameX="-35" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="fountain_flowers_icon" x="1684" y="1718" width="96" height="140" frameX="-27" frameY="-10" frameWidth="150" frameHeight="150"/>
     <SubTexture name="fountain_pink_icon" x="141" y="757" width="140" height="143" frameX="-5" frameY="-2" frameWidth="150" frameHeight="150"/>
     <SubTexture name="fountain_small_icon" x="395" y="606" width="102" height="149" frameX="-24" frameY="-1" frameWidth="150" frameHeight="150"/>
     <SubTexture name="fountain_top_icon" x="2" y="154" width="144" height="150" frameX="-3" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="fryer_icon" x="387" y="1625" width="146" height="77" frameX="0" frameY="-18" frameWidth="146" frameHeight="95"/>
+    <SubTexture name="fryer_icon" x="137" y="1948" width="146" height="77" frameX="0" frameY="-18" frameWidth="146" frameHeight="95"/>
     <SubTexture name="garden_gnome_blue_hat_icon" x="2" y="1059" width="136" height="147" frameX="-7" frameY="-2" frameWidth="150" frameHeight="150"/>
     <SubTexture name="garden_gnome_coin_icon" x="497" y="442" width="125" height="150" frameX="-12" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="garden_gnome_red_hat_icon" x="2" y="1208" width="136" height="147" frameX="-7" frameY="-2" frameWidth="150" frameHeight="150"/>
     <SubTexture name="gate_alive_closed_icon" x="777" y="148" width="141" height="137" frameX="-5" frameY="-6" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="gate_white_closed_icon" x="535" y="1662" width="125" height="126" frameX="-14" frameY="-14" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="ghost_icon" x="140" y="1060" width="107" height="150" frameX="-21" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="gnome_alien_icon" x="255" y="1642" width="126" height="138" frameX="-8" frameY="-3" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="gate_white_closed_icon" x="379" y="1288" width="125" height="126" frameX="-14" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="ghost_icon" x="137" y="1506" width="107" height="150" frameX="-21" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="gnome_alien_icon" x="137" y="1808" width="126" height="138" frameX="-8" frameY="-3" frameWidth="150" frameHeight="150"/>
     <SubTexture name="gnome_horseshoe_icon" x="2" y="1357" width="134" height="147" frameX="-6" frameY="-2" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="gnome_king_icon" x="1038" y="1011" width="103" height="150" frameX="-24" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="goat_icon" x="886" y="561" width="127" height="147" frameX="-12" frameY="-2" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="gold_bench_icon" x="892" y="1261" width="131" height="133" frameX="-9" frameY="-9" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="grape_gnome_icon" x="1380" y="838" width="117" height="150" frameX="-18" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="grey_dog_big_icon" x="545" y="1420" width="116" height="113" frameX="-17" frameY="-19" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="grey_dog_small_icon" x="1143" y="1015" width="118" height="76" frameX="-16" frameY="-37" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="hammock_icon" x="624" y="413" width="136" height="145" frameX="-8" frameY="-4" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="hay_icon" x="1483" y="1432" width="122" height="117" frameX="-14" frameY="-17" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="ice_cream_maker_icon" x="1821" y="545" width="150" height="104"/>
-    <SubTexture name="jam_machine_icon" x="222" y="903" width="148" height="119" frameX="-1" frameY="0" frameWidth="150" frameHeight="119"/>
-    <SubTexture name="jeweler_icon" x="1801" y="1047" width="149" height="117"/>
-    <SubTexture name="juice_press_icon" x="249" y="1024" width="146" height="121" frameX="-2" frameY="0" frameWidth="150" frameHeight="121"/>
-    <SubTexture name="kakao_cat_big_icon" x="1754" y="1499" width="113" height="124" frameX="-19" frameY="-13" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="kakao_cat_small_icon" x="1632" y="1619" width="117" height="95" frameX="-17" frameY="-28" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="kakao_icon" x="898" y="1481" width="106" height="148" frameX="-31" frameY="-2" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="kiss_bench_icon" x="625" y="148" width="150" height="134" frameX="0" frameY="-8" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="lemon_icon" x="1019" y="710" width="123" height="147" frameX="-14" frameY="-3" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="logs_icon" x="1973" y="154" width="69" height="57" frameX="-41" frameY="-47" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="loom_icon" x="245" y="1391" width="149" height="111" frameX="-1" frameY="-19" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="love_tree_icon" x="1297" y="1684" width="87" height="141" frameX="-30" frameY="-5" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="maslenitsa_statue_icon" x="1295" y="1538" width="89" height="144" frameX="-35" frameY="-3" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="milk_cat_big_icon" x="1751" y="1625" width="113" height="126" frameX="-19" frameY="-12" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="milk_cat_small_icon" x="1295" y="1827" width="89" height="107" frameX="-31" frameY="-22" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="milk_deer_icon" x="1168" y="1093" width="93" height="97" frameX="-29" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="gnome_king_icon" x="140" y="908" width="103" height="150" frameX="-24" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="goat_icon" x="1095" y="704" width="127" height="147" frameX="-12" frameY="-2" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="gold_bench_icon" x="251" y="1151" width="131" height="133" frameX="-9" frameY="-9" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="grape_gnome_icon" x="764" y="713" width="117" height="150" frameX="-18" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="grey_dog_big_icon" x="1906" y="1342" width="116" height="113" frameX="-17" frameY="-19" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="grey_dog_small_icon" x="1786" y="1352" width="118" height="76" frameX="-16" frameY="-37" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="hammock_icon" x="624" y="414" width="136" height="145" frameX="-8" frameY="-4" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="hay_icon" x="781" y="1572" width="122" height="117" frameX="-14" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="ice_cream_maker_icon" x="1821" y="546" width="150" height="104"/>
+    <SubTexture name="jam_machine_icon" x="635" y="1061" width="148" height="119" frameX="-1" frameY="0" frameWidth="150" frameHeight="119"/>
+    <SubTexture name="jeweler_icon" x="1506" y="1130" width="149" height="117"/>
+    <SubTexture name="juice_press_icon" x="781" y="1323" width="146" height="121" frameX="-2" frameY="0" frameWidth="150" frameHeight="121"/>
+    <SubTexture name="kakao_cat_big_icon" x="359" y="1816" width="113" height="124" frameX="-19" frameY="-13" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="kakao_cat_small_icon" x="1786" y="1255" width="117" height="95" frameX="-17" frameY="-28" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="kakao_icon" x="474" y="1792" width="106" height="148" frameX="-31" frameY="-2" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="kiss_bench_icon" x="920" y="146" width="150" height="134" frameX="0" frameY="-8" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="lemon_icon" x="1657" y="979" width="123" height="147" frameX="-14" frameY="-3" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="logs_icon" x="1035" y="1965" width="69" height="57" frameX="-41" frameY="-47" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="loom_icon" x="1663" y="866" width="149" height="111" frameX="-1" frameY="-19" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="love_tree_icon" x="1760" y="1572" width="87" height="141" frameX="-30" frameY="-5" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="maslenitsa_statue_icon" x="1669" y="1572" width="89" height="144" frameX="-35" frameY="-3" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="milk_cat_big_icon" x="1569" y="1723" width="113" height="126" frameX="-19" frameY="-12" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="milk_cat_small_icon" x="1431" y="1850" width="89" height="107" frameX="-31" frameY="-22" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="milk_deer_icon" x="1952" y="1672" width="93" height="97" frameX="-29" frameY="-27" frameWidth="150" frameHeight="150"/>
     <SubTexture name="mine_icon" x="2" y="756" width="137" height="150" frameX="-5" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="mushroom_house_1_icon" x="755" y="561" width="129" height="147" frameX="-13" frameY="-3" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="mushroom_house_2_icon" x="1072" y="144" width="148" height="133" frameX="-1" frameY="-17" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="new_year_boot_icon" x="258" y="1782" width="114" height="150" frameX="-18" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="new_year_tree_1_icon" x="802" y="1299" width="88" height="150" frameX="-31" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="new_year_tree_2_icon" x="1205" y="1540" width="88" height="150" frameX="-31" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="newspaper_icon" x="137" y="1810" width="119" height="148" frameX="-16" frameY="-2" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="orange_icon" x="893" y="710" width="124" height="149" frameX="-13" frameY="-1" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="orange_rabbit_icon" x="1973" y="488" width="63" height="95" frameX="-44" frameY="-28" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="mushroom_house_1_icon" x="1234" y="409" width="129" height="147" frameX="-13" frameY="-3" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="mushroom_house_2_icon" x="1224" y="144" width="148" height="133" frameX="-1" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="new_year_boot_icon" x="1112" y="853" width="114" height="150" frameX="-18" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="new_year_tree_1_icon" x="582" y="1792" width="88" height="150" frameX="-31" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="new_year_tree_2_icon" x="1200" y="1575" width="88" height="150" frameX="-31" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="newspaper_icon" x="137" y="1658" width="119" height="148" frameX="-16" frameY="-2" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="orange_icon" x="1228" y="842" width="124" height="149" frameX="-13" frameY="-1" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="orange_rabbit_icon" x="1973" y="573" width="63" height="95" frameX="-44" frameY="-28" frameWidth="150" frameHeight="150"/>
     <SubTexture name="orders_icon" x="153" y="2" width="150" height="148" frameX="0" frameY="-1" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pastel_brown_deer_icon" x="1742" y="1858" width="94" height="103" frameX="-28" frameY="-24" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="picnic_blue_icon" x="1499" y="1153" width="149" height="98" frameX="-1" frameY="0" frameWidth="150" frameHeight="98"/>
-    <SubTexture name="picnic_pink_icon" x="1510" y="504" width="150" height="95" frameX="0" frameY="0" frameWidth="150" frameHeight="98"/>
-    <SubTexture name="picnic_red_icon" x="1510" y="601" width="150" height="97" frameX="0" frameY="0" frameWidth="150" frameHeight="98"/>
-    <SubTexture name="picnic_table_icon" x="1497" y="1337" width="146" height="93" frameX="-3" frameY="-35" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="picnic_yellow_icon" x="1650" y="1154" width="149" height="97" frameX="0" frameY="-3" frameWidth="150" frameHeight="104"/>
+    <SubTexture name="pastel_brown_deer_icon" x="1949" y="1875" width="94" height="103" frameX="-28" frameY="-24" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="picnic_blue_icon" x="1814" y="910" width="149" height="98" frameX="-1" frameY="0" frameWidth="150" frameHeight="98"/>
+    <SubTexture name="picnic_pink_icon" x="635" y="865" width="150" height="95" frameX="0" frameY="0" frameWidth="150" frameHeight="98"/>
+    <SubTexture name="picnic_red_icon" x="635" y="962" width="150" height="97" frameX="0" frameY="0" frameWidth="150" frameHeight="98"/>
+    <SubTexture name="picnic_table_icon" x="506" y="1534" width="146" height="93" frameX="-3" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="picnic_yellow_icon" x="785" y="1103" width="149" height="97" frameX="0" frameY="-3" frameWidth="150" frameHeight="104"/>
     <SubTexture name="pie_oven_icon" x="762" y="421" width="138" height="138" frameX="-6" frameY="-11" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pier_icon" x="1386" y="1841" width="142" height="76" frameX="-4" frameY="-38" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pig_icon" x="1380" y="548" width="128" height="110"/>
-    <SubTexture name="pink_dog_big_icon" x="518" y="1044" width="115" height="128" frameX="-18" frameY="-11" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pink_dog_small_icon" x="1838" y="1889" width="80" height="97" frameX="-35" frameY="-27" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pumpkin_1_icon" x="1662" y="591" width="150" height="120" frameX="0" frameY="-21" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pumpkin_2_icon" x="1374" y="144" width="150" height="130" frameX="0" frameY="-11" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pumpkin_3_icon" x="1814" y="651" width="150" height="119" frameX="0" frameY="-22" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="pumpkin_icon" x="1669" y="278" width="150" height="126" frameX="0" frameY="-16" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="rabbit_house_icon" x="900" y="1631" width="108" height="145" frameX="-21" frameY="-2" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="raspberry_icon" x="663" y="1426" width="137" height="126" frameX="-3" frameY="-15" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="red_dog_big_icon" x="1038" y="1379" width="117" height="119" frameX="-17" frameY="-16" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="red_dog_small_icon" x="1161" y="1296" width="99" height="92" frameX="-26" frameY="-29" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="ridge_icon" x="1801" y="1166" width="149" height="84"/>
-    <SubTexture name="road_shop_icon" x="545" y="1278" width="116" height="140" frameX="-16" frameY="-5" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pier_icon" x="1642" y="1347" width="142" height="76" frameX="-4" frameY="-38" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pig_icon" x="384" y="1176" width="128" height="110"/>
+    <SubTexture name="pink_dog_big_icon" x="1761" y="1430" width="115" height="128" frameX="-18" frameY="-11" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pink_dog_small_icon" x="1522" y="1851" width="80" height="97" frameX="-35" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pumpkin_1_icon" x="1517" y="505" width="150" height="120" frameX="0" frameY="-21" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pumpkin_2_icon" x="1073" y="280" width="150" height="130" frameX="0" frameY="-11" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pumpkin_3_icon" x="1365" y="540" width="150" height="119" frameX="0" frameY="-22" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="pumpkin_icon" x="1365" y="412" width="150" height="126" frameX="0" frameY="-16" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="rabbit_house_icon" x="1651" y="1425" width="108" height="145" frameX="-21" frameY="-2" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="raspberry_icon" x="360" y="1655" width="137" height="126" frameX="-3" frameY="-15" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="red_dog_big_icon" x="770" y="1816" width="117" height="119" frameX="-17" frameY="-16" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="red_dog_small_icon" x="1086" y="1110" width="99" height="92" frameX="-26" frameY="-29" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="ridge_icon" x="502" y="1629" width="149" height="84"/>
+    <SubTexture name="road_shop_icon" x="517" y="1041" width="116" height="140" frameX="-16" frameY="-5" frameWidth="150" frameHeight="150"/>
     <SubTexture name="scarecrow_icon" x="2" y="306" width="143" height="150" frameX="-4" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="sheep_icon" x="1747" y="1753" width="113" height="103" frameX="-7" frameY="-8" frameWidth="120" frameHeight="111"/>
-    <SubTexture name="shovel_icon" x="1973" y="2" width="69" height="150" frameX="-40" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="sklad_icon" x="785" y="986" width="125" height="120" frameX="0" frameY="0" frameWidth="126" frameHeight="120"/>
+    <SubTexture name="sheep_icon" x="1112" y="1005" width="113" height="103" frameX="-7" frameY="-8" frameWidth="120" frameHeight="111"/>
+    <SubTexture name="shovel_icon" x="1973" y="146" width="69" height="150" frameX="-40" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="sklad_icon" x="654" y="1314" width="125" height="120" frameX="0" frameY="0" frameWidth="126" frameHeight="120"/>
     <SubTexture name="sled_icon" x="494" y="290" width="128" height="150" frameX="-11" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="smelter_icon" x="920" y="146" width="150" height="134" frameX="0" frameY="-14" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="smoke_house_icon" x="663" y="1554" width="146" height="107" frameX="-2" frameY="0" frameWidth="150" frameHeight="108"/>
-    <SubTexture name="snowdrop_icon" x="1813" y="772" width="150" height="100" frameX="0" frameY="-28" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="snowman_icon" x="805" y="1108" width="105" height="150" frameX="-22" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="star_event_winner_icon" x="1948" y="1492" width="94" height="150" frameX="-28" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="statue_cow_icon" x="1952" y="1066" width="90" height="150" frameX="-30" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="statue_usa_icon" x="1866" y="1627" width="78" height="150" frameX="-36" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="stone_bench_icon" x="254" y="1504" width="131" height="136" frameX="-5" frameY="-4" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="street_lantern_icon" x="1973" y="213" width="59" height="148" frameX="-45" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="street_light_red_icon" x="1965" y="920" width="77" height="144" frameX="-39" frameY="-5" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="street_light_wooden2_icon" x="1010" y="1598" width="107" height="144" frameX="-22" frameY="-6" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="sugar_mill_icon" x="1237" y="407" width="136" height="140" frameX="-7" frameY="-9" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="sunflower_blue_icon" x="1946" y="1340" width="96" height="150" frameX="-27" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="swamp_5x5_icon" x="1262" y="1335" width="148" height="75" frameX="-2" frameY="-38" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="swamp_small_icon" x="1530" y="1841" width="124" height="70" frameX="-13" frameY="-40" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="smelter_icon" x="1072" y="144" width="150" height="134" frameX="0" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="smoke_house_icon" x="506" y="1425" width="146" height="107" frameX="-2" frameY="0" frameWidth="150" frameHeight="108"/>
+    <SubTexture name="snowdrop_icon" x="1669" y="592" width="150" height="100" frameX="0" frameY="-28" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="snowman_icon" x="140" y="1060" width="105" height="150" frameX="-22" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="star_event_winner_icon" x="1257" y="1266" width="94" height="150" frameX="-28" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="statue_cow_icon" x="1257" y="1418" width="90" height="150" frameX="-30" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="statue_usa_icon" x="1290" y="1570" width="78" height="150" frameX="-36" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="stone_bench_icon" x="1914" y="1204" width="131" height="136" frameX="-5" frameY="-4" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="street_lantern_icon" x="1973" y="298" width="59" height="148" frameX="-45" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="street_light_red_icon" x="1377" y="1704" width="77" height="144" frameX="-39" frameY="-5" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="street_light_wooden2_icon" x="1460" y="1572" width="107" height="144" frameX="-22" frameY="-6" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="sugar_mill_icon" x="1095" y="562" width="136" height="140" frameX="-7" frameY="-9" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="sunflower_blue_icon" x="672" y="1779" width="96" height="150" frameX="-27" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="swamp_5x5_icon" x="499" y="1715" width="148" height="75" frameX="-2" frameY="-38" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="swamp_small_icon" x="2" y="1952" width="124" height="70" frameX="-13" frameY="-40" frameWidth="150" frameHeight="150"/>
     <SubTexture name="swing_icon" x="761" y="2" width="150" height="144" frameX="0" frameY="-3" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="tail_usa_1_icon" x="1813" y="874" width="150" height="85" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="tail_usa_2_icon" x="1499" y="944" width="150" height="85" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="tail_usa_1_icon" x="1517" y="627" width="150" height="85" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="tail_usa_2_icon" x="1365" y="661" width="150" height="85" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
     <SubTexture name="teleskope_icon" x="499" y="594" width="125" height="150" frameX="-12" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="tent_blue_icon" x="305" y="2" width="150" height="146" frameX="0" frameY="-2" frameWidth="150" frameHeight="150"/>
     <SubTexture name="tent_green_icon" x="1669" y="2" width="150" height="138" frameX="0" frameY="-10" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="tent_red_icon" x="1222" y="144" width="150" height="131" frameX="0" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="tent_red_icon" x="1374" y="144" width="150" height="131" frameX="0" frameY="-17" frameWidth="150" frameHeight="150"/>
     <SubTexture name="tent_yellow_icon" x="913" y="2" width="150" height="142"/>
-    <SubTexture name="toy_factory_icon" x="1661" y="838" width="150" height="106" frameX="0" frameY="-42" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_autumn_1_icon" x="1651" y="946" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_autumn_icon" x="1803" y="961" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_blue_cross_icon" x="1800" y="1336" width="144" height="79" frameX="-3" frameY="-39" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_blue_icon" x="1263" y="990" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_grass2_icon" x="1801" y="1252" width="145" height="82" frameX="-1" frameY="-35" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_grass_icon" x="1651" y="1253" width="147" height="83" frameX="-2" frameY="-31" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_orange_icon" x="258" y="1934" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_pink_heart_icon" x="861" y="1932" width="144" height="80" frameX="-3" frameY="-38" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_pink_icon" x="383" y="1704" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_pink_white_icon" x="410" y="1934" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_purple_icon" x="562" y="1934" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_stone_icon" x="1367" y="755" width="144" height="81" frameX="-2" frameY="-34" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_white_blue_icon" x="1263" y="1076" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_white_icon" x="1007" y="1926" width="144" height="80" frameX="-3" frameY="-38" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_white_pink_icon" x="1263" y="1162" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_wooden1_icon" x="1262" y="1248" width="150" height="85" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_wooden2_icon" x="1499" y="1253" width="150" height="82" frameX="0" frameY="-34" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="track_yellow_icon" x="1790" y="1417" width="144" height="80" frameX="-3" frameY="-38" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="trampoline_blue_icon" x="635" y="957" width="148" height="89" frameX="-2" frameY="-1" frameWidth="150" frameHeight="91"/>
-    <SubTexture name="trampoline_green_icon" x="714" y="1927" width="145" height="89" frameX="-3" frameY="-1" frameWidth="150" frameHeight="91"/>
-    <SubTexture name="trampoline_red_icon" x="988" y="1835" width="143" height="89" frameX="-4" frameY="-1" frameWidth="150" frameHeight="91"/>
-    <SubTexture name="trampoline_yellow_icon" x="1010" y="1744" width="147" height="89" frameX="-3" frameY="-1" frameWidth="150" frameHeight="91"/>
-    <SubTexture name="tree_swing_icon" x="1238" y="549" width="129" height="145" frameX="-6" frameY="-4" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="trees_1_icon" x="672" y="1790" width="126" height="135" frameX="-10" frameY="-12" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="trees_2_icon" x="1202" y="1800" width="91" height="131" frameX="-29" frameY="-16" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="trees_3_icon" x="487" y="1790" width="110" height="142" frameX="-19" frameY="-5" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="trees_4_icon" x="1415" y="990" width="82" height="134" frameX="-32" frameY="-13" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="trees_5_icon" x="1386" y="1707" width="92" height="132" frameX="-28" frameY="-15" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="trees_6_icon" x="397" y="1024" width="119" height="130" frameX="-13" frameY="-17" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="trees_7_icon" x="1415" y="1126" width="82" height="134" frameX="-32" frameY="-13" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="ufo_icon" x="1259" y="1412" width="125" height="124" frameX="-13" frameY="-12" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="toy_factory_icon" x="1359" y="748" width="150" height="106" frameX="0" frameY="-42" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_autumn_1_icon" x="787" y="1017" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_autumn_icon" x="939" y="1017" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_blue_cross_icon" x="1354" y="1249" width="144" height="79" frameX="-3" frameY="-39" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_blue_icon" x="1821" y="652" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_grass2_icon" x="726" y="1937" width="145" height="82" frameX="-1" frameY="-35" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_grass_icon" x="285" y="1942" width="147" height="83" frameX="-2" frameY="-31" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_orange_icon" x="1669" y="694" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_pink_heart_icon" x="580" y="1944" width="144" height="80" frameX="-3" frameY="-38" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_pink_icon" x="1517" y="714" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_pink_white_icon" x="1511" y="800" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_purple_icon" x="1821" y="738" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_stone_icon" x="245" y="1423" width="144" height="81" frameX="-2" frameY="-34" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_white_blue_icon" x="1669" y="780" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_white_icon" x="1500" y="1249" width="144" height="80" frameX="-3" frameY="-38" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_white_pink_icon" x="1821" y="824" width="150" height="84" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_wooden1_icon" x="1354" y="981" width="150" height="85" frameX="0" frameY="-32" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_wooden2_icon" x="1354" y="1068" width="150" height="82" frameX="0" frameY="-34" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="track_yellow_icon" x="1878" y="1457" width="144" height="80" frameX="-3" frameY="-38" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="trampoline_blue_icon" x="905" y="1681" width="148" height="89" frameX="-2" frameY="-1" frameWidth="150" frameHeight="91"/>
+    <SubTexture name="trampoline_green_icon" x="1042" y="1776" width="145" height="89" frameX="-3" frameY="-1" frameWidth="150" frameHeight="91"/>
+    <SubTexture name="trampoline_red_icon" x="1353" y="1330" width="143" height="89" frameX="-4" frameY="-1" frameWidth="150" frameHeight="91"/>
+    <SubTexture name="trampoline_yellow_icon" x="893" y="1772" width="147" height="89" frameX="-3" frameY="-1" frameWidth="150" frameHeight="91"/>
+    <SubTexture name="tree_swing_icon" x="1234" y="558" width="129" height="145" frameX="-6" frameY="-4" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="trees_1_icon" x="251" y="1286" width="126" height="135" frameX="-10" frameY="-12" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="trees_2_icon" x="1933" y="1539" width="91" height="131" frameX="-29" frameY="-16" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="trees_3_icon" x="1460" y="1428" width="110" height="142" frameX="-19" frameY="-5" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="trees_4_icon" x="1782" y="1715" width="82" height="134" frameX="-32" frameY="-13" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="trees_5_icon" x="265" y="1808" width="92" height="132" frameX="-28" frameY="-15" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="trees_6_icon" x="662" y="1182" width="119" height="130" frameX="-13" frameY="-17" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="trees_7_icon" x="1849" y="1560" width="82" height="134" frameX="-32" frameY="-13" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="ufo_icon" x="654" y="1436" width="125" height="124" frameX="-13" frameY="-12" frameWidth="150" frameHeight="150"/>
     <SubTexture name="umbrella_blue_icon" x="506" y="746" width="127" height="150"/>
-    <SubTexture name="umbrella_green_icon" x="626" y="560" width="127" height="150"/>
-    <SubTexture name="umbrella_pink_icon" x="635" y="712" width="127" height="150"/>
-    <SubTexture name="umbrella_yellow_icon" x="764" y="710" width="127" height="150"/>
-    <SubTexture name="violet_rabbit_icon" x="1966" y="658" width="74" height="90" frameX="-37" frameY="-38" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="well_white_icon" x="1038" y="859" width="104" height="150" frameX="-20" frameY="0" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="umbrella_green_icon" x="626" y="561" width="127" height="150"/>
+    <SubTexture name="umbrella_pink_icon" x="755" y="561" width="127" height="150"/>
+    <SubTexture name="umbrella_yellow_icon" x="635" y="713" width="127" height="150"/>
+    <SubTexture name="violet_rabbit_icon" x="1604" y="1851" width="74" height="90" frameX="-37" frameY="-38" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="well_white_icon" x="246" y="1506" width="104" height="150" frameX="-20" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="well_yellow_icon" x="138" y="1358" width="105" height="146" frameX="-29" frameY="-2" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="wheelbarrow_icon" x="516" y="1174" width="148" height="102" frameX="-1" frameY="-24" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="wheelbarrow_top_1_icon" x="1661" y="713" width="150" height="123" frameX="0" frameY="-27" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="wheelbarrow_icon" x="936" y="1103" width="148" height="102" frameX="-1" frameY="-24" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="wheelbarrow_top_1_icon" x="1354" y="856" width="150" height="123" frameX="0" frameY="-27" frameWidth="150" frameHeight="150"/>
     <SubTexture name="wheelbarrow_top_2_icon" x="1526" y="144" width="140" height="132" frameX="-10" frameY="-18" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="white_deer_icon" x="1414" y="1262" width="81" height="126" frameX="-34" frameY="-12" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="white_fence_icon" x="662" y="1663" width="125" height="125" frameX="-13" frameY="-14" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="white_deer_icon" x="1866" y="1825" width="81" height="126" frameX="-34" frameY="-12" frameWidth="150" frameHeight="150"/>
+    <SubTexture name="white_fence_icon" x="654" y="1562" width="125" height="125" frameX="-13" frameY="-14" frameWidth="150" frameHeight="150"/>
     <SubTexture name="witch_pot_blue_icon" x="1065" y="2" width="149" height="140" frameX="0" frameY="-5" frameWidth="150" frameHeight="150"/>
     <SubTexture name="witch_pot_pink_icon" x="1216" y="2" width="149" height="140" frameX="0" frameY="-5" frameWidth="150" frameHeight="150"/>
     <SubTexture name="witch_pot_red_icon" x="1367" y="2" width="149" height="140" frameX="0" frameY="-5" frameWidth="150" frameHeight="150"/>
     <SubTexture name="witch_pot_yellow_icon" x="1518" y="2" width="149" height="140" frameX="0" frameY="-5" frameWidth="150" frameHeight="150"/>
     <SubTexture name="wood_bench_icon" x="2" y="2" width="149" height="150" frameX="-1" frameY="0" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="yogurt_machine_icon" x="635" y="1048" width="144" height="123" frameX="0" frameY="0" frameWidth="144" frameHeight="125"/>
+    <SubTexture name="yogurt_machine_icon" x="247" y="1026" width="144" height="123" frameX="0" frameY="0" frameWidth="144" frameHeight="125"/>
 </TextureAtlas>

@@ -15,6 +15,7 @@ import build.farm.FarmGrid;
 import data.AllData;
 import data.BuildType;
 import heroes.ManagerCats;
+import heroes.ManagerQuestCats;
 
 import hint.PartyHint;
 import hint.PetHint;
@@ -202,6 +203,7 @@ public class Vars {
     public var errorManager:OwnErrorManager;
     public var analyticManager:AnalyticManager;
     public var managerCats:ManagerCats;
+    public var managerQuestCats:ManagerQuestCats;
     public var tuts:IManagerTutorial;
     public var managerButterfly:ManagerButterfly;
     public var managerHelpers:ManagerHelpers;
@@ -277,6 +279,7 @@ public class Vars {
             toolsModifier.setTownArray();
 
             managerCats = new ManagerCats();
+            managerQuestCats = new ManagerQuestCats();
             managerOrderCats = new ManagerOrderCats();
             townAreaTouchManager = new TownAreaTouchManager();
             achievementPanel = new AchievementPanel();

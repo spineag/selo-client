@@ -32,6 +32,7 @@ public class PartyPanel {
     private var _srcHelp:Sprite;
     private var _srcParty:Sprite;
     private var _txtHelp:CTextField;
+    private var _countHelpParty:int;
 
     public function PartyPanel() {
         _source = new CSprite();
@@ -55,6 +56,15 @@ public class PartyPanel {
         g.gameDispatcher.addToTimer(startTimer);
         _source.alignPivot();
         _isHover = false;
+    }
+
+    public function get gCountHelpParty():int {
+        return _countHelpParty;
+    }
+
+    public function set sCountHelpParty(count:int):void {
+        _countHelpParty += count;
+        _txtHelp.text = _countHelpParty + '/10';
     }
 
     public function onResize():void {
@@ -114,12 +124,14 @@ public class PartyPanel {
         for (var i:int = 0; i < g.managerParty.userParty[0].friendId.length; i++) {
             if (g.visitedUser.userId == g.managerParty.userParty[0].friendId[i]) {
                 bFor = true;
-                _txtHelp.text = g.managerParty.userParty[0].friendCount[i] + '/10';
+                _countHelpParty = g.managerParty.userParty[0].friendCount[i];
+                _txtHelp.text = _countHelpParty + '/10';
                 break;
             }
         }
         if (!bFor) {
-            _txtHelp.text = '0/10';
+            _countHelpParty = 0;
+            _txtHelp.text = _countHelpParty + '/10';
         }
     }
 

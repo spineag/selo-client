@@ -137,6 +137,7 @@ public class WindowsManager {
     public static const WO_NEWS:String = 'news';
     public static const WO_OPEN_ON_LEVEL:String = 'open_on_level';
     public static const WO_MINI_PARTY:String = 'mini_party';
+    public static const WO_CAFE_RATING:String = 'cafe_rating';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;

@@ -151,9 +151,9 @@ public class WOPartyWindowClose extends WindowMain{
                 if (_dataParty.typeGift[i] == BuildType.DECOR_ANIMATION || _dataParty.typeGift[i] == BuildType.DECOR)
                     d.addDropDecor(g.allData.getBuildingById(_dataParty.idGift[i]), p, _dataParty.countGift[i], true);
                 else {
-                    if (_dataParty.idGift[i] == 1 && _dataParty.typeGift[i] == 1)
+                    if (_dataParty.idGift[i] == 2 && _dataParty.typeGift[i] == 2)
                         d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataParty.countGift[i], p);
-                    else if (_dataParty.idGift[i] == 2 && _dataParty.typeGift[i] == 2)
+                    else if (_dataParty.idGift[i] == 1 && _dataParty.typeGift[i] == 1)
                         d.addDropMoney(DataMoney.HARD_CURRENCY, _dataParty.countGift[i], p);
                     else d.addDropItemNewByResourceId(_dataParty.idGift[i], p, _dataParty.countGift[i]);
                 }
@@ -162,9 +162,9 @@ public class WOPartyWindowClose extends WindowMain{
         if (g.managerParty.getratingForEnd <= 3) {
             if (_dataParty.typeDecorBest == BuildType.DECOR_ANIMATION || _dataParty.typeDecorBest == BuildType.DECOR) d.addDropDecor(g.allData.getBuildingById(_dataParty.idDecorBest), p, _dataParty.countDecorBest, true);
             else {
-                if (_dataParty.idDecorBest == 1 && _dataParty.typeDecorBest == 1)
+                if (_dataParty.idDecorBest == 2 && _dataParty.typeDecorBest == 2)
                     d.addDropMoney(DataMoney.SOFT_CURRENCY, _dataParty.countDecorBest, p);
-                else if (_dataParty.idDecorBest == 2 && _dataParty.typeDecorBest == 2)
+                else if (_dataParty.idDecorBest == 1 && _dataParty.typeDecorBest == 1)
                     d.addDropMoney(DataMoney.HARD_CURRENCY, _dataParty.countDecorBest, p);
                 else d.addDropItemNewByResourceId(_dataParty.idDecorBest, p, _dataParty.countDecorBest);
             }

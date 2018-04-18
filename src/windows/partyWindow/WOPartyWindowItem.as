@@ -68,11 +68,11 @@ public class WOPartyWindowItem {
         im.x = 595;
         im.y = 5;
         _sprItem.addChild(im);
-        if (id == 1 && type  == 1) {
+        if (id == 2 && type  == 2) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
             _sprItem.addChild(im);
             _txtCountResource.text = String(countResource);
-        } else if (id == 2 && type == 2) {
+        } else if (id == 1 && type == 1) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             _sprItem.addChild(im);
             _txtCountResource.text = String(countResource);
@@ -192,9 +192,9 @@ public class WOPartyWindowItem {
         if (_data.typeResource == BuildType.DECOR_ANIMATION || _data.typeResource == BuildType.DECOR) {
             d.addDropDecor(g.allData.getBuildingById(_data.idResource), p, _data.countResource, true);
         } else {
-            if (_data.idResource == 1 && _data.typeResource == 1)
+            if (_data.idResource == 2 && _data.typeResource == 2)
                 d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.countResource, p);
-            else if (_data.idResource == 2 && _data.typeResource == 2) 
+            else if (_data.idResource == 1 && _data.typeResource == 1)
                 d.addDropMoney(DataMoney.HARD_CURRENCY, _data.countResource, p);
             else d.addDropItemNewByResourceId(_data.idResource, p, _data.countResource);
         }

@@ -79,7 +79,7 @@ internal class Item extends Sprite {
         _task = t;
         _c = c;
         if (_task.isDone) {
-            _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+            _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
             MCScaler.scale(_galo4ka, 50, 50);
             _galo4ka.alignPivot();
             _galo4ka.x = 390;
@@ -138,7 +138,7 @@ internal class Item extends Sprite {
                 _countTxt.visible = false;
             }
         }
-        if (_countTxt.visible) {
+        if (_countTxt && _countTxt.visible) {
             _txt.y = -50;
         }
         if (_galo4ka) addChild(_galo4ka);

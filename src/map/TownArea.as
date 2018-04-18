@@ -612,7 +612,9 @@ public class TownArea extends Sprite {
                 build = new Cave(_data);
                 break;
             case BuildType.CAT_HOUSE:
-                if (g.user.isMegaTester) build = new Cafe(_data);
+//                if (g.user.isMegaTester) build = new Cafe(_data);
+//                break;
+                build = new Cafe(_data);
                 break;
             case BuildType.DAILY_BONUS:
                 build = new DailyBonus(_data);
@@ -1916,8 +1918,9 @@ public class TownArea extends Sprite {
                 build = new Ambar(_data);
                 break;
             case BuildType.CAT_HOUSE:
-                if (g.user.isMegaTester) build = new Cafe(_data);
-                    else return;
+//                if (g.user.isMegaTester) build = new Cafe(_data);
+//                    else return;
+                build = new Cafe(_data);
                 break;
             case BuildType.SKLAD:
                 build = new Sklad(_data);

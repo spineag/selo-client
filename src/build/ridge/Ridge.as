@@ -291,7 +291,7 @@ public class Ridge extends WorldObject{
         if (g.isAway) {
             if ((g.managerParty.eventOn && g.managerParty.typeParty != ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND) || !g.managerParty.eventOn) return;
         }
-        if ((_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) && g.isAway) {
+        if ((_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) && g.isAway && g.partyPanel.gCountHelpParty < 10 && g.visitedUser is Friend) {
             super.onHover();
             _isOnHover = true;
             g.mouseHint.showMouseHint(MouseHint.LEYKA);
@@ -312,11 +312,11 @@ public class Ridge extends WorldObject{
         }
     }
 
-    private function cleatSrcParty():void {
+    public function cleatSrcParty():void {
         if (_srcParty) {
-        _source.removeChild(_srcParty);
-        _srcParty.dispose();
-        _srcParty = null;
+            _source.removeChild(_srcParty);
+            _srcParty.dispose();
+            _srcParty = null;
         }
     }
 
@@ -523,7 +523,12 @@ public class Ridge extends WorldObject{
             }
             g.managerParty.addUserPartyCount(1);
             _plant.renderSkip();
-            g.partyPanel.checkCountHelp();
+            g.partyPanel.sCountHelpParty = 1;
+            var p:Point = new Point(0, 0);
+            p = _source.localToGlobal(p);
+            var d:DropObject = new DropObject();
+            d.addDropXP(_dataPlant.craftXP, p);
+            d.releaseIt();
         }
         else {
             g.server.skipTimeOnRidge(_plant._timeToEndState, _dbBuildingId, null);

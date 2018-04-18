@@ -55,6 +55,7 @@ public class ManagerQuest {
     private var _questUI:QuestMainIconUI;
     private var _userQuests:Array;
     private var _currentOpenedQuestInWO:QuestStructure;
+    private var _currentRemovedQuest:QuestStructure;
     private var _activeTask:QuestTaskStructure;
 
     public function ManagerQuest() {
@@ -144,7 +145,29 @@ public class ManagerQuest {
                 q.fillIt(d.quests[i]);
                 q.isNew = isNew;
                 _userQuests.push(q);
+//                g.managerQuestCats.addAllHeroCats(q.questCatId);
             }
+//            if (!isNew) {
+//                g.managerQuestCats.setAllCatsToRandomPositionsAtStartGame();
+//            } else {
+//                if (_currentRemovedQuest) {
+//                    var b:Boolean = true;
+//                    for (i = 0; i < _userQuests.length; i++) {
+//                        if (_currentRemovedQuest.questCatId == _userQuests[i].questCatId) {
+//                            b = false;
+//                            break;
+//                        }
+//                    }
+//                    if (b) {
+//                        g.managerQuestCats.getCatAway(_currentRemovedQuest.questCatId );
+//                        g.managerQuestCats.addAllHeroCats(q.questCatId);
+//                        g.managerQuestCats.setAllCatsToRandomPositionsAtStartGame(true);
+//                    }
+//                } else {
+//                    g.managerQuestCats.addAllHeroCats(q.questCatId);
+//                    g.managerQuestCats.setAllCatsToRandomPositionsAtStartGame(true);
+//                }
+//            }
             for (i=0; i<d.tasks.length; i++) {
                 q = getUserQuestById(int(d.tasks[i].quest_id));
                 if (q) {
@@ -462,6 +485,7 @@ public class ManagerQuest {
     private function onGetAward(q:QuestStructure):void {
         for (var i:int=0; i<_userQuests.length; i++) {
             if ((_userQuests[i] as QuestStructure).questId == q.questId) {
+                _currentRemovedQuest = _userQuests[i];
                 _userQuests.removeAt(i);
                 break;
             }

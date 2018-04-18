@@ -15,6 +15,7 @@ import social.SocialNetwork;
 import social.SocialNetworkEvent;
 
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
@@ -29,6 +30,8 @@ import user.Someone;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SimpleArrow;
+
 import windows.WindowsManager;
 
 public class FriendItem {
@@ -42,6 +45,8 @@ public class FriendItem {
     private var _positionInList:int;
     private var g:Vars = Vars.getInstance();
     private var _friendBoardHelpInfo:CSprite;
+    private var _arrow:SimpleArrow;
+    private var _spArrow:Sprite;
 
     public function FriendItem(f:Someone,pos:int =0, needAva:Boolean = true) {
         _person = f;
@@ -251,6 +256,30 @@ public class FriendItem {
         _person.level = level;
         _person.userId = uid;
     }
+
+    public function addArow(time:int):void {
+        _spArrow = new Sprite();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _spArrow);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(50, -108);
+        _spArrow.scaleY = -1;
+        _spArrow.x = _ava.x;
+        _spArrow.y = -_ava.y - _ava.width/2;
+        source.addChild(_spArrow);
+        _arrow.activateTimer(time, deleteArrow);
+    }
+
+    private function deleteArrow():void {
+        if (_spArrow) {
+            _spArrow.dispose();
+            _spArrow = null;
+        }
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+    }
+
 
 }
 }

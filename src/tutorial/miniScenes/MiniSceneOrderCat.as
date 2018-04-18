@@ -30,8 +30,20 @@ public class MiniSceneOrderCat {
         }
         return null;
     }
-    
 
+    public function checkNeedNewShow(catId:int):Boolean {
+        catId --;
+//        for (var i:int =0; i<g.user.miniScenesOrderCats.length; i++) {
+        if (g.user.miniScenesOrderCats[catId] && int(g.user.miniScenesOrderCats[catId]) == 0)  {
+            g.user.miniScenesOrderCats[catId] = 1;
+            return true;
+        } else if (!g.user.miniScenesOrderCats[catId]) {
+            g.user.miniScenesOrderCats[catId] = 1;
+            return true;
+        }
+        return false;
+    }
+    
     public function releaseMiniSceneForCat(cat:OrderCat):void {
         if (_currentCat) {
             _nextCats.push(cat.dataCat);
@@ -40,6 +52,10 @@ public class MiniSceneOrderCat {
             _currentCat = cat;
             _currentCatObject = cat.dataCat;
         }
+    }
+
+    public function set setCurrentCatObject(currentCatObject:Object):void {
+        _currentCatObject = currentCatObject;
     }
 
     public function get isCatFree():Boolean { if (_currentCat) return false; else return true; }

@@ -609,10 +609,10 @@ public class Fabrica extends WorldObject {
 
     private function releaseHeroCatWoman(cat:HeroCat):void {
         if (cat.typeMan == BasicCat.MAN) {
-            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133 || _dataBuild.id == 9 || _dataBuild.id == 135) releaseManBackTexture();
+            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133 || _dataBuild.id == 9 || _dataBuild.id == 135 || _dataBuild.id == 6) releaseManBackTexture();
                 else releaseManFrontTexture();
         } else if (cat.typeMan == BasicCat.WOMAN) {
-            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133 || _dataBuild.id == 9 || _dataBuild.id == 135) releaseWomanBackTexture();
+            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133 || _dataBuild.id == 9 || _dataBuild.id == 135 || _dataBuild.id == 6) releaseWomanBackTexture();
                 else releaseWomanFrontTexture();
         }
     }
@@ -628,8 +628,15 @@ public class Fabrica extends WorldObject {
         changeTexture("handRight copy", "grey_c_m_worker_r_hand_front");
 
         if (_dataBuild.id == 10) changeTexture("handRight2", "grey_c_m_worker_r_hand_front");
-        var viyi:Bone = _armature.getBone('viyi');
-        if (viyi) viyi.visible = false;
+        if (_dataBuild.id == 3) {
+            var vii1:Bone = _armature.getBone('vii1');
+            if (vii1) vii1.visible = false;
+            var vii2:Bone = _armature.getBone('vii2');
+            if (vii2) vii2.visible = false;
+        } else {
+            var viyi:Bone = _armature.getBone('viyi');
+            if (viyi) viyi.visible = false;
+        }
     }
 
     private function releaseManBackTexture():void {
@@ -655,8 +662,15 @@ public class Fabrica extends WorldObject {
         changeTexture("handRight copy", "orange_c_w_worker_r_hand_front");
 
         if (_dataBuild.id == 10) changeTexture("handRight2", "orange_c_w_worker_r_hand_front");
-        var viyi:Bone = _armature.getBone('viyi');
-        if (viyi) viyi.visible = true;
+        if (_dataBuild.id == 3) {
+            var vii1:Bone = _armature.getBone('vii1');
+            if (vii1) vii1.visible = true;
+            var vii2:Bone = _armature.getBone('vii2');
+            if (vii2) vii2.visible = true;
+        } else {
+            var viyi:Bone = _armature.getBone('viyi');
+            if (viyi) viyi.visible = true;
+        }
     }
 
     private function releaseWomanBackTexture():void {

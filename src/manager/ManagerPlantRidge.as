@@ -116,6 +116,7 @@ public class ManagerPlantRidge {
             if ((_arrRidge[i] as Ridge).stateRidge == Ridge.GROWED) {
                 if (isMouseUnderRidge(_tempPoint, _arrRidge[i] as Ridge)) {
                     (_arrRidge[i] as Ridge).craftThePlant();
+                    (_arrRidge[i] as Ridge).cleatSrcParty();
                     break;
                 }
             }
