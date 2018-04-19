@@ -505,6 +505,9 @@ public class ManagerOrder {
                 else if (needs[2]) add_3_Item(or, arrOrderType1, arrOrderType3, userLevel);
                 else if (needs[3]) add_4_Item(or, arrOrderType1, arrOrderType3, userLevel);
                 else if (needs[4]) add_5_Item(or, arrOrderType1, arrOrderType3, userLevel);
+                for (i = 0; i<or.resourceCounts.length; i++) {
+                    if (or.resourceCounts[i] <= 0) or.resourceCounts[i] = 1;
+                }
             }
             
 //            var caveIt:int = 0;

@@ -373,15 +373,15 @@ public class Fabrica extends WorldObject {
     public function callbackOnChooseRecipe(resItem:ResourceItem, dataRecipe:Object):void {
         var i:int;
         var delay:int = 0;
-        _arrList.push(resItem);
         resItem.currentRecipeID = dataRecipe.id;
-        if (_arrList.length == 1)  g.gameDispatcher.addToTimer(render);
+        if (!_arrList.length) g.gameDispatcher.addToTimer(render);
         else {
-            for (i = 0; i < _arrList.length - 1; i++) { // delay before start make this new recipe
-                delay += _arrList[i].buildTime;
+            for (i = 0; i < _arrList.length; i++) { // delay before start make this new recipe
+                delay += (_arrList[i] as ResourceItem).buildTime;
             }
         }
         resItem.staticDelayTime = delay;
+        _arrList.push(resItem);
         var f1:Function = function(t:String):void {  resItem.idFromServer = t;  };
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
             if (dataRecipe.ingridientsId[i] && dataRecipe.ingridientsCount[i]) g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));

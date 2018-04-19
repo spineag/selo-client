@@ -112,6 +112,8 @@ public class WOPaper extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        _leftArrow.visible = false;
+        _rightArrow.visible = false;
         if (g.userTimer.timerAtPapper <= 0) {
             g.server.updateUserTimePaper(null);
             startPapperTimer();
