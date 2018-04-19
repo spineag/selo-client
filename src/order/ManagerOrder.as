@@ -377,13 +377,13 @@ public class ManagerOrder {
         var r:StructureDataResource;
 
         for (var ik:int = 0; ik < n; ik++) {
-            if (_arrOrders && !g.tuts.isTuts && _arrOrders.length > 0) {
-                for (i = 0; i < _arrOrders.length; i++) {
-                    if ((_arrOrders[i] as OrderItemStructure).fasterBuy == true) {
-                        countFastBuyer++;
-                    }
-                }
-            } else countFastBuyer = 1;
+//            if (_arrOrders && !g.tuts.isTuts && _arrOrders.length > 0) {
+//                for (i = 0; i < _arrOrders.length; i++) {
+//                    if ((_arrOrders[i] as OrderItemStructure).fasterBuy == true) {
+//                        countFastBuyer++;
+//                    }
+//                }
+//            } else countFastBuyer = 1;
             countFastBuyer = 1; // OFF FASTER BUYER
             if (countFastBuyer == 0 && userLevel < 10) {
                 or = new OrderItemStructure();
@@ -564,8 +564,24 @@ public class ManagerOrder {
         }
     }
 
-    private function getRandomIntElementFromArray(ar:Array):int { return ar[int(Math.random()*(ar.length))]; }
-    private function getRandomIntBetween(aMin:int, aMax:int):int { return aMin + int(Math.random()* (aMax-aMin)); }
+    private function getRandomIntElementFromArray(ar:Array):int {
+        if (!ar.length) {
+            Cc.error('ManagerOrder getRandomIntElementFromArray:: empty array');
+            return 31;
+        }
+        var wasFind:Boolean = false;
+        var id:int;
+        var index:int;
+        while (!wasFind) {
+            index = int(Math.random() * ar.length);
+            if (ar[index]) {
+                id = ar[index];
+                wasFind = true;
+            }
+        }
+        return id;
+    }
+    private function getRandomIntBetween(aMin:int, aMax:int):int { return aMin + int(Math.random()* (aMax+1-aMin)); }
 
     private function getRandomElementsFromIntArray(ar:Array, n:int):Array {
         var arr:Array = [];
@@ -573,8 +589,10 @@ public class ManagerOrder {
         var place:int;
         for (var i:int=0; i<n; i++) {
             place = int(Math.random()*arr2.length);
-            arr.push(arr2[place]);
-            arr2.removeAt(place);
+            if (arr2[place]) {
+                arr.push(arr2[place]);
+                arr2.removeAt(place);
+            }
         }
         return arr;
     }
