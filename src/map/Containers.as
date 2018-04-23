@@ -361,12 +361,12 @@ public class Containers {
         var oY:Number = g.matrixGrid.offsetY*s;
 
         if (pNew.y > oY + g.cont.SHIFT_MAP_Y*s) pNew.y = oY + g.cont.SHIFT_MAP_Y*s;
-        if (pNew.y < oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s)
-            pNew.y = oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s;
+        if (pNew.y < -oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            pNew.y = -oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s;
         if (pNew.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
             pNew.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
-        if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - g.cont.SHIFT_MAP_X*s)
-            pNew.x =  -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - g.cont.SHIFT_MAP_X*s;
+        if (pNew.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_X*s)
+            pNew.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_X*s;
         cont.scaleX = cont.scaleY = oldScale;
         g.currentGameScale = s;
         if (needQuick) {
@@ -375,12 +375,13 @@ public class Containers {
             cont.x = pNew.x;
             cont.y = pNew.y;
             isAnimScaling = false;
+            updateGameContVariables();
         } else {
             isAnimScaling = true;
             if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
             new TweenMax(cont, .5, {x: pNew.x, y: pNew.y, scaleX: s, scaleY: s, ease: Linear.easeOut, onComplete: function ():void {
                 isAnimScaling = false;
-                onResize();
+                updateGameContVariables();
                 if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(false);
             }});
         }

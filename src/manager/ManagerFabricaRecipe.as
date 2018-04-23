@@ -47,11 +47,15 @@ public class ManagerFabricaRecipe {
         var r:StructureDataRecipe = g.allData.getRecipeById(int(ob.recipe_id));
         resItem.fillIt(g.allData.getResourceById(r.idResource));
         resItem.idFromServer = String(ob.id);
-        if (int(ob.delay) > int(ob.time_work)) {
+
+            //        $res['delay'] = $dict['delay_time']; <-- on server
+            //        $res['time_work'] = time() - $dict['time_start'];
+            //        $res['time_start'] = $dict['time_start'];
+        if (int(ob.delay) > int(ob.time_work)) { // is waiting for work
             curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), 0, int(ob.delay) - int(ob.time_work), int(ob.delay));
-        } else if (int(ob.delay) + resItem.buildTime <= int(ob.time_work)) {
+        } else if (int(ob.delay) + resItem.buildTime <= int(ob.time_work)) { // is ready
             curFabrica.craftResource(resItem);
-        } else {
+        } else { // is working now
             curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), int(ob.time_work) - int(ob.delay), 0, int(ob.delay));
         }
     }

@@ -1196,7 +1196,6 @@ public class DirectServer {
         var d:Object;
         try {
             d = JSON.parse(response);
-            trace('callback save server xp: ' + countXP);
         } catch (e:Error) {
             Cc.error('addUserXP: wrong JSON:' + String(response));
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserXP: wrong JSON:' + String(response));
@@ -1833,8 +1832,6 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('GetUserFabricaRecipe: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserFabricaRecipe: wrong JSON:' + String(response));
             return;
         }
 
