@@ -192,10 +192,10 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>event_easter_icon.png</filename>
             <filename>event_lucky_wheel_2.png</filename>
             <filename>event_lucky_wheel_3.png</filename>
             <filename>event_lucky_wheel_1.png</filename>
+            <filename>event_icons_1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

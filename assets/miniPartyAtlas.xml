@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:7c7d083a2983d6598f1428e0751e6fcb:f357bd341754491c4e9dd11f7421b100:afa43cba1af5570125e1ced252bf301f$ -->
-<TextureAtlas imagePath="miniPartyAtlas.png" width="296" height="404">
-    <SubTexture name="event_easter_icon" x="1" y="303" width="100" height="100"/>
+<!-- $TexturePacker:SmartUpdate:3acb76bbda260a718df0f00f40798327:608358abdc1137c8a13f63c29732329e:afa43cba1af5570125e1ced252bf301f$ -->
+<TextureAtlas imagePath="miniPartyAtlas.png" width="296" height="403">
+    <SubTexture name="event_icons_1" x="1" y="303" width="100" height="99" frameX="0" frameY="-1" frameWidth="100" frameHeight="100"/>
     <SubTexture name="event_lucky_wheel_1" x="1" y="1" width="294" height="300"/>
     <SubTexture name="event_lucky_wheel_2" x="103" y="303" width="96" height="96"/>
     <SubTexture name="event_lucky_wheel_3" x="201" y="303" width="63" height="61"/>

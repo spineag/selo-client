@@ -16,6 +16,7 @@ import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.buyPlant.WOBuyPlant;
 import windows.buyerNyashuk.WOBuyerNyashuk;
 import windows.buyerNyashuk.WOTutorialNyashuk;
+import windows.cafe.WOCafeRating;
 import windows.cave.WOBuyCave;
 import windows.cave.WOCave;
 import windows.chestWindow.WOChest;
@@ -367,6 +368,9 @@ public class WindowsManager {
                 break;
             case WO_OPEN_ON_LEVEL:
                 wo = new WOOpenOnLevel();
+                break;
+            case WO_CAFE_RATING:
+                wo = new WOCafeRating();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

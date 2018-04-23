@@ -85,6 +85,7 @@ public class Cafe extends WorldObject {
         _source.releaseContDrag = true;
         _dbBuildingId = _data.dbId;
         _isHover = false;
+
     }
 
 
@@ -242,9 +243,9 @@ public class Cafe extends WorldObject {
         _csprMenu.y = 105;
         _spriteThird.addChild(_csprMenu);
         _csprMenu.addChild(_imMenu);
-        _csprMenu.endClickCallback = onClickMenu;
-        _csprMenu.hoverCallback = onHoverMenu;
-        _csprMenu.outCallback = onOutMenu;
+//        _csprMenu.endClickCallback = onClickM;
+//        _csprMenu.hoverCallback = onHoverMenu;
+//        _csprMenu.outCallback = onOutMenu;
         _spriteFirst.endClickCallback = onClickMenu;
         _spriteFirst.hoverCallback = onHoverMenu;
         _spriteFirst.outCallback = onOutMenu;
@@ -254,6 +255,10 @@ public class Cafe extends WorldObject {
         _spriteThird.endClickCallback = onClickMenu;
         _spriteThird.hoverCallback = onHoverMenu;
         _spriteThird.outCallback = onOutMenu;
+    }
+
+    private function onClickM():void {
+        g.windowsManager.openWindow(WindowsManager.WO_CAFE_RATING, null);
     }
 
     private function onClickMenu():void {

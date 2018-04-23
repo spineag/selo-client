@@ -175,6 +175,8 @@ public class Consts {
     public static var INQ_ADD_USER_PARTY:String = 'a_game/addUserParty.php';
     public static var INQ_UPDATE_USER_SALE_PACK_BUY:String = 'a_game/updateUserSalePackBuy.php';
     public static var INQ_USER_CAFE_RATING:String = 'a_userData/getUserCafeRating.php';
+    public static var INQ_USER_CAFE_RATING_FRIEND:String = 'a_userData/getUserCafeRatingFriend.php';
+    public static var INQ_USER_ADD_CAFE_RATING:String = 'a_game/addUserCafeRating.php';
 
 }
 }

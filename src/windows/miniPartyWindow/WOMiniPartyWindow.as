@@ -7,6 +7,8 @@ import com.greensock.TweenMax;
 import data.BuildType;
 import data.DataMoney;
 
+import dragonBones.factories.BuildArmaturePackage;
+
 import manager.ManagerFilters;
 
 import com.greensock.easing.Quad;
@@ -84,10 +86,11 @@ public class WOMiniPartyWindow extends WindowMain{
         _koleso.addChild(im);
         _btnRotate = new CButton();
         _btnRotate.addButtonTexture(200, CButton.HEIGHT_41, CButton.GREEN, true);
-        var txt:CTextField = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 25');
+        var txt:CTextField = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 10');
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnRotate.y = 260;
-        im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).url].getTexture(g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).imageShop));
+        if (g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).buildType == BuildType.PLANT)im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).imageShop + '_icon'));
+        else im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).url].getTexture(g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).imageShop));
         MCScaler.scale(im, 40, 40);
         var sens:SensibleBlock = new SensibleBlock();
         sens.textAndImage(txt,im,200);
@@ -98,7 +101,7 @@ public class WOMiniPartyWindow extends WindowMain{
 
         _btnRotateRubie = new CButton();
         _btnRotateRubie.addButtonTexture(200, CButton.HEIGHT_41, CButton.GREEN, true);
-        txt = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 5');
+        txt = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 2');
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnRotateRubie.y = 260;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -141,7 +144,7 @@ public class WOMiniPartyWindow extends WindowMain{
     }
 
     private function checkBtn():void {
-        if (g.userInventory.getCountResourceById(g.managerMiniParty.idItemEvent[0]) < 25) {
+        if (g.userInventory.getCountResourceById(g.managerMiniParty.idItemEvent[0]) < 10) {
             _btnRotate.visible = false;
             _btnRotateRubie.visible = true;
             _forRubieRotate = true;
@@ -176,8 +179,8 @@ public class WOMiniPartyWindow extends WindowMain{
     private function showGiftAnimation():void {
         _curActivePosition -=5;
         new WOMiniPartyCraftItem(g.managerMiniParty.idGift[_curActivePosition], g.managerMiniParty.typeGift[_curActivePosition], g.managerMiniParty.countGift[_curActivePosition], _contItemCraft, null);
-        if (_forRubieRotate) g.userInventory.addMoney(DataMoney.HARD_CURRENCY, - 5);
-        else g.userInventory.addResource(g.managerMiniParty.idItemEvent[0], -25);
+        if (_forRubieRotate) g.userInventory.addMoney(DataMoney.HARD_CURRENCY, - 2);
+        else g.userInventory.addResource(g.managerMiniParty.idItemEvent[0], -10);
         checkBtn();
         _isAnimate = false;
 

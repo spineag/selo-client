@@ -68,6 +68,8 @@ import ui.achievementPanel.AchievementPanel;
 import ui.bottomInterface.MainBottomPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
+import ui.miniParty.MiniPartyPanel;
+
 //import ui.miniParty.MiniPartyPanel;
 import ui.party.PartyPanel;
 import ui.friendPanel.FriendPanel;
@@ -143,6 +145,7 @@ public class Vars {
     public var managerInviteFriend:ManagerInviteFriendViral;
     public var managerTimerSkip:ManagerTimerSkip;
     public var managerParty:ManagerPartyNew;
+    public var managerCafe:ManagerCafe;
     public var managerMiniParty:ManagerMiniParty;
     public var managerSalePack:ManagerSalePack;
     public var managerStarterPack:ManagerStarterPack;
@@ -186,7 +189,7 @@ public class Vars {
     public var stockPanel:StockPanel;
     public var starterPanel:StarterPackPanel;
     public var partyPanel:PartyPanel;
-    //public var miniPartyPanel:MiniPartyPanel;
+    public var miniPartyPanel:MiniPartyPanel;
     public var salePanel:SalePanel;
     public var achievementPanel:AchievementPanel;
     public var testerPanel:TesterPanelTop;
@@ -379,6 +382,7 @@ public class Vars {
 //        }
         managerQuest = new ManagerQuest();
         managerParty = new ManagerPartyNew();
+        managerCafe = new ManagerCafe();
         managerMiniParty = new ManagerMiniParty();
         optionPanel = new OptionPanel();
         (server as DirectServer).getDataParty(afterLoadAll);
