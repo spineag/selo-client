@@ -425,6 +425,10 @@ public class MarketItem {
                     dr.releaseIt(null, false);
                 }
 
+                if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET) {
+                    g.managerParty.addUserPartyCount(1);
+                }
+
                 animCoin();
                 isFill = 0;
                 unFillIt();

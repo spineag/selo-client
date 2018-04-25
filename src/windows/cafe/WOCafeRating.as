@@ -11,6 +11,8 @@ import utils.CButton;
 
 import utils.CTextField;
 
+import windows.WOComponents.BackgroundWhiteIn;
+
 import windows.WOComponents.BackgroundYellowOut;
 
 import windows.WOComponents.DefaultVerticalScrollSprite;
@@ -29,6 +31,7 @@ public class WOCafeRating extends WindowMain {
     private var _btnFriend:CButton;
     private var _btnAll:CButton;
     private var _bgY:BackgroundYellowOut;
+    private var _bgWHite:BackgroundWhiteIn;
 
     public function WOCafeRating() {
         super();
@@ -44,6 +47,12 @@ public class WOCafeRating extends WindowMain {
         _source.addChild(_bgY);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
+
+        _bgWHite = new BackgroundWhiteIn(360, 68);
+        _bgWHite.x = -180;
+        _bgWHite.y = -115;
+        _source.addChild(_bgWHite);
+
 
         _nameTxt = new CTextField(300, 60, g.managerLanguage.allTexts[1279]);
         _nameTxt.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
@@ -61,9 +70,8 @@ public class WOCafeRating extends WindowMain {
         _srcEvent = new Sprite();
         _source.addChild(_srcEvent);
         _srcEvent.x = -315;
-        _srcEvent.y = -50;
+        _srcEvent.y = -40;
         _scrollSprite = new DefaultVerticalScrollSprite(600, 315, 600, 105);
-//        _scrollSprite.source.x = - 340;
         _scrollSprite.createScoll(620, 0, 315, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         _srcEvent.addChild(_scrollSprite.source);
         _arrItem = [];
@@ -73,7 +81,7 @@ public class WOCafeRating extends WindowMain {
         _btnFriend.addTextField(150, 49, 0, 0, String(g.managerLanguage.allTexts[485]));
         _btnFriend.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _btnFriend.x = -100;
-        _btnFriend.y = -85;
+        _btnFriend.y = -80;
         _source.addChild(_btnFriend);
         _btnFriend.clickCallback = onClickFriend;
 
@@ -82,7 +90,7 @@ public class WOCafeRating extends WindowMain {
         _btnAll.addTextField(150, 49, 0, 0, String(g.managerLanguage.allTexts[332]));
         _btnAll.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _btnAll.x = 100;
-        _btnAll.y = -85;
+        _btnAll.y = -80;
         _source.addChild(_btnAll);
         _btnAll.clickCallback = onClickAll;
 
@@ -93,7 +101,6 @@ public class WOCafeRating extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-//        g.server.getUserCafeRating(showFriend);
         var arr:Array = g.managerCafe.getFriendArrayUsers();
         g.server.getUserCafeRatingFriend(arr, showFriend);
     }
@@ -104,7 +111,6 @@ public class WOCafeRating extends WindowMain {
         _btnAll.colorBGFilter = null;
         _btnAll.isTouchable = true;
         _arrItem = [];
-//        _srcEvent.removeChild(_scrollSprite.source);
         _scrollSprite.resetAll();
         showFriend();
     }
@@ -115,7 +121,6 @@ public class WOCafeRating extends WindowMain {
         _btnFriend.colorBGFilter = null;
         _btnFriend.isTouchable = true;
         _arrItem = [];
-//        _srcEvent.removeChild(_scrollSprite.source);
         _scrollSprite.resetAll();
         showAll();
     }

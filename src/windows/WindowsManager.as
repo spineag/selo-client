@@ -16,6 +16,7 @@ import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.buyPlant.WOBuyPlant;
 import windows.buyerNyashuk.WOBuyerNyashuk;
 import windows.buyerNyashuk.WOTutorialNyashuk;
+import windows.cafe.WOCafe;
 import windows.cafe.WOCafeRating;
 import windows.cave.WOBuyCave;
 import windows.cave.WOCave;
@@ -139,6 +140,7 @@ public class WindowsManager {
     public static const WO_OPEN_ON_LEVEL:String = 'open_on_level';
     public static const WO_MINI_PARTY:String = 'mini_party';
     public static const WO_CAFE_RATING:String = 'cafe_rating';
+    public static const WO_CAFE:String = 'cafe';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -371,6 +373,9 @@ public class WindowsManager {
                 break;
             case WO_CAFE_RATING:
                 wo = new WOCafeRating();
+                break;
+            case WO_CAFE:
+                wo = new WOCafe();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

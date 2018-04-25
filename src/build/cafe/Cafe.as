@@ -85,7 +85,6 @@ public class Cafe extends WorldObject {
         _source.releaseContDrag = true;
         _dbBuildingId = _data.dbId;
         _isHover = false;
-
     }
 
 
@@ -243,9 +242,9 @@ public class Cafe extends WorldObject {
         _csprMenu.y = 105;
         _spriteThird.addChild(_csprMenu);
         _csprMenu.addChild(_imMenu);
-//        _csprMenu.endClickCallback = onClickM;
-//        _csprMenu.hoverCallback = onHoverMenu;
-//        _csprMenu.outCallback = onOutMenu;
+        _csprMenu.endClickCallback = onClickM;
+        _csprMenu.hoverCallback = onHoverMenu;
+        _csprMenu.outCallback = onOutMenu;
         _spriteFirst.endClickCallback = onClickMenu;
         _spriteFirst.hoverCallback = onHoverMenu;
         _spriteFirst.outCallback = onOutMenu;
@@ -262,13 +261,13 @@ public class Cafe extends WorldObject {
     }
 
     private function onClickMenu():void {
-        _csprMenu.filter = null;
-        _isHover = false;
-        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-        var p:Point = new Point(_source.x, _source.y + 10);
-        p = _source.parent.localToGlobal(p);
-        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
-//        g.windowsManager.openWindow(WindowsManager.WO_AMBAR,null,true);
+//        _csprMenu.filter = null;
+//        _isHover = false;
+//        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+//        var p:Point = new Point(_source.x, _source.y + 10);
+//        p = _source.parent.localToGlobal(p);
+//        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
+        g.windowsManager.openWindow(WindowsManager.WO_CAFE, null);
     }
 
     private function onHoverMenu():void {
@@ -315,6 +314,5 @@ public class Cafe extends WorldObject {
         if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, null, _dataBuild, "Откройте поезд", 'house');
 
     }
-
 }
 }

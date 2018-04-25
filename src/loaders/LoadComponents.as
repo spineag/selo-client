@@ -67,7 +67,6 @@ public class LoadComponents {
         delete  g.pXMLs[st + 'iconAtlas.xml' + g.getVersion('iconAtlas')]; 
         g.load.removeByUrl(st + 'iconAtlas.png' + g.getVersion('iconAtlas'));
         g.load.removeByUrl(st + 'iconAtlas.xml' + g.getVersion('iconAtlas'));
-        
 
         g.allData.atlas['instrumentAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'instrumentAtlas.png' + g.getVersion('instrumentAtlas')].create() as Bitmap), g.pXMLs[st + 'instrumentAtlas.xml' + g.getVersion('instrumentAtlas')]);
         (g.pBitmaps[st + 'instrumentAtlas.png' + g.getVersion('instrumentAtlas')] as PBitmap).deleteIt();
