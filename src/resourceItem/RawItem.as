@@ -50,7 +50,7 @@ public class RawItem {
         _countTxt.y = im.height - 15;
         _source.addChild(_countTxt);
 
-        var tween:Tween = new Tween(_source, .4);
+        var tween:Tween = new Tween(_source, .8);
         tween.moveTo(endPoint.x, endPoint.y);
         tween.delay = delay;
         tween.onComplete = function ():void {

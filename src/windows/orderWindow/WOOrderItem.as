@@ -64,7 +64,7 @@ public class WOOrderItem {
         _delImage.visible = false;
         source.addChild(_delImage);
 
-        _txtName = new CTextField(114, 42, "Васько");
+        _txtName = new CTextField(114, 42, String(g.managerLanguage.allTexts[372]));
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         source.addChild(_txtName);
 
@@ -142,8 +142,6 @@ public class WOOrderItem {
             _starImage.visible = false;
             return;
         }
-        if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
-        else _txtName.text = _order.catOb.nameRU;
         if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER) _txtXP.text = String(_order.xp * g.managerParty.coefficient);
             else _txtXP.text = String(_order.xp);
         if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER) _txtCoins.text = String(_order.coins * g.managerParty.coefficient);
@@ -183,7 +181,7 @@ public class WOOrderItem {
         } else {
             if (_order.delOb)  _order.delOb = false;
             _leftSeconds = -1;
-            _txtName.text = _order.catOb.name;
+//            _txtName.text = _order.catOb.name;
 //            _txtName.visible = true;
             _txtXP.visible = true;
             _txtCoins.visible = true;
@@ -232,8 +230,8 @@ public class WOOrderItem {
             _booleanNewCat = true;
             g.managerOrder.checkForFullOrder();
             if(_txtName) {
-                if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
-                else _txtName.text = _order.catOb.nameRU;
+//                if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
+//                else _txtName.text = _order.catOb.nameRU;
                 _txtName.visible = true;
             }
             if (_txtXP) _txtXP.visible = true;
@@ -270,8 +268,8 @@ public class WOOrderItem {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
             if(_txtName) {
-                if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
-                else _txtName.text = _order.catOb.nameRU;
+//                if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
+//                else _txtName.text = _order.catOb.nameRU;
                 _txtName.visible = true;
             }
             if(_txtXP)_txtXP.visible = true;

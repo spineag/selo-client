@@ -4797,7 +4797,7 @@ public class DirectServer {
             for (var i:int = 0; i < d.message.length; i++) {
                 g.managerOrder.addFromServer(d.message[i]);
             }
-            g.managerOrder.checkCatId();
+//            g.managerOrder.checkCatId();
             if (callback != null) {
                 callback.apply();
             }
@@ -9630,6 +9630,163 @@ public class DirectServer {
 //            if (callback != null) {
 //                callback.apply(null);
 //            }
+        }
+    }
+
+    public function deleteUserOrderGift(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_USER_ORDER_GIFT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'deleteUserOrder', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteDeleteUserOrderGift);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('deleteUserOrder'); });
+        function onCompleteDeleteUserOrderGift(e:Event):void { completeDeleteUserOrderGift(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('deleteUserOrder error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeDeleteUserOrderGift(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('deleteUserOrder: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserOrder: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'deleteUserOrder OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('deleteUserOrder: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteUserOrder: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function addUserOrderGift(order:Object, delay:int, catId:int, txtId:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_ORDER_GIFT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserOrder', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.catId = catId;
+        variables.txtId = txtId;
+        variables.ids = order.resourceIds.join('&');
+        variables.counts = order.resourceCounts.join('&');
+        variables.xp = order.xp;
+        variables.coins = order.coins;
+        variables.addCoupone = int(order.addCoupone);
+        variables.delay = delay;
+        variables.place = order.placeNumber;
+        variables.fasterBuyer = order.fasterBuy;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.ids)+String(variables.counts)+String(variables.xp)+String(variables.coins)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserOrderGift);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('addUserOrder'); });
+        function onCompleteAddUserOrderGift(e:Event):void { completeAddUserOrderGift(e.target.data, order, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserOrder error:' + error.errorID);
+        }
+    }
+
+    private function completeAddUserOrderGift(response:String, order:Object, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserOrder: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserOrder: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'addUserOrder OK', 5);
+            order.dbId = String(d.message);
+            if (callback != null) {
+                callback.apply(null, [order]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('addUserOrder: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getUserOrderGift(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_ORDER_GIFT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserOrderGift', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserOrderGift);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserOrderGift'); });
+        function onCompleteGetUserOrderGift(e:Event):void { completeGetUserOrderGift(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserOrderGift error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetUserOrderGift(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserOrderGift: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserOrderGift: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserOrderGift OK', 5);
+                if (d.message.length > 0) g.managerOrderCats.addFromServerGift(d.message[0]);
+//            g.managerOrder.checkCatId();
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserOrderGift: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserOrder: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

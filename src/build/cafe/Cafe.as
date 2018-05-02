@@ -242,7 +242,7 @@ public class Cafe extends WorldObject {
         _csprMenu.y = 105;
         _spriteThird.addChild(_csprMenu);
         _csprMenu.addChild(_imMenu);
-        _csprMenu.endClickCallback = onClickM;
+        _csprMenu.endClickCallback = onClickMenu;
         _csprMenu.hoverCallback = onHoverMenu;
         _csprMenu.outCallback = onOutMenu;
         _spriteFirst.endClickCallback = onClickMenu;
@@ -261,13 +261,13 @@ public class Cafe extends WorldObject {
     }
 
     private function onClickMenu():void {
-//        _csprMenu.filter = null;
-//        _isHover = false;
-//        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-//        var p:Point = new Point(_source.x, _source.y + 10);
-//        p = _source.parent.localToGlobal(p);
-//        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
-        g.windowsManager.openWindow(WindowsManager.WO_CAFE, null);
+        _csprMenu.filter = null;
+        _isHover = false;
+        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+        var p:Point = new Point(_source.x, _source.y + 10);
+        p = _source.parent.localToGlobal(p);
+        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
+//        g.windowsManager.openWindow(WindowsManager.WO_CAFE, null);
     }
 
     private function onHoverMenu():void {
