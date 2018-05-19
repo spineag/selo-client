@@ -8829,6 +8829,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.petDbId = p.dbId;
         p.hasNewEat ? variables.hasNewEat = 1 : variables.hasNewEat = 0;
+        p.hasCraft ? variables.hasCraft = 1 : variables.hasCraft = 0;
         variables.hash = MD5.hash(String(g.user.userId)+String(variables.petDbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();
@@ -8861,6 +8862,53 @@ public class DirectServer {
         } else if (d.id == 13) g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         else {
             Cc.error('RawUserAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function rawUserPetAutoAfterFinish(p:PetMain, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RAW_USER_PET_AUTO_AFTER_FINISH);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'rawUserUserPetAutoAfterFinish', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.petDbId = p.dbId;
+        p.hasNewEat ? variables.hasNewEat = 1 : variables.hasNewEat = 0;
+        p.hasCraft ? variables.hasCraft = 1 : variables.hasCraft = 0;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.petDbId)+SECRET);
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteRawUserPetAutoAfterFinish);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('RawUserPetAutoAfterFinish'); });
+        function onCompleteRawUserPetAutoAfterFinish(e:Event):void { completeRawUserPetAutoAfterFinish(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('RawUserPetAutoAfterFinish error:' + error.errorID);
+        }
+    }
+
+    private function completeRawUserPetAutoAfterFinish(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('RawUserPetAutoAfterFinish: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'RawUserPetAutoAfterFinish: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'RawUserPetAutoAfterFinish OK', 5);
+            if (callback != null)
+                callback.apply();
+        } else if (d.id == 13) g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        else {
+            Cc.error('RawUserPetAutoAfterFinish: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
