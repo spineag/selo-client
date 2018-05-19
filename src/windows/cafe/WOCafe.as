@@ -93,7 +93,7 @@ public class WOCafe extends WindowMain{
         _leftArrow.addChild(im);
         _leftArrow.clickCallback = onClickLeft;
         _source.addChild(_leftArrow);
-//        _leftArrow.x =;
+        _leftArrow.x = -100;
         _leftArrow.y = 20;
 //        _leftArrow.visible = false;
         _rightArrow = new CButton();
@@ -103,17 +103,17 @@ public class WOCafe extends WindowMain{
         _rightArrow.addChild(im);
         _rightArrow.clickCallback = onClickRight;
         _source.addChild(_rightArrow);
-//        _rightArrow.x = ;
+        _rightArrow.x = 10;
         _rightArrow.y = 20;
 //        _rightArrow.visible = false;
         checkArrows();
     }
 
     private function checkArrows():void {
-        if ((_shift+1) == _arrItem.length) _rightArrow.visible = false;
-        else _rightArrow.visible = true;
-        if (_shift == 0) _leftArrow.visible = false;
-        else _leftArrow.visible = true;
+//        if ((_shift+1) == _arrItem.length) _rightArrow.visible = false;
+//        else _rightArrow.visible = true;
+//        if (_shift == 0) _leftArrow.visible = false;
+//        else _leftArrow.visible = true;
         updateTxtPages();
     }
 

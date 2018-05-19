@@ -403,45 +403,50 @@ public class Cave extends WorldObject{
             }
             for (i = 0; i < c; i++) {
                 r = Math.random();
-                if (r < l1) {
-                    item = new ResourceItem();
-                    item.fillIt(arr[0]);
-                    craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
-                    craftItem.removeDefaultCallbacks();
-                    craftItem.addParticle();
-                    craftItem.animIt();
-                    _arrCrafted.push(craftItem);
-                } else if (r < l2) {
-                    item = new ResourceItem();
-                    if (arr.length >= 2) {
-                        item.fillIt(arr[1]);
+                item = new ResourceItem();
+                if (id == 47) { // Динамит
+                    if (r < .38 && g.allData.getResourceById(127).blockByLevel <= g.user.level) {
+                        item.fillIt(g.allData.getResourceById(127));
+                    } else if (r < .66) {
+                        item.fillIt(g.allData.getResourceById(126));
+                    } else if (r < .82) {
+                        item.fillIt(g.allData.getResourceById(128));
                     } else {
-                        item.fillIt(arr[0]);
+                        item.fillIt(g.allData.getResourceById(129));
                     }
-                    craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
-                    craftItem.removeDefaultCallbacks();
-                    craftItem.addParticle();
-                    craftItem.animIt();
-                    _arrCrafted.push(craftItem);
-                } else if (r < l3) {
-                    item = new ResourceItem();
-                    if (arr.length >= 3) {
-                        item.fillIt(arr[2]);
+                } else if (id == 5) { // Отбойный Молоток
+                    if (r < .27 && g.allData.getResourceById(127).blockByLevel <= g.user.level) {
+                        item.fillIt(g.allData.getResourceById(127));
+                    } else if (r < .59) {
+                        item.fillIt(g.allData.getResourceById(126));
+                    } else if (r < .78) {
+                        item.fillIt(g.allData.getResourceById(128));
                     } else {
-                        item.fillIt(arr[int(Math.random()*arr.length)]);
+                        item.fillIt(g.allData.getResourceById(129));
                     }
-                    craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
-                    craftItem.removeDefaultCallbacks();
-                    craftItem.addParticle();
-                    craftItem.animIt();
-                    _arrCrafted.push(craftItem);
-                } else {
-                    item = new ResourceItem();
-                    if (arr.length > 3) {
-                        item.fillIt(arr[3]);
+
+                } else if (id == 6) { // Кирка
+                    if (r < .14 && g.allData.getResourceById(127).blockByLevel <= g.user.level) {
+                        item.fillIt(g.allData.getResourceById(127));
+                    } else if (r < .32) {
+                        item.fillIt(g.allData.getResourceById(126));
+                    } else if (r < .66) {
+                        item.fillIt(g.allData.getResourceById(128));
                     } else {
-                        item.fillIt(arr[int(Math.random()*arr.length)]);
+                        item.fillIt(g.allData.getResourceById(129));
                     }
+                } else { // Лопата
+                    if (r < .11 && g.allData.getResourceById(127).blockByLevel <= g.user.level) {
+                        item.fillIt(g.allData.getResourceById(127));
+                    } else if (r < .27) {
+                        item.fillIt(g.allData.getResourceById(128));
+                    } else if (r < .53) {
+                        item.fillIt(g.allData.getResourceById(128));
+                    } else {
+                        item.fillIt(g.allData.getResourceById(129));
+                    }
+                }
+                if (item.resourceID > 0) {
                     craftItem = new CraftItem(0, 0, item, _craftSprite, 1);
                     craftItem.removeDefaultCallbacks();
                     craftItem.addParticle();

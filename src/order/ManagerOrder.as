@@ -100,7 +100,7 @@ public class ManagerOrder {
         if (g.user.level < 4 || g.managerOrder.stateOrderBuild != WorldObject.STATE_ACTIVE) return;
         var f1:Function = function():void {
             addNewOrders(_curMaxCountOrders - _arrOrders.length, 0, null, -1);
-            checkForNewCats();
+//            checkForNewCats();
         };
 //        var f2:Function = function ():void {
 //            if (!g.managerCutScenes.isCutScene && !g.miniScenes.isMiniScene && g.user.level == 5 && g.user.cutScenes[8] != 1) g.managerCutScenes.goToNeighbor(); // check for miniScene for visit neighbor
@@ -118,14 +118,14 @@ public class ManagerOrder {
         return 0;
     }
 
-    private function checkForNewCats(onArriveCallback:Function = null):void {
-        for (var i:int=0; i<_arrOrders.length; i++) {
-            if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
-                checkCatId();
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback, _arrOrders[i].catOb, i);
-            }
-        }
-    }
+//    private function checkForNewCats(onArriveCallback:Function = null):void {
+//        for (var i:int=0; i<_arrOrders.length; i++) {
+//            if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
+//                checkCatId();
+//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback, _arrOrders[i].catOb, i);
+//            }
+//        }
+//    }
 
     public function get arrOrders():Array { return _arrOrders; }
     public function get countOrders():int { return _arrOrders.length; }
@@ -137,10 +137,6 @@ public class ManagerOrder {
         or.dbId = String(ob.id);
         or.resourceIds = ob.ids.split('&');
         or.resourceCounts = ob.counts.split('&');
-        if (ob.cat_id == '0') or.catOb = getFreeCatObj();  else {
-            or.catOb = DataOrderCat.getCatObjById(int(ob.cat_id));
-            DataOrderCat.setCatObjByTxtId(int(ob.cat_id), int(ob.txt_id));
-        }
         or.coins = int(ob.coins);
         or.xp = int(ob.xp);
         or.addCoupone = ob.add_coupone == '1';
@@ -152,40 +148,6 @@ public class ManagerOrder {
         Utils.intArray(or.resourceIds);
         _arrOrders.push(or);
         _arrOrders.sortOn('placeNumber', Array.NUMERIC);
-    }
-
-    public function checkCatId():void {
-        for (var i:int = 0; i < _arrOrders.length; i++) {
-            for (var j:int = 0; j < _arrOrders.length; j++) {
-                if (i != j && _arrOrders[i].catOb.id == _arrOrders[j].catOb.id) {
-                    _arrOrders[i].catOb = DataOrderCat.getCatObjById(getIdCatNotArrOrder);
-                    g.server.updateUserOrder(String(_arrOrders[i].dbId), _arrOrders[i].placeNumber, _arrOrders[i].catOb.id, null);
-                    return;
-                }
-            }
-        }
-    }
-
-    private function get getIdCatNotArrOrder():int {
-        var arr:Array = DataOrderCat.getArrByLevel(g.user.level);
-        var b:Boolean = false;
-        var idR:int = 0;
-        for (var i:int = 0; i < arr.length; i++) {
-            b = false;
-            idR = 0;
-            for (var j:int = 0; j < _arrOrders.length; j++) {
-                if (!b && arr[i].id != _arrOrders[j].catOb.id) {
-                    idR = arr[i].id;
-                }
-                if (arr[i].id == _arrOrders[j].catOb.id) {
-                    b = true;
-                }
-            }
-            if (!b && idR > 0) {
-                return idR;
-            }
-        }
-        return 1;
     }
 
     public function updateMaxCounts():void {
@@ -530,7 +492,7 @@ public class ManagerOrder {
 //                addNewOrders(n, delay, f, place,del);
 //                return;
 //            }
-            or.catOb = getFreeCatObj();
+//            or.catOb = getFreeCatObj();
 //            or.catOb = getFreeCatObj();
             or.coins = 0;
             or.xp = 0;
@@ -555,7 +517,7 @@ public class ManagerOrder {
             or.delOb = del;
             _arrOrders.push(or);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
-            g.server.addUserOrder(or, delay, or.catOb.id, or.catOb.txtId, null);
+            g.server.addUserOrder(or, delay, 1, 1, null);
 
             var f1:Function = function ():void {
                 if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
@@ -982,55 +944,6 @@ public class ManagerOrder {
         if (!or.resourceIds || !or.resourceIds[0] || or.resourceIds[0] == 0) add_5_Item(or, arProducts, arPlants, userLevel);
     }
 
-    public function getFreeCatObj():Object {
-        var d:Object = g.miniScenes.oCat.getNewOrderCatData();
-        if (d) {
-            d.isMiniScene = true;
-            return d;
-        }
-
-        var arAllCats:Array = DataOrderCat.getArrByLevel(g.user.level);
-        var arIdsNotFree:Array = [];
-        for (var i:int=0; i<_arrOrders.length; i++) {
-            if ((_arrOrders[i] as OrderItemStructure).cat) arIdsNotFree.push((_arrOrders[i] as OrderItemStructure).cat.dataCatId);
-        }
-        if (_lastActiveCatId) arIdsNotFree.push(_lastActiveCatId);
-        for (i=0; i<arAllCats.length; i++) {
-            if (arIdsNotFree.indexOf(arAllCats[i].id) == -1) {
-                d = arAllCats[i];
-                break;
-            }
-        }
-        if (!d && _lastActiveCatId) d = DataOrderCat.getCatObjById(_lastActiveCatId);
-        if (!d) d = DataOrderCat.arr[1];
-        var n:Number = Math.random();
-        if (n < .3) DataOrderCat.setCatObjByTxtId(_lastActiveCatId, 1);
-        else  if (n < .6) DataOrderCat.setCatObjByTxtId(_lastActiveCatId, 2);
-        else DataOrderCat.setCatObjByTxtId(_lastActiveCatId, 3);
-        _lastActiveCatId = 0;
-        return d;
-    }
-
-    public function getFreeCatAwayObj():Object {
-        var d:Object;
-
-        var arAllCats:Array = DataOrderCat.getArrByLevel(g.visitedUser.level);
-        var b:Boolean = true;
-        for (var i:int = 0; i < arAllCats.length; i++) {
-            for (var j:int = 0; j < g.managerOrderCats.arrAwayCats.length; j++) {
-                if (arAllCats[i].id == g.managerOrderCats.arrAwayCats[j].dataCat.id) {
-                    b = false;
-                    break;
-                }
-            }
-            if (b) {
-                d = arAllCats[i];
-                break;
-            } else b = true;
-        }
-        return d;
-    }
-
     private function getFreePlace():int {
         var k:int;
         var find:Boolean;
@@ -1049,12 +962,8 @@ public class ManagerOrder {
     }
 
     public function deleteOrder(or:OrderItemStructure, f:Function):void {
-//        _lastActiveCatId = lastActiveCatId;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == or.dbId) {
-                g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat, false);
-                _lastActiveCatId = _arrOrders[i].cat.dataCatId;
-                _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;
             }
@@ -1080,12 +989,8 @@ public class ManagerOrder {
     }
 
     public function sellOrder(or:OrderItemStructure, f:Function):void {
-//        _lastActiveCatId = lastActive;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].dbId == or.dbId) {
-                g.managerOrderCats.onReleaseOrder(_arrOrders[i].cat, true);
-                _lastActiveCatId = _arrOrders[i].cat.dataCatId;
-                _arrOrders[i].cat = null;
                 _arrOrders.splice(i, 1);
                 break;
             }
@@ -1094,13 +999,6 @@ public class ManagerOrder {
         var pl:int = or.placeNumber;
         or = null;
         addNewOrders(1, 0, f, pl);
-        for (i = 0; i < _arrOrders.length; i++) {
-            if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
-//                checkCatId();
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
-                break;
-            }
-        }
     }
 
     public function checkIsAnyFullOrder():Boolean {  // check if there any order that already can be fulled
@@ -1125,22 +1023,6 @@ public class ManagerOrder {
         }
 
         return false;
-
-//        if (!_arrOrders.length) return false;
-//        for (var i:int=0; i<_arrOrders.length; i++) {
-//            order = _arrOrders[i];
-//            if (!order || !order.resourceIds || !order.resourceIds.length) continue;
-//            if (order.cat != null && order.startTime - int(new Date().getTime() / 1000) <= 0) {
-//                for (k = 0; k < order.resourceIds.length; k++) {
-//                    if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
-//                        b = true;
-////                        break;
-//                    }
-//                }
-//            }
-//            if (b)return true;
-//        }
-//        return false;
     }
     
     public function checkForFullOrder():void {
@@ -1167,15 +1049,13 @@ public class ManagerOrder {
         if (v) checkForFullOrder();
     }
 
-    public function onSkipTimer(or:OrderItemStructure):void {
+    public function onSkipTimer(or:OrderItemStructure):void { // ПОПРАВИТЬ ЧТО БЫ НЕ ПРИЕЗЖАЛО
         g.server.skipOrderTimer(or.dbId, null);
         var pl:int = or.placeNumber;
         var orderDbId:String = or.dbId;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl) {
-                checkCatId();
                 _arrOrders[i].delOb = false;
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 g.managerOrder.checkForFullOrder();
                 break;
             }

@@ -178,6 +178,9 @@ public class Consts {
     public static var INQ_USER_CAFE_RATING:String = 'a_userData/getUserCafeRating.php';
     public static var INQ_USER_CAFE_RATING_FRIEND:String = 'a_userData/getUserCafeRatingFriend.php';
     public static var INQ_USER_ADD_CAFE_RATING:String = 'a_game/addUserCafeRating.php';
+    public static var INQ_GET_USER_ORDER_GIFT:String = 'a_userData/getUserOrderGift.php';
+    public static var INQ_DELETE_USER_ORDER_GIFT:String = 'a_game/deleteUserOrderGift.php';
+    public static var INQ_ADD_USER_ORDER_GIFT:String = 'a_game/addUserOrderGift.php';
 
 }
 }

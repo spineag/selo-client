@@ -88,7 +88,7 @@ public class TutorialTextBubble {
                 if (_isFlip) {
 //                    _im.x = -15;
                     _im.y = -111;
-                    _txt.x = 60;
+                    _txt.x = 45;
                     _txt.y = -85;
                 } else {
                     _im.scaleX = -1;

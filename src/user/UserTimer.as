@@ -249,9 +249,9 @@ public class UserTimer {
             var arr:Array = g.managerOrder.arrOrders.slice();
             for (var i:int = 0; i < arr.length; i++) {
                 if (arr[i].startTime - TimeUtils.currentSeconds <= 16 && arr[i].delOb && position ==  arr[i].placeNumber) {
-                    g.managerOrder.checkCatId();
+//                    g.managerOrder.checkCatId();
                     arr[i].delOb = false;
-                    arr[i].cat = g.managerOrderCats.getNewCatForOrder(null, arr[i].catOb);
+//                    arr[i].cat = g.managerOrderCats.getNewCatForOrder(null, arr[i].catOb);
                     g.managerOrder.checkForFullOrder();
                     break;
                 }

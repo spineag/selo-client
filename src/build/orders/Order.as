@@ -21,6 +21,8 @@ import manager.hitArea.ManagerHitArea;
 import media.SoundConst;
 import mouse.ToolsModifier;
 
+import order.OrderCat;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -150,6 +152,7 @@ public class Order extends WorldObject{
                 hideArrow();
                 g.server.openUserOrder(null);
                 g.user.isOpenOrder = true;
+                g.managerOrderCats.addCatonFirstTime();
             }
             return;
         }
@@ -186,14 +189,18 @@ public class Order extends WorldObject{
                 new FlyMessage(p,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
                 return;
             }
-            if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == _dataBuild.blockByLevel) return;
+//            if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == _dataBuild.blockByLevel) return;
+            if (g.managerOrderCats.stateBox == OrderCat.STATE_COIN) {
+                g.managerOrderCats.catMoto.onClick();
+                return;
+            }
             onOut();
             if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
             }
             hideArrow();
             g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
-            if (g.miniScenes.isMiniScene && g.miniScenes.isMiniSceneBuilding(this)) g.miniScenes.checkMiniSceneCallback();
+//            if (g.miniScenes.isMiniScene && g.miniScenes.isMiniSceneBuilding(this)) g.miniScenes.checkMiniSceneCallback();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType');
         }

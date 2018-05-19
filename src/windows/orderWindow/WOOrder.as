@@ -96,11 +96,6 @@ public class WOOrder extends WindowMain {
         _txtWindowName.letterSpacing = 20;
         _source.addChild(_txtWindowName);
 
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_small_bg'));
-        im.x = -_woWidth / 2 + 412;
-        im.y = -_woHeight / 2 + 131;
-        im.touchable = false;
-        _source.addChild(im);
         createItems();
         createRightBlock();
         createRightBlockTimer();
@@ -214,6 +209,7 @@ public class WOOrder extends WindowMain {
         _btnSell.addTextField(144, 35, 0, 0, g.managerLanguage.allTexts[366]);
         _btnSell.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnSell.clickCallback = sellOrder;
+        if (g.managerOrderCats.moveBoolean) _btnSell.setEnabled = false;
         _rightBlock.addChild(_btnSell);
 
         _btnDel = new CButton();
@@ -307,7 +303,6 @@ public class WOOrder extends WindowMain {
         _activeOrderItem = item;
         fillResourceItems(_activeOrderItem.getOrder());
         _activeOrderItem.activateIt(true);
-
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
@@ -316,14 +311,14 @@ public class WOOrder extends WindowMain {
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
             stopCatsAnimations();
-            emptyCarCustomer();
         } else {
             _rightBlock.visible = true;
             _rightBlockTimer.visible = false;
             g.gameDispatcher.removeFromTimer(onTimer);
             animateCustomerCat();
-            changeCatTexture();
+//            changeCatTexture();
         }
+        if (g.managerOrderCats.moveBoolean) emptyCarCustomer();
 
         for (var i:int = 0; i <_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == item.position && _arrOrders[i].delOb == true) {
@@ -401,9 +396,9 @@ public class WOOrder extends WindowMain {
         var pl:int = or.placeNumber;
         for (var i:int = 0; i<_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == pl &&  _arrOrders[i].delOb) {
-                g.managerOrder.checkCatId();
+//                g.managerOrder.checkCatId();
                 _arrOrders[i].delOb = false;
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
+//                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                 break;
             }
         }
@@ -461,37 +456,7 @@ public class WOOrder extends WindowMain {
                 break;
             }
         }
-
-        var p1:Point = new Point(134, 147);
-        if (!b)p1 = _source.localToGlobal(p1);
-        else {
-            p1.x = g.managerResize.stageWidth/2;
-            p1.y = g.managerResize.stageHeight/2;
-        }
-        var d:DropObject = new DropObject();
-        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_XP_ORDER) {
-            g.managerParty.addUserPartyCount(1);
-            d.addDropXP(or.xp * g.managerParty.coefficient, p1);
-        } else d.addDropXP(or.xp, p1);
-        p1.x = 186;
-        p1.y = 147;
-        if (!b)p1 = _source.localToGlobal(p1);
-        else {
-            p1.x = g.managerResize.stageWidth/2;
-            p1.y = g.managerResize.stageHeight/2;
-        }
-//        p1 = _source.localToGlobal(p1);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_ORDER) {
-            g.managerParty.addUserPartyCount(1);
-            d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins * g.managerParty.coefficient, p1);
-        } else d.addDropMoney(DataMoney.SOFT_CURRENCY, or.coins, p1);
-        p1.x = g.managerResize.stageWidth/2;
-        p1.y = g.managerResize.stageHeight/2;
-//        if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER &&
-//                g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level ||
-//                g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level)
-//            d.addDropPartyResource(p1);
-        d.releaseIt();
+        g.server.addUserOrderGift(or,0,0,0,null);
 
         g.managerOrder.sellOrder(or, f);
         g.managerOrder.cancelAnimateSmallHero();
@@ -507,7 +472,7 @@ import windows.orderWindow.WOOrderItem;
 
 private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
-//        or = _activeOrderItem.getOrder();
+        or = _activeOrderItem.getOrder();
 
     _btnDel.visible = false;
     _btnSell.visible = false;
@@ -525,10 +490,11 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
             }
         var f:Function = function ():void {
             hideIt();
+            g.managerOrderCats.rawOrderMoto(or);
             for (i = 0; i < _arrOrders.length; i++) {
                 if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
-                    g.managerOrder.checkCatId();
-                    _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
+//                    g.managerOrder.checkCatId();
+//                    _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                     break;
                 }
             }
@@ -648,12 +614,30 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
 
     //// ANIMATIONS//////
     private function createTopCats():void {
+
         _armature = g.allData.factory['order_window'].buildArmature("cat");
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         (_armature.display as StarlingArmatureDisplay).x = 145;
         (_armature.display as StarlingArmatureDisplay).y = 47;
         WorldClock.clock.add(_armature);
         animateCustomerCat();
+//        if (g.user.level >= 4) {
+//            _srcBaloon = new Sprite();
+//            _source.addChild(_srcBaloon);
+//            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('orders_cat_babble'));
+//            _srcBaloon.addChild(_imBaloon);
+//            _imBaloon.x = 5;
+//            _imBaloon.y = -20;
+//            _txtBaloon = new CTextField(200, 200, 'Написать Текст');
+//            _txtBaloon.setFormat(CTextField.BOLD18, 16, ManagerFilters.LIGHT_BLUE_COLOR);
+//            _txtBaloon.x = 40;
+//            _txtBaloon.y = -40;
+//            _srcBaloon.addChild(_txtBaloon);
+//            _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
+//            _srcBaloon.x = (_armature.display as StarlingArmatureDisplay).x + 30;
+//            _srcBaloon.y = (_armature.display as StarlingArmatureDisplay).y - 200;
+//            new TweenMax(_srcBaloon, 1, {scaleX: 1, scaleY: 1, y: _srcBaloon + 83, ease: Back.easeOut});
+//        }
     }
 
     private function animateCustomerCat(e:Event=null):void {
@@ -693,191 +677,6 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                     break;
             }
         }
-    }
-
-    private function changeCatTexture():void {
-        var st:String;
-        var lid:String;
-        var st2:String;
-        var or:OrderItemStructure = _activeOrderItem.getOrder();
-
-        if (g.user.level >= 4) {
-            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('orders_cat_babble'));
-            _srcBaloon.addChild(_imBaloon);
-            _imBaloon.x = 5;
-            _imBaloon.y = -20;
-            _txtBaloon = new CTextField(200, 200, '');
-            _txtBaloon.setFormat(CTextField.BOLD18, 16, ManagerFilters.LIGHT_BLUE_COLOR);
-            _txtBaloon.x = 40;
-            _txtBaloon.y = -40;
-            _srcBaloon.addChild(_txtBaloon);
-            _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
-            _srcBaloon.x = (_armature.display as StarlingArmatureDisplay).x + 30;
-            _srcBaloon.y = (_armature.display as StarlingArmatureDisplay).y - 200;
-            new TweenMax(_srcBaloon, 1, {scaleX: 1, scaleY: 1, y: _srcBaloon + 83, ease: Back.easeOut});
-        }
-        var n:Number = Math.random();
-        switch (or.catOb.color) {
-            case OrderCat.BLACK_MAN:
-                st = 'black_cat_m';
-                st2 = '_black';
-                lid = 'black';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1246]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1247]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1248]);
-                }
-                break;
-            case OrderCat.BLACK_WOMAN:
-                st = 'black_cat_w';
-                st2 = '_black';
-                lid = 'black';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1040]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1041]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1042]);
-                }
-                break;
-            case OrderCat.BLUE_MAN:
-                st = 'blue_cat_m';
-                st2 = '_blue';
-                lid = 'blue';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1255]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1256]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1257]);
-                }
-                break;
-            case OrderCat.BLUE_WOMAN:
-                st = 'blue_cat_w';
-                st2 = '_blue';
-                lid = 'blue';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1049]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1050]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1051]);
-                }
-                break;
-            case OrderCat.GREEN_MAN:
-                st = 'green_cat_m';
-                st2 = '_green';
-                lid = 'green';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1055]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1056]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1057]);
-                }
-                break;
-            case OrderCat.GREEN_WOMAN:
-                st = 'green_cat_w';
-                st2 = '_green';
-                lid = 'green';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1034]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1035]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1036]);
-                }
-                break;
-            case OrderCat.BROWN_MAN:
-                st = 'brown_cat_m';
-                st2 = '_brown';
-                lid = 'brown';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1052]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1053]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1054]);
-                }
-                break;
-            case OrderCat.BROWN_WOMAN:
-                st = 'brown_cat_w';
-                st2 = '_brown';
-                lid = 'brown';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1031]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1032]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1033]);
-                }
-                break;
-            case OrderCat.ORANGE_MAN:
-                st = 'orange_cat_m';
-                st2 = '_orange';
-                lid = 'orange';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1252]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1253]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1254]);
-                }
-                break;
-            case OrderCat.ORANGE_WOMAN:
-                st = 'orange_cat_w';
-                st2 = '_orange';
-                lid = 'orange';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1046]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1047]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1048]);
-                }
-                break;
-            case OrderCat.PINK_MAN:
-                st = 'pink_cat_m';
-                st2 = '_pink';
-                lid = 'pink';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1058]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1244]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1245]);
-                }
-                break;
-            case OrderCat.PINK_WOMAN:
-                st = 'pink_cat_w';
-                st2 = '_pink';
-                lid = 'pink';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1037]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1038]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1039]);
-                }
-                break;
-            case OrderCat.WHITE_MAN:
-                st = 'white_cat_m';
-                st2 = '_white';
-                lid = 'white';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1249]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1250]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1251]);
-                }
-                break;
-            case OrderCat.WHITE_WOMAN:
-                st = 'white_cat_w';
-                st2 = '_white';
-                lid = 'white';
-                if (_txtBaloon) {
-                    if (or.catOb.txtId == 1) _txtBaloon.text = String(g.managerLanguage.allTexts[1043]);
-                    else  if (or.catOb.txtId == 2) _txtBaloon.text = String(g.managerLanguage.allTexts[1044]);
-                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1045]);
-                }
-                break;
-        }
-
-        releaseFrontTexture(st, lid);
-
-    }
-
-    private function releaseFrontTexture(st:String, lid:String):void {
-        changeTexture("head",  "head_"+ st, _armature);
-        changeTexture("body", "body_" + st, _armature);
-        changeTexture("handLeft", 'hand_l_' + st , _armature);
-        changeTexture("handRight", 'hand_r_' + st, _armature);
-        changeTexture("lid_l", 'lid_l_' + lid, _armature);
-        changeTexture("lid_r", 'lid_r_' + lid, _armature);
-    }
-
-    private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var b:Slot = arma.getSlot(oldName);
-        var im:Image = new Image(g.allData.atlas['customisationOrder'].getTexture(newName));
-        b.displayList = null;
-        b.display = im;
     }
 
     private function killCatAnimations():void {
