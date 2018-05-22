@@ -10,7 +10,7 @@ import social.SocialNetwork;
 import user.Friend;
 
 public class SN_OK extends SocialNetwork {
-    private static const API_SECRET_KEY:String = "864364A475EBF25367549586";
+    private static const API_SECRET_KEY:String = "EC804AAB7DD4B598C4F2C3C5";
 
     private var _friendsRest:Array;
 
@@ -56,7 +56,7 @@ public class SN_OK extends SocialNetwork {
     }
 
     override public function get urlApp():String {
-        return "https://ok.ru/game/1248696832";
+        return "https://ok.ru/game/1266692864";
     }
 
     override public function getProfile(uid:String):void {
