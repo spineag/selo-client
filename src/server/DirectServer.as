@@ -8782,7 +8782,6 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.petDbId = pet.dbId;
-        variables.time_eat = pet.timeEat;
         variables.hash = MD5.hash(String(g.user.userId)+String(variables.petDbId)+SECRET);
         request.data = variables;
         iconMouse.startConnect();

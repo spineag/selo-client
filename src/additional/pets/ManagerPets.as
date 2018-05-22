@@ -10,6 +10,9 @@ import manager.AStar.AStar;
 import manager.Vars;
 import manager.ownError.ErrorConst;
 import user.Someone;
+
+import utils.TimeUtils;
+
 import windows.WindowsManager;
 
 public class ManagerPets {
@@ -20,9 +23,9 @@ public class ManagerPets {
     public const PET_RABBIT:int = 5;
     public const PET_DEER:int = 6;
 
-    public static const STATE_RAW_WALK:int = 1; // walking anythere after raw
-    public static const STATE_HUNGRY_WALK:int = 2; // is hungry and walking anywhere
-    public static const STATE_SLEEP:int = 3;  // sleep near house
+    public static const STATE_HUNGRY_WALK:int = 1; // is hungry and walking anywhere
+    public static const STATE_RAW_SLEEP:int = 2;  // sleep near house after raw and before get craftItem
+    public static const STATE_RAW_WALK:int = 3; // walking anywhere after raw and getted craftItem
 
     private var g:Vars = Vars.getInstance();
     private var _arrPets:Array;
@@ -48,8 +51,10 @@ public class ManagerPets {
             if (pHouse) {
                 pet.dbId = int(d.message[i].id);
                 pet.hasNewEat = Boolean(int(d.message[i].has_new_eat) == 1);
+                pet.hasCraft = Boolean(int(d.message[i].has_craft) == 1);
                 pHouse.addPet(pet);
                 pet.petHouse = pHouse;
+                if (pet.hasCraft) pHouse.addCraftItem(pet);
                 pet.analyzeTimeEat(int(d.message[i].time_eat));
                 _arrPets.push(pet);
                 var p:Point = new Point(pHouse.posX, pHouse.posY);
@@ -144,26 +149,57 @@ public class ManagerPets {
         }
     }
 
-    public function onPetCraftReady(pet:PetMain):void {
-        if (_rawPets.indexOf(pet) > -1) _rawPets.removeAt(_rawPets.indexOf(pet));
-        if (!_rawPets.length) g.gameDispatcher.removeFromTimer(onTimer);
-        pet.animation.stopAnimation();
-        if (pet.petHouse) pet.petHouse.onPetCraftReady(pet);
-        var point:Point = new Point(pet.petHouse.posX, pet.petHouse.posY);
-        point = getDirectPointForHouse(point, pet.positionAtHouse);
-        goPetToPoint(pet, point, onPetCraftReadyAtHouse, pet);
-//        if (pet.hasNewEat) pet.petHouse.getMiskaForPet(pet).showEat(true);  ???
-//        else pet.petHouse.getMiskaForPet(pet).showEat(false);
+    public function onPetFinishTimer(pet:PetMain):void {
+        if (pet.hasNewEat && !pet.hasCraft) {
+            runPetToHouseAndEat(pet, onPetFinishTimerAtHouse);
+        } else {
+            if (_rawPets.indexOf(pet) > -1) _rawPets.removeAt(_rawPets.indexOf(pet));
+            if (!_rawPets.length) g.gameDispatcher.removeFromTimer(onTimer);
+            chooseRandomAct(pet);
+        }
     }
 
-    private function onPetCraftReadyAtHouse(pet:PetMain):void {
+    private function onPetFinishTimerAtHouse(pet:PetMain):void {
+        pet.hasNewEat = false;
+        pet.hasCraft = true;
+        g.server.rawUserPetAutoAfterFinish(pet, null);
+        pet.petHouse.addCraftItem(pet);
         chooseRandomAct(pet);
+    }
+
+    private function runPetToHouseAndEat(pet:PetMain, callback:Function):void {
+        if (!pet.petHouse) {
+            if (callback != null) {
+                callback.apply(null, [pet]);
+            }
+            return;
+        }
+        var f2:Function = function():void {
+//            var point:Point = new Point(pet.petHouse.posX, pet.petHouse.posY);
+//            point = getDirectPointForHouse(point, pet.positionAtHouse);
+//            pet.posX = point.x;
+//            pet.posY = point.y;
+            g.townArea.addPet(pet);
+            if (callback != null) {
+                callback.apply(null, [pet]);
+            }
+            if (pet.hasNewEat) pet.petHouse.getMiskaForPet(pet).showEat(true);
+                else pet.petHouse.getMiskaForPet(pet).showEat(false);
+        };
+        var f1:Function = function():void {
+            g.townArea.removePet(pet);
+            pet.petHouse.showPetAnimateEat(pet, f2);
+        };
+        pet.animation.stopAnimation();
+        var point:Point = new Point(pet.petHouse.posX, pet.petHouse.posY);
+        point = getDirectPointForHouse(point, pet.positionAtHouse);
+        goPetToPoint(pet, point, f1);
     }
 
     public function onCraftHouse(pet:PetMain):void {
+        pet.hasCraft = false;
         pet.onGetCraft();
         g.server.craftUserPet(pet, null);
-        chooseRandomAct(pet);
     }
 
     public function onRawPet(p:PetMain, pHouse:PetHouse):void {
@@ -182,12 +218,28 @@ public class ManagerPets {
     }
     
     private function onEndAnimationEat(p:PetMain):void {
+        p.state = STATE_RAW_WALK;
         var point:Point = new Point(p.petHouse.posX, p.petHouse.posY);
         point = getDirectPointForHouse(point, p.positionAtHouse);
         p.posX = point.x;
         p.posY = point.y;
         g.townArea.addPet(p);
         chooseRandomAct(p);
+    }
+
+    public function onReleaseNewEatAfterLongCraft(p:PetMain):void { // esli sobiraem craft, kogda timer davno prowel
+        g.server.rawUserPetAutoAfterFinish(p, null);
+        p.analyzeTimeEat(TimeUtils.currentSeconds);
+        p.petHouse.addCraftItem(p);
+        var f1:Function = function (p:PetMain):void {
+            g.townArea.removePet(p);
+            p.petHouse.showPetAnimateEat(p, onEndAnimationEat);
+        };
+        var point:Point = new Point(p.petHouse.posX, p.petHouse.posY);
+        point = getDirectPointForHouse(point, p.positionAtHouse);
+        p.animation.stopAnimation();
+        p.animation.isWalking = false;
+        goPetToPoint(p, point, f1);
     }
 
     public function chooseRandomAct(pet:PetMain):void {

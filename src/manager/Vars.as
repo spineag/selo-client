@@ -68,7 +68,7 @@ import ui.achievementPanel.AchievementPanel;
 import ui.bottomInterface.MainBottomPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
-import ui.miniParty.MiniPartyPanel;
+//import ui.miniParty.MiniPartyPanel;
 
 //import ui.miniParty.MiniPartyPanel;
 import ui.party.PartyPanel;
@@ -189,7 +189,7 @@ public class Vars {
     public var stockPanel:StockPanel;
     public var starterPanel:StarterPackPanel;
     public var partyPanel:PartyPanel;
-    public var miniPartyPanel:MiniPartyPanel;
+    //public var miniPartyPanel:MiniPartyPanel;
     public var salePanel:SalePanel;
     public var achievementPanel:AchievementPanel;
     public var testerPanel:TesterPanelTop;

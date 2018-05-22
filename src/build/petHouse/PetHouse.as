@@ -141,6 +141,7 @@ public class PetHouse extends WorldObject {
                     (_arrCraftedItems.pop() as CraftItem).releaseIt();
                     p = getCraftedPet();
                     if (p) g.managerPets.onCraftHouse(p);
+
                 }
             } else {
                 p = getPetWithOutEat();
@@ -160,10 +161,12 @@ public class PetHouse extends WorldObject {
 
     private function onClickForRawPet(p:PetMain):void {
         if (p.state == ManagerPets.STATE_HUNGRY_WALK) {
-            p.state = ManagerPets.STATE_RAW_WALK;
+            p.state = ManagerPets.STATE_RAW_SLEEP;
             p.hasNewEat = false;
+            p.hasCraft = true;
             p.analyzeTimeEat(TimeUtils.currentSeconds);
-        } else if (p.state == ManagerPets.STATE_RAW_WALK) p.hasNewEat = true;
+            addCraftItem(p);
+        } else p.hasNewEat = true;
         getMiskaForPet(p).showEat(true);
         g.managerPets.onRawPet(p, this);
                     // animation of uploading resources to petHouse
@@ -231,17 +234,17 @@ public class PetHouse extends WorldObject {
         }
     }
 
-    public function onPetCraftReady(pet:PetMain):void {
+    public function addCraftItem(pet:PetMain):void {
         var rItem:ResourceItem = new ResourceItem();
         rItem.fillIt(g.allData.getResourceById(pet.petData.craftId));
         _craftSprite.visible = true;
-        var craftItem:CraftItem = new CraftItem(0, 0, rItem, _craftSprite, 1, useCraftedResource, true);
+        var craftItem:CraftItem = new CraftItem(0, 0, rItem, _craftSprite, 1, onClickCraftItem, true);
         _arrCraftedItems.push(craftItem);
         craftItem.addParticle();
         craftItem.animIt();
     }
 
-    private function useCraftedResource(item:ResourceItem, craftItem:CraftItem):void {
+    private function onClickCraftItem(item:ResourceItem, craftItem:CraftItem):void {
         _arrCraftedItems.splice(_arrCraftedItems.indexOf(item), 1);
         var p:PetMain = getCraftedPet();
         if (p) g.managerPets.onCraftHouse(p);
@@ -249,7 +252,7 @@ public class PetHouse extends WorldObject {
 
     public function getCraftedPet():PetMain {
         for (var i:int=0; i<_arrPets.length; i++) {
-            if ((_arrPets[i] as PetMain).state == ManagerPets.STATE_SLEEP) return _arrPets[i];
+            if ((_arrPets[i] as PetMain).state == ManagerPets.STATE_RAW_SLEEP) return _arrPets[i];
         }
         return null;
     }

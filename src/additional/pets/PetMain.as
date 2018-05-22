@@ -33,6 +33,7 @@ public class PetMain {
     protected var _timeLeft:int; // to generate product
     protected var _state:int;
     protected var _hasNewEat:Boolean;
+    protected var _hasCraft:Boolean;
     protected var _innerPosX1:int;
     protected var _innerPosY1:int;
     protected var _innerPosX2:int;
@@ -46,6 +47,7 @@ public class PetMain {
     public function PetMain(d:StructureDataPet) {
         _petData = d;
         _hasNewEat = false;
+        _hasCraft = false;
         _source = new Sprite();
         _animation = new AnimationPet(_source, this);
         if (g.allData.factory[_petData.url]) createArmature();
@@ -93,6 +95,8 @@ public class PetMain {
     public function get currentPath():Array { return _currentPath; } 
     public function get hasNewEat():Boolean { return _hasNewEat; }
     public function set hasNewEat(v:Boolean):void { _hasNewEat = v; }
+    public function set hasCraft(v:Boolean):void { _hasCraft = v; }
+    public function get hasCraft():Boolean { return _hasNewEat; }
     public function get innerPosX1():int { return _innerPosX1; }
     public function get innerPosX2():int { return _innerPosX2; }
     public function get innerPosX3():int { return _innerPosX3; }
@@ -104,16 +108,14 @@ public class PetMain {
     public function removePath():void { _currentPath.length = 0; }
 
     public function onGetCraft():void {
+        if (_timeLeft > 0) return;
         if (_hasNewEat) {
-            _state = ManagerPets.STATE_RAW_WALK;
             _hasNewEat = false;
-            _timeLeft = _petData.buildTime;
-            _timeEat = TimeUtils.currentSeconds;
-            _petHouse.getMiskaForPet(this).showEat(false);
-        } else {
-            _state = ManagerPets.STATE_HUNGRY_WALK;
-            _timeEat = 0;
-            _timeLeft = 0;
+            g.managerPets.onReleaseNewEatAfterLongCraft(this);
+//            _state = ManagerPets.STATE_RAW_WALK;
+//            _timeLeft = _petData.buildTime;
+//            _timeEat = TimeUtils.currentSeconds;
+//            _petHouse.getMiskaForPet(this).showEat(false);
         }
     }
 
@@ -121,29 +123,27 @@ public class PetMain {
         _timeEat = t;
         if (t > 0) {
             _timeLeft = _timeEat + _petData.buildTime - TimeUtils.currentSeconds;
-            if (_timeLeft < 0) {
-                _timeLeft = 0;
-                _state = ManagerPets.STATE_SLEEP;
-                _petHouse.onPetCraftReady(this);
-                _petHouse.getMiskaForPet(this).showEat(_hasNewEat);
-            } else {
-                _state = ManagerPets.STATE_RAW_WALK;
-                g.managerPets.addPetToTimer(this);
-                _petHouse.getMiskaForPet(this).showEat(_hasNewEat);
-            }
+            if (_timeLeft < 0) _timeLeft = 0;
+                else g.managerPets.addPetToTimer(this);
+            if (_hasCraft) _state = ManagerPets.STATE_RAW_SLEEP;
+                else _state = ManagerPets.STATE_RAW_WALK;
+            _petHouse.getMiskaForPet(this).showEat(_hasNewEat);
         } else {
-            _state = ManagerPets.STATE_HUNGRY_WALK;
-            _timeLeft = 0;
-            _timeEat = 0;
+             if (_hasNewEat && !_hasCraft) {
+                 _state = ManagerPets.STATE_RAW_SLEEP;
+                 _timeLeft = 0;
+                 _timeEat = 0;
+             } else {
+                 _state = ManagerPets.STATE_HUNGRY_WALK;
+                 _timeLeft = 0;
+                 _timeEat = 0;
+             }
         }
     }
 
     public function updateTimeLeft():void {
         _timeLeft--;
-        if (_timeLeft <= 0) {
-            g.managerPets.onPetCraftReady(this);
-            _state = ManagerPets.STATE_SLEEP;
-        }
+        if (_timeLeft <= 0) g.managerPets.onPetFinishTimer(this);
     }
     
     public function goWithPath(arr:Array, callbackOn:Function):void {
