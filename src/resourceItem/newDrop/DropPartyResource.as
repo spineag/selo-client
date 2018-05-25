@@ -15,17 +15,10 @@ public class DropPartyResource extends DropObjectInterface {
     }
 
     public function fillIt(p:Point):void {
-        if (g.allData.atlas['partyAtlas']) _image = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
+        if (g.allData.atlas['partyAtlas']) _image = new Image(g.allData.atlas['partyAtlas'].getTexture('9_may_icon'));
         onCreateImage();
         setStartPoint(p);
-//        if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
-//            if (g.managerParty.userParty.countResource + 1 <= g.managerParty.countToGift[4]) {
-//                var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
-//                        + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
         g.managerParty.updateUserParty();
-//                g.server.updateUserParty(st, g.managerParty.userParty.countResource, 0, g.managerParty.id, g.managerParty.userParty[0].idParty, null);
-//            }
-//        }
     }
 
     override public function flyIt(p:Point = null, needJoggle:Boolean = false):void {

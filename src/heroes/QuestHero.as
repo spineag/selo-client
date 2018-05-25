@@ -53,6 +53,8 @@ public class QuestHero extends BasicCat{
     private var _isFlip:Boolean;
     public var bShowBubble:Boolean;
     private var _dataCats:Object;
+    private var _bable:Bone;
+    private var _timer:int;
 
     public function QuestHero(id:int) {
         super();
@@ -60,6 +62,7 @@ public class QuestHero extends BasicCat{
         _dataCats = DataOrderCat.getCatObjById(id);
         _id = id;
         _isFree = true;
+        timer = 0;
         _source = new TownAreaBuildSprite();
 //        _source.touchable = false;
         _catImage = new CSprite();
@@ -75,6 +78,9 @@ public class QuestHero extends BasicCat{
         _catImage.addChild(_animation.catArmature.display as StarlingArmatureDisplay);
         _catBackImage.addChild(_animation.catBackArmature.display as StarlingArmatureDisplay);
 
+        _catImage.releaseContDrag = true;
+        _catBackImage.releaseContDrag = true;
+        _bable = _animation.catArmature.getBone('bable');
         changeCatTexture(_id);
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
@@ -82,6 +88,9 @@ public class QuestHero extends BasicCat{
         _animation.catBackImage = _catBackImage;
         showFront(true);
         addShadow();
+        _bable.visible =  false;
+        _timer = int(4 + Math.random() * 20);
+        g.gameDispatcher.addToTimer(catTopBable);
     }
 
     public function get idMan():int { return _id; }
@@ -184,20 +193,20 @@ public class QuestHero extends BasicCat{
                     case 11: _animation.playIt('breath', true, makeFreeCatIdle); break;
                     case 10:
                         switch (_id) {
-                            case 6: _animation.playIt('akril', true, makeFreeCatIdle); break;
-                            case 7: _animation.playIt('agur', true, makeFreeCatIdle); break;
-                            case 11: _animation.playIt('bulavka', true, makeFreeCatIdle); break;
-                            case 12: _animation.playIt('businka', true, makeFreeCatIdle); break;
-                            case 8: _animation.playIt('igolochka', true, makeFreeCatIdle); break;
-                            case 4: _animation.playIt('iris', true, makeFreeCatIdle); break;
-                            case 3: _animation.playIt('kruchek', true, makeFreeCatIdle); break;
-                            case 9: _animation.playIt('lentochka', true, makeFreeCatIdle); break;
-                            case 5: _animation.playIt('naperdstok', true, makeFreeCatIdle); break;
-                            case 13: _animation.playIt('petelka', true, makeFreeCatIdle); break;
-                            case 10: _animation.playIt('pryaga', true, makeFreeCatIdle); break;
-                            case 14: _animation.playIt('sintetika', true, makeFreeCatIdle); break;
-                            case 2: _animation.playIt('stegok', true, makeFreeCatIdle); break;
-                            case 1: _animation.playIt('uzelok', true, makeFreeCatIdle); break;
+                            case 8: _animation.playIt('akril', true, makeFreeCatIdle); break;
+                            case 9: _animation.playIt('agur', true, makeFreeCatIdle); break;
+                            case 13: _animation.playIt('bulavka', true, makeFreeCatIdle); break;
+                            case 14: _animation.playIt('businka', true, makeFreeCatIdle); break;
+                            case 10: _animation.playIt('igolochka', true, makeFreeCatIdle); break;
+                            case 6: _animation.playIt('iris', true, makeFreeCatIdle); break;
+                            case 5: _animation.playIt('kruchek', true, makeFreeCatIdle); break;
+                            case 11: _animation.playIt('lentochka', true, makeFreeCatIdle); break;
+                            case 7: _animation.playIt('naperdstok', true, makeFreeCatIdle); break;
+                            case 15: _animation.playIt('petelka', true, makeFreeCatIdle); break;
+                            case 12: _animation.playIt('pryaga', true, makeFreeCatIdle); break;
+                            case 16: _animation.playIt('sintetika', true, makeFreeCatIdle); break;
+                            case 4: _animation.playIt('stegok', true, makeFreeCatIdle); break;
+                            case 3: _animation.playIt('uzelok', true, makeFreeCatIdle); break;
                         }
                         break;
                 }
@@ -409,6 +418,16 @@ public class QuestHero extends BasicCat{
         if (_bubble) {
             bShowBubble = false;
             _bubble.clearIt();
+        }
+    }
+
+    private function catTopBable():void {
+        _timer--;
+        if (_timer <= 0) {
+            g.gameDispatcher.removeFromTimer(catTopBable);
+            _bable.visible =  !_bable.visible;
+            _timer = int(4 + Math.random() * 9);
+            g.gameDispatcher.addToTimer(catTopBable);
         }
     }
 

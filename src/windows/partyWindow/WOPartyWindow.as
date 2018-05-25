@@ -475,6 +475,16 @@ public class WOPartyWindow extends WindowMain {
             case ManagerPartyNew.EVENT_SKIP_PLANT_FRIEND:
                 g.friendPanel.addArrow(5);
                 break;
+            case ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT:
+                arr = g.townArea.getCityObjectsByType(BuildType.ORDER);
+                arr[0].showArrow(10);
+                g.cont.moveCenterToPos((arr[0] as Order).posX, (arr[0] as Order).posY, false, .5);
+                arr = g.townArea.getCityObjectsByType(BuildType.MARKET);
+                arr[0].showArrow(10);
+
+                arr = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+                for (var i:int = 0; i < arr.length; i++ ) arr[i].showArrow(10);
+                break;
         }
     }
 

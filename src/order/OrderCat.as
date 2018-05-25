@@ -117,6 +117,7 @@ public class OrderCat {
             _catImage.addChild(armature.display as StarlingArmatureDisplay);
             _catBackImage.addChild(armatureBack.display as StarlingArmatureDisplay);
             _catImage.endClickCallback = onClick;
+            _catImage.releaseContDrag = true;
             WorldClock.clock.add(armature);
             WorldClock.clock.add(armatureBack);
             bant = 0;
@@ -248,6 +249,10 @@ public class OrderCat {
             g.managerParty.addUserPartyCount(1);
             d.addDropMoney(DataMoney.SOFT_CURRENCY, g.managerOrderCats.orderTtStr.coins * g.managerParty.coefficient, p1);
         } else d.addDropMoney(DataMoney.SOFT_CURRENCY, g.managerOrderCats.orderTtStr.coins, p1);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT && g.allData.atlas['partyAtlas']) {
+            d.addDropPartyResource(p1);
+            g.managerParty.addUserPartyCount(1);
+        }
         d.releaseIt();
         g.managerOrderCats.deleteOrderStr();
     }
@@ -273,6 +278,7 @@ public class OrderCat {
     }
 
     public function onClick():void {
+        if (g.isAway) return;
         if (!g.managerOrderCats.moveBoolean && _stateBox == STATE_COIN) {
             checkBoxState(STATE_EMPTY);
             giftAdd();

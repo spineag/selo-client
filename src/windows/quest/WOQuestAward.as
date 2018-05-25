@@ -104,7 +104,7 @@ internal class Item extends Sprite {
         } else if (_aw.typeResource == 'instrument') {
             im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(_aw.idResource).imageShop));
         } else if (_aw.typeResource == 'xp') {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star_small_new"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_icon"));
         }
 
         switch (c) {
@@ -112,19 +112,28 @@ internal class Item extends Sprite {
                 _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -15;
-                if (im) MCScaler.scale(im, 30, 30);
+                if (im) {
+                    if (_aw.typeResource == 'xp') MCScaler.scale(im, 40, 40);
+                    else MCScaler.scale(im, 30, 30);
+                }
                 break;
             case 2: _txt = new CTextField(45, 48, String(aw.countResource));
                 _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -14;
-                if (im) MCScaler.scale(im, 30, 30);
+                if (im) {
+                    if (_aw.typeResource == 'xp') MCScaler.scale(im, 40, 40);
+                    else MCScaler.scale(im, 30, 30);
+                }
                 break;
             case 3: _txt = new CTextField(45, 48, String(aw.countResource));
                 _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
                 _txt.y = -16;
-                if (im) MCScaler.scale(im, 30, 30);
+                if (im) {
+                    if (_aw.typeResource == 'xp') MCScaler.scale(im, 40, 40);
+                    else MCScaler.scale(im, 30, 30);
+                }
                 break;
         }
 

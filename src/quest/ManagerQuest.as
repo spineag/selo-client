@@ -144,30 +144,35 @@ public class ManagerQuest {
                 q = new QuestStructure();
                 q.fillIt(d.quests[i]);
                 q.isNew = isNew;
-                _userQuests.push(q);
-//                g.managerQuestCats.addAllHeroCats(q.questCatId);
-            }
-//            if (!isNew) {
-//                g.managerQuestCats.setAllCatsToRandomPositionsAtStartGame();
-//            } else {
-//                if (_currentRemovedQuest) {
-//                    var b:Boolean = true;
-//                    for (i = 0; i < _userQuests.length; i++) {
-//                        if (_currentRemovedQuest.questCatId == _userQuests[i].questCatId) {
-//                            b = false;
-//                            break;
+//                var thisCatGifAnotherQuest:Boolean = false;
+//                for (var k:int = 0; k <_userQuests.length; k++) {
+//                    if (_userQuests[k].questCatId == q.questCatId) {
+//                        thisCatGifAnotherQuest = true;
+//                        break;
+//                    }
+//                }
+//                if (!thisCatGifAnotherQuest) {
+                    _userQuests.push(q);
+//                    var needNewCat:Boolean = true;
+//                    if (_currentRemovedQuest) {
+//                        for (i = 0; i < _userQuests.length; i++) {
+//                            if (_currentRemovedQuest.questCatId == _userQuests[i].questCatId) {
+//                                needNewCat = false;
+//                                break;
+//                            }
+//                        }
+//                        if (needNewCat) g.managerQuestCats.getCatAway(_currentRemovedQuest.questCatId);
+//                    }
+//                    if (q && q.questCatId > 2) {
+//                        if (!isNew) {
+//                            g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+//                        } else {
+//                            if (needNewCat) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+//                            if (!needNewCat && q.questCatId != _currentRemovedQuest.questCatId) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
 //                        }
 //                    }
-//                    if (b) {
-//                        g.managerQuestCats.getCatAway(_currentRemovedQuest.questCatId );
-//                        g.managerQuestCats.addAllHeroCats(q.questCatId);
-//                        g.managerQuestCats.setAllCatsToRandomPositionsAtStartGame(true);
-//                    }
-//                } else {
-//                    g.managerQuestCats.addAllHeroCats(q.questCatId);
-//                    g.managerQuestCats.setAllCatsToRandomPositionsAtStartGame(true);
 //                }
-//            }
+            }
             for (i=0; i<d.tasks.length; i++) {
                 q = getUserQuestById(int(d.tasks[i].quest_id));
                 if (q) {
@@ -440,7 +445,7 @@ public class ManagerQuest {
             case NIASH_BUYER:
                 g.windowsManager.closeAllWindows();
                 if (g.managerBuyerNyashuk.isAnyNiash()) {
-                    g.cont.moveCenterToPos(28, -5);
+                    g.cont.moveCenterToPos(26, 25);
                     g.managerBuyerNyashuk.addArrows(3);
                 } else new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
                 break;
@@ -501,6 +506,7 @@ public class ManagerQuest {
         if (type == ADD_LEFT_MENU) {
             if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                 if (_activeTask && _activeTask.typeAction == ADD_LEFT_MENU) {
+
                     _activeTask.upgradeCount();
                     g.server.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                     _activeTask = null;

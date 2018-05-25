@@ -314,6 +314,15 @@
             <filename>part_products/winter_hat_icon.png</filename>
             <filename>part_products/wool_icon.png</filename>
             <filename>part_plants</filename>
+            <filename>part_products/apple_sugar_icon.png</filename>
+            <filename>part_products/carbonara_paste_icon.png</filename>
+            <filename>part_products/carrot_apple_icon.png</filename>
+            <filename>part_products/carrot_cakes_icon.png</filename>
+            <filename>part_products/cheese_philadelphia_icon.png</filename>
+            <filename>part_products/noodles_cheese_icon.png</filename>
+            <filename>part_products/noodles_icon.png</filename>
+            <filename>part_products/roll_bacon_icon.png</filename>
+            <filename>part_products/roll_bacon_with_egg_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

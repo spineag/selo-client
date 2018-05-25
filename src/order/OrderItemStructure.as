@@ -12,6 +12,7 @@ public class OrderItemStructure {
     public var addCoupone:Boolean;
     public var startTime:int;
     public var placeNumber:int;
+    public var txtId:int;
     public var cat:OrderCat;
     public var catOb:Object;
     public var delOb:Boolean = false;

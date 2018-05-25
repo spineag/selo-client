@@ -241,7 +241,6 @@
             <filename>newspaper_icon_small.png</filename>
             <filename>nyash_blue.png</filename>
             <filename>nyash_red.png</filename>
-            <filename>order_small_bg.png</filename>
             <filename>order_window_del_clock.png</filename>
             <filename>order_window_del_or.png</filename>
             <filename>orders_cell.png</filename>

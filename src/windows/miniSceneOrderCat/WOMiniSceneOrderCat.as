@@ -49,7 +49,7 @@ public class WOMiniSceneOrderCat extends WindowMain{
             _txtName = new CTextField(300, 70, '');
             _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
             _txtName.x = 120;
-            _txtName.y = -_woHeight / 2 - 135;
+            _txtName.y = -320;
 
             _txt = new CTextField(520, 140, '');
             _txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
@@ -72,7 +72,7 @@ public class WOMiniSceneOrderCat extends WindowMain{
             _txt = new CTextField(360, 140, '');
             _txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
             _txt.x = -30;
-            _txt.y = -200;
+            _txt.y = -185;
 
             _btn = new CButton();
             _btn.addButtonTexture(120, CButton.HEIGHT_32, CButton.GREEN, true);
@@ -120,7 +120,7 @@ public class WOMiniSceneOrderCat extends WindowMain{
 
     private function photoFromTexture(tex:Texture):void {
         _imCat = new Image(tex);
-        _source.addChild(_imCat);
+        if (_source)_source.addChild(_imCat);
         _imCat.x = -_imCat.width;
         _imCat.y = -_imCat.height/2;
         _txt.text = g.managerLanguage.allTexts[_dataCat.txtMiniScene];
@@ -134,7 +134,13 @@ public class WOMiniSceneOrderCat extends WindowMain{
             _callback.apply(null, [_dataCat]);
         }
         super.hideIt();
-        if (!g.managerCutScenes.isCutScene) g.windowsManager.openWindow(WindowsManager.WO_ORDERS,null,_dataCat);
+        for (var i:int = 0; i < g.managerQuest.userQuests.length; i++) {
+            if (g.managerQuest.userQuests[i].questCatId == _dataCat.id) {
+                g.managerQuest.showWOForQuest(g.managerQuest.userQuests[i]);
+                break;
+            }
+        }
+//        if (!g.managerCutScenes.isCutScene) g.windowsManager.openWindow(WindowsManager.WO_ORDERS,null,_dataCat);
     }
 
     override protected function deleteIt():void {

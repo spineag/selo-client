@@ -6,6 +6,7 @@ import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
 import manager.Vars;
 import resourceItem.newDrop.DropObject;
 import starling.display.Image;
@@ -56,10 +57,14 @@ public class WOPartyWindowItem {
         _bgWhite.y = 5;
         source.addChild(_bgWhite);
         var im:Image;
-        if (g.allData.getResourceById(g.managerParty.idItemEvent[0]).buildType == BuildType.PLANT) {
-            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idItemEvent[0]).imageShop + '_icon'));
+        if (g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT) {
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('9_may_icon'));
         } else {
-            im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idItemEvent[0]).url].getTexture(g.allData.getResourceById(g.managerParty.idItemEvent[0]).imageShop));
+            if (g.allData.getResourceById(g.managerParty.idItemEvent[0]).buildType == BuildType.PLANT) {
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idItemEvent[0]).imageShop + '_icon'));
+            } else {
+                im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idItemEvent[0]).url].getTexture(g.allData.getResourceById(g.managerParty.idItemEvent[0]).imageShop));
+            }
         }
         im.x = 5;
         im.y = 5;

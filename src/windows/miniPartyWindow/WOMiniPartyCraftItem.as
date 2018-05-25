@@ -59,6 +59,9 @@ public class WOMiniPartyCraftItem {
             case BuildType.DECOR:
                 im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.allData.getBuildingById(_id).image));
                 break;
+            case BuildType.DECOR_TAIL:
+                im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.allData.getBuildingById(_id).image));
+                break;
             case BuildType.INSTRUMENT:
                 im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(_id).imageShop));
                 break;
@@ -143,6 +146,9 @@ public class WOMiniPartyCraftItem {
                 d.addDropMoney(DataMoney.HARD_CURRENCY, _count, p);
                 break;
             case BuildType.DECOR:
+                d.addDropDecor(g.allData.getBuildingById(_id), p, _count, true);
+                break;
+            case BuildType.DECOR_TAIL:
                 d.addDropDecor(g.allData.getBuildingById(_id), p, _count, true);
                 break;
             case BuildType.INSTRUMENT:

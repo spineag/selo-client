@@ -78,6 +78,10 @@ public class Cafe extends WorldObject {
         _spriteThird = new CSprite();
         _spriteFirst = new CSprite();
         _csprMenu = new CSprite();
+        _spriteSecond.releaseContDrag = true;
+        _spriteThird.releaseContDrag = true;
+        _spriteFirst.releaseContDrag = true;
+        _csprMenu.releaseContDrag = true;
         _source.addChild(_spriteFirst);
         _source.addChild(_spriteSecond);
         _source.addChild(_spriteThird);
@@ -212,7 +216,6 @@ public class Cafe extends WorldObject {
         _imFlowerS2.y = 224;
         _spriteSecond.addChild(_imFlowerS2);
 
-
         _imFlowerR1.x = 63;
         _imFlowerR1.y = 165;
         _spriteSecond.addChild(_imFlowerR1);
@@ -228,7 +231,6 @@ public class Cafe extends WorldObject {
         _imFence6.x = 336;
         _imFence6.y = 188;
         _spriteSecond.addChild(_imFence6);
-
 
 //        _imFence5.x = 338;
 //        _imFence5.y = 212;

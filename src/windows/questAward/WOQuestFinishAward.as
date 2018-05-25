@@ -193,7 +193,7 @@ internal class Item extends Sprite {
         } else if (_aw.typeResource == 'instrument') {
             im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(_aw.idResource).imageShop));
         } else if (_aw.typeResource == 'xp') {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_icon"));
         }
 
         if (im) {

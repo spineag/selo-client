@@ -93,7 +93,7 @@ public class WOCafe extends WindowMain{
         _leftArrow.addChild(im);
         _leftArrow.clickCallback = onClickLeft;
         _source.addChild(_leftArrow);
-        _leftArrow.x = -100;
+        _leftArrow.x = -270;
         _leftArrow.y = 20;
 //        _leftArrow.visible = false;
         _rightArrow = new CButton();
@@ -103,7 +103,7 @@ public class WOCafe extends WindowMain{
         _rightArrow.addChild(im);
         _rightArrow.clickCallback = onClickRight;
         _source.addChild(_rightArrow);
-        _rightArrow.x = 10;
+        _rightArrow.x = 50;
         _rightArrow.y = 20;
 //        _rightArrow.visible = false;
         checkArrows();
@@ -128,7 +128,8 @@ public class WOCafe extends WindowMain{
     }
 
     private function onClickLeft():void {
-        _shift--;
+        if (_shift <=0 ) return;
+            _shift--;
         animList();
     }
 

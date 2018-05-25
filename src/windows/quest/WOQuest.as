@@ -12,6 +12,9 @@ import dragonBones.starling.StarlingArmatureDisplay;
 import flash.display.Bitmap;
 
 import manager.ManagerFilters;
+
+import order.DataOrderCat;
+
 import quest.ManagerQuest;
 import quest.QuestStructure;
 import starling.display.Image;
@@ -48,8 +51,6 @@ public class WOQuest extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        if (g.allData.factory['cat_quest_m']) onLoad();
-        else g.loadAnimation.load('animations_json/cat_quest_m', 'cat_quest_m', onLoad);
 //        _bgC = new BackgroundYellowOut(480, 240);
 //        _bgC.filter =  ManagerFilters.SHADOW;
 //        _bgC.x = -240;
@@ -72,12 +73,12 @@ public class WOQuest extends WindowMain{
     }
 
     private function onLoad():void {
-        _armature = g.allData.factory['cat_quest_m'].buildArmature("cat");
+        _armature = g.allData.factory[String(DataOrderCat.getCatObjById(_quest.questCatId).animationName)].buildArmature("cat");
         _sA = new Sprite();
-        _sA.addChild(_armature.display as StarlingArmatureDisplay);
-        _sA.y = (_armature.display as StarlingArmatureDisplay).height/2-10;
+        if (_armature.display) _sA.addChild(_armature.display as StarlingArmatureDisplay);
+        if (_armature.display) _sA.y = (_armature.display as StarlingArmatureDisplay).height/2-10;
         _sA.x = -400;
-        _source.addChild(_sA);
+        if (_source) _source.addChild(_sA);
         WorldClock.clock.add(_armature);
         catAnimation();
     }
@@ -89,23 +90,20 @@ public class WOQuest extends WindowMain{
 
         _armature.addEventListener(EventObject.COMPLETE, catAnimation);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, catAnimation);
-        if (r > 4) {
+        if (r > 3) {
             _armature.animation.gotoAndPlayByFrame('idle');
         } else {
             switch (r) {
                 case 0:
-                    _armature.animation.gotoAndPlayByFrame('talk1');
-                    break;
-                case 1:
                     _armature.animation.gotoAndPlayByFrame('talk2');
                     break;
-                case 2:
-                    _armature.animation.gotoAndPlayByFrame('talk3');
+                case 1:
+                    _armature.animation.gotoAndPlayByFrame('talk');
                     break;
-                case 3:
+                case 2:
                     _armature.animation.gotoAndPlayByFrame('laugh');
                     break;
-                case 4:
+                case 3:
                     _armature.animation.gotoAndPlayByFrame('look');
                     break;
             }
@@ -117,6 +115,9 @@ public class WOQuest extends WindowMain{
         if (!_quest.tasks.length) { Cc.error('WOQuest showItParams: no tasks for questId: ' + _quest.id); return; }
         if (!_quest.awards.length) { Cc.error('WOQuest showItParams: no awards for questId: ' + _quest.id); return; }
         if (g.managerQuest.checkQuestForDone(_quest)) return;
+        if (g.allData.factory[String(DataOrderCat.getCatObjById(_quest.questCatId).animationName)]) onLoad();
+        else g.loadAnimation.load(String(DataOrderCat.getCatObjById(_quest.questCatId).animation), String(DataOrderCat.getCatObjById(_quest.questCatId).animationName), onLoad);
+
 //        if (g.allData.atlas['questAtlas']) {
 //            var im:Image;
 //            im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_back'));

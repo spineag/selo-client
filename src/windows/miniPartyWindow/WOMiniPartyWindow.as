@@ -86,7 +86,7 @@ public class WOMiniPartyWindow extends WindowMain{
         _koleso.addChild(im);
         _btnRotate = new CButton();
         _btnRotate.addButtonTexture(200, CButton.HEIGHT_41, CButton.GREEN, true);
-        var txt:CTextField = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 10');
+        var txt:CTextField = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 75');
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnRotate.y = 260;
         if (g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).buildType == BuildType.PLANT)im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).imageShop + '_icon'));
@@ -144,7 +144,7 @@ public class WOMiniPartyWindow extends WindowMain{
     }
 
     private function checkBtn():void {
-        if (g.userInventory.getCountResourceById(g.managerMiniParty.idItemEvent[0]) < 10) {
+        if (g.userInventory.getCountResourceById(g.managerMiniParty.idItemEvent[0]) < 75) {
             _btnRotate.visible = false;
             _btnRotateRubie.visible = true;
             _forRubieRotate = true;
@@ -180,7 +180,7 @@ public class WOMiniPartyWindow extends WindowMain{
         _curActivePosition -=5;
         new WOMiniPartyCraftItem(g.managerMiniParty.idGift[_curActivePosition], g.managerMiniParty.typeGift[_curActivePosition], g.managerMiniParty.countGift[_curActivePosition], _contItemCraft, null);
         if (_forRubieRotate) g.userInventory.addMoney(DataMoney.HARD_CURRENCY, - 2);
-        else g.userInventory.addResource(g.managerMiniParty.idItemEvent[0], -10);
+        else g.userInventory.addResource(g.managerMiniParty.idItemEvent[0], -75);
         checkBtn();
         _isAnimate = false;
 

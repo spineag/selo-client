@@ -203,6 +203,30 @@ public class Wild extends WorldObject{
                 }else if( _dataBuild.id == 62){ // маленький камень
                     newX = g.cont.gameContX + _source.x * g.currentGameScale;
                     newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
+                }else if( _dataBuild.id == 326){ //королевский пень
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 13) * g.currentGameScale;
+                }else if( _dataBuild.id == 327){ //дерево желтое
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.8) * g.currentGameScale;
+                }else if( _dataBuild.id == 328){ //корень большой
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
+                }else if( _dataBuild.id == 329){ //дерево большой
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.4) * g.currentGameScale;
+                }else if( _dataBuild.id == 330){ //дерево большой
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
+                }else if( _dataBuild.id == 331){ //дерево большой
+                    newX = g.cont.gameContX + (_source.x + _source.width/12) * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
+                }else if( _dataBuild.id == 332){ //дерево большой
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
+                }else if( _dataBuild.id == 333){ //дерево большой
+                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                    newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
                 }
                 g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
             if (g.tuts.isTuts && g.tuts.action == TutsAction.REMOVE_WILD) {
@@ -264,6 +288,30 @@ public class Wild extends WorldObject{
         }else if( _dataBuild.id == 62){ // маленький камень
             newX = g.cont.gameContX + _source.x * g.currentGameScale;
             newY = g.cont.gameContY + (_source.y - _source.height / 8) * g.currentGameScale;
+        }else if( _dataBuild.id == 326){ //королевский пень
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 13) * g.currentGameScale;
+        }else if( _dataBuild.id == 327){ //королевский пень
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.8) * g.currentGameScale;
+        }else if( _dataBuild.id == 328){ //корень большой
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
+        }else if( _dataBuild.id == 329){ //дерево большой
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.4) * g.currentGameScale;
+        }else if( _dataBuild.id == 330){ //дерево большой
+            newX = g.cont.gameContX + _source.x * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.5) * g.currentGameScale;
+        }else if( _dataBuild.id == 331){ //дерево большой
+            newX = g.cont.gameContX + (_source.x + _source.width/12) * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
+        }else if( _dataBuild.id == 332){ //дерево большой
+            newX = g.cont.gameContX + _source.x  * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
+        }else if( _dataBuild.id == 333){ //дерево большой
+            newX = g.cont.gameContX + _source.x  * g.currentGameScale;
+            newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
         }
         g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
     }

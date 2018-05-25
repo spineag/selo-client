@@ -609,10 +609,10 @@ public class Fabrica extends WorldObject {
 
     private function releaseHeroCatWoman(cat:HeroCat):void {
         if (cat.typeMan == BasicCat.MAN) {
-            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133 || _dataBuild.id == 9 || _dataBuild.id == 135 || _dataBuild.id == 6 || _dataBuild.id == 5) releaseManBackTexture();
+            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 8 || _dataBuild.id == 7 || _dataBuild.id == 133 || _dataBuild.id == 9 || _dataBuild.id == 135 || _dataBuild.id == 6 || _dataBuild.id == 5) releaseManBackTexture();
                 else releaseManFrontTexture();
         } else if (cat.typeMan == BasicCat.WOMAN) {
-            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133 || _dataBuild.id == 9 || _dataBuild.id == 135 || _dataBuild.id == 6 || _dataBuild.id == 5) releaseWomanBackTexture();
+            if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 8 || _dataBuild.id == 7 || _dataBuild.id == 133 || _dataBuild.id == 9 || _dataBuild.id == 135 || _dataBuild.id == 6 || _dataBuild.id == 5) releaseWomanBackTexture();
                 else releaseWomanFrontTexture();
         }
     }

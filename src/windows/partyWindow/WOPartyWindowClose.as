@@ -9,6 +9,8 @@ import data.DataMoney;
 import flash.display.Bitmap;
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerPartyNew;
+
 import resourceItem.newDrop.DropObject;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -117,13 +119,15 @@ public class WOPartyWindowClose extends WindowMain{
                 break;
             }
         }
-        for (i= 0; i < _dataParty.countToGift.length; i++) {
-            if (_userParty.countResource >= _dataParty.countToGift[i]) {
-                party = new PartyItem(_dataParty.idGift[i], _dataParty.typeGift[i]);
-                party.source.x = i*55 + 5;
-                party.source.y = 165;
-                _arrItem.push(party);
-                _srcItem.addChild(party.source);
+        if (_dataParty.typeParty == ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT || _dataParty.typeParty ==  ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT) {
+            for (i = 0; i < _dataParty.countToGift.length; i++) {
+                if (_userParty.countResource >= _dataParty.countToGift[i]) {
+                    party = new PartyItem(_dataParty.idGift[i], _dataParty.typeGift[i]);
+                    party.source.x = i * 55 + 5;
+                    party.source.y = 165;
+                    _arrItem.push(party);
+                    _srcItem.addChild(party.source);
+                }
             }
         }
         if (g.managerParty.getratingForEnd <= 3) {

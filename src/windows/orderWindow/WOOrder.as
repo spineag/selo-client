@@ -292,13 +292,6 @@ public class WOOrder extends WindowMain {
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
         if (recheck > -1 && _activeOrderItem != item) return;
         clearResourceItems();
-        if (_imBaloon) {
-            _srcBaloon.removeChild(_imBaloon);
-            _srcBaloon.removeChild(_txtBaloon);
-            _imBaloon = null;
-            _txtBaloon.deleteIt();
-            _txtBaloon = null;
-        }
         _clickItem = true;
         _activeOrderItem = item;
         fillResourceItems(_activeOrderItem.getOrder());
@@ -316,9 +309,15 @@ public class WOOrder extends WindowMain {
             _rightBlockTimer.visible = false;
             g.gameDispatcher.removeFromTimer(onTimer);
             animateCustomerCat();
-//            changeCatTexture();
         }
-        if (g.managerOrderCats.moveBoolean) emptyCarCustomer();
+        var or:OrderItemStructure = _activeOrderItem.getOrder();
+        if (g.managerOrderCats.moveBoolean || _activeOrderItem.leftSeconds > 0) {
+            _srcBaloon.visible = false;
+            emptyCarCustomer();
+        } else {
+            _txtBaloon.text = String(g.managerLanguage.allTexts[or.txtId]);
+            _srcBaloon.visible = true;
+        }
 
         for (var i:int = 0; i <_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == item.position && _arrOrders[i].delOb == true) {
@@ -332,7 +331,6 @@ public class WOOrder extends WindowMain {
         if (g.user.level <= 5) {
             hideArrow();
             _canArrow = true;
-            var or:OrderItemStructure = _activeOrderItem.getOrder();
             for (i = 0; i < or.resourceIds.length; i++) {
                 if (!(_arrResourceItems[i] as WOOrderResourceItem).isChecked()) {
                     _canArrow = false;
@@ -379,7 +377,6 @@ public class WOOrder extends WindowMain {
         _btnSkipDelete.visible = false;
         _activeOrderItem.onSkipTimer();
     }
-
 
     private function onTimer():void {
         if (_activeOrderItem.leftSeconds > 0) {
@@ -463,7 +460,6 @@ public class WOOrder extends WindowMain {
         g.soundManager.playSound(SoundConst.ORDER_COMPLETED);
         if (g.tuts.isTuts && g.tuts.action == TutsAction.ORDER) g.tuts.checkTutsCallback();
             else g.miniScenes.onBuyOrder();
-        g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
     }
 
 import order.OrderItemStructure;
@@ -491,6 +487,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         var f:Function = function ():void {
             hideIt();
             g.managerOrderCats.rawOrderMoto(or);
+            g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
             for (i = 0; i < _arrOrders.length; i++) {
                 if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
 //                    g.managerOrder.checkCatId();
@@ -621,23 +618,23 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         (_armature.display as StarlingArmatureDisplay).y = 47;
         WorldClock.clock.add(_armature);
         animateCustomerCat();
-//        if (g.user.level >= 4) {
-//            _srcBaloon = new Sprite();
-//            _source.addChild(_srcBaloon);
-//            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('orders_cat_babble'));
-//            _srcBaloon.addChild(_imBaloon);
-//            _imBaloon.x = 5;
-//            _imBaloon.y = -20;
-//            _txtBaloon = new CTextField(200, 200, 'Написать Текст');
-//            _txtBaloon.setFormat(CTextField.BOLD18, 16, ManagerFilters.LIGHT_BLUE_COLOR);
-//            _txtBaloon.x = 40;
-//            _txtBaloon.y = -40;
-//            _srcBaloon.addChild(_txtBaloon);
-//            _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
-//            _srcBaloon.x = (_armature.display as StarlingArmatureDisplay).x + 30;
-//            _srcBaloon.y = (_armature.display as StarlingArmatureDisplay).y - 200;
-//            new TweenMax(_srcBaloon, 1, {scaleX: 1, scaleY: 1, y: _srcBaloon + 83, ease: Back.easeOut});
-//        }
+        if (g.user.level >= 4) {
+            _srcBaloon = new Sprite();
+            _source.addChild(_srcBaloon);
+            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('orders_cat_babble'));
+            _srcBaloon.addChild(_imBaloon);
+            _imBaloon.x = 5;
+            _imBaloon.y = -20;
+            _txtBaloon = new CTextField(200, 200, 'Написать Текст');
+            _txtBaloon.setFormat(CTextField.BOLD18, 18, ManagerFilters.LIGHT_BLUE_COLOR);
+            _txtBaloon.x = 40;
+            _txtBaloon.y = -40;
+            _srcBaloon.addChild(_txtBaloon);
+            _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
+            _srcBaloon.x = (_armature.display as StarlingArmatureDisplay).x + 30;
+            _srcBaloon.y = (_armature.display as StarlingArmatureDisplay).y - 200;
+            new TweenMax(_srcBaloon, 1, {scaleX: 1, scaleY: 1, y: _srcBaloon + 83, ease: Back.easeOut});
+        }
     }
 
     private function animateCustomerCat(e:Event=null):void {
@@ -654,9 +651,6 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
                 case 0:
                     _armature.animation.gotoAndPlayByFrame('idle');
                     break;
-//                case 1:
-//                    _armature.animation.gotoAndPlayByFrame('happy');
-//                    break;
                 case 1:
                     _armature.animation.gotoAndPlayByFrame('hi');
                     break;

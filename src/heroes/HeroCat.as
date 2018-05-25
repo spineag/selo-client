@@ -30,9 +30,9 @@ import utils.CSprite;
 import utils.Utils;
 
 public class HeroCat extends BasicCat{
-    private var _catImage:Sprite;
+    private var _catImage:CSprite;
     private var _catWateringAndFeed:Sprite;
-    private var _catBackImage:Sprite;
+    private var _catBackImage:CSprite;
     private var _isFree:Boolean;
     private var _type:int;
     private var heroEyes:HeroEyesAnimation;
@@ -55,10 +55,14 @@ public class HeroCat extends BasicCat{
         _type = type;
         _isFree = true;
         _source = new TownAreaBuildSprite();
-        _source.touchable = false;
-        _catImage = new Sprite();
+//        _source.touchable = false;
+        _catImage = new CSprite();
+        _catImage.releaseContDrag = true;
+        _catImage.endClickCallback = onClick;
         _catWateringAndFeed = new Sprite();
-        _catBackImage = new Sprite();
+        _catBackImage = new CSprite();
+        _catBackImage.releaseContDrag = true;
+        _catBackImage.endClickCallback = onClick;
         freeIdleGo = true;
         bShowBubble = false;
         _animation = new HeroCatsAnimation();
@@ -90,6 +94,18 @@ public class HeroCat extends BasicCat{
         showFront(true);
         _bubble = new TutorialTextBubble(g.cont.animationsCont);
         addShadow();
+    }
+
+    private function onClick():void {
+        for (var i:int = 0; i < g.managerQuest.userQuests.length; i++) {
+            if (_type == WOMAN && g.managerQuest.userQuests[i].questCatId == 2) {
+                g.managerQuest.showWOForQuest(g.managerQuest.userQuests[i]);
+                break;
+            } else if (_type == MAN && g.managerQuest.userQuests[i].questCatId == 1) {
+                g.managerQuest.showWOForQuest(g.managerQuest.userQuests[i]);
+                break;
+            }
+        }
     }
 
     public function get typeMan():int { return _type; }

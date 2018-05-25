@@ -10,6 +10,40 @@ public class DataOrderCat {
 
         var obj:Object = {
             id:1,
+            nameRU: 'Тим',
+            nameENG: 'Tim',
+            level: 6,
+            color: OrderCat.BLACK_MAN,
+            isWoman: false,
+            description: "wazzzzzap",
+            txtMiniScene: 1160,
+            isMiniScene: false,
+            animation: 'animations_json/cat_quest_m',
+            animationName: 'cat_timmy',
+            namePng: 'cat_order/black_cat_m_window.png',
+            txtId: 1
+        };
+        _arrCats.push(obj);
+
+        obj = {
+            id:2,
+            nameRU: 'Молли',
+            nameENG: 'Molly',
+            level: 6,
+            color: OrderCat.BLACK_MAN,
+            isWoman: false,
+            description: "wazzzzzap",
+            txtMiniScene: 1160,
+            isMiniScene: false,
+            animation: 'animations_json/cat_molly_q',
+            animationName: 'cat_molly',
+            namePng: 'cat_order/black_cat_m_window.png',
+            txtId: 1
+        };
+        _arrCats.push(obj);
+
+        obj = {
+            id:3,
             nameRU: 'Узелок',
             nameENG: 'Sam',
             level: 6,
@@ -18,13 +52,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1160,
             isMiniScene: false,
+            animation: 'animations_json/uzelok_cat_q',
+            animationName: 'cat_sam',
             namePng: 'cat_order/black_cat_m_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:2,
+            id:4,
             nameRU: 'Стежок',
             nameENG: 'Felix',
             level: 4,
@@ -33,13 +69,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1158,
             isMiniScene: false,
+            animation: 'animations_json/felix_cat',
+            animationName: 'cat_felix',
             namePng: 'cat_order/blue_cat_m_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:3,
+            id:5,
             color: OrderCat.GREEN_MAN,
             isWoman: false,
             nameRU: 'Крючок',
@@ -48,13 +86,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1161,
             isMiniScene: false,
+            animation: 'animations_json/martin_cat_q',
+            animationName: 'cat_martin',
             namePng: 'cat_order/green_cat_m_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:4,
+            id:6,
             color: OrderCat.BROWN_MAN,
             isWoman: false,
             nameRU: 'Ирис',
@@ -63,13 +103,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1167,
             isMiniScene: false,
+            animation: 'animations_json/cat_quest_m',
+            animationName: 'cat_ozzy',
             namePng: 'cat_order/brown_cat_m_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:5,
+            id:7,
             color: OrderCat.ORANGE_MAN,
             isWoman: false,
             nameRU: 'Наперсток',
@@ -78,13 +120,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1168,
             isMiniScene: false,
+            animation: 'animations_json/cat_quest_m',
+            animationName: 'cat_tom',
             namePng: '/cat_order/orange_cat_m_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:6,
+            id:8,
             color: OrderCat.PINK_MAN,
             isWoman: false,
             nameRU: 'Акрил',
@@ -93,13 +137,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1164,
             isMiniScene: false,
+            animation: 'animations_json/cat_quest_m',
+            animationName: 'cat_mark',
             namePng: 'cat_order/pink_cat_m_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:7,
+            id:9,
             color: OrderCat.WHITE_MAN,
             isWoman: false,
             nameRU: 'Ажур',
@@ -108,13 +154,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1170,
             isMiniScene: false,
+            animation: 'animations_json/cat_quest_m',
+            animationName: 'cat_kevin',
             namePng: 'cat_order/white_cat_m_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:8,
+            id:10,
             color: OrderCat.BLACK_WOMAN,
             isWoman: true,
             nameRU: 'Иголочка',
@@ -123,13 +171,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1169,
             isMiniScene: false,
+            animation: 'animations_json/cat_quest_m',
+            animationName: 'cat_cora',
             namePng: 'cat_order/black_cat_w_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:9,
+            id:11,
             color: OrderCat.BLUE_WOMAN,
             isWoman: true,
             nameRU: 'Ленточка',
@@ -138,13 +188,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1162,
             isMiniScene: false,
+            animation: 'animations_json/ivie_cat_q',
+            animationName: 'cat_ivie',
             namePng: 'cat_order/blue_cat_w_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:10,
+            id:12,
             color: OrderCat.GREEN_WOMAN,
             isWoman: true,
             nameRU: 'Пряжа',
@@ -153,13 +205,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1163,
             isMiniScene: false,
+            animation: 'animations_json/akira_cat_q',
+            animationName: 'cat_akira',
             namePng: 'cat_order/green_cat_w_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:11,
+            id:13,
             color: OrderCat.BROWN_WOMAN,
             isWoman: true,
             nameRU: 'Булавка',
@@ -168,13 +222,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1157,
             isMiniScene: false,
+            animation: 'animations_json/lexy_cat',
+            animationName: 'cat_lexy',
             namePng: 'cat_order/brown_cat_w_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:12,
+            id:14,
             color: OrderCat.ORANGE_WOMAN,
             isWoman: true,
             nameRU: 'Бусинка',
@@ -183,13 +239,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1159,
             isMiniScene: false,
+            animation: 'animations_json/dexie_cat_q',
+            animationName: 'cat_dixie',
             namePng: 'cat_order/orange_cat_w_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:13,
+            id:15,
             color: OrderCat.PINK_WOMAN,
             isWoman: true,
             nameRU: 'Петелька',
@@ -198,13 +256,15 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1166,
             isMiniScene: false,
+            animation: 'animations_json/cat_quest_m',
+            animationName: 'cat_foxy',
             namePng: 'cat_order/pink_cat_w_window.png',
             txtId: 1
         };
         _arrCats.push(obj);
 
         obj = {
-            id:14,
+            id:16,
             color: OrderCat.WHITE_WOMAN,
             isWoman: true,
             nameRU: 'Синтетика',
@@ -213,6 +273,8 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1165,
             isMiniScene: false,
+            animation: 'animations_json/cat_quest_m',
+            animationName: 'cat_daizy',
             namePng: 'cat_order/white_cat_w_window.png',
             txtId: 1
         };

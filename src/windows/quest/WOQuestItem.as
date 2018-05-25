@@ -47,6 +47,8 @@ public class WOQuestItem {
 import flash.display.Bitmap;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import quest.ManagerQuest;
 import quest.ManagerQuest;
 import quest.QuestTaskStructure;
 import starling.display.Image;
@@ -111,6 +113,73 @@ internal class Item extends Sprite {
             _txt.x = 85;
             _txt.y = -39;
 
+
+        switch (_task.typeAction) {
+            case ManagerQuest.ADD_LEFT_MENU:
+
+                break;
+            case ManagerQuest.ADD_TO_GROUP:
+
+                break;
+            case ManagerQuest.POST:
+
+                break;
+            case ManagerQuest.CRAFT_PLANT:
+                _txt.text = 'Собери: ' + g.allData.getResourceById(_task.resourceId).name;
+                break;
+            case ManagerQuest.RAW_PLANT:
+                _txt.text = 'Посади: ' + g.allData.getResourceById(_task.resourceId).name;
+                break;
+            case ManagerQuest.BUILD_BUILDING:
+                _txt.text = 'Построй: ' + g.allData.getBuildingById(_task.resourceId).name;
+                break;
+            case ManagerQuest.RAW_PRODUCT:
+                _txt.text = 'Приготовь: ' + g.allData.getResourceById(_task.resourceId).name;
+                break;
+            case ManagerQuest.INVITE_FRIENDS:
+
+                break;
+            case ManagerQuest.KILL_LOHMATIC:
+
+                break;
+            case ManagerQuest.CRAFT_PRODUCT:
+                _txt.text = 'Собери: ' + g.allData.getResourceById(_task.resourceId).name;
+                break;
+            case ManagerQuest.RELEASE_ORDER:
+                _txt.text = 'Выполни заказ Лавки';
+                break;
+            case ManagerQuest.BUY_ANIMAL:
+                _txt.text = 'Купи: ' + g.allData.getAnimalById(_task.resourceId).name;
+                break;
+            case ManagerQuest.FEED_ANIMAL:
+                _txt.text = 'Покорми: ' + g.allData.getAnimalById(_task.resourceId).name;
+                break;
+            case ManagerQuest.OPEN_TERRITORY:
+
+                break;
+            case ManagerQuest.BUY_PAPER:
+                _txt.text = 'Купи что-нибудь в Газете';
+                break;
+            case ManagerQuest.SET_IN_PAPER:
+                _txt.text = 'Выставь товар на Рынок';
+                break;
+            case ManagerQuest.REMOVE_WILD:
+                _txt.text = 'Убери: ' + g.allData.getBuildingById(_task.resourceId).name;
+                break;
+            case ManagerQuest.KILL_MOUSE:
+
+                break;
+            case ManagerQuest.NIASH_BUYER:
+                    _txt.text = 'Выполни Заказ Няшика';
+                break;
+            case ManagerQuest.OPEN_BUILD:
+
+                break;
+            case ManagerQuest.CRAFT_TREE:
+
+                break;
+
+        }
         _txt.touchable = false;
 
 

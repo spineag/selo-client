@@ -166,7 +166,7 @@ public class QuestTaskStructure {
                 } else if (int(_taskData.type_action) == ManagerQuest.BUY_PAPER) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
                 } else if (int(_taskData.type_action) == ManagerQuest.RELEASE_ORDER) {
-
+                    im = new Image(g.allData.atlas['iconAtlas'].getTexture('orders_icon'));
                 } else if (int(_taskData.type_action) == ManagerQuest.NIASH_BUYER) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('nyash_blue'));
                 } else if (int(_taskData.type_action) == ManagerQuest.KILL_LOHMATIC) {

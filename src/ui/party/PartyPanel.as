@@ -200,17 +200,11 @@ public class PartyPanel {
         }
     }
 
-    public function getPoint():Point {
-        var p:Point = new Point();
-        if (g.windowsManager.currentWindow) {
-            p = new Point(_source.x,_source.y);
-            return p;
-        }
-        p.x = _source.x;
-        p.y = _source.y ;
-        p = _source.localToGlobal(p);
-
-        return p;
+    public function getPoint():Object {
+        var obj:Object = {};
+        obj.x = _source.x;
+        obj.y = _source.y;
+        return obj;
     }
 
     public function animationBuy():void {

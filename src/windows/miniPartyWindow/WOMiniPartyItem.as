@@ -38,6 +38,9 @@ public class WOMiniPartyItem {
             case BuildType.DECOR:
                 im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.allData.getBuildingById(id).image));
                 break;
+            case BuildType.DECOR_TAIL:
+                im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.allData.getBuildingById(id).image));
+                break;
             case BuildType.INSTRUMENT:
                 im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(id).imageShop));
                 break;

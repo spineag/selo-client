@@ -30,6 +30,7 @@ public class ManagerOrder {
 
     private var _countTimeDelay:Array;
     private var _countCellAtLevel:Array;
+    private var _arrTxtId:Array;
     private var _countDifferentResourcesAtCellAtLevel:Array;
     private var _arrOrders:Array;
     private var _curMaxCountOrders:int;
@@ -90,6 +91,7 @@ public class ManagerOrder {
             {level: 33, delay: 29*60},
             {level: 34, delay: 30*60}
         ];
+        _arrTxtId = [1244,1245,1246,1247,1248,1249,1250,1251,1252,1253,1254,1255];
         _arrOrders = [];
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
         if (arr.length) _orderBuilding = arr[0];
@@ -139,10 +141,13 @@ public class ManagerOrder {
         or.resourceCounts = ob.counts.split('&');
         or.coins = int(ob.coins);
         or.xp = int(ob.xp);
+        or.txtId = int(ob.txt_id);
         or.addCoupone = ob.add_coupone == '1';
         or.startTime = int(ob.start_time) || 0;
         or.placeNumber = int(ob.place);
         or.fasterBuy = Boolean(int(ob.faster_buyer));
+        if (ob.txt_id) or.txtId = int(ob.txt_id);
+        else or.txtId = checkTxtId();
         if (or.startTime - TimeUtils.currentSeconds > 0 ) or.delOb = true;
         Utils.intArray(or.resourceCounts);
         Utils.intArray(or.resourceIds);
@@ -515,9 +520,10 @@ public class ManagerOrder {
             if (place == -1) or.placeNumber = getFreePlace();
                 else or.placeNumber = place;
             or.delOb = del;
+            or.txtId = checkTxtId();
             _arrOrders.push(or);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
-            g.server.addUserOrder(or, delay, 1, 1, null);
+            g.server.addUserOrder(or, delay, 1, or.txtId, null);
 
             var f1:Function = function ():void {
                 if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
@@ -527,6 +533,23 @@ public class ManagerOrder {
             Utils.createDelay(1,f1);
 
         }
+    }
+
+    private function checkTxtId():int {
+        var b:Boolean = true;
+        for (var i:int = 0; i < _arrTxtId.length; i++) {
+            b = true;
+            for (var j:int = 0; j < _arrOrders.length; j++) {
+                if (_arrTxtId[i] == _arrOrders[j].txtId) {
+                    b = false;
+                    break;
+                }
+            }
+            if (b) {
+                return _arrTxtId[i];
+            }
+        }
+        return _arrTxtId[int(Math.random() * _arrTxtId.length)];
     }
 
     private function getRandomIntElementFromArray(ar:Array):int {

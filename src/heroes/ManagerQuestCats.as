@@ -50,15 +50,16 @@ public class ManagerQuestCats {
         _catInfo.buildType = BuildType.CAT;
     }
 
-    public function addAllHeroCats(cats:int):void {
-        addHeroCat(cats);
+    public function addAllHeroCats(cats:int, isNew:Boolean = false):void {
+        addHeroCat(cats, isNew);
     }
 
     public function get catsArray():Array { return _catsArray;}
 
-    private function addHeroCat(type:int):void {
+    private function addHeroCat(type:int, isNew:Boolean = false):void {
         var cat:QuestHero = new QuestHero(type);
         _catsArray.push(cat);
+        setAllCatsToRandomPositionsAtStartGame(cat, isNew);
     }
 
     public function onGoAway(v:Boolean):void {
@@ -69,20 +70,20 @@ public class ManagerQuestCats {
         g.managerFabricaRecipe.onGoAwayCats();
     }
 
-    public function setAllCatsToRandomPositionsAtStartGame(isNew:Boolean = false):void {
+    public function setAllCatsToRandomPositionsAtStartGame(cat:QuestHero, isNew:Boolean = false):void {
         if (!isNew) {
-            for (var i:int = 0; i < _catsArray.length; i++) {
-                (_catsArray[i] as BasicCat).setPosition(g.townArea.getRandomFreeCell());
-                (_catsArray[i] as BasicCat).addToMap();
-                (_catsArray[i] as QuestHero).makeFreeCatIdle();
-            }
+//            for (var i:int = 0; i < _catsArray.length; i++) {
+                (cat as BasicCat).setPosition(g.townArea.getRandomFreeCell());
+                (cat as BasicCat).addToMap();
+                (cat as QuestHero).makeFreeCatIdle();
+//            }
         } else {
-            (_catsArray[_catsArray.length - 1] as BasicCat).addToMap();
-            (_catsArray[_catsArray.length - 1] as BasicCat).setPosition(new Point(80, 0));
-            (_catsArray[_catsArray.length - 1] as QuestHero).makeFreeCatIdle();
-            if (g.miniScenes.oCat.checkNeedNewShow(_catsArray[_catsArray.length-1].idMan)) {
+            (cat as BasicCat).addToMap();
+            (cat as BasicCat).setPosition(new Point(80, 0));
+            (cat as QuestHero).makeFreeCatIdle();
+            if (g.miniScenes.oCat.checkNeedNewShow(cat.idMan)) {
                 g.miniScenes.oCat.showCat1();
-                g.miniScenes.oCat.setCurrentCatObject = DataOrderCat.getCatObjById(_catsArray[_catsArray.length - 1].idMan);
+                g.miniScenes.oCat.setCurrentCatObject = DataOrderCat.getCatObjById(cat.idMan);
                 _bCheckNeedNewShow = true;
             }
             newCatArrived1();
