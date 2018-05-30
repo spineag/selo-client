@@ -246,14 +246,13 @@ public class SN_OK extends SocialNetwork {
     override public function showOrderWindow(e:Object):void {
         var st:String ='';
         try {
-            if (e.id == 13) { // e.price we already have for this
+            if (e.type == 'sale_pack') {
+                e.id += 100000;
+                st = 'Специальное предложение!';
+            } else if (e.id == 13) { // e.price we already have for this
                 orderPackID = 13;
                 e.type = DataMoney.SOFT_CURRENCY;
                 st = 'Уникальное предложение!';
-            } else if (e.id == 14) {
-                orderPackID = 14;
-                e.type = DataMoney.SOFT_CURRENCY;
-                st = 'Специальное предложение!';
             } else {
                 var ar:Array = g.allData.dataBuyMoney;
                 for (var i:int = 0; i < ar.length; i++) {
