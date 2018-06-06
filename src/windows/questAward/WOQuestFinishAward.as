@@ -204,17 +204,16 @@ internal class Item extends Sprite {
     }
 
     private function deleteIt():void {
-        if (_txt) {
-            removeChild(_txt);
-            _txt.deleteIt();
-            _txt = null;
-        }
+//        if (_txt) {
+//            removeChild(_txt);
+//            _txt.deleteIt();
+//            _txt = null;
+//        }
         if (_source) _source.dispose();
     }
 
     public function flyIt(d:DropObject):void {
-        var p:Point = new Point();
-        p = _source.localToGlobal(p);
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         if (_aw.typeResource == 'money')
             d.addDropMoney(_aw.idResource, _aw.countResource, p);
         else if (_aw.typeResource == 'decor')

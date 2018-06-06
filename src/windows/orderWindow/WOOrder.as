@@ -618,7 +618,7 @@ private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         (_armature.display as StarlingArmatureDisplay).y = 47;
         WorldClock.clock.add(_armature);
         animateCustomerCat();
-        if (g.user.level >= 4) {
+        if (g.user.level >= 4 && !g.managerOrderCats.moveBoolean) {
             _srcBaloon = new Sprite();
             _source.addChild(_srcBaloon);
             _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('orders_cat_babble'));

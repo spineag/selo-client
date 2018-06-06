@@ -91,6 +91,7 @@ public class ManagerOrderCats {
     public function get catMoto():OrderCat { return _catMoto; }
 
     public function onGoAwayToUser(v:Boolean):void {
+    if (!_catMoto) return;
         (_catMoto as OrderCat).stopAnimation();
         if ((_catMoto as OrderCat).walkPosition == OrderCat.STAY_IN_QUEUE) {
             (_catMoto as OrderCat).idleFrontAnimation();
@@ -322,6 +323,7 @@ public class ManagerOrderCats {
     }
 
     public function removeAwayCats():void {
+        if (!_catMotoAway) return;
             g.townArea.addOrderCatToCont(_catMotoAway);
             g.townArea.addOrderCatToAwayCityObjects(_catMotoAway);
             (_catMotoAway as OrderCat).deleteIt();

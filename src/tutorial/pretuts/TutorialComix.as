@@ -75,6 +75,7 @@ public class TutorialComix {
     }
 
     private function loadImage():void {
+        try {
         switch (_stMustLoad) {
             case 'comix/comics_1_small.jpg':
                 if (g.user.language == ManagerLanguage.ENGLISH) _stLoad = 'comix/comics_1_small_eng.jpg';
@@ -105,6 +106,13 @@ public class TutorialComix {
                 g.load.loadImage(g.dataPath.getGraphicsPath() + _stLoad, onLoad);
                 _stMustLoad = '0';
                 return;
+        }
+        } catch (e:Error) {
+            if (_callback != null) {
+                _callback.apply(null);
+                _callback = null;
+            }
+            return;
         }
     }
 

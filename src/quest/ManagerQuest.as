@@ -125,12 +125,12 @@ public class ManagerQuest {
             var i:int;
             for (i=0; i<d.quests.length; i++) {
 //                 Включить два квеста добавления в группу
-                if (int(d.quests[i].quest_id) != ADD_TO_GROUP ) {//&& int(d.quests[i].quest_id) != ADD_LEFT_MENU) {
-                    if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) {
-                        Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
-                        continue;
-                    }
-                }
+//                if (int(d.quests[i].quest_id) != ADD_TO_GROUP ) {//&& int(d.quests[i].quest_id) != ADD_LEFT_MENU) {
+//                    if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) {
+//                        Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
+//                        continue;
+//                    }
+//                }
 //
 //                if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) {
 //                    Cc.warn('Quest only for testers - questId:' + String(d.quests[i].id));
@@ -144,34 +144,34 @@ public class ManagerQuest {
                 q = new QuestStructure();
                 q.fillIt(d.quests[i]);
                 q.isNew = isNew;
-//                var thisCatGifAnotherQuest:Boolean = false;
-//                for (var k:int = 0; k <_userQuests.length; k++) {
-//                    if (_userQuests[k].questCatId == q.questCatId) {
-//                        thisCatGifAnotherQuest = true;
-//                        break;
-//                    }
-//                }
-//                if (!thisCatGifAnotherQuest) {
+                var thisCatGifAnotherQuest:Boolean = false;
+                for (var k:int = 0; k <_userQuests.length; k++) {
+                    if (_userQuests[k].questCatId == q.questCatId) {
+                        thisCatGifAnotherQuest = true;
+                        break;
+                    }
+                }
+                if (!thisCatGifAnotherQuest) {
                     _userQuests.push(q);
-//                    var needNewCat:Boolean = true;
-//                    if (_currentRemovedQuest) {
-//                        for (i = 0; i < _userQuests.length; i++) {
-//                            if (_currentRemovedQuest.questCatId == _userQuests[i].questCatId) {
-//                                needNewCat = false;
-//                                break;
-//                            }
-//                        }
-//                        if (needNewCat) g.managerQuestCats.getCatAway(_currentRemovedQuest.questCatId);
-//                    }
-//                    if (q && q.questCatId > 2) {
-//                        if (!isNew) {
-//                            g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
-//                        } else {
-//                            if (needNewCat) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
-//                            if (!needNewCat && q.questCatId != _currentRemovedQuest.questCatId) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
-//                        }
-//                    }
-//                }
+                    var needNewCat:Boolean = true;
+                    if (_currentRemovedQuest) {
+                        for (i = 0; i < _userQuests.length; i++) {
+                            if (_currentRemovedQuest.questCatId == _userQuests[i].questCatId) {
+                                needNewCat = false;
+                                break;
+                            }
+                        }
+                        if (needNewCat) g.managerQuestCats.getCatAway(_currentRemovedQuest.questCatId);
+                    }
+                    if (q && q.questCatId > 2) {
+                        if (!isNew) {
+                            g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+                        } else {
+                            if (needNewCat) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+                            if (!needNewCat && q.questCatId != _currentRemovedQuest.questCatId) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+                        }
+                    }
+                }
             }
             for (i=0; i<d.tasks.length; i++) {
                 q = getUserQuestById(int(d.tasks[i].quest_id));
@@ -346,7 +346,8 @@ public class ManagerQuest {
                         }
                         g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                     } else {
-                        new FlyMessage(p,String(g.managerLanguage.allTexts[598]));
+                        if (t.resourceId == 26 || t.resourceId == 35 || t.resourceId == 181 || t.resourceId == 99 || t.resourceId == 12 || t.resourceId == 10) new FlyMessage(p,String(g.managerLanguage.allTexts[598] + ' ' + g.allData.getBuildingById(g.allData.getFarmIdForResourceId(t.resourceId)).name));
+                        else new FlyMessage(p,String(g.managerLanguage.allTexts[598] + ' ' + g.allData.getBuildingById(g.allData.getFabricaIdForResourceIdFromRecipe(t.resourceId)).name));
                     }
                 } else {
                     Cc.error('ManagerQuest checkOnClickAtWoQuestItem CRAFT_PRODUCT:: unknowm resource id: ' + t.resourceId);

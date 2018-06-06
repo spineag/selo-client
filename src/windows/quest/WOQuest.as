@@ -44,7 +44,7 @@ public class WOQuest extends WindowMain{
     public function WOQuest() {
         super();
         _windowType = WindowsManager.WO_QUEST;
-        _woWidth = 520;
+        _woWidth = 570;
         _woHeight = 600;
         _woBG = new WindowBackgroundNew(_woWidth, 270, 90);
         _woBG.y = -170;
@@ -57,16 +57,16 @@ public class WOQuest extends WindowMain{
 //        _bgC.y = 12;
 //        _source.addChild(_bgC);
 
-        _txtName = new CTextField(400, 100, '');
+        _txtName = new CTextField(500, 100, '');
         _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-        _txtName.x = -205;
+        _txtName.x = -275;
         _txtName.y = -310;
         _txtName.touchable = false;
         _source.addChild(_txtName);
 
-        _txtDescription = new CTextField(515, 200, '');
+        _txtDescription = new CTextField(550, 200, '');
         _txtDescription.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_LIGHT_NEW);
-        _txtDescription.x = -260;
+        _txtDescription.x = -277;
         _txtDescription.y = -255;
         _txtDescription.touchable = false;
         _source.addChild(_txtDescription);
@@ -77,7 +77,7 @@ public class WOQuest extends WindowMain{
         _sA = new Sprite();
         if (_armature.display) _sA.addChild(_armature.display as StarlingArmatureDisplay);
         if (_armature.display) _sA.y = (_armature.display as StarlingArmatureDisplay).height/2-10;
-        _sA.x = -400;
+        _sA.x = -450;
         if (_source) _source.addChild(_sA);
         WorldClock.clock.add(_armature);
         catAnimation();
@@ -141,7 +141,7 @@ public class WOQuest extends WindowMain{
         _award = new WOQuestAward(_source, _quest.awards);
         _questItem = new WOQuestItem(_source, _quest.tasks);
         super.showIt();
-        _source.x = g.managerResize.stageWidth/2 + 150;
+        _source.x = g.managerResize.stageWidth/2 + 160;
 //        var st:String = _quest.iconPath;
 //        if (st == '0') {
 //            st = _quest.getUrlFromTask();

@@ -12,7 +12,7 @@ public class WOQuestItem {
     public function WOQuestItem(p:Sprite, ar:Array) {
         _parent = p;
         _source = new Sprite();
-        _source.x = -260;
+        _source.x = -285;
         _source.y = 12;
         _parent.addChild(_source);
 
@@ -84,34 +84,35 @@ internal class Item extends Sprite {
             _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('done_icon'));
             MCScaler.scale(_galo4ka, 50, 50);
             _galo4ka.alignPivot();
-            _galo4ka.x = 390;
+            _galo4ka.x = 510;
+            _galo4ka.y = -10;
         } else {
             _btn = new CButton();
             _btn.addButtonTexture(120, CButton.HEIGHT_55, CButton.GREEN, true);
             _btn.addTextField(120, 51, -2, -5, String(g.managerLanguage.allTexts[312]));
             _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
-            _btn.x = 455;
+            _btn.x = 505;
             _btn.y = -5;
-            _countTxt = new CTextField(60, 30, '');
-            _countTxt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            _countTxt.x = 210;
-            _countTxt.y = -7;
+            _countTxt = new CTextField(60, 40, '');
+            _countTxt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+            _countTxt.x = 232;
+            _countTxt.y = -14;
         }
         if (_task.isDone) {
-            _bgDone = new BackgroundQuestDone(520, 70);
+            _bgDone = new BackgroundQuestDone(570, 70);
             _bgDone.touchable = false;
             _bgDone.y = -_bgDone.height/2;
             addChild(_bgDone);
         } else {
-            _bg = new BackgroundQuest(520, 70);
+            _bg = new BackgroundQuest(570, 70);
             _bg.touchable = false;
             _bg.y = -_bg.height/2;
             addChild(_bg);
         }
-            _txt = new CTextField(300, 60, _task.description);
+            _txt = new CTextField(350, 60, _task.description);
             _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
             _txt.x = 85;
-            _txt.y = -39;
+            _txt.y = -42;
 
 
         switch (_task.typeAction) {
@@ -125,16 +126,16 @@ internal class Item extends Sprite {
 
                 break;
             case ManagerQuest.CRAFT_PLANT:
-                _txt.text = 'Собери: ' + g.allData.getResourceById(_task.resourceId).name;
+                _txt.text = String(g.managerLanguage.allTexts[1525]) + ' ' + g.allData.getResourceById(_task.resourceId).name;
                 break;
             case ManagerQuest.RAW_PLANT:
-                _txt.text = 'Посади: ' + g.allData.getResourceById(_task.resourceId).name;
+                _txt.text = String(g.managerLanguage.allTexts[1679]) + ' ' + g.allData.getResourceById(_task.resourceId).name;
                 break;
             case ManagerQuest.BUILD_BUILDING:
                 _txt.text = 'Построй: ' + g.allData.getBuildingById(_task.resourceId).name;
                 break;
             case ManagerQuest.RAW_PRODUCT:
-                _txt.text = 'Приготовь: ' + g.allData.getResourceById(_task.resourceId).name;
+                _txt.text = String(g.managerLanguage.allTexts[1526]) + ' ' + g.allData.getResourceById(_task.resourceId).name;
                 break;
             case ManagerQuest.INVITE_FRIENDS:
 
@@ -143,25 +144,25 @@ internal class Item extends Sprite {
 
                 break;
             case ManagerQuest.CRAFT_PRODUCT:
-                _txt.text = 'Собери: ' + g.allData.getResourceById(_task.resourceId).name;
+                _txt.text = _task.description +' ' + g.allData.getResourceById(_task.resourceId).name;
                 break;
             case ManagerQuest.RELEASE_ORDER:
-                _txt.text = 'Выполни заказ Лавки';
+                _txt.text = String(g.managerLanguage.allTexts[1677]);
                 break;
             case ManagerQuest.BUY_ANIMAL:
-                _txt.text = 'Купи: ' + g.allData.getAnimalById(_task.resourceId).name;
+                _txt.text = String(g.managerLanguage.allTexts[1678]) + ' ' + g.allData.getAnimalById(_task.resourceId).name;
                 break;
             case ManagerQuest.FEED_ANIMAL:
-                _txt.text = 'Покорми: ' + g.allData.getAnimalById(_task.resourceId).name;
+                _txt.text = String(g.managerLanguage.allTexts[1680]) + ' ' + g.allData.getAnimalById(_task.resourceId).name;
                 break;
             case ManagerQuest.OPEN_TERRITORY:
 
                 break;
             case ManagerQuest.BUY_PAPER:
-                _txt.text = 'Купи что-нибудь в Газете';
+                _txt.text = 'Купи товар в Газете';
                 break;
             case ManagerQuest.SET_IN_PAPER:
-                _txt.text = 'Выставь товар на Рынок';
+                _txt.text = String(g.managerLanguage.allTexts[1676]);
                 break;
             case ManagerQuest.REMOVE_WILD:
                 _txt.text = 'Убери: ' + g.allData.getBuildingById(_task.resourceId).name;
@@ -170,7 +171,7 @@ internal class Item extends Sprite {
 
                 break;
             case ManagerQuest.NIASH_BUYER:
-                    _txt.text = 'Выполни Заказ Няшика';
+                    _txt.text = String(g.managerLanguage.allTexts[1675]);
                 break;
             case ManagerQuest.OPEN_BUILD:
 
@@ -208,7 +209,7 @@ internal class Item extends Sprite {
             }
         }
         if (_countTxt && _countTxt.visible) {
-            _txt.y = -50;
+            _txt.y = -55;
         }
         if (_galo4ka) addChild(_galo4ka);
 

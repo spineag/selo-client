@@ -103,7 +103,7 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1167,
             isMiniScene: false,
-            animation: 'animations_json/cat_quest_m',
+            animation: 'animations_json/ozzy_cat_q',
             animationName: 'cat_ozzy',
             namePng: 'cat_order/brown_cat_m_window.png',
             txtId: 1
@@ -120,7 +120,7 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1168,
             isMiniScene: false,
-            animation: 'animations_json/cat_quest_m',
+            animation: 'animations_json/tom_cat_q',
             animationName: 'cat_tom',
             namePng: '/cat_order/orange_cat_m_window.png',
             txtId: 1
@@ -154,7 +154,7 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1170,
             isMiniScene: false,
-            animation: 'animations_json/cat_quest_m',
+            animation: 'animations_json/kevin_cat_q',
             animationName: 'cat_kevin',
             namePng: 'cat_order/white_cat_m_window.png',
             txtId: 1
@@ -171,7 +171,7 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1169,
             isMiniScene: false,
-            animation: 'animations_json/cat_quest_m',
+            animation: 'animations_json/cora_cat_q',
             animationName: 'cat_cora',
             namePng: 'cat_order/black_cat_w_window.png',
             txtId: 1
@@ -273,7 +273,7 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1165,
             isMiniScene: false,
-            animation: 'animations_json/cat_quest_m',
+            animation: 'animations_json/daisy_cat_q',
             animationName: 'cat_daizy',
             namePng: 'cat_order/white_cat_w_window.png',
             txtId: 1

@@ -17,7 +17,7 @@ public class WOQuestAward {
     public function WOQuestAward(p:Sprite, ar:Array) {
         _parent = p;
         _source = new Sprite();
-        _source.x = -140;
+        _source.x = -170;
         _source.y = -100;
         _source.touchable = false;
         _parent.addChild(_source);
@@ -41,8 +41,8 @@ public class WOQuestAward {
         }
         switch (c) {
             case 1: _arItems[0].x = _txtAward.x + _txtAward.textBounds.width + 60; break;
-            case 2: _arItems[0].x = _txtAward.x + _txtAward.textBounds.width + 60; _arItems[1].x = _txtAward.x + _txtAward.textBounds.width + 130; break;
-            case 3: _arItems[0].x = _txtAward.x + _txtAward.textBounds.width + 60; _arItems[1].x = _txtAward.x + _txtAward.textBounds.width + 130; _arItems[2].x = _txtAward.x + _txtAward.textBounds.width + 190; break;
+            case 2: _arItems[0].x = _txtAward.x + _txtAward.textBounds.width + 60; _arItems[1].x = _txtAward.x + _txtAward.textBounds.width + 140; break;
+            case 3: _arItems[0].x = _txtAward.x + _txtAward.textBounds.width + 60; _arItems[1].x = _txtAward.x + _txtAward.textBounds.width + 140; _arItems[2].x = _txtAward.x + _txtAward.textBounds.width + 200; break;
         }
     }
 
