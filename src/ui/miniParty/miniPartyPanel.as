@@ -40,7 +40,7 @@ public class MiniPartyPanel {
 
     public function onResize():void {
         if (!_source) return;
-        _source.y = 230;
+        _source.y = 120;
         _source.x = g.managerResize.stageWidth - 140;
     }
 
@@ -93,18 +93,6 @@ public class MiniPartyPanel {
         p = _source.localToGlobal(p);
 
         return p;
-    }
-
-    public function animationBuy():void {
-        var tween:Tween;
-        tween = new Tween(_source, 0.3);
-        tween.scaleTo(1.8);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-        };
-        tween.scaleTo(1);
-        g.starling.juggler.add(tween);
-
     }
 }
 }
