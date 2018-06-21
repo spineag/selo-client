@@ -240,7 +240,7 @@ public class SN_FB extends SocialNetwork  {
 
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
         super.wallPostBitmap(uid, message, image, url, title, posttype);
-        ExternalInterface.call("makeWallPost", uid, message, url);
+        ExternalInterface.call("makeWallPost", url);
     }
 
     public function wallCancelPublic():void {

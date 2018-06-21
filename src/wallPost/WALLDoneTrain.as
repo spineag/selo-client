@@ -29,9 +29,9 @@ public class WALLDoneTrain {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             if (g.user.language == ManagerLanguage.RUSSIAN) {
-                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_2.jpg';
+                stUrl = 'https://505.ninja/selo-project/fb_wallpost/new/fb_2_ru.html';
             } else {
-                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_2_eng.jpg';
+                stUrl = 'https://505.ninja/selo-project/fb_wallpost/new/fb_2_eng.html';
             }
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]), null, stUrl);
         } else {

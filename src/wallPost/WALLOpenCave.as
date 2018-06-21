@@ -29,9 +29,9 @@ public class WALLOpenCave {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             if (g.user.language == ManagerLanguage.RUSSIAN) {
-                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_4.jpg';
+                stUrl = 'https://505.ninja/selo-project/fb_wallpost/new/fb_4_ru.html';
             } else {
-                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_4_eng.jpg';
+                stUrl = 'https://505.ninja/selo-project/fb_wallpost/new/fb_4_eng.html';
             }
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[472]), null, stUrl);
         } else {

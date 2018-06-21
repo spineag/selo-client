@@ -31,9 +31,9 @@ public class WALLOpenTrain {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[474]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             if (g.user.language == ManagerLanguage.RUSSIAN) {
-                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_3.jpg';
+                stUrl = 'https://505.ninja/selo-project/fb_wallpost/new/fb_3_ru.html';
             } else {
-                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_3_eng.jpg';
+                stUrl = 'https://505.ninja/selo-project/fb_wallpost/new/fb_3_eng.html';
             }
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[474]), null, stUrl);
         } else {

@@ -2,27 +2,18 @@
  * Created by user on 5/23/16.
  */
 package wallPost {
-import com.junkbyte.console.Cc;
-
 import flash.display.Bitmap;
 import flash.filters.GlowFilter;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
-
 import loaders.PBitmap;
-
-import manager.ManagerFabricaRecipe;
-
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
 import manager.Vars;
-
 import social.SocialNetworkSwitch;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
@@ -40,9 +31,9 @@ public class WALLNewLevel {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             if (g.user.language == ManagerLanguage.RUSSIAN) {
-                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_7.jpg';
+                stUrl = 'https://505.ninja/selo-project/fb_wallpost/new/fb_7_ru.html';
             } else {
-                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_7_eng.jpg';
+                stUrl = 'https://505.ninja/selo-project/fb_wallpost/new/fb_7_eng.html';
             }
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, stUrl);
         } else {
