@@ -150,12 +150,33 @@ public class QuestTaskStructure {
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
                 break;
             case BuildType.DECOR:
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
+                break;
             case BuildType.DECOR_ANIMATION:
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                break;
             case BuildType.DECOR_FENCE_ARKA:
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                break;
             case BuildType.DECOR_FENCE_GATE:
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                break;
             case BuildType.DECOR_FULL_FENСE:
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                break;
             case BuildType.DECOR_POST_FENCE:
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                break;
             case BuildType.DECOR_POST_FENCE_ARKA:
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                break;
             case BuildType.DECOR_TAIL:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
                 if (ob) im = new Image(g.allData.atlas[ob.url].getTexture(ob.image));
@@ -164,6 +185,7 @@ public class QuestTaskStructure {
                 if (int(_taskData.type_action) == ManagerQuest.SET_IN_PAPER) {
                     im = new Image(g.allData.atlas['iconAtlas'].getTexture('road_shop_icon'));
                 } else if (int(_taskData.type_action) == ManagerQuest.BUY_PAPER) {
+
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
                 } else if (int(_taskData.type_action) == ManagerQuest.RELEASE_ORDER) {
                     im = new Image(g.allData.atlas['iconAtlas'].getTexture('orders_icon'));

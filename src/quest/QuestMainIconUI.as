@@ -36,7 +36,7 @@ public class QuestMainIconUI {
         im.alignPivot();
         im.rotation = Math.PI/2;
         _topArrow.addDisplayObject(im);
-        _topArrow.x = 40;
+        _topArrow.x = 49;
         _topArrow.y = 17;
         _sp.addChild(_topArrow);
         _topArrow.clickCallback = onClickTop;
@@ -48,14 +48,14 @@ public class QuestMainIconUI {
         im.alignPivot();
         im.rotation = -Math.PI/2;
         _bottomArrow.addDisplayObject(im);
-        _bottomArrow.x = 40;
-        _bottomArrow.y = 320;
+        _bottomArrow.x = 49;
+        _bottomArrow.y = 365;
         _sp.addChild(_bottomArrow);
         _bottomArrow.clickCallback = onClickBottom;
         _bottomArrow.visible = false;
 
         _mask = new Sprite();
-        _mask.mask = new Quad(300, 270);
+        _mask.mask = new Quad(300, 300);
         _mask.y = _topArrow.height + 7;
         _sp.addChild(_mask);
         _cont = new Sprite();
@@ -94,7 +94,7 @@ public class QuestMainIconUI {
             var it:QuestItemIcon;
             for (i=0; i<arNew.length; i++) {
                 it = new QuestItemIcon(arNew[i]);
-                it.source.x = 40;
+                it.source.x = 49;
                 it.priority = 100 + i + pos;
                 _cont.addChild(it.source);
                 if ((arNew[i] as QuestStructure).isNew) {
@@ -138,7 +138,7 @@ public class QuestMainIconUI {
     private function onClickTop():void {
         if (_shift > 0) {
             _shift--;
-            TweenMax.to(_cont, .3, {y: -_shift * 90});
+            TweenMax.to(_cont, .3, {y: -_shift * 100});
             checkArrows();
         }
     }
@@ -146,7 +146,7 @@ public class QuestMainIconUI {
     private function onClickBottom():void {
         if (_shift + 3 < _items.length) {
             _shift++;
-            TweenMax.to(_cont, .3, {y: -_shift * 90});
+            TweenMax.to(_cont, .3, {y: -_shift * 100});
             checkArrows();
         }
     }

@@ -130,18 +130,18 @@ public class ManagerQuestCats {
                 }
                 cat.goWithPath(arr, f2);
             } catch (e:Error) {
-                Cc.error('ManagerCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
-                Cc.stackch('error', 'ManagerCats goCatToPoint f1', 10);
+                Cc.error('ManagerQuestCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
+                Cc.stackch('error', 'ManagerQuestCats goCatToPoint f1', 10);
                 g.errorManager.onGetError(ErrorConst.ManagerCats1, true);
-                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCat1');
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerQuestCats goCat1');
             }
         };
 
         try {
             if (!cat) {
-                Cc.error('ManagerCats goCatToPoint error: cat == null');
+                Cc.error('ManagerQuestCats goCatToPoint error: cat == null');
                 g.errorManager.onGetError(ErrorConst.ManagerCats2, true);
-                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCatToPoint cat == null');
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerQuestCats goCatToPoint cat == null');
                 return;
             }
             if (cat is QuestHero) (cat as QuestHero).killAllAnimations();
@@ -159,10 +159,10 @@ public class ManagerQuestCats {
             var a:AStar = new AStar();
             a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
-            Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
-            Cc.stackch('error', 'ManagerCats goCatToPoint', 10);
+            Cc.error('ManagerQuestCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
+            Cc.stackch('error', 'ManagerQuestCats goCatToPoint', 10);
             g.errorManager.onGetError(ErrorConst.ManagerCats3, true);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCatToPoint');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerQuestCats goCatToPoint');
         }
     }
 
@@ -196,10 +196,10 @@ public class ManagerQuestCats {
             var a:AStar = new AStar();
             a.getPath(cat.posX, cat.posY, p.x, p.y, f1);
         } catch (e:Error) {
-            Cc.error('ManagerCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
-            Cc.stackch('error', 'ManagerCats goIdleCatToPoint', 10);
+            Cc.error('ManagerQuestCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
+            Cc.stackch('error', 'ManagerQuestCats goIdleCatToPoint', 10);
             g.errorManager.onGetError(ErrorConst.ManagerCats4, true);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goIdleCatToPoint');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerQuestCats goIdleCatToPoint');
         }
     }
 
@@ -317,6 +317,7 @@ public class ManagerQuestCats {
     }
 
     public function getCatAway(catId:int):void {
+        if (catId == 1 || catId == 2) return;
         for (var i:int = 0; i < _catsArray.length; i++) {
             if (_catsArray[i].idMan == catId) {
                 _catMoveAway = _catsArray[i];

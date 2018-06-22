@@ -137,7 +137,7 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1164,
             isMiniScene: false,
-            animation: 'animations_json/cat_quest_m',
+            animation: 'animations_json/mark_cat_q',
             animationName: 'cat_mark',
             namePng: 'cat_order/pink_cat_m_window.png',
             txtId: 1
@@ -256,7 +256,7 @@ public class DataOrderCat {
             description: "wazzzzzap",
             txtMiniScene: 1166,
             isMiniScene: false,
-            animation: 'animations_json/cat_quest_m',
+            animation: 'animations_json/foxy_cat_q',
             animationName: 'cat_foxy',
             namePng: 'cat_order/pink_cat_w_window.png',
             txtId: 1
