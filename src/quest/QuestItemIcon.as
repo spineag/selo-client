@@ -75,7 +75,7 @@ public class QuestItemIcon {
 
     private function addIm(im:Image):void {
         if (im) {
-            MCScaler.scale(im, 85, 85);
+            MCScaler.scale(im, 108, 108);
             im.alignPivot();
             _source.addChild(im);
             _im = im;
@@ -99,7 +99,7 @@ public class QuestItemIcon {
             im.alignPivot();
             im.x = 27;
             im.y = 25;
-            _source.addChild(im);
+//            _source.addChild(im);
             _imSmall = im;
         }
     }
@@ -112,7 +112,7 @@ public class QuestItemIcon {
 
     public function set position(a:int):void {
         _position = a;
-        _source.y = a*90 + 40;
+        _source.y = a*100 + 50;
     }
     
     public function addArrow(t:int=3):void {

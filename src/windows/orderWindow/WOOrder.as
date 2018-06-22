@@ -100,8 +100,8 @@ public class WOOrder extends WindowMain {
         createRightBlock();
         createRightBlockTimer();
         createTopCats();
-        _srcBaloon = new Sprite();
-        _source.addChild(_srcBaloon);
+//        _srcBaloon = new Sprite();
+//        _source.addChild(_srcBaloon);
     }
 
     override public function showItParams(callback:Function, params:Array):void {

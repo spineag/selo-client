@@ -61,35 +61,35 @@ public class ManagerOrder {
         ];
         _countTimeDelay = [
             {level: 1, delay: 0},
-            {level: 4, delay: 2*60},
-            {level: 6, delay: 3*60},
-            {level: 7, delay: 4*60},
-            {level: 8, delay: 5*60},
-            {level: 9, delay: 6*60},
-            {level: 10, delay: 7*60},
-            {level: 11, delay: 8*60},
-            {level: 12, delay: 9*60},
-            {level: 14, delay: 10*60},
-            {level: 15, delay: 11*60},
-            {level: 16, delay: 12*60},
-            {level: 17, delay: 13*60},
-            {level: 18, delay: 14*60},
-            {level: 19, delay: 15*60},
-            {level: 20, delay: 16*60},
-            {level: 21, delay: 17*60},
-            {level: 22, delay: 18*60},
-            {level: 23, delay: 19*60},
-            {level: 24, delay: 20*60},
-            {level: 25, delay: 21*60},
-            {level: 26, delay: 22*60},
-            {level: 27, delay: 23*60},
-            {level: 28, delay: 24*60},
-            {level: 29, delay: 25*60},
-            {level: 30, delay: 26*60},
-            {level: 31, delay: 27*60},
-            {level: 32, delay: 28*60},
-            {level: 33, delay: 29*60},
-            {level: 34, delay: 30*60}
+            {level: 4, delay: 30},
+            {level: 6, delay: 60},
+            {level: 7, delay: 2*60},
+            {level: 8, delay: 3*60},
+            {level: 9, delay: 4*60},
+            {level: 10, delay: 5*60},
+            {level: 11, delay: 6*60},
+            {level: 12, delay: 7*60},
+            {level: 14, delay: 8*60},
+            {level: 15, delay: 9*60},
+            {level: 16, delay: 10*60},
+            {level: 17, delay: 11*60},
+            {level: 18, delay: 12*60},
+            {level: 19, delay: 13*60},
+            {level: 20, delay: 14*60},
+            {level: 21, delay: 15*60},
+            {level: 22, delay: 16*60},
+            {level: 23, delay: 17*60},
+            {level: 24, delay: 18*60},
+            {level: 25, delay: 19*60},
+            {level: 26, delay: 20*60},
+            {level: 27, delay: 21*60},
+            {level: 28, delay: 22*60},
+            {level: 29, delay: 23*60},
+            {level: 30, delay: 24*60},
+            {level: 31, delay: 25*60},
+            {level: 32, delay: 26*60},
+            {level: 33, delay: 27*60},
+            {level: 34, delay: 28*60}
         ];
         _arrTxtId = [1244,1245,1246,1247,1248,1249,1250,1251,1252,1253,1254,1255];
         _arrOrders = [];
@@ -1034,7 +1034,7 @@ public class ManagerOrder {
            or = _arrOrders[i];
             if (!or || !or.resourceIds || !or.resourceIds.length) continue;
             b = true;
-        if (or.cat != null && or.startTime - TimeUtils.currentSeconds <= 0) {
+        if (or.startTime - TimeUtils.currentSeconds <= 0) {
             for (k = 0; k < or.resourceIds.length; k++) {
                 if (g.userInventory.getCountResourceById(or.resourceIds[k]) < or.resourceCounts[k]) {
                     b = false;
@@ -1060,7 +1060,7 @@ public class ManagerOrder {
 
     public function cancelAnimateSmallHero():void {
         g.bottomPanel.onFullOrder(false);
-        if (_orderBuilding) _orderBuilding.animateSmallHero(false);
+        if (_orderBuilding) checkForFullOrder();
     }
 
     public function get stateOrderBuild():int {

@@ -21,6 +21,7 @@ import tutorial.TutsAction;
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SimpleArrow;
 import utils.TimeUtils;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
@@ -32,6 +33,7 @@ public class WOBuyerNyashuk extends WindowMain{
     private var _data:Object;
     private var _nyashuk:BuyerNyashuk;
     private var _arrCTex:Array;
+    private var _arrow:SimpleArrow;
 
     public function WOBuyerNyashuk() {
         _windowType = WindowsManager.WO_BUYER_NYASHUK;
@@ -104,6 +106,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _data = params[1];
         _nyashuk = params[2];
         fillItBot(_data);
+        if (g.tuts.isTuts) addArrow();
         super.showIt();
     }
 
@@ -248,6 +251,21 @@ public class WOBuyerNyashuk extends WindowMain{
             _arrCTex[i] = null;
         }
         super.deleteIt();
+    }
+
+    public function addArrow():void {
+        if (g.tuts.isTuts) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _source);
+            _arrow.animateAtPosition(180, 190);
+            _arrow.scaleIt(.7);
+        }
+    }
+
+    public function hideArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

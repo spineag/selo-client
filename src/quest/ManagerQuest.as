@@ -25,7 +25,7 @@ import utils.Utils;
 import windows.WindowsManager;
 
 public class ManagerQuest {
-    public static const ICON_PATH:String = 'https://505.ninja/content/quest_icon/';
+    public static const ICON_PATH:String = 'https://505.ninja/selo-project/content/quest_icon/';
 
     public static const ADD_TO_GROUP:int = 1;      // +vstyputu v grypy
     public static const ADD_LEFT_MENU:int = 2;     // +dodatu v live menu na VK
@@ -144,31 +144,35 @@ public class ManagerQuest {
                 q = new QuestStructure();
                 q.fillIt(d.quests[i]);
                 q.isNew = isNew;
-                var thisCatGifAnotherQuest:Boolean = false;
-                for (var k:int = 0; k <_userQuests.length; k++) {
-                    if (_userQuests[k].questCatId == q.questCatId) {
-                        thisCatGifAnotherQuest = true;
-                        break;
-                    }
-                }
-                if (!thisCatGifAnotherQuest) {
+                if (q.questCatId == 0) {
                     _userQuests.push(q);
-                    var needNewCat:Boolean = true;
-                    if (_currentRemovedQuest) {
-                        for (i = 0; i < _userQuests.length; i++) {
-                            if (_currentRemovedQuest.questCatId == _userQuests[i].questCatId) {
-                                needNewCat = false;
-                                break;
-                            }
+                } else {
+                    var thisCatGifAnotherQuest:Boolean = false;
+                    for (var k:int = 0; k < _userQuests.length; k++) {
+                        if (_userQuests[k].questCatId == q.questCatId) {
+                            thisCatGifAnotherQuest = true;
+                            break;
                         }
-                        if (needNewCat) g.managerQuestCats.getCatAway(_currentRemovedQuest.questCatId);
                     }
-                    if (q && q.questCatId > 2) {
-                        if (!isNew) {
-                            g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
-                        } else {
-                            if (needNewCat) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
-                            if (!needNewCat && q.questCatId != _currentRemovedQuest.questCatId) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+                    if (!thisCatGifAnotherQuest) {
+                        _userQuests.push(q);
+                        var needNewCat:Boolean = true;
+                        if (_currentRemovedQuest) {
+                            for (i = 0; i < _userQuests.length; i++) {
+                                if (_currentRemovedQuest.questCatId == _userQuests[i].questCatId) {
+                                    needNewCat = false;
+                                    break;
+                                }
+                            }
+                            if (needNewCat) g.managerQuestCats.getCatAway(_currentRemovedQuest.questCatId);
+                        }
+                        if (q && q.questCatId > 2) {
+                            if (!isNew) {
+                                g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+                            } else {
+                                if (needNewCat) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+                                if (!needNewCat && q.questCatId != _currentRemovedQuest.questCatId) g.managerQuestCats.addAllHeroCats(q.questCatId, isNew);
+                            }
                         }
                     }
                 }

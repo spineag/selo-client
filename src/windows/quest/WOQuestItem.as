@@ -117,72 +117,61 @@ internal class Item extends Sprite {
 
         switch (_task.typeAction) {
             case ManagerQuest.ADD_LEFT_MENU:
-
                 break;
             case ManagerQuest.ADD_TO_GROUP:
-
                 break;
             case ManagerQuest.POST:
-
                 break;
             case ManagerQuest.CRAFT_PLANT:
                 _txt.text = String(g.managerLanguage.allTexts[1525]) + ' ' + g.allData.getResourceById(_task.resourceId).name;
                 break;
             case ManagerQuest.RAW_PLANT:
-                _txt.text = String(g.managerLanguage.allTexts[1679]) + ' ' + g.allData.getResourceById(_task.resourceId).name;
+                _txt.text = String(g.managerLanguage.allTexts[1678]) + ' ' + g.allData.getResourceById(_task.resourceId).name;
                 break;
             case ManagerQuest.BUILD_BUILDING:
-                _txt.text = 'Построй: ' + g.allData.getBuildingById(_task.resourceId).name;
+                _txt.text = String(g.managerLanguage.allTexts[1682]) + ' ' + g.allData.getBuildingById(_task.resourceId).name;
                 break;
             case ManagerQuest.RAW_PRODUCT:
                 _txt.text = String(g.managerLanguage.allTexts[1526]) + ' ' + g.allData.getResourceById(_task.resourceId).name;
                 break;
             case ManagerQuest.INVITE_FRIENDS:
-
                 break;
             case ManagerQuest.KILL_LOHMATIC:
-
                 break;
             case ManagerQuest.CRAFT_PRODUCT:
                 _txt.text = _task.description +' ' + g.allData.getResourceById(_task.resourceId).name;
                 break;
             case ManagerQuest.RELEASE_ORDER:
-                _txt.text = String(g.managerLanguage.allTexts[1677]);
-                break;
-            case ManagerQuest.BUY_ANIMAL:
-                _txt.text = String(g.managerLanguage.allTexts[1678]) + ' ' + g.allData.getAnimalById(_task.resourceId).name;
-                break;
-            case ManagerQuest.FEED_ANIMAL:
-                _txt.text = String(g.managerLanguage.allTexts[1680]) + ' ' + g.allData.getAnimalById(_task.resourceId).name;
-                break;
-            case ManagerQuest.OPEN_TERRITORY:
-
-                break;
-            case ManagerQuest.BUY_PAPER:
-                _txt.text = 'Купи товар в Газете';
-                break;
-            case ManagerQuest.SET_IN_PAPER:
                 _txt.text = String(g.managerLanguage.allTexts[1676]);
                 break;
+            case ManagerQuest.BUY_ANIMAL:
+                _txt.text = String(g.managerLanguage.allTexts[1677]) + ' ' + g.allData.getAnimalById(_task.resourceId).name;
+                break;
+            case ManagerQuest.FEED_ANIMAL:
+                _txt.text = String(g.managerLanguage.allTexts[1679]) + ' ' + g.allData.getAnimalById(_task.resourceId).name;
+                break;
+            case ManagerQuest.OPEN_TERRITORY:
+                break;
+            case ManagerQuest.BUY_PAPER:
+                _txt.text = String(g.managerLanguage.allTexts[1680]);
+                break;
+            case ManagerQuest.SET_IN_PAPER:
+                _txt.text = String(g.managerLanguage.allTexts[1675]);
+                break;
             case ManagerQuest.REMOVE_WILD:
-                _txt.text = 'Убери: ' + g.allData.getBuildingById(_task.resourceId).name;
+                _txt.text = String(g.managerLanguage.allTexts[1681]) + ' ' + g.allData.getBuildingById(_task.resourceId).name;
                 break;
             case ManagerQuest.KILL_MOUSE:
-
                 break;
             case ManagerQuest.NIASH_BUYER:
-                    _txt.text = String(g.managerLanguage.allTexts[1675]);
+                    _txt.text = String(g.managerLanguage.allTexts[1674]);
                 break;
             case ManagerQuest.OPEN_BUILD:
-
                 break;
             case ManagerQuest.CRAFT_TREE:
-
                 break;
-
         }
         _txt.touchable = false;
-
 
         addChild(_txt);
         if (_countTxt) {
@@ -212,7 +201,6 @@ internal class Item extends Sprite {
             _txt.y = -55;
         }
         if (_galo4ka) addChild(_galo4ka);
-
         var st:String = _task.icon;
         if (st == '0') {
             addIm(_task.iconImageFromAtlas);
@@ -220,7 +208,6 @@ internal class Item extends Sprite {
             g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
         }
     }
-
 
     private function onLoadIcon(bitmap:Bitmap):void {
         addIm(new Image(Texture.fromBitmap(bitmap)));

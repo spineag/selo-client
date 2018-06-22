@@ -73,7 +73,8 @@ public class WOQuest extends WindowMain{
     }
 
     private function onLoad():void {
-        _armature = g.allData.factory[String(DataOrderCat.getCatObjById(_quest.questCatId).animationName)].buildArmature("cat");
+        if (_quest.questCatId == 0)  _armature = g.allData.factory[String(DataOrderCat.getCatObjById(1).animationName)].buildArmature("cat");
+        else _armature = g.allData.factory[String(DataOrderCat.getCatObjById(_quest.questCatId).animationName)].buildArmature("cat");
         _sA = new Sprite();
         if (_armature.display) _sA.addChild(_armature.display as StarlingArmatureDisplay);
         if (_armature.display) _sA.y = (_armature.display as StarlingArmatureDisplay).height/2-10;
@@ -115,9 +116,13 @@ public class WOQuest extends WindowMain{
         if (!_quest.tasks.length) { Cc.error('WOQuest showItParams: no tasks for questId: ' + _quest.id); return; }
         if (!_quest.awards.length) { Cc.error('WOQuest showItParams: no awards for questId: ' + _quest.id); return; }
         if (g.managerQuest.checkQuestForDone(_quest)) return;
-        if (g.allData.factory[String(DataOrderCat.getCatObjById(_quest.questCatId).animationName)]) onLoad();
-        else g.loadAnimation.load(String(DataOrderCat.getCatObjById(_quest.questCatId).animation), String(DataOrderCat.getCatObjById(_quest.questCatId).animationName), onLoad);
-
+        if (_quest.questCatId == 0) {
+            if (g.allData.factory[String(DataOrderCat.getCatObjById(1).animationName)]) onLoad();
+            else g.loadAnimation.load(String(DataOrderCat.getCatObjById(1).animation), String(DataOrderCat.getCatObjById(1).animationName), onLoad);
+        } else {
+            if (g.allData.factory[String(DataOrderCat.getCatObjById(_quest.questCatId).animationName)]) onLoad();
+            else g.loadAnimation.load(String(DataOrderCat.getCatObjById(_quest.questCatId).animation), String(DataOrderCat.getCatObjById(_quest.questCatId).animationName), onLoad);
+        }
 //        if (g.allData.atlas['questAtlas']) {
 //            var im:Image;
 //            im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_back'));

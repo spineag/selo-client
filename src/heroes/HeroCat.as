@@ -48,6 +48,8 @@ public class HeroCat extends BasicCat{
     private var _isFlip:Boolean;
     public var bShowBubble:Boolean;
     private var _countAnimation:int;
+    private var _bable:Bone;
+    private var _timer:int;
 
     public function HeroCat(type:int) {
         super();
@@ -70,7 +72,7 @@ public class HeroCat extends BasicCat{
         _animation.catBackArmature = g.allData.factory['cat_main'].buildArmature("cat_back");
         _catImage.addChild(_animation.catArmature.display as StarlingArmatureDisplay);
         _catBackImage.addChild(_animation.catBackArmature.display as StarlingArmatureDisplay);
-
+        _bable = _animation.catArmature.getBone('bable');
         if (_type == WOMAN) {
             releaseFrontWoman(_animation.catArmature);
             releaseBackWoman(_animation.catBackArmature);
@@ -91,9 +93,12 @@ public class HeroCat extends BasicCat{
         _animation.catImage = _catImage;
         _animation.catBackImage = _catBackImage;
         _animation.catWorkerImage = _catWateringAndFeed;
+        _bable.visible = false;
         showFront(true);
         _bubble = new TutorialTextBubble(g.cont.animationsCont);
         addShadow();
+        _timer = int(4 + Math.random() * 20);
+        g.gameDispatcher.addToTimer(catTopBable);
     }
 
     private function onClick():void {
@@ -623,6 +628,31 @@ public class HeroCat extends BasicCat{
             _animation.playIt('hi',true,f2);
         };
         Utils.createDelay(int(Math.random() * 2) + 2,f1);
+    }
+
+    private function catTopBable():void {
+        _timer--;
+        if (_timer <= 0) {
+            for (var i:int = 0; i < g.managerQuest.userQuests.length; i++) {
+                if (_type == WOMAN && g.managerQuest.userQuests[i].questCatId == 2) {
+                    g.gameDispatcher.removeFromTimer(catTopBable);
+                    _bable.visible =  !_bable.visible;
+                    _timer = int(4 + Math.random() * 9);
+                    g.gameDispatcher.addToTimer(catTopBable);
+                    return;
+                } else if (_type == MAN && g.managerQuest.userQuests[i].questCatId == 1) {
+                    g.gameDispatcher.removeFromTimer(catTopBable);
+                    _bable.visible =  !_bable.visible;
+                    _timer = int(4 + Math.random() * 9);
+                    g.gameDispatcher.addToTimer(catTopBable);
+                    return;
+                }
+            }
+            g.gameDispatcher.removeFromTimer(catTopBable);
+            _bable.visible =  false;
+            _timer = int(4 + Math.random() * 9);
+            g.gameDispatcher.addToTimer(catTopBable);
+        }
     }
 
 }

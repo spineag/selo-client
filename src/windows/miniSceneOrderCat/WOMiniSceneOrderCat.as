@@ -54,11 +54,11 @@ public class WOMiniSceneOrderCat extends WindowMain{
             _txt = new CTextField(520, 140, '');
             _txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
             _txt.x = 5;
-            _txt.y = -255;
+            _txt.y = -225;
 
             _btn = new CButton();
             _btn.addButtonTexture(144, CButton.HEIGHT_41, CButton.GREEN, true);
-            _btn.y = -80;
+            _btn.y = -50;
             _btn.x = 280;
             _btn.addTextField(144, 35, 0, 0, g.managerLanguage.allTexts[328]);
             _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
