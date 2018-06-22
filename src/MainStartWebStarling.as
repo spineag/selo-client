@@ -75,7 +75,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         function startLoading() : void {
             stage.removeEventListener(flash.events.Event.RESIZE, onStageResize);
             if (!stageReady) {
-                Starling.multitouchEnabled = false;
+                //Starling.multitouchEnabled = false;
                 star = new Starling(MainStarling, stage);
                 star.showStats = false;
                 g.mainStage = star.stage;

@@ -317,7 +317,7 @@ public class SN_FB extends SocialNetwork  {
             return;
         }
         orderPackID = e.id;
-        ExternalInterface.call("makePayment", e.id, g.user.userSocialId);
+        ExternalInterface.call("makePayment", e.type + String(e.id), g.user.userSocialId);
         super.showOrderWindow(e);
     }
 

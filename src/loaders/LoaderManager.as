@@ -1,16 +1,10 @@
 package loaders {
-import com.deadreckoned.assetmanager.Asset;
-
-import loaders.allLoadMb.AllLoadMb;
-
 import manager.*;
-
 import com.deadreckoned.assetmanager.AssetManager;
 import com.deadreckoned.assetmanager.AssetQueue;
 import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
-
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
