@@ -364,14 +364,9 @@ public class ManagerOrder {
                     r = arR[i] as StructureDataResource;
                     if (r.blockByLevel <= userLevel) {
                         if (r.orderType == 1 || r.orderType == 2) {
-                            var arTTT:Array = [21, 25, 27, 29, 47, 124, 125, 126, 127, 128, 129, 135];
-                            var zxc:int = arTTT.indexOf(r.id);
-                            if (r.id<10 || zxc >= 0) {
-                                trace('Hnia!!!');
-                            }
-                            arrOrderType1.push(r.id);
+                            if (arrOrderType1.indexOf(r.id) == -1) arrOrderType1.push(r.id);
                         } else if (r.orderType == 3) {
-                            arrOrderType3.push(r.id);
+                            if (arrOrderType3.indexOf(r.id) == -1) arrOrderType3.push(r.id);
                         }
                     }
                 }
@@ -475,9 +470,6 @@ public class ManagerOrder {
                 else if (needs[2]) add_3_Item(or, arrOrderType1, arrOrderType3, userLevel);
                 else if (needs[3]) add_4_Item(or, arrOrderType1, arrOrderType3, userLevel);
                 else if (needs[4]) add_5_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                for (i = 0; i<or.resourceCounts.length; i++) {
-                    if (or.resourceCounts[i] <= 0) or.resourceCounts[i] = 1;
-                }
             }
 
 //            var caveIt:int = 0;
