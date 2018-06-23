@@ -335,7 +335,6 @@ public class ManagerOrder {
     private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1,del:Boolean = false):void {
         var or:OrderItemStructure;
         var arrOrderType1:Array = new Array(); //products + cave
-//        var arrOrderType2:Array = new Array(); //cave res
         var arrOrderType3:Array = new Array(); // plants
         var k:Number;
         var i:int;
@@ -362,13 +361,17 @@ public class ManagerOrder {
             } else {
                 var arR:Array = g.allData.resource;
                 for (i = 0; i < arR.length; i++) {
-                    if ((arR[i] as StructureDataResource).blockByLevel <= userLevel) {
-                        if ((arR[i] as StructureDataResource).orderType == 1 || (arR[i] as StructureDataResource).orderType == 2) {
-                            arrOrderType1.push(arR[i].id);
-//                        } else if (arR[i].orderType == 2) {
-//                            arrOrderType2.push(arR[i].id);
-                        } else if ((arR[i] as StructureDataResource).orderType == 3) {
-                            arrOrderType3.push(arR[i].id);
+                    r = arR[i] as StructureDataResource;
+                    if (r.blockByLevel <= userLevel) {
+                        if (r.orderType == 1 || r.orderType == 2) {
+                            var arTTT:Array = [21, 25, 27, 29, 47, 124, 125, 126, 127, 128, 129, 135];
+                            var zxc:int = arTTT.indexOf(r.id);
+                            if (r.id<10 || zxc >= 0) {
+                                trace('Hnia!!!');
+                            }
+                            arrOrderType1.push(r.id);
+                        } else if (r.orderType == 3) {
+                            arrOrderType3.push(r.id);
                         }
                     }
                 }
@@ -476,7 +479,7 @@ public class ManagerOrder {
                     if (or.resourceCounts[i] <= 0) or.resourceCounts[i] = 1;
                 }
             }
-            
+
 //            var caveIt:int = 0;
 //            for (i = 0; i < or.resourceIds.length; i++) {
 //                r = g.allData.getResourceById(or.resourceIds[i]);
@@ -531,8 +534,147 @@ public class ManagerOrder {
                 }
             };
             Utils.createDelay(1,f1);
-
         }
+    }
+
+    public function simulate(n:int = 10000):void {  // use only to test generate orders process
+        var or:OrderItemStructure;
+        var arrOrderType1:Array = new Array(); //products + cave
+        var arrOrderType3:Array = new Array(); // plants
+        var k:Number;
+        var i:int;
+        var userLevel:int = g.user.level;
+        var r:StructureDataResource;
+        var arTTT:Array;
+
+        for (var ik:int = 0; ik < n; ik++) {
+            var arR:Array = g.allData.resource;
+            for (i = 0; i < arR.length; i++) {
+                r = arR[i] as StructureDataResource;
+                if (r.blockByLevel <= userLevel) {
+                    if (r.orderType == 1 || r.orderType == 2) {
+                        arTTT = [21, 25, 27, 29, 47, 124, 125, 126, 127, 128, 129, 135];
+                        var zxc:int = arTTT.indexOf(r.id);
+                        if (r.id<10 || zxc >= 0)
+                            trace('Hnia!!!');  // add checkpoint here
+                        if (arrOrderType1.indexOf(r.id) == -1) arrOrderType1.push(r.id);
+                    } else if (r.orderType == 3) {
+                        if (arrOrderType3.indexOf(r.id) == -1) arrOrderType3.push(r.id);
+                    }
+                }
+            }
+
+            or = new OrderItemStructure();
+            or.resourceIds = [];
+            or.resourceCounts = [];
+
+            var needs:Array = [false, false, false, false, false];
+            k = Math.random();
+            switch (userLevel) {
+                case 4:
+                    if (k < .33) needs[0] = true;
+                    else needs[1] = true;
+                    break;
+                case 5:
+                    if (k < .5) needs[0] = true;
+                    else needs[1] = true;
+                    break;
+                case 6:
+                    if (k < .29) needs[0] = true;
+                    else if (k < .53) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 7:
+                    if (k < .35) needs[0] = true;
+                    else if (k < .55) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 8:
+                    if (k < .35) needs[0] = true;
+                    else if (k < .7) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 9:
+                    if (k < .27) needs[0] = true;
+                    else if (k < .62) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 10:
+                    if (k < .37) needs[0] = true;
+                    else if (k < .74) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 11:
+                    if (k < .32) needs[0] = true;
+                    else if (k < .56) needs[1] = true;
+                    else if (k < .84) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 12:
+                    if (k < .22) needs[0] = true;
+                    else if (k < .42) needs[1] = true;
+                    else if (k < .67) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 13:
+                    if (k < .22) needs[0] = true;
+                    else if (k < .42) needs[1] = true;
+                    else if (k < .67) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 14:
+                    if (k < .22) needs[0] = true;
+                    else if (k < .42) needs[1] = true;
+                    else if (k < .67) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 15:
+                    if (k < .22) needs[0] = true;
+                    else if (k < .42) needs[1] = true;
+                    else if (k < .67) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 16:
+                    if (k < .21) needs[0] = true;
+                    else if (k < .41) needs[1] = true;
+                    else if (k < .65) needs[2] = true;
+                    else if (k < .87) needs[3] = true;
+                    else needs[4] = true;
+                    break;
+                case 17:
+                    if (k < .21) needs[0] = true;
+                    else if (k < .41) needs[1] = true;
+                    else if (k < .65) needs[2] = true;
+                    else if (k < .87) needs[3] = true;
+                    else needs[4] = true;
+                    break;
+                default:
+                    if (userLevel > 17) {
+                        if (k < .21) needs[0] = true;
+                        else if (k < .41) needs[1] = true;
+                        else if (k < .65) needs[2] = true;
+                        else if (k < .87) needs[3] = true;
+                        else needs[4] = true;
+                    }
+            }
+
+            if (needs[0]) add_1_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            else if (needs[1]) add_2_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            else if (needs[2]) add_3_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            else if (needs[3]) add_4_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            else if (needs[4]) add_5_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            for (i = 0; i<or.resourceCounts.length; i++) {
+                if (or.resourceCounts[i] <= 0)
+                    or.resourceCounts[i] = 1;  // add checkpoint here
+            }
+            arTTT = or.resourceIds.slice();
+            while (arTTT.length) {
+                k = arTTT.shift();
+                if (arTTT.indexOf(k) > -1)
+                    trace('hnia 2'); // add checkpoint here
+            }
+        }
+        trace('finish simulate: ' + ik);
     }
 
     private function checkTxtId():int {
@@ -580,7 +722,8 @@ public class ManagerOrder {
             if (arr2[place]) {
                 arr.push(arr2[place]);
                 arr2.removeAt(place);
-            }
+            } else --i;
+            if (!arr2.length) arr2 = ar.slice();
         }
         return arr;
     }

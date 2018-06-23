@@ -312,11 +312,11 @@ public class WOOrder extends WindowMain {
         }
         var or:OrderItemStructure = _activeOrderItem.getOrder();
         if (g.managerOrderCats.moveBoolean || _activeOrderItem.leftSeconds > 0) {
-            _srcBaloon.visible = false;
+            if (_srcBaloon) _srcBaloon.visible = false;
             emptyCarCustomer();
         } else {
-            _txtBaloon.text = String(g.managerLanguage.allTexts[or.txtId]);
-            _srcBaloon.visible = true;
+            if (_txtBaloon) _txtBaloon.text = String(g.managerLanguage.allTexts[or.txtId]);
+            if (_srcBaloon) _srcBaloon.visible = true;
         }
 
         for (var i:int = 0; i <_arrOrders.length; i++) {
