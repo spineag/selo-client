@@ -167,7 +167,7 @@ public class SocialNetwork extends EventDispatcher {
     }
 
     protected function getTempUsersInfoByIdSucces():void {
-        Cc.ch('social', 'SocialNetwork:: getTempUsersInfoByIdSucces');
+        Cc.ch('social', 'SocialNetwork:: getTempUsersInfoByIdSuccess');
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, false, false));
     }
 

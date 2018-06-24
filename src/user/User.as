@@ -6,6 +6,7 @@ import build.missing.Missing;
 import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.StructureDataResource;
 import data.StructureMarketItem;
 import manager.Vars;
 
@@ -209,7 +210,13 @@ public class User extends Someone {
                 case 5: obj.resourceId = int(ob.resource_id6); break;
             }
             if (obj.resourceId > -1) {
-                obj.cost = g.allData.getResourceById(obj.resourceId).costDefault;
+                var r:StructureDataResource = g.allData.getResourceById(obj.resourceId);
+                if (!r) {
+                    Cc.error('User fillNeighborMarketItems:: no resource for id: ' + obj.resourceId);
+                    obj.resourceId = 31;
+                    r = g.allData.getResourceById(31);
+                }
+                obj.cost = r.costDefault;
                 obj.timeSold = '0';
                 obj.timeStart = '0';
                 neighbor.marketItems.push(obj);

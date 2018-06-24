@@ -166,10 +166,7 @@ public class WOShop extends WindowMain {
                         _shopList.booleanPage(false);
                     }
                 break;
-            default:
-
         }
-
         _shopList.updateList(arr);
     }
 

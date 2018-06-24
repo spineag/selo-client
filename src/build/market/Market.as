@@ -152,10 +152,12 @@ public class Market extends WorldObject{
             if (g.visitedUser is NeighborBot) {
                 g.server.getUserNeighborMarket(fillIt);
             } else {
-                g.server.getUserMarketItem(g.visitedUser.userSocialId, fillIt);
+                if (g.visitedUser && g.visitedUser.userSocialId) g.server.getUserMarketItem(g.visitedUser.userSocialId, fillIt);
+                else Cc.error('Market marketState away:: unknown g.visitedUser.userSocialId, probably user delete THE GAME');
             }
+        } else {
+            g.server.getUserMarketItem(g.user.userSocialId, fillIt);
         }
-        else g.server.getUserMarketItem(g.user.userSocialId,fillIt);
     }
 
     private function fillIt():void {

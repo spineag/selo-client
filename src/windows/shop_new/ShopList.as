@@ -93,8 +93,7 @@ public class ShopList {
                 if (_shift % 3) _curPage++;
             }
             checkArrows(_curPage);
-        }
-        else checkArrows(0);
+        } else checkArrows(0);
     }
 
     private function clearItems():void {

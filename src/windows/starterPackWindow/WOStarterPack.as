@@ -58,7 +58,12 @@ public class WOStarterPack extends WindowMain{
     private function onLoad(bitmap:Bitmap):void {
         if (!_source) return;
             bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/starter_pack_window.png'].create() as Bitmap;
-        photoFromTexture(Texture.fromBitmap(bitmap));
+        try {
+            photoFromTexture(Texture.fromBitmap(bitmap));
+        } catch(e:Error) {
+            Cc.error('WOStarterPack onLoad:: error bitmap photoFromTexture');
+            super.hideIt();
+        }
     }
 
     private function photoFromTexture(tex:Texture):void {
