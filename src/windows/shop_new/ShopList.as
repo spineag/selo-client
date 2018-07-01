@@ -203,6 +203,7 @@ public class ShopList {
         if (_shift < 0) _shift = 0;
         TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;  checkArrows(_curPage-1); }});
         g.user.shiftShop = _shift;
+        onAnimListAction();
     }
 
     private function animFill():void {
@@ -225,6 +226,13 @@ public class ShopList {
         if (_shift > _maxShift) _shift = _maxShift;
         TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;   checkArrows(_curPage+1); }});
         g.user.shiftShop = _shift;
+        onAnimListAction();
+    }
+
+    private function onAnimListAction():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            (_arrItems[i] as ShopListItem).deleteArrow(); // because arrow is showing GLOBAL
+        }
     }
 
     private function checkArrows(i:int = 1):void {
