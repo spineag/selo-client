@@ -41,7 +41,7 @@ public class WindowMain {
     protected var _windowType:String;
     protected var _isShowed:Boolean = false;
     protected var SOUND_OPEN:int = 0;
-    protected var onWoShowCallback:Function;
+    protected var _onWoShowCallback:Function;
     protected var _woBGNew:WindowBackgroundNew;
     protected var _blackAlpha:Number = .5;    
     public var isCashed:Boolean = false;
@@ -64,6 +64,7 @@ public class WindowMain {
     public function hideItQuick():void { onHideAnimation(); }
     public function releaseFromCash():void { showIt(); }
     public function get isShowed():Boolean { return _isShowed; }
+    public function set onWoShowCallback(f:Function):void { _onWoShowCallback = f; }
 
     public function showIt():void {
         if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
@@ -80,9 +81,9 @@ public class WindowMain {
     }
 
     protected function onShowingWindow():void {
-        if (onWoShowCallback != null) {
-            onWoShowCallback.apply();
-            onWoShowCallback = null;
+        if (_onWoShowCallback != null) {
+            _onWoShowCallback.apply();
+            _onWoShowCallback = null;
         } 
         if (g.tuts.isTuts)  g.tuts.checkTutsCallbackOnShowWindow();
         if (g.miniScenes.isMiniScene) g.miniScenes.checkMiniCutSceneCallbackOnShowWindow();

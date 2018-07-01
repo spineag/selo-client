@@ -127,6 +127,7 @@ public class ShopListItem {
 
     public function get source():CSprite { return _source; }
     public function get id():int { return _data.id; }
+    public function get buildType():int { return _data.buildType || BuildType.UNKNOWN_TYPE; }
     public function get pageNumber():int { return _pageNumber; }
     public function get numberOnPage():int { return _numberOnPage; }
 
@@ -798,10 +799,6 @@ public class ShopListItem {
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            if(_data.buildType == BuildType.FARM) {
-                var an:StructureDataAnimal = g.allData.getAnimalByFarmId(_data.id);
-                if (an) g.user.animalIdArrow = an.id;
-            }
             if (build is Tree) {
                 g.user.notif.onReleaseNewTree(_data.id);
                 (build as Tree).showShopView();

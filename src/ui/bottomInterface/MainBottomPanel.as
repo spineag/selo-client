@@ -347,7 +347,6 @@ public class MainBottomPanel {
                 }    
                 break;
             case 'tools':
-                if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
                 g.managerHelpers.onUserAction();
                 if (g.managerSalePack) g.managerSalePack.onUserAction();
                 if (g.managerStarterPack) g.managerStarterPack.onUserAction();

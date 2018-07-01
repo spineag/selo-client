@@ -21,6 +21,7 @@ public class SocialNetwork extends EventDispatcher {
     protected var _friendsApp:Array;
     protected var _timerRender:uint = 0;
     protected var _userLocale:String = 'none';
+    protected var _tempUsersArrayForWaitInfo:Array;
 
     protected static var g:Vars = Vars.getInstance();
 
@@ -30,6 +31,7 @@ public class SocialNetwork extends EventDispatcher {
         super();
 
         _flashVars = flashVars;
+        _tempUsersArrayForWaitInfo = [];
         if (ExternalInterface.available) {
             try {
                 ExternalInterface.addCallback("getLog", getLog);
@@ -169,6 +171,23 @@ public class SocialNetwork extends EventDispatcher {
     protected function getTempUsersInfoByIdSucces():void {
         Cc.ch('social', 'SocialNetwork:: getTempUsersInfoByIdSuccess');
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, false, false));
+    }
+    
+    protected function checkTempUsersArrayForDuplicates(arr:Array):Array {
+        for (var i:int=0; i<arr.length; i++) {
+            if (_tempUsersArrayForWaitInfo.indexOf(arr[i]) == -1) {
+                _tempUsersArrayForWaitInfo.push(String(arr[i]));
+            } else {
+                arr.removeAt(i);
+                i--;
+            }
+        }
+        return arr;
+    }
+    
+    protected function removeFromTempUsersArrayForDuplicates(uid:String):void {
+        var pl:int = _tempUsersArrayForWaitInfo.indexOf(uid);
+        if (pl > -1) _tempUsersArrayForWaitInfo.removeAt(pl);
     }
 
     protected function getUsersOnlineSuccess(e:Object):void {

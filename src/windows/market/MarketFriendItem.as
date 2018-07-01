@@ -114,8 +114,9 @@ public class MarketFriendItem {
     private function onOut():void { _imRamka.filter = null; }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
         if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+        if (!_person.name) return;
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
         _txtName.text = _person.name;
         if (_person.photo =='' || _person.photo == 'unknown' || _person.photo == 'https://vk.com/images/camera_100.png') {
             onLoadPhoto(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));

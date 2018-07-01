@@ -587,7 +587,6 @@ public class FriendPanel {
     private function onLeftClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (g.tuts.isTuts) return;
-        if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
         var newCount:int = 5;
         if (_shift - newCount < 0) newCount = _shift;
         _shift -= newCount;
@@ -732,10 +731,10 @@ public class FriendPanel {
         }
     }
 
-    private function onGetInfo(e:SocialNetworkEvent):void {
+    private function onGetInfo(e:SocialNetworkEvent):void {// if no info about user -> maybe not remove the listener and wait for good info
         if (e) g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGetInfo);
         for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].updateAvatar(_arrItems[i].person.level,_arrItems[i].person.userId);
+            (_arrItems[i] as FriendItem).updateAvatar(_arrItems[i].person.level, _arrItems[i].person.userId);
         }
     }
 

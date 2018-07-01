@@ -105,6 +105,7 @@ public class WOPaperItem {
     }
 
     public function get source():CSprite { return _source; }
+    public function get isPersonSellerInfo():Boolean { return _personSeller.name ? true : false; }
 
     public function updatePersonInfo():void {
         _personSeller = g.user.getSomeoneBySocialId(_data.userSocialId);

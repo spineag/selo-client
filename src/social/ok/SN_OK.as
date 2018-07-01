@@ -124,6 +124,7 @@ public class SN_OK extends SocialNetwork {
     }
 
     override public function getTempUsersInfoById(arr:Array):void {
+        arr = checkTempUsersArrayForDuplicates(arr);
         super.getTempUsersInfoById(arr);
         ExternalInterface.call("getTempUsersInfoById", arr, ["first_name", "last_name", "pic_5"]);
     }
@@ -140,6 +141,7 @@ public class SN_OK extends SocialNetwork {
             ob.last_name = e[key].last_name;
             ob.photo_100 = e[key].pic_5 || SocialNetwork.getDefaultAvatar();
             ar.push(ob);
+            removeFromTempUsersArrayForDuplicates(String(ob.uid));
         }
         g.user.addTempUsersInfo(ar);
         super.getTempUsersInfoByIdSucces();

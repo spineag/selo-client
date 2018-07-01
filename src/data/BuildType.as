@@ -43,5 +43,6 @@ public class BuildType {
     public static const ACHIEVEMENT:int = 34;
     public static const MISSING:int = 35;
     public static const DECOR_POST_FENCE_ARKA:int = 36; //  arka s lentami i zaborami POST_FENCE
+    public static const UNKNOWN_TYPE:int = 1000;
 }
 }

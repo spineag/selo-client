@@ -257,11 +257,13 @@ public class WOPaper extends WindowMain {
     }
 
     private function onGettingInfo(e:SocialNetworkEvent):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
+        var countWithOutPersonInfo:int = 0;
         Cc.info('WOPapper:: for update avatar');
         for (var i:int=0; i<_arrItems.length; i++) {
             (_arrItems[i] as WOPaperItem).updatePersonInfo();
+            if (!(_arrItems[i] as WOPaperItem).isPersonSellerInfo) countWithOutPersonInfo++;
         }
+        if (countWithOutPersonInfo == 0) g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
     }
 
     private function clearItems():void {

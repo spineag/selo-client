@@ -100,9 +100,9 @@ public class SN_FB extends SocialNetwork  {
     }
 
     override public function getTempUsersInfoById(arr:Array):void {
+        arr = checkTempUsersArrayForDuplicates(arr);
         super.getTempUsersInfoById(arr);
         if (arr && arr.length) {
-            //        ExternalInterface.call("getTempUsersInfoById", arr);
             g.server.FBgetUsersProfiles(arr, getTempUsersInfoByIdCallbackFromServer);
         } else {
             Cc.error("FB getTempUsersInfoById:: empty array or not exist");
@@ -122,6 +122,7 @@ public class SN_FB extends SocialNetwork  {
             ob.last_name = e[key].last_name;
             ob.photo_100 = e[key].picture.data.url || SocialNetwork.getDefaultAvatar();
             ar.push(ob);
+            removeFromTempUsersArrayForDuplicates(String(ob.uid));
         }
         g.user.addTempUsersInfo(ar);
         super.getTempUsersInfoByIdSucces();
@@ -141,6 +142,7 @@ public class SN_FB extends SocialNetwork  {
             ob.photo_100 = e[i].photo_url;
             if (ob.photo_100 == '' || ob.photo_100 == 'unknown') ob.photo = SocialNetwork.getDefaultAvatar();
             ar.push(ob);
+            removeFromTempUsersArrayForDuplicates(String(ob.uid));
         }
         g.user.addTempUsersInfo(ar);
         super.getTempUsersInfoByIdSucces();
