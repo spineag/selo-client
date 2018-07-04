@@ -68,11 +68,8 @@ import ui.achievementPanel.AchievementPanel;
 import ui.bottomInterface.MainBottomPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
-import ui.miniParty.MiniPartyPanel;
-
 //import ui.miniParty.MiniPartyPanel;
 
-//import ui.miniParty.MiniPartyPanel;
 import ui.party.PartyPanel;
 import ui.friendPanel.FriendPanel;
 import ui.optionPanel.OptionPanel;
@@ -89,8 +86,6 @@ import user.UserInventory;
 import user.UserTimer;
 import user.UserValidateResources;
 import utils.FarmDispatcher;
-import utils.TimeUtils;
-import utils.Utils;
 import windows.WindowsManager;
 import build.WorldObject;
 import build.ambar.Ambar;
@@ -193,7 +188,7 @@ public class Vars {
     public var stockPanel:StockPanel;
     public var starterPanel:StarterPackPanel;
     public var partyPanel:PartyPanel;
-    public var miniPartyPanel:MiniPartyPanel;
+//    public var miniPartyPanel:MiniPartyPanel;
     public var salePanel:SalePanel;
     public var achievementPanel:AchievementPanel;
     public var testerPanel:TesterPanelTop;
@@ -470,6 +465,7 @@ public class Vars {
         } else {
             startPreloader.hideIt();
             startPreloader = null;
+            managerCutScenes.initUserCutScenes();
             managerCutScenes.checkAvailableCutScenes();
             miniScenes.checkAvailableMiniScenesOnNewLevel();
             var todayDailyGift:Date;

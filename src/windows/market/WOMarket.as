@@ -247,13 +247,11 @@ public class WOMarket  extends WindowMain {
         if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) babbleMiniScene();
         _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
-        onWoShowCallback = onShow;
+        _onWoShowCallback = onShow;
         super.showIt();
     }
 
-    private function onShow():void {
-        if (_curUser is NeighborBot) Utils.createDelay(.5, g.miniScenes.atNeighborBuyInstrument);
-    }
+    private function onShow():void {}
 
     private function onClickExit(e:Event=null):void {
         if (g.tuts.isTuts) return;
@@ -925,12 +923,12 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
         if (!_curUser.name) _curUser = g.user.getSomeoneBySocialId(_curUser.userSocialId);
+        if (!_curUser.name) return;
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
         _txtName.text = _curUser.name;
         if (_curUser.photo =='' || _curUser.photo == 'unknown') {
             onLoadPhoto(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-//            _arrFriends[_shiftFriend].photo =  SocialNetwork.getDefaultAvatar();
         } else {
             g.load.loadImage(_curUser.photo, onLoadPhoto);
         }

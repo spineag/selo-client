@@ -45,6 +45,8 @@ public class ManagerCutScenes {
     public static const ID_ACTION_OPEN_TRAIN:int = 6;
     public static const ID_ACTION_GO_TO_NEIGHBOR:int = 7;
 
+    private const COUNT_CUT_SCENES:int = 9;
+
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
     private var _curCutScenePropertie:Object;
@@ -70,24 +72,23 @@ public class ManagerCutScenes {
         _OK = String(g.managerLanguage.allTexts[532]);
     }
 
-    private function saveUserCutScenesData():void {
-        g.server.updateUserCutScenesData();
-    }
+    private function saveUserCutScenesData():void { g.server.updateUserCutScenesData(); }
 
-    public function checkAvailableCutScenes():void {
-        return;
-        
-        if (g.isAway) return;
-        var countActions:int = _properties.length;
+    public function initUserCutScenes():void {
         var l:int;
-        if (g.user.cutScenes.length < countActions) {
-            l = countActions - g.user.cutScenes.length;
+        if (g.user.cutScenes.length < COUNT_CUT_SCENES) {
+            l = COUNT_CUT_SCENES - g.user.cutScenes.length;
             while (l>0) {
                 g.user.cutScenes.push(0);
                 l--;
             }
         }
-        for (l=0; l<countActions; l++) {
+    }
+
+    public function checkAvailableCutScenes():void {
+        if (g.isAway) return;
+        var l:int;
+        for (l=0; l<COUNT_CUT_SCENES; l++) {
             if (g.user.cutScenes[l] == 0) { // if == 1 - its mean, that cutScene was showed
                 if (_properties[l].level == g.user.level) {
                     _curCutScenePropertie = _properties[l];
@@ -104,15 +105,6 @@ public class ManagerCutScenes {
         if (g.isAway) return;
         if (g.user.level < 5) return;
         var i:int;
-        var countActions:int = _properties.length;
-        var l:int;
-        if (g.user.cutScenes.length < countActions) {
-            l = countActions - g.user.cutScenes.length;
-            while (l>0) {
-                g.user.cutScenes.push(0);
-                l--;
-            }
-        }
         switch (reason) {
             case REASON_NEW_LEVEL:
                 for (i=0; i<_properties.length; i++) {
@@ -765,6 +757,8 @@ public class ManagerCutScenes {
         if (_cutScene) _cutScene.hideIt(deleteCutScene);
         deleteArrow();
         removeBlack();
+        g.user.cutScenes[8] = 1;
+        saveUserCutScenesData();
         if (g.isAway)  Utils.createDelay(3,neighbor_4);
         else _cutSceneCallback = function():void { Utils.createDelay(3, neighbor_4); };
     }
@@ -785,8 +779,6 @@ public class ManagerCutScenes {
         (_cutSceneBuildings[0] as Market).showArrow();
         g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80, false, .7);
         _cutSceneCallback = neighbor_6;
-        g.user.cutScenes[8] = 1;
-        saveUserCutScenesData();
     }
 
     private function neighbor_6():void {

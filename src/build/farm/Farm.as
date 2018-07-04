@@ -5,6 +5,8 @@ package build.farm {
 import build.WorldObject;
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
 import data.StructureDataAnimal;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
@@ -179,9 +181,16 @@ public class Farm extends WorldObject{
                 if (!isFull && !g.tuts.isTuts && !g.isAway) {
                     g.user.shiftShop = 0;
                     g.user.decorShop = false;
-                    g.user.animalIdArrow = _dataAnimal.id;
                     g.user.shopTab = WOShop.ANIMAL;
+                    var f1:Function = function():void {
+                        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                            (g.windowsManager.currentWindow as WOShop).openOnResource(_dataAnimal.id, BuildType.ANIMAL);
+                            (g.windowsManager.currentWindow as WOShop).addItemArrow(_dataAnimal.id, 3, BuildType.ANIMAL);
+                        }
+                    };
                     g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) 
+                        g.windowsManager.currentWindow.onWoShowCallback = f1;
                 }
             }
         } else {

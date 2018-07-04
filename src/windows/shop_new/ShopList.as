@@ -4,6 +4,8 @@
 package windows.shop_new {
 import com.greensock.TweenMax;
 
+import data.BuildType;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
@@ -201,6 +203,7 @@ public class ShopList {
         if (_shift < 0) _shift = 0;
         TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;  checkArrows(_curPage-1); }});
         g.user.shiftShop = _shift;
+        onAnimListAction();
     }
 
     private function animFill():void {
@@ -222,7 +225,14 @@ public class ShopList {
         }
         if (_shift > _maxShift) _shift = _maxShift;
         TweenMax.to(_cont, .3, {x: -_shift * 167, onComplete: function():void { _isAnim = false;   checkArrows(_curPage+1); }});
-        g.user.shiftShop = _shift
+        g.user.shiftShop = _shift;
+        onAnimListAction();
+    }
+
+    private function onAnimListAction():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            (_arrItems[i] as ShopListItem).deleteArrow(); // because arrow is showing GLOBAL
+        }
     }
 
     private function checkArrows(i:int = 1):void {
@@ -259,17 +269,20 @@ public class ShopList {
         _txtPages.text = String(_curPage) + "/" + String(_maxPage);
     }
 
-    public function openOnResource(id:int):void {
+    public function openOnResource(id:int, buildType:int):void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            if ((_arrItems[i] as ShopListItem).id == id) {
+            if ((_arrItems[i] as ShopListItem).id == id && (buildType == BuildType.UNKNOWN_TYPE || (_arrItems[i] as ShopListItem).buildType == buildType)) {
+                var page:int = (_arrItems[i] as ShopListItem).pageNumber;
                 if (_isDecor) {
-                    if (_isBigShop) _shift = 4 * (_arrItems[i] as ShopListItem).pageNumber;
-                        else _shift = 3 * (_arrItems[i] as ShopListItem).pageNumber;
+                    if (_isBigShop) _shift = 4 * (page-1);
+                        else _shift = 3 * (page-1);
                 } else {
-                    if (_isBigShop) _shift = 5*(_arrItems[i] as ShopListItem).pageNumber;
-                        else  _shift = 4*(_arrItems[i] as ShopListItem).pageNumber;
+                    if (_isBigShop) _shift = 5 * (page-1);
+                        else  _shift = 4 * (page-1);
                 }
+                g.user.shiftShop = _shift;
                 _cont.x = -_shift*167;
+                checkArrows(page);
                 return;
             }
         }
@@ -292,9 +305,9 @@ public class ShopList {
         return null;
     }
 
-    public function addItemArrow(id:int, t:int):void {
+    public function addItemArrow(id:int, t:int, buildType:int):void {
         for (var i:int=0; i<_arrItems.length; i++) {
-            if ((_arrItems[i] as ShopListItem).id == id) {
+            if ((_arrItems[i] as ShopListItem).id == id && (buildType == BuildType.UNKNOWN_TYPE || (_arrItems[i] as ShopListItem).buildType == buildType)) {
                 (_arrItems[i] as ShopListItem).addArrow(t);
                 return;
             }

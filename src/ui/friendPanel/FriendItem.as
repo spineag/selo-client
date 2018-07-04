@@ -181,11 +181,12 @@ public class FriendItem {
     }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
         if (!_person) return;
         if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+        if (!_person.name) return;
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
         setName(_person.name);
-        if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
+        if (_person.photo =='' || _person.photo == 'unknown') _person.photo = SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_person.photo, onLoadPhoto);
     }
 

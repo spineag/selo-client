@@ -95,8 +95,6 @@ public class WOShop extends WindowMain {
             _tabs.activateTab(g.user.shopTab);
             onChooseTab(g.user.shopTab);
         }
-//        if (params && params[0]) g.user.shopTab = params[0];
-
         super.showIt();
     }
 
@@ -170,9 +168,9 @@ public class WOShop extends WindowMain {
         _shopList.updateList(arr);
     }
 
-    public function openOnResource(_id:int):void { _shopList.openOnResource(_id); }
+    public function openOnResource(_id:int, buildType:int=BuildType.UNKNOWN_TYPE):void { _shopList.openOnResource(_id, buildType); }
     public function getShopItemBounds(_id:int):Object { return _shopList.getShopItemBounds(_id); }
-    public function addItemArrow(_id:int, t:int=0):void { _shopList.addItemArrow(_id, t); }
+    public function addItemArrow(_id:int, t:int=0, buildType:int=BuildType.UNKNOWN_TYPE):void { _shopList.addItemArrow(_id, t, buildType); }
     public function addArrowAtPos(n:int, t:int=0):void { _shopList.addArrowAtPos(n, t); }
     public function deleteAllArrows():void { _shopList.deleteAllArrows(); }
 

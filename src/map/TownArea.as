@@ -1880,7 +1880,7 @@ public class TownArea extends Sprite {
         if (_cont.contains(pet.source)) _cont.removeChild(pet.source);
     }
 
-    private function onDeleteAwayPreloader():void { if (g.visitedUser is NeighborBot) g.miniScenes.onGoAwayToNeighbor(); }
+    private function onDeleteAwayPreloader():void {}
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
         var build:WorldObject;

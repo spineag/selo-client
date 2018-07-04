@@ -51,7 +51,6 @@ public class User extends Someone {
     public var userGAcid:String = 'unknown';
     public var paperShift:int;
     public var shopTab:int = -1;
-    public var animalIdArrow:int;
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;
     public var bornDate:String;
@@ -119,35 +118,17 @@ public class User extends Someone {
     }
 
     public function checkUserLevel():void {
-//        var tempLevel:int;
-//        var levels:Object = g.dataLevel.objectLevels;
-//        var txp:int = 0;
-//        for (var st:String in levels) {
-//            if (txp + levels[st].xp > globalXP) {
-//                xp = globalXP - txp;
-//                tempLevel = int(levels[st].id) - 1;
-//                if (tempLevel <= 0) tempLevel = 1;
-//                break;
-//            } else {
-//                tempLevel = levels[st].id;
-//                txp += levels[st].xp;
-//            }
-//        }
-
-// temporary fix for levels
-            if (g.dataLevel.objectLevels[level].totalXP > globalXP) {
-                xp = globalXP;
-                globalXP = g.dataLevel.objectLevels[level].totalXP + xp;
-                g.server.addUserXP(globalXP, null);
-            } else {
-                xp = globalXP - g.dataLevel.objectLevels[level].totalXP;
-            }
+        if (g.dataLevel.objectLevels[level].totalXP > globalXP) {
+            xp = globalXP;
+            globalXP = g.dataLevel.objectLevels[level].totalXP + xp;
+            g.server.addUserXP(globalXP, null);
+        } else {
+            xp = globalXP - g.dataLevel.objectLevels[level].totalXP;
+        }
         g.userValidates.updateInfo('xp', xp);
     }
 
-    public function friendAppUser():void {
-        g.socialNetwork.getAppUsers();
-    }
+    public function friendAppUser():void { g.socialNetwork.getAppUsers(); }
 
     public function addFriendInfo(ob:Object):void {
         var f:Friend;

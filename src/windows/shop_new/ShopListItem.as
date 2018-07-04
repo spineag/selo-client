@@ -127,6 +127,7 @@ public class ShopListItem {
 
     public function get source():CSprite { return _source; }
     public function get id():int { return _data.id; }
+    public function get buildType():int { return _data.buildType || BuildType.UNKNOWN_TYPE; }
     public function get pageNumber():int { return _pageNumber; }
     public function get numberOnPage():int { return _numberOnPage; }
 
@@ -201,8 +202,6 @@ public class ShopListItem {
                 }
                 if (arr.length == _data.blockByLevel.length) {
                     _txtInfo.text = g.managerLanguage.allTexts[340];
-//                    if (_im)_im.filter = ManagerFilters.getButtonDisableFilter();
-//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _blackPlawka.visible = true;
                     _txtCount.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                     _isThisItemBlocked = true;
@@ -311,7 +310,6 @@ public class ShopListItem {
                     for (i=0; i<arr.length; i++) {
                         curCount += (arr[i] as Farm).arrAnimals.length;
                     }
-
                     if (maxCount == curCount) {
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
                             if (g.user.notif.isNewAnimalId(_data.id)) {
@@ -322,16 +320,12 @@ public class ShopListItem {
                                 _txtCount.text = String(maxCount) + '/' + String(maxCount);
 
                             }
-//                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-//                            _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
                             _costCount = 0;
                             _isThisItemBlocked = true;
                         } else {
                             _txtInfo.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
                             if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
-//                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-//                            _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
                             if (g.user.isTester) _txtName.text = String(_data.id) +':'+ String(_data.name);
                                 else _txtName.text = String(_data.name);
@@ -367,8 +361,6 @@ public class ShopListItem {
                 }
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
-//                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
                     _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
                     _blackPlawka.visible = true;
@@ -395,8 +387,6 @@ public class ShopListItem {
                 maxCount = maxCountAtCurrentLevel * _data.countUnblock;
                 if (curCount >= maxCount) {
                     _txtInfo.text = g.managerLanguage.allTexts[340];
-//                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                     _blackPlawka.visible = true;
                     _txtCount.text = String(maxCount) + '/' + String(maxCount);
                     _isThisItemBlocked = true;
@@ -429,8 +419,6 @@ public class ShopListItem {
                     if (maxCount == curCount) {
                         if (g.user.level >= dataPetHouse.blockByLevel[arr.length-1]) {
                             _txtInfo.text =  String(g.managerLanguage.allTexts[345]) + ' ' + String(dataPetHouse.name);
-//                            if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-//                            _bg.filter = ManagerFilters.getButtonDisableFilter();
                             _blackPlawka.visible = true;
                             _txtCount.text = String(maxCount) + '/' + String(maxCount);
                             _costCount = 0;
@@ -472,13 +460,10 @@ public class ShopListItem {
                         if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
                         _bg.filter = ManagerFilters.getButtonDisableFilter();
                         _blackPlawka.visible = true;
-//                        _txtCount.text = String(maxCount) + '/' + String(maxCount);
                         _isThisItemBlocked = true;
                     } else {
                        if (curCount == _data.blockByLevel.length) _txtInfo.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                            else _txtInfo.text = g.managerLanguage.allTexts[340];
-//                    if (_im) _im.filter = ManagerFilters.getButtonDisableFilter();
-//                    _bg.filter = ManagerFilters.getButtonDisableFilter();
                         _blackPlawka.visible = true;
                         _txtCount.text = String(maxCount) + '/' + String(maxCount);
                         _isThisItemBlocked = true;
@@ -644,21 +629,6 @@ public class ShopListItem {
         setInfo();
     }
 
-    public function addArrow(t:int = 0):void {
-        deleteArrow();
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, source);
-        _arrow.scaleIt(.5);
-        if (_btn) _arrow.animateAtPosition(_btn.x, _btn.y, true, .5);
-        if (t>0) _arrow.activateTimer(t, deleteArrow);
-    }
-
-    public function deleteArrow():void {
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-    }
-
     private function onClick():void {
         if (_data.buildType == BuildType.ANIMAL && g.tuts.isTuts) {
             if (g.tuts.action != TutsAction.BUY_ANIMAL) return;
@@ -798,10 +768,6 @@ public class ShopListItem {
             g.selectedBuild = build;
             g.bottomPanel.cancelBoolean(true);
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            if(_data.buildType == BuildType.FARM) {
-                var an:StructureDataAnimal = g.allData.getAnimalByFarmId(_data.id);
-                if (an) g.user.animalIdArrow = an.id;
-            }
             if (build is Tree) {
                 g.user.notif.onReleaseNewTree(_data.id);
                 (build as Tree).showShopView();
@@ -965,6 +931,21 @@ public class ShopListItem {
         if (_radioButton) _radioButton.deleteIt();
         _source.dispose();
         _source = null;
+    }
+
+    public function addArrow(t:int = 0):void {
+        deleteArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, _source);
+        _arrow.scaleIt(.5);
+        if (_btn) _arrow.animateAtPosition(_btn.x, _btn.y, true, .5);
+        if (t>0) _arrow.activateTimer(t, deleteArrow);
+    }
+
+    public function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 }
 }

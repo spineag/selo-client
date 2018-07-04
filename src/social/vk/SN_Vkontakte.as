@@ -209,18 +209,20 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     override public function getTempUsersInfoById(arr:Array):void {
+        arr = checkTempUsersArrayForDuplicates(arr);
         super.getTempUsersInfoById(arr);
-        _js.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getTempFriendsByIDsHandler, onError);
+        _js.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getTempUsersByIDsHandler, onError);
     }
 
-    private function getTempFriendsByIDsHandler(e:Object):void {
+    private function getTempUsersByIDsHandler(e:Object):void {
         var ar:Array = [];
-        var buffer:Object;
+        var ob:Object;
         for (var i:int=0; i < e.response.length; i++) {
             e.response[i].uid = e.response[i].id;
-            buffer = e.response[i];
-            buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : buffer.photo_100;
-            ar.push(buffer);
+            ob = e.response[i];
+            ob.photo_100 = String(ob.photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : ob.photo_100;
+            ar.push(ob);
+            removeFromTempUsersArrayForDuplicates(String(ob.uid));
         }
         g.user.addTempUsersInfo(ar);
         super.getTempUsersInfoByIdSucces();

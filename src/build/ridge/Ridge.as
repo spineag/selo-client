@@ -159,21 +159,24 @@ public class Ridge extends WorldObject{
     }
 
     private function createSrcParty(friend_id:String):void {
-            _person = new Someone();
+        _person = new Someone();
         _person = g.user.getSomeoneBySocialId(friend_id);
-//            _person.userSocialId = friend_id;
-            _srcParty = new Sprite();
-            _source.addChild(_srcParty);
-            var _bgParty:HintBackground = new HintBackground(100, 100, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-            _srcParty.addChild(_bgParty);
-//            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+        _srcParty = new Sprite();
+        _source.addChild(_srcParty);
+        var _bgParty:HintBackground = new HintBackground(100, 100, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        _srcParty.addChild(_bgParty);
+        if (!_person.name) {
             g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
             g.socialNetwork.getTempUsersInfoById([_person.userSocialId]);
+        } else onGettingUserInfo();
     }
 
-    private function onGettingUserInfo(e:SocialNetworkEvent):void {
+    private function onGettingUserInfo(e:SocialNetworkEvent=null):void {
+        if (!_person.name) {
+            _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+            if (!_person.name) return;
+        }
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-        if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
         if (_person.photo =='' || _person.photo == 'unknown') {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
         } else g.load.loadImage(_person.photo, onLoadPhoto);
