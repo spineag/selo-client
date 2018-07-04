@@ -129,6 +129,10 @@ public class QuestTaskStructure {
                 ob = g.allData.getResourceById(int(_taskData.id_resource));
                 if (ob) im = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
                 break;
+            case BuildType.RESOURCE_CAFE:
+                ob = g.allData.getResourceById(int(_taskData.id_resource));
+                if (ob) im = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
+                break;
             case BuildType.FABRICA:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
                 if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
@@ -151,7 +155,7 @@ public class QuestTaskStructure {
                 break;
             case BuildType.DECOR:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 break;
             case BuildType.DECOR_ANIMATION:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
@@ -159,23 +163,23 @@ public class QuestTaskStructure {
                 break;
             case BuildType.DECOR_FENCE_ARKA:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image+ '_icon'));
                 break;
             case BuildType.DECOR_FENCE_GATE:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image+ '_icon'));
                 break;
             case BuildType.DECOR_FULL_FENСE:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image+ '_icon'));
                 break;
             case BuildType.DECOR_POST_FENCE:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image+ '_icon'));
                 break;
             case BuildType.DECOR_POST_FENCE_ARKA:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url+ '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image+ '_icon'));
                 break;
             case BuildType.DECOR_TAIL:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));

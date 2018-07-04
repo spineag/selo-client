@@ -31,6 +31,7 @@ public class UserTimer {
     public var starterTimerToStart:int;
     public var miniPartyToEndTimer:int;
     public var miniPartyToStartTimer:int;
+    public var cafeTimer:int;
 
     public function UserTimer() {
         _arrOrderItem = [];
@@ -231,27 +232,27 @@ public class UserTimer {
         }
     }
 
+    public function cafeEnergyTimer(time:int):void {
+        cafeTimer = time;
+        g.gameDispatcher.addToTimer(cafeEnergyTimerEnd);
+    }
+
+    private function cafeEnergyTimerEnd():void {
+        cafeTimer--;
+        if (cafeTimer <= 0) {
+            cafeTimer = 0;
+            g.managerCafe.addCafeEnergy(1);
+            g.managerCafe.startNewTimer();
+            g.gameDispatcher.removeFromTimer(cafeEnergyTimerEnd);
+        }
+    }
+
     public function newCatOrder(position:int):void {
-//        var i:int;
-//        var leftSecond:int;
-//        for (i = 0; i < _arrOrderItem.length; i++) {
-//            if (_arrOrderItem[i]) {
-//                leftSecond = _arrOrderItem[i].startTime - TimeUtils.currentSeconds;
-//                if (leftSecond <= 19){
-////                    g.managerOrder.checkForFullOrder();
-//                    break;
-//                }
-//            }
-//        }
-//        if (_arrOrderItem[i]) {
-//            var pl:int = _arrOrderItem[i].placeNumber;
-//            _arrOrderItem[i] = null;
             var arr:Array = g.managerOrder.arrOrders.slice();
             for (var i:int = 0; i < arr.length; i++) {
                 if (arr[i].startTime - TimeUtils.currentSeconds <= 16 && arr[i].delOb && position ==  arr[i].placeNumber) {
 //                    g.managerOrder.checkCatId();
                     arr[i].delOb = false;
-//                    arr[i].cat = g.managerOrderCats.getNewCatForOrder(null, arr[i].catOb);
                     g.managerOrder.checkForFullOrder();
                     break;
                 }

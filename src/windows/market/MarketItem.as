@@ -231,6 +231,8 @@ public class MarketItem {
         if (isFill == 1) return;
         isFill = 1;
         g.server.addUserMarketItem(id, level, count, inPapper, cost, number, onAddToServer);
+        g.user.countStand +=1;
+        g.server.updateUserCountStand(null);
     }
 
     private function onAddToServer(ob:Object, id:int, count:int):void {

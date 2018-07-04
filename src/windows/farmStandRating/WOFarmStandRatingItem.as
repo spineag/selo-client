@@ -1,8 +1,10 @@
 /**
- * Created by user on 4/18/18.
+ * Created by user on 7/3/18.
  */
-package windows.cafe {
+package windows.farmStandRating {
 import com.junkbyte.console.Cc;
+
+import flash.display.Bitmap;
 
 import manager.ManagerFilters;
 import manager.Vars;
@@ -27,12 +29,9 @@ import utils.MCScaler;
 
 import windows.WOComponents.BackgroundQuest;
 import windows.WOComponents.BackgroundQuestDone;
-import flash.display.Bitmap;
-
-import windows.WOComponents.BackgroundYellowOut;
 import windows.WindowsManager;
 
-public class WOCafeRatingItem {
+public class WOFarmStandRatingItem {
     public var source:Sprite;
     private var _srcAva:CSprite;
     private var _ava:Image;
@@ -44,7 +43,7 @@ public class WOCafeRatingItem {
     private var g:Vars = Vars.getInstance();
     private var _person:Someone;
 
-    public function WOCafeRatingItem(number:int, userId:int, count:int, socialId:String) {
+    public function WOFarmStandRatingItem(number:int, userId:int, count:int, socialId:String) {
         _person = g.user.getSomeoneBySocialId(socialId);
         source = new Sprite();
         if (number%2 == 0) {
@@ -54,13 +53,13 @@ public class WOCafeRatingItem {
             var bg:BackgroundQuest = new BackgroundQuest(600, 100);
             source.addChild(bg);
         }
-        _txtName = new CTextField(500, 70, _person.name + ' ' +  _person.lastName);
+        _txtName = new CTextField(500, 70, _person.name + ' ' + _person.lastName);
         _txtName.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtName.alignH = Align.LEFT;
         source.addChild(_txtName);
         _txtName.x = 100;
         _txtName.y = -10;
-        _txtCount = new CTextField(500, 70, count +' Блюд');
+        _txtCount = new CTextField(500, 70, count +' ' + String(g.managerLanguage.allTexts[325]));
         _txtCount.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _txtCount.alignH = Align.LEFT;
         source.addChild(_txtCount);
@@ -152,7 +151,7 @@ public class WOCafeRatingItem {
 
     private function visitPerson():void {
         g.townArea.goAway(_person);
-        g.windowsManager.hideWindow(WindowsManager.WO_PARTY);
+        g.windowsManager.hideWindow(WindowsManager.WO_COINS_MAX_RATING);
     }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {

@@ -12,6 +12,7 @@ import windows.announcement.WOAnnouncement;
 import windows.anotherGameError.WOAnotherGame;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
+import windows.buyEnergy.WOBuyEnergy;
 import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.buyPlant.WOBuyPlant;
 import windows.buyerNyashuk.WOBuyerNyashuk;
@@ -22,9 +23,11 @@ import windows.cave.WOBuyCave;
 import windows.cave.WOCave;
 import windows.chestWindow.WOChest;
 import windows.chestYellowWindow.WOChestYellow;
+import windows.coinsMaxRating.WOCoinsMaxRating;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
 import windows.fabricaWindow.WOFabricDeleteItem;
+import windows.farmStandRating.WOFarmStandRating;
 import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
 import windows.miniPartyWindow.WOMiniPartyWindow;
 import windows.miniSceneOrderCat.WOMiniSceneOrderCat;
@@ -141,6 +144,9 @@ public class WindowsManager {
     public static const WO_MINI_PARTY:String = 'mini_party';
     public static const WO_CAFE_RATING:String = 'cafe_rating';
     public static const WO_CAFE:String = 'cafe';
+    public static const WO_BUY_ENERGY:String = 'buy_energy';
+    public static const WO_COINS_MAX_RATING:String = 'coins_max_rating';
+    public static const WO_FARM_STAND_RATING:String = 'farm_stand_rating';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -376,6 +382,15 @@ public class WindowsManager {
                 break;
             case WO_CAFE:
                 wo = new WOCafe();
+                break;
+            case WO_BUY_ENERGY:
+                wo = new WOBuyEnergy();
+                break;
+            case WO_COINS_MAX_RATING:
+                wo = new WOCoinsMaxRating();
+                break;
+            case WO_FARM_STAND_RATING:
+                wo = new WOFarmStandRating();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

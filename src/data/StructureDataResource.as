@@ -27,6 +27,9 @@ public class StructureDataResource {
     private var _orderCoinMax:int = 1;
     private var _orderXPMin:int = 1;
     private var _orderXPMax:int = 1;
+    private var _energyCount:int = 1;
+    private var _ingredientsId:Array;
+    private var _ingredientsCount:Array;
     private var g:Vars = Vars.getInstance();
 
     public function StructureDataResource(ob:Object) {
@@ -52,6 +55,19 @@ public class StructureDataResource {
         if (ob.order_coin_max) _orderCoinMax = int(ob.order_coin_max);
         if (ob.order_xp_min) _orderXPMin = int(ob.order_xp_min);
         if (ob.order_xp_max) _orderXPMax = int(ob.order_xp_max);
+        if (ob.energy_count) {
+            _energyCount = int(ob.energy_count);
+        }
+        if (ob.ingredients_id) {
+            _ingredientsId = [];
+            ob.ingrId = String(ob.ingredients_id).split('&');
+            for (var k:int = 0; k < ob.ingrId.length; k++) _ingredientsId[k] = int(ob.ingrId[k]);
+        }
+        if (ob.ingredients_count) {
+            _ingredientsCount = [];
+            ob.ingrCou = String(ob.ingredients_count).split('&');
+            for (var j:int = 0; j < ob.ingrCou.length; j++) _ingredientsCount[j] = int(ob.ingrCou[j]);
+        }
     }
 
     public function get id():int {return _id;}
@@ -76,5 +92,9 @@ public class StructureDataResource {
     public function get orderPriceMax():int { return _orderCoinMax; }
     public function get orderXPMin():int { return _orderXPMin; }
     public function get orderXPMax():int { return _orderXPMax; }
+    public function get energyCount():int { return _energyCount; }
+    public function get ingredientsId():Array { return _ingredientsId; }
+    public function get ingredientsCount():Array { return _ingredientsCount; }
+
 }
 }

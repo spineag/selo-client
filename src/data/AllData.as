@@ -146,6 +146,14 @@ public class AllData {
         return _resourceObj[idResourse];
     }
 
+    public function getArrayResourceByType(typeResourse:int):Array {
+        var arr:Array = [];
+        for (var i:int=0; i<_resource.length; i++) {
+            if ((_resource[i] as StructureDataResource).buildType == typeResourse) arr.push(_resource[i]);
+        }
+        return arr;
+    }
+
     public function getRecipeById(idRecipe:int):StructureDataRecipe {
 //        for (var i:int=0; i<_recipe.length; i++) {
 //            if ((_recipe[i] as StructureDataRecipe).id == idRecipe) return _recipe[i];

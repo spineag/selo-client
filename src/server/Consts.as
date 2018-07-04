@@ -64,6 +64,8 @@ public class Consts {
     public static var INQ_UPDATE_USER_BUILD_POSITION:String = 'a_game/updateUserBuildPosition.php';
     public static var INQ_GET_PAPER_ITEMS:String = 'a_userData/getPaperItems.php';
     public static var INQ_UPDATE_USER_AMBAR:String = 'a_game/updateUserAmbar.php';
+    public static var INQ_UPDATE_CAFE_ENERGY_COUNT:String = 'a_game/updateCafeEnergyCount.php';
+    public static var INQ_UPDATE_CAFE_ENERGY_TIME:String = 'a_game/updateCafeEnergyTime.php';
     public static var INQ_DATA_LOCKED_LAND:String = 'a_gameData/getDataLockedLand.php';
     public static var INQ_REMOVE_USER_LOCKED_LAND:String = 'a_game/removeUserLockedLand.php';
     public static var INQ_ADD_TO_INVENTORY:String = 'a_game/addToInventory.php';
@@ -176,8 +178,16 @@ public class Consts {
     public static var INQ_ADD_USER_PARTY:String = 'a_game/addUserParty.php';
     public static var INQ_UPDATE_USER_SALE_PACK_BUY:String = 'a_game/updateUserSalePackBuy.php';
     public static var INQ_USER_CAFE_RATING:String = 'a_userData/getUserCafeRating.php';
+    public static var INQ_USER_COINS_MAX_RATING:String = 'a_userData/getUserCoinsMaxRating.php';
+    public static var INQ_USER_FARM_STAND_RATING:String = 'a_userData/getUserFarmStandRating.php';
+    public static var INQ_USER_COUNT_STAND_RATING:String = 'a_userData/getUserCountStand.php';
+    public static var INQ_USER_UPDATE_COINS_MAX:String = 'a_game/updateUserCoinsMax.php';
+    public static var INQ_USER_UPDATE_COUNT_STAND:String = 'a_game/updateUserCountStand.php';
     public static var INQ_USER_CAFE_RATING_FRIEND:String = 'a_userData/getUserCafeRatingFriend.php';
+    public static var INQ_USER_COINS_MAX_RATING_FRIEND:String = 'a_userData/getUserCoinsMaxFriendRating.php';
+    public static var INQ_USER_FARM_STAND_RATING_FRIEND:String = 'a_userData/getUserFarmStandFriendRating.php';
     public static var INQ_USER_ADD_CAFE_RATING:String = 'a_game/addUserCafeRating.php';
+    public static var INQ_UPDATE_USER_CAFE_RATING:String = 'a_game/updateUserCafeRating.php';
     public static var INQ_GET_USER_ORDER_GIFT:String = 'a_userData/getUserOrderGift.php';
     public static var INQ_DELETE_USER_ORDER_GIFT:String = 'a_game/deleteUserOrderGift.php';
     public static var INQ_ADD_USER_ORDER_GIFT:String = 'a_game/addUserOrderGift.php';

@@ -208,7 +208,7 @@ public class HeroCat extends BasicCat{
                         _animation.playIt('hi', true, makeFreeCatIdle);
                         break;
                     case 5:
-                        _animation.playIt('hello', true, makeFreeCatIdle);
+                        _animation.playIt('helllo', true, makeFreeCatIdle);
                         break;
                     case 6:
                         _animation.playIt('work', true, makeFreeCatIdle);

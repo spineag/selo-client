@@ -115,6 +115,8 @@ public class WOLevelUpItem {
 //                _bolHouse = true;
             } else if (ob.buildType == BuildType.RESOURCE) {
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
+            } else if (ob.buildType == BuildType.RESOURCE_CAFE) {
+                    _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.PLANT) {
                 _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
             } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE || ob.buildType == BuildType.DECOR_POST_FENCE_ARKA 

@@ -820,6 +820,10 @@ public class DirectServer {
             g.user.language = int(ob.language);
             g.user.missDate = int(ob.miss_date);
             g.user.day = int (ob.day);
+            g.user.cafeEnergyCount = int (ob.cafe_energy);
+            g.user.cafeEnergyTime = int (ob.cafe_time_energy);
+            g.user.coinsMax = int (ob.coins_max);
+            g.user.countStand = int (ob.count_stand);
             if (ob.announcement) g.user.announcement = Boolean(ob.announcement == '1');
             if (ob.next_time_invite) g.user.nextTimeInvite = int(ob.next_time_invite);
             if (!g.isDebug) {
@@ -856,7 +860,6 @@ public class DirectServer {
 
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
             g.managerChest.fillFromServer(ob.chest_day, int(ob.count_chest));
-
             if (ob.scale) g.currentGameScale = int(ob.scale) / 100;
             if (ob.cut_scene && ob.cut_scene.length < 10) {
                 g.user.cutScenes = Utils.intArray( Utils.convert16to2(ob.cut_scene).split('') );
@@ -8070,7 +8073,10 @@ public class DirectServer {
         }
         g.managerCafe.arrRating = [];
         for (var i:int = 0; i < d.message.length; i++) {
-            if (d.message[i] is Number) g.managerCafe.playerRatingPosition = int(d.message[i]);
+            if (d.message[i].user_rating) {
+                g.managerCafe.playerRatingPosition = int(d.message[i].user_rating);
+                g.managerCafe.playerCount = int(d.message[i].user_count);
+            }
             else {
                 ob = {};
                 ob.userId = int(d.message[i].user_id);
@@ -8082,10 +8088,15 @@ public class DirectServer {
                 g.managerCafe.arrRating.push(ob);
                 if (d.message[i].user_id == g.user.userId) {
                     g.managerCafe.playerRatingPosition = i + 1;
+                    g.managerCafe.playerCount = int(d.message[i].count);
                 }
             }
         }
-
+        if (g.managerCafe.playerCount == -1) {
+            g.managerCafe.playerRatingPosition = 300;
+            g.managerCafe.playerCount = 0;
+            addUserCafeRating(null);
+        }
         if (d.id == 0) {
             Cc.ch('server', 'getUserCafeRating OK', 5);
             if (callback != null) {
@@ -9554,6 +9565,7 @@ public class DirectServer {
         Cc.ch('server', 'addUserCafeRating', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.count = g.managerCafe.playerCount;
 //        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -9632,36 +9644,39 @@ public class DirectServer {
             return;
         }
         g.managerCafe.arrRatingFriend = [];
-        for (var i:int = 0; i < d.message.length; i++) {
-            if (g.user.userId == int(d.message[i].user_id)) {
-                ob = {};
-                ob.userId = g.user.userId;
-                ob.name = g.user.name;
-                ob.lastName = g.user.lastName;
-                ob.level = g.user.level;
-                ob.photo = g.user.photo;
-                ob.userSocialId = g.user.userSocialId;
-                ob.count = int(d.message[i].count);
-                ob.number = int(d.message[i].number);
-                g.managerCafe.arrRatingFriend.push(ob);
-            } else {
-                for (var j:int = 0; j < g.user.arrFriends.length; j++) {
-                    if (g.user.arrFriends[j].userId == int(d.message[i].user_id)) {
-                        ob = {};
-                        ob.userId = int(d.message[i].user_id);
-                        ob.name = g.user.arrFriends[j].name;
-                        ob.lastName = g.user.arrFriends[j].lastName;
-                        ob.level = g.user.arrFriends[j].level;
-                        ob.photo = g.user.arrFriends[j].photo;
-                        ob.userSocialId = g.user.arrFriends[j].userSocialId;
-                        ob.count = int(d.message[i].count);
-                        ob.number = int(d.message[i].number);
-                        g.managerCafe.arrRatingFriend.push(ob);
-                        break;
+        if (d.message > 0) {
+            for (var i:int = 0; i < d.message.length; i++) {
+                if (g.user.userId == int(d.message[i].user_id)) {
+                    ob = {};
+                    ob.userId = g.user.userId;
+                    ob.name = g.user.name;
+                    ob.lastName = g.user.lastName;
+                    ob.level = g.user.level;
+                    ob.photo = g.user.photo;
+                    ob.userSocialId = g.user.userSocialId;
+                    ob.count = int(d.message[i].count);
+                    ob.number = int(d.message[i].number);
+                    g.managerCafe.arrRatingFriend.push(ob);
+                } else {
+                    for (var j:int = 0; j < g.user.arrFriends.length; j++) {
+                        if (g.user.arrFriends[j].userId == int(d.message[i].user_id)) {
+                            ob = {};
+                            ob.userId = int(d.message[i].user_id);
+                            ob.name = g.user.arrFriends[j].name;
+                            ob.lastName = g.user.arrFriends[j].lastName;
+                            ob.level = g.user.arrFriends[j].level;
+                            ob.photo = g.user.arrFriends[j].photo;
+                            ob.userSocialId = g.user.arrFriends[j].userSocialId;
+                            ob.count = int(d.message[i].count);
+                            ob.number = int(d.message[i].number);
+                            g.managerCafe.arrRatingFriend.push(ob);
+                            break;
+                        }
                     }
                 }
             }
         }
+
         getUserCafeRating(callback);
         if (d.id == 0) {
             Cc.ch('server', 'getUserCafeRatingFriend OK', 5);
@@ -9834,6 +9849,658 @@ public class DirectServer {
             Cc.error('getUserOrderGift: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserOrder: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateCafeEnergyCount(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_CAFE_ENERGY_COUNT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateCafeEnergyCount', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.energyCount = g.user.cafeEnergyCount;
+        variables.hash = MD5.hash(String(g.user.userId)+String(g.user.cafeEnergyCount)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateCafeEnergyCount);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateCafeEnergyCount'); });
+        function onCompleteUpdateCafeEnergyCount(e:Event):void { completeUpdateCafeEnergyCount(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateCafeEnergyCount error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateCafeEnergyCount(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateCafeEnergyCount: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateCafeEnergyCount: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateCafeEnergyCount OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateCafeEnergyCount: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateCafeEnergyTime(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_CAFE_ENERGY_TIME);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateCafeEnergyTime', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateCafeEnergyTime);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateCafeEnergyTime'); });
+        function onCompleteUpdateCafeEnergyTime(e:Event):void { completeUpdateCafeEnergyTime(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateCafeEnergyTime error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateCafeEnergyTime(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateCafeEnergyTime: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateCafeEnergyTime: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateCafeEnergyTime OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateCafeEnergyTime: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserCafeRating(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_CAFE_RATING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserCafeRating', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.count = g.managerCafe.playerCount;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCafeRating);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserCafeRating'); });
+        function onCompleteUpdateUserCafeRating(e:Event):void { completeUpdateUserCafeRating(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserCafeRating error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserCafeRating(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserCafeRating: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCafeRating: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserCafeRating OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserCafeRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserCoinsMax(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_UPDATE_COINS_MAX);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserCoinsMax', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.coinsMax = g.user.coinsMax;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCoinsMax);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserCoinsMax'); });
+        function onCompleteUpdateUserCoinsMax(e:Event):void { completeUpdateUserCoinsMax(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserCoinsMax error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserCoinsMax(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserCoinsMax: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCoinsMax: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserCoinsMax OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserCoinsMax: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserCountStand(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_UPDATE_COUNT_STAND);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserCountStand', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.countStand = g.user.countStand;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCoinsMax);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserCountStand'); });
+        function onCompleteUpdateUserCoinsMax(e:Event):void { completeUpdateUserCoinsMax(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserCountStand error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserCountStand(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserCountStand: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCountStand: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserCountStand OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserCountStand: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getUserCoinsMaxRating(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_COINS_MAX_RATING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserCoinsMaxRating', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserCoinsMaxRating);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserCoinsMaxRating'); });
+        function onCompleteGetUserCoinsMaxRating(e:Event):void { completeGetUserCoinsMaxRating(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserCoinsMaxRating error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetUserCoinsMaxRating(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var ob:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserCoinsMaxRating: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserCoinsMaxRating: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+        g.managerFarmStandCoinsMaxRating.arrCoinsMaxRating = [];
+        for (var i:int = 0; i < d.message.length; i++) {
+            if (d.message[i].user_rating) {
+                g.managerFarmStandCoinsMaxRating.playerCoinsMaxRatingPosition = int(d.message[i].user_rating);
+            }
+            else {
+                ob = {};
+                ob.userId = int(d.message[i].user_id);
+                ob.userSocialId = String(d.message[i].social_id);
+                ob.count = int(d.message[i].coins_max);
+                ob.photo = d.message[i].photo_url;
+                ob.name = String(d.message[i].name);
+                ob.level = int(d.message[i].level);
+                g.managerFarmStandCoinsMaxRating.arrCoinsMaxRating.push(ob);
+                if (d.message[i].user_id == g.user.userId) {
+                    g.managerFarmStandCoinsMaxRating.playerCoinsMaxRatingPosition = i + 1;
+                }
+            }
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserCoinsMaxRating OK', 5);
+            if (callback != null) {
+                callback.apply(null,[true]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserCoinsMaxRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function getUserFarmStandRating(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_FARM_STAND_RATING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserFarmStandRating', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserFarmStandRating);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserFarmStandRating'); });
+        function onCompleteGetUserFarmStandRating(e:Event):void { completeGetUserFarmStandRating(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserFarmStandRating error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetUserFarmStandRating(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var ob:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserFarmStandRating: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserFarmStandRating: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+        g.managerFarmStandCoinsMaxRating.arrFarmStadRating = [];
+        for (var i:int = 0; i < d.message.length; i++) {
+            if (d.message[i].user_rating) {
+                g.managerFarmStandCoinsMaxRating.playerCountStandRatingPosition = int(d.message[i].user_rating);
+            }
+            else {
+                ob = {};
+                ob.userId = int(d.message[i].user_id);
+                ob.userSocialId = String(d.message[i].social_id);
+                ob.count = int(d.message[i].c);
+                ob.photo = d.message[i].photo_url;
+                ob.name = String(d.message[i].name);
+                ob.level = int(d.message[i].level);
+                g.managerFarmStandCoinsMaxRating.arrFarmStadRating.push(ob);
+                if (d.message[i].user_id == g.user.userId) {
+                    g.managerFarmStandCoinsMaxRating.playerCountStandRatingPosition = i + 1;
+                }
+            }
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserFarmStandRating OK', 5);
+            if (callback != null) {
+                callback.apply(null,[true]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserFarmStandRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function getUserCountStand(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_COUNT_STAND_RATING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserCountStand', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserCountStand);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserCountStand'); });
+        function onCompleteGetUserCountStand(e:Event):void { completeGetUserCountStand(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserCountStand error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetUserCountStand(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var ob:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserCountStand: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserCountStand: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+        g.managerFarmStandCoinsMaxRating.arrFarmStadRating = [];
+        for (var i:int = 0; i < d.message.length; i++) {
+            if (d.message[i].user_rating) {
+                g.managerFarmStandCoinsMaxRating.playerCountStandRatingPosition = int(d.message[i].user_rating);
+            }
+            else {
+                ob = {};
+                ob.userId = int(d.message[i].user_id);
+                ob.userSocialId = String(d.message[i].social_id);
+                ob.count = int(d.message[i].count_stand);
+                ob.photo = d.message[i].photo_url;
+                ob.name = String(d.message[i].name);
+                ob.level = int(d.message[i].level);
+                g.managerFarmStandCoinsMaxRating.arrFarmStadRating.push(ob);
+                if (d.message[i].user_id == g.user.userId) {
+                    g.managerFarmStandCoinsMaxRating.playerCountStandRatingPosition = i + 1;
+                }
+            }
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserCountStand OK', 5);
+            if (callback != null) {
+                callback.apply(null);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserCountStand: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function getUserCoinsMaxFriendRating(arrClientUser:Array, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_COINS_MAX_RATING_FRIEND);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserCoinsMaxFriendRating', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.arrClientUser = arrClientUser.join('&');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserCoinsMaxFriendRating);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserCoinsMaxFriendRating'); });
+        function onCompleteGetUserCoinsMaxFriendRating(e:Event):void { completeGetUserCoinsMaxFriendRating(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserCoinsMaxFriendRating error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetUserCoinsMaxFriendRating(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var ob:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserCoinsMaxFriendRating: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserCoinsMaxFriendRating: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+        g.managerFarmStandCoinsMaxRating.arrCoinsMaxRatingFriend = [];
+        if (d.message > 0) {
+            for (var i:int = 0; i < d.message.length; i++) {
+                if (g.user.userId == int(d.message[i].user_id)) {
+                    ob = {};
+                    ob.userId = g.user.userId;
+                    ob.name = g.user.name;
+                    ob.lastName = g.user.lastName;
+                    ob.level = g.user.level;
+                    ob.photo = g.user.photo;
+                    ob.userSocialId = g.user.userSocialId;
+                    ob.count = int(d.message[i].coins_max);
+                    ob.number = int(d.message[i].number);
+                    g.managerFarmStandCoinsMaxRating.arrCoinsMaxRatingFriend.push(ob);
+                } else {
+                    for (var j:int = 0; j < g.user.arrFriends.length; j++) {
+                        if (g.user.arrFriends[j].userId == int(d.message[i].user_id)) {
+                            ob = {};
+                            ob.userId = int(d.message[i].user_id);
+                            ob.name = g.user.arrFriends[j].name;
+                            ob.lastName = g.user.arrFriends[j].lastName;
+                            ob.level = g.user.arrFriends[j].level;
+                            ob.photo = g.user.arrFriends[j].photo;
+                            ob.userSocialId = g.user.arrFriends[j].userSocialId;
+                            ob.count = int(d.message[i].coins_max);
+                            ob.number = int(d.message[i].number);
+                            g.managerFarmStandCoinsMaxRating.arrCoinsMaxRatingFriend.push(ob);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserCoinsMaxFriendRating OK', 5);
+//            if (callback != null) {
+//                callback.apply(null, [true]);
+//            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserCoinsMaxFriendRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
+//            if (callback != null) {
+//                callback.apply(null);
+//            }
+        }
+    }
+
+    public function getUserFarmStandFriendRating(arrClientUser:Array, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_FARM_STAND_RATING_FRIEND);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserFarmStandFriendRating', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.arrClientUser = arrClientUser.join('&');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserFarmStandFriendRating);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserFarmStandFriendRating'); });
+        function onCompleteGetUserFarmStandFriendRating(e:Event):void { completeGetUserFarmStandFriendRating(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserFarmStandFriendRating error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetUserFarmStandFriendRating(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var ob:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserFarmStandFriendRating: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserFarmStandFriendRating: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+        g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend = [];
+        if (d.message > 0) {
+            for (var i:int = 0; i < d.message.length; i++) {
+                if (g.user.userId == int(d.message[i].user_id)) {
+                    ob = {};
+                    ob.userId = g.user.userId;
+                    ob.name = g.user.name;
+                    ob.lastName = g.user.lastName;
+                    ob.level = g.user.level;
+                    ob.photo = g.user.photo;
+                    ob.userSocialId = g.user.userSocialId;
+                    ob.count = int(d.message[i].count_stand);
+                    ob.number = int(d.message[i].number);
+                    g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend.push(ob);
+                } else {
+                    for (var j:int = 0; j < g.user.arrFriends.length; j++) {
+                        if (g.user.arrFriends[j].userId == int(d.message[i].user_id)) {
+                            ob = {};
+                            ob.userId = int(d.message[i].user_id);
+                            ob.name = g.user.arrFriends[j].name;
+                            ob.lastName = g.user.arrFriends[j].lastName;
+                            ob.level = g.user.arrFriends[j].level;
+                            ob.photo = g.user.arrFriends[j].photo;
+                            ob.userSocialId = g.user.arrFriends[j].userSocialId;
+                            ob.count = int(d.message[i].count_stand);
+                            ob.number = int(d.message[i].number);
+                            g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend.push(ob);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserFarmStandFriendRating OK', 5);
+//            if (callback != null) {
+//                callback.apply(null, [true]);
+//            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserFarmStandFriendRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
+//            if (callback != null) {
+//                callback.apply(null);
+//            }
         }
     }
 

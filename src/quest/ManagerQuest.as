@@ -452,7 +452,7 @@ public class ManagerQuest {
                 if (g.managerBuyerNyashuk.isAnyNiash()) {
                     g.cont.moveCenterToPos(26, 25);
                     g.managerBuyerNyashuk.addArrows(3);
-                } else new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
+                } else new FlyMessage(p,String(g.managerLanguage.allTexts[1683]));
                 break;
             case OPEN_BUILD:
                 g.windowsManager.closeAllWindows();

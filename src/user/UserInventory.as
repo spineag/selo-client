@@ -191,6 +191,10 @@ public class UserInventory {
             case DataMoney.RED_COUPONE:    newCount = g.user.redCouponCount; break;
             case DataMoney.GREEN_COUPONE:  newCount = g.user.greenCouponCount; break;
         }
+        if (newCount + count > g.user.coinsMax) {
+            g.user.coinsMax = newCount + count;
+            g.server.updateUserCoinsMax(null);
+        }
         g.server.addUserMoney(typeCurrency, newCount + count, null);
     }
 
@@ -239,8 +243,13 @@ public class UserInventory {
                 break;
         }
 
-        if (needSendToServer)
+        if (needSendToServer) {
+            if (g.user.softCurrencyCount > g.user.coinsMax) {
+                g.user.coinsMax = g.user.softCurrencyCount;
+                g.server.updateUserCoinsMax(null);
+            }
             g.server.addUserMoney(typeCurrency, newCount, null);
+        }
     }
 
     public function dropItemMoney(typeCurrency:int, count:int):void {

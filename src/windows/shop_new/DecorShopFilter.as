@@ -92,8 +92,13 @@ public class DecorShopFilter {
 
 import manager.ManagerFilters;
 import manager.Vars;
+
+import starling.display.Image;
+
 import utils.CButton;
 import utils.CTextField;
+import utils.MCScaler;
+
 import windows.shop_new.DecorShopFilter;
 
 internal class FilterButtonItem {
@@ -121,7 +126,13 @@ internal class FilterButtonItem {
         _btn.addChild(_txt);
         switch (_filterID) {
             case DecorShopFilter.FILTER_ALL: _txt.text = String(g.managerLanguage.allTexts[332]); break;
-            case DecorShopFilter.FILTER_OTHER: _txt.text = String(g.managerLanguage.allTexts[333]); break;
+            case DecorShopFilter.FILTER_OTHER: {
+                _txt.text = String(g.managerLanguage.allTexts[333]);
+                var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('inventory_icon'));
+                MCScaler.scale(im,im.height-30,im.width-30);
+                im.x = -30;
+                _btn.addChild(im);
+            } break;
             case DecorShopFilter.FILTER_FENCE: _txt.text = String(g.managerLanguage.allTexts[334]); break;
             case DecorShopFilter.FILTER_TAIL: _txt.text = String(g.managerLanguage.allTexts[335]); break;
             case DecorShopFilter.FILTER_TREES: _txt.text = String(g.managerLanguage.allTexts[336]); break;

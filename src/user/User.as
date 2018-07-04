@@ -67,6 +67,10 @@ public class User extends Someone {
     public var nextTimeInvite:int = -1;
     public var missDate:int;
     public var announcement:Boolean; // have see or not
+    public var cafeEnergyCount:int;
+    public var cafeEnergyTime:int;
+    public var coinsMax:int;
+    public var countStand:int;
 
     private var g:Vars = Vars.getInstance();
 

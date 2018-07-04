@@ -287,6 +287,12 @@
             <filename>grey_cat_help.png</filename>
             <filename>orange_cat_help.png</filename>
             <filename>backgroundQuest</filename>
+            <filename>energy_sell_1_c_w.png</filename>
+            <filename>energy_sell_2_c_w.png</filename>
+            <filename>energy_sell_green_1_c_w.png</filename>
+            <filename>energy_sell_green_2_c_w.png</filename>
+            <filename>caffee_window_equals.png</filename>
+            <filename>caffee_window_plus.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

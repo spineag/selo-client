@@ -1,7 +1,7 @@
 /**
- * Created by user on 4/18/18.
+ * Created by user on 7/3/18.
  */
-package windows.cafe {
+package windows.farmStandRating {
 import manager.ManagerFilters;
 
 import social.SocialNetworkEvent;
@@ -24,25 +24,20 @@ import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WindowMain;
 import windows.WindowsManager;
-
-public class WOCafeRating extends WindowMain {
+public class WOFarmStandRating extends WindowMain {
     private var _nameTxt:CTextField;
     private var _descriptionTxt:CTextField;
     private var _arrRating:Array;
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _arrItem:Array;
     private var _srcEvent:Sprite;
-//    private var _btnFriend:CButton;
-//    private var _btnAll:CButton;
     private var _bgY:BackgroundYellowOut;
-    private var _tabs:RatingTabs;
+    private var _tabs:CoinsTabs;
     private var _isAll:Boolean;
 
-//    private var _bgWHite:BackgroundWhiteIn;
-
-    public function WOCafeRating() {
+    public function WOFarmStandRating() {
         super();
-        _windowType = WindowsManager.WO_CAFE_RATING;
+        _windowType = WindowsManager.WO_FARM_STAND_RATING;
         _woWidth = 680;
         _woHeight = 600;
 
@@ -51,18 +46,11 @@ public class WOCafeRating extends WindowMain {
         _bgY = new BackgroundYellowOut(660, 350);
         _bgY.x = -330;
         _bgY.y = -65;
+        _bgY.source.touchable = true;
         _source.addChild(_bgY);
+        _tabs = new CoinsTabs(_bgY, onTabClick);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        _tabs = new RatingTabs(_bgY, onTabClick);
-        _isAll = true;
-
-
-//        _bgWHite = new BackgroundWhiteIn(360, 68);
-//        _bgWHite.x = -180;
-//        _bgWHite.y = -115;
-//        _source.addChild(_bgWHite);
-
 
         _nameTxt = new CTextField(300, 60, g.managerLanguage.allTexts[1279]);
         _nameTxt.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
@@ -85,36 +73,20 @@ public class WOCafeRating extends WindowMain {
         _scrollSprite.createScoll(620, 0, 315, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         _srcEvent.addChild(_scrollSprite.source);
         _arrItem = [];
+        _isAll = true;
+    }
 
-//        _btnFriend = new CButton();
-//        _btnFriend.addButtonTexture(150, CButton.HEIGHT_55, CButton.YELLOW, true);
-//        _btnFriend.addTextField(150, 49, 0, 0, String(g.managerLanguage.allTexts[485]));
-//        _btnFriend.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-//        _btnFriend.x = -100;
-//        _btnFriend.y = -80;
-//        _source.addChild(_btnFriend);
-//        _btnFriend.clickCallback = onClickFriend;
-//
-//        _btnAll = new CButton();
-//        _btnAll.addButtonTexture(150, CButton.HEIGHT_55, CButton.YELLOW, true);
-//        _btnAll.addTextField(150, 49, 0, 0, String(g.managerLanguage.allTexts[332]));
-//        _btnAll.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-//        _btnAll.x = 100;
-//        _btnAll.y = -80;
-//        _source.addChild(_btnAll);
-//        _btnAll.clickCallback = onClickAll;
-//
-//        _btnFriend.colorBGFilter = ManagerFilters.SMALL_DISABLE_FILTER;
-//        _btnFriend.isTouchable = false;
-//        _btnAll.colorBGFilter = null;
-//        _btnAll.isTouchable = true;
+    override public function showItParams(callback:Function, params:Array):void {
+        var arr:Array = g.managerCafe.getFriendArrayUsers();
+        g.server.getUserFarmStandFriendRating(arr, null);
+
+        g.server.getUserFarmStandRating(showAll);
+        _tabs.activate(_isAll);
     }
 
     private function onTabClick():void {
         _isAll = !_isAll;
         _tabs.activate(_isAll);
-//        if (_isAmbar) _txtWindowName.text = g.managerLanguage.allTexts[1286];
-//        else _txtWindowName.text = g.managerLanguage.allTexts[1287];
         _arrItem = [];
         _scrollSprite.resetAll();
         if (_isAll) {
@@ -123,41 +95,12 @@ public class WOCafeRating extends WindowMain {
         else {
             showFriend(false);
         }
-//        updateCells();
-//        updateForUpdates();
     }
-
-
-    override public function showItParams(callback:Function, params:Array):void {
-        _tabs.activate(_isAll);
-        var arr:Array = g.managerCafe.getFriendArrayUsers();
-        g.server.getUserCafeRatingFriend(arr, showAll);
-    }
-
-//    private function onClickFriend():void {
-//        _btnFriend.colorBGFilter = ManagerFilters.SMALL_DISABLE_FILTER;
-//        _btnFriend.isTouchable = false;
-//        _btnAll.colorBGFilter = null;
-//        _btnAll.isTouchable = true;
-//        _arrItem = [];
-//        _scrollSprite.resetAll();
-//        showFriend();
-//    }
-//
-//    private function onClickAll():void {
-//        _btnAll.colorBGFilter = ManagerFilters.SMALL_DISABLE_FILTER;
-//        _btnAll.isTouchable = false;
-//        _btnFriend.colorBGFilter = null;
-//        _btnFriend.isTouchable = true;
-//        _arrItem = [];
-//        _scrollSprite.resetAll();
-//        showAll();
-//    }
 
     private function showFriend(needShow:Boolean = false):void {
-        var cafeItem:WOCafeRatingItem;
-        for (var i:int =0; i < g.managerCafe.arrRatingFriend.length; i ++) {
-            cafeItem = new WOCafeRatingItem(i+1, g.managerCafe.arrRatingFriend[i].userId, g.managerCafe.arrRatingFriend[i].count, g.managerCafe.arrRatingFriend[i].userSocialId);
+        var cafeItem:WOFarmStandRatingItem;
+        for (var i:int =0; i < g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend.length; i ++) {
+            cafeItem = new WOFarmStandRatingItem(i+1, g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend[i].userId, g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend[i].count, g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend[i].userSocialId);
             _scrollSprite.addNewCell(cafeItem.source);
             _arrItem.push(cafeItem);
         }
@@ -166,9 +109,9 @@ public class WOCafeRating extends WindowMain {
     }
 
     private function showAll(needShow:Boolean = false):void {
-        var cafeItem:WOCafeRatingItem;
-        for (var i:int =0; i < g.managerCafe.arrRating.length; i ++) {
-            cafeItem = new WOCafeRatingItem(i+1,g.managerCafe.arrRating[i].userId, g.managerCafe.arrRating[i].count, g.managerCafe.arrRating[i].userSocialId);
+        var cafeItem:WOFarmStandRatingItem;
+        for (var i:int =0; i < g.managerFarmStandCoinsMaxRating.arrFarmStadRating.length; i ++) {
+            cafeItem = new WOFarmStandRatingItem(i+1,g.managerFarmStandCoinsMaxRating.arrFarmStadRating[i].userId, g.managerFarmStandCoinsMaxRating.arrFarmStadRating[i].count, g.managerFarmStandCoinsMaxRating.arrFarmStadRating[i].userSocialId);
             _scrollSprite.addNewCell(cafeItem.source);
             _arrItem.push(cafeItem);
         }
@@ -188,8 +131,8 @@ public class WOCafeRating extends WindowMain {
         var userIds:Array = [];
         var p:Someone;
         var arr:Array;
-        if (_isAll) arr = g.managerCafe.arrRating.slice();
-        else arr = g.managerCafe.arrRatingFriend.slice();
+        if (_isAll) arr = g.managerFarmStandCoinsMaxRating.arrFarmStadRating.slice();
+        else arr = g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend.slice();
         for (var i:int=0; i < arr.length; i++) {
             p = g.user.getSomeoneBySocialId(arr[i].userSocialId);
             if (!p.photo && userIds.indexOf(arr[i].userSocialId) == -1 && arr[i].userSocialId != g.user.userSocialId) userIds.push(arr[i].userSocialId);
@@ -204,7 +147,7 @@ public class WOCafeRating extends WindowMain {
     private function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
         for (var i:int = 0; i < _arrItem.length; i++) {
-            (_arrItem[i] as WOCafeRatingItem).updateAvatar();
+            (_arrItem[i] as WOFarmStandRatingItem).updateAvatar();
         }
     }
 }
@@ -219,7 +162,7 @@ import utils.CSprite;
 import utils.CTextField;
 import windows.WOComponents.BackgroundYellowOut;
 
-internal class RatingTabs {
+internal class CoinsTabs {
     private var g:Vars = Vars.getInstance();
     private var _callback:Function;
     private var _imActiveAmbar:Image;
@@ -232,7 +175,7 @@ internal class RatingTabs {
     private var _txtUnactiveSklad:CTextField;
     private var _bg:BackgroundYellowOut;
 
-    public function RatingTabs(bg:BackgroundYellowOut, f:Function) {
+    public function CoinsTabs(bg:BackgroundYellowOut, f:Function) {
         _bg = bg;
         _callback = f;
         _imActiveAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));

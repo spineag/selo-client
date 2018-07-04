@@ -284,7 +284,7 @@ public class DataOrderCat {
     public static function get arr():Array { return _arrCats; }
 
     public static function getCatObjById(id:int):Object {
-        for (var i:int=0; i<14; i++) {
+        for (var i:int=0; i<_arrCats.length; i++) {
             if (_arrCats[i].id == id)  return _arrCats[i];
         }
         return {};
@@ -292,14 +292,14 @@ public class DataOrderCat {
     
     public static function getArrByLevel(l:int):Array {
         var ar:Array = new Array();
-        for (var i:int=0; i<14; i++) {
+        for (var i:int=0; i<_arrCats.length; i++) {
             if (_arrCats[i].level <= l) ar.push(_arrCats[i]);
         }
         return ar;
     }
 
     public static function setCatObjByTxtId(id:int, txtId:int):void {
-        for (var i:int=0; i<14; i++) {
+        for (var i:int=0; i<_arrCats.length; i++) {
             if (_arrCats[i].id == id)  {
                 _arrCats[i].txtId = txtId;
             }

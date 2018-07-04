@@ -25,19 +25,24 @@ public class DecorPostFenceArka extends WorldObject {
         super(_data);
         _isHover = false;
         var im:Image;
-        if (!mainPart) {
-            _isMainPart = true;
-            im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
+        if (g.isAway) {
+            im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
             im.x = _dataBuild.innerX[0];
             im.y = _dataBuild.innerY[0];
         } else {
-            _isMainPart = false;
-            _part = mainPart;
-            im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_2'));
-            im.x = _dataBuild.innerX[1];
-            im.y = _dataBuild.innerY[1];
+            if (!mainPart) {
+                _isMainPart = true;
+                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_1'));
+                im.x = _dataBuild.innerX[0];
+                im.y = _dataBuild.innerY[0];
+            } else {
+                _isMainPart = false;
+                _part = mainPart;
+                im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_2'));
+                im.x = _dataBuild.innerX[1];
+                im.y = _dataBuild.innerY[1];
+            }
         }
-
         if (!im) {
             Cc.error('DecorPostFenceФклф:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
