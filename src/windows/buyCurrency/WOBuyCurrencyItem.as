@@ -38,7 +38,7 @@ public class WOBuyCurrencyItem {
         _packId = packId;
         _countGameMoney = count;
         source = new Sprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_cell'));
+        var im:Image = new Image(g.allData.atlas['bankAtlas'].getTexture('bank_panel_cell'));
         im.x = -2;
         im.y = -1;
         source.addChild(im);
@@ -59,8 +59,8 @@ public class WOBuyCurrencyItem {
         _txtCount.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         source.addChild(_txtCount);
         if (bonus[0] > 0) {
-            if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_purple_rus'));
-            else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_purple_eng'));
+            if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['bankAtlas'].getTexture('best_price_purple_rus'));
+            else im = new Image(g.allData.atlas['bankAtlas'].getTexture('best_price_purple_eng'));
             im.x = 163;
             if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) {
                 MCScaler.scale(im,im.height/1.6, im.width/1.6);
@@ -73,8 +73,8 @@ public class WOBuyCurrencyItem {
         }
 
         if (bonus[1] > 0) {
-            if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_red_rus'));
-            else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_red_eng'));
+            if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['bankAtlas'].getTexture('top_red_rus'));
+            else im = new Image(g.allData.atlas['bankAtlas'].getTexture('top_red_eng'));
             im.x = 163;
             if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) {
                 MCScaler.scale(im,im.height/1.6, im.width/1.6);
@@ -105,7 +105,7 @@ public class WOBuyCurrencyItem {
             case 11: st = 'bank_coins_5'; break;
             case 12: st = 'bank_coins_6'; break;
         }
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
+        var im:Image = new Image(g.allData.atlas['bankAtlas'].getTexture(st));
         im.alignPivot();
         im.x = 117;
         im.y = 135;

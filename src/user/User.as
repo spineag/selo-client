@@ -70,6 +70,7 @@ public class User extends Someone {
     public var cafeEnergyTime:int;
     public var coinsMax:int;
     public var countStand:int;
+    public var decorCount:int;
 
     private var g:Vars = Vars.getInstance();
 

@@ -24,11 +24,11 @@ public class AllLoadMb {
     }
 
     private function showAllLoad():void {
-        if (g.user.isTester || g.user.isMegaTester) {
+//        if (g.user.isTester || g.user.isMegaTester) {
             Cc.ch('info', 'Count object: ' + array.length, 1);
             var n:int = addAllMb() / 1048576;
             Cc.ch('info', 'Sum object: ' + n +'мб', 1);
-        }
+//        }
     }
 
 

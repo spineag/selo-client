@@ -136,8 +136,62 @@ public class TownArea extends Sprite {
                         || _cityObjects[i] is BuyerNyashuk || _cityObjects[i] is PetMain) continue;
                 if (_cityObjects[i].dataBuild.id == id)  ar.push(_cityObjects[i]);
             }
+            if (ar.length <= 0) {
+                for (i = 0; i < _cityTailObjects.length; i++) {
+                    if (_cityTailObjects[i].dataBuild.id == id)  ar.push(_cityTailObjects[i]);
+                }
+            }
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsById:: error _cityObjects: ' + _cityObjects.length );
+        }
+        return ar;
+    }
+
+    public function getCityObjectsAllDecor():Array {
+        var ar:Array = [];
+        var ob:Object;
+        var b:Boolean = false;
+        try {
+            for (var i:int = 0; i < _cityObjects.length; i++) {
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero
+                        || _cityObjects[i] is BuyerNyashuk || _cityObjects[i] is PetMain) continue;
+                if (_cityObjects[i] is DecorFenceGate || _cityObjects[i] is DecorPostFenceArka || _cityObjects[i] is DecorFenceArka || _cityObjects[i] is Decor
+                        || _cityObjects[i] is DecorFence || _cityObjects[i] is DecorPostFence || _cityObjects[i] is DecorAnimation) {
+                    for (var j:int = 0; j < ar.length; j++) {
+                        if (ar[j].id == _cityObjects[i].dataBuild.id) {
+                            ar[j].count += 1;
+                            b = true;
+                            break;
+                        }
+                    }
+                    if (!b) {
+                        ob = {};
+                        ob.id = _cityObjects[i].dataBuild.id;
+                        ob.count = 1;
+                        ar.push(ob);
+                    }
+                    b = false;
+                }
+            }
+            for (i = 0; i < _cityTailObjects.length; i++) {
+                for (j = 0; j < ar.length; j++) {
+                    if (ar[j].id == _cityTailObjects[i].dataBuild.id) {
+                        ar[j].count += 1;
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b) {
+                    ob = {};
+                    ob.id = _cityTailObjects[i].dataBuild.id;
+                    ob.count = 1;
+                    ar.push(ob);
+                }
+                b = false;
+            }
+
+        } catch (e:Error) {
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
     }
@@ -1114,12 +1168,18 @@ public class TownArea extends Sprite {
         } else {
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
         }
+        if (build is DecorFenceGate || build is DecorPostFenceArka || build is DecorFenceArka || build is Decor || build is DecorFence || build is DecorPostFence || build is DecorAnimation || build is DecorTail) {
+            g.user.decorCount += (build as WorldObject).dataBuild.ratingCount;
+            g.server.updateUserDecorCount(null);
+        }
         pasteBuild(build, _x, _y);
         showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency,-cost);
     }
 
     public function afterMoveFromInventory(build:WorldObject, _x:Number, _y:Number):void { // для декора из инвентаря
         (build as WorldObject).source.filter = null;
+        g.user.decorCount += (build as WorldObject).dataBuild.ratingCount;
+        g.server.updateUserDecorCount(null);
         g.bottomPanel.cancelBoolean(true);
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
@@ -1173,7 +1233,10 @@ public class TownArea extends Sprite {
             cont.y = _y;
             g.cont.gameCont.addChild(cont);
         }
-
+        if (build is DecorFenceGate || build is DecorPostFenceArka || build is DecorFenceArka || build is Decor || build is DecorFence || build is DecorPostFence || build is DecorAnimation || build is DecorTail) {
+            g.user.decorCount += (build as WorldObject).dataBuild.ratingCount;
+            g.server.updateUserDecorCount(null);
+        }
         if ((build as WorldObject).dataBuild.currency.length > 1) {
             for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
@@ -1224,6 +1287,8 @@ public class TownArea extends Sprite {
     private function endMoveFromInventoryAfterShop(build:WorldObject, _x:Number, _y:Number):void {
         var dbId:int = g.userInventory.removeFromDecorInventory((build as WorldObject).dataBuild.id);
         var p:Point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+        g.user.decorCount += (build as WorldObject).dataBuild.ratingCount;
+        g.server.updateUserDecorCount(null);
         (build as WorldObject).dbBuildingId = dbId;
         g.server.removeFromInventory(dbId, p.x, p.y, null);
         if (build is DecorTail) {

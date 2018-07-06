@@ -6,13 +6,19 @@ import com.greensock.TweenMax;
 
 import data.DataMoney;
 
+import flash.display.Bitmap;
+
 import flash.geom.Rectangle;
+
+import loaders.PBitmap;
 
 import manager.ManagerFilters;
 import media.SoundConst;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
+import starling.textures.Texture;
+import starling.textures.TextureAtlas;
 import starling.utils.Color;
 
 import utils.CButton;
@@ -36,6 +42,7 @@ public class WOBuyCurrency extends WindowMain {
     private var _leftArrow:CButton;
     private var _rightArrow:CButton;
     private var _shift:int;
+    private var _count:int = 0;
 
     public function WOBuyCurrency() {
         super();
@@ -74,8 +81,35 @@ public class WOBuyCurrency extends WindowMain {
 
         _bigYellowBG.source.touchable = true;
         _source.addChild(_bigYellowBG);
-        _tabs = new MoneyTabs(_bigYellowBG, onTabClick, _isBigWO);
         if (!_isBigWO) createForSmallWindow();
+        atlasLoad();
+    }
+
+    public function atlasLoad():void {
+        if (!g.allData.atlas['bankAtlas']) {
+            g.load.loadImage(g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas'), onLoad);
+            g.load.loadXML(g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas'), onLoad);
+        } else createAtlases();
+    }
+
+    private function onLoad(smth:*=null):void {
+        _count++;
+        if (_count >=2) createAtlases();
+    }
+
+    private function createAtlases():void {
+        if (!g.allData.atlas['bankAtlas']) {
+            if (g.pBitmaps[g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas')] && g.pXMLs[g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas')]) {
+                g.allData.atlas['bankAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas')]);
+                (g.pBitmaps[g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas')] as PBitmap).deleteIt();
+
+                delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas')];
+                delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas')];
+                g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas'));
+                g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas'));
+            }
+        }
+        _tabs = new MoneyTabs(_bigYellowBG, onTabClick, _isBigWO);
     }
 
     private function createForSmallWindow():void {
@@ -183,9 +217,22 @@ public class WOBuyCurrency extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         _isHard = params[0];
+        if (!g.allData.atlas['bankAtlas']) {
+            g.gameDispatcher.addEnterFrame(postLoad);
+            return;
+        }
         _tabs.activate(!_isHard);
         createLists();
         super.showIt();
+    }
+
+    private function postLoad():void {
+        if (g.allData.atlas['bankAtlas']) {
+            g.gameDispatcher.removeEnterFrame(postLoad);
+            _tabs.activate(!_isHard);
+            createLists();
+            super.showIt();
+        }
     }
 
     override protected function deleteIt():void {
@@ -232,7 +279,7 @@ internal class MoneyTabs {
     public function MoneyTabs(bg:BackgroundYellowOut, f:Function, isBigWindow:Boolean) {
         _bg = bg;
         _callback = f;
-        _imActiveSoft = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_tab_big'));
+        _imActiveSoft = new Image(g.allData.atlas['bankAtlas'].getTexture('bank_panel_tab_big'));
         _imActiveSoft.pivotX = _imActiveSoft.width/2;
         _imActiveSoft.pivotY = _imActiveSoft.height;
         bg.addChild(_imActiveSoft);
@@ -250,7 +297,7 @@ internal class MoneyTabs {
         _txtActiveSoft.y = -50;
 
         _unactiveSoft = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_tab_small'));
+        var im:Image = new Image(g.allData.atlas['bankAtlas'].getTexture('bank_panel_tab_small'));
         im.pivotX = im.width/2;
         im.pivotY = im.height;
         _unactiveSoft.addChild(im);
@@ -269,7 +316,7 @@ internal class MoneyTabs {
         _txtUnactiveSoft.y = -42;
         _unactiveSoft.y = 13;
 
-        _imActiveHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_tab_big'));
+        _imActiveHard = new Image(g.allData.atlas['bankAtlas'].getTexture('bank_panel_tab_big'));
         _imActiveHard.pivotX = _imActiveHard.width/2;
         _imActiveHard.pivotY = _imActiveHard.height;
         bg.addChild(_imActiveHard);
@@ -287,7 +334,7 @@ internal class MoneyTabs {
         _txtActiveHard.y = -50;
 
         _unactiveHard = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_panel_tab_small'));
+        im = new Image(g.allData.atlas['bankAtlas'].getTexture('bank_panel_tab_small'));
         im.pivotX = im.width/2;
         im.pivotY = im.height;
         _unactiveHard.addChild(im);

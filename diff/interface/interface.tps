@@ -200,21 +200,18 @@
             <filename>baloon_1.png</filename>
             <filename>baloon_2.png</filename>
             <filename>baloon_3.png</filename>
-            <filename>bank</filename>
             <filename>blue_coupone.png</filename>
             <filename>bonus.png</filename>
             <filename>bt_close.png</filename>
             <filename>button_yel_left.png</filename>
             <filename>cat_blue.png</filename>
             <filename>cat_shadow.png</filename>
-            <filename>cave</filename>
             <filename>coins_medium.png</filename>
             <filename>coins_small.png</filename>
             <filename>coins.png</filename>
             <filename>coupons_icon.png</filename>
             <filename>currency_buy_window.png</filename>
             <filename>cursor_fertilizer.png</filename>
-            <filename>decor_cell.png</filename>
             <filename>default_avatar_big.png</filename>
             <filename>done_icon.png</filename>
             <filename>empty_green_tile.png</filename>
@@ -293,6 +290,8 @@
             <filename>energy_sell_green_2_c_w.png</filename>
             <filename>caffee_window_equals.png</filename>
             <filename>caffee_window_plus.png</filename>
+            <filename>decor_rating_icon.png</filename>
+            <filename>rating_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

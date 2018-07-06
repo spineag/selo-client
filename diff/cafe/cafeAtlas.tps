@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/cafe/cafeAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/cafe/cafeAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -192,8 +192,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>caffee_tree.png</filename>
-            <filename>door_tent.png</filename>
+            <filename>board_1.png</filename>
+            <filename>door_1.png</filename>
             <filename>part_1.png</filename>
             <filename>part_2.png</filename>
             <filename>part_3.png</filename>
@@ -201,21 +201,13 @@
             <filename>part_5.png</filename>
             <filename>part_6.png</filename>
             <filename>part_7.png</filename>
-            <filename>paving_road.png</filename>
             <filename>plant_1.png</filename>
             <filename>plant_2.png</filename>
             <filename>plant_3.png</filename>
-            <filename>stand_board.png</filename>
-            <filename>window_left_1.png</filename>
-            <filename>window_left_flowers.png</filename>
-            <filename>window_left_tent.png</filename>
-            <filename>window_right_1.png</filename>
-            <filename>window_right_flowers.png</filename>
-            <filename>window_right_tent.png</filename>
-            <filename>banner.png</filename>
-            <filename>door_stage_2_open.png</filename>
             <filename>table_cafe_3.png</filename>
-            <filename>table_cafe.png</filename>
+            <filename>tree_1.png</filename>
+            <filename>window_left.png</filename>
+            <filename>window_right.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

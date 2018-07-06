@@ -150,6 +150,7 @@ public class Vars {
     public var managerPets:ManagerPets;
     public var managerNews:ManagerNews;
     public var managerFarmStandCoinsMaxRating:ManagerFarmStandCoinsMaxRating;
+    public var managerDecorRating:ManagerDecorRating;
 
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -450,6 +451,7 @@ public class Vars {
         managerPets = new ManagerPets();
         managerNews = new ManagerNews();
         managerFarmStandCoinsMaxRating = new ManagerFarmStandCoinsMaxRating();
+        managerDecorRating = new ManagerDecorRating();
     }
 
     private function afterLoadAll_4():void {

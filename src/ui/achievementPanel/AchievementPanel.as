@@ -26,6 +26,7 @@ public class AchievementPanel {
     private var _timer:int;
     public var show:Boolean;
     public function AchievementPanel() {
+        return;
         _source = new Sprite();
         _bg = new Image(g.allData.atlas['achievementAtlas'].getTexture('achievement_notification'));
         _source.addChild(_bg);

@@ -36,35 +36,24 @@ public class Cafe extends WorldObject {
     private var _spriteSecond:CSprite;
     private var _spriteThird:CSprite;
     private var _imDoor:Image;
-    private var _imDoorTent:Image;
-    private var _imBaner:Image;
     private var _imLeftWindow:Image;
     private var _imRightWindow:Image;
-    private var _imLeftTent:Image;
-    private var _imRightTent:Image;
-    private var _imLefttFlower:Image;
-    private var _imRightFlower:Image;
     private var _imMenu:Image;
     private var _imBigTree:Image;
-    private var _imRoad:Image;
     private var count:int = 0;
     private var _csprMenu:CSprite;
     private var _imFence1:Image;
     private var _imFence2:Image;
     private var _imFence3:Image;
     private var _imFence4:Image;
-//    private var _imFence5:Image;
     private var _imFence6:Image;
     private var _imFence7:Image;
     private var _imFlowerS1:Image;
     private var _imFlowerS2:Image;
-//    private var _imFlowerB1:Image;
     private var _imFlowerR1:Image;
-//    private var _imFlowerR2:Image;
     private var _imFlowerR3:Image;
 
     private var _imTable1:Image;
-    private var _imTable2:Image;
 
     public function Cafe(_data:Object) {
         super(_data);
@@ -117,30 +106,20 @@ public class Cafe extends WorldObject {
     }
 
     private function createImage():void {
-        _imDoor = new Image(g.allData.atlas['cafeAtlas'].getTexture('door_stage_2_open'));
-        _imDoorTent = new Image(g.allData.atlas['cafeAtlas'].getTexture('door_tent'));
-        _imBaner = new Image(g.allData.atlas['cafeAtlas'].getTexture('banner'));
-        _imLeftWindow = new Image(g.allData.atlas['cafeAtlas'].getTexture('window_left_1'));
-        _imRightWindow = new Image(g.allData.atlas['cafeAtlas'].getTexture('window_right_1'));
-        _imLeftTent = new Image(g.allData.atlas['cafeAtlas'].getTexture('window_left_tent'));
-        _imRightTent = new Image(g.allData.atlas['cafeAtlas'].getTexture('window_right_tent'));
-        _imLefttFlower = new Image(g.allData.atlas['cafeAtlas'].getTexture('window_left_flowers'));
-        _imRightFlower = new Image(g.allData.atlas['cafeAtlas'].getTexture('window_right_flowers'));
-        _imMenu = new Image(g.allData.atlas['cafeAtlas'].getTexture('stand_board'));
-        _imBigTree = new Image(g.allData.atlas['cafeAtlas'].getTexture('caffee_tree'));
-        _imRoad = new Image(g.allData.atlas['cafeAtlas'].getTexture('paving_road'));
+        _imDoor = new Image(g.allData.atlas['cafeAtlas'].getTexture('door_1'));
+        _imLeftWindow = new Image(g.allData.atlas['cafeAtlas'].getTexture('window_left'));
+        _imRightWindow = new Image(g.allData.atlas['cafeAtlas'].getTexture('window_right'));
+        _imMenu = new Image(g.allData.atlas['cafeAtlas'].getTexture('board_1'));
+        _imBigTree = new Image(g.allData.atlas['cafeAtlas'].getTexture('tree_1'));
         _imFence1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_1'));
         _imFence2 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_2'));
         _imFence3 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_2'));
         _imFence4 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_4'));
-//        _imFence5 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_5'));
         _imFence6 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_6'));
         _imFence7 = new Image(g.allData.atlas['cafeAtlas'].getTexture('part_7'));
         _imFlowerS1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_1'));
         _imFlowerS2 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_1'));
-//        _imFlowerB1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_2'));
         _imFlowerR1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
-//        _imFlowerR2 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
         _imFlowerR3 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
         _imTable1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('table_cafe_3'));
         MCScaler.scale(_imTable1, _imTable1.height/1.5, _imTable1.width/1.5);
@@ -150,39 +129,13 @@ public class Cafe extends WorldObject {
         _imRightWindow.x = 140;
         _imRightWindow.y = 27;
         _spriteFirst.addChild(_imRightWindow);
+        _imDoor.x = -40;
+        _imDoor.y = 6;
         _spriteFirst.addChild(_imDoor);
 
         _imBigTree.y = -332;
         _imBigTree.x = -75;
         _spriteFirst.addChild(_imBigTree);
-
-        _imLeftTent.x =- 80;
-        _imLeftTent.y = 5;
-        _spriteSecond.addChild(_imLeftTent);
-
-        _imRightTent.x = 146;
-        _imRightTent.y = 35;
-        _spriteSecond.addChild(_imRightTent);
-
-        _imDoorTent.y = 3;
-        _imDoorTent.x = 10;
-        _spriteSecond.addChild(_imDoorTent);
-
-        _imLefttFlower.x = -85;
-        _imLefttFlower.y = 72;
-        _spriteSecond.addChild(_imLefttFlower);
-
-        _imRightFlower.x = 150;
-        _imRightFlower.y = 101;
-        _spriteSecond.addChild(_imRightFlower);
-
-        _imRoad.y = 132;
-        _imRoad.x = -35;
-        _source.addChildAt(_imRoad,0);
-
-        _imBaner.x = -14;
-        _imBaner.y = -150;
-        _spriteSecond.addChild(_imBaner);
 
         _imFence1.x = -172;
         _imFence1.y = 88;
@@ -220,10 +173,6 @@ public class Cafe extends WorldObject {
         _imFlowerR1.y = 165;
         _spriteSecond.addChild(_imFlowerR1);
 
-//        _imFlowerR2.x = 240;
-//        _imFlowerR2.y = 255;
-//        _spriteSecond.addChild(_imFlowerR2);
-
         _imFlowerR3.x = 337;
         _imFlowerR3.y = 114;
         _spriteSecond.addChild(_imFlowerR3);
@@ -231,14 +180,6 @@ public class Cafe extends WorldObject {
         _imFence6.x = 336;
         _imFence6.y = 188;
         _spriteSecond.addChild(_imFence6);
-
-//        _imFence5.x = 338;
-//        _imFence5.y = 212;
-//        _spriteSecond.addChild(_imFence5);
-
-//        _imFlowerB1.x = 379;
-//        _imFlowerB1.y = 179;
-//        _spriteSecond.addChild(_imFlowerB1);
 
         _csprMenu.x = -75;
         _csprMenu.y = 105;
@@ -259,21 +200,21 @@ public class Cafe extends WorldObject {
     }
 
     private function onClickM():void {
-//        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-//        var p:Point = new Point(_source.x, _source.y + 10);
-//        p = _source.parent.localToGlobal(p);
-//        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
-        g.windowsManager.openWindow(WindowsManager.WO_CAFE_RATING, null);
+        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+        var p:Point = new Point(_source.x, _source.y + 10);
+        p = _source.parent.localToGlobal(p);
+        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
+//        g.windowsManager.openWindow(WindowsManager.WO_CAFE_RATING, null);
     }
 
     private function onClickMenu():void {
         _csprMenu.filter = null;
         _isHover = false;
-//        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-//        var p:Point = new Point(_source.x, _source.y + 10);
-//        p = _source.parent.localToGlobal(p);
-//        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
-        g.windowsManager.openWindow(WindowsManager.WO_CAFE, null);
+        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+        var p:Point = new Point(_source.x, _source.y + 10);
+        p = _source.parent.localToGlobal(p);
+        new FlyMessage(p,String(g.managerLanguage.allTexts[1290]));
+//        g.windowsManager.openWindow(WindowsManager.WO_CAFE, null);
     }
 
     private function onHoverMenu():void {

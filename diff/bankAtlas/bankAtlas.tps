@@ -6,12 +6,12 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/selo-client/diff/buildings/buildings.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/bankAtlas/bankAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>0.5</double>
+                <double>1</double>
                 <key>extension</key>
                 <string></string>
                 <key>spriteFilter</key>
@@ -72,7 +72,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>2</uint>
+        <uint>0</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -84,7 +84,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>2</uint>
+        <uint>0</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -147,7 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../assets/x1/buildAtlas.xml</filename>
+                <filename>../../assets/bankAtlas.xml</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -176,7 +176,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -192,19 +192,25 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>cat_shadow.png</filename>
-            <filename>ridge.png</filename>
-            <filename>sklad.png</filename>
-            <filename>ambar_indicator_main.png</filename>
-            <filename>ambar_indicator_top.png</filename>
-            <filename>ambar.png</filename>
-            <filename>bazar.png</filename>
-            <filename>pillar_1.png</filename>
-            <filename>rope.png</filename>
-            <filename>busket_2.png</filename>
-            <filename>pillar_new.png</filename>
-            <filename>building_table_white.png</filename>
-            <filename>newspaper.png</filename>
+            <filename>bank_coins_1.png</filename>
+            <filename>bank_coins_2.png</filename>
+            <filename>bank_coins_3.png</filename>
+            <filename>bank_coins_4.png</filename>
+            <filename>bank_coins_5.png</filename>
+            <filename>bank_coins_6.png</filename>
+            <filename>bank_panel_cell.png</filename>
+            <filename>bank_panel_tab_big.png</filename>
+            <filename>bank_panel_tab_small.png</filename>
+            <filename>bank_rubins_1.png</filename>
+            <filename>bank_rubins_2.png</filename>
+            <filename>bank_rubins_3.png</filename>
+            <filename>bank_rubins_4.png</filename>
+            <filename>bank_rubins_5.png</filename>
+            <filename>bank_rubins_6.png</filename>
+            <filename>best_price_purple_eng.png</filename>
+            <filename>best_price_purple_rus.png</filename>
+            <filename>top_red_eng.png</filename>
+            <filename>top_red_rus.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

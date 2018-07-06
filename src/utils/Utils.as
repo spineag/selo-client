@@ -181,6 +181,7 @@ public class Utils {
         if (oldOb.upInstrumentId2) newOb.upInstrumentId2 = oldOb.upInstrumentId2;
         if (oldOb.upInstrumentId3) newOb.upInstrumentId3 = oldOb.upInstrumentId3;
         if (oldOb.imageActive) newOb.imageActive = oldOb.imageActive;
+        if (oldOb.ratingCount) newOb.ratingCount = oldOb.ratingCount;
         if (oldOb.idResource) {
             newOb.idResource = [];
             for (i=0; i< oldOb.idResource.length; i++) {

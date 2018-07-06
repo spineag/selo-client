@@ -19,6 +19,7 @@ public class StructureDataBuilding {
     private var _buildType:int;
     private var _catNeed:Boolean;
     private var _color:String;
+    private var _ratingCount:int;
     private var _cost:Array;
     private var _currency:Array;
     private var _deltaCost:int;
@@ -265,6 +266,7 @@ public class StructureDataBuilding {
         if (ob.variaty) _variaty = Utils.intArray(String(ob.variaty).split('&'));
         if (ob.visible) _visibleTester = Boolean(int(ob.visible));
         if (ob.color && ob.color != 'default') _color = String(ob.color);
+        if (ob.rating_count) _ratingCount = int(ob.rating_count);
 
         if (ob.group) {
             if (int(ob.group) > 0) {
@@ -288,6 +290,7 @@ public class StructureDataBuilding {
     public function get buildType():int{ return _buildType;}
     public function get catNeed():Boolean{ return _catNeed;}
     public function get color():String{ return _color;}
+    public function get ratingCount():int{ return _ratingCount;}
     public function get cost():Array{ return _cost;}
     public function get currency():Array{ return _currency;}
     public function get deltaCost():int{ return _deltaCost;}

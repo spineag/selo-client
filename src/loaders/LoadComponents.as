@@ -37,8 +37,8 @@ public class LoadComponents {
         g.load.loadXML(st + 'resourceAtlas.xml' + g.getVersion('resourceAtlas'), onLoad);
         g.load.loadImage(st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas'), onLoad);
         g.load.loadXML(st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas'), onLoad);
-        g.load.loadImage(st + 'achievementAtlas.png' + g.getVersion('achievementAtlas'), onLoad);
-        g.load.loadXML(st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas'), onLoad);
+//        g.load.loadImage(st + 'achievementAtlas.png' + g.getVersion('achievementAtlas'), onLoad);
+//        g.load.loadXML(st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas'), onLoad);
 
         g.load.loadImage(st + 'x1/buildAtlas.png' + g.getVersion('buildAtlas'), onLoad);
         g.load.loadXML(st + 'x1/buildAtlas.xml' + g.getVersion('buildAtlas'), onLoad);
@@ -50,14 +50,14 @@ public class LoadComponents {
         g.load.loadXML(st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas'), onLoad);
         g.load.loadImage(st + 'x1/customisationAtlas.png' + g.getVersion('customisation'), onLoad);
         g.load.loadXML(st + 'x1/customisationAtlas.xml' + g.getVersion('customisation'), onLoad);
-        g.load.loadImage(st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder'), onLoad);
-        g.load.loadXML(st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder'), onLoad);
+//        g.load.loadImage(st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder'), onLoad);
+//        g.load.loadXML(st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder'), onLoad);
     }
 
     private function onLoad(smth:*=null):void {
         count++;
         g.startPreloader.setProgress(6 + count);
-        if (count >=24) createAtlases();
+        if (count >=20) createAtlases();
     }
 
     private function createAtlases():void {
@@ -126,12 +126,12 @@ public class LoadComponents {
         g.load.removeByUrl(st + 'x1/customisationAtlas.png' + g.getVersion('customisation'));
         g.load.removeByUrl(st + 'x1/customisationAtlas.xml' + g.getVersion('customisation'));
 
-        g.allData.atlas['achievementAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')].create() as Bitmap), g.pXMLs[st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas')]);
-        (g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')] as PBitmap).deleteIt();
-        delete  g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')];
-        delete  g.pXMLs[st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas')];
-        g.load.removeByUrl(st + 'achievementAtlas.png' + g.getVersion('achievementAtlas'));
-        g.load.removeByUrl(st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas'));
+//        g.allData.atlas['achievementAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')].create() as Bitmap), g.pXMLs[st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas')]);
+//        (g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')] as PBitmap).deleteIt();
+//        delete  g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')];
+//        delete  g.pXMLs[st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas')];
+//        g.load.removeByUrl(st + 'achievementAtlas.png' + g.getVersion('achievementAtlas'));
+//        g.load.removeByUrl(st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas'));
 
         g.allData.atlas['customisationInterfaceAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')].create() as Bitmap), g.pXMLs[st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas')]);
         (g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')] as PBitmap).deleteIt();
@@ -140,12 +140,12 @@ public class LoadComponents {
         g.load.removeByUrl(st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas'));
         g.load.removeByUrl(st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas'));
 
-        g.allData.atlas['customisationOrder'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')].create() as Bitmap), g.pXMLs[st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder')]);
-        (g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')] as PBitmap).deleteIt();
-        delete  g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')];
-        delete  g.pXMLs[st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder')];
-        g.load.removeByUrl(st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder'));
-        g.load.removeByUrl(st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder'));
+//        g.allData.atlas['customisationOrder'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')].create() as Bitmap), g.pXMLs[st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder')]);
+//        (g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')] as PBitmap).deleteIt();
+//        delete  g.pBitmaps[st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder')];
+//        delete  g.pXMLs[st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder')];
+//        g.load.removeByUrl(st + 'x1/customisationOrder.png' + g.getVersion('customisationOrder'));
+//        g.load.removeByUrl(st + 'x1/customisationOrder.xml' + g.getVersion('customisationOrder'));
 
         loadDBAnimations();
     }
@@ -157,17 +157,17 @@ public class LoadComponents {
         g.loadAnimation.load('animations_json/arrow', 'arrow', onLoadDB);
         g.loadAnimation.load('animations_json/chest_interface', 'chest_interface', onLoadDB);
         g.loadAnimation.load('animations_json/cat_order_window', 'order_window', onLoadDB);
-        g.loadAnimation.load('animations_json/plot_seller', 'plot_seller', onLoadDB);
+//        g.loadAnimation.load('animations_json/plot_seller', 'plot_seller', onLoadDB);
         g.loadAnimation.load('animations_json/preloader_2', 'preloader_2', onLoadDB);
         g.loadAnimation.load('animations_json/visit_preloader', 'visit_preloader', onLoadDB);
         g.loadAnimation.load('animations_json/explode_gray_fabric', 'explode_gray_fabric', onLoadDB);
-        g.loadAnimation.load('animations_json/add_coins', 'add_coins', onLoadDB);
+//        g.loadAnimation.load('animations_json/add_coins', 'add_coins', onLoadDB);
     }
 
     private function onLoadDB():void {
         count++;
         g.startPreloader.setProgress(30 + count*2);
-        if (count >=8) {
+        if (count >=6) {
             loadDBX();
         }
     }

@@ -26,6 +26,8 @@ import windows.chestYellowWindow.WOChestYellow;
 import windows.coinsMaxRating.WOCoinsMaxRating;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
+import windows.decorList.WODecorList;
+import windows.decorRating.WODecorRating;
 import windows.fabricaWindow.WOFabricDeleteItem;
 import windows.farmStandRating.WOFarmStandRating;
 import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
@@ -147,6 +149,8 @@ public class WindowsManager {
     public static const WO_BUY_ENERGY:String = 'buy_energy';
     public static const WO_COINS_MAX_RATING:String = 'coins_max_rating';
     public static const WO_FARM_STAND_RATING:String = 'farm_stand_rating';
+    public static const WO_DECOR_RATING:String = 'decor_rating';
+    public static const WO_DECOR_LIST:String = 'decor_list';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -391,6 +395,12 @@ public class WindowsManager {
                 break;
             case WO_FARM_STAND_RATING:
                 wo = new WOFarmStandRating();
+                break;
+            case WO_DECOR_RATING:
+                wo = new WODecorRating();
+                break;
+            case WO_DECOR_LIST:
+                wo = new WODecorList();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

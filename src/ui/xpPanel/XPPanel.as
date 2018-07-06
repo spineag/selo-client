@@ -93,8 +93,9 @@ public class XPPanel {
     }
     
     private function onClick():void {
+//        g.windowsManager.openWindow(WindowsManager.WO_DECOR_LIST);
         if (!g.isDebug) return;
-        //g.user.notif.checkOnNewLevel();
+        g.user.notif.checkOnNewLevel();
         //g.managerOrder.simulate();
     }
 

@@ -103,6 +103,8 @@ public class Decor extends WorldObject{
                     g.managerCutScenes.checkCutSceneCallback();
                 }
                 g.server.addToInventory(_dbBuildingId, null);
+                g.user.decorCount -=_dataBuild.ratingCount;
+                g.server.updateUserDecorCount(null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 var p:Point = new Point(0, 0);
                 p = _source.localToGlobal(p);

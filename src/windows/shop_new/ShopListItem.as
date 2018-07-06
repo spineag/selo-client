@@ -50,6 +50,7 @@ public class ShopListItem {
     private var _additionalCoupones:Sprite;
     private var _txtName:CTextField;
     private var _txtCount:CTextField;
+    private var _txtRatingCount:CTextField;
     private var _txtInfo:CTextField; // available, locked, is max
     private var _data:Object;
     private var _pageNumber:int;
@@ -93,6 +94,12 @@ public class ShopListItem {
         _txtCount.x = 91;
         _txtCount.y = 155;
         _source.addChild(_txtCount);
+        _txtRatingCount = new CTextField(54, 24, '');
+        _txtRatingCount.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txtRatingCount.alignH = HorizontalAlign.RIGHT;
+        _txtRatingCount.x = 91;
+        _txtRatingCount.y = 155;
+        _source.addChild(_txtRatingCount);
         _txtInfo = new CTextField(150, 32, '');
         _txtInfo.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
         _txtInfo.x = 5;
@@ -274,6 +281,7 @@ public class ShopListItem {
                     _isThisItemBlocked = true;
                     if (_hand) _hand.filter = ManagerFilters.getButtonDisableFilter();
                 } else {
+                    _txtRatingCount.text = _data.ratingCount;
                     if (_isFromInventory) {
                         _txtInfo.text = String(g.managerLanguage.allTexts[344]) + ' ' + String(g.userInventory.decorInventory[_data.id].count); 'in inventory'
                         if (decorMax >= arr.length) _costCount = (decorMax * _data.deltaCost) + int(_data.cost);

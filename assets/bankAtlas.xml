@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:e3bfb7e7cd6e4eb9dbd18b55f80516b5:b10ecf6232b9bda5b37e0830c18fbbee:e060690e462da16ed4e36c854b573050$ -->
+<TextureAtlas imagePath="bankAtlas.png" width="1965" height="277">
+    <SubTexture name="bank_coins_1" x="1151" y="162" width="163" height="111"/>
+    <SubTexture name="bank_coins_2" x="1323" y="1" width="151" height="148"/>
+    <SubTexture name="bank_coins_3" x="1476" y="1" width="189" height="147"/>
+    <SubTexture name="bank_coins_4" x="1004" y="1" width="168" height="159"/>
+    <SubTexture name="bank_coins_5" x="239" y="1" width="179" height="174"/>
+    <SubTexture name="bank_coins_6" x="420" y="1" width="211" height="172"/>
+    <SubTexture name="bank_panel_cell" x="1" y="1" width="236" height="239"/>
+    <SubTexture name="bank_panel_tab_big" x="239" y="177" width="361" height="65"/>
+    <SubTexture name="bank_panel_tab_small" x="602" y="175" width="372" height="59"/>
+    <SubTexture name="bank_rubins_1" x="976" y="166" width="173" height="109"/>
+    <SubTexture name="bank_rubins_2" x="1522" y="150" width="186" height="126"/>
+    <SubTexture name="bank_rubins_3" x="1174" y="1" width="147" height="157"/>
+    <SubTexture name="bank_rubins_4" x="826" y="1" width="176" height="163"/>
+    <SubTexture name="bank_rubins_5" x="1323" y="151" width="197" height="119"/>
+    <SubTexture name="bank_rubins_6" x="633" y="1" width="191" height="170"/>
+    <SubTexture name="best_price_purple_eng" x="1667" y="1" width="126" height="126"/>
+    <SubTexture name="best_price_purple_rus" x="1710" y="129" width="126" height="126"/>
+    <SubTexture name="top_red_eng" x="1795" y="1" width="126" height="126"/>
+    <SubTexture name="top_red_rus" x="1838" y="129" width="126" height="126"/>
+</TextureAtlas>

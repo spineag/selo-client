@@ -40,6 +40,21 @@ public class UserInventory {
         st.sfilter = 0;
     }
 
+    public function getArraDecorInventory():Array {
+        var obj:Object;
+        var ob:Object;
+        var id:String;
+        var arr:Array = [];
+        obj = _decorInventory;
+        for (id in obj) {
+            ob = {};
+            ob.id = int(id);
+            ob.count = obj[id].count;
+                arr.push(ob);
+            }
+        return arr;
+    }
+
     public function removeFromDecorInventory(id:int, updateInventory:Boolean = true):int {
         var dbId:int = 0;
         if (_decorInventory[id]) {

@@ -824,6 +824,7 @@ public class DirectServer {
             g.user.cafeEnergyTime = int (ob.cafe_time_energy);
             g.user.coinsMax = int (ob.coins_max);
             g.user.countStand = int (ob.count_stand);
+            g.user.decorCount = int (ob.decor_count);
             if (ob.announcement) g.user.announcement = Boolean(ob.announcement == '1');
             if (ob.next_time_invite) g.user.nextTimeInvite = int(ob.next_time_invite);
             if (!g.isDebug) {
@@ -10068,9 +10069,9 @@ public class DirectServer {
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
-        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCoinsMax);
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserCountStand);
         loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserCountStand'); });
-        function onCompleteUpdateUserCoinsMax(e:Event):void { completeUpdateUserCoinsMax(e.target.data, callback); }
+        function onCompleteUpdateUserCountStand(e:Event):void { completeUpdateUserCountStand(e.target.data, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -10245,79 +10246,6 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
             Cc.error('getUserFarmStandRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
-            if (callback != null) {
-                callback.apply(null);
-            }
-        }
-    }
-
-    public function getUserCountStand(callback:Function):void {
-        var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_COUNT_STAND_RATING);
-        var variables:URLVariables = new URLVariables();
-
-        Cc.ch('server', 'getUserCountStand', 1);
-        variables = addDefault(variables);
-        variables.userId = g.user.userId;
-        request.data = variables;
-        request.method = URLRequestMethod.POST;
-        iconMouse.startConnect();
-        loader.addEventListener(Event.COMPLETE, onCompleteGetUserCountStand);
-        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserCountStand'); });
-        function onCompleteGetUserCountStand(e:Event):void { completeGetUserCountStand(e.target.data, callback); }
-        try {
-            loader.load(request);
-        } catch (error:Error) {
-            Cc.error('getUserCountStand error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
-        }
-    }
-
-    private function completeGetUserCountStand(response:String, callback:Function = null):void {
-        iconMouse.endConnect();
-        var d:Object;
-        var ob:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('getUserCountStand: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserCountStand: wrong JSON:' + String(response));
-            if (callback != null) {
-                callback.apply(null);
-            }
-            return;
-        }
-        g.managerFarmStandCoinsMaxRating.arrFarmStadRating = [];
-        for (var i:int = 0; i < d.message.length; i++) {
-            if (d.message[i].user_rating) {
-                g.managerFarmStandCoinsMaxRating.playerCountStandRatingPosition = int(d.message[i].user_rating);
-            }
-            else {
-                ob = {};
-                ob.userId = int(d.message[i].user_id);
-                ob.userSocialId = String(d.message[i].social_id);
-                ob.count = int(d.message[i].count_stand);
-                ob.photo = d.message[i].photo_url;
-                ob.name = String(d.message[i].name);
-                ob.level = int(d.message[i].level);
-                g.managerFarmStandCoinsMaxRating.arrFarmStadRating.push(ob);
-                if (d.message[i].user_id == g.user.userId) {
-                    g.managerFarmStandCoinsMaxRating.playerCountStandRatingPosition = i + 1;
-                }
-            }
-        }
-        if (d.id == 0) {
-            Cc.ch('server', 'getUserCountStand OK', 5);
-            if (callback != null) {
-                callback.apply(null);
-            }
-        } else if (d.id == 13) {
-            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else {
-            Cc.error('getUserCountStand: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
             if (callback != null) {
@@ -10501,6 +10429,219 @@ public class DirectServer {
 //            if (callback != null) {
 //                callback.apply(null);
 //            }
+        }
+    }
+
+    public function getUserDecorRating(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_DECOR_RATING);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserDecorRating', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserDecorRating);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserFarmStandRating'); });
+        function onCompleteGetUserDecorRating(e:Event):void { completeGetUserDecorRating(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserDecorRating error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetUserDecorRating(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var ob:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserDecorRating: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserDecorRating: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+        g.managerDecorRating.arrDecorRating = [];
+        for (var i:int = 0; i < d.message.length; i++) {
+            if (d.message[i].user_rating) {
+                g.managerDecorRating.playerPosition = int(d.message[i].user_rating);
+            }
+            else {
+                ob = {};
+                ob.userId = int(d.message[i].user_id);
+                ob.userSocialId = String(d.message[i].social_id);
+                ob.count = int(d.message[i].c);
+                ob.photo = d.message[i].photo_url;
+                ob.name = String(d.message[i].name);
+                ob.level = int(d.message[i].level);
+                g.managerDecorRating.arrDecorRating.push(ob);
+                if (d.message[i].user_id == g.user.userId) {
+                    g.managerDecorRating.playerPosition  = i + 1;
+                }
+            }
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserDecorRating OK', 5);
+            if (callback != null) {
+                callback.apply(null,[true]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserDecorRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+        }
+    }
+
+    public function getUserDecorFriendRating(arrClientUser:Array, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_DECOR_RATING_FRIEND);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserDecorFriendRating', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.arrClientUser = arrClientUser.join('&');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserDecorFriendRating);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserDecorFriendRating'); });
+        function onCompleteGetUserDecorFriendRating(e:Event):void { completeGetUserDecorFriendRating(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserDecorFriendRating error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetUserDecorFriendRating(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var ob:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserDecorFriendRating: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserDecorFriendRating: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null);
+            }
+            return;
+        }
+        g.managerDecorRating.arrFriendDecorRating = [];
+        if (d.message > 0) {
+            for (var i:int = 0; i < d.message.length; i++) {
+                if (g.user.userId == int(d.message[i].user_id)) {
+                    ob = {};
+                    ob.userId = g.user.userId;
+                    ob.name = g.user.name;
+                    ob.lastName = g.user.lastName;
+                    ob.level = g.user.level;
+                    ob.photo = g.user.photo;
+                    ob.userSocialId = g.user.userSocialId;
+                    ob.count = int(d.message[i].count_stand);
+                    ob.number = int(d.message[i].number);
+                    g.managerDecorRating.arrFriendDecorRating.push(ob);
+                } else {
+                    for (var j:int = 0; j < g.user.arrFriends.length; j++) {
+                        if (g.user.arrFriends[j].userId == int(d.message[i].user_id)) {
+                            ob = {};
+                            ob.userId = int(d.message[i].user_id);
+                            ob.name = g.user.arrFriends[j].name;
+                            ob.lastName = g.user.arrFriends[j].lastName;
+                            ob.level = g.user.arrFriends[j].level;
+                            ob.photo = g.user.arrFriends[j].photo;
+                            ob.userSocialId = g.user.arrFriends[j].userSocialId;
+                            ob.count = int(d.message[i].count_stand);
+                            ob.number = int(d.message[i].number);
+                            g.managerDecorRating.arrFriendDecorRating.push(ob);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserDecorFriendRating OK', 5);
+//            if (callback != null) {
+//                callback.apply(null, [true]);
+//            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('getUserDecorFriendRating: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userBuildingFlip: wrong JSON:' + String(response));
+//            if (callback != null) {
+//                callback.apply(null);
+//            }
+        }
+    }
+
+    public function updateUserDecorCount(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_UPDATE_DECOR_COUNT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserDecorCount', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.decorCount = g.user.decorCount;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserDecorCount);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserDecorCount'); });
+        function onCompleteUpdateUserDecorCount(e:Event):void { completeUpdateUserDecorCount(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserCountStand error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserDecorCount(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserDecorCount: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserDecorCount: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserDecorCount OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserDecorCount: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/quests/questAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/selo-client/diff/quests/questAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -192,9 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>quest_window_1.png</filename>
-            <filename>quest_window_2.png</filename>
-            <filename>quest_window_back.png</filename>
             <filename>end_quest.png</filename>
         </array>
         <key>ignoreFileList</key>
