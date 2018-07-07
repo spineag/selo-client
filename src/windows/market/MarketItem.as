@@ -349,6 +349,7 @@ public class MarketItem {
 
     private function onClick():void {
 //        if (g.managerCutScenes.isCutScene) return;
+        if (!_person || !_person.userSocialId) return;
         if (_closeCell) return;
         if (g.tuts.isTuts) {
             if (!_data || !g.tuts.isTutsResource(_data.id)) return;
