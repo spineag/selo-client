@@ -355,17 +355,17 @@ public class Fabrica extends WorldObject {
         }
     }
 
-    public function onRecipeFromServer(resItem:ResourceItem, dataRecipe:Object, timeInWork:int, delayTime:int, staticDelayTime:int):void {
+    public function onRecipeFromServer(resItem:ResourceItem, dataRecipe:Object, timeInWork:int, delayTime:int, initRecipeDelayTime:int):void {
         resItem.leftTime -= timeInWork;
-        resItem.delayTime = delayTime;
-        resItem.staticDelayTime = staticDelayTime;
+        resItem.currentDelayTime = delayTime;
+        resItem.initRecipeDelayTime = initRecipeDelayTime;
         resItem.currentRecipeID = dataRecipe.id;
         _arrList.push(resItem);
     }
 
     public function onLoadFromServer():void {
         if (!_arrList.length) return;
-        _arrList.sortOn('delayTime', Array.NUMERIC);
+        _arrList.sortOn(['currentDelayTime', 'initRecipeDelayTime'], Array.NUMERIC);
         g.gameDispatcher.addToTimer(render);
         if (_armature) workAloneAnimation();
     }
@@ -377,10 +377,11 @@ public class Fabrica extends WorldObject {
         if (!_arrList.length) g.gameDispatcher.addToTimer(render);
         else {
             for (i = 0; i < _arrList.length; i++) { // delay before start make this new recipe
-                delay += (_arrList[i] as ResourceItem).buildTime;
+                if (i) delay += (_arrList[i] as ResourceItem).buildTime;
+                else delay += (_arrList[0] as ResourceItem).leftTime;
             }
         }
-        resItem.staticDelayTime = delay;
+        resItem.initRecipeDelayTime = delay;
         _arrList.push(resItem);
         var f1:Function = function(t:String):void {  resItem.idFromServer = t;  };
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
@@ -419,8 +420,8 @@ public class Fabrica extends WorldObject {
             g.gameDispatcher.removeFromTimer(render);
             return;
         }
-        _arrList[0].leftTime--;
-        if (_arrList[0].leftTime <= 0) {
+        (_arrList[0] as ResourceItem).leftTime--;
+        if ((_arrList[0] as ResourceItem).leftTime <= 0) {
             craftResource(_arrList.shift());
             if (!_arrList.length) {
                 stopAnimation();

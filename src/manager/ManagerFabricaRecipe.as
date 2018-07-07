@@ -48,7 +48,7 @@ public class ManagerFabricaRecipe {
         resItem.fillIt(g.allData.getResourceById(r.idResource));
         resItem.idFromServer = String(ob.id);
 
-            //        $res['delay'] = $dict['delay_time']; <-- on server
+            //        $res['delay'] = $dict['delay_time'];                 <-- on server
             //        $res['time_work'] = time() - $dict['time_start'];
             //        $res['time_start'] = $dict['time_start'];
         if (int(ob.delay) > int(ob.time_work)) { // is waiting for work

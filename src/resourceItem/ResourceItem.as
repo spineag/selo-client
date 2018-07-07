@@ -14,7 +14,6 @@ public class ResourceItem {
     private var _imageShop:String;
     private var _currency:int;
     private var _costMax:int;
-    private var _costMin:int;
     private var _priceHard:int; 
     private var _priceSkipHard:int;
     private var _blockByLevel:int;
@@ -22,8 +21,8 @@ public class ResourceItem {
     private var _buildType:int;
     public var craftXP:int;
     public var leftTime:int;
-    public var delayTime:int;
-    public var staticDelayTime:int;
+    public var currentDelayTime:int;
+    public var initRecipeDelayTime:int;
     public var currentRecipeID:int;
     public var placeBuild:int;
     public var idFromServer:String; // в табличке user_recipe_fabrica
@@ -47,8 +46,8 @@ public class ResourceItem {
         dataResource.placeBuild ? placeBuild = dataResource.placeBuild : BuildType.PLACE_NONE;
         leftTime = _buildTime;
         currentRecipeID= 0;
-        delayTime = 0;
-        staticDelayTime = 0;
+        currentDelayTime = 0;
+        initRecipeDelayTime = 0;
     }
 
     public function get resourceID():int { return _id}
