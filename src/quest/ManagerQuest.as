@@ -120,6 +120,7 @@ public class ManagerQuest {
     }
 
     private function addQuests(d:Object, isNew:Boolean):void {
+        if (!d.quests) return;
         if (d.quests.length) {
             var q:QuestStructure;
             var i:int;
@@ -143,6 +144,7 @@ public class ManagerQuest {
                 }
                 q = new QuestStructure();
                 q.fillIt(d.quests[i]);
+                if (!q.questData) return;
                 q.isNew = isNew;
                 if (q.questCatId == 0) {
                     _userQuests.push(q);
@@ -202,7 +204,8 @@ public class ManagerQuest {
 
     private function checkForEmptyQuests():void {
         for (var i:int=0; i<_userQuests.length; i++) {
-            if (_userQuests[i] && !(_userQuests[i] as QuestStructure).tasks.length) {
+            if (_userQuests[i] && (_userQuests[i] as QuestStructure).questData && 
+                    (_userQuests[i] as QuestStructure).tasks && !(_userQuests[i] as QuestStructure).tasks.length) {
                 Cc.error('ManagerQuest:: no tasks for questID: ' + (_userQuests[i] as QuestStructure).id);
                 _userQuests.removeAt(i);
                 i--;

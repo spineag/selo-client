@@ -27,17 +27,22 @@ public class QuestStructure {
     }
 
     public function fillIt(ob:Object):void {
-        _questUserDbId = ob.id;
+        _questUserDbId = String(ob.id);
         _questData = ob.quest_data; // date_finish, date_start, description, icon_quest, id, level, only_testers, prev_quest_id, use_it, name
-        _isGetAward = Boolean(ob.get_award == '1');
-        _questCatId = int(ob.quest_data.cat_id);
-        _isDone = Boolean(ob.is_done == '1');
-        _questId = int(ob.quest_id);
+        if (_questData) {
+            _isGetAward = Boolean(ob.get_award == '1');
+            _questCatId = int(ob.quest_data.cat_id);
+            _isDone = Boolean(ob.is_done == '1');
+            _questId = int(ob.quest_id);
+        } else {
+            Cc.error('no quest data for questId: ' + ob.quest_id);
+        }
     }
 
     public function get questId():int { return _questId; }
     public function get questCatId():int { return _questCatId; }
     public function get awards():Array { return _awards; }
+    public function get questData():Object { return _questData; }
     public function get tasks():Array { return _tasks; }
     public function get isDone():Boolean { return _isDone; }
     public function set isDone(v:Boolean):void { _isDone = v; }

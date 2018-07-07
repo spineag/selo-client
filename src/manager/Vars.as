@@ -389,6 +389,7 @@ public class Vars {
     }
 
     private function afterLoadAll():void {
+        Cc.info('afterLoadAll');
         cont.onLoadAll();
         startPreloader.setProgress(100);
         soundManager.managerMusic(true);
@@ -431,12 +432,14 @@ public class Vars {
     }
 
     private function afterLoadAll_2():void {
+        Cc.info('afterLoadAll_2');
         townArea.zSort();
         townArea.decorTailSort();
         gameDispatcher.addNextFrameFunction(afterLoadAll_3);
     }
 
     private function afterLoadAll_3():void {
+        Cc.info('afterLoadAll_3');
         townArea.sortAtLockedLands();
         managerOrder.checkForFullOrder();
         if ((user as User).level >= allData.getBuildingById(45).blockByLevel[0]) managerDailyBonus.generateDailyBonusItems();
@@ -455,6 +458,7 @@ public class Vars {
     }
 
     private function afterLoadAll_4():void {
+        Cc.info('afterLoadAll_4');
         (user as User).notif.onGameLoad();
         if (tuts.isTuts) {
             if ((user as User).tutorialStep > 1) {
