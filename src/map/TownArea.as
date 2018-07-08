@@ -967,7 +967,7 @@ public class TownArea extends Sprite {
                 g.tuts.addTutsWorldObject(worldObject);
                 g.tuts.checkTutsCallback();
             } else if (worldObject is Ridge && g.tuts.action == TutsAction.NEW_RIDGE) {
-                g.tuts.addTutsWorldObject(worldObject);
+                //g.tuts.addTutsWorldObject(worldObject);
                 g.tuts.checkTutsCallback();
             } else if (worldObject is Farm && g.tuts.action == TutsAction.PUT_FARM) {
                 g.tuts.addTutsWorldObject(worldObject);

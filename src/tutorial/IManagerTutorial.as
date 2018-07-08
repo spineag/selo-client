@@ -30,6 +30,7 @@ public class IManagerTutorial {
     protected var _onShowWindowCallback:Function;
     protected var _arrow:SimpleArrow;
     protected var _cat:HeroCat;
+    protected var _tutorialPlaceBuilding:TutorialPlace;
 
     public function IManagerTutorial() {
         _tutorialObjects = [];
@@ -59,7 +60,7 @@ public class IManagerTutorial {
     public function checkDefaults():void {}
     public function onResize():void {}
     public function isTutsBuilding(wo:WorldObject):Boolean { return _tutorialObjects.indexOf(wo) > -1; }
-    public function addTutsWorldObject(w:WorldObject):void {_tutorialObjects.push(w); }
+    public function addTutsWorldObject(w:WorldObject):void { _tutorialObjects.push(w); }
     protected function emptyFunction(...params):void {}
     protected function clearAll():void { }
 
