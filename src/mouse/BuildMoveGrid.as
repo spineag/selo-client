@@ -67,9 +67,7 @@ public class BuildMoveGrid {
         _townMatrix = null;
     }
 
-    public function get isFree():Boolean {
-        return _isFree;
-    }
+    public function get isFree():Boolean { return _isFree;  }
 
     public function checkIt(gX:int, gY:int):void {
         _isFree = true;

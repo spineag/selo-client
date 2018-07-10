@@ -55,9 +55,8 @@ public class SN_OK extends SocialNetwork {
         return result;
     }
 
-    override public function get urlApp():String {
-        return "https://ok.ru/game/1266692864";
-    }
+    override public function get urlApp():String { return "https://ok.ru/game/1266692864"; }
+    public function checkGameHeight():void { ExternalInterface.call("checkGameHeight"); }
 
     override public function getProfile(uid:String):void {
         super.getProfile(uid);

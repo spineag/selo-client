@@ -20,6 +20,9 @@ import map.MatrixGrid;
 
 import mouse.ToolsModifier;
 
+import social.SocialNetworkSwitch;
+import social.ok.SN_OK;
+
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.core.Starling;
@@ -205,16 +208,16 @@ public class OptionPanel {
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.toolsModifier.cancelMove();
-                    try {
-                        var func:Function = function(e:flash.events.Event):void {
-                            Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
-                            makeFullScreen();
-                            _contFullScreen.filter = null;
-                        };
-                        Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
-                    } catch (e:Error) {
-                        Cc.ch('screen', 'Error:: Trouble with fullscreen: ' + e.message);
-                    }
+                try {
+                    var func:Function = function(e:flash.events.Event):void {
+                        Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
+                        makeFullScreen();
+                        _contFullScreen.filter = null;
+                    };
+                    Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
+                } catch (e:Error) {
+                    Cc.ch('screen', 'Error:: Trouble with fullscreen: ' + e.message);
+                }
                 break;
             case 'scale_plus':
                 if (g.tuts.isTuts) return;

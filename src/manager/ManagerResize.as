@@ -8,6 +8,10 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
+
+import social.SocialNetwork;
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.display.Sprite;
 import starling.events.Event;
