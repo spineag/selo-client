@@ -33,19 +33,13 @@ public class BuildMoveGrid {
         var p:Point;
         var tile:BuildMoveGridTile;
         _matrix = [];
-        for (var i:int = 0; i < W + 4; i++) {
+        for (var i:int = 0; i < W; i++) {
             _matrix.push([]);
-            for (var j:int = 0; j < H + 4; j++) {
+            for (var j:int = 0; j < H; j++) {
                 tile = new BuildMoveGridTile(i, j);
                 _matrix[i][j] = tile;
-                if (i == 0 || j == 0 || i == W + 3 || j == H + 3) {
-                    tile.setType(BuildMoveGridTile.TYPE_BORDER_OUT);
-                } else if (i == 1 || j == 1 || i == W + 2 || j == H + 2) {
-                    tile.setType(BuildMoveGridTile.TYPE_BORDER);
-                } else {
-                    tile.setType(BuildMoveGridTile.TYPE_IN);
-                }
-                p = g.matrixGrid.getXYFromIndex(new Point(i-2, j-2));
+                tile.setType(BuildMoveGridTile.TYPE_IN);
+                p = g.matrixGrid.getXYFromIndex(new Point(i, j));
                 tile.source.x = p.x;
                 tile.source.y = p.y;
                 _source.addChild(tile.source);
@@ -56,9 +50,8 @@ public class BuildMoveGrid {
     public function clearIt():void {
         _parent.removeChild(_source);
         while (_source.numChildren) _source.removeChildAt(0);
-        for (var i:int = 0; i < W + 4; i++) {
-            for (var j:int = 0; j < H + 4; j++) {
-//                _source.removeChild(_matrix[i][j].source);
+        for (var i:int = 0; i < W ; i++) {
+            for (var j:int = 0; j < H; j++) {
                 _matrix[i][j].clearIt();
             }
         }
@@ -71,9 +64,9 @@ public class BuildMoveGrid {
 
     public function checkIt(gX:int, gY:int):void {
         _isFree = true;
-        for (var i:int = 0; i < W + 4; i++) {
-            for (var j:int = 0; j < H + 4; j++) {
-                if (checkFreeGrid(gX - 2 + i, gY - 2 + j)) {
+        for (var i:int = 0; i < W; i++) {
+            for (var j:int = 0; j < H; j++) {
+                if (checkFreeGrid(gX + i, gY + j)) {
                     _matrix[i][j].setFree(true);
                 } else {
                     _matrix[i][j].setFree(false);
