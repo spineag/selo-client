@@ -74,6 +74,7 @@ public class WOMarket  extends WindowMain {
     private var _ramkaIm:Image;
     private var _imBabbleCutScene:Image;
     private var _txtBabbleCutScene:CTextField;
+    private var _btnRating:CButton;
 
     public function WOMarket() {
         super();
@@ -186,7 +187,20 @@ public class WOMarket  extends WindowMain {
         _sprLeftFr.endClickCallback = function():void {
             onChooseFriendOnPanel(_arrFriends[_shiftFriend], _shiftFriend);
         };
-        _source.addChild(_sprRightFr)
+        _source.addChild(_sprRightFr);
+        _btnRating = new CButton();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rating_icon'));
+        _btnRating.addChild(im);
+        _source.addChild(_btnRating);
+        _btnRating.x = _woWidth/2 - 64;
+        _btnRating.y = - 25;
+        _btnRating.clickCallback = ratingClick;
+    }
+
+    private function ratingClick():void {
+        g.windowsManager.cashWindow = this;
+        hideIt();
+        g.windowsManager.openWindow(WindowsManager.WO_FARM_STAND_RATING);
     }
 
     private function fillFriends(e:SocialNetworkEvent=null):void {

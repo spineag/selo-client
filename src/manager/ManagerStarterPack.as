@@ -12,7 +12,7 @@ public class ManagerStarterPack {
     public function ManagerStarterPack() {
         _bolCanSalePack = true;
         _countSeconds = 0;
-        if (g.user.level >= 7 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) startIt();
+        if (g.user.level >= 5 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) startIt();
     }
 
     public function onUserAction():void {
@@ -22,7 +22,7 @@ public class ManagerStarterPack {
         }
     }
 
-    private function startIt():void {
+    public function startIt():void {
         if (_bolCanSalePack) {
             _countSeconds = 0;
             g.gameDispatcher.addToTimer(onTimer);
@@ -31,11 +31,11 @@ public class ManagerStarterPack {
 
     private function onTimer():void {
         _countSeconds++;
-        if (_countSeconds >= 30 && g.user.level >= 7 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) {
+        if (_countSeconds >= 15 && g.user.level >= 5 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) {
             _countSeconds = 0;
             _bolCanSalePack = true;
             g.afterServerStarterPack(true);
-            g.userTimer.starterToEnd(604800, true);
+            g.userTimer.starterToEnd(259200, true);
             g.server.updateTimeStarterPack(1);
             g.windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
         }

@@ -8,6 +8,9 @@ import data.DataMoney;
 import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Point;
+
+import loaders.PBitmap;
+
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
 import resourceItem.newDrop.DropObject;
@@ -18,6 +21,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.textures.Texture;
+import starling.textures.TextureAtlas;
 import starling.utils.Align;
 import starling.utils.Color;
 import utils.CButton;
@@ -42,6 +46,7 @@ public class WOStarterPack extends WindowMain{
     private var _imLabel:Image;
     private var _txtTime:CTextField;
     private var _txtTimeLeft:CTextField;
+    private var _count:int = 0;
 
     public function WOStarterPack() {
         super();
@@ -53,11 +58,37 @@ public class WOStarterPack extends WindowMain{
         _woWidth = 610;
         _windowType = WindowsManager.WO_STARTER_PACK;
         g.server.getStarterPack(callbackServer);
+        atlasLoad();
     }
 
+    public function atlasLoad():void {
+        if (!g.allData.atlas['bankAtlas']) {
+            g.load.loadImage(g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas'), onLoadAtlas);
+            g.load.loadXML(g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas'), onLoadAtlas);
+        } else createAtlases();
+    }
+
+    private function onLoadAtlas(smth:*=null):void {
+        _count++;
+        if (_count >=2) createAtlases();
+    }
+
+    private function createAtlases():void {
+        if (!g.allData.atlas['bankAtlas']) {
+            if (g.pBitmaps[g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas')] && g.pXMLs[g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas')]) {
+                g.allData.atlas['bankAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas')]);
+                (g.pBitmaps[g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas')] as PBitmap).deleteIt();
+
+                delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas')];
+                delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas')];
+                g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'bankAtlas.png' + g.getVersion('bankAtlas'));
+                g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'bankAtlas.xml' + g.getVersion('bankAtlas'));
+            }
+        }
+    }
     private function onLoad(bitmap:Bitmap):void {
         if (!_source) return;
-            bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/starter_pack_window.png'].create() as Bitmap;
+            bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/starter_pack_window_2.png'].create() as Bitmap;
         try {
             photoFromTexture(Texture.fromBitmap(bitmap));
         } catch(e:Error) {
@@ -71,7 +102,8 @@ public class WOStarterPack extends WindowMain{
         image.pivotX = image.width/2;
         image.pivotY = image.height/2;
         _source.addChildAt(image,0);
-        createWindow();
+        if (!g.allData.atlas['bankAtlas']) g.gameDispatcher.addEnterFrame(createWindow);
+        else createWindow();
     }
 
     private function onLoadLabel(bitmap:Bitmap):void {
@@ -95,11 +127,13 @@ public class WOStarterPack extends WindowMain{
 
     private function callbackServer(ob:Object):void {
         _data = ob;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/starter_pack_window.png', onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/starter_pack_window_2.png', onLoad);
         g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sale_lable.png', onLoadLabel);
     }
 
     private function createWindow():void {
+        if (!g.allData.atlas['bankAtlas']) return;
+        else g.gameDispatcher.removeEnterFrame(createWindow);
         var txt:CTextField;
         var im:Image;
         if (g.user.language == ManagerLanguage.RUSSIAN) {
@@ -118,22 +152,59 @@ public class WOStarterPack extends WindowMain{
             _source.addChild(_txtName);
         }
 
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_rubins_1'));
-        im.x = -220;
-        im.y = -75;
+        im = new Image(g.allData.atlas['bankAtlas'].getTexture('bank_rubins_1'));
+        MCScaler.scale(im, im.height-20, im.width-20);
+        im.x = -60;
+        im.y = -55;
         _source.addChild(im);
-        txt = new CTextField(220, 90, String(_data.hard_count) + ' ' + String(g.managerLanguage.allTexts[326]));
-        txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt = new CTextField(220, 90, String(_data.hard_count));
+        txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;
-        txt.x = -135 - txt.textBounds.width/2 ;
+        txt.x = - txt.textBounds.width/2 + 10;
         txt.y = -5;
         _source.addChild(txt);
         _arrCTex.push(txt);
 
-        txt = new CTextField(220, 90, String(_data.object_count) + ' ' + String(g.managerLanguage.allTexts[327]));
+        txt = new CTextField(220, 90, String(g.managerLanguage.allTexts[326]));
         txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        txt.x = 18;
+        txt.alignH = Align.LEFT;
+        txt.x =  -txt.textBounds.width/2 + 10;
+        txt.y = -125;
+        _source.addChild(txt);
+        _arrCTex.push(txt);
+
+        im = new Image(g.allData.atlas['bankAtlas'].getTexture('bank_coins_2'));
+        MCScaler.scale(im, im.height-50, im.width-50);
+        im.x = -236;
+        im.y = -65;
+        _source.addChild(im);
+        txt = new CTextField(220, 90, String(_data.soft_count));
+        txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_COLOR);
+        txt.alignH = Align.LEFT;
+        txt.x = -190 - txt.textBounds.width/2 ;
         txt.y = -5;
+        _source.addChild(txt);
+        _arrCTex.push(txt);
+
+        txt = new CTextField(220, 90, String(g.managerLanguage.allTexts[325]));
+        txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt.alignH = Align.LEFT;
+        txt.x = -190 - txt.textBounds.width/2 ;
+        txt.y = -125;
+        _source.addChild(txt);
+        _arrCTex.push(txt);
+
+        txt = new CTextField(220, 90, String(_data.object_count));
+        txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_COLOR);
+        txt.x = 94;
+        txt.y = -5;
+        _source.addChild(txt);
+        _arrCTex.push(txt);
+
+        txt = new CTextField(220, 90, String(g.managerLanguage.allTexts[327]));
+        txt.setFormat(CTextField.BOLD30, 28,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt.x = 94;
+        txt.y = -125;
         _source.addChild(txt);
         _arrCTex.push(txt);
 
@@ -150,7 +221,7 @@ public class WOStarterPack extends WindowMain{
             _decorSpr.addChild(im);
         }
         MCScaler.scale(im,105,105);
-        im.x = 85;
+        im.x = 160;
         im.y = -65;
 
 
@@ -308,6 +379,7 @@ public class WOStarterPack extends WindowMain{
         p = _source.localToGlobal(p);
         var d:DropObject = new DropObject();
         d.addDropMoney(DataMoney.HARD_CURRENCY, _data.hard_count, p);
+        d.addDropMoney(DataMoney.SOFT_CURRENCY, _data.soft_count, p);
         if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT)
             d.addDropItemNewByResourceId(_data.object_id, p, _data.object_count);
         else if (_data.object_type == BuildType.DECOR_ANIMATION || _data.object_type == BuildType.DECOR)

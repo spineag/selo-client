@@ -142,7 +142,7 @@ public class CraftItem {
             _callback.apply(null, [_resourceItem, this]);
         }
         var i:int = 0;
-        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT) {
+        if (g.managerParty && g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_RESOURCE_WIN_GIFT) {
             for (i = 0; i < g.managerParty.idItemEvent.length; i++) {
                 if (g.managerParty.idItemEvent[i] == _resourceItem.resourceID) {
                     g.managerParty.addUserPartyCount(1);

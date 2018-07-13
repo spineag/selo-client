@@ -501,7 +501,7 @@ public class Ridge extends WorldObject{
         super.clearIt();
     }
 
-    private function callbackSkip():void {
+    public function callbackSkip():void {
         _source.filter = null;
         _isOnHover = false;
         _plant.checkStateRidge(false);

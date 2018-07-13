@@ -68,6 +68,11 @@ import ui.achievementPanel.AchievementPanel;
 import ui.bottomInterface.MainBottomPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
+
+import user.UserAnalytics;
+
+import utils.Utils;
+
 //import ui.miniParty.MiniPartyPanel;
 
 import ui.party.PartyPanel;
@@ -95,8 +100,8 @@ import dragonBones.animation.WorldClock;
 //148.251.121.199
 public class Vars {
     private static var _instance:Vars;
-    public const HARD_IN_SOFT_FB:int = 5; // 1 хард стоит 5 софт
-    public const HARD_IN_SOFT_OK:int = 5; // 1 хард стоит 5 софт
+    public const HARD_IN_SOFT_FB:Number = 9.87; // 1 хард стоит 5 софт
+    public const HARD_IN_SOFT_OK:Number = 9.87; // 1 хард стоит 5 софт
     public const HARD_IN_SOFT_VK:int = 20; // 1 хард стоит 20 софт
 
     public var starling:Starling;
@@ -217,6 +222,7 @@ public class Vars {
     public var userInventory:UserInventory;
     public var userValidates:UserValidateResources;
     public var userTimer:UserTimer;
+    public var userAnalytics:UserAnalytics;
     public var managerDropResources:ManagerDropBonusResource;
     public var managerLohmatic:ManagerLohmatik;
     public var managerBuyerNyashuk:ManagerBuyerNyashuk;
@@ -385,6 +391,7 @@ public class Vars {
         managerCafe = new ManagerCafe();
         managerMiniParty = new ManagerMiniParty();
         optionPanel = new OptionPanel();
+        userAnalytics = new UserAnalytics();
         (server as DirectServer).getDataParty(afterLoadAll);
     }
 
@@ -479,8 +486,15 @@ public class Vars {
                 if ((user as User).salePack) {
                     if (managerSalePack.userSale.typeSale == 1) windowsManager.openWindow(WindowsManager.WO_SALE_PACK_RUBIES, null, true);
                     else if (managerSalePack.userSale.typeSale == 2) windowsManager.openWindow(WindowsManager.WO_SALE_PACK_INSTRUMENTS, null, false);
-                    else windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
-                } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene && userTimer.starterTimerToEnd > 0) {
+                    else if (managerSalePack.userSale.typeSale == 3) windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
+                    else if (managerSalePack.userSale.typeSale == 4) {
+                        var f1:Function = function ():void {
+                            windowsManager.openWindow(WindowsManager.WO_THREE_ONE, null, false);
+                        };
+                       Utils.createDelay(6,f1);
+                    }
+                    if (((user as User).level >= 5) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene && userTimer.starterTimerToEnd > 0) afterServerStarterPack(true);
+                } else if (((user as User).level >= 5) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene && userTimer.starterTimerToEnd > 0) {
                     afterServerStarterPack(true);
                     windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
                } else {

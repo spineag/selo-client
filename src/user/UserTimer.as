@@ -172,11 +172,11 @@ public class UserTimer {
             g.gameDispatcher.addToTimer(starterTimerToEndF);
         } else {
             starterTimerToEnd = TimeUtils.currentSeconds - time;
-            if (starterTimerToEnd >= 604800) {
+            if (starterTimerToEnd >= 259200) {
                 starterTimerToEnd = 0;
                 return;
             }
-            else starterTimerToEnd = 604800 - (TimeUtils.currentSeconds - time);
+            else starterTimerToEnd = 259200 - (TimeUtils.currentSeconds - time);
             g.gameDispatcher.addToTimer(starterTimerToEndF);
         }
     }

@@ -1083,6 +1083,10 @@ public class TutorialManager extends IManagerTutorial{
         if (_tutorialObjects[1]) (_tutorialObjects[1] as BuyerNyashuk).removeArrow();
         _cat.hideBubble();
         _tutorialCallback = subStep18_4;
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+        for (var i:int = 0; i < arr.length; i++) {
+            if (arr[i].stateRidge != 5) arr[i].callbackSkip();
+        }
     }
 
     private function subStep18_4():void {

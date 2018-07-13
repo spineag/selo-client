@@ -80,6 +80,11 @@ public class WildHint {
         if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         if (_isShowed) return;
         _id = idResourceForRemoving;
+        if (_buildType != BuildType.TREE && g.userInventory.getCountResourceById(_id) <= 0){
+            g.managerSalePack.checkForSalePackInstrument(idResourceForRemoving);
+        } else if (_buildType == BuildType.TREE && g.userInventory.getCountResourceById(_id) <= 0) {
+
+        }
         _isShowed = true;
         _height = height;
         _buildType = buildType;
@@ -172,6 +177,10 @@ public class WildHint {
                 d.releaseIt(null, false);
             }
             g.userInventory.addResource(_id, -1);
+
+            if (_buildType != BuildType.TREE) {
+                g.managerSalePack.checkForSalePackInstrument(_id);
+            }
             if (_deleteCallback != null) {
                 _deleteCallback.apply();
                 _deleteCallback = null;

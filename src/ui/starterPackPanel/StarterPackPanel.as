@@ -40,7 +40,7 @@ public class StarterPackPanel {
             g.hint.hideIt()
         };
         onResize();
-        g.cont.interfaceCont.addChild(_source);
+        g.cont.interfaceCont.addChildAt(_source,0);
         loadTipsIcon();
     }
 
@@ -55,7 +55,7 @@ public class StarterPackPanel {
         WorldClock.clock.add(_armature);
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         _armature.animation.gotoAndPlayByFrame('idle');
-        _timer = 20;
+        _timer = 15;
 
         _txtTime = new CTextField(128,60,'');
         _txtTime.setFormat(CTextField.BOLD18, 16, 0xff0c84);
@@ -89,8 +89,8 @@ public class StarterPackPanel {
 
     public function onResize():void {
         if (!_source) return;
-        _source.y = 12;
-        _source.x = g.managerResize.stageWidth - 240;
+        _source.y = 32;
+        _source.x = 280;
     }
 
     private function onClick():void {

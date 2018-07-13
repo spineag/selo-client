@@ -466,32 +466,33 @@ import order.OrderItemStructure;
 
 import windows.orderWindow.WOOrderItem;
 
-private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
+    private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
         or = _activeOrderItem.getOrder();
-
-    _btnDel.visible = false;
-    _btnSell.visible = false;
-            or.startTime = TimeUtils.currentSeconds + 6;
-            orderItem.fillIt(or, or.placeNumber, onItemClick);
-            for (var i:int = 0; _arrOrders.length; i++) {
-                if (_arrOrders[i] == null) {
-                    _arrOrders[i] = or;
-                    break;
-                }
+        g.userAnalytics.doneOrder++;
+        g.server.updateUserAnalytics(null);
+        _btnDel.visible = false;
+        _btnSell.visible = false;
+        or.startTime = TimeUtils.currentSeconds + 6;
+        orderItem.fillIt(or, or.placeNumber, onItemClick);
+        for (var i:int = 0; _arrOrders.length; i++) {
+            if (_arrOrders[i] == null) {
+                _arrOrders[i] = or;
+                break;
             }
-            if (_activeOrderItem == orderItem) {
-                onItemClick(_activeOrderItem);
-                _clickItem = false;
-            }
+        }
+        if (_activeOrderItem == orderItem) {
+            onItemClick(_activeOrderItem);
+            _clickItem = false;
+        }
         var f:Function = function ():void {
             hideIt();
             g.managerOrderCats.rawOrderMoto(or);
             g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
             for (i = 0; i < _arrOrders.length; i++) {
                 if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
-//                    g.managerOrder.checkCatId();
-//                    _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
+    //                    g.managerOrder.checkCatId();
+    //                    _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(null,_arrOrders[i].catOb);
                     break;
                 }
             }
