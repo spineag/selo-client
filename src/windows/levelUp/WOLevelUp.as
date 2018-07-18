@@ -97,7 +97,6 @@ public class WOLevelUp extends WindowMain {
         _arrCellsGift = [];
         _arrItems = [];
         _bolShare = true;
-//        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/windows_new_level.png', onLoad);
         _st = g.dataPath.getGraphicsPath();
         count=0;
         if (!g.allData.atlas['levelAtlas']) {
@@ -120,11 +119,6 @@ public class WOLevelUp extends WindowMain {
         g.load.removeByUrl(_st + 'levelAtlas.xml' + g.getVersion('levelAtlas'));
         photoFromTexture();
     }
-//    private function onLoad(bitmap:Bitmap):void {
-//        var st:String = g.dataPath.getGraphicsPath();
-//        bitmap = g.pBitmaps[st + 'qui/windows_new_level.png'].create() as Bitmap;
-//        photoFromTexture(Texture.fromBitmap(bitmap));
-//    }
 
     private function photoFromTexture():void {
             var im:Image;
@@ -153,7 +147,6 @@ public class WOLevelUp extends WindowMain {
             if (g.user.level >= 11) g.couponePanel.openPanel(true);
             _txtLevel.text = String(g.user.level);
             createList();
-//            _source.y -= 40;
         }
 
     private function shareClick():void {
@@ -338,10 +331,12 @@ public class WOLevelUp extends WindowMain {
         } else if (g.user.level == 8) {
             arr = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS);
             arr[0].showArrow(120);
-        } else if (g.user.level == 5) g.bottomPanel.friendBtnVisible(true);
+        } else if (g.user.level == 5) {
+            if (g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) g.managerStarterPack.startIt();
+            g.bottomPanel.friendBtnVisible(true);
+        }
         if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
         g.managerParty.checkAndCreateIvent();
-//        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
     }
 
     private function onLeftClick():void {

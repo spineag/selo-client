@@ -57,7 +57,7 @@ public class SalePanel {
         _armature.animation.gotoAndPlayByFrame('idle');
         _timer = 20;
         g.gameDispatcher.addToTimer(animation);
-        _txtData = new CTextField(128,60,'lohhhh');
+        _txtData = new CTextField(128,60,' ');
         _txtData.setFormat(CTextField.BOLD18, 16, 0x4b7200);
         _txtData.y = -25;
         _txtData.x = -30;
@@ -81,8 +81,9 @@ public class SalePanel {
 
     private function onClick():void {
         if (g.managerSalePack.userSale.typeSale == 1) g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_RUBIES, null, false);
-        else if (g.managerSalePack.userSale.typeSale == 2)g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_INSTRUMENTS, null, false);
-        else g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
+        else if (g.managerSalePack.userSale.typeSale == 2) g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_INSTRUMENTS, null, false);
+        else if (g.managerSalePack.userSale.typeSale == 3) g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
+        else if (g.managerSalePack.userSale.typeSale == 4) g.windowsManager.openWindow(WindowsManager.WO_THREE_ONE, null, false);
     }
 
     private function startTimer():void {

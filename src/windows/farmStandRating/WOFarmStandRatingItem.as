@@ -101,6 +101,7 @@ public class WOFarmStandRatingItem {
         Cc.info('WOPartyRatingFriendItem update avatar');
         if (!_person.photo) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
         if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
+        _txtName.text = _person.name + ' ' + _person.lastName;
         g.load.loadImage(_person.photo, onLoadPhoto);
     }
 

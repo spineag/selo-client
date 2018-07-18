@@ -603,9 +603,9 @@ public class Fabrica extends WorldObject {
         WorldClock.clock.remove(_armatureOpen);
         _source.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen = null;
-        if (!g.tuts.isTuts) {
-            g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
-        }
+//        if (!g.tuts.isTuts && g.user.level < 4) {
+//            g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
+//        }
     }
 
     private function releaseHeroCatWoman(cat:HeroCat):void {

@@ -126,7 +126,7 @@ public class WONoResources extends WindowMain {
                 break;
             case 'money':
                 _countOfResources = _paramData.count;
-                var hardSoft:int = 0;
+                var hardSoft:Number = 0;
                 if (SocialNetworkSwitch.SN_OK_ID == g.socialNetworkID) hardSoft = g.HARD_IN_SOFT_OK;
                 else if (SocialNetworkSwitch.SN_VK_ID == g.socialNetworkID) hardSoft = g.HARD_IN_SOFT_VK;
                 else if (SocialNetworkSwitch.SN_FB_ID == g.socialNetworkID) hardSoft = g.HARD_IN_SOFT_FB;
@@ -320,6 +320,7 @@ public class WONoResources extends WindowMain {
                         item.source.y = 8;
                         _arrItems.push(item);
                     }
+                    g.managerSalePack.checkForSalePackVaucher();
                 }
                 switch (_arrItems.length) {
                     case 1:

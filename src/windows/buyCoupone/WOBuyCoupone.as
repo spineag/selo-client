@@ -58,6 +58,11 @@ public class WOBuyCoupone extends WindowMain{
         _source.addChild(_txtHave);
     }
 
+    override public function hideIt():void {
+        g.managerSalePack.checkForSalePackVaucher();
+        super.hideIt();
+    }
+
     override public function showItParams(callback:Function, params:Array):void {
         _Green = new WOBuyCouponeItem("green_coupone", g.user.greenCouponCount,15,DataMoney.GREEN_COUPONE);
         _Green.source.x = -225;

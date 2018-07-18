@@ -96,33 +96,32 @@ public class WOSalePackInstrument extends WindowMain{
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'USD';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = 'ОК';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' Голосов';
-        _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
-        _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txtLastCost.alignH = Align.LEFT;
-        _txtLastCost.x = -283;
-        _txtLastCost.y = 60;
-        _source.addChild(_txtLastCost);
+        if (g.managerSalePack.userSale.oldCost > 0) {
+            _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
+            _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            _txtLastCost.alignH = Align.LEFT;
+            _txtLastCost.x = -283;
+            _txtLastCost.y = 60;
+            _source.addChild(_txtLastCost);
+            _txtOldCost = new CTextField(200, 100, String(g.managerSalePack.userSale.oldCost) + st);
+            _txtOldCost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            _txtOldCost.alignH = Align.LEFT;
+            _txtOldCost.x = _txtLastCost.x + _txtLastCost.textBounds.width;
+            _txtOldCost.y = 58;
+            _source.addChild(_txtOldCost);
 
-        _txtOldCost = new CTextField(200,100,String(g.managerSalePack.userSale.oldCost) + st);
-        _txtOldCost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txtOldCost.alignH = Align.LEFT;
-        _txtOldCost.x = _txtLastCost.x + _txtLastCost.textBounds.width;
-        _txtOldCost.y = 58;
-        _source.addChild(_txtOldCost);
-
-        _txtValue = new CTextField(200,100,String(g.managerLanguage.allTexts[1293]));
-        _txtValue.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txtValue.alignH = Align.LEFT;
-        _txtValue.x = _txtOldCost.x + _txtOldCost.textBounds.width;
-        _txtValue.y = 60;
-        _source.addChild(_txtValue);
-
-        var quad:Quad = new Quad(_txtLastCost.textBounds.width  + _txtOldCost.textBounds.width + _txtValue.textBounds.width, 3, Color.RED);
-        quad.x = -285;
-        quad.y = 113;
-        quad.alpha = .6;
-        _source.addChild(quad);
-
+            _txtValue = new CTextField(200,100,String(g.managerLanguage.allTexts[1293]));
+            _txtValue.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            _txtValue.alignH = Align.LEFT;
+            _txtValue.x = _txtOldCost.x + _txtOldCost.textBounds.width;
+            _txtValue.y = 60;
+            _source.addChild(_txtValue);
+            var quad:Quad = new Quad(_txtLastCost.textBounds.width + _txtOldCost.textBounds.width + _txtValue.textBounds.width, 3, Color.RED);
+            quad.x = -285;
+            quad.y = 113;
+            quad.alpha = .6;
+            _source.addChild(quad);
+        }
         _txtDescription = new CTextField(740,70,String(g.managerSalePack.userSale.description));
         _txtDescription.setFormat(CTextField.BOLD30, 26, 0xff8000, Color.WHITE);
         _txtDescription.x = -360;
@@ -140,17 +139,20 @@ public class WOSalePackInstrument extends WindowMain{
         _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtNewCost.alignH = Align.LEFT;
         _txtNewCost.x = -285;
-        _txtNewCost.y = 100;
+        if (g.managerSalePack.userSale.oldCost > 0) _txtNewCost.y = 100;
+        else _txtNewCost.y = 80;
         _source.addChild(_txtNewCost);
 
         _txt = new CTextField(200,100,String(g.managerSalePack.userSale.newCost) + st);
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
         _txt.alignH = Align.LEFT;
         _txt.x = _txtNewCost.x + _txtNewCost.textBounds.width;
-        _txt.y = 97;
+        if (g.managerSalePack.userSale.oldCost > 0) _txt.y = 97;
+        else  _txt.y = 77;
         _source.addChild(_txt);
 
         _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.userSale.profit) + '%');
+        if (g.managerSalePack.userSale.profit == 0) _txtProfit.text = 'SALE';
         _txtProfit.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
         _txtProfit.x = -398;
         _txtProfit.y = -160;

@@ -84,7 +84,7 @@ public class ManagerSalePack {
     }
 
     public function checkNeedShowSalePack():void {
-        if (g.user.level < 7 || g.userTimer.starterTimerToEnd > 0 || g.user.salePack || g.user.timeStarterPack == 0|| int((TimeUtils.currentSeconds - g.user.timeStarterPack)) < 259200) return;
+        if (g.userTimer.starterTimerToEnd > 0 || g.user.salePack || g.user.timeStarterPack == 0|| int((TimeUtils.currentSeconds - g.user.timeStarterPack)) < 259200) return;
         if (arrUserSale.length <= 0) {
             thisUser(1);
         } else if (arrUserSale.length > 0) {
@@ -93,7 +93,7 @@ public class ManagerSalePack {
                 balanceStructure();
             } else {
                 if (!obRubies.buy5 && !obRubies.showIts5) thisUser(5);
-                else if (!obRubies.buy5 && obRubies.showIts5) checkNeedInstrumentRubies();
+                else if (!obRubies.buy5 && obRubies.showIts5) return;
                 else if (obRubies.buy5 && obRubies.showIts5) balanceStructure();
             }
         }
@@ -135,24 +135,24 @@ public class ManagerSalePack {
         }
     }
 
-    private function checkNeedInstrumentRubies():void {
-        var k:Number = Math.random();
-        if (0.2 > Math.random()) {
-            if (k < 0.1) thisUser(16);
-            else if (k < 0.2) thisUser(15);
-            else if (k < 0.4) thisUser(14);
-            else if (k < 0.6) thisUser(13);
-            else if (k < 0.8) thisUser(12);
-            else thisUser(11);
-        } else {
-            if (k < 0.1) thisUser(17);
-            else if (k < 0.2) thisUser(18);
-            else if (k < 0.4) thisUser(19);
-            else if (k < 0.6) thisUser(20);
-            else if (k < 0.8) thisUser(21);
-            else thisUser(22);
-        }
-    }
+//    private function checkNeedInstrumentRubies():void {
+//        var k:Number = Math.random();
+//        if (0.2 > Math.random()) {
+//            if (k < 0.1) thisUser(16);
+//            else if (k < 0.2) thisUser(15);
+//            else if (k < 0.4) thisUser(14);
+//            else if (k < 0.6) thisUser(13);
+//            else if (k < 0.8) thisUser(12);
+//            else thisUser(11);
+//        } else {
+//            if (k < 0.1) thisUser(17);
+//            else if (k < 0.2) thisUser(18);
+//            else if (k < 0.4) thisUser(19);
+//            else if (k < 0.6) thisUser(20);
+//            else if (k < 0.8) thisUser(21);
+//            else thisUser(22);
+//        }
+//    }
 
     private function checkNeedVauchers():void {
         var k:Number = Math.random();
@@ -173,7 +173,7 @@ public class ManagerSalePack {
         }
     }
 
-    private function thisUser(id:int, needStart:Boolean = true):void {
+    public function thisUser(id:int, needStart:Boolean = true):void {
         _bolCanSalePack = true;
         userSale.id = 0;
         userSale.saleId = id;
@@ -200,6 +200,47 @@ public class ManagerSalePack {
     private function onLoad(smth:*=null):void {
         count++;
         if (count >=2) createAtlases();
+    }
+
+    public function checkForSalePackInstrument(idResource:int):void {
+        var b:Boolean = false;
+        if (arrUserSale.length > 0) {
+            for (var i:int = 0; i < arrUserSale.length; i++) {
+                if ((arrUserSale[i].saleId == 29 || arrUserSale[i].saleId == 30) && ( int((TimeUtils.currentSeconds - int(arrUserSale[i].timeStart))) < 172800 )) {
+                    b = true;
+                    break;
+                }
+            }
+        }
+        if (!b && !userSale.id) {
+            if (idResource == 125 || idResource == 47) thisUser(29,true);
+            else if (idResource == 5 || idResource == 1) thisUser(30,true);
+            else if (idResource == 124 && Math.random() <= 0.5) thisUser(29,true);
+            else thisUser(30,true);
+        }
+    }
+
+    public function checkForSalePackVaucher():void {
+        var b:Boolean = false;
+        var count33:int = 0;
+        var count31:int = 0;
+        var count32:int = 0;
+        if (arrUserSale.length > 0) {
+            for (var i:int = 0; i < arrUserSale.length; i++) {
+                if ((arrUserSale[i].saleId == 33 || arrUserSale[i].saleId == 31 || arrUserSale[i].saleId == 32) && ( int((TimeUtils.currentSeconds - int(arrUserSale[i].timeStart))) < 172800 )) {
+                    b = true;
+                    break;
+                }
+                if (arrUserSale[i].saleId == 33) count33 ++;
+                else if (arrUserSale[i].saleId == 31) count31 ++;
+                else if (arrUserSale[i].saleId == 32) count32 ++;
+            }
+        }
+        if (!b && !userSale.id) {
+           if (count33 > count31 && count31 <= count32) thisUser(31,true);
+            else if (count33 > count32 && count32 <= count31)  thisUser(32,true);
+            else thisUser(33,true);
+        }
     }
 
     public function atlasLoad():void {
@@ -237,16 +278,17 @@ public class ManagerSalePack {
         if (!_bolCanSalePack || g.user.salePack) {
             g.gameDispatcher.removeFromTimer(onTimer);
         }
-        if (_countSeconds >= 20) {
+        if (_countSeconds >= 15) {
             _countSeconds = 0;
             g.gameDispatcher.removeFromTimer(onTimer);
             g.userTimer.saleToEnd(userSale.timeEvent);
             atlasLoad();
             g.createSaleUi();
             var f1:Function = function():void {
-                if (g.managerSalePack.userSale.typeSale == 1) g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_RUBIES, null, false);
-                else if (g.managerSalePack.userSale.typeSale == 2)g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_INSTRUMENTS, null, false);
-                else g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
+                if (userSale.typeSale == 1) g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_RUBIES, null, false);
+                else if (userSale.typeSale == 2) g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_INSTRUMENTS, null, false);
+                else if (userSale.typeSale == 3) g.windowsManager.openWindow(WindowsManager.WO_SALE_PACK_VAUCHERS, null, false);
+                else if (userSale.typeSale == 4) g.windowsManager.openWindow(WindowsManager.WO_THREE_ONE, null, false);
                 g.server.addUserSalePack(userSale.saleId,null);
             };
             Utils.createDelay(5,f1);

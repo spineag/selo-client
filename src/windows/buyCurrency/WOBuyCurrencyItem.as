@@ -52,11 +52,11 @@ public class WOBuyCurrencyItem {
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)  valuta = ' ' + String(g.managerLanguage.allTexts[328]);
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) valuta = ' USD';
         _btn.addTextField(230, 31, 0, 0, String(cost) + ' ' + valuta);
-        _btn.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _btn.setTextFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
 
         _txtCount = new CTextField(230, 38, String(count));
         if (sale > 0 && g.userTimer.stockTimerToEnd > 0) _txtCount.text = String(count - sale);
-        _txtCount.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCount.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
         source.addChild(_txtCount);
         if (bonus[0] > 0) {
             if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['bankAtlas'].getTexture('best_price_purple_rus'));

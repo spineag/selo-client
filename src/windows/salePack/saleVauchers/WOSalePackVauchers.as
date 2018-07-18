@@ -105,34 +105,36 @@ public class WOSalePackVauchers  extends WindowMain{
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'USD';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) st = 'ОК';
         else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) st = ' Голосов';
-        _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
-        _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txtLastCost.alignH = Align.LEFT;
-        _txtLastCost.x = -15;
-        _txtLastCost.y = 23;
-        _source.addChild(_txtLastCost);
+        if (g.managerSalePack.userSale.oldCost > 0) {
+            _txtLastCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1242]));
+            _txtLastCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            _txtLastCost.alignH = Align.LEFT;
+            _txtLastCost.x = -15;
+            _txtLastCost.y = 23;
+            _source.addChild(_txtLastCost);
 
-        _txtOldCost = new CTextField(200,100, String(g.managerSalePack.dataSale.oldCost) + st);
-        _txtOldCost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txtOldCost.alignH = Align.LEFT;
-        _txtOldCost.x = _txtLastCost.x + _txtLastCost.textBounds.width;
-        _txtOldCost.y = 20;
-        _source.addChild(_txtOldCost);
+            _txtOldCost = new CTextField(200,100, String(g.managerSalePack.userSale.oldCost) + st);
+            _txtOldCost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            _txtOldCost.alignH = Align.LEFT;
+            _txtOldCost.x = _txtLastCost.x + _txtLastCost.textBounds.width;
+            _txtOldCost.y = 20;
+            _source.addChild(_txtOldCost);
 
-        _txtValue = new CTextField(250,100,String(g.managerLanguage.allTexts[1293]));
-        _txtValue.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _txtValue.alignH = Align.LEFT;
-        _txtValue.x = _txtOldCost.x + _txtOldCost.textBounds.width;
-        _txtValue.y = 23;
-        _source.addChild(_txtValue);
+            _txtValue = new CTextField(250,100,String(g.managerLanguage.allTexts[1293]));
+            _txtValue.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+            _txtValue.alignH = Align.LEFT;
+            _txtValue.x = _txtOldCost.x + _txtOldCost.textBounds.width;
+            _txtValue.y = 23;
+            _source.addChild(_txtValue);
 
-        var quad:Quad = new Quad(_txtLastCost.textBounds.width + _txtOldCost.textBounds.width + _txtValue.textBounds.width, 3, Color.RED);
-        quad.x = -16;
-        quad.y = 77;
-        quad.alpha = .6;
-        _source.addChild(quad);
+            var quad:Quad = new Quad(_txtLastCost.textBounds.width + _txtOldCost.textBounds.width + _txtValue.textBounds.width, 3, Color.RED);
+            quad.x = -16;
+            quad.y = 77;
+            quad.alpha = .6;
+            _source.addChild(quad);
+        }
 
-        _txtDescription = new CTextField(740,70,String(g.managerSalePack.dataSale.description));
+        _txtDescription = new CTextField(740,70,String(g.managerSalePack.userSale.description));
         _txtDescription.setFormat(CTextField.BOLD30, 26, 0xff8000, Color.WHITE);
         _txtDescription.x = -360;
         _txtDescription.y = 40;
@@ -149,17 +151,18 @@ public class WOSalePackVauchers  extends WindowMain{
         _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtNewCost.alignH = Align.LEFT;
         _txtNewCost.x = -20;
-        _txtNewCost.y = 60;
+        _txtNewCost.y = 40;
         _source.addChild(_txtNewCost);
 
-        _txt = new CTextField(200,100, String(g.managerSalePack.dataSale.newCost) + st);
+        _txt = new CTextField(200,100, String(g.managerSalePack.userSale.newCost) + st);
         _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.GREEN_COLOR, Color.WHITE);
         _txt.alignH = Align.LEFT;
         _txt.x = _txtNewCost.x + _txtNewCost.textBounds.width;
-        _txt.y = 58;
+        _txt.y = 38;
         _source.addChild(_txt);
 
-        _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.dataSale.profit) + '%');
+        _txtProfit = new CTextField(150,60,String('-' + g.managerSalePack.userSale.profit) + '%');
+        if (g.managerSalePack.userSale.profit == 0) _txtProfit.text = 'SALE';
         _txtProfit.setFormat(CTextField.BOLD72, 42, 0xf00f0f, Color.WHITE);
         _txtProfit.x = -275;
         _txtProfit.y = 100;
@@ -219,7 +222,7 @@ public class WOSalePackVauchers  extends WindowMain{
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-            g.socialNetwork.showOrderWindow({id: g.managerSalePack.userSale.saleId, price: int(g.managerSalePack.dataSale.newCost), type:'sale_pack'});
+            g.socialNetwork.showOrderWindow({id: g.managerSalePack.userSale.saleId, price: int(g.managerSalePack.userSale.newCost), type:'sale_pack'});
             Cc.info('try to buy packId: ' + g.managerSalePack.userSale.saleId);
         }
     }
@@ -246,11 +249,11 @@ public class WOSalePackVauchers  extends WindowMain{
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
         var d:DropObject = new DropObject();
-        for (var i:int = 0; i < g.managerSalePack.dataSale.objectId.length; i++) {
-            if (g.managerSalePack.dataSale.objectId[i] == 5) d.addDropMoney(DataMoney.RED_COUPONE, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectId[i] == 6) d.addDropMoney(DataMoney.YELLOW_COUPONE, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectId[i] == 7)  d.addDropMoney(DataMoney.GREEN_COUPONE, g.managerSalePack.dataSale.objectCount[i], p);
-            else if (g.managerSalePack.dataSale.objectId[i] == 8) d.addDropMoney(DataMoney.BLUE_COUPONE, g.managerSalePack.dataSale.objectCount[i], p);
+        for (var i:int = 0; i < g.managerSalePack.userSale.objectId.length; i++) {
+            if (g.managerSalePack.userSale.objectId[i] == 5) d.addDropMoney(DataMoney.RED_COUPONE, g.managerSalePack.userSale.objectCount[i], p);
+            else if (g.managerSalePack.userSale.objectId[i] == 6) d.addDropMoney(DataMoney.YELLOW_COUPONE, g.managerSalePack.userSale.objectCount[i], p);
+            else if (g.managerSalePack.userSale.objectId[i] == 7)  d.addDropMoney(DataMoney.GREEN_COUPONE, g.managerSalePack.userSale.objectCount[i], p);
+            else if (g.managerSalePack.userSale.objectId[i] == 8) d.addDropMoney(DataMoney.BLUE_COUPONE, g.managerSalePack.userSale.objectCount[i], p);
         }
         d.releaseIt(null, false);
         hideIt();

@@ -207,6 +207,8 @@ public class WOBuyerNyashuk extends WindowMain{
         
         _data.visible = false;
         g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
+        g.userAnalytics.doneNyashuk++;
+        g.server.updateUserAnalytics(null);
         g.server.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         if (_data.buyerId == 1) {
             if (g.user.level >= 14) g.userTimer.buyerNyashukBlue(600);

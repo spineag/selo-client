@@ -16,6 +16,7 @@ public class Consts {
     public static var INQ_DATA_BUY_MONEY:String = 'a_gameData/getDataBuyMoney.php';
     public static var INQ_START:String = 'a_game/start.php';
     public static var INQ_USER_INFO:String = 'a_userData/getUserInfo.php';
+    public static var INQ_USER_ANALYTICS:String = 'a_userData/getUserAnalytics.php';
     public static var INQ_ALL_FRIENDS_INFO:String = 'a_userData/getAllFriendsInfo.php';
     public static var INQ_UPDATE_USER_TUTORIAL_STEP:String = 'a_game/updateUserTutorialStep.php';
     public static var INQ_USER_MONEY:String = 'a_game/addUserMoney.php';
@@ -115,6 +116,7 @@ public class Consts {
     public static var INQ_UPDATE_USER_CRAFT_COUNT_TREE:String = 'a_game/updateUserCraftCountTree.php';
     public static var INQ_UPDATE_USER_MUSIC:String = 'a_game/updateUserMusic.php';
     public static var INQ_UPDATE_USER_SOUND:String = 'a_game/updateUserSound.php';
+    public static var INQ_UPDATE_USER_ANALYTICS:String = 'a_game/updateUserAnalytics.php';
     public static var INQ_ADD_USER_CAVE:String = 'a_game/addUserCave.php';
     public static var INQ_CRAFT_USER_CAVE:String = 'a_game/craftUserCave.php';
     public static var INQ_GET_USER_CAVE:String = 'a_userData/getUserCave.php';

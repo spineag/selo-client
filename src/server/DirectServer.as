@@ -8368,6 +8368,7 @@ public class DirectServer {
     }
 
     public function FBgetUsersProfiles(usersIds:Array,callback:Function):void {
+        return;
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_FB_USERS_PROFILE);
         var variables:URLVariables = new URLVariables();
@@ -10227,7 +10228,7 @@ public class DirectServer {
                 ob = {};
                 ob.userId = int(d.message[i].user_id);
                 ob.userSocialId = String(d.message[i].social_id);
-                ob.count = int(d.message[i].c);
+                ob.count = int(d.message[i].count_stand);
                 ob.photo = d.message[i].photo_url;
                 ob.name = String(d.message[i].name);
                 ob.level = int(d.message[i].level);
@@ -10642,6 +10643,115 @@ public class DirectServer {
             Cc.error('updateUserDecorCount: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAmbar: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserAnalytics(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_ANALYTICS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserAnalytics', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.buyPaper = g.userAnalytics.buyPaper;
+        variables.doneOrder = g.userAnalytics.doneOrder;
+        variables.doneNyashuk = g.userAnalytics.doneNyashuk;
+        variables.countSession = g.userAnalytics.countSession;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserAnalytics);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('updateUserAnalytics'); });
+        function onCompleteUpdateUserAnalytics(e:Event):void { completeUpdateUserAnalytics(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserAnalytics error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserAnalytics(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserAnalytics: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAnalytics: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserAnalytics OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserAnalytics: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserSound: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getUserAnalytics(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_ANALYTICS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserAnalytics', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserAnalytics);
+        loader.addEventListener(IOErrorEvent.IO_ERROR, function(ev:Event):void { internetNotWork('getUserAnalytics'); });
+        function onCompleteGetUserAnalytics(e:Event):void { completeGetUserAnalytics(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('userInfo error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserAnalytics(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserAnalytics: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserAnalytics: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserAnalytics OK', 5);
+            var ob:Object = d.message;
+            g.userAnalytics.buyPaper = int(d.message.buy_paper);
+            g.userAnalytics.doneOrder = int(d.message.done_order);
+            g.userAnalytics.doneNyashuk = int(d.message.done_nyashuk);
+            g.userAnalytics.countSession = int(d.message.count_session);
+            g.userAnalytics.countSession++;
+            updateUserAnalytics(null);
+            if (callback != null) callback.apply();
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

@@ -60,6 +60,7 @@ import windows.questList.WOQuestList;
 import windows.reloadPage.WOReloadGame;
 import windows.salePack.saleInstruments.WOSalePackInstrument;
 import windows.salePack.saleRubies.WOSalePackRubies;
+import windows.salePack.saleThreeOne.WOSaleThreeOne;
 import windows.salePack.saleVauchers.WOSalePackVauchers;
 import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
@@ -151,6 +152,7 @@ public class WindowsManager {
     public static const WO_FARM_STAND_RATING:String = 'farm_stand_rating';
     public static const WO_DECOR_RATING:String = 'decor_rating';
     public static const WO_DECOR_LIST:String = 'decor_list';
+    public static const WO_THREE_ONE:String = 'three_one';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -401,6 +403,9 @@ public class WindowsManager {
                 break;
             case WO_DECOR_LIST:
                 wo = new WODecorList();
+                break;
+            case WO_THREE_ONE:
+                wo = new WOSaleThreeOne();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

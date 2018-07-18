@@ -349,7 +349,7 @@ public class MarketItem {
 
     private function onClick():void {
 //        if (g.managerCutScenes.isCutScene) return;
-        if (!_person || !_person.userSocialId) return;
+        if ((!_person || !_person.userSocialId)&& !_isUser) return;
         if (_closeCell) return;
         if (g.tuts.isTuts) {
             if (!_data || !g.tuts.isTutsResource(_data.id)) return;
@@ -481,6 +481,8 @@ public class MarketItem {
             _wo.refreshItemWhenYouBuy();
         } else {
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
+            g.userAnalytics.buyPaper++;
+            g.server.updateUserAnalytics(null);
             var d:StructureDataResource = g.allData.getResourceById(_dataFromServer.resourceId);
             showFlyResource(d, _dataFromServer.resourceCount);
             g.managerAchievement.addAll(24,_dataFromServer.cost);
