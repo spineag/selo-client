@@ -35,9 +35,9 @@ public class SocialNetworkSwitch {
                 }
                 break;
             case SN_OK_ID:
-                    // Application ID: .
+                    // Application ID: 1266692864
 //                     Публичный ключ приложения: 
-//                     Секретный ключ приложения:  
+//                     Секретный ключ приложения:  EC804AAB7DD4B598C4F2C3C5
 //                     Ссылка на приложение: http://www.odnoklassniki.ru/game/...
 
                 if (isDebug) {

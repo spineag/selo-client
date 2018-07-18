@@ -57,6 +57,12 @@ public class SN_OK extends SocialNetwork {
 
     override public function get urlApp():String { return "https://ok.ru/game/1266692864"; }
     public function checkGameHeight():void { ExternalInterface.call("checkGameHeight"); }
+    public function wallCancelPublic():void { super.wallCancel(); }
+    public function wallSavePublic():void { super.wallSave(); }
+    override public function requestBox(uid:String, message:String, requestKey:String):void { showInviteWindow(); }
+    override public function showInviteWindow():void { ExternalInterface.call("showInviteWindowAll"); }
+    override public function get idSocialGroup():String { return "55141755191315"; }
+    override public function get urlForAnySocialGroup():String { return "https://ok.ru/group/"; }
 
     override public function getProfile(uid:String):void {
         super.getProfile(uid);
@@ -227,22 +233,6 @@ public class SN_OK extends SocialNetwork {
         ExternalInterface.call("makeWallPost", uid, message, url);
     }
 
-    public function wallCancelPublic():void {
-        super.wallCancel();
-    }
-
-    public function wallSavePublic():void {
-        super.wallSave();
-    }
-
-    override public function requestBox(uid:String, message:String, requestKey:String):void {
-        showInviteWindow();
-    }
-
-    override public function showInviteWindow():void {
-        ExternalInterface.call("showInviteWindowAll");
-    }
-
     private var orderPackID:int = 0;
     override public function showOrderWindow(e:Object):void {
         var st:String ='';
@@ -318,14 +308,6 @@ public class SN_OK extends SocialNetwork {
             super.orderCancel();
             orderPackID = 0;
         }
-    }
-
-    override public function get idSocialGroup():String {
-        return "55141755191315";
-    }
-
-    override public function get urlForAnySocialGroup():String {
-        return "https://ok.ru/group/";
     }
 
     public override function checkIsInSocialGroup(id:String):void {
