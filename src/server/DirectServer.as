@@ -8368,7 +8368,6 @@ public class DirectServer {
     }
 
     public function FBgetUsersProfiles(usersIds:Array,callback:Function):void {
-        return;
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_FB_USERS_PROFILE);
         var variables:URLVariables = new URLVariables();
