@@ -155,6 +155,7 @@ public class WONoResources extends WindowMain {
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickMoney;
+                g.managerSalePack.checkForSalePackRubies();
                 break;
             case 'nyashuk':
                 _countOfResources = _paramData.count;

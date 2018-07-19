@@ -191,9 +191,9 @@ public class WOMarket  extends WindowMain {
         _btnRating = new CButton();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rating_icon'));
         _btnRating.addChild(im);
-        _source.addChild(_btnRating);
+//        _source.addChild(_btnRating);
         _btnRating.x = _woWidth/2 - 64;
-        _btnRating.y = - 25;
+        _btnRating.y = - 190;
         _btnRating.clickCallback = ratingClick;
     }
 

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:e7de85d15c7990266b21d2382d1cd7fd:560effc506970f0c3b9e56101486b72b:14df9ea82677058447c526970667e84e$ -->
-<TextureAtlas imagePath="newsAtlas.png" width="482" height="456">
-    <SubTexture name="9_may_vk_news" x="1" y="1" width="480" height="150"/>
-    <SubTexture name="news_event_vk" x="1" y="153" width="480" height="150"/>
-    <SubTexture name="vk_event_new" x="1" y="305" width="480" height="150"/>
+<!-- $TexturePacker:SmartUpdate:0f518181eeab8df42dca48bc6c300eed:c5695884ecacfd188747fb82ceffa7bb:14df9ea82677058447c526970667e84e$ -->
+<TextureAtlas imagePath="newsAtlas.png" width="486" height="154">
+    <SubTexture name="screen-1_fb_copy" x="1" y="1" width="484" height="152"/>
 </TextureAtlas>

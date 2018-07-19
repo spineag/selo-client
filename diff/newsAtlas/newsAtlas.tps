@@ -192,9 +192,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>news_event_vk.png</filename>
-            <filename>vk_event_new.png</filename>
-            <filename>9_may_vk_news.png</filename>
+            <filename>screen-1_fb_copy.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

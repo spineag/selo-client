@@ -154,6 +154,7 @@ public class HeroCat extends BasicCat{
             killAllAnimations();
             _callbackOnWalking = null;
         } else {
+            killAllAnimations();
             if (_isFree) makeFreeCatIdle();
         }
     }
@@ -310,7 +311,7 @@ public class HeroCat extends BasicCat{
     private var timer:int;
     public function makeFreeCatIdle(showCatEmotion:Boolean = false):void {
         freeIdleGo = !freeIdleGo;
-        if ((g.tuts.isTuts && _type == MAN) || (g.miniScenes.isMiniScene && _type == MAN)) {
+        if ((g.tuts.isTuts && _type == MAN) || ((g.miniScenes.isMiniScene || g.miniScenes.isMiniSceneOrder) && _type == MAN)) {
             idleAnimation();
 //            timer = 5 + int(Math.random() * 10);
 //            g.gameDispatcher.addToTimer(renderForIdleFreeCat);
@@ -366,9 +367,9 @@ public class HeroCat extends BasicCat{
 //        g.gameDispatcher.removeFromTimer(renderForIdleFreeCat);
     }
 
-    public function showBubble(st:String, delay:Number=0):void {
+    public function showBubble(st:String, delay:Number=0, needShowShop:Boolean = false, callback:Function=null, startClick:Function=null, flip:Boolean = false):void {
         var type:int;
-        if (st.length > 140) {
+        if (needShowShop || st.length > 140) {
             type = TutorialTextBubble.BIG;
         } else if (st.length > 60) {
             type = TutorialTextBubble.MIDDLE;
@@ -377,9 +378,9 @@ public class HeroCat extends BasicCat{
         }
         try {
             if (_bubble) {
-                _bubble.showBubble(st, _isFlip, type);
+                _bubble.showBubble(st, flip, type, needShowShop, callback, startClick);
                 bShowBubble = true;
-                if (_isFlip) {
+                if (flip) {
                     _bubble.setXY(20 + _source.x, -50 + _source.y);
                 } else {
                     _bubble.setXY(-20 + _source.x, -50 + _source.y);

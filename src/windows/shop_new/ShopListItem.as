@@ -99,7 +99,7 @@ public class ShopListItem {
         _txtRatingCount.alignH = HorizontalAlign.RIGHT;
         _txtRatingCount.x = 91;
         _txtRatingCount.y = 155;
-        _source.addChild(_txtRatingCount);
+//        _source.addChild(_txtRatingCount);
         _txtInfo = new CTextField(150, 32, '');
         _txtInfo.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
         _txtInfo.x = 5;

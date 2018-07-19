@@ -129,7 +129,6 @@ public class Animal {
                 walkLabel = 'walk';
                 idleLabels = ['idle_2', 'idle_1'];
                 break;
-
         }
     }
 

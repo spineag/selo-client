@@ -299,9 +299,10 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 1;
         _cat.idleAnimation();
         _action = TutsAction.BUY_ANIMAL;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep6_2, 0, '', 'shop_icon');
+        _cat.showBubble(texts[g.user.tutorialStep][_subStep],0, true, subStep6_2);
+//        cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep6_2, 0, '', 'shop_icon');
         g.bottomPanel.tutorialCallback = subStep6_2;
-        addBlackUnderInterface();
+//        addBlackUnderInterface();
 //        g.bottomPanel.addArrow('shop',500);
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
@@ -311,9 +312,10 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 2;
         deleteArrowAndDust();
         g.bottomPanel.tutorialCallback = null;
-        cutScene.hideIt(deleteCutScene);
+//        cutScene.hideIt(deleteCutScene);
+        _cat.hideBubble();
         _tutorialResourceIDs = [1];
-        removeBlack();
+//        removeBlack();
 //        g.bottomPanel.deleteArrow();
         _onShowWindowCallback = subStep6_3;
         if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
@@ -324,7 +326,7 @@ public class TutorialManager extends IManagerTutorial{
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemBounds(_tutorialResourceIDs[0]);
-            if (_dustRectangle)_dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
             _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
@@ -362,24 +364,30 @@ public class TutorialManager extends IManagerTutorial{
         }
         if (_tutorialObjects.length > 3) _tutorialObjects.length = 3;
         if (_tutorialObjects.length) {
+            if (!cutScene) cutScene = new CutScene();
+            if (!texts) texts = (new TextsTutorial()).objText;
             if (!_cat) {
                 _cat = g.managerCats.getFreeCatDecor();
                 _cat.idleAnimation();
-                g.managerCats.goCatToPoint(_cat, new Point((arr[0] as Farm).posX + 4, (arr[0] as Farm).posY - 1));
+                var f1:Function = function():void {
+                    var txt:Object = (new TextsTutorial()).objText;
+                    _cat.showBubble(txt[g.user.tutorialStep][0],0,false, null, null, true);
+                };
+                g.managerCats.goCatToPoint(_cat, new Point((arr[0] as Farm).posX + 4, (arr[0] as Farm).posY - 1),f1);
                 if (_cat.isOnMap) _cat.addToMap();
-            }
-            if (!cutScene) cutScene = new CutScene();
-            if (!texts) texts = (new TextsTutorial()).objText;
-            addBlack();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep7_1);
+            } else _cat.showBubble(texts[g.user.tutorialStep][_subStep],0,false, null, null, true);
+//            addBlack();
+
+            subStep7_1();
+//            cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep7_1);
         } else subStep7_4();
     }
 
     private function subStep7_1():void {
         _subStep = 1;
         _action = TutsAction.ANIMAL_FEED;
-        cutScene.hideIt(deleteCutScene);
-        removeBlack();
+//        cutScene.hideIt(deleteCutScene);
+//        removeBlack();
         subStep7_2();
     }
 
@@ -390,7 +398,10 @@ public class TutorialManager extends IManagerTutorial{
             an.playDirectIdle();
             an.addArrow();
             an.tutorialCallback = subStep7_3;
-        } else subStep7_4();
+        } else {
+            _cat.hideBubble();
+            subStep7_4();
+        }
     }
 
     private function subStep7_3(chick:Animal):void {
@@ -421,23 +432,28 @@ public class TutorialManager extends IManagerTutorial{
         }
         if (_tutorialObjects.length > 3) _tutorialObjects.length = 3;
         if (_tutorialObjects.length) {
+            if (!cutScene) cutScene = new CutScene();
+            if (!texts) texts = (new TextsTutorial()).objText;
             if (!_cat) {
                 _cat = g.managerCats.getFreeCatDecor();
                 _cat.idleAnimation();
-                g.managerCats.goCatToPoint(_cat, new Point((arr[0] as Farm).posX + 4, (arr[0] as Farm).posY - 1));
+                var f1:Function = function():void {
+                    var txt:Object = (new TextsTutorial()).objText;
+                    _cat.showBubble(txt[g.user.tutorialStep][0],0,false, null, null, true);
+                };
+                g.managerCats.goCatToPoint(_cat, new Point((arr[0] as Farm).posX + 4, (arr[0] as Farm).posY - 1), f1);
                 if (_cat.isOnMap) _cat.addToMap();
-            }
-            if (!cutScene) cutScene = new CutScene();
-            if (!texts) texts = (new TextsTutorial()).objText;
-            addBlack();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep8_1);
+            } else _cat.showBubble(texts[g.user.tutorialStep][_subStep],0,false, null, null, true);
+            subStep8_1();
+//            addBlack();
+//            cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep8_1);
         } else subStep8_4();
     }
 
     private function subStep8_1():void {
         _subStep = 1;
-        removeBlack();
-        cutScene.hideIt(deleteCutScene);
+//        removeBlack();
+//        cutScene.hideIt(deleteCutScene);
         subStep8_2();
     }
 
@@ -474,6 +490,7 @@ public class TutorialManager extends IManagerTutorial{
         _subStep = 4;
         g.user.tutorialStep = 9;
         _tutorialObjects = [];
+        if (_cat) _cat.hideBubble();
         updateTutorialStep();
         initScenes();
     }
@@ -511,6 +528,13 @@ public class TutorialManager extends IManagerTutorial{
     }
 
     private function initScene_10():void {
+        if (g.user.level != 2) {
+            _action = TutsAction.LEVEL_UP;
+            _tutorialCallback = subStep9_2;
+            g.xpPanel.serverAddXP(g.xpPanel.maxXP - g.xpPanel.countXP +1);
+            g.xpPanel.visualAddXP(g.xpPanel.maxXP - g.xpPanel.countXP +1);
+            return;
+        }
         _subStep = 0;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (!cutScene) cutScene = new CutScene();

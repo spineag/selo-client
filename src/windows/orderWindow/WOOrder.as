@@ -501,7 +501,7 @@ import windows.orderWindow.WOOrderItem;
     }
 
     override  public function hideIt():void {
-        if (g.user.level == 5 && g.user.cutScenes[8] != 1) g.managerCutScenes.goToNeighbor();
+//        if (g.user.level == 5 && g.user.cutScenes[8] != 1) g.managerCutScenes.goToNeighbor();
         super.hideIt();
     }
 

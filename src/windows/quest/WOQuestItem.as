@@ -167,6 +167,7 @@ internal class Item extends Sprite {
                     _txt.text = String(g.managerLanguage.allTexts[1674]);
                 break;
             case ManagerQuest.OPEN_BUILD:
+                _txt.text = String(g.managerLanguage.allTexts[1682]) + ' ' + g.allData.getBuildingById(_task.resourceId).name;
                 break;
             case ManagerQuest.CRAFT_TREE:
                 break;

@@ -31,9 +31,11 @@ public class WOBuyCurrencyItem {
     private var _packId:int;
     private var g:Vars = Vars.getInstance();
     private var _isActiveClick:Boolean;
+    private var _callbackBuy:Function;
 
-    public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:Number, packId:int, sale:int) {
+    public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:Number, packId:int, sale:int, callback:Function) {
         _isActiveClick = false;
+        _callbackBuy = callback;
         _currency = currency;
         _packId = packId;
         _countGameMoney = count;
@@ -151,6 +153,9 @@ public class WOBuyCurrencyItem {
     }
 
     private function onBuy():void {
+        if (_callbackBuy != null) {
+            _callbackBuy.apply();
+        }
         var p:Point = new Point(120, 150);
         p = source.localToGlobal(p);
         p.x += 30;

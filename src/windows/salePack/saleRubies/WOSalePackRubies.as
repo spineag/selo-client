@@ -134,11 +134,11 @@ public class WOSalePackRubies extends WindowMain{
         quad.alpha = .6;
         _source.addChild(quad);
 
-        _txtDescription = new CTextField(740,70,String(g.managerSalePack.userSale.description));
-        _txtDescription.setFormat(CTextField.BOLD30, 26, 0xff8000, Color.WHITE);
-        _txtDescription.x = -360;
-        _txtDescription.y = 40;
-
+        _txtDescription = new CTextField(740,70, String(g.managerLanguage.allTexts[1685]));
+        _txtDescription.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txtDescription.x = -535;
+        _txtDescription.y = -145;
+        _source.addChild(_txtDescription);
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             st = ' ' + String(g.managerLanguage.allTexts[328]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
@@ -146,8 +146,6 @@ public class WOSalePackRubies extends WindowMain{
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
             st = ' USD';
         }
-
-
 
         _txtNewCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1243]));
         _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
@@ -201,7 +199,6 @@ public class WOSalePackRubies extends WindowMain{
         _sprItem = new Sprite();
         _source.addChild(_sprItem);
         _boolOpen = params[0];
-//        _txtCountBonus.text =
         super.showIt();
     }
 

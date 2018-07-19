@@ -111,7 +111,7 @@ public class WOTutorial extends WindowMain {
             var f1:Function = function ():void {
                 addArrow();
             };
-            Utils.createDelay(3,f1);
+            Utils.createDelay(1,f1);
         }
     }
 

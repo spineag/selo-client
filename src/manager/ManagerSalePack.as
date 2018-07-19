@@ -80,60 +80,60 @@ public class ManagerSalePack {
                 }
             }
         }
-        checkNeedShowSalePack();
+//        checkNeedShowSalePack();
     }
-
-    public function checkNeedShowSalePack():void {
-        if (g.userTimer.starterTimerToEnd > 0 || g.user.salePack || g.user.timeStarterPack == 0|| int((TimeUtils.currentSeconds - g.user.timeStarterPack)) < 259200) return;
-        if (arrUserSale.length <= 0) {
-            thisUser(1);
-        } else if (arrUserSale.length > 0) {
-            if (int(TimeUtils.currentSeconds - int(arrUserSale[arrUserSale.length-1].timeStart)) < 172800) return;
-            if (obRubies.buy1) {
-                balanceStructure();
-            } else {
-                if (!obRubies.buy5 && !obRubies.showIts5) thisUser(5);
-                else if (!obRubies.buy5 && obRubies.showIts5) return;
-                else if (obRubies.buy5 && obRubies.showIts5) balanceStructure();
-            }
-        }
-    }
-
-    private function balanceStructure():void {
-        if (!obRubies.buy2 && !obRubies.showIts2) thisUser(2);
-        else if (!obRubies.buy2 && obRubies.showIts2) {
-            //6 pack
-            if (!obRubies.buy6 && !obRubies.showIts6) thisUser(6);
-            else if (!obRubies.buy6 && obRubies.showIts6) {
-                if (obRubies.buy5 && obRubies.showIts5) thisUser(3);
-                else if (!obRubies.buy5 && !obRubies.showIts5) thisUser(5);
-            } else if (obRubies.buy6 && obRubies.showIts6) {
-                if (!obRubies.buy7 && obRubies.showIts7) thisUser(4);
-                else if (!obRubies.buy7 && !obRubies.showIts7) thisUser(3);
-            }
-            //6end
-        } else if (obRubies.buy2 && obRubies.showIts2) {
-            if (!obRubies.buy3 && !obRubies.showIts3) thisUser(3);
-            else if (!obRubies.buy3 && obRubies.showIts3) {
-                //7 pack
-                if (!obRubies.buy7 && !obRubies.showIts7) thisUser(7);
-                else if (obRubies.buy7 && obRubies.showIts7) thisUser(4);
-                else if (!obRubies.buy7 && obRubies.showIts7) thisUser(6);
-                //7end
-            } else if (obRubies.buy3 && obRubies.showIts3) {
-                if (!obRubies.buy4 && !obRubies.showIts4) thisUser(4);
-                else if (!obRubies.buy4 && obRubies.showIts4) {
-                    //8 pack
-                    if (!obRubies.buy8 && !obRubies.showIts8) thisUser(8);
-                    else if (!obRubies.buy8 && obRubies.showIts8 && !obRubies.buy9 && !obRubies.showIts9) thisUser(9);
-                    else if (!obRubies.buy8 && obRubies.showIts8 && !obRubies.buy9 && obRubies.showIts9 && !obRubies.buy10 && !obRubies.showIts10) thisUser(10);
-                    //8end
-                } else if (obRubies.buy4 && obRubies.showIts4) {
-                    //супер Приз
-                }
-            }
-        }
-    }
+//
+//    public function checkNeedShowSalePack():void {
+//        if (g.userTimer.starterTimerToEnd > 0 || g.user.salePack || g.user.timeStarterPack == 0|| int((TimeUtils.currentSeconds - g.user.timeStarterPack)) < 259200) return;
+//        if (arrUserSale.length <= 0) {
+//            thisUser(1);
+//        } else if (arrUserSale.length > 0) {
+//            if (int(TimeUtils.currentSeconds - int(arrUserSale[arrUserSale.length-1].timeStart)) < 172800) return;
+//            if (obRubies.buy1) {
+//                balanceStructure();
+//            } else {
+//                if (!obRubies.buy5 && !obRubies.showIts5) thisUser(5);
+//                else if (!obRubies.buy5 && obRubies.showIts5) return;
+//                else if (obRubies.buy5 && obRubies.showIts5) balanceStructure();
+//            }
+//        }
+//    }
+//
+//    private function balanceStructure():void {
+//        if (!obRubies.buy2 && !obRubies.showIts2) thisUser(2);
+//        else if (!obRubies.buy2 && obRubies.showIts2) {
+//            //6 pack
+//            if (!obRubies.buy6 && !obRubies.showIts6) thisUser(6);
+//            else if (!obRubies.buy6 && obRubies.showIts6) {
+//                if (obRubies.buy5 && obRubies.showIts5) thisUser(3);
+//                else if (!obRubies.buy5 && !obRubies.showIts5) thisUser(5);
+//            } else if (obRubies.buy6 && obRubies.showIts6) {
+//                if (!obRubies.buy7 && obRubies.showIts7) thisUser(4);
+//                else if (!obRubies.buy7 && !obRubies.showIts7) thisUser(3);
+//            }
+//            //6end
+//        } else if (obRubies.buy2 && obRubies.showIts2) {
+//            if (!obRubies.buy3 && !obRubies.showIts3) thisUser(3);
+//            else if (!obRubies.buy3 && obRubies.showIts3) {
+//                //7 pack
+//                if (!obRubies.buy7 && !obRubies.showIts7) thisUser(7);
+//                else if (obRubies.buy7 && obRubies.showIts7) thisUser(4);
+//                else if (!obRubies.buy7 && obRubies.showIts7) thisUser(6);
+//                //7end
+//            } else if (obRubies.buy3 && obRubies.showIts3) {
+//                if (!obRubies.buy4 && !obRubies.showIts4) thisUser(4);
+//                else if (!obRubies.buy4 && obRubies.showIts4) {
+//                    //8 pack
+//                    if (!obRubies.buy8 && !obRubies.showIts8) thisUser(8);
+//                    else if (!obRubies.buy8 && obRubies.showIts8 && !obRubies.buy9 && !obRubies.showIts9) thisUser(9);
+//                    else if (!obRubies.buy8 && obRubies.showIts8 && !obRubies.buy9 && obRubies.showIts9 && !obRubies.buy10 && !obRubies.showIts10) thisUser(10);
+//                    //8end
+//                } else if (obRubies.buy4 && obRubies.showIts4) {
+//                    //супер Приз
+//                }
+//            }
+//        }
+//    }
 
 //    private function checkNeedInstrumentRubies():void {
 //        var k:Number = Math.random();
@@ -154,24 +154,24 @@ public class ManagerSalePack {
 //        }
 //    }
 
-    private function checkNeedVauchers():void {
-        var k:Number = Math.random();
-        if (0.2 > Math.random()) {
-            if (k < 0.1) thisUser(16);
-            else if (k < 0.2) thisUser(15);
-            else if (k < 0.4) thisUser(14);
-            else if (k < 0.6) thisUser(13);
-            else if (k < 0.8) thisUser(12);
-            else thisUser(11);
-        } else {
-            if (k < 0.1) thisUser(17);
-            else if (k < 0.2) thisUser(18);
-            else if (k < 0.4) thisUser(19);
-            else if (k < 0.6) thisUser(20);
-            else if (k < 0.8) thisUser(21);
-            else thisUser(22);
-        }
-    }
+//    private function checkNeedVauchers():void {
+//        var k:Number = Math.random();
+//        if (0.2 > Math.random()) {
+//            if (k < 0.1) thisUser(16);
+//            else if (k < 0.2) thisUser(15);
+//            else if (k < 0.4) thisUser(14);
+//            else if (k < 0.6) thisUser(13);
+//            else if (k < 0.8) thisUser(12);
+//            else thisUser(11);
+//        } else {
+//            if (k < 0.1) thisUser(17);
+//            else if (k < 0.2) thisUser(18);
+//            else if (k < 0.4) thisUser(19);
+//            else if (k < 0.6) thisUser(20);
+//            else if (k < 0.8) thisUser(21);
+//            else thisUser(22);
+//        }
+//    }
 
     public function thisUser(id:int, needStart:Boolean = true):void {
         _bolCanSalePack = true;
@@ -206,13 +206,13 @@ public class ManagerSalePack {
         var b:Boolean = false;
         if (arrUserSale.length > 0) {
             for (var i:int = 0; i < arrUserSale.length; i++) {
-                if ((arrUserSale[i].saleId == 29 || arrUserSale[i].saleId == 30) && ( int((TimeUtils.currentSeconds - int(arrUserSale[i].timeStart))) < 172800 )) {
+                if ((arrUserSale[i].saleId == 29 || arrUserSale[i].saleId == 30) && ( int((TimeUtils.currentSeconds - int(arrUserSale[i].timeStart))) < 172800 ) && g.userTimer.starterTimerToEnd > 0) {
                     b = true;
                     break;
                 }
             }
         }
-        if (!b && !userSale.id) {
+        if (!b && !userSale.saleId) {
             if (idResource == 125 || idResource == 47) thisUser(29,true);
             else if (idResource == 5 || idResource == 1) thisUser(30,true);
             else if (idResource == 124 && Math.random() <= 0.5) thisUser(29,true);
@@ -236,10 +236,41 @@ public class ManagerSalePack {
                 else if (arrUserSale[i].saleId == 32) count32 ++;
             }
         }
-        if (!b && !userSale.id) {
+        if (!b && !userSale.saleId) {
            if (count33 > count31 && count31 <= count32) thisUser(31,true);
             else if (count33 > count32 && count32 <= count31)  thisUser(32,true);
             else thisUser(33,true);
+        }
+    }
+
+    public function checkForSalePackRubies():void {
+        var b:Boolean = false;
+        if (arrUserSale.length > 0) {
+            for (var i:int = 0; i < arrUserSale.length; i++) {
+                if ((arrUserSale[i].saleId == 37) && (int((TimeUtils.currentSeconds - int(arrUserSale[i].timeStart))) < 172800 )) {
+                    b = true;
+                    break;
+                }
+            }
+        }
+        if (!b && !userSale.saleId) {
+            thisUser(37,true);
+        }
+    }
+
+    public function checkForSalePackRubiesBigOffer():void {
+        var b:Boolean = false;
+        if (arrUserSale.length > 0) {
+            for (var i:int = 0; i < arrUserSale.length; i++) {
+                if ((arrUserSale[i].saleId == 2|| arrUserSale[i].saleId == 1) && (int((TimeUtils.currentSeconds - int(arrUserSale[i].timeStart))) < 604800 )) {
+                    b = true;
+                    break;
+                }
+            }
+        }
+        if (!b && !userSale.saleId) {
+            if (Math.random() < .5) thisUser(1,true);
+            else thisUser(2,true);
         }
     }
 
@@ -278,7 +309,7 @@ public class ManagerSalePack {
         if (!_bolCanSalePack || g.user.salePack) {
             g.gameDispatcher.removeFromTimer(onTimer);
         }
-        if (_countSeconds >= 15) {
+        if (_countSeconds >= 5) {
             _countSeconds = 0;
             g.gameDispatcher.removeFromTimer(onTimer);
             g.userTimer.saleToEnd(userSale.timeEvent);

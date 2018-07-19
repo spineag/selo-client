@@ -78,6 +78,7 @@ public class Order extends WorldObject{
     }
     
     public function animateSmallHero(v:Boolean):void {
+        if (!_armature) return;
         if (!_hintCheck)  _hintCheck = _armature.getBone('top');
         if (_stateBuild == STATE_UNACTIVE) {
             _hintCheck.visible = false;

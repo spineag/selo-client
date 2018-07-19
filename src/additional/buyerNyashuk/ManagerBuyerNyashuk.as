@@ -145,13 +145,15 @@ public class ManagerBuyerNyashuk {
         Utils.createDelay(2,f2);
     }
 
-    public function timeToNewNyashuk(faste:Boolean = false, tuttorial:Boolean = false):void {
+    public function timeToNewNyashuk(faste:Boolean = false, tuttorial:Boolean = false, id:int = -1):void {
         var ob:Object = {};
-        if (_arr.length == 0) ob.buyer_id = 1;
-        else {
-            if (_arr[0].buyerId == 1) ob.buyer_id = 2;
-            else ob.buyer_id = 1;
-        }
+        if (id == -1) {
+            if (_arr.length == 0) ob.buyer_id = 1;
+            else {
+                if (_arr[0].buyerId == 1) ob.buyer_id = 2;
+                else ob.buyer_id = 1;
+            }
+        } else ob.buyer_id = id;
         if (tuttorial) newBotTutorial(ob);
             else newBot(false,ob);
         if (faste) getNewNyaForOrderFaste(null,_arr[_arr.length-1],_arr[_arr.length-1].buyerId);

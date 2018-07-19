@@ -174,6 +174,15 @@ public class WOQuest extends WindowMain{
         }
     }
 
+    override  public function hideIt():void {
+        if (g.user.level == 5 && g.user.cutScenes[8] != 1) {
+            g.bottomPanel.friendBtnVisible(true);
+            g.managerCutScenes.goToNeighbor();
+            if (g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) g.managerStarterPack.startIt();
+        }
+        super.hideIt();
+    }
+
     override protected function deleteIt():void {
         g.managerQuest.onHideWO();
         if (_txtName) {

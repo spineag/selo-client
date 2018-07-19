@@ -104,6 +104,14 @@ public class XPPanel {
         _source.y = 17;
         _source.x = g.managerResize.stageWidth - 170;
     }
+
+    public function get maxXP():int {
+        return _maxXP;
+    }
+
+    public function get countXP():int {
+        return _countXP;
+    }
     
     public function getPanelPoints():Point {
         return new Point(g.managerResize.stageWidth - 170,17);

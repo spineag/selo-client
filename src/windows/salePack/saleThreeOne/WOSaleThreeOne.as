@@ -42,20 +42,27 @@ public class WOSaleThreeOne extends WindowMain{
 
         _txtName = new CTextField(400,100,String(g.managerLanguage.allTexts[276]));
         _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
-        _txtName.x = -225;
+        _txtName.x = -210;
         _txtName.y = -295;
         _source.addChild(_txtName);
 
         _txtDescription = new CTextField(755, 200,String(g.managerSalePack.userSale.profit) +'%');
         _txtDescription.setFormat(CTextField.BOLD72, 45, 0xcf302f, Color.WHITE);
         _txtDescription.alignH = Align.LEFT;
-        _txtDescription.x = -100;
+//        _txtDescription.x = -100;
         _txtDescription.y = -255;
         _source.addChild(_txtDescription);
-        var txt:CTextField = new CTextField(755, 200,' discount');
+        var strSimval:String = '';
+        for (var i:int = 0; i < _txtDescription.textBounds.width/10; i++) {
+            strSimval += ' ';
+        }
+        var myPattern:RegExp = /count/;
+        var str:String =  String(g.managerLanguage.allTexts[1686]);
+        var txt:CTextField = new CTextField(755, 200,' ');
         txt.setFormat(CTextField.BOLD30, 30,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        txt.text = String(str.replace(myPattern,strSimval));
         txt.alignH = Align.LEFT;
-        txt.x = _txtDescription.x + _txtDescription.textBounds.width;
+        txt.x = -370;
         txt.y = -245;
         _source.addChild(txt);
 
@@ -137,7 +144,7 @@ public class WOSaleThreeOne extends WindowMain{
         if (g.userTimer.saleTimerToEnd > 0) {
             if (_txtTime) {
                 _txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.saleTimerToEnd);
-                _txtTime.x = _txtTime.textBounds.width/2;
+                _txtTime.x = 20;
             }
         } else {
             g.gameDispatcher.removeFromTimer(startTimer);

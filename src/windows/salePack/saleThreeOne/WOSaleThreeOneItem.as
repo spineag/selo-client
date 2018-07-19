@@ -104,7 +104,7 @@ public class WOSaleThreeOneItem {
         _txtValue.y = 175;
         source.addChild(_txtValue);
         var quad:Quad = new Quad(_txtLastCost.textBounds.width + _txtOldCost.textBounds.width + _txtValue.textBounds.width, 3, Color.RED);
-        quad.x = 7;
+        quad.x = 8;
         quad.y = 228;
         quad.alpha = .6;
         source.addChild(quad);

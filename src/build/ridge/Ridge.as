@@ -140,7 +140,7 @@ public class Ridge extends WorldObject{
             g.userInventory.addResource(_dataPlant.id, -1);
             g.toolsModifier.updateCountTxt();
             var f1:Function = function (s:String):void {
-                _plant.idFromServer = s;
+                if (_plant) _plant.idFromServer = s;
             };
             g.server.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
             var p:Point = new Point(_source.x, _source.y);

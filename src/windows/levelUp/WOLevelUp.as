@@ -331,9 +331,6 @@ public class WOLevelUp extends WindowMain {
         } else if (g.user.level == 8) {
             arr = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS);
             arr[0].showArrow(120);
-        } else if (g.user.level == 5) {
-            if (g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) g.managerStarterPack.startIt();
-            g.bottomPanel.friendBtnVisible(true);
         }
         if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
         g.managerParty.checkAndCreateIvent();

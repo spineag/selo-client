@@ -42,6 +42,7 @@ public class ManagerMiniScenes {
     private var _miniSceneBuildings:Array;
     private var _miniSceneCallback:Function;
     public var isMiniScene:Boolean = false;
+    public var isMiniSceneOrder:Boolean = false;
     private var _onShowWindowCallback:Function;
     private var _onHideWindowCallback:Function;
     private var _counter:int;
@@ -62,12 +63,12 @@ public class ManagerMiniScenes {
     }
 
     public function startOrderOpenMiniScene():void {
-        isMiniScene = true;
+        isMiniSceneOrder = true;
         _mOrderOpenCat = new MiniSceneOpenOrder();
     }
 
     public function closeOrderOpenMiniScene():void {
-        isMiniScene = false;
+        isMiniSceneOrder = false;
         if(_mOrderOpenCat) _mOrderOpenCat.deleteCat();
     }
 

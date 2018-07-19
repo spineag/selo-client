@@ -2,14 +2,23 @@
  * Created by andy on 3/3/16.
  */
 package tutorial {
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 import manager.Vars;
+
+import particle.tuts.DustLikeRectangle;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CSprite;
+
 import utils.CTextField;
+import utils.MCScaler;
+import utils.SimpleArrow;
 
 public class TutorialTextBubble {
     public static var SMALL:int = 1;
@@ -21,9 +30,14 @@ public class TutorialTextBubble {
     private var _parent:Sprite;
     private var g:Vars = Vars.getInstance();
     private var _isFlip:Boolean;
+    private var _needShowShop:Boolean;
     private var _type:int;
     private var _im:Image;
     private var _txt:CTextField;
+    private var _imageBtn:CSprite;
+    private var _innerImage:Image;
+    private var _dustRectangle:DustLikeRectangle;
+    private var _arrow:SimpleArrow;
 
     public function TutorialTextBubble(p:Sprite) {
         _parent = p;
@@ -37,10 +51,12 @@ public class TutorialTextBubble {
         _source.y = _y;
     }
 
-    public function showBubble(st:String, isFlip:Boolean, type:int):void {
+    public function showBubble(st:String, isFlip:Boolean, type:int, needShowShop:Boolean = false, callback:Function=null, startClick:Function=null):void {
         _isFlip = isFlip;
         _type = type;
+        _needShowShop = needShowShop;
         createBubble(st);
+        if (_needShowShop) addImageButton(callback,startClick);
     }
 
     private function createBubble(st:String):void {
@@ -61,6 +77,7 @@ public class TutorialTextBubble {
                     _txt.x = -334;
                     _txt.y = -178;
                 }
+                    if (_needShowShop) _txt.y = -220;
                 break;
             case MIDDLE:
                 _txt = new CTextField(278, 180, st);
@@ -121,6 +138,35 @@ public class TutorialTextBubble {
         _source.addChild(_txt);
     }
 
+    private function addImageButton(callback:Function, startClick:Function):void {
+        _imageBtn = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_icon'));
+        MCScaler.scale(im, im.height - 15, im.width - 15);
+        im.alignPivot();
+        _imageBtn.addChild(im);
+        if(_innerImage) _innerImage.alignPivot();
+        if(_innerImage)  _imageBtn.addChild(_innerImage);
+        _imageBtn.startClickCallback = startClick;
+        _imageBtn.endClickCallback = callback;
+        _imageBtn.x = -190;
+        _imageBtn.y = -30;
+        _source.addChild(_imageBtn);
+        addParticles();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+        _arrow.scaleIt(.5);
+        _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width / 2 + 20, _imageBtn.y);
+    }
+
+    private function addParticles():void {
+        var p:Point = new Point();
+         if (_imageBtn) {
+            p.x = _imageBtn.x - _imageBtn.width/2 - 5;
+            p.y = _imageBtn.y - _imageBtn.height/2 - 5;
+            p = _source.localToGlobal(p);
+            _dustRectangle = new DustLikeRectangle(_source, _imageBtn.width + 10, _imageBtn.height + 10, _imageBtn.x - _imageBtn.width/2 - 5, _imageBtn.y - _imageBtn.height/2 - 5);
+        }
+    }
+
     public function clearIt():void {
         _source.removeChild(_txt);
         if (_txt) _txt.dispose();
@@ -128,6 +174,17 @@ public class TutorialTextBubble {
         _source.removeChild(_im);
         if (_im) _im.dispose();
         _im = null;
+        if (_imageBtn) _imageBtn.dispose();
+        _imageBtn = null;
+        deleteArrow();
+        if (_dustRectangle)_dustRectangle.deleteIt();
+    }
+
+    private function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 
     public function deleteIt():void {

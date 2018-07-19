@@ -43,6 +43,7 @@ public class WOBuyCurrency extends WindowMain {
     private var _rightArrow:CButton;
     private var _shift:int;
     private var _count:int = 0;
+    private var _buy:Boolean;
 
     public function WOBuyCurrency() {
         super();
@@ -68,6 +69,7 @@ public class WOBuyCurrency extends WindowMain {
         _txtWindowName.x = -150;
         _txtWindowName.y = -_woHeight/2 + 23;
         _source.addChild(_txtWindowName);
+        _buy = false;
 
         if (_isBigWO) {
             _bigYellowBG = new BackgroundYellowOut(804, 558);
@@ -155,7 +157,7 @@ public class WOBuyCurrency extends WindowMain {
         arrInfo.sortOn('count', Array.NUMERIC);
         if (_isBigWO) {
             for (i = 0; i < arrInfo.length; i++) {
-                item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, arrInfo[i].bonus, arrInfo[i].cost, arrInfo[i].id, arrInfo[i].sale);
+                item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, arrInfo[i].bonus, arrInfo[i].cost, arrInfo[i].id, arrInfo[i].sale,callbackBuy);
                 item.source.x = -_woWidth / 2 + 57 + (i % 3) * 260;
                 if (i < 3) item.source.y = -_woHeight / 2 + 204;
                 else item.source.y = -_woHeight / 2 + 468;
@@ -167,7 +169,7 @@ public class WOBuyCurrency extends WindowMain {
             _cont.x = 0;
             checkArrows();
             for (i = 0; i < arrInfo.length; i++) {
-                item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, arrInfo[i].bonus, arrInfo[i].cost, arrInfo[i].id, arrInfo[i].sale);
+                item = new WOBuyCurrencyItem(arrInfo[i].typeMoney, arrInfo[i].count, arrInfo[i].bonus, arrInfo[i].cost, arrInfo[i].id, arrInfo[i].sale,callbackBuy);
                 item.source.x = 2 + i * 240;
                 item.source.y = 2;
                 _cont.addChild(item.source);
@@ -233,6 +235,16 @@ public class WOBuyCurrency extends WindowMain {
             createLists();
             super.showIt();
         }
+    }
+
+    private function callbackBuy():void {
+        _buy = true;
+    }
+
+    override public function hideIt():void {
+        if (_buy) g.managerSalePack.checkForSalePackRubiesBigOffer();
+        else g.managerSalePack.checkForSalePackRubies();
+        super.hideIt();
     }
 
     override protected function deleteIt():void {

@@ -76,7 +76,7 @@ public class UserTimer {
         timerAtNyashukRed--;
         if (timerAtNyashukRed <= 0 && !g.isAway) {
             timerAtNyashukRed = 0;
-            g.managerBuyerNyashuk.timeToNewNyashuk();
+            g.managerBuyerNyashuk.timeToNewNyashuk(false,false,2);
             g.gameDispatcher.removeFromTimer(nyashukTimerRed);
         }
     }
@@ -91,7 +91,7 @@ public class UserTimer {
 
         if (timerAtNyashukBlue <= 0 && !g.isAway) {
             timerAtNyashukBlue = 0;
-            g.managerBuyerNyashuk.timeToNewNyashuk();
+            g.managerBuyerNyashuk.timeToNewNyashuk(false,false,1);
             g.gameDispatcher.removeFromTimer(nyashukTimerBlue);
         }
     }

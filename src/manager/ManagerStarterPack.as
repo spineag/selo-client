@@ -31,13 +31,15 @@ public class ManagerStarterPack {
 
     private function onTimer():void {
         _countSeconds++;
-        if (_countSeconds >= 15 && g.user.level >= 5 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) {
+        if (_countSeconds >= 15 && g.user.level >= 5 && g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0 && !g.isAway && !g.managerCutScenes.isCutScene) {
             _countSeconds = 0;
             _bolCanSalePack = true;
             g.afterServerStarterPack(true);
             g.userTimer.starterToEnd(259200, true);
             g.server.updateTimeStarterPack(1);
-            g.windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+            if ( !g.managerCutScenes.isCutScene && !g.miniScenes.isMiniScene && !g.isAway) {
+                g.windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+            }
         }
     }
 }
