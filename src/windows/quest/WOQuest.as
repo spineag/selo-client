@@ -2,7 +2,11 @@
  * Created by user on 9/12/16.
  */
 package windows.quest {
+import build.orders.Order;
+
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
 
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
@@ -175,6 +179,12 @@ public class WOQuest extends WindowMain{
     }
 
     override  public function hideIt():void {
+        if (g.user.level == 4 && !g.user.isOpenOrder) {
+            g.miniScenes.startOrderOpenMiniScene();
+            var arr:Array = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            arr[0].showArrow(120);
+            g.cont.moveCenterToPos((arr[0] as Order).posX, (arr[0] as Order).posY, false, .5);
+        }
         if (g.user.level == 5 && g.user.cutScenes[8] != 1) {
             g.bottomPanel.friendBtnVisible(true);
             g.managerCutScenes.goToNeighbor();

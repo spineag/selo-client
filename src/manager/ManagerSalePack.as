@@ -206,12 +206,13 @@ public class ManagerSalePack {
         var b:Boolean = false;
         if (arrUserSale.length > 0) {
             for (var i:int = 0; i < arrUserSale.length; i++) {
-                if ((arrUserSale[i].saleId == 29 || arrUserSale[i].saleId == 30) && ( int((TimeUtils.currentSeconds - int(arrUserSale[i].timeStart))) < 172800 ) && g.userTimer.starterTimerToEnd > 0) {
+                if ((arrUserSale[i].saleId == 29 || arrUserSale[i].saleId == 30) && ( int((TimeUtils.currentSeconds - int(arrUserSale[i].timeStart))) < 172800 )) {
                     b = true;
                     break;
                 }
             }
         }
+        if (g.userTimer.starterTimerToEnd > 0 || g.user.level <= 5) return;
         if (!b && !userSale.saleId) {
             if (idResource == 125 || idResource == 47) thisUser(29,true);
             else if (idResource == 5 || idResource == 1) thisUser(30,true);

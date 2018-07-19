@@ -41,6 +41,7 @@ import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
 import windows.WOComponents.ProgressBarComponent;
+import windows.WindowMain;
 import windows.WindowsManager;
 
 public class XPPanel {
@@ -93,7 +94,6 @@ public class XPPanel {
     }
     
     private function onClick():void {
-//        g.windowsManager.openWindow(WindowsManager.WO_DECOR_LIST);
         if (!g.isDebug) return;
         g.user.notif.checkOnNewLevel();
         //g.managerOrder.simulate();

@@ -7,6 +7,7 @@ import flash.display.Bitmap;
 import loaders.PBitmap;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
 
 import starling.textures.Texture;
 
@@ -49,6 +50,7 @@ public class WOSaleThreeOne extends WindowMain{
         _txtDescription = new CTextField(755, 200,String(g.managerSalePack.userSale.profit) +'%');
         _txtDescription.setFormat(CTextField.BOLD72, 45, 0xcf302f, Color.WHITE);
         _txtDescription.alignH = Align.LEFT;
+        if (g.user.language == ManagerLanguage.ENGLISH) _txtDescription.x = -30;
 //        _txtDescription.x = -100;
         _txtDescription.y = -255;
         _source.addChild(_txtDescription);
@@ -62,7 +64,8 @@ public class WOSaleThreeOne extends WindowMain{
         txt.setFormat(CTextField.BOLD30, 30,  ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         txt.text = String(str.replace(myPattern,strSimval));
         txt.alignH = Align.LEFT;
-        txt.x = -370;
+        if (g.user.language == ManagerLanguage.ENGLISH) txt.x = -290;
+        else txt.x = -370;
         txt.y = -245;
         _source.addChild(txt);
 

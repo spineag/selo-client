@@ -53,7 +53,6 @@ public class WOLevelUpGift {
         _txtCount.alignH = Align.LEFT;
         _txtCount.x = 37;
         _txtCount.y = 3;
-
         if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.coins) {
             _imItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
             MCScaler.scale(_imItem, 40, 40);
@@ -76,7 +75,7 @@ public class WOLevelUpGift {
 //            g.userInventory.addMoney(1,ob.countHard)
             d.releaseIt(null, false);
         }
-        
+
         if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.resourceData) {
             if (g.allData.getResourceById(ob.id).buildType == BuildType.PLANT) {
                 _imItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(ob.id).imageShop + '_icon'));
@@ -92,6 +91,23 @@ public class WOLevelUpGift {
             source.hoverCallback = onHover;
             source.outCallback = onOut;
             _imItem.y = -5;
+        }
+
+        if (ob.buildType) {
+            if (ob.type == BuildType.DECOR_ANIMATION) {
+                _imItem = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(ob.id).url + '_icon'));
+            } else {
+                _imItem = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(ob.id).image + '_icon'));
+                _imItem.y = -3
+            }
+            MCScaler.scale(_imItem, 40, 40);
+            _txtCount.text = String(count);
+            d = new DropObject();
+            p = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+            p = _imItem.localToGlobal(p);
+            d.addDropDecor(g.allData.getBuildingById(ob.id), p, count,true);
+//            g.userInventory.addMoney(1,ob.countHard)
+            d.releaseIt(null, false);
         }
 
         source.addChild(_txtCount);

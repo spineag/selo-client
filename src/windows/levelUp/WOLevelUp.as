@@ -318,11 +318,8 @@ public class WOLevelUp extends WindowMain {
         _confetti.hideIt();
         var arr:Array;
         if (g.user.level == 4) {
-            g.miniScenes.startOrderOpenMiniScene();
 //            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
             g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
-            arr = g.townArea.getCityObjectsByType(BuildType.ORDER);
-            arr[0].showArrow(120);
         } else if (g.user.level == 7) {
             arr= g.townArea.getCityObjectsByType(BuildType.PAPER);
             arr[0].showArrow(120);
@@ -495,8 +492,8 @@ public class WOLevelUp extends WindowMain {
                     objDataLevel.decorData = true;
                     objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countDecor[i];
                     objDataLevel.priority = 7;
-                    objDataLevel = Utils.objectFromStructureBuildToObject(objDataLevel.id = g.dataLevel.objectLevels[g.user.level].decorId[i]);
-                    arr.push(objDataLevel);
+                    objDataLevel = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(g.dataLevel.objectLevels[g.user.level].decorId[i]));
+                    arGift.push(objDataLevel);
                 }
             }
         }

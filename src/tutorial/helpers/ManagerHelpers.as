@@ -107,6 +107,10 @@ public class ManagerHelpers {
     private function onTimer():void {
         _countSeconds++;
         if ((g.user.level < 4 && _countSeconds >= 5) || (g.user.level < 4 && _countSeconds >= SUPER_LOW_SECONDS) || (g.user.level <= 8 && _countSeconds >= LOW_SECONDS) ||(g.user.level <= 10 && _countSeconds >= MEMIUM_SECONDS)) {
+           if (g.managerOrderCats && g.managerOrderCats.moveBoolean) {
+               _countSeconds = -5;
+               return;
+           }
             _countSeconds = 0;
             if (g.tuts.isTuts) return;
             if (g.managerCutScenes.isCutScene) return;

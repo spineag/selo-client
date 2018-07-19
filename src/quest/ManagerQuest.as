@@ -7,6 +7,7 @@ import build.fabrica.Fabrica;
 import build.farm.Animal;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
+import build.orders.Order;
 import build.ridge.Ridge;
 import build.tree.Tree;
 import com.junkbyte.console.Cc;
@@ -230,6 +231,21 @@ public class ManagerQuest {
         var j:int;
         var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2 - 50);
         _activeTask = t;
+        if (g.user.level == 4 && !g.user.isOpenOrder) {
+            g.windowsManager.closeAllWindows();
+            g.miniScenes.startOrderOpenMiniScene();
+            arr = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            arr[0].showArrow(120);
+            g.cont.moveCenterToPos((arr[0] as Order).posX, (arr[0] as Order).posY, false, .5);
+            return;
+        }
+        if (g.user.level == 5 && g.user.cutScenes[8] != 1) {
+            g.windowsManager.closeAllWindows();
+            g.bottomPanel.friendBtnVisible(true);
+            g.managerCutScenes.goToNeighbor();
+            if (g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) g.managerStarterPack.startIt();
+            return;
+        }
         switch (t.typeAction) {
             case ADD_LEFT_MENU:
                 if (g.isDebug) {

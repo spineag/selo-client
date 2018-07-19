@@ -37,7 +37,7 @@ public class ManagerDropBonusResource {
     public function makeDropForUpdateAmbar(dropObject:DropObject, _x:int, _y:int):void {
         var id:int = 0;
         if ((g.userInventory.getCountResourceById(2) >= 1 && g.userInventory.getCountResourceById(3) >= 1 && g.userInventory.getCountResourceById(7) >= 1) || g.user.ambarLevel >= 2) {
-            if ((g.userInventory.getCountResourceById(4) >= 1 && g.userInventory.getCountResourceById(8) >= 1 && g.userInventory.getCountResourceById(9) >= 1) || g.user.skladLevel >= 2) {
+            if ((g.userInventory.getCountResourceById(4) >= 1 && g.userInventory.getCountResourceById(8) >= 1 && g.userInventory.getCountResourceById(9) >= 1) || g.user.skladLevel >= 2 && g.user.level > 10) {
                 makeDrop(dropObject, _x, _y);
                 return;
             } else if (g.userInventory.getCountResourceById(4) < 1) id = 4;
