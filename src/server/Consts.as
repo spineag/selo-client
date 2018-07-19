@@ -141,7 +141,7 @@ public class Consts {
     public static var INQ_GET_DATA_PARTY:String = 'a_gameData/getDataParty.php';
     public static var INQ_GET_DATA_MINI_PARTY:String = 'a_gameData/getDataMiniParty.php';
     public static var INQ_UPDATE_USER_PARTY:String = 'a_game/updateUserParty.php';
-    public static var INQ_ON_TRANSACTION:String = 'a_diff/onOKtransaction.php';
+    public static var INQ_OK_TRANSACTION:String = 'a_diff/onOKtransaction.php';
     public static var INQ_FB_TRANSACTION:String = 'a_diff/onFBtransaction.php';
     public static var INQ_DELETE_PARTY_IN_PAPPER:String = 'a_game/deletePartyInPapper.php';
     public static var INQ_ADD_USER_ERROR:String = 'a_game/addUserError.php';

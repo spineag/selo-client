@@ -7232,7 +7232,7 @@ public class DirectServer {
 
     public function onOKTransaction(callback:Function, isPayed:int, packId:int):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ON_TRANSACTION);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_OK_TRANSACTION);
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'onOKTransaction', 1);
@@ -7280,7 +7280,7 @@ public class DirectServer {
 
     public function onFBTransaction(callback:Function, isPayed:int, packId:int):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ON_TRANSACTION);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_OK_TRANSACTION);
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'onFBTransaction', 1);
