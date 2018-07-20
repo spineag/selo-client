@@ -154,7 +154,7 @@ public class HeroCat extends BasicCat{
             killAllAnimations();
             _callbackOnWalking = null;
         } else {
-            killAllAnimations();
+            removeWorker();
             if (_isFree) makeFreeCatIdle();
         }
     }

@@ -254,6 +254,7 @@ public class ManagerSalePack {
                 }
             }
         }
+        if (g.user.level <= 6) return;
         if (!b && !userSale.saleId) {
             thisUser(37,true);
         }
