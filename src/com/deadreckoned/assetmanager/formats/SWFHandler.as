@@ -121,13 +121,17 @@ public class SWFHandler extends EventDispatcher implements IFormatHandler {
      * @inheritDoc
      */
     public function load(uri:String, context:* = null):void {
-        _loaded = false;
-        if (!g.isDebug) {
-            _defaultContext.securityDomain = SecurityDomain.currentDomain;
-        }
+        try {
+            _loaded = false;
+            if (!g.isDebug) {
+                _defaultContext.securityDomain = SecurityDomain.currentDomain;
+            }
 
-        _uri = uri;
-        _loader.load(new URLRequest(uri), _defaultContext as LoaderContext);
+            _uri = uri;
+            _loader.load(new URLRequest(uri), _defaultContext as LoaderContext);
+        } catch (e:Error) {
+            Cc.error('AssetManager SWFHandler:: load error: ' + e.message);
+        }
     }
 
     /**

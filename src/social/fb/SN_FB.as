@@ -50,9 +50,7 @@ public class SN_FB extends SocialNetwork  {
         super(flashVars);
     }
 
-    override public function get currentUID():String {
-        return g.user.userSocialId;
-    }
+    override public function get currentUID():String { return g.user.userSocialId; }
 
     override public function getProfile(uid:String):void {
         super.getProfile(uid);
@@ -319,7 +317,9 @@ public class SN_FB extends SocialNetwork  {
             return;
         }
         orderPackID = e.id;
-        ExternalInterface.call("makePayment", e.type + String(e.id), g.user.userSocialId);
+        var packStr:String = e.type + String(e.id);
+        Cc.ch('social', 'FB makePayment packStr: ' + packStr);
+        ExternalInterface.call("makePayment", packStr, g.user.userSocialId);
         super.showOrderWindow(e);
     }
 

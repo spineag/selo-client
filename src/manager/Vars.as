@@ -260,17 +260,17 @@ public class Vars {
         loadMap();
     }
 
-    private function loadMap():void {           startPreloader.setProgress(76); background = new BackgroundArea(onLoadMap); }
-    private function onLoadMap():void {         startPreloader.setProgress(77); (server as DirectServer).getDataOutGameTiles(onGetOutGameTiles); }
-    private function onGetOutGameTiles():void { startPreloader.setProgress(78); (server as DirectServer).getDataLevel(onDataLevel); }
-    private function onDataLevel():void {       startPreloader.setProgress(79); (server as DirectServer).getUserInfo(loadManagerLanguqage); }
+    private function loadMap():void {           startPreloader && startPreloader.setProgress(76); background = new BackgroundArea(onLoadMap); }
+    private function onLoadMap():void {         startPreloader && startPreloader.setProgress(77); (server as DirectServer).getDataOutGameTiles(onGetOutGameTiles); }
+    private function onGetOutGameTiles():void { startPreloader && startPreloader.setProgress(78); (server as DirectServer).getDataLevel(onDataLevel); }
+    private function onDataLevel():void {       startPreloader && startPreloader.setProgress(79); (server as DirectServer).getUserInfo(loadManagerLanguqage); }
     private function loadManagerLanguqage():void { managerLanguage = new ManagerLanguage(initInterface); }
 
     public function initInterface():void {
         try {
             (user as User).createNeighbor();
             cont.hideAll(true);
-            startPreloader.setProgress(80);
+            startPreloader && startPreloader.setProgress(80);
             userInventory = new UserInventory();
 
             tuts = new TutorialManager();
@@ -305,7 +305,7 @@ public class Vars {
         managerCats.addAllHeroCats();
         managerStarterPack = new ManagerStarterPack();
         managerSalePack = new ManagerSalePack();
-        startPreloader.setProgress(81);
+        startPreloader && startPreloader.setProgress(81);
 //        if (tuts.isTuts) {
 //            loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
 //        } else {
@@ -316,35 +316,35 @@ public class Vars {
     }
     
     private function onLoadCatTutorial():void {
-        startPreloader.setProgress(82);
+        startPreloader && startPreloader.setProgress(82);
         var st:String;
         if (managerResize.stageWidth < 1040 || managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
         else st = 'animations_json/cat_tutorial';
         loadAnimation.load(st, 'tutorialCatBig', onLoadCatTutorialBig);
     }
-    private function onLoadCatTutorialBig():void { startPreloader.setProgress(83); (server as DirectServer).getDataResource(onDataResource); }
-    private function onDataResource():void {       startPreloader.setProgress(84); (server as DirectServer).getDataRecipe(onDataRecipe); }
-    private function onDataRecipe():void {         startPreloader.setProgress(85); (server as DirectServer).getDataAnimal(onDataAnimal); }
-    private function onDataAnimal():void {         startPreloader.setProgress(86); (server as DirectServer).getDataCats(onDataCats); }
-    private function onDataCats():void {           startPreloader.setProgress(87); (server as DirectServer).getDataBuyMoney(onDataBuyMoney); }
+    private function onLoadCatTutorialBig():void { startPreloader && startPreloader.setProgress(83); (server as DirectServer).getDataResource(onDataResource); }
+    private function onDataResource():void {       startPreloader && startPreloader.setProgress(84); (server as DirectServer).getDataRecipe(onDataRecipe); }
+    private function onDataRecipe():void {         startPreloader && startPreloader.setProgress(85); (server as DirectServer).getDataAnimal(onDataAnimal); }
+    private function onDataAnimal():void {         startPreloader && startPreloader.setProgress(86); (server as DirectServer).getDataCats(onDataCats); }
+    private function onDataCats():void {           startPreloader && startPreloader.setProgress(87); (server as DirectServer).getDataBuyMoney(onDataBuyMoney); }
 
     private function onDataBuyMoney():void {
-        startPreloader.setProgress(88);
+        startPreloader && startPreloader.setProgress(88);
         (server as DirectServer).getDataLockedLand(onDataLockedLand);
     }
 
-    private function onDataLockedLand():void {     startPreloader.setProgress(89); (server as DirectServer).getDataBuilding(onDataBuilding); }
-    private function onDataBuilding():void {       startPreloader.setProgress(90); (server as DirectServer).getUserResource(onUserResource); }
-    private function onUserResource():void {       startPreloader.setProgress(91); (server as DirectServer).getUserBuilding(onUserBuilding); }
-    private function onUserBuilding():void {       startPreloader.setProgress(92); (server as DirectServer).getUserFabricaRecipe(onUserFabricaRecipe); }
-    private function onUserFabricaRecipe():void {  startPreloader.setProgress(93); (server as DirectServer).getUserPlantRidge(onUserPlantRidge); }
-    private function onUserPlantRidge():void {     startPreloader.setProgress(94); (server as DirectServer).getUserTree(onUserTree); }
-    private function onUserTree():void {           startPreloader.setProgress(95); (server as DirectServer).getUserAnimal(onUserAnimal); }
-    private function onUserAnimal():void {         startPreloader.setProgress(96); (server as DirectServer).getUserTrain(onUserTrain); }
-    private function onUserTrain():void {          startPreloader.setProgress(97); (server as DirectServer).getUserWild(onUserWild); }
+    private function onDataLockedLand():void {     startPreloader && startPreloader.setProgress(89); (server as DirectServer).getDataBuilding(onDataBuilding); }
+    private function onDataBuilding():void {       startPreloader && startPreloader.setProgress(90); (server as DirectServer).getUserResource(onUserResource); }
+    private function onUserResource():void {       startPreloader && startPreloader.setProgress(91); (server as DirectServer).getUserBuilding(onUserBuilding); }
+    private function onUserBuilding():void {       startPreloader && startPreloader.setProgress(92); (server as DirectServer).getUserFabricaRecipe(onUserFabricaRecipe); }
+    private function onUserFabricaRecipe():void {  startPreloader && startPreloader.setProgress(93); (server as DirectServer).getUserPlantRidge(onUserPlantRidge); }
+    private function onUserPlantRidge():void {     startPreloader && startPreloader.setProgress(94); (server as DirectServer).getUserTree(onUserTree); }
+    private function onUserTree():void {           startPreloader && startPreloader.setProgress(95); (server as DirectServer).getUserAnimal(onUserAnimal); }
+    private function onUserAnimal():void {         startPreloader && startPreloader.setProgress(96); (server as DirectServer).getUserTrain(onUserTrain); }
+    private function onUserTrain():void {          startPreloader && startPreloader.setProgress(97); (server as DirectServer).getUserWild(onUserWild); }
 
     private function onUserWild():void {
-        startPreloader.setProgress(98);
+        startPreloader && startPreloader.setProgress(98);
         managerOrder = new ManagerOrder();
         managerOrder.updateMaxCounts();
         (server as DirectServer).getUserOrder(onUserOrder);
@@ -352,7 +352,7 @@ public class Vars {
 
     private function onUserOrder():void {
         managerOrderCats.addCatsOnStartGame();
-        startPreloader.setProgress(99);
+        startPreloader && startPreloader.setProgress(99);
         (user as User).friendAppUser();
         initVariables2();
     }
@@ -398,7 +398,7 @@ public class Vars {
     private function afterLoadAll():void {
         Cc.info('afterLoadAll');
         cont.onLoadAll();
-        startPreloader.setProgress(100);
+        startPreloader && startPreloader.setProgress(100);
         soundManager.managerMusic(true);
         soundManager.checkAnimal();
         if (currentGameScale != 1) cont.makeScaling(currentGameScale, false, true);
@@ -469,14 +469,14 @@ public class Vars {
         (user as User).notif.onGameLoad();
         if (tuts.isTuts) {
             if ((user as User).tutorialStep > 1) {
-                startPreloader.hideIt();
+                startPreloader && startPreloader.hideIt();
                 startPreloader = null;
             }
             managerOrder.showSmallHeroAtOrder(false);
             tuts.onGameStart();
             tuts.checkDefaults();
         } else {
-            startPreloader.hideIt();
+            startPreloader && startPreloader.hideIt();
             startPreloader = null;
             managerCutScenes.initUserCutScenes();
             managerCutScenes.checkAvailableCutScenes();

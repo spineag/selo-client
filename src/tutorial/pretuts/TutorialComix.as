@@ -84,7 +84,7 @@ public class TutorialComix {
                 _stMustLoad = 'comix/comics_2_small.jpg';
                     return;
             case 'comix/comics_2_small.jpg':
-                g.startPreloader.hideIt();
+                g.startPreloader && g.startPreloader.hideIt();
                 g.startPreloader = null;
                 showImage();
                 _stLoad = 'comix/comics_2_small.jpg';

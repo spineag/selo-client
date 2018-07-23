@@ -76,6 +76,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
             stage.removeEventListener(flash.events.Event.RESIZE, onStageResize);
             if (!stageReady) {
                 //Starling.multitouchEnabled = false;
+                stageReady = true;
                 star = new Starling(MainStarling, stage);
                 star.showStats = false;
                 g.mainStage = star.stage;
@@ -95,8 +96,8 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.flashVars = stage.loaderInfo.parameters;
         Cc.obj('social', g.flashVars, 'vars from social network: ', 1);
         g.isDebug = stage.loaderInfo.url.substr(0, 4).toLowerCase() == 'file';
-//        g.useHttps = g.isDebug ? false : (g.flashVars['protocol'] == 'https');
         Cc.ch('info', 'isDebug = ' + g.isDebug);
+
         g.user = new User();
         g.user.userGAcid = String(g.flashVars['gacid']);
         Cc.ch('analytic', 'gacid from flashvars:: ' + g.user.userGAcid);
@@ -145,21 +146,21 @@ public class MainStartWebStarling extends flash.display.Sprite{
 
     private function onPreload():void {
         SocialNetworkSwitch.init(g.socialNetworkID, g.flashVars, g.isDebug);
-        g.socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID || g.isDebug) g.socialNetwork.onInit();
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID || g.isDebug) onSocialNetworkInit();
+        else g.socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
     }
 
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
-        g.startPreloader.setProgress(2);
+        g.startPreloader && g.startPreloader.setProgress(2);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
         g.socialNetwork.getProfile(g.socialNetwork.currentUID);
     }
 
     private function authoriseUser(e:SocialNetworkEvent = null):void {
-        Cc.info('userSocialId == ' + g.socialNetwork.currentUID + " --- " + g.user.userSocialId); // should be the same
-        g.socialNetwork.checkUserLanguageForIFrame();
-        g.startPreloader.setProgress(3);
+        Cc.info('userSocialId == ' + g.socialNetwork.currentUID + " --- " + g.user.userSocialId);
+        //g.socialNetwork.checkUserLanguageForIFrame();
+        g.startPreloader && g.startPreloader.setProgress(3);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
         g.server.authUser(game.start);
     }

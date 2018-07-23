@@ -24,7 +24,7 @@ public class LoadComponents {
     }
 
     private function loadAtlases():void {
-        g.startPreloader.setProgress(6);
+        g.startPreloader && g.startPreloader.setProgress(6);
         count=0;
 
         g.load.loadImage(st + 'iconAtlas.png' + g.getVersion('iconAtlas'), onLoad);
@@ -56,7 +56,7 @@ public class LoadComponents {
 
     private function onLoad(smth:*=null):void {
         count++;
-        g.startPreloader.setProgress(6 + count);
+        g.startPreloader && g.startPreloader.setProgress(6 + count);
         if (count >=20) createAtlases();
     }
 
@@ -151,7 +151,7 @@ public class LoadComponents {
     }
 
     private function loadDBAnimations():void {
-        g.startPreloader.setProgress(30);
+        g.startPreloader && g.startPreloader.setProgress(30);
         count = 0;
 
         g.loadAnimation.load('animations_json/arrow', 'arrow', onLoadDB);
@@ -166,14 +166,14 @@ public class LoadComponents {
 
     private function onLoadDB():void {
         count++;
-        g.startPreloader.setProgress(30 + count*2);
+        g.startPreloader && g.startPreloader.setProgress(30 + count*2);
         if (count >=6) {
             loadDBX();
         }
     }
 
     private function loadDBX():void {
-        g.startPreloader.setProgress(50);
+        g.startPreloader && g.startPreloader.setProgress(50);
         count = 0;
 
         g.loadAnimation.load('animations_json/x1/bfly', 'bfly', onLoadDB_X);
@@ -191,7 +191,7 @@ public class LoadComponents {
 
     private function onLoadDB_X():void {
         count++;
-        g.startPreloader.setProgress(50 + 2*count);
+        g.startPreloader && g.startPreloader.setProgress(50 + 2*count);
         if (count >=11) {
             if (_callback != null) _callback.apply();
 //            loadHitArea();

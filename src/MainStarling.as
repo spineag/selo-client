@@ -23,13 +23,13 @@ public class MainStarling extends Sprite {
         sAssets = new AssetManager();
         sAssets.verbose = true;
         sAssets.enqueue(EmbedAssets);
-        g.startPreloader.setProgress(4);
+        g.startPreloader && g.startPreloader.setProgress(4);
 
         var max:int = 5;
         var cur:int;
         sAssets.loadQueue(function (ratio:Number):void {
             cur = int(max * ratio);
-            g.startPreloader.setProgress(cur);
+            g.startPreloader && g.startPreloader.setProgress(cur);
             if (ratio == 1.0){
                 loadVersion();
             }
@@ -37,7 +37,7 @@ public class MainStarling extends Sprite {
     }
 
     private function loadVersion():void {
-        g.startPreloader.setProgress(5);
+        g.startPreloader && g.startPreloader.setProgress(5);
         g.server.getVersion(loadComponents);
         g.server.getTextHelp(null);
     }

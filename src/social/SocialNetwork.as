@@ -55,7 +55,8 @@ public class SocialNetwork extends EventDispatcher {
     public function get sessionGUID():String { return _flashVars["sessionGUID"]; }
     public function get friendIDs():Array { return _friendsIDs || []; }
     public function setUserLevel():void {}
-    public function checkUserLanguageForIFrame():void { Cc.ch('social', 'checkUserLanguageForIFrame') };
+    public function checkUserLanguageForIFrame():void { Cc.ch('social', 'checkUserLanguageForIFrame'); }
+    public function JSflashConsole(st:String):void { ExternalInterface.call("fromFlashToConsole", st); }
     
     public static function getDefaultAvatar():String {
         var path:String = g.dataPath.getMainPath() + 'images/icons/avatar_default_';
