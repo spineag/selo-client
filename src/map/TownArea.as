@@ -1753,9 +1753,9 @@ public class TownArea extends Sprite {
 
      // ---------------------------------------------------- AWAY SECTION -------------------------------------------------------
 
-    public function goAway(person:Someone):void {
+    public function goAway(person:Someone, needCheckPerson:Boolean = true):void {
         var b:Boolean = true;
-        if (person.level <= 0 && !person.marketItems) {
+        if (needCheckPerson && person.level <= 0 && !person.marketItems) {
             if (person is NeighborBot) b = false;
             if (b) {
                 var p0:Point = new Point(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2);

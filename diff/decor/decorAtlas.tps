@@ -334,6 +334,8 @@
             <filename>white_fence</filename>
             <filename>white_heart_fence</filename>
             <filename>wood_bench.png</filename>
+            <filename>cat_statue_new.png</filename>
+            <filename>statue_hero.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

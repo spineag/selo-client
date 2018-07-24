@@ -38,13 +38,17 @@ public class WOFarmStandRatingItem {
     private var _ramka:Image;
     private var _txtName:CTextField;
     private var _txtCount:CTextField;
+    private var _txtCountDescription:CTextField;
     private var _txtNumber:CTextField;
     private var _goAway:CButton;
     private var g:Vars = Vars.getInstance();
     private var _person:Someone;
+    private var _userSocialId:String;
 
-    public function WOFarmStandRatingItem(number:int, userId:int, count:int, socialId:String) {
-        _person = g.user.getSomeoneBySocialId(socialId);
+    public function WOFarmStandRatingItem(number:int, userId:int, count:int, socialId:String, numberUser:int = -1) {
+        if (userId != g.user.userId) _person = g.user.getSomeoneBySocialId(socialId);
+        else _person = g.user;
+        _userSocialId = socialId;
         source = new Sprite();
         if (number%2 == 0) {
             var bgD:BackgroundQuestDone = new BackgroundQuestDone(600, 100);
@@ -59,14 +63,21 @@ public class WOFarmStandRatingItem {
         source.addChild(_txtName);
         _txtName.x = 100;
         _txtName.y = -10;
-        _txtCount = new CTextField(500, 70, count +' ' + String(g.managerLanguage.allTexts[325]));
-        _txtCount.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtCount = new CTextField(500, 70, count +' ');
+        _txtCount.setFormat(CTextField.BOLD30, 30,ManagerFilters.BLUE_COLOR);
         _txtCount.alignH = Align.LEFT;
         source.addChild(_txtCount);
         _txtCount.x = 100;
         _txtCount.y = 35;
+        _txtCountDescription = new CTextField(500, 70,String(g.managerLanguage.allTexts[1689]));
+        _txtCountDescription.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtCountDescription.alignH = Align.LEFT;
+        source.addChild(_txtCountDescription);
+        _txtCountDescription.x = _txtCount.x + _txtCount.textBounds.width;
+        _txtCountDescription.y = 40;
         _txtNumber = new CTextField(500, 70, String(int(number)));
-        _txtNumber.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        if (numberUser > -1) _txtNumber.text = String(numberUser);
+        _txtNumber.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtNumber.alignH = Align.CENTER;
         source.addChild(_txtNumber);
         _txtNumber.x = -201;
@@ -98,9 +109,10 @@ public class WOFarmStandRatingItem {
     }
 
     public function updateAvatar():void {
-        Cc.info('WOPartyRatingFriendItem update avatar');
-        if (!_person.photo) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
-        if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
+        _person = g.user.getSomeoneBySocialId(_userSocialId);
+////        Cc.info('WOPartyRatingFriendItem update avatar');
+//        if (!_person.photo) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+//        if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
         _txtName.text = _person.name + ' ' + _person.lastName;
         g.load.loadImage(_person.photo, onLoadPhoto);
     }
@@ -129,16 +141,18 @@ public class WOFarmStandRatingItem {
             source.removeChild(_srcAva);
         }
         _srcAva = new CSprite();
-        source.addChild(_srcAva);
+        source.addChildAt(_srcAva,2);
         _ava = new Image(tex);
         MCScaler.scale(_ava, 60, 60);
-        _ava.x = 10;
-        _ava.y = 8;
+        _ava.x = 20;
+        _ava.y = 28;
         _srcAva.addChild(_ava);
         if (_person.userId == g.user.userId) _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame_blue'));
         else _ramka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
+        _ramka.x = 10;
+        _ramka.y = 22;
         _srcAva.addChild(_ramka);
-        source.addChildAt(_srcAva,0);
+//        source.addChildAt(_srcAva,0);
         if (_person.userSocialId != g.user.userSocialId) {
             _srcAva.endClickCallback = visitPerson;
             _srcAva.hoverCallback = function ():void {
@@ -151,8 +165,8 @@ public class WOFarmStandRatingItem {
     }
 
     private function visitPerson():void {
-        g.townArea.goAway(_person);
-        g.windowsManager.hideWindow(WindowsManager.WO_COINS_MAX_RATING);
+        g.windowsManager.closeAllWindows();
+        g.townArea.goAway(_person, false);
     }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {

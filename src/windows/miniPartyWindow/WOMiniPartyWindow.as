@@ -65,13 +65,13 @@ public class WOMiniPartyWindow extends WindowMain{
         _txtName = new CTextField(450, 70, String(g.managerLanguage.allTexts[g.managerMiniParty.nameMain]));
         _txtName.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.BLUE_COLOR);
         _txtName.x = -230;
-        _txtName.y = -258;
+        _txtName.y = -266;
         _source.addChild(_txtName);
         _txtDescription = new CTextField(450, 70, String(g.managerLanguage.allTexts[g.managerMiniParty.descriptionMain]));
         _txtDescription.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtDescription.x = -230;
         _txtDescription.y = -180;
-        _source.addChild(_txtDescription);
+//        _source.addChild(_txtDescription);
         _curActivePosition = 0;
         _cont = new Sprite();
         _cont.y = 70;
@@ -86,28 +86,28 @@ public class WOMiniPartyWindow extends WindowMain{
         _koleso.addChild(im);
         _btnRotate = new CButton();
         _btnRotate.addButtonTexture(200, CButton.HEIGHT_41, CButton.GREEN, true);
-        var txt:CTextField = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 75');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+//        var txt:CTextField = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' ' + String(g.managerMiniParty.countItem));
+//        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnRotate.y = 260;
-        if (g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).buildType == BuildType.PLANT)im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).imageShop + '_icon'));
-        else im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).url].getTexture(g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).imageShop));
-        MCScaler.scale(im, 40, 40);
-        var sens:SensibleBlock = new SensibleBlock();
-        sens.textAndImage(txt,im,200);
-        _btnRotate.addSensBlock(sens,0,20);
+//        if (g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).buildType == BuildType.PLANT)im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).imageShop + '_icon'));
+//        else im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).url].getTexture(g.allData.getResourceById(g.managerMiniParty.idItemEvent[0]).imageShop));
+//        MCScaler.scale(im, 40, 40);
+//        var sens:SensibleBlock = new SensibleBlock();
+//        sens.textAndImage(txt,im,200);
+//        _btnRotate.addSensBlock(sens,0,20);
         _btnRotate.clickCallback = rotateKoleso;
         _source.addChild(_btnRotate);
 
 
         _btnRotateRubie = new CButton();
         _btnRotateRubie.addButtonTexture(200, CButton.HEIGHT_41, CButton.GREEN, true);
-        txt = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 2');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+//        txt = new CTextField(200, 40, String(g.managerLanguage.allTexts[1332]) +  ' 2');
+//        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnRotateRubie.y = 260;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-        sens = new SensibleBlock();
-        sens.textAndImage(txt,im,200);
-        _btnRotateRubie.addSensBlock(sens,0,20);
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+//        sens = new SensibleBlock();
+//        sens.textAndImage(txt,im,200);
+//        _btnRotateRubie.addSensBlock(sens,0,20);
         _btnRotateRubie.clickCallback = rotateKoleso;
         _source.addChild(_btnRotateRubie);
         im = new Image(g.allData.atlas['miniPartyAtlas'].getTexture('event_lucky_wheel_3'));
@@ -118,7 +118,7 @@ public class WOMiniPartyWindow extends WindowMain{
         im.x = -im.width/2;
         im.y = 19;
         _source.addChild(im);
-        fillItems();
+//        fillItems();
         _contItemCraft = new Sprite();
         _contItemCraft.y = 70;
         _source.addChild(_contItemCraft);
@@ -144,7 +144,7 @@ public class WOMiniPartyWindow extends WindowMain{
     }
 
     private function checkBtn():void {
-        if (g.userInventory.getCountResourceById(g.managerMiniParty.idItemEvent[0]) < 75) {
+        if (g.userInventory.getCountResourceById(g.managerMiniParty.idItemEvent[0]) < g.managerMiniParty.countItem) {
             _btnRotate.visible = false;
             _btnRotateRubie.visible = true;
             _forRubieRotate = true;
@@ -180,7 +180,7 @@ public class WOMiniPartyWindow extends WindowMain{
         _curActivePosition -=5;
         new WOMiniPartyCraftItem(g.managerMiniParty.idGift[_curActivePosition], g.managerMiniParty.typeGift[_curActivePosition], g.managerMiniParty.countGift[_curActivePosition], _contItemCraft, null);
         if (_forRubieRotate) g.userInventory.addMoney(DataMoney.HARD_CURRENCY, - 2);
-        else g.userInventory.addResource(g.managerMiniParty.idItemEvent[0], -75);
+        else g.userInventory.addResource(g.managerMiniParty.idItemEvent[0], -g.managerMiniParty.countItem);
         checkBtn();
         _isAnimate = false;
 

@@ -192,7 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>8_march_statue_icon.png</filename>
             <filename>alive_fence_icon.png</filename>
             <filename>alpine_garden_big_icon.png</filename>
             <filename>alpine_garden_icon.png</filename>
@@ -209,7 +208,6 @@
             <filename>arch_white_icon.png</filename>
             <filename>balabas</filename>
             <filename>barrel_icon.png</filename>
-            <filename>beach_chair</filename>
             <filename>beehive_icon.png</filename>
             <filename>bird_house_icon.png</filename>
             <filename>blueberry_icon.png</filename>
@@ -220,13 +218,8 @@
             <filename>builds</filename>
             <filename>cactus_round</filename>
             <filename>camping_fire_icon.png</filename>
-            <filename>camping_tent_green_icon.png</filename>
-            <filename>camping_tent_yellow_icon.png</filename>
             <filename>cat_bouquet_icon.png</filename>
-            <filename>cat_cosmonaut_1_icon.png</filename>
-            <filename>cat_cosmonaut_2_icon.png</filename>
             <filename>cat_icon.png</filename>
-            <filename>cat_nail</filename>
             <filename>chair_1_icon.png</filename>
             <filename>chair_2_icon.png</filename>
             <filename>cherry_icon.png</filename>
@@ -239,8 +232,6 @@
             <filename>copper_bench_icon.png</filename>
             <filename>corn_fabric_icon.png</filename>
             <filename>cow_icon.png</filename>
-            <filename>cupidon_statue_blue_icon.png</filename>
-            <filename>cupidon_statue_pink_icon.png</filename>
             <filename>cycle_flower_icon.png</filename>
             <filename>dandelion_blue_icon.png</filename>
             <filename>dandelion_green_icon.png</filename>
@@ -301,11 +292,8 @@
             <filename>hammock_icon.png</filename>
             <filename>hay_icon.png</filename>
             <filename>kakao_icon.png</filename>
-            <filename>kiss_bench_icon.png</filename>
             <filename>lemon_icon.png</filename>
             <filename>logs_icon.png</filename>
-            <filename>love_tree_icon.png</filename>
-            <filename>maslenitsa_statue_icon.png</filename>
             <filename>mushroom_house_1_icon.png</filename>
             <filename>mushroom_house_2_icon.png</filename>
             <filename>new_year_boot_icon.png</filename>
@@ -345,7 +333,6 @@
             <filename>tail_usa_1_icon.png</filename>
             <filename>tail_usa_2_icon.png</filename>
             <filename>teleskope_icon.png</filename>
-            <filename>tent</filename>
             <filename>track_autumn_1_icon.png</filename>
             <filename>track_autumn_icon.png</filename>
             <filename>track_blue_cross_icon.png</filename>
@@ -364,7 +351,6 @@
             <filename>track_wooden1_icon.png</filename>
             <filename>track_wooden2_icon.png</filename>
             <filename>track_yellow_icon.png</filename>
-            <filename>trampoline</filename>
             <filename>tree_swing_icon.png</filename>
             <filename>trees_1_icon.png</filename>
             <filename>trees_2_icon.png</filename>
@@ -374,7 +360,6 @@
             <filename>trees_6_icon.png</filename>
             <filename>trees_7_icon.png</filename>
             <filename>ufo_icon.png</filename>
-            <filename>umbrella</filename>
             <filename>well_white_icon.png</filename>
             <filename>well_yellow_icon.png</filename>
             <filename>wheelbarrow_icon.png</filename>
@@ -383,6 +368,9 @@
             <filename>white_fence_icon.png</filename>
             <filename>witch_pot</filename>
             <filename>wood_bench_icon.png</filename>
+            <filename>beach_chair</filename>
+            <filename>cat_statue_new_icon.png</filename>
+            <filename>statue_hero_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

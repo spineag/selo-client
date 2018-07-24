@@ -7,6 +7,8 @@ import loaders.PBitmap;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 
+import ui.miniParty.MiniPartyUI;
+
 //import ui.miniParty.MiniPartyPanel;
 
 import utils.TimeUtils;
@@ -92,7 +94,7 @@ public class ManagerMiniParty {
                 g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'miniPartyAtlas.xml' + g.getVersion('miniPartyAtlas'));
             }
         }
-        //g.miniPartyPanel = new MiniPartyPanel();
+        g.miniPartyUI = new MiniPartyUI();
     }
 
     public function get  timeToStart():int {return _dataMiniParty.timeToStart;}
@@ -106,6 +108,7 @@ public class ManagerMiniParty {
     public function get  id():int {return _dataMiniParty.id;}
     public function get  iconUI():String {return _dataMiniParty.iconUI;}
     public function get  nameMain():int {return _dataMiniParty.nameMain;}
+    public function get  countItem():int {return _dataMiniParty.countItem;}
     public function get  descriptionMain():int {return _dataMiniParty.descriptionMain;}
 }
 }

@@ -81,7 +81,7 @@ public class SN_Blank_FB extends SocialNetwork {
             ob = {};
             ob.dbId = e[i].id;
             ob.uid = e[i].social_id;
-            ob.first_name = e[i].name;
+            ob.first_name = e[i].first_name;
             ob.last_name = e[i].last_name;
             ob.photo_100 = e[i].photo_url;
             if (ob.photo_100 == '' || ob.photo_100 == 'unknown') ob.photo = SocialNetwork.getDefaultAvatar();

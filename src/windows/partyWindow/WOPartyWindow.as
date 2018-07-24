@@ -354,8 +354,8 @@ public class WOPartyWindow extends WindowMain {
         _txtBestGiftRating.y = -100;
         _txtBestGiftRating.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW);
         _sprRating.addChild(_txtBestGiftRating);
-        if (g.managerParty.idDecorBest == 1 && g.managerParty.typeDecorBest == 1) _imBestGiftRating = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_rubins_1'));
-        else if (g.managerParty.idDecorBest == 2 && g.managerParty.typeDecorBest == 2) _imBestGiftRating = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bank_coins_1'));
+        if (g.managerParty.idDecorBest == 1 && g.managerParty.typeDecorBest == 1) _imBestGiftRating = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+        else if (g.managerParty.idDecorBest == 2 && g.managerParty.typeDecorBest == 2) _imBestGiftRating = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         else if (g.managerParty.typeDecorBest == BuildType.DECOR) _imBestGiftRating = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).image + '_icon'));
         else if (g.managerParty.typeDecorBest == BuildType.DECOR_ANIMATION) _imBestGiftRating = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).url + '_icon'));
         else if (g.managerParty.typeDecorBest == BuildType.PLANT) _imBestGiftRating = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idDecorBest).imageShop + '_icon'));

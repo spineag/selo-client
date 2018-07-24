@@ -52,15 +52,15 @@ public class WOFarmStandRating extends WindowMain {
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        _nameTxt = new CTextField(300, 60, g.managerLanguage.allTexts[1279]);
+        _nameTxt = new CTextField(300, 60, g.managerLanguage.allTexts[1687]);
         _nameTxt.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
         _nameTxt.x = -150;
         _nameTxt.y = -_woHeight/2 + 25;
         _source.addChild(_nameTxt);
 
-        _descriptionTxt = new CTextField(670, 60, g.managerLanguage.allTexts[764]);
-        _descriptionTxt.setFormat(CTextField.BOLD72, 70, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
-        _descriptionTxt.x = -335;
+        _descriptionTxt = new CTextField(670, 60, g.managerLanguage.allTexts[1688]);
+        _descriptionTxt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _descriptionTxt.x = -336;
         _descriptionTxt.y = -185;
         _source.addChild(_descriptionTxt);
 
@@ -99,10 +99,17 @@ public class WOFarmStandRating extends WindowMain {
 
     private function showFriend(needShow:Boolean = false):void {
         var cafeItem:WOFarmStandRatingItem;
+        var isUser:Boolean = false;
         for (var i:int =0; i < g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend.length; i ++) {
+            if (g.user.userId == g.managerFarmStandCoinsMaxRating.arrFarmStadRating[i].userId) isUser = true;
             cafeItem = new WOFarmStandRatingItem(i+1, g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend[i].userId, g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend[i].count, g.managerFarmStandCoinsMaxRating.arrFarmStadRatingFriend[i].userSocialId);
             _scrollSprite.addNewCell(cafeItem.source);
             _arrItem.push(cafeItem);
+        }
+        if (!isUser) {
+            cafeItem = new WOFarmStandRatingItem(i+1,g.user.userId, g.user.countStand, g.user.userSocialId);
+            _scrollSprite.addNewCell(cafeItem.source);
+//            _arrItem.push(cafeItem);
         }
         checkSocialInfoForArray();
         if (needShow) super.showIt();
@@ -110,10 +117,17 @@ public class WOFarmStandRating extends WindowMain {
 
     private function showAll(needShow:Boolean = false):void {
         var cafeItem:WOFarmStandRatingItem;
+        var isUser:Boolean = false;
         for (var i:int =0; i < g.managerFarmStandCoinsMaxRating.arrFarmStadRating.length; i ++) {
+            if (g.user.userId == g.managerFarmStandCoinsMaxRating.arrFarmStadRating[i].userId) isUser = true;
             cafeItem = new WOFarmStandRatingItem(i+1,g.managerFarmStandCoinsMaxRating.arrFarmStadRating[i].userId, g.managerFarmStandCoinsMaxRating.arrFarmStadRating[i].count, g.managerFarmStandCoinsMaxRating.arrFarmStadRating[i].userSocialId);
             _scrollSprite.addNewCell(cafeItem.source);
             _arrItem.push(cafeItem);
+        }
+        if (!isUser) {
+            cafeItem = new WOFarmStandRatingItem(i+1,g.user.userId, g.user.countStand, g.user.userSocialId, g.managerFarmStandCoinsMaxRating.playerCountStandRatingPosition);
+            _scrollSprite.addNewCell(cafeItem.source);
+//            _arrItem.push(cafeItem);
         }
         checkSocialInfoForArray();
         if (needShow) super.showIt();
@@ -136,7 +150,6 @@ public class WOFarmStandRating extends WindowMain {
         for (var i:int=0; i < arr.length; i++) {
             p = g.user.getSomeoneBySocialId(arr[i].userSocialId);
             if (!p.photo && userIds.indexOf(arr[i].userSocialId) == -1 && arr[i].userSocialId != g.user.userSocialId) userIds.push(arr[i].userSocialId);
-            else if (p.photo && arr[i].userSocialId != g.user.userSocialId) userIds.push(arr[i].userSocialId);
         }
         if (userIds.length) {
             g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);

@@ -193,6 +193,7 @@
         <key>fileList</key>
         <array>
             <filename>screen-1_fb_copy.png</filename>
+            <filename>gold_fb.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

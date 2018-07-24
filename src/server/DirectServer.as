@@ -9474,6 +9474,7 @@ public class DirectServer {
             obj.tester = Boolean(int(d.message[i].tester));
             obj.iconUI = String(d.message[i].icon);
             obj.nameMain = int(d.message[i].txt_id_name);
+            obj.countItem = int(d.message[i].count_item);
             obj.descriptionMain = int(d.message[i].txt_id_description);
             if (d.message[i].id_item) obj.idItemEvent = String(d.message[i].id_item).split('&');
             for (k = 0; k < obj.idItemEvent.length; k++) obj.idItemEvent[k] = int(obj.idItemEvent[k]);

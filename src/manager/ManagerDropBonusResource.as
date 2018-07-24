@@ -11,7 +11,7 @@ import resourceItem.newDrop.DropObject;
 
 public class ManagerDropBonusResource {
     public static const DROP_VARIATY:int = 2; // == 3 %
-    public static const DROP_VARIATY_5:int = 5; // == 5 %
+    public static const DROP_VARIATY_5:int = 2; // == 5 %
 
     private var g:Vars = Vars.getInstance();
     private var _countBonus:int;
@@ -30,8 +30,10 @@ public class ManagerDropBonusResource {
     }
 
     public function createDrop(_x:int, _y:int, dropObject:DropObject):void {
-        if (g.user.level <= 10 && !g.tuts.isTuts) makeDropForUpdateAmbar(dropObject, _x, _y);
-            else makeDrop(dropObject, _x, _y);
+//        if (g.user.level <= 10 && !g.tuts.isTuts) makeDropForUpdateAmbar(dropObject, _x, _y);
+//            else makeDrop(dropObject, _x, _y);
+
+        makeDrop(dropObject, _x, _y);
     }
 
     public function makeDropForUpdateAmbar(dropObject:DropObject, _x:int, _y:int):void {
