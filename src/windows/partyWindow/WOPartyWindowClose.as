@@ -202,10 +202,10 @@ internal class PartyItem {
     public function PartyItem(id:int, type:int) {
         source = new Sprite();
         if (id == 1 && type  == 1) {
-            _item = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+            _item = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             source.addChild(_item);
         } else if (id == 2 && type == 2) {
-            _item = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            _item = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
             source.addChild(_item);
         }  else if (type == BuildType.RESOURCE || type == BuildType.INSTRUMENT || type == BuildType.PLANT) {
             _item = new Image(g.allData.atlas[g.allData.getResourceById(id).url].getTexture(g.allData.getResourceById(id).imageShop));
