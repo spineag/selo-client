@@ -7274,7 +7274,7 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('onOKTransaction: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+            //g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
 
