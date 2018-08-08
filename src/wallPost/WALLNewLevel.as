@@ -27,7 +27,7 @@ public class WALLNewLevel {
 
     public function WALLNewLevel(callback:Function, params:Array):void {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            stUrl = g.dataPath.getGraphicsPath() + "wall/ok/wall_OK_7_" + g.user.level + ".jpg";
+            stUrl = g.dataPath.getGraphicsPath() + "wall/ok/wall_OK_7_5.jpg";
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             if (g.user.language == ManagerLanguage.RUSSIAN) {
