@@ -10,6 +10,8 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import social.SocialNetwork;
 import social.SocialNetworkSwitch;
 import starling.display.Image;
 import starling.display.Quad;
@@ -497,6 +499,8 @@ public class MainBottomPanel {
     }
 
     private function friendBoard():void {
+        if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+        if (_person.photo =='' || _person.photo == 'unknown') _person.photo = SocialNetwork.getDefaultAvatar();
         var im:Image;
         var txt:CTextField;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_board_yellow_bg'));
@@ -517,13 +521,6 @@ public class MainBottomPanel {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_frame'));
         im.y = 8;
         _friendBoard.addChild(im);
-        txt = new CTextField(150,40,'');
-        txt.needCheckForASCIIChars = true;
-        txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
-        txt.text = _person.name;
-        txt.x = 50;
-        txt.y = 20;
-        _friendBoard.addChild(txt);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('xp_icon'));
         im.x = 50;
         im.y = 50;
@@ -534,6 +531,12 @@ public class MainBottomPanel {
         if (_person is NeighborBot) txt.text = '60';
         txt.x = 48;
         txt.y = 45;
+        _friendBoard.addChild(txt);
+        txt = new CTextField(150,40,_person.name);
+        txt.needCheckForASCIIChars = true;
+        txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
+        txt.x = 52;
+        txt.y = 20;
         _friendBoard.addChild(txt);
 //        if (_person != g.user.neighbor) {
 //            var i:int;
