@@ -17,6 +17,7 @@ public class ManagerLanguage {
     }
 
     private function callbackLoad():void {
+        g.socialNetwork.checkUserLanguageForIFrame();
         if (_callback != null) {
             _callback.apply();
         }
