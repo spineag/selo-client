@@ -149,7 +149,8 @@ public class TimerHint {
         if (g.tuts.isTuts) {
             _txtCost.text = '0';
         } else {
-            _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
+           // _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
+            _txtCost.text = String(cost);
         }
         g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addToTimer(onTimer);
