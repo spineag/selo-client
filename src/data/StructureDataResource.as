@@ -21,7 +21,9 @@ public class StructureDataResource {
     private var _opys:String;
     private var _priceSkipHard:int;
     private var _buildTime:int;
-    private var _craftXP:int;
+    private var _craftXP:int=0;
+    private var _craftCoin:int=0;
+    private var _craftRubin:int=0;
     private var _image:String;
     private var _orderCoinMin:int = 1;
     private var _orderCoinMax:int = 1;
@@ -51,6 +53,8 @@ public class StructureDataResource {
         if (ob.cost_skip) _priceSkipHard = int(ob.cost_skip);
         if (ob.build_time) _buildTime = int(ob.build_time);
         if (ob.craft_xp) _craftXP = int(ob.craft_xp);
+        if (ob.craft_coin) _craftCoin = int(ob.craft_coin);
+        if (ob.craft_rubin) _craftRubin = int(ob.craft_rubin);
         if (ob.order_coin_min) _orderCoinMin = int(ob.order_coin_min);
         if (ob.order_coin_max) _orderCoinMax = int(ob.order_coin_max);
         if (ob.order_xp_min) _orderXPMin = int(ob.order_xp_min);
@@ -88,6 +92,8 @@ public class StructureDataResource {
     public function get priceSkipHard():int {return _priceSkipHard;}
     public function get buildTime():int {return _buildTime;}
     public function get craftXP():int {return _craftXP;}
+    public function get craftCoin():int {return _craftXP;}
+    public function get craftRubin():int {return _craftXP;}
     public function get orderPriceMin():int { return _orderCoinMin; }
     public function get orderPriceMax():int { return _orderCoinMax; }
     public function get orderXPMin():int { return _orderXPMin; }

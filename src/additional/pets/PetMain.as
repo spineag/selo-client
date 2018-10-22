@@ -27,6 +27,7 @@ public class PetMain {
     protected var _depth:Number = 0;
     protected var _posX:int = 0;
     protected var _posY:int = 0;
+    protected var _xp:int = 10;
     protected var _callbackOnEndWalk:Function;
     protected var _dbId:int;
     protected var _timeEat:int;
@@ -80,6 +81,8 @@ public class PetMain {
     public function get posY():int { return _posY; }
     public function set posX(a:int):void { _posX = a; }
     public function set posY(a:int):void { _posY = a; }
+    public function set xp(a:int):void { _xp = a; }
+    public function get xp():int { return _xp; }
     public function get source():Sprite { return _source; }
     public function get armature():Armature { return _animation.armature; }
     public function get animation():AnimationPet { return _animation; }
@@ -96,7 +99,7 @@ public class PetMain {
     public function get hasNewEat():Boolean { return _hasNewEat; }
     public function set hasNewEat(v:Boolean):void { _hasNewEat = v; }
     public function set hasCraft(v:Boolean):void { _hasCraft = v; }
-    public function get hasCraft():Boolean { return _hasNewEat; }
+    public function get hasCraft():Boolean { return _hasCraft; }
     public function get innerPosX1():int { return _innerPosX1; }
     public function get innerPosX2():int { return _innerPosX2; }
     public function get innerPosX3():int { return _innerPosX3; }
@@ -107,28 +110,26 @@ public class PetMain {
     public function get positionAtHouse():int { return _positionAtHouse; }
     public function removePath():void { _currentPath.length = 0; }
 
-    public function onGetCraft():void {
-        if (_timeLeft > 0) return;
-        if (_hasNewEat) {
-            _hasNewEat = false;
-            g.managerPets.onReleaseNewEatAfterLongCraft(this);
-//            _state = ManagerPets.STATE_RAW_WALK;
-//            _timeLeft = _petData.buildTime;
-//            _timeEat = TimeUtils.currentSeconds;
-//            _petHouse.getMiskaForPet(this).showEat(false);
-        }
-    }
-
     public function analyzeTimeEat(t:int):void {
         _timeEat = t;
         if (t > 0) {
             _timeLeft = _timeEat + _petData.buildTime - TimeUtils.currentSeconds;
-            if (_timeLeft < 0) _timeLeft = 0;
-                else g.managerPets.addPetToTimer(this);
+            if (_timeLeft < 0) {
+                if (_hasCraft) _timeLeft = 0; // wait for getting craft and then start timer if pet hasNewEat=true or do nothing
+                else {
+                    if (_hasNewEat) {
+                        _hasCraft=true;
+                        _hasNewEat=false;
+                        _timeLeft-=_petData.buildTime;
+                        g.server.rawUserPetAutoAfterFinish(this, _timeEat+_petData.buildTime, null);
+                        if (_timeLeft < 0) _timeLeft=0;
+                    } else _timeLeft = 0;
+                }
+            } else g.managerPets.addPetToTimer(this);
             if (_hasCraft) _state = ManagerPets.STATE_RAW_SLEEP;
                 else _state = ManagerPets.STATE_RAW_WALK;
             _petHouse.getMiskaForPet(this).showEat(_hasNewEat);
-        } else {
+        } else if (t==0) {
              if (_hasNewEat && !_hasCraft) {
                  _state = ManagerPets.STATE_RAW_SLEEP;
                  _timeLeft = 0;

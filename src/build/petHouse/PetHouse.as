@@ -7,6 +7,8 @@ import additional.pets.PetMain;
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.StructureDataResource;
+
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import flash.geom.Point;
@@ -139,8 +141,11 @@ public class PetHouse extends WorldObject {
                     g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCraftedItems[0] as CraftItem).resourceId});
                     (_arrCraftedItems.pop() as CraftItem).releaseIt();
                     p = getCraftedPet();
-                    if (p) g.managerPets.onCraftHouse(p);
-
+                    p.hasCraft = false;
+                    if (p.hasNewEat) {
+                        p.state = ManagerPets.STATE_HUNGRY_WALK;
+                        onClickForRawPet(p,false);
+                    }
                 }
             } else {
                 p = getPetWithOutEat();
@@ -158,26 +163,32 @@ public class PetHouse extends WorldObject {
         }
     }
 
-    private function onClickForRawPet(p:PetMain):void {
+    private function onClickForRawPet(p:PetMain, showRawAnim:Boolean=true):void {
         if (p.state == ManagerPets.STATE_HUNGRY_WALK) {
             p.state = ManagerPets.STATE_RAW_SLEEP;
             p.hasNewEat = false;
             p.hasCraft = true;
             p.analyzeTimeEat(TimeUtils.currentSeconds);
             addCraftItem(p);
-        } else p.hasNewEat = true;
+            g.managerPets.onRawPet(p, this, false);
+        } else {
+            p.hasNewEat = true;
+            p.hasCraft = false;
+            g.managerPets.onRawPet(p, this, true);
+        }
         getMiskaForPet(p).showEat(true);
-        g.managerPets.onRawPet(p, this);
-                    // animation of uploading resources to petHouse
-        var point:Point = new Point();
-        point = _source.localToGlobal(point);
-        var obj:Object;
-        var texture:Texture;
-        obj = g.allData.getResourceById(p.petData.eatId);
-        if (obj.buildType == BuildType.PLANT)  texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
+        if (showRawAnim) {
+            // animation of uploading resources to petHouse
+            var point:Point = new Point();
+            point = _source.localToGlobal(point);
+            var obj:Object;
+            var texture:Texture;
+            obj = g.allData.getResourceById(p.petData.eatId);
+            if (obj.buildType == BuildType.PLANT)  texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
             else texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
-        new RawItem(point, texture, 1, 0);
-        g.userInventory.addResource(obj.id, -1);
+            new RawItem(point, texture, 1, 0);
+            g.userInventory.addResource(obj.id, -1);
+        }
     }
 
     override public function onHover():void {
@@ -235,7 +246,9 @@ public class PetHouse extends WorldObject {
 
     public function addCraftItem(pet:PetMain):void {
         var rItem:ResourceItem = new ResourceItem();
-        rItem.fillIt(g.allData.getResourceById(pet.petData.craftId));
+        var std:StructureDataResource = new StructureDataResource({craft_xp:pet.petData.xp, resource_type:BuildType.CRAFT_XP});
+        //rItem.fillIt(g.allData.getResourceById(pet.petData.craftId)); - old way, gived an instrument
+        rItem.fillIt(std);
         _craftSprite.visible = true;
         var craftItem:CraftItem = new CraftItem(0, 0, rItem, _craftSprite, 1, onClickCraftItem, true);
         _arrCraftedItems.push(craftItem);
@@ -247,11 +260,12 @@ public class PetHouse extends WorldObject {
         _arrCraftedItems.splice(_arrCraftedItems.indexOf(item), 1);
         var p:PetMain = getCraftedPet();
         if (p) g.managerPets.onCraftHouse(p);
+        else Cc.error('PetHouse onClickCraftItem:: no grafted Pet');
     }
 
     public function getCraftedPet():PetMain {
         for (var i:int=0; i<_arrPets.length; i++) {
-            if ((_arrPets[i] as PetMain).state == ManagerPets.STATE_RAW_SLEEP) return _arrPets[i];
+            if ((_arrPets[i] as PetMain).hasCraft) return _arrPets[i];
         }
         return null;
     }

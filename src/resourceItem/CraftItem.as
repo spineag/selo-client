@@ -6,6 +6,7 @@ import build.farm.Animal;
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.DataMoney;
 import data.StructureDataRecipe;
 
 import flash.geom.Point;
@@ -56,6 +57,12 @@ public class CraftItem {
         }
         if (_resourceItem.buildType == BuildType.PLANT)
             _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(_resourceItem.imageShop + '_icon'));
+        else if (_resourceItem.buildType == BuildType.CRAFT_XP)
+            _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("xp_icon"));
+        else if (_resourceItem.buildType == BuildType.CRAFT_COIN)
+            _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
+        else if (_resourceItem.buildType == BuildType.CRAFT_RUBIN)
+            _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         else
             _image = new Image(g.allData.atlas[_resourceItem.url].getTexture(_resourceItem.imageShop));
         if (!_image) {
@@ -154,13 +161,22 @@ public class CraftItem {
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         var drop:DropObject = new DropObject();
-        if (_checkCount) { // use for fabrica for animal eat
-            var r:StructureDataRecipe = g.allData.getRecipeByResourceId(_resourceItem.resourceID);
-            for (i = 0; i<r.numberCreate; i++) {
-                drop.addDropItemNew(_resourceItem, start);
-            }
-        } else drop.addDropItemNew(_resourceItem, start);
-        if (xpFly) drop.addDropXP(_resourceItem.craftXP, start);
+        if (_resourceItem.buildType == BuildType.CRAFT_XP) {
+            drop.addDropXP(_resourceItem.craftXP, start);
+        } else if (_resourceItem.buildType == BuildType.CRAFT_RUBIN) {
+            drop.addDropMoney(DataMoney.HARD_CURRENCY, _resourceItem.craftRubin, start);
+        } else if (_resourceItem.buildType == BuildType.CRAFT_COIN) {
+            drop.addDropMoney(DataMoney.SOFT_CURRENCY, _resourceItem.craftRubin, start);
+        } else {
+            if (_checkCount) { // use for fabrica for animal eat
+                var r:StructureDataRecipe = g.allData.getRecipeByResourceId(_resourceItem.resourceID);
+                for (i = 0; i < r.numberCreate; i++) {
+                    drop.addDropItemNew(_resourceItem, start);
+                }
+            } else drop.addDropItemNew(_resourceItem, start);
+            if (xpFly) drop.addDropXP(_resourceItem.craftXP, start);
+        }
+
         var func:Function = function():void {
             if (bonusDrop && g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
             drop.releaseIt();
@@ -171,7 +187,7 @@ public class CraftItem {
             drop.releaseIt();
             deleteIt();
         } else {
-            Utils.createDelay(5,func)
+            Utils.createDelay(5,func);
         }
 
     }

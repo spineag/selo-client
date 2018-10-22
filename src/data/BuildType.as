@@ -45,5 +45,8 @@ public class BuildType {
     public static const DECOR_POST_FENCE_ARKA:int = 36; //  arka s lentami i zaborami POST_FENCE
     public static const RESOURCE_CAFE:int = 37; // ресурси в кафе
     public static const UNKNOWN_TYPE:int = 1000;
+    public static const CRAFT_XP:int = 1001;
+    public static const CRAFT_COIN:int = 1002;
+    public static const CRAFT_RUBIN:int = 1003;
 }
 }

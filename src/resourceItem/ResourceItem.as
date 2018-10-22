@@ -20,6 +20,8 @@ public class ResourceItem {
     private var _buildTime:int;
     private var _buildType:int;
     public var craftXP:int;
+    public var craftCoin:int;
+    public var craftRubin:int;
     public var leftTime:int;
     public var currentDelayTime:int;
     public var initRecipeDelayTime:int;
@@ -42,7 +44,9 @@ public class ResourceItem {
         dataResource.blockByLevel ? _blockByLevel = dataResource.blockByLevel : _blockByLevel = 1;
         dataResource.buildTime ? _buildTime = int(dataResource.buildTime) : _buildTime = 30;
         dataResource.buildType ? _buildType = dataResource.buildType : _buildType = 0;
-        dataResource.craftXP ? craftXP = dataResource.craftXP : craftXP = 1;
+        dataResource.craftXP ? craftXP = dataResource.craftXP : craftXP = 0;
+        dataResource.craftCoin ? craftCoin = dataResource.craftCoin : craftCoin = 0;
+        dataResource.craftRubin ? craftRubin = dataResource.craftRubin : craftRubin = 0;
         dataResource.placeBuild ? placeBuild = dataResource.placeBuild : BuildType.PLACE_NONE;
         leftTime = _buildTime;
         currentRecipeID= 0;
