@@ -182,14 +182,8 @@ public class CraftItem {
             drop.releaseIt();
             deleteIt();
         };
-        if (g.managerDropResources) {
-            if (bonusDrop && g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
-            drop.releaseIt();
-            deleteIt();
-        } else {
-            Utils.createDelay(5,func);
-        }
-
+        if (g.managerDropResources) func();
+        else Utils.createDelay(5,func);
     }
 
     public function addParticle():void {

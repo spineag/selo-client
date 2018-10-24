@@ -253,6 +253,13 @@ public class OrderCat {
             d.addDropPartyResource(p1);
             g.managerParty.addUserPartyCount(1);
         }
+        var t:int=int(Math.random()*100);
+        if (t>60) {
+            var arrIns:Array = [1,5,6,47,124,125];
+            t=int(Math.random()*6);
+            t=arrIns[t];
+            d.addDropItemNewByResourceId(t,p1,1);
+        }
         d.releaseIt();
         g.managerOrderCats.deleteOrderStr();
     }
