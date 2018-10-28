@@ -482,31 +482,31 @@ public class WOMarket  extends WindowMain {
         checkArrow();
     }
 
-    private function onClickPaper():void {
-        if (g.managerCutScenes.isCutScene) return;
-        if (g.user.hardCurrency < 1) {
-            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
-            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
-            return;
-        }
-        g.windowsManager.cashWindow = this;
-        super.hideIt();
-        g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, callbacKPapperBtn, 'market');
-    }
-
-    private function callbacKPapperBtn():void {
-        g.userInventory.addMoney(1,-1);
+//    private function onClickPaper():void {
+//        if (g.managerCutScenes.isCutScene) return;
+//        if (g.user.hardCurrency < 1) {
+//            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+//            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+//            return;
+//        }
+//        g.windowsManager.cashWindow = this;
+//        super.hideIt();
+//        g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, callbacKPapperBtn, 'market');
+//    }
+//
+//    private function callbacKPapperBtn():void {
+//        g.userInventory.addMoney(1,-1);
 //        g.userTimer.papperTimerAtMarket = 0;
-        g.server.skipUserInPaper(null);
+//        g.server.skipUserInPaper(null);
 //        g.gameDispatcher.removeFromTimer(onTimer);
 //        _txtTimerPaper.text = '';
-        _booleanPaper = true;
-        _contPaper.visible = false;
-        for (var i:int = 0; i < _curUser.marketItems.length; i++) {
-            _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
-        }
-    }
-
+//        _booleanPaper = true;
+//        _contPaper.visible = false;
+//        for (var i:int = 0; i < _curUser.marketItems.length; i++) {
+//            _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
+//        }
+//    }
+//
 //    public function get booleanPaper():Boolean {
 //        return _booleanPaper;
 //    }
@@ -548,10 +548,10 @@ public class WOMarket  extends WindowMain {
 //                }
 //            }
 //    }
-
-    public function addAdditionalUser(ob:Object):void {
-        _curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
-    }
+//
+//    public function addAdditionalUser(ob:Object):void {
+//        _curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
+//    }
 
     public function createMarketTabBtns(paper:Boolean = false):void {
         if (_arrFriends == null) {
