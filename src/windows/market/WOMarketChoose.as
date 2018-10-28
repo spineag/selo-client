@@ -106,8 +106,6 @@ public class WOMarketChoose extends WindowMain {
         _txtChooseResource.x = 321;
         _txtChooseResource.y = -160;
         _source.addChild(_txtChooseResource);
-
-
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -115,8 +113,9 @@ public class WOMarketChoose extends WindowMain {
         _callback = callback;
         _activetedItem = params[0];
         _woMarket = params[1];
-        if (g.user.isAmbar) _isAmbar = true;
-        else _isAmbar = false;
+        //if (g.user.isAmbar) _isAmbar = true;
+        //else _isAmbar = false;
+        g.user.isAmbar = _isAmbar = true;
         _tabs.activate(_isAmbar);
         fillItems();
 //        checkPapper();
@@ -124,49 +123,49 @@ public class WOMarketChoose extends WindowMain {
         _source.x -= 125;
     }
 
-    private function checkPapper():void {
-        var im:Image;
-        if (g.userTimer.papperTimerAtMarket > 0) {
-            _imPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
-            _imPapper.x = -220;
-            _imPapper.y = 205;
-            _source.addChild(_imPapper);
-            _btnPapper = new CButton();
-            _btnPapper.addButtonTexture(70, 30, CButton.GREEN, true);
-            _txtPapperBtn = new CTextField(70, 30, String(g.managerLanguage.allTexts[359] + ' 1   '));
-            _txtPapperBtn.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            _btnPapper.addChild(_txtPapperBtn);
-            _txtPapperBtn.x = 2;
-            _source.addChild(_btnPapper);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-            MCScaler.scale(im, im.height/2, im.width/2);
-            im.x = 35;
-            im.y = 16;
-            _btnPapper.addChild(im);
-            _btnPapper.x = 55;
-            _btnPapper.y = 225;
-            _btnPapper.clickCallback = onClickRefresh;
-            _boolPapper = false;
-            g.gameDispatcher.addToTimer(timerPapper);
-        }
-    }
+//    private function checkPapper():void {
+//        var im:Image;
+//        if (g.userTimer.papperTimerAtMarket > 0) {
+//            _imPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
+//            _imPapper.x = -220;
+//            _imPapper.y = 205;
+//            _source.addChild(_imPapper);
+//            _btnPapper = new CButton();
+//            _btnPapper.addButtonTexture(70, 30, CButton.GREEN, true);
+//            _txtPapperBtn = new CTextField(70, 30, String(g.managerLanguage.allTexts[359] + ' 1   '));
+//            _txtPapperBtn.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//            _btnPapper.addChild(_txtPapperBtn);
+//            _txtPapperBtn.x = 2;
+//            _source.addChild(_btnPapper);
+//            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+//            MCScaler.scale(im, im.height/2, im.width/2);
+//            im.x = 35;
+//            im.y = 16;
+//            _btnPapper.addChild(im);
+//            _btnPapper.x = 55;
+//            _btnPapper.y = 225;
+//            _btnPapper.clickCallback = onClickRefresh;
+//            _boolPapper = false;
+//            g.gameDispatcher.addToTimer(timerPapper);
+//        }
+//    }
 
-    private function onClickRefresh():void {
-        if (g.user.hardCurrency < 1) {
-            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
-            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
-            return;
-        } else {
-            g.userInventory.addMoney(1,-1);
-            g.userTimer.papperTimerAtMarket = 0;
-            g.server.skipUserInPaper(null);
-            g.gameDispatcher.removeFromTimer(timerPapper);
-            _imPapper = null;
-            _source.removeChild(_imPapper);
-            _boolPapper = true;
-            _btnPapper.visible = false;
-        }
-    }
+//    private function onClickRefresh():void {
+//        if (g.user.hardCurrency < 1) {
+//            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+//            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+//            return;
+//        } else {
+//            g.userInventory.addMoney(1,-1);
+//            g.userTimer.papperTimerAtMarket = 0;
+//            g.server.skipUserInPaper(null);
+//            g.gameDispatcher.removeFromTimer(timerPapper);
+//            _imPapper = null;
+//            _source.removeChild(_imPapper);
+//            _boolPapper = true;
+//            _btnPapper.visible = false;
+//        }
+//    }
 
     private function timerPapper():void {
             g.gameDispatcher.removeFromTimer(timerPapper);
@@ -180,8 +179,7 @@ public class WOMarketChoose extends WindowMain {
     }
 
     private function createWOElements():void {
-
-        _tabs = new AmbarTabs(_bigYellowBG, onTabClick);
+        _tabs = new AmbarTabs(_bigYellowBG, null /*onTabClick*/);
         _tabs.activate(_isAmbar);
         _mainSprite = new Sprite();
         _mainSprite.filter = ManagerFilters.SHADOW;
@@ -197,17 +195,17 @@ public class WOMarketChoose extends WindowMain {
         _scrollSprite.createScoll(423, 0, 303, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
     }
 
-    private function onTabClick():void {
-        _isAmbar = !_isAmbar;
-        g.user.isAmbar = _isAmbar;
-        _tabs.activate(_isAmbar);
-        updateCells();
-    }
-
-    public function updateCells():void {
-        unfillItems();
-        fillItems();
-    }
+//    private function onTabClick():void {
+//        _isAmbar = !_isAmbar;
+//        g.user.isAmbar = _isAmbar;
+//        _tabs.activate(_isAmbar);
+//        updateCells();
+//    }
+//
+//    public function updateCells():void {
+//        unfillItems();
+//        fillItems();
+//    }
 
     private function fillItems():void {
         var cell:MarketCell;
@@ -244,10 +242,10 @@ public class WOMarketChoose extends WindowMain {
         _arrCells.length = 0;
     }
 
-    private function updateItems():void {
-        unfillItems();
-        fillItems();
-    }
+//    private function updateItems():void {
+//        unfillItems();
+//        fillItems();
+//    }
 
     private function onClickExit(e:Event=null):void {
         if (_callback != null) {
@@ -465,12 +463,12 @@ internal class AmbarTabs {
     private var _callback:Function;
     private var _imActiveAmbar:Image;
     private var _txtActiveAmbar:CTextField;
-    private var _unactiveAmbar:CSprite;
-    private var _txtUnactiveAmbar:CTextField;
-    private var _imActiveSklad:Image;
-    private var _txtActiveSklad:CTextField;
-    private var _unactiveSklad:CSprite;
-    private var _txtUnactiveSklad:CTextField;
+//    private var _unactiveAmbar:CSprite;
+//    private var _txtUnactiveAmbar:CTextField;
+//    private var _imActiveSklad:Image;
+//    private var _txtActiveSklad:CTextField;
+//    private var _unactiveSklad:CSprite;
+//    private var _txtUnactiveSklad:CTextField;
     private var _bg:BackgroundYellowOut;
 
     public function AmbarTabs(bg:BackgroundYellowOut, f:Function) {
@@ -479,84 +477,85 @@ internal class AmbarTabs {
         _imActiveAmbar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));
         _imActiveAmbar.pivotX = _imActiveAmbar.width/2;
         _imActiveAmbar.pivotY = _imActiveAmbar.height;
-        _imActiveAmbar.x = 203;
+        _imActiveAmbar.x = 288  /*203*/;
         _imActiveAmbar.y = 10;
         bg.addChild(_imActiveAmbar);
         _txtActiveAmbar = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
         _txtActiveAmbar.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtActiveAmbar.x = 127;
+        _txtActiveAmbar.x = 210 /*127*/;
         _txtActiveAmbar.y = -50;
         bg.addChild(_txtActiveAmbar);
 
-        _unactiveAmbar = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_small'));
-        im.pivotX = im.width/2;
-        im.pivotY = im.height;
-        _unactiveAmbar.addChild(im);
-        _unactiveAmbar.x = 203;
-        _unactiveAmbar.y = 10;
-        bg.addChildAt(_unactiveAmbar, 0);
-        _unactiveAmbar.endClickCallback = onClick;
-        _txtUnactiveAmbar = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
-        _txtUnactiveAmbar.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
-        _txtUnactiveAmbar.x = 127;
-        _txtUnactiveAmbar.y = -42;
-        bg.addChild(_txtUnactiveAmbar);
-
-        _imActiveSklad = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));
-        _imActiveSklad.pivotX = _imActiveSklad.width/2;
-        _imActiveSklad.pivotY = _imActiveSklad.height;
-        _imActiveSklad.x = 367;
-        _imActiveSklad.y = 10;
-        bg.addChild(_imActiveSklad);
-        _txtActiveSklad = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
-        _txtActiveSklad.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtActiveSklad.x = 287;
-        _txtActiveSklad.y = -50;
-        bg.addChild(_txtActiveSklad);
-
-        _unactiveSklad = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_small'));
-        im.pivotX = im.width/2;
-        im.pivotY = im.height;
-        _unactiveSklad.addChild(im);
-        _unactiveSklad.x = 367;
-        _unactiveSklad.y = 10;
-        bg.addChildAt(_unactiveSklad, 0);
-        _unactiveSklad.endClickCallback = onClick;
-        _txtUnactiveSklad = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
-        _txtUnactiveSklad.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
-        _txtUnactiveSklad.x = 287;
-        _txtUnactiveSklad.y = -42;
-        bg.addChild(_txtUnactiveSklad);
+//        _unactiveAmbar = new CSprite();
+//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_small'));
+//        im.pivotX = im.width/2;
+//        im.pivotY = im.height;
+//        _unactiveAmbar.addChild(im);
+//        _unactiveAmbar.x = 203;
+//        _unactiveAmbar.y = 10;
+//        bg.addChildAt(_unactiveAmbar, 0);
+//        _unactiveAmbar.endClickCallback = onClick;
+//        _txtUnactiveAmbar = new CTextField(154, 48, g.managerLanguage.allTexts[132]);
+//        _txtUnactiveAmbar.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+//        _txtUnactiveAmbar.x = 127;
+//        _txtUnactiveAmbar.y = -42;
+//        bg.addChild(_txtUnactiveAmbar);
+//
+//        _imActiveSklad = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_big'));
+//        _imActiveSklad.pivotX = _imActiveSklad.width/2;
+//        _imActiveSklad.pivotY = _imActiveSklad.height;
+//        _imActiveSklad.x = 367;
+//        _imActiveSklad.y = 10;
+//        bg.addChild(_imActiveSklad);
+//        _txtActiveSklad = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
+//        _txtActiveSklad.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//        _txtActiveSklad.x = 287;
+//        _txtActiveSklad.y = -50;
+//        bg.addChild(_txtActiveSklad);
+//
+//        _unactiveSklad = new CSprite();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('silo_panel_tab_small'));
+//        im.pivotX = im.width/2;
+//        im.pivotY = im.height;
+//        _unactiveSklad.addChild(im);
+//        _unactiveSklad.x = 367;
+//        _unactiveSklad.y = 10;
+//        bg.addChildAt(_unactiveSklad, 0);
+//        _unactiveSklad.endClickCallback = onClick;
+//        _txtUnactiveSklad = new CTextField(154, 48, g.managerLanguage.allTexts[133]);
+//        _txtUnactiveSklad.setFormat(CTextField.BOLD24, 24, ManagerFilters.BROWN_COLOR, Color.WHITE);
+//        _txtUnactiveSklad.x = 287;
+//        _txtUnactiveSklad.y = -42;
+//        bg.addChild(_txtUnactiveSklad);
     }
 
     private function onClick():void { if (_callback!=null) _callback.apply(); }
 
     public function activate(isAmbar:Boolean):void {
-        _imActiveAmbar.visible = _unactiveSklad.visible = isAmbar;
-        _imActiveSklad.visible = _unactiveAmbar.visible = !isAmbar;
-        _txtActiveAmbar.visible = _txtUnactiveSklad.visible = isAmbar;
-        _txtActiveSklad.visible = _txtUnactiveAmbar.visible = !isAmbar;
+//        _imActiveAmbar.visible = _unactiveSklad.visible = isAmbar;
+//        _imActiveSklad.visible = _unactiveAmbar.visible = !isAmbar;
+//        _txtActiveAmbar.visible = _txtUnactiveSklad.visible = isAmbar;
+//        _txtActiveSklad.visible = _txtUnactiveAmbar.visible = !isAmbar;
+        _imActiveAmbar.visible = _txtActiveAmbar.visible = true;
     }
 
     public function deleteIt():void {
         _bg.removeChild(_txtActiveAmbar);
-        _bg.removeChild(_txtActiveSklad);
-        _bg.removeChild(_txtUnactiveSklad);
-        _bg.removeChild(_txtUnactiveAmbar);
+//        _bg.removeChild(_txtActiveSklad);
+//        _bg.removeChild(_txtUnactiveSklad);
+//        _bg.removeChild(_txtUnactiveAmbar);
         _bg.removeChild(_imActiveAmbar);
-        _bg.removeChild(_imActiveSklad);
-        _bg.removeChild(_unactiveAmbar);
-        _bg.removeChild(_unactiveSklad);
+//        _bg.removeChild(_imActiveSklad);
+//        _bg.removeChild(_unactiveAmbar);
+//        _bg.removeChild(_unactiveSklad);
         _txtActiveAmbar.deleteIt();
-        _txtActiveSklad.deleteIt();
-        _txtUnactiveAmbar.deleteIt();
-        _txtUnactiveSklad.deleteIt();
+//        _txtActiveSklad.deleteIt();
+//        _txtUnactiveAmbar.deleteIt();
+//        _txtUnactiveSklad.deleteIt();
         _imActiveAmbar.dispose();
-        _imActiveSklad.dispose();
-        _unactiveAmbar.deleteIt();
-        _unactiveSklad.deleteIt();
+//        _imActiveSklad.dispose();
+//        _unactiveAmbar.deleteIt();
+//        _unactiveSklad.deleteIt();
         _bg = null;
     }
 
