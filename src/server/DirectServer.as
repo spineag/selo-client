@@ -842,7 +842,7 @@ public class DirectServer {
             if (g.userTimer.timerAtPapper > 300) g.userTimer.timerAtPapper = 300;
             if (g.userTimer.timerAtPapper > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
 
-            g.userTimer.papperTimerAtMarket = 0;
+//            g.userTimer.papperTimerAtMarket = 0;
 
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);

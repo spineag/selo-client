@@ -50,7 +50,7 @@ public class WOMarket  extends WindowMain {
     private var _arrItemsFriend:Array;
     private var _arrFriends:Array;
     private var _txtName:CTextField;
-    private var _txtTimerPaper:CTextField;
+//    private var _txtTimerPaper:CTextField;
     private var _curUser:Someone;
     private var _item:MarketFriendItem;
     private var _item2:MarketFriendItem;
@@ -75,6 +75,7 @@ public class WOMarket  extends WindowMain {
     private var _imBabbleCutScene:Image;
     private var _txtBabbleCutScene:CTextField;
     private var _btnRating:CButton;
+    private var _panelTimer
 
     public function WOMarket() {
         super();
@@ -123,8 +124,8 @@ public class WOMarket  extends WindowMain {
         _leftBtn.y = -25;
         _source.addChild(_leftBtn);
         _leftBtn.endClickCallback = onLeft;
-        _leftBtn.hoverCallback = function():void { if (_leftBtn.filter == null)_leftBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
-        _leftBtn.outCallback = function():void { if (_leftBtn.filter == ManagerFilters.BUILDING_HOVER_FILTER)_leftBtn.filter = null; };
+        _leftBtn.hoverCallback = function():void { if (_leftBtn.filter == null) _leftBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER; };
+        _leftBtn.outCallback = function():void { if (_leftBtn.filter == ManagerFilters.BUILDING_HOVER_FILTER) _leftBtn.filter = null; };
 
         _rightBtn = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
@@ -165,11 +166,11 @@ public class WOMarket  extends WindowMain {
         _txtToPaper.y = 135;
         _contPaper.addChild(_txtToPaper);
 
-        _txtTimerPaper = new CTextField(80,30,'');
-        _txtTimerPaper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtTimerPaper.x = 46;
-        _txtTimerPaper.y = 165;
-        _contPaper.addChild(_txtTimerPaper);
+//        _txtTimerPaper = new CTextField(80,30,'');
+//        _txtTimerPaper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//        _txtTimerPaper.x = 46;
+//        _txtTimerPaper.y = 165;
+//        _contPaper.addChild(_txtTimerPaper);
         _contPaper.visible = false;
         _sprLeftFr = new CSprite();
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('fs_friend_bg'));
@@ -495,10 +496,10 @@ public class WOMarket  extends WindowMain {
 
     private function callbacKPapperBtn():void {
         g.userInventory.addMoney(1,-1);
-        g.userTimer.papperTimerAtMarket = 0;
+//        g.userTimer.papperTimerAtMarket = 0;
         g.server.skipUserInPaper(null);
-        g.gameDispatcher.removeFromTimer(onTimer);
-        _txtTimerPaper.text = '';
+//        g.gameDispatcher.removeFromTimer(onTimer);
+//        _txtTimerPaper.text = '';
         _booleanPaper = true;
         _contPaper.visible = false;
         for (var i:int = 0; i < _curUser.marketItems.length; i++) {
@@ -506,47 +507,47 @@ public class WOMarket  extends WindowMain {
         }
     }
 
-    public function get booleanPaper():Boolean {
-        return _booleanPaper;
-    }
-
-    public function startPapperTimer():void {
-        g.userTimer.startUserMarketTimer(300);
-        _booleanPaper = false;
-        for (var i:int = 0; i < _curUser.marketItems.length; i++) {
-            _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
-        }
-    }
-
-    private function checkPapperTimer():void {
-        if (g.userTimer.papperTimerAtMarket > 0) {
-            _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
-            g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
-            g.gameDispatcher.addToTimer(onTimer);
-            _booleanPaper = false;
-            _contPaper.visible = true;
-        } else {
-            _booleanPaper = true;
-            _contPaper.visible = false;
-            _txtTimerPaper.text = '';
-            g.gameDispatcher.removeFromTimer(onTimer);
-        }
-    }
-
-    private function onTimer():void {
-        if (g.userTimer.papperTimerAtMarket > 0) {
-            if (_txtTimerPaper) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
-        } else {
-                _booleanPaper = true;
-                _contPaper.visible = false;
-                if (_txtTimerPaper) _txtTimerPaper.text = '';
-                g.gameDispatcher.removeFromTimer(onTimer);
-                for (var i:int = 0; i < _curUser.marketItems.length; i++) {
-                    if (_arrItems.length == 0 || _curUser != g.user) break;
-                    else _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
-                }
-            }
-    }
+//    public function get booleanPaper():Boolean {
+//        return _booleanPaper;
+//    }
+//
+//    public function startPapperTimer():void {
+//        g.userTimer.startUserMarketTimer(300);
+//        _booleanPaper = false;
+//        for (var i:int = 0; i < _curUser.marketItems.length; i++) {
+//            _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
+//        }
+//    }
+//
+//    private function checkPapperTimer():void {
+//        if (g.userTimer.papperTimerAtMarket > 0) {
+//            _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
+//            g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
+//            g.gameDispatcher.addToTimer(onTimer);
+//            _booleanPaper = false;
+//            _contPaper.visible = true;
+//        } else {
+//            _booleanPaper = true;
+//            _contPaper.visible = false;
+//            _txtTimerPaper.text = '';
+//            g.gameDispatcher.removeFromTimer(onTimer);
+//        }
+//    }
+//
+//    private function onTimer():void {
+//        if (g.userTimer.papperTimerAtMarket > 0) {
+//            if (_txtTimerPaper) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
+//        } else {
+//                _booleanPaper = true;
+//                _contPaper.visible = false;
+//                if (_txtTimerPaper) _txtTimerPaper.text = '';
+//                g.gameDispatcher.removeFromTimer(onTimer);
+//                for (var i:int = 0; i < _curUser.marketItems.length; i++) {
+//                    if (_arrItems.length == 0 || _curUser != g.user) break;
+//                    else _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
+//                }
+//            }
+//    }
 
     public function addAdditionalUser(ob:Object):void {
         _curUser = g.user.getSomeoneBySocialId(ob.userSocialId);
@@ -652,8 +653,9 @@ public class WOMarket  extends WindowMain {
 
     private function onChoosePerson():void {
         if (_curUser == g.user) {
-            if (g.userTimer.papperTimerAtMarket > 0) _contPaper.visible = true;
-            else _contPaper.visible = false;
+//            if (g.userTimer.papperTimerAtMarket > 0) _contPaper.visible = true;
+//            else
+            _contPaper.visible = false;
 
             if (_ramkaIm) {
                 _ramkaIm.dispose();
@@ -799,14 +801,14 @@ public class WOMarket  extends WindowMain {
         }
     }
     
-    public function getTimerProperties():Object {
-        var ob:Object = {};
-        ob.x = _txtTimerPaper.x;
-        ob.y = _txtTimerPaper.y;
-        ob.width = 80;
-        ob.height = 30;
-        return ob;
-    } 
+//    public function getTimerProperties():Object {
+//        var ob:Object = {};
+//        ob.x = _txtTimerPaper.x;
+//        ob.y = _txtTimerPaper.y;
+//        ob.width = 80;
+//        ob.height = 30;
+//        return ob;
+//    }
 
     public function onItemClickAndOpenWOChoose(item:MarketItem):void {
         g.windowsManager.cashWindow = this;
@@ -880,11 +882,11 @@ public class WOMarket  extends WindowMain {
             _txtPaper.deleteIt();
             _txtPaper = null;
         }
-        if (_txtTimerPaper) {
-            _contPaper.removeChild(_txtTimerPaper);
-            _txtTimerPaper.deleteIt();
-            _txtTimerPaper = null;
-        }
+//        if (_txtTimerPaper) {
+//            _contPaper.removeChild(_txtTimerPaper);
+//            _txtTimerPaper.deleteIt();
+//            _txtTimerPaper = null;
+//        }
         if (_txtToPaper) {
             _contPaper.removeChild(_txtToPaper);
             _txtToPaper.deleteIt();

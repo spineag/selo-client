@@ -14,7 +14,7 @@ import utils.Utils;
 import windows.WindowsManager;
 
 public class UserTimer {
-    public var papperTimerAtMarket:int;
+//    public var papperTimerAtMarket:int;
     public var timerAtPapper:int;
     public var timerAtNyashukRed:int;
     public var timerAtNyashukBlue:int;
@@ -28,7 +28,7 @@ public class UserTimer {
     public var stockTimerToEnd:int;
     public var stockTimerToStart:int;
     public var starterTimerToEnd:int;
-    public var starterTimerToStart:int;
+//    public var starterTimerToStart:int;
     public var miniPartyToEndTimer:int;
     public var miniPartyToStartTimer:int;
     public var cafeTimer:int;
@@ -37,18 +37,18 @@ public class UserTimer {
         _arrOrderItem = [];
     }
 
-    public function startUserMarketTimer(time:int):void {
-        papperTimerAtMarket = time;
-        g.gameDispatcher.addToTimer(onMarketTimer);
-    }
-
-    private function onMarketTimer():void {
-        papperTimerAtMarket--;
-        if (papperTimerAtMarket <= 0) {
-            papperTimerAtMarket = 0;
-            g.gameDispatcher.removeFromTimer(onMarketTimer);
-        }
-    }
+//    public function startUserMarketTimer(time:int):void {
+//        papperTimerAtMarket = time;
+//        g.gameDispatcher.addToTimer(onMarketTimer);
+//    }
+//
+//    private function onMarketTimer():void {
+//        papperTimerAtMarket--;
+//        if (papperTimerAtMarket <= 0) {
+//            papperTimerAtMarket = 0;
+//            g.gameDispatcher.removeFromTimer(onMarketTimer);
+//        }
+//    }
 
     public function startUserPapperTimer(time:int):void {
         timerAtPapper = time;

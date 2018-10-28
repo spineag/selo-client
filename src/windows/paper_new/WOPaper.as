@@ -79,7 +79,7 @@ public class WOPaper extends WindowMain {
         _ims.addChild(_txtTimer);
         _btnRefresh = new CButton();
         _btnRefresh.addButtonTexture(160, CButton.HEIGHT_41, CButton.GREEN, true);
-        _btnRefresh.addTextField(120, 37, 2, 0, g.managerLanguage.allTexts[359] + ' 1');
+        _btnRefresh.addTextField(120, 37, 2, 0, g.managerLanguage.allTexts[359] + ' 5');
         _btnRefresh.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(im, 30, 30);
@@ -177,7 +177,7 @@ public class WOPaper extends WindowMain {
     }
 
     public function startPapperTimer():void {
-        g.userTimer.startUserPapperTimer(300);
+        g.userTimer.startUserPapperTimer(60*60*4);
         checkPapperTimer();
     }
 
@@ -225,12 +225,12 @@ public class WOPaper extends WindowMain {
     }
 
     private function refreshIt():void {
-        if (g.user.hardCurrency < 1){
+        if (g.user.hardCurrency < 5){
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
-        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
+        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -5);
         refreshItFree();
     }
 
