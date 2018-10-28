@@ -163,7 +163,7 @@ public class User extends Someone {
         }
     }
 
-    public function fillYoursMarketItems(arr:Array, cell:int):void {
+    public function fillUserMarketItems(arr:Array, cell:int):void {
         var i:int;
         var obj:StructureMarketItem;
         marketCell = cell;

@@ -140,5 +140,24 @@ public class TimeUtils {
         return int(new Date().getTime() / 1000);
     }
 
+    public static function get getSecondsToNextDay():int {
+        var d:Date = new Date();
+        var h:int = d.getHours();
+        var m:int = d.getMinutes();
+        var s:int = d.getSeconds();
+        s = 59 - s;
+        m = 59 - m;
+        h = 23 - h;
+        return s + m*60 + h*60*60;
+    }
+
+    public static function isSameDayWithDateByTIMESTAMP(secs:Number):Boolean {
+        if (!secs) return false;
+        var d:Date = new Date(secs);
+        var dcur:Date = new Date();
+        var res:Boolean = dcur.getDate() == d.getDate() && dcur.getMonth() == d.getMonth();
+        return res;
+    }
+
 }
 }

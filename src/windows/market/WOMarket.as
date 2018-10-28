@@ -6,6 +6,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
+import flash.utils.Timer;
+
 import manager.ManagerFilters;
 import media.SoundConst;
 import social.SocialNetwork;
@@ -29,6 +31,8 @@ import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 import utils.Utils;
+
+import windows.WOComponents.HintBackground;
 import windows.WOComponents.WindowBackgroundNew;
 import windows.WOComponents.BackgroundYellowOut;
 import windows.WOComponents.WindowBackground;
@@ -75,7 +79,8 @@ public class WOMarket  extends WindowMain {
     private var _imBabbleCutScene:Image;
     private var _txtBabbleCutScene:CTextField;
     private var _btnRating:CButton;
-    private var _panelTimer
+    private var _panelTimer:Sprite;
+    private var _panelTimerTxt:CTextField;
 
     public function WOMarket() {
         super();
@@ -196,6 +201,16 @@ public class WOMarket  extends WindowMain {
         _btnRating.x = _woWidth/2 - 64;
         _btnRating.y = - 190;
         _btnRating.clickCallback = ratingClick;
+        
+        _panelTimer = new Sprite();
+        var hnt:HintBackground = new HintBackground(120, 40);
+        _panelTimer.addChild(hnt);
+        _panelTimerTxt = new CTextField(120,38,'24:24:24');
+        _panelTimerTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _panelTimer.addChild(_panelTimerTxt);
+        _panelTimer.alignPivot();
+        _panelTimer.y = 285;
+        _source.addChild(_panelTimer);
     }
 
     private function ratingClick():void {
@@ -263,6 +278,7 @@ public class WOMarket  extends WindowMain {
         _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         _onWoShowCallback = onShow;
+        g.gameDispatcher.addToTimer(onNextDayTimer);
         super.showIt();
     }
 
@@ -870,9 +886,20 @@ public class WOMarket  extends WindowMain {
         g.gameDispatcher.addToTimer(refreshMarketTemp);
     }
 
+
+    private function onNextDayTimer():void {
+        _panelTimerTxt.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timeToNextNewDay);
+    }
+
     override protected function deleteIt():void {
         if (isCashed) return;
         var i:int;
+        g.gameDispatcher.removeEnterFrame(onNextDayTimer);
+        if (_panelTimerTxt) {
+            _panelTimer.removeChild(_panelTimerTxt);
+            _panelTimerTxt.deleteIt();
+            _panelTimerTxt = null;
+        }
         if (_txtName) {
             _source.removeChild(_txtName);
             _txtName.deleteIt();

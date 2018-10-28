@@ -468,6 +468,7 @@ public class Vars {
     private function afterLoadAll_4():void {
         Cc.info('afterLoadAll_4');
         (user as User).notif.onGameLoad();
+        userTimer.initTimeToNextNewDay();
         if (tuts.isTuts) {
             if ((user as User).tutorialStep > 1) {
                 startPreloader && startPreloader.hideIt();

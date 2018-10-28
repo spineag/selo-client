@@ -3,6 +3,9 @@
  */
 package data {
 import manager.Vars;
+
+import utils.TimeUtils;
+
 public class StructureMarketItem {
     public var id:int;
     public var level:int;
@@ -22,6 +25,7 @@ public class StructureMarketItem {
     public var timeStart:String = '';
     public var numberCell:int=0;
     public var timeInPapper:int=0;
+    public var isNextDay:Boolean = true;
     private var g:Vars = Vars.getInstance();
 
     public function StructureMarketItem(ob:Object) {
@@ -41,8 +45,8 @@ public class StructureMarketItem {
         if (ob.time_start) timeStart = ob.time_start;
         if (ob.number_cell) numberCell = int(ob.number_cell);
         if (ob.time_in_papper) timeInPapper = int(ob.time_in_papper);
-
         if (needHelp > 0) g.user.getSomeoneBySocialId(userSocialId).needHelpCount = needHelp;
+        if (timeStart && userId == g.user.userId) isNextDay = !TimeUtils.isSameDayWithDateByTIMESTAMP(Number(timeStart)*1000);
     }
 }
 }

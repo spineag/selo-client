@@ -47,8 +47,8 @@ public class MarketItem {
     private var quad:Quad;
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
     private var _callback:Function;
-    private var _data:Object;
-    private var _dataFromServer:StructureMarketItem;
+    private var _dataResource:Object;
+    private var _dataItem:StructureMarketItem;
     private var _countResource:int;
     private var _countMoney:int;
     private var _plawkaBuy:Image;
@@ -102,7 +102,7 @@ public class MarketItem {
         _btnAdditem.visible = true;
         _btnAdditem.y = 85;
         _btnAdditem.x = 83;
-        _btnAdditem.clickCallback = onClick;
+        _btnAdditem.clickCallback = onClickAddItem;
         _imageCont = new Sprite();
         source.addChild(_imageCont);
         _costTxt = new CTextField(122, 30, '');
@@ -124,7 +124,7 @@ public class MarketItem {
         _plawkaBuy.x = 5;
         _plawkaBuy.y = 125;
         _plawkaCoins.addChild(_plawkaBuy);
-        _coin  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
+        _coin = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         _coin.y = 148;
         _coin.x = _bg.width/2 + 15;
         _plawkaCoins.addChild(_coin);
@@ -144,7 +144,7 @@ public class MarketItem {
         _delete.x = 25;
         _delete.y = 110;
         source.addChild(_delete);
-        _delete.clickCallback = onDelete;
+        _delete.clickCallback = onClickDelete;
         _delete.hoverCallback = function ():void {
             if (g.marketHint.isShowed) g.marketHint.hideIt();
             g.hint.showIt(String(g.managerLanguage.allTexts[391]),'market_delete');
@@ -185,22 +185,22 @@ public class MarketItem {
             buyCont.addChild(im);
             _btnAdditem.visible = false;
         } else {
-            source.endClickCallback = onClick;
+            source.endClickCallback = onClickAddItem;
         }
     }
 
     private function fillIt(data:Object, count:int,cost:int):void {
         if (_imageCont) unFillIt();
         var im:Image;
-        _data = data;
-        if (_data) {
-            if (_data.buildType == BuildType.PLANT) {
-                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
+        _dataResource = data;
+        if (_dataResource) {
+            if (_dataResource.buildType == BuildType.PLANT) {
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
             } else {
-                im = new Image(g.allData.atlas[_data.url].getTexture(_data.imageShop));
+                im = new Image(g.allData.atlas[_dataResource.url].getTexture(_dataResource.imageShop));
             }
             if (!im) {
-                Cc.error('MarketItem fillIt:: no such image: ' + _data.imageShop);
+                Cc.error('MarketItem fillIt:: no such image: ' + _dataResource.imageShop);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
                 return;
             }
@@ -227,7 +227,7 @@ public class MarketItem {
         }
     }
 
-    public function onChoose(id:int, level:int, count:int, cost:int, inPapper:Boolean):void {
+    public function onChoose(id:int, level:int, count:int, cost:int, inPapper:Boolean):void { // callback from WOMarketChoose
         if (isFill == 1) return;
         isFill = 1;
         g.server.addUserMarketItem(id, level, count, inPapper, cost, number, onAddToServer);
@@ -236,11 +236,12 @@ public class MarketItem {
     }
 
     private function onAddToServer(ob:Object, id:int, count:int):void {
-        _dataFromServer = new StructureMarketItem(ob);
-        g.user.marketItems.push(_dataFromServer);
-        fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
+        _dataItem = new StructureMarketItem(ob);
+        _dataItem.isNextDay = false;
+        g.user.marketItems.push(_dataItem);
+        fillIt(g.allData.getResourceById(_dataItem.resourceId), _dataItem.resourceCount, _dataItem.cost);
         g.userInventory.addResource(id, -count);
-        if(_dataFromServer.inPapper) {
+        if(_dataItem.inPapper) {
             g.server.updateMarketPapper(number, true, null);
             _inPapper = true;
         }
@@ -266,7 +267,7 @@ public class MarketItem {
         var f1:Function = function ():void {
             g.user.marketCell++;
             _btnAdditem.visible = true;
-            source.endClickCallback = onClick;
+            source.endClickCallback = onClickAddItem;
             _wo.addItemsRefresh();
             _closeCell = false;
             _isUser = true;
@@ -280,10 +281,10 @@ public class MarketItem {
     private function onPaper():void {
         if (_inPapper) return;
         _inPapper = true;
-        _dataFromServer.inPapper = true;
+        _dataItem.inPapper = true;
         g.managerAchievement.addAll(11,1);
         g.hint.hideIt();
-        _dataFromServer.timeInPapper = TimeUtils.currentSeconds;
+        _dataItem.timeInPapper = TimeUtils.currentSeconds;
         g.server.updateMarketPapper(number,true,null);
     }
 
@@ -310,7 +311,7 @@ public class MarketItem {
 //        }
     }
 
-    private function onDelete():void {
+    private function onClickDelete():void {
         if (g.tuts.isTuts || g.managerCutScenes.isCutScene) return;
 
         var f1:Function = function():void {
@@ -326,7 +327,7 @@ public class MarketItem {
             g.windowsManager.cashWindow = _wo;
             _wo.hideIt();
             g.marketHint.hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _data, _countResource, _dataFromServer.cost);
+            g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _dataResource, _countResource, _dataItem.cost);
         };
         g.server.getUserMarketItem(g.user.userSocialId, f1);
     }
@@ -334,11 +335,11 @@ public class MarketItem {
     private function deleteCallback():void {
         _inPapper = false;
         g.userInventory.addMoney(1,-1);
-        g.userInventory.addResource(_data.id, _countResource);
+        g.userInventory.addResource(_dataResource.id, _countResource);
         g.gameDispatcher.removeFromTimer(onEnterFrame);
-        g.server.deleteUserMarketItem(_dataFromServer.id, null);
+        g.server.deleteUserMarketItem(_dataItem.id, null);
         for (var i:int = 0; i < g.user.marketItems.length; i++) {
-            if (g.user.marketItems[i].id == _dataFromServer.id) {
+            if (g.user.marketItems[i].id == _dataItem.id) {
                 g.user.marketItems.splice(i, 1);
                 break;
             }
@@ -347,31 +348,29 @@ public class MarketItem {
         unFillIt();
     }
 
-    private function onClick():void {
+    private function onClickAddItem():void {
 //        if (g.managerCutScenes.isCutScene) return;
         if ((!_person || !_person.userSocialId)&& !_isUser) return;
         if (_closeCell) return;
         if (g.tuts.isTuts) {
-            if (!_data || !g.tuts.isTutsResource(_data.id)) return;
+            if (!_dataResource || !g.tuts.isTutsResource(_dataResource.id)) return;
         }
         _onHover = false;
         var i:int;
         if (isFill == 1) {//заполненная
             if (_isUser) {
                 if (g.tuts.isTuts) return;
-                //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
             } else {
-                //Вставить проверку на лвл
                 var p:Point;
-                if (g.user.softCurrencyCount < _dataFromServer.cost) {
+                if (g.user.softCurrencyCount < _dataItem.cost) {
                     p = new Point(source.x, source.y);
                     p = source.parent.localToGlobal(p);
                     new FlyMessage(p, String(g.managerLanguage.allTexts[393]));
                     return;
                 }
-                var d:Object = g.allData.getResourceById(_dataFromServer.resourceId);
+                var d:Object = g.allData.getResourceById(_dataItem.resourceId);
                 if (d.placeBuild == BuildType.PLACE_AMBAR) {
-                    if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount > g.user.ambarMaxCount) {
+                    if (g.userInventory.currentCountInAmbar + _dataItem.resourceCount > g.user.ambarMaxCount) {
                         p = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
                         g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
@@ -381,7 +380,7 @@ public class MarketItem {
                         return;
                     }
                 } else if (d.placeBuild == BuildType.PLACE_SKLAD) {
-                    if (g.userInventory.currentCountInSklad + _dataFromServer.resourceCount > g.user.skladMaxCount) {
+                    if (g.userInventory.currentCountInSklad + _dataItem.resourceCount > g.user.skladMaxCount) {
                         p = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
 //                        new FlyMessage(p, String(g.managerLanguage.allTexts[395]));
@@ -412,9 +411,15 @@ public class MarketItem {
         } else {
             if (g.tuts.isTuts) return;
             if (_isUser) { // купленная
-                g.server.deleteUserMarketItem(_dataFromServer.id, null);
+                if (!_dataItem.isNextDay)  {
+                    p = new Point(source.x + 80, source.y + 50);
+                    p = source.parent.localToGlobal(p);
+                    new FlyMessage(p, String(g.managerLanguage.allTexts[1736]));
+                    return;
+                }
+                g.server.deleteUserMarketItem(_dataItem.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {
-                    if (g.user.marketItems[i].id == _dataFromServer.id) {
+                    if (g.user.marketItems[i].id == _dataItem.id) {
                         g.user.marketItems.splice(i, 1);
                         break;
                     }
@@ -480,12 +485,12 @@ public class MarketItem {
             new FlyMessage(p, String(g.managerLanguage.allTexts[397]));
             _wo.refreshItemWhenYouBuy();
         } else {
-            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
+            g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataItem.cost);
             g.userAnalytics.buyPaper++;
             g.server.updateUserAnalytics(null);
-            var d:StructureDataResource = g.allData.getResourceById(_dataFromServer.resourceId);
-            showFlyResource(d, _dataFromServer.resourceCount);
-            g.managerAchievement.addAll(24,_dataFromServer.cost);
+            var d:StructureDataResource = g.allData.getResourceById(_dataItem.resourceId);
+            showFlyResource(d, _dataItem.resourceCount);
+            g.managerAchievement.addAll(24,_dataItem.cost);
             _plawkaCoins.removeChild(_coin);
             _costTxt.text = String(g.managerLanguage.allTexts[389]);
             _costTxt.x = 82;
@@ -494,15 +499,15 @@ public class MarketItem {
             _ramkAva.visible = true;
             source.filter = ManagerFilters.getButtonDisableFilter();
             if (_person == g.user.neighbor) {
-                g.server.buyFromNeighborMarket(_dataFromServer.id, null);
-                _dataFromServer.resourceId = -1;
+                g.server.buyFromNeighborMarket(_dataItem.id, null);
+                _dataItem.resourceId = -1;
             } else {
-                _dataFromServer.userSocialId = _person.userSocialId;
-                g.server.buyFromMarket(_dataFromServer, null);
-                _dataFromServer.buyerId = g.user.userId;
-                _dataFromServer.inPapper = false;
-                _dataFromServer.buyerSocialId = g.user.userSocialId;
-                g.managerPaper.onBuyAtMarket(_dataFromServer);
+                _dataItem.userSocialId = _person.userSocialId;
+                g.server.buyFromMarket(_dataItem, null);
+                _dataItem.buyerId = g.user.userId;
+                _dataItem.inPapper = false;
+                _dataItem.buyerSocialId = g.user.userSocialId;
+                g.managerPaper.onBuyAtMarket(_dataItem);
             }
             isFill = 2;
         }
@@ -538,7 +543,7 @@ public class MarketItem {
         }
         if (isFill == 0) _btnAdditem.visible = true;
         else _btnAdditem.visible = false;
-        if (_data) _data = null;
+        if (_dataResource) _dataResource = null;
         if (_personBuyerTempItem) _personBuyerTempItem = null;
         if (_btnGoAwaySaleItem) {
             source.removeChild(_btnGoAwaySaleItem);
@@ -556,22 +561,22 @@ public class MarketItem {
     public function fillFromServer(obj:StructureMarketItem, p:Someone):void {
         if (_closeCell) return;
         _person = p;
-        _dataFromServer = obj;
-        if (_dataFromServer.buyerId != 0) {
+        _dataItem = obj;
+        if (_dataItem.buyerId != 0) {
             isFill = 2;
-            _inPapper = _dataFromServer.inPapper;
-            if (_person.userSocialId == g.user.userSocialId) { //sale yours item
+            _inPapper = _dataItem.inPapper;
+            if (_person.userSocialId == g.user.userSocialId) { //saled user item
                 try {
                     if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET) {
-                        _dataFromServer.cost *= g.managerParty.coefficient;
+                        _dataItem.cost *= g.managerParty.coefficient;
                     }
-                    showSaleImage(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.cost);
+                    showSaleImage(g.allData.getResourceById(_dataItem.resourceId), _dataItem.cost);
                 } catch (e:Error) {
                     Cc.error('at showSaleImage');
                 }
                 _btnAdditem.visible = false;
-            } else { // sale anyway item
-                fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
+            } else { // sale away item
+                fillIt(g.allData.getResourceById(_dataItem.resourceId), _dataItem.resourceCount, _dataItem.cost);
                 _costTxt.text = String(g.managerLanguage.allTexts[389]);
                 _costTxt.x = 82;
                 _costTxt.y = 146;
@@ -604,15 +609,15 @@ public class MarketItem {
         } else { //have Item
             isFill = 1;
             if (_person is NeighborBot) {
-                if (g.allData.getResourceById(_dataFromServer.resourceId).buildType == BuildType.INSTRUMENT) {
-                    _dataFromServer.resourceCount = 1;
-                    _dataFromServer.cost *= 3;
+                if (g.allData.getResourceById(_dataItem.resourceId).buildType == BuildType.INSTRUMENT) {
+                    _dataItem.resourceCount = 1;
+                    _dataItem.cost *= 3;
                 }
             }
 
-            _inPapper = _dataFromServer.inPapper;
-            fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
-            if (g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel > g.user.level) { //have item but your level so small
+            _inPapper = _dataItem.inPapper;
+            fillIt(g.allData.getResourceById(_dataItem.resourceId), _dataItem.resourceCount, _dataItem.cost);
+            if (g.allData.getResourceById(_dataItem.resourceId).blockByLevel > g.user.level) { //have item but your level so small
                 if (_plawkaBuy) {
                     _plawkaCoins.removeChild(_plawkaBuy);
                     _plawkaBuy.dispose();
@@ -625,7 +630,7 @@ public class MarketItem {
                 _coin.visible = false;
 
                 _plawkaCoins.visible = true;
-                _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel);
+                _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataItem.resourceId).blockByLevel);
                 _txtPlawka.visible = true;
                 _costTxt.visible = false;
                 isFill = 3;
@@ -643,7 +648,7 @@ public class MarketItem {
         var d:DropObject = new DropObject();
         var p:Point = new Point(0, 0);
         p = _imageCont.localToGlobal(p);
-        d.addDropItemNewByResourceId(_dataFromServer.resourceId, p, count);
+        d.addDropItemNewByResourceId(_dataItem.resourceId, p, count);
         d.releaseIt(null, false);
 //        var item:CraftItem = new CraftItem(0,0,resource,source,count);
 //        item.releaseIt(null,false);
@@ -653,30 +658,31 @@ public class MarketItem {
         var i:int;
         if (_imageCont) unFillIt();
         var im:Image;
-        _data = data;
+        _dataResource = data;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
         MCScaler.scale(im,im.height-10,im.width-10);
         im.x = 33;
         im.y = 55;
+        im.filter = ManagerFilters.DISABLE_FILTER;
         _imageCont.addChild(im);
         if (_btnAdditem) _btnAdditem.visible = false;
         _countMoney = cost;
         if (_plawkaCoins) _plawkaCoins.visible = true;
         if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET) _costTxt.setFormat(CTextField.BOLD24, 24, 0xcf342f, Color.WHITE);
         if (_costTxt) _costTxt.text = String(cost);
-        if (_dataFromServer.buyerSocialId == '1') {
+        if (_dataItem.buyerSocialId == '1') {
             _personBuyer = g.user.neighbor;
             _personBuyerTempItem = null;
         } else {
             for (i = 0; i < g.user.arrFriends.length; i++) {
-                if (_dataFromServer.buyerSocialId == g.user.arrFriends[i].userSocialId) {
+                if (_dataItem.buyerSocialId == g.user.arrFriends[i].userSocialId) {
                     _personBuyer = g.user.arrFriends[i];
                     break;
                 }
             }
             if (!_personBuyer) {
                 for (i = 0; i < g.user.marketItems.length; i++) {
-                    if (_dataFromServer.buyerSocialId == g.user.marketItems[i].buyerSocialId) {
+                    if (_dataItem.buyerSocialId == g.user.marketItems[i].buyerSocialId) {
                         _personBuyerTempItem = g.user.marketItems[i];
                         break;
                     }
@@ -817,7 +823,7 @@ public class MarketItem {
         if (count >= 0) {
             g.gameDispatcher.removeFromTimer(onEnterFrame);
             if (!g.resourceHint.isShowed && _onHover)
-                if (_data && source) g.marketHint.showIt(_data.id,source.x,source.y-85,source);  ///// ???????
+                if (_dataResource && source) g.marketHint.showIt(_dataResource.id,source.x,source.y-85,source);  ///// ???????
         }
     }
 
@@ -900,8 +906,8 @@ public class MarketItem {
         source.removeChild(_bg);
         _bg = null;
         _callback = null;
-        _data = null;
-        _dataFromServer = null;
+        _dataResource = null;
+        _dataItem = null;
         _person = null;
         _personBuyer = null;
         _personBuyerTempItem = null;

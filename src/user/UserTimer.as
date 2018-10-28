@@ -32,6 +32,7 @@ public class UserTimer {
     public var miniPartyToEndTimer:int;
     public var miniPartyToStartTimer:int;
     public var cafeTimer:int;
+    public var timeToNextNewDay:int;
 
     public function UserTimer() {
         _arrOrderItem = [];
@@ -49,6 +50,16 @@ public class UserTimer {
 //            g.gameDispatcher.removeFromTimer(onMarketTimer);
 //        }
 //    }
+
+    public function initTimeToNextNewDay():void {
+        timeToNextNewDay = TimeUtils.getSecondsToNextDay;
+        g.gameDispatcher.addToTimer(onNextDayTimer);
+    }
+
+    private function onNextDayTimer():void {
+        timeToNextNewDay--;
+        if (timeToNextNewDay<0) timeToNextNewDay = 24*60*60 - 1;
+    }
 
     public function startUserPapperTimer(time:int):void {
         timerAtPapper = time;
