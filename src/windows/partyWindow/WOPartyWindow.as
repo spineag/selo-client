@@ -108,7 +108,7 @@ public class WOPartyWindow extends WindowMain {
         _txtName.x = -375;
         _txtName.y = -_woHeight/2 + 25;
         _source.addChild(_txtName);
-        _txtTimeLost = new CTextField(130, 60, String(g.managerLanguage.allTexts[357]));
+        _txtTimeLost = new CTextField(200, 60, String(g.managerLanguage.allTexts[357]));
         _txtTimeLost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtTimeLost.alignH = Align.LEFT;
 
@@ -184,7 +184,7 @@ public class WOPartyWindow extends WindowMain {
     private function startTimer():void {
         if (g.userTimer.partyToEndTimer > 0) {
             if (_txtTime)_txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.partyToEndTimer);
-            if (_txtTime && _txtTime.x == 0) _txtTime.x = _txtTimeLost.x + _txtTimeLost.textBounds.width;
+            if (_txtTime && _txtTime.x == 0) _txtTime.x = _txtTimeLost.x + _txtTimeLost.textBounds.width + 10;
         } else {
             onClickExit();
             g.gameDispatcher.removeFromTimer(startTimer);
@@ -222,7 +222,7 @@ public class WOPartyWindow extends WindowMain {
             _txtDescription.x = -390;
             _txtDescription.y = -20;
             _sprEvent.addChild(_txtDescription);
-            _txtTimeLost.x = -310;
+            _txtTimeLost.x = -340;
             _txtTimeLost.y = -75;
             _txtTime.y = -75;
             _imMain = new Image(g.managerParty.arrImage[0]);
@@ -234,7 +234,7 @@ public class WOPartyWindow extends WindowMain {
             _bgMainRed.x = -_bgMainRed.width/2 + 5;
             _bgMainRed.y = -_bgMainRed.height/2 + 40;
             _sprEvent.addChild(_bgMainRed);
-            _txtTimeLost.x = -120;
+            _txtTimeLost.x = -150;
             _txtTimeLost.y = -65;
             _txtTime.y = -65;
             _btnOK = new CButton();
