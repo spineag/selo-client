@@ -663,7 +663,7 @@ public class MarketItem {
         MCScaler.scale(im,im.height-10,im.width-10);
         im.x = 33;
         im.y = 55;
-        im.filter = ManagerFilters.DISABLE_FILTER;
+        if (!_dataItem.isNextDay) im.filter = ManagerFilters.DISABLE_FILTER;
         _imageCont.addChild(im);
         if (_btnAdditem) _btnAdditem.visible = false;
         _countMoney = cost;
