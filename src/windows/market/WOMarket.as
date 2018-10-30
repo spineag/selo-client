@@ -278,7 +278,11 @@ public class WOMarket  extends WindowMain {
         _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         _onWoShowCallback = onShow;
-        g.gameDispatcher.addToTimer(onNextDayTimer);
+        if (g.isAway) _panelTimer.visible = false;
+        else {
+            _panelTimer.visible = true;
+            g.gameDispatcher.addToTimer(onNextDayTimer);
+        }
         super.showIt();
     }
 

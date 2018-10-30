@@ -96,7 +96,7 @@ public class WOLevelUp extends WindowMain {
         _arrCells = [];
         _arrCellsGift = [];
         _arrItems = [];
-        _bolShare = true;
+        _bolShare = false;
         _st = g.dataPath.getGraphicsPath();
         count=0;
         if (!g.allData.atlas['levelAtlas']) {
@@ -152,12 +152,8 @@ public class WOLevelUp extends WindowMain {
     private function shareClick():void {
         _bolShare = !_bolShare;
         _imCheck.visible = _bolShare;
-        if (_bolShare) {
-            _contBtn.clickCallback = onClickShare;
-
-        } else {
-            _contBtn.clickCallback = onClickNext;
-        }
+        if (_bolShare) _contBtn.clickCallback = onClickShare;
+        else _contBtn.clickCallback = onClickNext;
     }
 
     private function createArrow():void {
@@ -216,6 +212,7 @@ public class WOLevelUp extends WindowMain {
         MCScaler.scale(_imCheck, _imCheck.height-7,_imCheck.width-7);
         _imCheck.x = -3;
         _imCheck.y = -11;
+        _imCheck.visible = false;
         _bgCheck.x = -195;
         _bgCheck.endClickCallback = shareClick;
         if (countArr >= 3) {
@@ -238,7 +235,6 @@ public class WOLevelUp extends WindowMain {
         _sprShare.addChild(txtShare);
         _sprShare.endClickCallback = shareClick;
 
-
         _contBtn = new CButton();
         _contBtn.addButtonTexture(100, CButton.HEIGHT_41, CButton.GREEN, true);
         _contBtn.addTextField(100, 40, -5, -2, String(g.managerLanguage.allTexts[328]));
@@ -255,7 +251,6 @@ public class WOLevelUp extends WindowMain {
             _contBtn.y = _woHeight/2 + 50;
             _bgCheck.y = 240;
             _sprShare.y = 198;
-
         } else {
             _bigYellowBG.y = -60;
             _contClipRect.y = -45;
