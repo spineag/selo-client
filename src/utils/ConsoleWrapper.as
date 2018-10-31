@@ -5,6 +5,8 @@ import com.junkbyte.console.Cc;
 import com.junkbyte.console.KeyBind;
 import com.junkbyte.console.addons.htmlexport.ConsoleHtmlExportAddon;
 
+import data.DataMoney;
+
 import flash.display.Sprite;
 import flash.geom.Point;
 import flash.ui.Keyboard;
@@ -61,6 +63,9 @@ public class ConsoleWrapper {
         Cc.bindKey(new KeyBind(Keyboard.X, true,false,true,true), showXY);
         Cc.bindKey(new KeyBind(Keyboard.M, true,false,true,true), scaleMoveMinus);
         Cc.bindKey(new KeyBind(Keyboard.P, true,false,true,true), scaleMovePlus);
+
+        Cc.bindKey(new KeyBind(Keyboard.NUMBER_1, true,false,true,true), add1Rubin);
+        Cc.bindKey(new KeyBind(Keyboard.NUMBER_2, true,false,true,true), add100Coins);
     }
 
     public function initTesterMode():void {
@@ -81,6 +86,14 @@ public class ConsoleWrapper {
 //        Cc.bindKey(new KeyBind(Keyboard.R), removeUserData);
         Cc.addSlashCommand("g", inspectObjects, "Inspect Objects class", true);
 //        Cc.addSlashCommand("sendErrorLog", sendErrorLog, "Manually sends error message");
+    }
+
+    private function add1Rubin():void {
+        if (g.user.isTester) g.userInventory.addMoney(DataMoney.HARD_CURRENCY, 1);
+    }
+
+    private function add100Coins():void {
+        if (g.user.isTester) g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, 100);
     }
 
     private function showStats():void {
@@ -108,15 +121,11 @@ public class ConsoleWrapper {
     }
 
     private function scaleMoveMinus():void {
-        if (g.user.isTester) {
-            g.managerResize.scaleMove();
-        }
+        if (g.user.isTester)  g.managerResize.scaleMove();
     }
 
     private function scaleMovePlus():void {
-        if (g.user.isTester) {
-            g.managerResize.scaleMove(true);
-        }
+        if (g.user.isTester)  g.managerResize.scaleMove(true);
     }
 
     private function makeFullscreen():void {
