@@ -4717,6 +4717,12 @@ public class DirectServer {
         variables.counts = order.resourceCounts.join('&');
         variables.xp = order.xp;
         variables.coins = order.coins;
+        if (variables.xp == 0) { // kostul_1 for error
+            variables.xp = 25;
+            variables.ids = '31';
+            variables.counts = '10';
+            variables.coins = 25;
+        }
         variables.addCoupone = int(order.addCoupone);
         variables.delay = delay;
         variables.place = order.placeNumber;

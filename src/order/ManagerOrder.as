@@ -141,6 +141,14 @@ public class ManagerOrder {
         or.resourceCounts = ob.counts.split('&');
         or.coins = int(ob.coins);
         or.xp = int(ob.xp);
+        Utils.intArray(or.resourceCounts);
+        Utils.intArray(or.resourceIds);
+        if (or.xp == 0) {  // kostul_2 for error
+            or.xp = 35;
+            or.resourceIds = [32];
+            or.resourceCounts = [7];
+            or.coins = 35;
+        }
         or.txtId = int(ob.txt_id);
         or.addCoupone = ob.add_coupone == '1';
         or.startTime = int(ob.start_time) || 0;
@@ -149,8 +157,6 @@ public class ManagerOrder {
         if (ob.txt_id) or.txtId = int(ob.txt_id);
         else or.txtId = checkTxtId();
         if (or.startTime - TimeUtils.currentSeconds > 0 ) or.delOb = true;
-        Utils.intArray(or.resourceCounts);
-        Utils.intArray(or.resourceIds);
         _arrOrders.push(or);
         _arrOrders.sortOn('placeNumber', Array.NUMERIC);
     }
@@ -198,12 +204,6 @@ public class ManagerOrder {
         return l;
     }
 
-
-
-    //types for order:
-    // 1 - usual resource from Fabrica
-    // 2 - resources made from resources from cave
-    // 3 - resource plants
     private function addNewOrders(n:int, delay:int = 0, f:Function = null, place:int = -1,del:Boolean = false):void {
         var or:OrderItemStructure;
         var arrOrderType1:Array = new Array(); //products + cave

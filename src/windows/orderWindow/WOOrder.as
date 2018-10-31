@@ -22,6 +22,7 @@ import manager.ManagerPartyNew;
 import media.SoundConst;
 import order.ManagerOrder;
 import order.OrderCat;
+import order.OrderItemStructure;
 
 import quest.ManagerQuest;
 import resourceItem.newDrop.DropObject;
@@ -461,10 +462,6 @@ public class WOOrder extends WindowMain {
         if (g.tuts.isTuts && g.tuts.action == TutsAction.ORDER) g.tuts.checkTutsCallback();
             else g.miniScenes.onBuyOrder();
     }
-
-import order.OrderItemStructure;
-
-import windows.orderWindow.WOOrderItem;
 
     private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
