@@ -198,134 +198,6 @@ public class ManagerOrder {
         return l;
     }
 
-    private function addNewFastOrder():Object {
-        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FABRICA);
-        var arrTemp:Array;
-        var i:int = 0;
-        var j:int = 0;
-        var time:int = 0;
-        var ob:Object;
-        var arrResource:Array = g.userInventory.getResourceforTypetoOrder(BuildType.RESOURCE);
-        var resource:Boolean = false;
-        var r:StructureDataResource;
-        var ri:ResourceItem;
-        if (arrResource == null || arrResource.length <= 0) {
-            if (g.user.level <= 5) time = 60;
-            else if (g.user.level == 6) time = 120;
-            else time = 240;
-            for (i = 0; i < arr.length; i++) {
-                arrTemp = (arr[i] as Fabrica).arrList;
-                if (arrTemp.length > 0) {
-                    for (j = 0; j < arrTemp.length; j++) {
-                        ri = arrTemp[j];
-                        r = g.allData.getResourceById(ri.resourceID);
-                        if (r.orderType == 1 && ri.leftTime <= time) {
-                            ob = {};
-                            ob.id = ri.resourceID;
-                            ob.count = 1;
-                            resource = true;
-                            trace ('Ресурс готовится на фабрике но при этом подходит по времени для ордера ' + "id " + ob.id + ' count ' + ob.count);
-                            break;
-                        }
-                    }
-                } else if (arr[i].arrCrafted.length > 0) {
-                    arrTemp = (arr[i] as Fabrica).arrCrafted;
-                    for (j = 0; j < arrTemp.length; j++) {
-                        r = g.allData.getResourceById((arrTemp[j] as CraftItem).resourceId);
-                        if (r.orderType > 0) {
-                            ob = {};
-                            ob.id = arrTemp[j].resourceId;
-                            ob.count = 1;
-                            resource = true;
-                            trace ('Ресурс приготовлен но не забарн из фабрике ' + "id " + ob.id + ' count ' + ob.count);
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!resource) {
-                arr = g.townArea.getCityObjectsByType(BuildType.FARM);
-                var countAnimalWhoAccept:int = 0;
-                for (i = 0; i < arr.length; i++) {
-                    if (arr[i].arrAnimals.length > 0) {
-                        arrTemp = arr[i].arrAnimals;
-                        for (j = 0; j < arrTemp.length; j++) {
-                            if (arrTemp[j].state > 1 && arrTemp[j].timeToEnd <= time) {
-                                countAnimalWhoAccept ++;
-                            }
-                        }
-                        if (countAnimalWhoAccept > 1) {
-                            ob = {};
-                            ob.id = arr[i].dataAnimal.idResource;
-                            ob.count = countAnimalWhoAccept;
-                            trace ('Ресурс готовится на ферме но при этом подходит по времени для ордера ' + "id " + ob.id + ' count ' + ob.count);
-                            resource = true;
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            arrResource.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-            resource = true;
-            ob ={};
-            ob.id = arrResource[0].id;
-            ob.count = arrResource[0].count;
-            trace ('Есть ресурсы на складе ' + "id " + ob.id + ' count ' + ob.count);
-        }
-        if (!resource) {
-            arr = g.townArea.getCityObjectsByType(BuildType.RIDGE);
-            if (arr && arr.length > 0) {
-                arrResource = [];
-                for (i = 0; i < arr.length; i++) {
-                    if (arr[i].stateRidge >= 3) {
-                        ob = {};
-                        ob.id = arr[i].plant.dataPlant.id;
-                        ob.count = 1;
-                        if (arrResource != null && arrResource.length > 0) {
-                            for (j = 0; j < arrResource.length; j++) {
-                                if (arrResource[j].id == ob.id) {
-                                    arrResource[j].count++;
-                                    resource = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (!resource) arrResource.push(ob);
-                    }
-                }
-                if(arrResource.length > 0) {
-                    arrResource.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-                    ob = {};
-                    ob.id = arrResource[0].id;
-                    ob.count = arrResource[0].count;
-                    trace('ищет самое большое количество ростений которые растут на грядке и отдает его ' + "id " + ob.id + ' count ' + ob.count);
-                }
-            }
-            if (!resource) {
-                arrResource = g.userInventory.getResourceforTypetoOrder(BuildType.PLANT);
-                if (arrResource && arrResource.length > 0) {
-                    arrResource.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-                    ob = {};
-                    ob.id = arrResource[0].id;
-                    ob.count = int(arrResource[0].count/2);
-                    if (ob.count <= 0 || ob.count == 1)  {
-                        ob.id = 31;
-                        ob.count = 4;
-                        trace('ЛАст истанция ' + "id " + ob.id + ' count ' + ob.count);
-                    }
-                    trace('ищет самое большое количество ростений в амбаре ' + "id " + ob.id + ' count ' + ob.count);
-                }
-            }
-        }
-        if (!ob) {
-            ob = {};
-            ob.id = 31;// Пшеница
-            ob.count = 4;
-            trace('ЛАст истанция ' + "id " + ob.id + ' count ' + ob.count);
-        }
-        return ob;
-    }
 
 
     //types for order:
@@ -339,161 +211,123 @@ public class ManagerOrder {
         var k:Number;
         var i:int;
         var userLevel:int = g.user.level;
-        var countFastBuyer:int = 0;
         var r:StructureDataResource;
+        var arR:Array;
+        var needs:Array;
 
         for (var ik:int = 0; ik < n; ik++) {
-//            if (_arrOrders && !g.tuts.isTuts && _arrOrders.length > 0) {
-//                for (i = 0; i < _arrOrders.length; i++) {
-//                    if ((_arrOrders[i] as OrderItemStructure).fasterBuy == true) {
-//                        countFastBuyer++;
-//                    }
-//                }
-//            } else countFastBuyer = 1;
-            countFastBuyer = 1; // OFF FASTER BUYER
-            if (countFastBuyer == 0 && userLevel < 10) {
-                or = new OrderItemStructure();
-                or.addCoupone = false;
-                var ob:Object = addNewFastOrder();
-                or.resourceIds = [ob.id];
-                or.resourceCounts = [ob.count];
-                or.fasterBuy = true;
-            } else {
-                var arR:Array = g.allData.resource;
-                for (i = 0; i < arR.length; i++) {
-                    r = arR[i] as StructureDataResource;
-                    if (r.blockByLevel <= userLevel) {
-                        if (r.orderType == 1 || r.orderType == 2) {
-                            if (arrOrderType1.indexOf(r.id) == -1) arrOrderType1.push(r.id);
-                        } else if (r.orderType == 3) {
-                            if (arrOrderType3.indexOf(r.id) == -1) arrOrderType3.push(r.id);
-                        }
+            arR = g.allData.resource;
+            for (i = 0; i < arR.length; i++) {
+                r = arR[i] as StructureDataResource;
+                if (r.blockByLevel <= userLevel) {
+                    if (r.orderType == 1 || r.orderType == 2) {
+                        if (arrOrderType1.indexOf(r.id) == -1) arrOrderType1.push(r.id);
+                    } else if (r.orderType == 3) {
+                        if (arrOrderType3.indexOf(r.id) == -1) arrOrderType3.push(r.id);
                     }
                 }
-
-                or = new OrderItemStructure();
-                or.resourceIds = [];
-                or.resourceCounts = [];
-
-                var needs:Array = [false, false, false, false, false];
-                k = Math.random();
-                switch (userLevel) {
-                    case 4:
-                        if (k < .33) needs[0] = true;
-                        else needs[1] = true;
-                        break;
-                    case 5:
-                        if (k < .5) needs[0] = true;
-                        else needs[1] = true;
-                        break;
-                    case 6:
-                        if (k < .29) needs[0] = true;
-                        else if (k < .53) needs[1] = true;
-                        else needs[2] = true;
-                        break;
-                    case 7:
-                        if (k < .35) needs[0] = true;
-                        else if (k < .55) needs[1] = true;
-                        else needs[2] = true;
-                        break;
-                    case 8:
-                        if (k < .35) needs[0] = true;
-                        else if (k < .7) needs[1] = true;
-                        else needs[2] = true;
-                        break;
-                    case 9:
-                        if (k < .27) needs[0] = true;
-                        else if (k < .62) needs[1] = true;
-                        else needs[2] = true;
-                        break;
-                    case 10:
-                        if (k < .37) needs[0] = true;
-                        else if (k < .74) needs[1] = true;
-                        else needs[2] = true;
-                        break;
-                    case 11:
-                        if (k < .32) needs[0] = true;
-                        else if (k < .56) needs[1] = true;
-                        else if (k < .84) needs[2] = true;
-                        else needs[3] = true;
-                        break;
-                    case 12:
-                        if (k < .22) needs[0] = true;
-                        else if (k < .42) needs[1] = true;
-                        else if (k < .67) needs[2] = true;
-                        else needs[3] = true;
-                        break;
-                    case 13:
-                        if (k < .22) needs[0] = true;
-                        else if (k < .42) needs[1] = true;
-                        else if (k < .67) needs[2] = true;
-                        else needs[3] = true;
-                        break;
-                    case 14:
-                        if (k < .22) needs[0] = true;
-                        else if (k < .42) needs[1] = true;
-                        else if (k < .67) needs[2] = true;
-                        else needs[3] = true;
-                        break;
-                    case 15:
-                        if (k < .22) needs[0] = true;
-                        else if (k < .42) needs[1] = true;
-                        else if (k < .67) needs[2] = true;
-                        else needs[3] = true;
-                        break;
-                    case 16:
-                        if (k < .21) needs[0] = true;
-                        else if (k < .41) needs[1] = true;
-                        else if (k < .65) needs[2] = true;
-                        else if (k < .87) needs[3] = true;
-                        else needs[4] = true;
-                        break;
-                    case 17:
-                        if (k < .21) needs[0] = true;
-                        else if (k < .41) needs[1] = true;
-                        else if (k < .65) needs[2] = true;
-                        else if (k < .87) needs[3] = true;
-                        else needs[4] = true;
-                        break;
-                    default:
-                        if (userLevel > 17) {
-                            if (k < .21) needs[0] = true;
-                            else if (k < .41) needs[1] = true;
-                            else if (k < .65) needs[2] = true;
-                            else if (k < .87) needs[3] = true;
-                            else needs[4] = true;
-                        }
-                }
-
-                if (needs[0]) add_1_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                else if (needs[1]) add_2_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                else if (needs[2]) add_3_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                else if (needs[3]) add_4_Item(or, arrOrderType1, arrOrderType3, userLevel);
-                else if (needs[4]) add_5_Item(or, arrOrderType1, arrOrderType3, userLevel);
             }
 
-//            var caveIt:int = 0;
-//            for (i = 0; i < or.resourceIds.length; i++) {
-//                r = g.allData.getResourceById(or.resourceIds[i]);
-//                if (r.orderType == 2) {
-//                    for (k = 0; k < _arrOrders.length; k++) {
-//                        for (j = 0; j < _arrOrders[k].resourceIds.length; j++) {
-//                            if (_arrOrders[k].resourceIds[j]) {
-//                                r = g.allData.getResourceById(_arrOrders[k].resourceIds[j]);
-//                                if (r.orderType == 2) caveIt++;
-//                                if (caveIt >= 2) break;
-//                            }
-//                        }
-//                    }
-//                    if (caveIt >=2) break;
-//                }
-//            }
-//            if (caveIt >= 2) {
-//                addNewOrders(n, delay, f, place,del);
-//                return;
-//            }
-//            or.catOb = getFreeCatObj();
-//            or.catOb = getFreeCatObj();
+            or = new OrderItemStructure();
+            or.resourceIds = [];
+            or.resourceCounts = [];
+
+            needs = [false, false, false, false, false];
+            k = Math.random();
+            switch (userLevel) {
+                case 4:
+                    if (k < .33) needs[0] = true;
+                    else needs[1] = true;
+                    break;
+                case 5:
+                    if (k < .5) needs[0] = true;
+                    else needs[1] = true;
+                    break;
+                case 6:
+                    if (k < .29) needs[0] = true;
+                    else if (k < .53) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 7:
+                    if (k < .35) needs[0] = true;
+                    else if (k < .55) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 8:
+                    if (k < .35) needs[0] = true;
+                    else if (k < .7) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 9:
+                    if (k < .27) needs[0] = true;
+                    else if (k < .62) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 10:
+                    if (k < .37) needs[0] = true;
+                    else if (k < .74) needs[1] = true;
+                    else needs[2] = true;
+                    break;
+                case 11:
+                    if (k < .32) needs[0] = true;
+                    else if (k < .56) needs[1] = true;
+                    else if (k < .84) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 12:
+                    if (k < .22) needs[0] = true;
+                    else if (k < .42) needs[1] = true;
+                    else if (k < .67) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 13:
+                    if (k < .22) needs[0] = true;
+                    else if (k < .42) needs[1] = true;
+                    else if (k < .67) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 14:
+                    if (k < .22) needs[0] = true;
+                    else if (k < .42) needs[1] = true;
+                    else if (k < .67) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 15:
+                    if (k < .22) needs[0] = true;
+                    else if (k < .42) needs[1] = true;
+                    else if (k < .67) needs[2] = true;
+                    else needs[3] = true;
+                    break;
+                case 16:
+                    if (k < .21) needs[0] = true;
+                    else if (k < .41) needs[1] = true;
+                    else if (k < .65) needs[2] = true;
+                    else if (k < .87) needs[3] = true;
+                    else needs[4] = true;
+                    break;
+                case 17:
+                    if (k < .21) needs[0] = true;
+                    else if (k < .41) needs[1] = true;
+                    else if (k < .65) needs[2] = true;
+                    else if (k < .87) needs[3] = true;
+                    else needs[4] = true;
+                    break;
+                default:
+                    if (userLevel > 17) {
+                        if (k < .21) needs[0] = true;
+                        else if (k < .41) needs[1] = true;
+                        else if (k < .65) needs[2] = true;
+                        else if (k < .87) needs[3] = true;
+                        else needs[4] = true;
+                    }
+            }
+
+            if (needs[0]) add_1_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            else if (needs[1]) add_2_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            else if (needs[2]) add_3_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            else if (needs[3]) add_4_Item(or, arrOrderType1, arrOrderType3, userLevel);
+            else if (needs[4]) add_5_Item(or, arrOrderType1, arrOrderType3, userLevel);
+
             or.coins = 0;
             or.xp = 0;
             for (k = 0; k < or.resourceIds.length; k++) {
