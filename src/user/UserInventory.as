@@ -143,6 +143,24 @@ public class UserInventory {
         return arr;
     }
 
+    public function getResourcesForSkladNoInstruments():Array {
+        var obj:Object;
+        var arr:Array = [];
+        var r:StructureDataResource;
+        var arR:Array = g.allData.resource;
+        for (var i:int = 0; i < arR.length; i++) {
+            r = arR[i];
+            if (r.placeBuild == BuildType.PLACE_SKLAD && r.buildType != BuildType.INSTRUMENT && r.blockByLevel <= g.user.level && _inventoryResource[r.id]>0) {
+                obj = {};
+                obj.id = r.id;
+                obj.count = _inventoryResource[r.id];
+                arr.push(obj);
+            }
+
+        }
+        return arr;
+    }
+
     public function getResourcesForAmbarAndSklad():Array {
         var obj:Object;
         var arr:Array = [];
