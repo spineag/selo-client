@@ -219,6 +219,12 @@ public class WOMarket  extends WindowMain {
         g.windowsManager.openWindow(WindowsManager.WO_FARM_STAND_RATING);
     }
 
+    private function showTimerPanel(v:Boolean):void {
+        _panelTimer.visible = v;
+        if (v) g.gameDispatcher.addToTimer(onNextDayTimer);
+        else g.gameDispatcher.removeFromTimer(onNextDayTimer);
+    }
+
     private function fillFriends(e:SocialNetworkEvent=null):void {
         _arrFriends = g.user.arrFriends.slice();
         for (var i:int = 0; i <_arrFriends.length; i++) {
@@ -278,11 +284,6 @@ public class WOMarket  extends WindowMain {
         _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         _onWoShowCallback = onShow;
-        if (g.isAway) _panelTimer.visible = false;
-        else {
-            _panelTimer.visible = true;
-            g.gameDispatcher.addToTimer(onNextDayTimer);
-        }
         super.showIt();
     }
 
@@ -672,11 +673,11 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onChoosePerson():void {
+        showTimerPanel(_curUser==g.user);
         if (_curUser == g.user) {
 //            if (g.userTimer.papperTimerAtMarket > 0) _contPaper.visible = true;
 //            else
             _contPaper.visible = false;
-
             if (_ramkaIm) {
                 _ramkaIm.dispose();
                 _ramkaIm = null;
