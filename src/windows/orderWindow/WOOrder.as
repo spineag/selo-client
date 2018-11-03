@@ -209,8 +209,7 @@ public class WOOrder extends WindowMain {
         _btnSell.y = -_woHeight / 2 + 628;
         _btnSell.addTextField(144, 35, 0, 0, g.managerLanguage.allTexts[366]);
         _btnSell.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btnSell.clickCallback = sellOrder;
-        if (g.managerOrderCats.moveBoolean) _btnSell.setEnabled = false;
+        checkBtnSell();
         _rightBlock.addChild(_btnSell);
 
         _btnDel = new CButton();
@@ -300,8 +299,8 @@ public class WOOrder extends WindowMain {
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
-            _btnSkipDelete.visible = true;
             if (_activeOrderItem.leftSeconds <= 5) _btnSkipDelete.visible = false;
+                else _btnSkipDelete.visible = true;
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
             stopCatsAnimations();
@@ -403,6 +402,20 @@ public class WOOrder extends WindowMain {
     }
 
     private function set setTimerText(c:int):void { _txtTimer.text = TimeUtils.convertSecondsForOrders(c); }
+
+    private function checkBtnSell():void {
+        if (!g.managerOrderCats.moveBoolean) {
+            _btnSell.setEnableFilter = true;
+            _btnSell.clickCallback = sellOrder;
+            _btnSell.hoverCallback = null;
+            _btnSell.outCallback = null;
+        } else {
+            _btnSell.setEnableFilter = false;
+            _btnSell.clickCallback = null;
+            _btnSell.hoverCallback = function ():void { g.hint.showIt(String(g.managerLanguage.allTexts[1737])); };
+            _btnSell.outCallback = function ():void { g.hint.hideIt(); };
+        }
+    }
 
     private function sellOrder(b:Boolean = false, or:OrderItemStructure = null):void {
         if (_waitForAnswer) return;

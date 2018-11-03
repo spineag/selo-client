@@ -172,6 +172,10 @@ public class CButton extends Sprite {
 
     public function set setEnabled(v:Boolean):void {
         this.isTouchable = v;
+        setEnableFilter = v;
+    }
+    
+    public function set setEnableFilter(v:Boolean):void {
         if (v) {
             if (this.filter) this.filter.dispose();
             this.filter = null;
