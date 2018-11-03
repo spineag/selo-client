@@ -255,6 +255,7 @@ public class ShopListItem {
                     }
                 } else {
                     _txtCount.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
+                    if (_data.costSeparate && _data.costSeparate.length > arr.length) _costCount = _data.costSeparate[arr.length];
                     createButton();
                     if (g.user.notif.isNewFarmId(_data.id)) addNotification();
                 }

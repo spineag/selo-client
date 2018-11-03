@@ -147,6 +147,12 @@ public class Utils {
                 newOb.currency.push(oldOb.currency[i]);
             }
         }
+        if (oldOb.costSeparate) {
+            newOb.costSeparate = [];
+            for (i=0; i< oldOb.costSeparate.length; i++) {
+                newOb.costSeparate.push(oldOb.costSeparate[i]);
+            }
+        }
         if (oldOb.deltaCost) newOb.deltaCost = oldOb.deltaCost;
         if (oldOb.filterType) newOb.filterType = oldOb.filterType;
         if (oldOb.group) newOb.group = oldOb.group;
