@@ -226,6 +226,7 @@ public class Utils {
         newOb.buildType = oldOb.buildType;
         newOb.costNew = oldOb.costNew;
         newOb.sort = int(blockByLevel);
+        newOb.levels = oldOb.levels;
         return newOb;
     }
 

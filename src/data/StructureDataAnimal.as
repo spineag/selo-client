@@ -21,6 +21,7 @@ public class StructureDataAnimal {
     private var _idResourceRaw:int;
     private var _costNew:Array;
     private var _buildType:int;
+    private var _levels:Array;
     private var g:Vars = Vars.getInstance();
 
     public function StructureDataAnimal(ob:Object) {
@@ -41,6 +42,7 @@ public class StructureDataAnimal {
             _costNew = String(ob.cost_new).split('&');
             _costNew = Utils.intArray(_costNew);
         }
+        if (ob.levels) _levels = Utils.intArray(String(ob.levels).split('&'));
         _buildType = BuildType.ANIMAL;
     }
 
@@ -58,5 +60,6 @@ public class StructureDataAnimal {
     public function get idResourceRaw():int { return _idResourceRaw; }
     public function get buildType():int { return _buildType; }
     public function get costNew():Array { return _costNew; }
+    public function get levels():Array { return _levels; }
 }
 }

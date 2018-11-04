@@ -315,37 +315,68 @@ public class ShopListItem {
                 } else {
                     arr = g.townArea.getCityObjectsById(dataFarm.id);
                     maxCount = arr.length * dataFarm.maxAnimalsCount;
+                    maxCountAtCurrentLevel=0;
+                    for (i=0;i<_data.levels.length;i++){
+                        if (_data.levels[i] <= g.user.level) maxCountAtCurrentLevel++;
+                        else break;
+                    }
                     curCount = 0;
                     for (i=0; i<arr.length; i++) {
                         curCount += (arr[i] as Farm).arrAnimals.length;
                     }
-                    if (maxCount == curCount) {
-                        if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
-                            if (g.user.notif.isNewAnimalId(_data.id)) {
-                                addNotification();
+                    if (maxCountAtCurrentLevel > maxCount) {
+                        if (maxCount == curCount) {
+                            if (g.user.level >= dataFarm.blockByLevel[arr.length - 1]) {
+                                if (g.user.notif.isNewAnimalId(_data.id)) {
+                                    addNotification();
+                                    _txtInfo.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
+                                } else {
+                                    _txtInfo.text = String(g.managerLanguage.allTexts[340]);
+                                    _txtCount.text = String(curCount) + '/' + String(maxCount);
+                                }
+                                _blackPlawka.visible = true;
+                                _costCount = 0;
+                                _isThisItemBlocked = true;
+                            } else if (maxCount > curCount) {
                                 _txtInfo.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
-                            } else {
-                                _txtInfo.text =  String(g.managerLanguage.allTexts[340]);
-                                _txtCount.text = String(maxCount) + '/' + String(maxCount);
-
-                            }
-                            _blackPlawka.visible = true;
-                            _costCount = 0;
-                            _isThisItemBlocked = true;
-                        } else {
-                            _txtInfo.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
-                            if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
-                            _blackPlawka.visible = true;
-                            if (g.user.isTester) _txtName.text = String(_data.id) +':'+ String(_data.name);
+                                if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
+                                _blackPlawka.visible = true;
+                                if (g.user.isTester) _txtName.text = String(_data.id) + ':' + String(_data.name);
                                 else _txtName.text = String(_data.name);
-                            _isThisItemBlocked = true;
+                                _isThisItemBlocked = true;
+                            } else {
+                                _blackPlawka.visible = true;
+                                _isThisItemBlocked = true;
+                                _txtInfo.text = String(g.managerLanguage.allTexts[340]);
+                                _txtCount.text = String(curCount) + '/' + String(maxCount);
+                            }
+                        } else {
+                            _txtCount.text = String(curCount) + '/' + String(maxCount);
+                            if (curCount == 0) _costCount = _data.costNew[0];
+                            else _costCount = _data.costNew[curCount];
+                            createButton();
+                            if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
                         }
                     } else {
-                        _txtCount.text = String(curCount) + '/' + String(maxCount);
-                        if (curCount == 0) _costCount = _data.costNew[0];
-                        else _costCount = _data.costNew[curCount];
-                        createButton();
-                        if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
+                        if (maxCountAtCurrentLevel == curCount) {
+                            _txtInfo.text = String(str.replace(myPattern, String(_data.levels[curCount])));
+                            if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
+                            _blackPlawka.visible = true;
+                            if (g.user.isTester) _txtName.text = String(_data.id) + ':' + String(_data.name);
+                            else _txtName.text = String(_data.name);
+                            _isThisItemBlocked = true;
+                        } else if (maxCountAtCurrentLevel > curCount) {
+                            _txtCount.text = String(curCount) + '/' + String(maxCountAtCurrentLevel);
+                            if (curCount == 0) _costCount = _data.costNew[0];
+                            else _costCount = _data.costNew[curCount];
+                            createButton();
+                            if (g.user.notif.isNewAnimalId(_data.id)) addNotification();
+                        } else {
+                            _blackPlawka.visible = true;
+                            _isThisItemBlocked = true;
+                            _txtInfo.text = String(g.managerLanguage.allTexts[340]);
+                            _txtCount.text = String(curCount) + '/' + String(maxCountAtCurrentLevel);
+                        }
                     }
                 }
             }
