@@ -294,13 +294,14 @@ public class WOOrder extends WindowMain {
         clearResourceItems();
         _clickItem = true;
         _activeOrderItem = item;
-        fillResourceItems(_activeOrderItem.getOrder());
+        var or:OrderItemStructure = _activeOrderItem.getOrder();
+        fillResourceItems(or);
         _activeOrderItem.activateIt(true);
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
             if (_activeOrderItem.leftSeconds <= 5) _btnSkipDelete.visible = false;
-                else _btnSkipDelete.visible = true;
+            else _btnSkipDelete.visible = true;
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
             stopCatsAnimations();
@@ -310,7 +311,6 @@ public class WOOrder extends WindowMain {
             g.gameDispatcher.removeFromTimer(onTimer);
             animateCustomerCat();
         }
-        var or:OrderItemStructure = _activeOrderItem.getOrder();
         if (g.managerOrderCats.moveBoolean || _activeOrderItem.leftSeconds > 0) {
             if (_srcBaloon) _srcBaloon.visible = false;
             emptyCarCustomer();
@@ -318,6 +318,16 @@ public class WOOrder extends WindowMain {
             if (_txtBaloon) _txtBaloon.text = String(g.managerLanguage.allTexts[or.txtId]);
             if (_srcBaloon) _srcBaloon.visible = true;
         }
+
+        var isCheckedAll:Boolean = true;
+        for (i = 0; i < or.resourceIds.length; i++) {
+            if (!(_arrResourceItems[i] as WOOrderResourceItem).isChecked()) {
+                isCheckedAll = false;
+                break;
+            }
+        }
+        if (g.managerOrderCats.moveBoolean) checkBtnSell();
+        else _btnSell.setEnabled = isCheckedAll;
 
         for (var i:int = 0; i <_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == item.position && _arrOrders[i].delOb == true) {
