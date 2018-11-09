@@ -42,5 +42,11 @@ public class ManagerStarterPack {
             }
         }
     }
+    
+    public function onBuyStarterPack():void {
+        g.user.starterPack = 1;
+        g.server.updateStarterPack(null);
+        g.gameDispatcher.removeFromTimer(onTimer);
+    }
 }
 }

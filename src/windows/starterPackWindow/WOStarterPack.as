@@ -374,7 +374,7 @@ public class WOStarterPack extends WindowMain{
     }
 
     private function onBuy():void {
-        g.server.updateStarterPack(null);
+        g.managerStarterPack.onBuyStarterPack();
         var p:Point = new Point(30, 30);
         p = _source.localToGlobal(p);
         var d:DropObject = new DropObject();
