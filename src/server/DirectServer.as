@@ -811,7 +811,7 @@ public class DirectServer {
             g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
             g.user.globalXP = int(ob.xp);
             g.user.notif.onGetFromServer(ob.notification_new);
-            g.user.starterPack = Boolean(int(ob.starter_pack));
+            g.user.starterPack = int(ob.starter_pack);
             g.user.timeStarterPack = (int(ob.time_starter_pack));
             g.userTimer.starterToEnd(int(ob.time_starter_pack));
 //            g.user.salePack = Boolean(int(ob.sale_pack));

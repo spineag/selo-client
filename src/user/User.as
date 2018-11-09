@@ -58,7 +58,7 @@ public class User extends Someone {
     public var countAwayMouse:int;
     public var dayDailyGift:int;
     public var countDailyGift:int;
-    public var starterPack:Boolean;
+    public var starterPack:int;
     public var timeStarterPack:int;
     public var salePack:Boolean = false;
     public var day:int;
