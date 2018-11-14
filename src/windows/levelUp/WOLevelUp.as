@@ -2,54 +2,30 @@
  * Created by user on 7/8/15.
  */
 package windows.levelUp {
-import announcement.ManagerAnnouncement;
-
 import data.BuildType;
 import data.DataMoney;
-import data.StructureDataAnimal;
-
-import dragonBones.Armature;
-import dragonBones.Slot;
-import dragonBones.animation.WorldClock;
-import dragonBones.starling.StarlingArmatureDisplay;
-
 import flash.display.Bitmap;
 import flash.display.StageDisplayState;
-import flash.geom.Rectangle;
-
 import loaders.PBitmap;
-
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
 import media.SoundConst;
-
-import social.SocialNetworkSwitch;
-
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 import starling.utils.Color;
-import tutorial.TutsAction;
-import tutorial.managerCutScenes.ManagerCutScenes;
-import tutorial.miniScenes.MiniSceneOpenOrder;
-
 import ui.confetti.Confetti;
-
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.SimpleArrow;
 import utils.Utils;
-
 import windows.WOComponents.BackgroundYellowOut;
-
-import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -153,7 +129,7 @@ public class WOLevelUp extends WindowMain {
         _bolShare = !_bolShare;
         _imCheck.visible = _bolShare;
         if (_bolShare) _contBtn.clickCallback = onClickShare;
-        else _contBtn.clickCallback = onClickNext;
+        else _contBtn.clickCallback = hideIt;
     }
 
     private function createArrow():void {
@@ -241,7 +217,7 @@ public class WOLevelUp extends WindowMain {
         _contBtn.setTextFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _source.addChild(_contBtn);
         if (g.user.level > 3) _contBtn.clickCallback = onClickShare;
-        else _contBtn.clickCallback = onClickNext;
+        else _contBtn.clickCallback = hideIt;
         _contBtn.x = 40;
 
         if (arrGift > 0) {
@@ -304,28 +280,9 @@ public class WOLevelUp extends WindowMain {
         super.showIt();
     }
     
-    private function onClickNext():void {
-        hideIt();
-    }
-
     override public function hideIt():void {
         super.hideIt();
         _confetti.hideIt();
-        var arr:Array;
-        if (g.user.level == 4) {
-//            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkMan);
-            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
-        } else if (g.user.level == 7) {
-            arr= g.townArea.getCityObjectsByType(BuildType.PAPER);
-            arr[0].showArrow(120);
-            arr = g.townArea.getCityObjectsByType(BuildType.MARKET);
-            arr[0].showArrow(120);
-        } else if (g.user.level == 8) {
-            arr = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS);
-            arr[0].showArrow(120);
-        }
-        if (g.user.level > 3 && g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
-        g.managerParty.checkAndCreateIvent();
     }
 
     private function onLeftClick():void {
@@ -578,29 +535,20 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function onClickShare():void {
-        if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
-            Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+        if (_bolShare) {
+            if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
+                Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+            }
+            g.managerWallPost.postWallpost(ManagerWallPost.NEW_LEVEL, null, _count, DataMoney.HARD_CURRENCY);
         }
-        g.managerWallPost.postWallpost(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
         hideIt();
     }
 
     override protected function deleteIt():void {
+        g.levelUpHint.hideIt();
+        g.xpPanel.onGetNewLevel2();
         _shift = 0;
         _count = 0;
-        g.levelUpHint.hideIt();
-        if (g.tuts.isTuts && g.tuts.action == TutsAction.LEVEL_UP) {
-            g.tuts.checkTutsCallback();
-        }
-        g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
-        if (g.user.level == 3 || g.user.level == 4) g.miniScenes.checkAvailableMiniScenesOnNewLevel();
-
-        if (g.user.level == 4) {
-            g.managerQuest.addUI();
-            g.managerAnnouncement = new ManagerAnnouncement();
-        } else if (g.user.level > 4) {
-            g.managerQuest.getNewQuests();
-        }
         if (_txtNewLvl) {
             _source.removeChild(_txtNewLvl);
             _txtNewLvl.deleteIt();
@@ -675,9 +623,7 @@ public class WOLevelUp extends WindowMain {
             }
             _arrCellsGift.length = 0;
         }
-        if (_arrItems) {
-            _arrItems = null;
-        }
+        if (_arrItems) _arrItems = null;
 
         super.deleteIt();
     }
