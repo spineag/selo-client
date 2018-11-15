@@ -97,33 +97,33 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function photoFromTexture():void {
-            var im:Image;
-            im = new Image(g.allData.atlas['levelAtlas'].getTexture('windows_new_level'));
-            im.x = -im.width / 2;
-            im.y = -im.height / 2;
-            _source.addChild(im);
-            createExitButton(hideIt);
-            _callbackClickBG = hideIt;
-            _count = 1;
-            _txtNewLvl = new CTextField(500, 100, String(g.managerLanguage.allTexts[420]));
-            _txtNewLvl.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
-            _txtNewLvl.leading = -3;
-            _txtNewLvl.x = -220;
-            _txtNewLvl.y = -220;
-            _source.addChild(_txtNewLvl);
+        var im:Image;
+        im = new Image(g.allData.atlas['levelAtlas'].getTexture('windows_new_level'));
+        im.x = -im.width / 2;
+        im.y = -im.height / 2;
+        _source.addChild(im);
+        createExitButton(hideIt);
+        _callbackClickBG = hideIt;
+        _count = 1;
+        _txtNewLvl = new CTextField(500, 100, String(g.managerLanguage.allTexts[420]));
+        _txtNewLvl.setFormat(CTextField.BOLD72, 70, ManagerFilters.WINDOW_COLOR_YELLOW, ManagerFilters.WINDOW_STROKE_BLUE_COLOR);
+        _txtNewLvl.leading = -3;
+        _txtNewLvl.x = -220;
+        _txtNewLvl.y = -220;
+        _source.addChild(_txtNewLvl);
 
-            _txtLevel = new CTextField(300, 150, "");
-            _txtLevel.setFormat(CTextField.BOLD72, 72, 0xf77a3f, Color.WHITE);
-            _txtLevel.x = -130;
-            _txtLevel.y = -360;
-            _source.addChild(_txtLevel);
-            createArrow();
-            _callbackClickBG = null;
+        _txtLevel = new CTextField(300, 150, "");
+        _txtLevel.setFormat(CTextField.BOLD72, 72, 0xf77a3f, Color.WHITE);
+        _txtLevel.x = -130;
+        _txtLevel.y = -360;
+        _source.addChild(_txtLevel);
+        createArrow();
+        _callbackClickBG = null;
 
-            if (g.user.level >= 11) g.couponePanel.openPanel(true);
-            _txtLevel.text = String(g.user.level);
-            createList();
-        }
+        if (g.user.level >= 11) g.couponePanel.openPanel(true);
+        _txtLevel.text = String(g.user.level);
+        createList();
+    }
 
     private function shareClick():void {
         _bolShare = !_bolShare;
