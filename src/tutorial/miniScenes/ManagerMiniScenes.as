@@ -48,6 +48,7 @@ public class ManagerMiniScenes {
     private var _counter:int;
     private var _oCat:MiniSceneOrderCat;
     private var _mOrderOpenCat:MiniSceneOpenOrder;
+    public var continueAfterNeighbor:int=-1;
 
     public function ManagerMiniScenes() {
         _properties = (new MiniSceneProps()).properties;
@@ -85,7 +86,7 @@ public class ManagerMiniScenes {
 
     public function checkMiniCutSceneCallbackOnShowWindow():void { if (_onShowWindowCallback != null) { _onShowWindowCallback.apply(); } }
     public function checkMiniCutSceneCallbackOnHideWindow():void { if (_onHideWindowCallback != null) { _onHideWindowCallback.apply(); } }
-    private function saveUserMiniScenesData():void { g.server.updateUserMiniScenesData(); }
+    private function saveUserMiniScenesData():void {  g.server.updateUserMiniScenesData(); }
     public function isMiniSceneResource(id:int):Boolean { return _miniSceneResourceIDs.indexOf(id) > -1; }
     public function get oCat():MiniSceneOrderCat { return _oCat; }
 
@@ -99,6 +100,7 @@ public class ManagerMiniScenes {
     public function onEndMiniSceneForOrderCat():void {
         isMiniScene = false;
         _curMiniScenePropertie = {};
+        //letsGoToNeighbor();
     }
 
     public function checkMiniSceneCallback():void {
@@ -212,10 +214,6 @@ public class ManagerMiniScenes {
             case 1: openOrderBuilding(); break;
             case 2: firstOrderBuyer(); break;
             case 3: buildBulo4na(); break;
-            //case 4: letsGoToNeighbor(); break;
-//            case 5: atNeighbor(); break;
-//            case 6: atNeighborBuyInstrument(); break;
-//            default: Cc.error('unknown id for miniScene');
         }
     }
 
@@ -435,8 +433,7 @@ public class ManagerMiniScenes {
 
     public function onPasteFabrica(buildId:int=0):void {
         return;
-        
-        
+
         deleteArrowAndDust();
         _miniSceneResourceIDs = [];
         if (g.user.miniScenes[2] == 0) {
@@ -444,6 +441,136 @@ public class ManagerMiniScenes {
             saveUserMiniScenesData();
             isMiniScene = false;
         }
+    }
+
+
+
+    public function letsGoToNeighbor():void {
+        if (g.user.level < 5) return;
+        if (g.user.miniScenes[3] > 0) return;
+        g.friendPanel.showIt();
+        g.bottomPanel.friendBtnVisible(true);
+        if (!g.allData.factory['tutorialCatBig']) {
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', letsGoToNeighbor);
+            return;
+        }
+        isMiniScene = true;
+        _curMiniScenePropertie = _properties[3];
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curMiniScenePropertie.text, String(g.managerLanguage.allTexts[532]), letGo_1);
+        addBlack();
+    }
+    private function letGo_1():void {
+        _cutScene.hideIt(deleteCutScene);
+        removeBlack();
+        var ob:Object = g.friendPanel.getNeighborItemProperties();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow.scaleIt(.8);
+        _arrow.animateAtPosition(ob.x, ob.y);
+        g.user.miniScenes[3] = 1;
+        _miniSceneCallback = letGo_2;
+        saveUserMiniScenesData();
+    }
+    private function letGo_2():void {
+        deleteArrowAndDust();
+        isMiniScene = false;
+        _curMiniScenePropertie = null;
+        _miniSceneCallback = null;
+        g.server.getUserNeighborMarket(null);
+    }
+
+    public function onGoAwayToNeighbor():void {
+        if (g.user.miniScenes[4] == 0 && g.isAway && g.user.level == 5) atNeighbor();
+    }
+    
+    private function atNeighbor():void {
+        if (!g.allData.factory['tutorialCatBig']) {
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', atNeighbor);
+            return;
+        }
+        isMiniScene = true;
+        _curMiniScenePropertie = _properties[4];
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curMiniScenePropertie.text, String(g.managerLanguage.allTexts[532]), atN_1);
+        addBlack();
+    }
+
+    private function atN_1():void {
+        _cutScene.hideIt(deleteCutScene);
+        removeBlack();
+        _miniSceneBuildings = g.townArea.getAwayCityObjectsById(44);
+        (_miniSceneBuildings[0] as WorldObject).showArrow();
+        g.cont.moveCenterToXY((_miniSceneBuildings[0] as Market).source.x-100, (_miniSceneBuildings[0] as Market).source.y, false, 1.5);
+        g.user.miniScenes[4] = 1;
+        isMiniScene = false;
+        saveUserMiniScenesData();
+    }
+
+    public function atNeighborBuyInstrument():void {
+        if (!g.isAway) return;
+        Utils.createDelay(1,ins_0);
+    }
+
+    private function ins_0():void {
+        if (g.user.miniScenes[5] == 0) {
+            isMiniScene = true;
+            _curMiniScenePropertie = _properties[5];
+            if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
+                (g.windowsManager.currentWindow as WOMarket).babbleMiniScene(_curMiniScenePropertie.text);
+                var ob:Object = (g.windowsManager.currentWindow as WOMarket).getItemPropertiesWithFirstInstrument();
+                if (ob) {
+                    ob.width += 50;
+                    ob.height += 50;
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                    _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
+                    _arrow.scaleIt(.5);
+                    _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height);
+                    _miniSceneCallback = ins_1;
+                    _onHideWindowCallback = ins_2;
+                } else {
+                    Cc.error('atNeighborBuyInstrument:: wo_market is not opened');
+                }
+            } else {
+                Cc.error('atNeighborBuyInstrument:: no MarketItem with INSTRUMENT');
+                ins_2();
+            }
+        } else {
+            ins_2();
+        }
+    }
+    private function ins_1():void {
+        deleteArrowAndDust();
+        (g.windowsManager.currentWindow as WOMarket).removeBabbleMiniScene();
+        (g.windowsManager.currentWindow as WOMarket).babbleMiniScene(_curMiniScenePropertie.text2);
+    }
+
+    private function ins_2():void {
+        if (_airBubble) _airBubble.hideIt();
+        removeBlack();
+        _airBubble = null;
+        g.user.miniScenes[3] = 1;
+        g.user.miniScenes[4] = 1;
+        g.user.miniScenes[5] = 1;
+        isMiniScene = false;
+        saveUserMiniScenesData();
+        deleteArrowAndDust();
+        isMiniScene = false;
+        _miniSceneCallback = null;
+        g.bottomPanel.addArrow('home');
+        continueAfterNeighbor = 1;
+    }
+
+    public function finishLetGoToNeighbor():void {
+        deleteArrowAndDust();
+        isMiniScene = false;
+        _curMiniScenePropertie = null;
+        _miniSceneCallback = null;
     }
 }
 }

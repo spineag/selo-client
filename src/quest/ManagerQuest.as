@@ -239,13 +239,6 @@ public class ManagerQuest {
             g.cont.moveCenterToPos((arr[0] as Order).posX, (arr[0] as Order).posY, false, .5);
             return;
         }
-        if (g.user.level == 5 && g.user.cutScenes[8] != 1) {
-            g.windowsManager.closeAllWindows();
-            g.bottomPanel.friendBtnVisible(true);
-            g.managerCutScenes.goToNeighbor();
-            if (g.user.starterPack == 0 && g.userTimer.starterTimerToEnd == 0 && g.user.timeStarterPack == 0) g.managerStarterPack.startIt();
-            return;
-        }
         switch (t.typeAction) {
             case ADD_LEFT_MENU:
                 if (g.isDebug) {

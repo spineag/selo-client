@@ -137,6 +137,10 @@ public class WODailyGift extends WindowMain {
             }
         }
         super.deleteIt();
+        if (g.miniScenes.continueAfterNeighbor==3) {
+            g.miniScenes.continueAfterNeighbor=-1;
+            g.managerQuest.getNewQuests();
+        }
     }
 
     private function createItem(id:int, type:String, count:int, source:Sprite, number:int):void {

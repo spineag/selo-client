@@ -127,7 +127,7 @@ public class WindowMain {
         _btnExit.x = _woWidth/2 - 36;
         _btnExit.y = -_woHeight/2 + 36;
         _btnExit.createHitArea('bt_close');
-        _source.addChild(_btnExit);
+        if (_source) _source.addChild(_btnExit);
         _btnExit.clickCallback = callback;
     }
 

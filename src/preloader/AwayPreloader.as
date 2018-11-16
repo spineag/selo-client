@@ -74,9 +74,6 @@ public class AwayPreloader {
             _armature = null;
             _source.dispose();
             _source = null;
-            if (g.tuts.isTuts && (g.tuts.action == TutsAction.VISIT_NEIGHBOR || g.tuts.action == TutsAction.GO_HOME)) {
-                g.tuts.checkTutsCallback();
-            }
             g.managerButterfly.hideButterfly(false);
             if (_deleteCallback != null) {
                 _deleteCallback.apply();

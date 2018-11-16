@@ -45,7 +45,7 @@ public class MiniSceneProps {
         obj.id = 4;
         obj.prevId = 3; //
         obj.reason = ManagerMiniScenes.GO_NEIGHBOR;
-        obj.level = 3;
+        obj.level = 5;
         obj.text = String(g.managerLanguage.allTexts[537]);
         _prop.push(obj);
 
@@ -53,7 +53,7 @@ public class MiniSceneProps {
         obj.id = 5;
         obj.prevId = 0; //
         obj.reason = ManagerMiniScenes.ON_GO_NEIGHBOR;
-        obj.level = 3;
+        obj.level = 5;
         obj.text = String(g.managerLanguage.allTexts[538]);
         _prop.push(obj);
 
@@ -61,7 +61,7 @@ public class MiniSceneProps {
         obj.id = 6;
         obj.prevId = 5; //
         obj.reason = ManagerMiniScenes.BUY_INSTRUMENT;
-        obj.level = 3;
+        obj.level = 5;
         obj.text = String(g.managerLanguage.allTexts[539]);
         obj.text2 = String(g.managerLanguage.allTexts[540]);
         _prop.push(obj);

@@ -102,7 +102,7 @@ public class MarketItem {
         _btnAdditem.visible = true;
         _btnAdditem.y = 85;
         _btnAdditem.x = 83;
-        _btnAdditem.clickCallback = onClickAddItem;
+        _btnAdditem.clickCallback = onClickItem;
         _imageCont = new Sprite();
         source.addChild(_imageCont);
         _costTxt = new CTextField(122, 30, '');
@@ -185,7 +185,7 @@ public class MarketItem {
             buyCont.addChild(im);
             _btnAdditem.visible = false;
         } else {
-            source.endClickCallback = onClickAddItem;
+            source.endClickCallback = onClickItem;
         }
     }
 
@@ -267,7 +267,7 @@ public class MarketItem {
         var f1:Function = function ():void {
             g.user.marketCell++;
             _btnAdditem.visible = true;
-            source.endClickCallback = onClickAddItem;
+            source.endClickCallback = onClickItem;
             _wo.addItemsRefresh();
             _closeCell = false;
             _isUser = true;
@@ -348,7 +348,7 @@ public class MarketItem {
         unFillIt();
     }
 
-    private function onClickAddItem():void {
+    private function onClickItem():void {
 //        if (g.managerCutScenes.isCutScene) return;
         if ((!_person || !_person.userSocialId)&& !_isUser) return;
         if (_closeCell) return;
@@ -389,11 +389,7 @@ public class MarketItem {
                         return;
                     }
                 }
-                if (g.tuts.isTuts) {
-                    if (g.tuts.action == TutsAction.VISIT_NEIGHBOR)
-                        g.tuts.checkTutsCallback();
-                }
-                if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.BUY_INSTRUMENT)) g.miniScenes.checkMiniSceneCallback();
+                if (g.isAway && g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.BUY_INSTRUMENT)) g.miniScenes.checkMiniSceneCallback();
 
                 isFill = 2;
                 g.server.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
@@ -882,6 +878,8 @@ public class MarketItem {
             Cc.error('MarketItem photoFromTexture:: no texture(')
         }
     }
+    
+    public function get dataResource():Object { return _dataResource; }
 
     public function getItemProperties():Object {
         var ob:Object = {};

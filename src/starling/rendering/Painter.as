@@ -224,7 +224,7 @@ package starling.rendering
                 // Changing the stage3D position might move the back buffer to invalid bounds
                 // temporarily. To avoid problems, we set it to the smallest possible size first.
 
-                if (_context.profile == "baselineConstrained")
+                if (_context.profile && _context.profile == "baselineConstrained")
                     _context.configureBackBuffer(32, 32, antiAlias, enableDepthAndStencil);
 
                 // If supporting HiDPI mode would exceed the maximum buffer size

@@ -587,15 +587,13 @@ public class FriendPanel {
     private function onLeftClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (g.tuts.isTuts) return;
+        if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
         var newCount:int = 5;
         if (_shift - newCount < 0) newCount = _shift;
         _shift -= newCount;
-
         var item:FriendItem;
         for (var i:int=0; i<newCount; i++) {
             item = new FriendItem(_arrFriends[_shift + i],_shift + i);
-//            if(_arrFriends[_shift+i] is NeighborBot){
-//            }
             _arrItems.unshift(item);
             item.source.x = 82 * (_shift + i);
             item.source.y = 8;
@@ -616,6 +614,7 @@ public class FriendPanel {
     private function onRightClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (g.tuts.isTuts) return;
+        if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
         var newCount:int = 5;
         if (_shift + newCount + 5 >= _arrFriends.length) newCount = _arrFriends.length - _shift - 5;
         var item:FriendItem;

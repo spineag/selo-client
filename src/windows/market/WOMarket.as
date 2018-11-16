@@ -5,6 +5,9 @@ package windows.market {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
+
 import flash.display.Bitmap;
 import flash.utils.Timer;
 
@@ -22,6 +25,7 @@ import starling.utils.Align;
 import starling.utils.Color;
 
 import tutorial.managerCutScenes.ManagerCutScenes;
+import tutorial.miniScenes.ManagerMiniScenes;
 
 import user.NeighborBot;
 import user.Someone;
@@ -280,21 +284,17 @@ public class WOMarket  extends WindowMain {
             choosePerson(_curUser);
         }
 
-        if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) babbleMiniScene();
+//        if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) babbleMiniScene(g.managerLanguage.allTexts[1308]);
         _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         _onWoShowCallback = onShow;
         super.showIt();
     }
 
-    private function onShow():void {}
+    private function onShow():void { if (g.isAway && g.user.level == 5 && g.user.miniScenes[5]==0) g.miniScenes.atNeighborBuyInstrument(); }
 
     private function onClickExit(e:Event=null):void {
         if (g.tuts.isTuts) return;
-        if (g.managerCutScenes.isCutScene) {
-            if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_GO_TO_NEIGHBOR)) g.managerCutScenes.checkCutSceneCallback();
-            else return;
-        }
         _timer = 15;
         g.gameDispatcher.removeFromTimer(refreshMarketTemp);
         super.hideIt();
@@ -821,6 +821,16 @@ public class WOMarket  extends WindowMain {
             return {};
         }
     }
+
+    public function getItemPropertiesWithFirstInstrument():Object {
+        if (_arrItems && _arrItems.length) {
+            for (var i:int=0; i<_arrItems.length;i++) {
+                if ((_arrItems[i] as MarketItem).dataResource.buildType == BuildType.INSTRUMENT)
+                return (_arrItems[i] as MarketItem).getItemProperties();
+            }
+        } 
+        return {};
+    }
     
 //    public function getTimerProperties():Object {
 //        var ob:Object = {};
@@ -899,6 +909,7 @@ public class WOMarket  extends WindowMain {
     override protected function deleteIt():void {
         if (isCashed) return;
         var i:int;
+        removeBabbleMiniScene();
         g.gameDispatcher.removeEnterFrame(onNextDayTimer);
         if (_panelTimerTxt) {
             _panelTimer.removeChild(_panelTimerTxt);
@@ -1014,7 +1025,7 @@ public class WOMarket  extends WindowMain {
         g.townArea.goAway(_curUser);
     }
 
-    private function babbleMiniScene():void {
+    public function babbleMiniScene(txt:String):void {
         _imBabbleCutScene = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
         MCScaler.scale(_imBabbleCutScene,_imBabbleCutScene.height,_imBabbleCutScene.width-40);
         _imBabbleCutScene.scaleX = -1;
@@ -1022,11 +1033,24 @@ public class WOMarket  extends WindowMain {
         _imBabbleCutScene.y = -310;
         _source.addChild(_imBabbleCutScene);
 
-        _txtBabbleCutScene = new CTextField(300,100,String(g.managerLanguage.allTexts[1308]));
+        _txtBabbleCutScene = new CTextField(300,100,txt);
         _txtBabbleCutScene.setFormat(CTextField.BOLD24, 24,ManagerFilters.BLUE_COLOR, Color.WHITE);
         _txtBabbleCutScene.x = -487;
         _txtBabbleCutScene.y = -305;
         _source.addChild(_txtBabbleCutScene);
+    }
+
+    public function removeBabbleMiniScene():void {
+        if (_imBabbleCutScene) {
+            _source.removeChild(_imBabbleCutScene);
+            _imBabbleCutScene.dispose();
+            _imBabbleCutScene = null;
+        }
+        if (_txtBabbleCutScene) {
+            _source.removeChild(_txtBabbleCutScene);
+            _txtBabbleCutScene.deleteIt();
+            _txtBabbleCutScene = null
+        }
     }
 }
 }

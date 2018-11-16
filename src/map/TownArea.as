@@ -1945,7 +1945,7 @@ public class TownArea extends Sprite {
         if (_cont.contains(pet.source)) _cont.removeChild(pet.source);
     }
 
-    private function onDeleteAwayPreloader():void {}
+    private function onDeleteAwayPreloader():void { if (g.user.level == 5) g.miniScenes.onGoAwayToNeighbor(); }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
         var build:WorldObject;
@@ -2522,6 +2522,10 @@ public class TownArea extends Sprite {
         if (g.managerHelpers) g.managerHelpers.checkIt();
         if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         if (g.user.level == 5 && g.managerCutScenes) g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
+        if (g.miniScenes.continueAfterNeighbor==1) {
+            g.miniScenes.continueAfterNeighbor=2;
+            g.managerStarterPack.openWOStarterPack();
+        }
     }
 
     private function startDecorAnimation():void {

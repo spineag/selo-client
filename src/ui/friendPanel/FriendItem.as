@@ -140,13 +140,7 @@ public class FriendItem {
         if (g.managerSalePack) g.managerSalePack.onUserAction();
         if (g.managerStarterPack) g.managerStarterPack.onUserAction();
         if (g.visitedUser && g.visitedUser == _person) return;
-        if (g.tuts.isTuts) {
-            if (g.tuts.action == TutsAction.VISIT_NEIGHBOR && _person == g.user.neighbor) {
-                g.tuts.checkTutsCallback();
-            } else {
-                return;
-            }
-        }
+        if (g.tuts.isTuts) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) return;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (_person == g.user) {

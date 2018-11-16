@@ -28,7 +28,7 @@ import utils.Utils;
 import windows.WindowsManager;
 
 public class ManagerOrderCats {
-    [ArrayElementType('order.OrderCat')]
+//    [ArrayElementType('order.OrderCat')]
 //    private var _arrCats:Array;
 //    private var _arrAwayCats:Array;
     private var g:Vars = Vars.getInstance();
@@ -39,6 +39,7 @@ public class ManagerOrderCats {
     private var _or:OrderItemStructure;
 
     public function ManagerOrderCats() {
+        _move = false;
     }
 
     public function addCatsOnStartGame():void {
@@ -61,6 +62,23 @@ public class ManagerOrderCats {
                 break;
             }
         }
+    }
+
+    public function addFromServerGift(ob:Object):void {
+        _or = new OrderItemStructure();
+        _or.dbId = String(ob.id);
+        _or.resourceIds = ob.ids.split('&');
+        _or.resourceCounts = ob.counts.split('&');
+        _or.coins = int(ob.coins);
+        _or.xp = int(ob.xp);
+        _or.addCoupone = ob.add_coupone == '1';
+        _or.startTime = int(ob.start_time) || 0;
+        _or.placeNumber = int(ob.place);
+        _or.fasterBuy = Boolean(int(ob.faster_buyer));
+        if (_or.startTime - TimeUtils.currentSeconds > 0 ) _or.delOb = true;
+        Utils.intArray(_or.resourceCounts);
+        Utils.intArray(_or.resourceIds);
+        _catMoto.checkBoxState(OrderCat.STATE_COIN);
     }
 
     public function addCatonFirstTime():void {
@@ -255,23 +273,6 @@ public class ManagerOrderCats {
         _catMoto.goCatToXYPoint(new Point(1460*g.scaleFactor, 616*g.scaleFactor), 10, arrivePart1, delay);
     }
 
-    public function addFromServerGift(ob:Object):void {
-        _or = new OrderItemStructure();
-        _or.dbId = String(ob.id);
-        _or.resourceIds = ob.ids.split('&');
-        _or.resourceCounts = ob.counts.split('&');
-        _or.coins = int(ob.coins);
-        _or.xp = int(ob.xp);
-        _or.addCoupone = ob.add_coupone == '1';
-        _or.startTime = int(ob.start_time) || 0;
-        _or.placeNumber = int(ob.place);
-        _or.fasterBuy = Boolean(int(ob.faster_buyer));
-        if (_or.startTime - TimeUtils.currentSeconds > 0 ) _or.delOb = true;
-        Utils.intArray(_or.resourceCounts);
-        Utils.intArray(_or.resourceIds);
-        _catMoto.checkBoxState(OrderCat.STATE_COIN);
-    }
-
     private function arrivePart1(cat:OrderCat):void {
         _catMoto.flipIt(false);
         _catMoto.showFront(true);
@@ -301,6 +302,8 @@ public class ManagerOrderCats {
             showBabble();
         }
         _move = false;
+        g.managerOrder.checkOrders();
+        if (g.user.level==5) g.miniScenes.letsGoToNeighbor();
     }
 
     public function addAwayCats():void {

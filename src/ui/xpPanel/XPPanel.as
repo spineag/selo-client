@@ -5,6 +5,10 @@ package ui.xpPanel {
 
 import additional.buyerNyashuk.ManagerBuyerNyashuk;
 
+import announcement.ManagerAnnouncement;
+
+import data.BuildType;
+
 import flash.display.Bitmap;
 
 import flash.filters.GlowFilter;
@@ -32,6 +36,9 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
 import starling.utils.Color;
+
+import tutorial.TutsAction;
+import tutorial.managerCutScenes.ManagerCutScenes;
 
 import ui.confetti.Confetti;
 
@@ -174,12 +181,11 @@ public class XPPanel {
         _bAtlas = false;
     }
     
-    private function onGetNewLevel():void {
+    private function onGetNewLevel():void {  // at open woNewLevel
         g.friendPanel.checkLevel();
         g.userInventory.addNewElementsAfterGettingNewLevel();
         if (g.user.level == 4 || g.user.level == 5) g.miniScenes.checkDeleteMiniScene();
-        if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])
-            g.managerDailyBonus.generateDailyBonusItems();
+        if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0]) g.managerDailyBonus.generateDailyBonusItems();
         if (g.user.level == 8) {
             if (g.managerHelpers) g.managerHelpers.disableIt();
         } else if (g.user.level == 10) {
@@ -189,12 +195,41 @@ public class XPPanel {
         } else if (g.user.level == 17) {
             g.managerQuest.checkQuestContPosition();
         }
-        if (g.user.level >= 5 && g.user.level < 10) {
-            if (g.managerTips) g.managerTips.calculateAvailableTips();
-        }
+        if (g.user.level >= 5 && g.user.level < 10 && g.managerTips) g.managerTips.calculateAvailableTips();
         if (!g.isDebug) g.socialNetwork.setUserLevel();
         if (g.managerInviteFriend) g.managerInviteFriend.onUpdateLevel();
         g.user.notif.checkOnNewLevel();
+    }
+
+    public function onGetNewLevel2():void { // after close woNewLevel
+        if (g.user.level < 4 && g.tuts.isTuts && g.tuts.action == TutsAction.LEVEL_UP) g.tuts.checkTutsCallback();
+        g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
+        if (g.user.level == 3) g.miniScenes.checkAvailableMiniScenesOnNewLevel();
+        if (g.user.level == 4) {
+            g.miniScenes.checkAvailableMiniScenesOnNewLevel();
+            g.managerQuest.addUI();
+            g.managerAnnouncement = new ManagerAnnouncement();
+            g.gameDispatcher.addToTimer(g.managerCats.timerRandomWorkWoman);
+        } else if (g.user.level == 5) {
+            if (!g.managerOrderCats.moveBoolean) {
+                g.managerOrder.checkOrders(); // start it after new order
+                g.miniScenes.letsGoToNeighbor();
+            }
+        } else if (g.user.level > 5) {
+            g.managerQuest.getNewQuests();  // not start at level 5 here, start it after tuts->starterPack->daily gift -> new quest
+            if (g.user.isOpenOrder && !g.isAway) g.managerOrder.checkOrders();
+        }
+        var arr:Array;
+        if (g.user.level == 7) {
+            arr= g.townArea.getCityObjectsByType(BuildType.PAPER);
+            arr[0].showArrow(120);
+            arr = g.townArea.getCityObjectsByType(BuildType.MARKET);
+            arr[0].showArrow(120);
+        } else if (g.user.level == 8) {
+            arr = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS);
+            arr[0].showArrow(120);
+        }
+        g.managerParty.checkAndCreateIvent();
     }
 
     public function updateProgressBarXP():void{

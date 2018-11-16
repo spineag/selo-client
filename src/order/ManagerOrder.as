@@ -103,9 +103,11 @@ public class ManagerOrder {
         var f1:Function = function():void {
             addNewOrders(_curMaxCountOrders - _arrOrders.length, 0, null, -1);
 //            checkForNewCats();
+            //f2();
         };
 //        var f2:Function = function ():void {
-//            if (!g.managerCutScenes.isCutScene && !g.miniScenes.isMiniScene && g.user.level == 5 && g.user.cutScenes[8] != 1) g.managerCutScenes.goToNeighbor(); // check for miniScene for visit neighbor
+//            if (g.user.level == 5 && g.user.miniScenes[3]>0)
+//                g.miniScenes.letsGoToNeighbor(); // check for miniScene for visit neighbor
 //        };
         if (_arrOrders.length < _curMaxCountOrders) Utils.createDelay(3, f1);
 //        else Utils.createDelay(2, f2);
@@ -123,7 +125,7 @@ public class ManagerOrder {
 //    private function checkForNewCats(onArriveCallback:Function = null):void {
 //        for (var i:int=0; i<_arrOrders.length; i++) {
 //            if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
-//                checkCatId();
+////                checkCatId();
 //                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback, _arrOrders[i].catOb, i);
 //            }
 //        }

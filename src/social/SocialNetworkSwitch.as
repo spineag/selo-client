@@ -51,8 +51,8 @@ public class SocialNetworkSwitch {
                 break;
             case SN_FB_ID:
                 if (isDebug) {
-//                    flashVars["uid"] = "1440177116062575"; // andy gryn
-                    flashVars["uid"] = "1874180319266068";  // fedor
+                    flashVars["uid"] = "1440177116062575"; // andy gryn
+//                    flashVars["uid"] = "1874180319266068";  // fedor
                     g.socialNetwork = new SN_Blank_FB(flashVars);
                 } else {
                     g.socialNetwork = new SN_FB(flashVars);

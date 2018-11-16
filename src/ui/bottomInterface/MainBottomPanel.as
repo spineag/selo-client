@@ -349,6 +349,7 @@ public class MainBottomPanel {
                 }    
                 break;
             case 'tools':
+                if (g.miniScenes.isMiniScene && g.miniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.miniScenes.finishLetGoToNeighbor();
                 g.managerHelpers.onUserAction();
                 if (g.managerSalePack) g.managerSalePack.onUserAction();
                 if (g.managerStarterPack) g.managerStarterPack.onUserAction();
@@ -420,11 +421,6 @@ public class MainBottomPanel {
                 break;
             case 'door':
                 if (g.managerCutScenes.isCutScene) return;
-                if (g.tuts.isTuts) {
-                    if (g.tuts.action == TutsAction.GO_HOME) {
-                        g.tuts.checkTutsCallback();
-                    } else return;
-                }
                 deleteArrow();   
                 if (g.isAway) g.townArea.backHome();
                 if (g.partyPanel) g.partyPanel.visiblePartyPanel(true);
