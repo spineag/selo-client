@@ -812,8 +812,10 @@ public class DirectServer {
             g.user.globalXP = int(ob.xp);
             g.user.notif.onGetFromServer(ob.notification_new);
             g.user.starterPack = int(ob.starter_pack);
-            g.user.timeStarterPack = (int(ob.time_starter_pack));
-            g.userTimer.starterToEnd(int(ob.time_starter_pack));
+            if (g.user.starterPack == 0) {
+                g.user.timeStarterPack = int(ob.time_starter_pack);
+                g.userTimer.starterToEnd(g.user.timeStarterPack);
+            } else g.user.timeStarterPack=0;
 //            g.user.salePack = Boolean(int(ob.sale_pack));
             g.user.dayDailyGift  = int(ob.day_daily_gift);
             g.user.countDailyGift  = int(ob.count_daily_gift);

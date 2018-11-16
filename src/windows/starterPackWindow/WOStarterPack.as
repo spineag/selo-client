@@ -371,6 +371,10 @@ public class WOStarterPack extends WindowMain{
             _arrCTex[i] = null;
         }
         super.deleteIt();
+        if (g.miniScenes.continueAfterNeighbor==2) {
+            g.miniScenes.continueAfterNeighbor=3;
+            g.server.getDailyGift(null);
+        }
     }
 
     private function onBuy():void {
