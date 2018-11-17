@@ -120,9 +120,7 @@ public class Fabrica extends WorldObject {
                 _source.registerHitArea(_hitArea);
             }
         }
-
         if (g.isAway && g.visitedUser is NeighborBot && Math.random() > .2) workAloneAnimation();
-
     }
 
     public function showShopView():void {
@@ -569,10 +567,10 @@ public class Fabrica extends WorldObject {
 
     public function skipSmallRecipe(number:int):void { // for making recipe
         if (_arrList[number]) {
-            g.server.deleteRecipeOnFabrica(_arrList[number].idFromServer, _arrList[number].staticDelayTime, _dbBuildingId, null);
+            g.server.deleteRecipeOnFabrica(_arrList[number].idFromServer, _arrList[number].initRecipeDelayTime, _dbBuildingId, null);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[number].resourceID});
             for (var i:int = 0; i < _arrList.length; i++) {
-                if (_arrList[i].staticDelayTime > _arrList[number].staticDelayTime )  _arrList[i].staticDelayTime = _arrList[i].staticDelayTime - _arrList[number].staticDelayTime ;
+                if (_arrList[i].currentDelayTime > _arrList[number].currentDelayTime )  _arrList[i].currentDelayTime = _arrList[i].currentDelayTime - _arrList[number].currentDelayTime ;
             }
             _arrList.splice(number, 1);
         } else {

@@ -4381,7 +4381,7 @@ public class DirectServer {
         }
     }
 
-    public function deleteRecipeOnFabrica(userRecipeDbId:String, leftTime:int, buildDbId:int, callback:Function):void {
+    public function deleteRecipeOnFabrica(idFromServer:String, leftTime:int, buildDbId:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_RECIPE_FABRICA);
         var variables:URLVariables = new URLVariables();
@@ -4389,10 +4389,10 @@ public class DirectServer {
         Cc.ch('server', 'deleteRecipeOnFabrica', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.recipeDbId = userRecipeDbId;
+        variables.id = idFromServer;
         variables.leftTime = leftTime;
         variables.buildDbId = buildDbId;
-        variables.hash = MD5.hash(String(g.user.userId)+String(userRecipeDbId)+String(leftTime)+String(buildDbId)+SECRET);
+        variables.hash = MD5.hash(String(g.user.userId)+String(idFromServer)+String(leftTime)+String(buildDbId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
