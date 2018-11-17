@@ -241,6 +241,9 @@ public class MainBottomPanel {
                     else if (g.tuts.action == TutsAction.NEW_RIDGE) shopTab = WOShop.VILLAGE;
                     else if (g.tuts.action == TutsAction.BUY_CAT) shopTab = WOShop.VILLAGE;
                     else if (g.tuts.action == TutsAction.BUY_FARM) shopTab = WOShop.VILLAGE;
+                    if (_tutorialCallback != null) {
+                        _tutorialCallback.apply(null, [true]);
+                    }
                 } else if (g.managerCutScenes.isCutScene) {
                     shopTab = WOShop.DECOR;
                     g.managerCutScenes.checkCutSceneCallback();
@@ -255,13 +258,7 @@ public class MainBottomPanel {
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FARM) shopTab = WOShop.VILLAGE;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_HERO) shopTab = WOShop.VILLAGE;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_RIDGE) shopTab = WOShop.VILLAGE;
-                }
-                if (g.tuts.isTuts) {
-                    if (_tutorialCallback != null) {
-                        _tutorialCallback.apply(null, [true]);
-                    }
-                }
-                if (_questBoolean) {
+                } else if (_questBoolean) {
                     if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) {
                         shopTab = WOShop.ANIMAL;
                         g.user.decorShop = false;
@@ -284,7 +281,8 @@ public class MainBottomPanel {
                     }
                 }
                 if (_questBoolean && _typeHelp == HelperReason.REASON_BUY_DECOR) g.user.shopDecorFilter = DecorShopFilter.FILTER_ALL;
-                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
+                g.user.shopTab = shopTab;
+                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.managerHelpers.onOpenShop();
                 }

@@ -9,6 +9,9 @@ import build.ridge.Ridge;
 import data.BuildType;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import temp.dataTemp.DataAnimal;
+
 import utils.Utils;
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
@@ -135,10 +138,7 @@ public class ManagerHelpers {
             wasFinded = checkPosibleReason();
             if (wasFinded) break;
         }
-
-        if (wasFinded) {
-            releaseReason();
-        }
+        if (wasFinded) releaseReason();
     }
 
     private function checkPosibleReason():Boolean {
@@ -333,9 +333,31 @@ public class ManagerHelpers {
 
     private function checkForBuyAnimal():Boolean {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+        var mCount:int=0;
+        var mCountLevel:int=0;
+        var cCount:int;
+        var da:Object;
+        var db:Object;
+        var arF:Array;
+        var k:int;
         for (var i:int=0; i<arr.length; i++) {
-            if (!((arr[i] as Farm).isFull) && (g.user.softCurrencyCount >= (arr[i] as Farm).dataAnimal.costNew[arr[i].arrAnimals.length - 1])) {
-                _curReason.id = (arr[i] as Farm).dataAnimal.id;
+            db = (arr[i] as Farm).dataBuild;
+            if (db.blockByLevel[0] > g.user.level) continue;
+            da = (arr[i] as Farm).dataAnimal;
+            arF = g.townArea.getCityObjectsById(db.id);
+            mCount = arr.length * db.maxAnimalsCount;
+            mCountLevel=0;
+            for (k=0;k<da.levels.length;k++){
+                if (da.levels[k] <= g.user.level) mCountLevel++;
+                else break;
+            }
+            cCount = 0;
+            for (k=0; k<arF.length; k++) {
+                cCount += (arF[k] as Farm).arrAnimals.length;
+            }
+            if (mCount>mCountLevel) mCount = mCountLevel;
+            if (cCount < mCount && g.user.softCurrencyCount>=da.costNew[cCount]) {
+                _curReason.id = da.id;
                 _curReason.type = BuildType.ANIMAL;
                 return true;
             }
