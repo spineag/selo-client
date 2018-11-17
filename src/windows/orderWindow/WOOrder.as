@@ -348,7 +348,8 @@ public class WOOrder extends WindowMain {
                 }
             }
             var f1:Function = function ():void {
-                if (_source && _activeOrderItem.leftSeconds <= 0) addArrow();
+                if (g.user.level > 5) return;
+                if (_source && _activeOrderItem.leftSeconds <= 0 && !g.managerOrderCats.moveBoolean) addArrow();
             };
             Utils.createDelay(4,f1);
         }
@@ -722,7 +723,7 @@ public class WOOrder extends WindowMain {
         _armature.animation.gotoAndStopByFrame('empty');
     }
 
-    public function addArrow():void {
+    private function addArrow():void {
         if (_btnSell && !_arrow && _canArrow) {
             if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) {
                 _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
@@ -736,7 +737,7 @@ public class WOOrder extends WindowMain {
         }
     }
 
-    public function hideArrow():void {
+    private function hideArrow():void {
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
