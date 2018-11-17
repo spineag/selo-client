@@ -395,7 +395,8 @@ public class WOMarketChoose extends WindowMain {
     private function onClickBtnSell(last:Boolean = false):void {
         if (_curResourceId > 0) {
             if (!last) {
-                if (g.allData.getResourceById(_curResourceId).buildType == BuildType.PLANT && _countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId) && !g.userInventory.checkLastResource(_curResourceId)) {
+                if (g.allData.getResourceById(_curResourceId).buildType == BuildType.PLANT &&
+                        _countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId) && !g.userInventory.checkLastResource(_curResourceId)) {
                     g.windowsManager.secondCashWindow = this;
                     super.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBtnSell, {id: _curResourceId}, 'market');
@@ -410,7 +411,6 @@ public class WOMarketChoose extends WindowMain {
             }
             if (isCashed) g.windowsManager.secondCashWindow = null;
             super.hideIt();
-
         }
     }
 

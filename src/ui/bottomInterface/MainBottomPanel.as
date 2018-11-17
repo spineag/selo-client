@@ -283,9 +283,7 @@ public class MainBottomPanel {
                 if (_questBoolean && _typeHelp == HelperReason.REASON_BUY_DECOR) g.user.shopDecorFilter = DecorShopFilter.FILTER_ALL;
                 g.user.shopTab = shopTab;
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null);
-                if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
-                    g.managerHelpers.onOpenShop();
-                }
+                if (g.managerHelpers && g.managerHelpers.isActiveHelper) g.managerHelpers.onOpenShop();
                 if (_questBoolean) {
                     _questBoolean = false;
                     (g.windowsManager.currentWindow as WOShop).deleteAllArrows();

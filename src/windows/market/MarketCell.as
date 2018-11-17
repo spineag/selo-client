@@ -83,11 +83,6 @@ public class MarketCell {
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_info.id]);
         }
-        if (g.userInventory.getCountResourceById(_data.id))
-        if (_clickCallback != null) {
-            _clickCallback.apply(null, [_info.id]);
-        }
-//        activateIt(true);
     }
 
     public function activateIt(a:Boolean):void {

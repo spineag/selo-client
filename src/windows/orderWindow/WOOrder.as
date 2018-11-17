@@ -444,8 +444,8 @@ public class WOOrder extends WindowMain {
                 }
             }
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
-                if (or.resourceCounts[i] == g.userInventory.getCountResourceById(or.resourceIds[i])
-                        && g.allData.getResourceById(or.resourceIds[i]).buildType == BuildType.PLANT && !g.userInventory.checkLastResource(or.resourceIds[i])) {
+                if (g.allData.getResourceById(or.resourceIds[i]).buildType == BuildType.PLANT &&
+                        or.resourceCounts[i] == g.userInventory.getCountResourceById(or.resourceIds[i]) && !g.userInventory.checkLastResource(or.resourceIds[i])) {
                     g.windowsManager.cashWindow = this;
                     super.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, sellOrder, or, 'order');
@@ -519,11 +519,6 @@ public class WOOrder extends WindowMain {
             }
         };
         Utils.createDelay(1,f);
-    }
-
-    override  public function hideIt():void {
-//        if (g.user.level == 5 && g.user.cutScenes[8] != 1) g.managerCutScenes.goToNeighbor();
-        super.hideIt();
     }
 
     private function updateItemsCheck():void {
@@ -633,7 +628,6 @@ public class WOOrder extends WindowMain {
 
     //// ANIMATIONS//////
     private function createTopCats():void {
-
         _armature = g.allData.factory['order_window'].buildArmature("cat");
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         (_armature.display as StarlingArmatureDisplay).x = 145;

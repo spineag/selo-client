@@ -114,6 +114,7 @@ public class MarketFriendItem {
     private function onOut():void { _imRamka.filter = null; }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
+        if (!_person) return;
         if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
         if (!_person.name) return;
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);

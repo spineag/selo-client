@@ -284,7 +284,7 @@ public class ShopListItem {
                 } else {
                     _txtRatingCount.text = _data.ratingCount;
                     if (_isFromInventory) {
-                        _txtInfo.text = String(g.managerLanguage.allTexts[344]) + ' ' + String(g.userInventory.decorInventory[_data.id].count); 'in inventory'
+                        _txtInfo.text = String(g.managerLanguage.allTexts[344]) + ' ' + String(g.userInventory.decorInventory[_data.id].count); //'in inventory'
                         if (decorMax >= arr.length) _costCount = (decorMax * _data.deltaCost) + int(_data.cost);
                         else _costCount = (arr.length * _data.deltaCost) + int(_data.cost);
                         createButton();
