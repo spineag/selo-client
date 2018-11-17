@@ -329,12 +329,12 @@ public class MarketItem {
             g.marketHint.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _dataResource, _countResource, _dataItem.cost);
         };
-        g.server.getUserMarketItem(g.user.userSocialId, f1);
+        g.server.getUserMarketItem(g.user.userSocialId, f1); // update information about item, maybe its already buyed
     }
 
     private function deleteCallback():void {
         _inPapper = false;
-        g.userInventory.addMoney(1,-1);
+        g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
         g.userInventory.addResource(_dataResource.id, _countResource);
         g.gameDispatcher.removeFromTimer(onEnterFrame);
         g.server.deleteUserMarketItem(_dataItem.id, null);
