@@ -319,15 +319,17 @@ public class WOOrder extends WindowMain {
             if (_srcBaloon) _srcBaloon.visible = true;
         }
 
-        var isCheckedAll:Boolean = true;
-        for (i = 0; i < or.resourceIds.length; i++) {
-            if (!(_arrResourceItems[i] as WOOrderResourceItem).isChecked()) {
-                isCheckedAll = false;
-                break;
-            }
-        }
+//        var isCheckedAll:Boolean = true;
+//        for (i = 0; i < or.resourceIds.length; i++) {
+//            if (!(_arrResourceItems[i] as WOOrderResourceItem).isChecked()) {
+//                isCheckedAll = false;
+//                break;
+//            }
+//        }
+//        if (g.managerOrderCats.moveBoolean) checkBtnSell();
+//        else _btnSell.setEnabled = isCheckedAll;
         if (g.managerOrderCats.moveBoolean) checkBtnSell();
-        else _btnSell.setEnabled = isCheckedAll;
+        else _btnSell.setEnabled = true;
 
         for (var i:int = 0; i <_arrOrders.length; i++) {
             if (_arrOrders[i].placeNumber == item.position && _arrOrders[i].delOb == true) {
