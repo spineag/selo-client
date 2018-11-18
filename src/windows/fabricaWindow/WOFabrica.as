@@ -72,6 +72,9 @@ public class WOFabrica extends WindowMain {
         if (_isBigWO) _imWhite.y = 20;
             else _imWhite.y = -20;
         _source.addChildAt(_imWhite, 1);
+        createExitButton(onClickExit);
+        _btnExit.x -= 103;
+        _btnExit.y += 25;
     }
 
     private function createArrows():void {
