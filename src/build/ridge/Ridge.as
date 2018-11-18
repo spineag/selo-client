@@ -114,7 +114,7 @@ public class Ridge extends WorldObject{
                 return;
             } else {
                 _plant.clearIt();
-                cleatSrcParty();
+                clearSrcParty();
             }
         }
         if (!d) {
@@ -239,6 +239,7 @@ public class Ridge extends WorldObject{
             d.addDropItemNew(_resourceItem, p);
             d.addDropItemNew(_resourceItem, p);
             d.addDropXP(_resourceItem.craftXP, p);
+            d.tempAmbarCount = 2;
             if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_THREE_GIFT_MORE_PLANT) {
                 for (i = 0; i < g.managerParty.idItemEvent.length; i++) {
                     if (g.managerParty.idItemEvent[i] == _resourceItem.resourceID) {
@@ -315,7 +316,7 @@ public class Ridge extends WorldObject{
         }
     }
 
-    public function cleatSrcParty():void {
+    public function clearSrcParty():void {
         if (_srcParty) {
             _source.removeChild(_srcParty);
             _srcParty.dispose();
@@ -354,19 +355,19 @@ public class Ridge extends WorldObject{
                 }
                 g.townArea.moveBuild(this);
             }
-            return;
-        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {  g.toolsModifier.modifierType = ToolsModifier.NONE; return;
+        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {  g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
             g.server.userBuildingFlip(_dbBuildingId, int(_flip), null);
-            return;
-        }
-        if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
+        } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED) {
             if (g.toolsModifier.plantId <= 0 || _stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }
-            if (_stateRidge == GROWED) { g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT; return; }
+            if (_stateRidge == GROWED) {
+                g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
+                return;
+            }
             var arr:Array = g.user.userDataCity.plants;
             for (var i:int = 0; i < arr.length; i++) {
                 if (int(arr[i].dbId) == dbBuildingId) {
@@ -386,10 +387,10 @@ public class Ridge extends WorldObject{
             }
         } else if (_stateRidge == GROWED) {
             if (g.tuts.isTuts && g.tuts.action != TutsAction.CRAFT_RIDGE) return;
-            cleatSrcParty();
+            if (!g.tuts.isTuts) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
+            clearSrcParty();
             craftThePlant();
             g.timerHint.hideIt(true);
-            if (!g.tuts.isTuts) g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
         }
     }
 

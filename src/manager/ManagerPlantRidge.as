@@ -50,7 +50,7 @@ public class ManagerPlantRidge {
         }
         curRidge.fillPlant(g.allData.getResourceById(int(ob.plant_id)), true, int(ob.time_work), String(ob.friend_id));
         if (curRidge.plant) {
-            curRidge.plant.idFromServer = ob.id;
+            curRidge.plant.idFromServer = String(ob.id);
         } else {
             Cc.error('ManagerPlantRidge:: plant = null');
         }
@@ -116,7 +116,7 @@ public class ManagerPlantRidge {
             if ((_arrRidge[i] as Ridge).stateRidge == Ridge.GROWED) {
                 if (isMouseUnderRidge(_tempPoint, _arrRidge[i] as Ridge)) {
                     (_arrRidge[i] as Ridge).craftThePlant();
-                    (_arrRidge[i] as Ridge).cleatSrcParty();
+                    (_arrRidge[i] as Ridge).clearSrcParty();
                     break;
                 }
             }

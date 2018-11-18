@@ -11,9 +11,11 @@ public class DropObject {
     private var g:Vars = Vars.getInstance();
     private var _arrDrops:Array;
     private var _callback:Function;
+    private var _tempAmbarCount:int;
 
     public function DropObject() {
         _arrDrops = [];
+        _tempAmbarCount = 0;
     }
 
     public function addDropMoney(type:int, count:int, p:Point):void {
@@ -99,6 +101,7 @@ public class DropObject {
     public function releaseIt(f:Function = null, useJump:Boolean = true):void {   
         if (!_arrDrops.length) return;
         _callback = f;
+        if (_tempAmbarCount>0) g.userInventory.addTempCountAmbar(_tempAmbarCount);
         for (var i:int=0; i<_arrDrops.length; i++) {
             g.cont.addToTopGameContAnimation((_arrDrops[i] as DropObjectInterface).source);
             if (useJump) (_arrDrops[i] as DropObjectInterface).startJump(i%2, onFinish);
@@ -112,9 +115,12 @@ public class DropObject {
     private function onFinish(d:DropObjectInterface):void {
         g.cont.animationsResourceCont.removeChild(d.source);
         d.deleteIt();
+        if (_tempAmbarCount>0) g.userInventory.addTempCountAmbar(-_tempAmbarCount);
+        _tempAmbarCount =0 ;
         if (_callback!=null) _callback.apply();
     }
 
+    public function set tempAmbarCount(n:int):void { _tempAmbarCount = n; }
 
 }
 }

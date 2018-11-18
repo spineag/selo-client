@@ -14,12 +14,14 @@ import media.SoundConst;
 public class UserInventory {
     private var _inventoryResource:Object;
     private var _decorInventory:Object;
+    private var _ambarTempCount:int; // maybe make same thing for sklad?
 
     private var g:Vars = Vars.getInstance();
 
     public function UserInventory() {
         _inventoryResource = new Object();
         _decorInventory = new Object();
+        _ambarTempCount = 0;
     }
 
     public function get decorInventory():Object { return _decorInventory; }
@@ -40,7 +42,7 @@ public class UserInventory {
         st.sfilter = 0;
     }
 
-    public function getArraDecorInventory():Array {
+    public function getArrDecorInventory():Array {
         var obj:Object;
         var ob:Object;
         var id:String;
@@ -68,7 +70,7 @@ public class UserInventory {
         }
         return dbId;
         var st:StructureDataBuilding = g.allData.getBuildingById(id);
-        st.sfilter = g.allData.getBuildingById(id).beforInventroy;
+        st.sfilter = st.beforInventroy;
     }
 
     public function getCountResourceById(id:int):int {
@@ -106,6 +108,10 @@ public class UserInventory {
         }
         _inventoryResource[id] = count;
         g.userValidates.updateResources(id, count);
+    }
+
+    public function addTempCountAmbar(n:int):void {
+        _ambarTempCount += n;
     }
 
     public function getResourcesForAmbar():Array {
@@ -184,7 +190,7 @@ public class UserInventory {
         for (var i:int = 0; i < arr.length; i++) {
             count += arr[i].count;
         }
-        return count;
+        return count + _ambarTempCount;
     }
 
     public function get currentCountInSklad():int {

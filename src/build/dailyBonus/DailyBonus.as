@@ -123,6 +123,7 @@ public class DailyBonus extends WorldObject{
                     return;
                 }
                 onOut();
+                hideArrow();
                 g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS, null);
             }
             g.hint.hideIt();

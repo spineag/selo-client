@@ -111,7 +111,7 @@ public class WODecorList extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _tabs.activate(_isAll);
         _arrDecorOnMap = g.townArea.getCityObjectsAllDecor();
-        _arrDecorOnInventory = g.userInventory.getArraDecorInventory();
+        _arrDecorOnInventory = g.userInventory.getArrDecorInventory();
         show(true);
     }
 
