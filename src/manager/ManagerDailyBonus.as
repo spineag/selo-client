@@ -82,20 +82,17 @@ public class ManagerDailyBonus {
 
     public function generateDailyBonusItems():void {
         _arrItems = [];
-        var arr:Array = [];
+        var arr:Array;
         var i:int;
         var arAllResource:Array = g.allData.resource;
         var arCS:Array = [];
         var arCR:Array = [];
         var arP:Array = [];
         var arR:Array = [];
-        var arD:Array = [];
-        var arID:Array = [];
-        var arIU:Array = [];
+        var arD:Array;
         var k:int;
         var random:int;
         var obj:Object;
-        var r:StructureDataResource;
 
         obj = {};
         obj.count = moneyCount;
@@ -109,9 +106,6 @@ public class ManagerDailyBonus {
                 if (arAllResource[i].id == 71 || arAllResource[i].id == 72 || arAllResource[i].id == 73 || arAllResource[i].id == 74) arCS.push(arAllResource[i]);
                 else if (arAllResource[i].id == 126 || arAllResource[i].id == 127 || arAllResource[i].id == 128 || arAllResource[i].id == 129) arCR.push(arAllResource[i]);
                 else arR.push(arAllResource[i]);
-            } else if (arAllResource[i].blockByLevel <= g.user.level && arAllResource[i].buildType == BuildType.INSTRUMENT) {
-                if (arAllResource[i].id == 124 || arAllResource[i].id == 1 || arAllResource[i].id == 47 || arAllResource[i].id == 5 || arAllResource[i].id == 125 || arAllResource[i].id == 6) arIU.push(arAllResource[i]);
-                else if (arAllResource[i].id == 2 || arAllResource[i].id == 3 || arAllResource[i].id == 4 || arAllResource[i].id == 7 || arAllResource[i].id == 8 || arAllResource[i].id == 9) arID.push(arAllResource[i]);
             }
         }
 
@@ -123,12 +117,6 @@ public class ManagerDailyBonus {
                 arr.push(arD[i].id);
             }
         }
-//        if (arr.length > 0) {
-//            obj.id = arr[int(Math.random() * arr.length)];
-//            obj.count = 1;
-//            obj.type = DECOR;
-//            _arrItems.push(obj);
-//        }
         random = 3 + int(Math.random() * 3);
         for (i = 0; i < random; i++) {
             k = int(Math.random() * arR.length);
@@ -140,74 +128,33 @@ public class ManagerDailyBonus {
             _arrItems.push(obj);
         }
 
-        if (0.1 < Math.random()) {
-            random = 1 + int(Math.random() * 3);
-            for (i = 0; i <  random; i++) {
-                k = int(Math.random() * arIU.length);
-                obj = {};
-                obj.id = arIU[k].id;
-                arIU.splice(k, 1);
-                obj.count = 1;
-                obj.type = INSTRUMENT;
-                _arrItems.push(obj);
-            }
-        }
         if (_arrItems.length == 10) return;
-        if (_arrItems.length <= 9) {
-            if (_arrItems.length == 9) {
-                if (0.2 < Math.random()) {
-                    k = int(Math.random() * arID.length);
-                    obj = {};
-                    obj.id = arID[k].id;
-                    arID.splice(k, 1);
-                    obj.count = 1;
-                    obj.type = INSTRUMENT;
-                    _arrItems.push(obj);
-                }
-            } else {
-                if (0.2 < Math.random()) {
-                    random = 1 + int(Math.random() * 2);
-                    for (i = 0; i < random; i++) {
-                        if (_arrItems.length >= 10) return;
-                        k = int(Math.random() * arID.length);
-                        obj = {};
-                        obj.id = arID[k].id;
-                        arID.splice(k, 1);
-                        obj.count = 1;
-                        obj.type = INSTRUMENT;
-                        _arrItems.push(obj);
-                    }
-                }
-            }
-        }
-        if (_arrItems.length < 10) {
-            if (g.user.level >= 17) {
-                if (0.4 < Math.random()) {
-                    random = 1 + int(Math.random() * 3);
-                    for (i = 0; i < random; i++) {
-                        if (_arrItems.length >= 10) return;
-                        k = int(Math.random() * arP.length);
-                        obj = {};
-                        obj.id = arP[k].id;
-                        arP.splice(k, 1);
-                        obj.count = 1;
-                        obj.type = PLANT;
-                        _arrItems.push(obj);
-                    }
-                }
-            } else {
-                random = 10 - _arrItems.length;
+        if (g.user.level >= 17) {
+            if (0.4 < Math.random()) {
+                random = 1 + int(Math.random() * 3);
                 for (i = 0; i < random; i++) {
                     if (_arrItems.length >= 10) return;
                     k = int(Math.random() * arP.length);
-                    if (arP.length > 0) {
-                        obj = {};
-                        obj.id = arP[k].id;
-                        arP.splice(k, 1);
-                        obj.count = 1;
-                        obj.type = PLANT;
-                        _arrItems.push(obj);
-                    }
+                    obj = {};
+                    obj.id = arP[k].id;
+                    arP.splice(k, 1);
+                    obj.count = 1;
+                    obj.type = PLANT;
+                    _arrItems.push(obj);
+                }
+            }
+        } else {
+            random = 10 - _arrItems.length;
+            for (i = 0; i < random; i++) {
+                if (_arrItems.length >= 10) return;
+                k = int(Math.random() * arP.length);
+                if (arP.length > 0) {
+                    obj = {};
+                    obj.id = arP[k].id;
+                    arP.splice(k, 1);
+                    obj.count = 1;
+                    obj.type = PLANT;
+                    _arrItems.push(obj);
                 }
             }
         }

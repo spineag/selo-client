@@ -119,7 +119,7 @@ public class CraftItem {
     public function get resourceId():int { return _resourceItem.resourceID; }
     public function set checkCount(v:Boolean):void { _checkCount = v; }
 
-    public function releaseIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
+    public function releaseIt(xpFly:Boolean = true):void {
         if (g.isAway && animal != null) return;
         if (!_source) {
             Cc.error('CraftItem releaseIt:: _ source = null');
@@ -176,14 +176,8 @@ public class CraftItem {
             } else drop.addDropItemNew(_resourceItem, start);
             if (xpFly) drop.addDropXP(_resourceItem.craftXP, start);
         }
-
-        var func:Function = function():void {
-            if (bonusDrop && g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(start.x, start.y, drop);
-            drop.releaseIt();
-            deleteIt();
-        };
-        if (g.managerDropResources) func();
-        else Utils.createDelay(5,func);
+        drop.releaseIt();
+        deleteIt();
     }
 
     public function addParticle():void {

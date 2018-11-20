@@ -284,13 +284,12 @@ public class Train extends WorldObject{
             } else {  if (g.isActiveMapEditor) g.townArea.moveBuild(this);
             }
             return;
-        }
+        } 
         if (_stateBuild == STATE_BUILD) {
             g.hideAllHints();
             g.timerHint.showIt(90,g.cont.gameContX + _source.x * g.currentGameScale,  g.cont.gameContY + (_source.y - _source.height/9) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
             g.hint.hideIt();
-        }
-        if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
+        } else if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
             if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
@@ -326,12 +325,6 @@ public class Train extends WorldObject{
                 return;
             }
             if (g.user.level < _dataBuild.blockByLevel[0]) {
-//                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-//                var p:Point = new Point(_source.x, _source.y - 100);
-//                p = _source.parent.localToGlobal(p);
-//                var myPattern:RegExp = /count/;
-//                var str:String =  String(g.managerLanguage.allTexts[342]);
-//                new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
                 g.windowsManager.openWindow(WindowsManager.WO_OPEN_ON_LEVEL,null,'train');
                 return;
             }

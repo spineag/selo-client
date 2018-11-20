@@ -224,7 +224,6 @@ public class Vars {
     public var userValidates:UserValidateResources;
     public var userTimer:UserTimer;
     public var userAnalytics:UserAnalytics;
-    public var managerDropResources:ManagerDropBonusResource;
     public var managerLohmatic:ManagerLohmatik;
     public var managerBuyerNyashuk:ManagerBuyerNyashuk;
     public var managerMouseHero:ManagerMouse;
@@ -406,7 +405,6 @@ public class Vars {
         cont.moveCenterToXY(350, realGameTilesHeight / 2 - 700 * scaleFactor, true);
 
         windowsManager = new WindowsManager();
-        managerDropResources = new ManagerDropBonusResource();
         managerPaper = new ManagerPaper();
         managerPaper.getPaperItems();
         managerCats.setAllCatsToRandomPositionsAtStartGame();

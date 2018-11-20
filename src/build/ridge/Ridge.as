@@ -261,7 +261,6 @@ public class Ridge extends WorldObject{
                 }
             }
 
-            if (g.managerDropResources.checkDrop()) g.managerDropResources.createDrop(p.x, p.y, d);
             if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_COLLECT_TOKEN_WIN_GIFT && g.allData.atlas['partyAtlas'] && Math.random() <= .1) {
                 d.addDropPartyResource(p);
                 g.managerParty.addUserPartyCount(1);

@@ -142,18 +142,9 @@ public class Wild extends WorldObject{
                 onOut();
                 return;
             }
-            if (g.timerHint.isShow) {
-                g.timerHint.managerHide(callbackClose);
-                return;
-            }
-            else if (g.wildHint.isShow){
-                g.wildHint.managerHide(callbackClose);
-                return;
-            }
-            else if (g.treeHint.isShow) {
-                g.treeHint.managerHide(callbackClose);
-                return;
-            }
+            if (g.timerHint.isShow) {  g.timerHint.managerHide(callbackClose); return;
+            } else if (g.wildHint.isShow){ g.wildHint.managerHide(callbackClose); return;
+            } else if (g.treeHint.isShow) {  g.treeHint.managerHide(callbackClose); return;  }
 //            if (_isOnHover)  {
                 onOut();
                 g.wildHint.onDelete = wildDelete;
