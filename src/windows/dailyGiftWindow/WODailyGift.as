@@ -75,7 +75,6 @@ public class WODailyGift extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        _arrayItem = [];
         _arrayItem = params[0];
         var source:Sprite;
         var day:int = 24 * 60 * 60 * 1000;
