@@ -331,5 +331,12 @@ public class StructureDataBuilding {
     public function get beforInventroy():int {return _beforeInventory;}
     public function get variaty():Array {return _variaty;}
     public function get dailyBonus():Boolean {return _dailyBonus;}
+    
+    public function isDecor():Boolean {
+        if (_buildType == BuildType.DECOR || _buildType == BuildType.DECOR_FULL_FENСE || _buildType == BuildType.DECOR_POST_FENCE || _buildType == BuildType.DECOR_TAIL
+          || _buildType == BuildType.DECOR_ANIMATION || _buildType == BuildType.DECOR_FENCE_GATE || _buildType == BuildType.DECOR_FENCE_ARKA || _buildType == BuildType.DECOR_POST_FENCE_ARKA)
+            return true;
+        else return false;
+    }
 }
 }

@@ -44,6 +44,7 @@ public class AllData {
 
     public function registerBuilding(b:StructureDataBuilding):void {
         if (b.id > 0) {
+            if (b.isDecor() && b.blockByLevel[0] == 1000) return;
             _building.push(b);
             _buildingObj[b.id] = b;
         } else Cc.error('registerBuilding id <= 0');

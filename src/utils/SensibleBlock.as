@@ -27,17 +27,20 @@ public class SensibleBlock extends Sprite {
         _im = im;
         _delta = delta;
         _width = w;
-        _im.alignPivot();
         var wT:int = t.textBounds.width;
         _tempSprite = new Sprite();
         t.alignH = Align.RIGHT;
         t.x = wT - t.width;
         t.y = -t.height/2 - 2;
         _tempSprite.addChild(t);
-        im.x = t.x + t.width + delta;
-        im.y = -2;
-        _tempSprite.addChild(im);
-        _tempSprite.x = w/2 - (wT + delta + im.width)/2 + 5;
+        if (im) {
+            _im.alignPivot();
+            _im.x = t.x + t.width + delta;
+            _im.y = -2;
+            _tempSprite.addChild(_im);
+            _tempSprite.x = w / 2 - (wT + delta + _im.width) / 2 + 5;
+        } else
+            _tempSprite.x = w / 2 - (wT + delta) / 2 + 5;
         this.addChild(_tempSprite);
         this.touchable = false;
     }

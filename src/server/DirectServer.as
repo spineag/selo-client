@@ -651,7 +651,6 @@ public class DirectServer {
             return;
         }
 
-        var k:int;
         if (d.id == 0) {
             Cc.ch('server', 'getDataBuilding OK', 5);
             for (var i:int = 0; i<d.message.length; i++) {
@@ -2623,17 +2622,23 @@ public class DirectServer {
 
     public function getUserTrain(callback:Function):void {
         var tr:Train = g.townArea.getCityObjectsByType(BuildType.TRAIN)[0];
-        if (g.user.level < tr.dataBuild.blockByLevel[0]) {
-            Cc.ch('server', 'getUserTrain:: g.user.level < ' + String(tr.dataBuild.blockByLevel[0]), 1);
-            if (tr) tr.fillItDefault();
+        if (tr == null || tr.dataBuild == null) {
             if (callback != null) {
                 callback.apply();
             }
             return;
         }
-        if (!tr || tr.stateBuild < 4) {
+        if (g.user.level < tr.dataBuild.blockByLevel[0]) {
+            Cc.ch('server', 'getUserTrain:: g.user.level < ' + String(tr.dataBuild.blockByLevel[0]), 1);
+            tr.fillItDefault();
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+        if (tr.stateBuild < 4) {
             Cc.ch('server', 'getUserTrain:: train.stateBuild < 4', 1);
-            if (tr) tr.fillItDefault();
+            tr.fillItDefault();
             if (callback != null) {
                 callback.apply();
             }
