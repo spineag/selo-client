@@ -65,6 +65,12 @@ public class MiniSceneProps {
         obj.text = String(g.managerLanguage.allTexts[539]);
         obj.text2 = String(g.managerLanguage.allTexts[540]);
         _prop.push(obj);
+
+        obj = {};
+        obj.id = 7;
+        obj.reason = ManagerMiniScenes.ORDER_INSTRUMENT;
+        obj.level = 50;
+        _prop.push(obj);
     }
 }
 }

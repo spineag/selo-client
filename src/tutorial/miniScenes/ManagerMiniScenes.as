@@ -29,6 +29,7 @@ public class ManagerMiniScenes {
     public static const BUY_BUILD:int = 5;
     public static const BUY_INSTRUMENT:int = 6;
     public static const NEW_ORDER_CAT:int = 7;
+    public static const ORDER_INSTRUMENT:int = 8;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -571,6 +572,14 @@ public class ManagerMiniScenes {
         isMiniScene = false;
         _curMiniScenePropertie = null;
         _miniSceneCallback = null;
+    }
+
+
+    public function onOrderGetFirstInstrument():void {
+        if (g.user.miniScenes[6]>0) return;
+        g.user.miniScenes[6] = 1;
+        saveUserMiniScenesData();
+        g.windowsManager.openWindow(WindowsManager.WO_ORDER_INSTRUMENT_INFO,null);
     }
 }
 }

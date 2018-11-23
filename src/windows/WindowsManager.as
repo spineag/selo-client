@@ -36,6 +36,7 @@ import windows.miniSceneOrderCat.WOMiniSceneOrderCat;
 import windows.missYou.WOMissYou;
 import windows.newsWindow.WONews;
 import windows.openOnLevel.WOOpenOnLevel;
+import windows.orderInstrumentInfo.WOOrderInstrumentInfo;
 import windows.orderWindow.WOOrder;
 import windows.paper_new.WOPaper;
 import windows.partyWindow.WOPartyHelp;
@@ -153,6 +154,7 @@ public class WindowsManager {
     public static const WO_DECOR_RATING:String = 'decor_rating';
     public static const WO_DECOR_LIST:String = 'decor_list';
     public static const WO_THREE_ONE:String = 'three_one';
+    public static const WO_ORDER_INSTRUMENT_INFO:String = 'order_instrument_info';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -406,6 +408,9 @@ public class WindowsManager {
                 break;
             case WO_THREE_ONE:
                 wo = new WOSaleThreeOne();
+                break;
+            case WO_ORDER_INSTRUMENT_INFO:
+                wo = new WOOrderInstrumentInfo();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

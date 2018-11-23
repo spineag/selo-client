@@ -259,6 +259,7 @@ public class OrderCat {
             t=int(Math.random()*6);
             t=arrIns[t];
             d.addDropItemNewByResourceId(t,p1,1);
+            g.miniScenes.onOrderGetFirstInstrument();
         }
         d.releaseIt();
         g.managerOrderCats.deleteOrderStr();
