@@ -155,7 +155,6 @@ public class WOOrderItem {
         if (_leftSeconds > 0) {
             if (_order.delOb) {
                 _txtName.text = String(g.managerLanguage.allTexts[1171]);
-//                _txtName.visible = false;
                 _txtXP.visible = false;
                 _txtCoins.visible = false;
                 _coinsImage.visible = false;
@@ -167,7 +166,6 @@ public class WOOrderItem {
                 _delImage.visible = true;
             } else {
                 _txtName.text = String(g.managerLanguage.allTexts[1171]);
-//                _txtName.visible = false;
                 _txtXP.visible = false;
                 _txtCoins.visible = false;
                 _coinsImage.visible = false;
@@ -181,8 +179,6 @@ public class WOOrderItem {
         } else {
             if (_order.delOb)  _order.delOb = false;
             _leftSeconds = -1;
-//            _txtName.text = _order.catOb.name;
-//            _txtName.visible = true;
             _txtXP.visible = true;
             _txtCoins.visible = true;
             _coinsImage.visible = true;
@@ -221,7 +217,7 @@ public class WOOrderItem {
             else if (_booleanNewCat) {
                _booleanNewCat = false;
                g.userTimer.newCatOrder(_position);
-           }
+            }
             g.managerOrder.checkForFullOrder();
         }
         if (_leftSeconds <= 0) {
@@ -229,17 +225,14 @@ public class WOOrderItem {
             g.gameDispatcher.removeFromTimer(renderLeftTime);
             _booleanNewCat = true;
             g.managerOrder.checkForFullOrder();
-            if(_txtName) {
-//                if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
-//                else _txtName.text = _order.catOb.nameRU;
-                _txtName.visible = true;
-            }
             if (_txtXP) _txtXP.visible = true;
             if (_txtCoins) _txtCoins.visible = true;
             if (_coinsImage) _coinsImage.visible = true;
             if (_starImage) _starImage.visible = true;
             if (_delImage) _delImage.visible = false;
             if (_clickCallback != null) { _clickCallback.apply(null, [this,1]); }
+            _txtName.text = String(g.managerLanguage.allTexts[372]);
+            _order.isAfterSell=false;
             updateCheck();
         }
     }
@@ -267,11 +260,6 @@ public class WOOrderItem {
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
-            if(_txtName) {
-//                if (g.user.language == ManagerLanguage.ENGLISH) _txtName.text = _order.catOb.nameENG;
-//                else _txtName.text = _order.catOb.nameRU;
-                _txtName.visible = true;
-            }
             if(_txtXP)_txtXP.visible = true;
             if(_txtCoins)_txtCoins.visible = true;
             if(_coinsImage)_coinsImage.visible = true;
@@ -279,6 +267,7 @@ public class WOOrderItem {
             if(_delImage)_delImage.visible = false;
             if(_clockImage)_clockImage.visible = false;
             if (_clickCallback != null) { _clickCallback.apply(null, [this,1]); }
+            _txtName.text = String(g.managerLanguage.allTexts[372]);
             g.managerOrder.checkForFullOrder();
             if (_checkImage) {
                 var b:Boolean = true;

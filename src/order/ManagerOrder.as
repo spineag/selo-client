@@ -27,6 +27,7 @@ import windows.WindowsManager;
 
 public class ManagerOrder {
     public static const COST_SKIP_WAIT:int = 3;
+    public static const TIME_MOTO_DRIVING:int=24;
 
     private var _countTimeDelay:Array;
     private var _countCellAtLevel:Array;

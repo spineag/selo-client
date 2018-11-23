@@ -300,7 +300,7 @@ public class WOOrder extends WindowMain {
         if (_activeOrderItem.leftSeconds > 0) {
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
-            if (_activeOrderItem.leftSeconds <= 5) _btnSkipDelete.visible = false;
+            if (_activeOrderItem.leftSeconds <= 5 || or.isAfterSell) _btnSkipDelete.visible = false;
             else _btnSkipDelete.visible = true;
             g.gameDispatcher.addToTimer(onTimer);
             setTimerText = _activeOrderItem.leftSeconds;
@@ -473,7 +473,7 @@ public class WOOrder extends WindowMain {
         _waitForAnswer = true;
         _txtZakazState.text = String(g.managerLanguage.allTexts[368]);
         var tOrderItem:WOOrderItem = _activeOrderItem;
-        var f:Function = function (ord:OrderItemStructure):void { afterSell(ord, tOrderItem); };
+        var f:Function = function (newOr:OrderItemStructure):void { afterSell(newOr, tOrderItem); };
         for (i = 0; i< _arrOrders.length; i++) {
             if (_arrOrders[i] && _arrOrders[i].placeNumber == _activeOrderItem.position) {
                 _arrOrders[i] = null;
@@ -489,18 +489,20 @@ public class WOOrder extends WindowMain {
             else g.miniScenes.onBuyOrder();
     }
 
-    private function afterSell(or:OrderItemStructure, orderItem:WOOrderItem):void {
+    private function afterSell(newOr:OrderItemStructure, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
-        or = _activeOrderItem.getOrder();
+//        newOr = _activeOrderItem.getOrder();
         g.userAnalytics.doneOrder++;
         g.server.updateUserAnalytics(null);
         _btnDel.visible = false;
         _btnSell.visible = false;
-        or.startTime = TimeUtils.currentSeconds + 6;
-        orderItem.fillIt(or, or.placeNumber, onItemClick);
+//        or.startTime = TimeUtils.currentSeconds + 6;
+        newOr.startTime += ManagerOrder.TIME_MOTO_DRIVING;
+        newOr.isAfterSell=true;
+        orderItem.fillIt(newOr, newOr.placeNumber, onItemClick);
         for (var i:int = 0; _arrOrders.length; i++) {
             if (_arrOrders[i] == null) {
-                _arrOrders[i] = or;
+                _arrOrders[i] = newOr;
                 break;
             }
         }
@@ -510,7 +512,7 @@ public class WOOrder extends WindowMain {
         }
         var f:Function = function ():void {
             hideIt();
-            g.managerOrderCats.rawOrderMoto(or);
+            g.managerOrderCats.rawOrderMoto(newOr);
             g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
             for (i = 0; i < _arrOrders.length; i++) {
                 if (!_arrOrders[i].cat && !_arrOrders[i].delOb) {
@@ -545,29 +547,30 @@ public class WOOrder extends WindowMain {
                 }
             }
             var tOrderItem:WOOrderItem = _activeOrderItem;
-            var f:Function = function (or:OrderItemStructure):void { afterDeleteOrder(or, tOrderItem); };
+            var f:Function = function (newOr:OrderItemStructure):void { afterDeleteOrder(newOr, tOrderItem); };
             g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
         }
     }
 
-    private function afterDeleteOrder(or:OrderItemStructure, orderItem:WOOrderItem):void {
+    private function afterDeleteOrder(newOr:OrderItemStructure, orderItem:WOOrderItem):void {
         if (_isShowed) {
             var d:int = g.managerOrder.delayBeforeNextOrder;
-            or.startTime += d;
+            newOr.startTime += d;
             _waitForAnswer = false;
             setTimerText = d;
             var b:Boolean = true;
-            for (var k:int=0; k<or.resourceIds.length; k++) {
-                if (g.userInventory.getCountResourceById(or.resourceIds[k]) < or.resourceCounts[k]) {
+            for (var k:int=0; k<newOr.resourceIds.length; k++) {
+                if (g.userInventory.getCountResourceById(newOr.resourceIds[k]) < newOr.resourceCounts[k]) {
                     b = false;
                     break;
                 }
             }
-            orderItem.fillIt(or, or.placeNumber, onItemClick);
+            newOr.isAfterSell=false;
+            orderItem.fillIt(newOr, newOr.placeNumber, onItemClick);
             _txtZakazState.text = String(g.managerLanguage.allTexts[369]);
             for (var i:int = 0; _arrOrders.length; i++) {
                 if (_arrOrders[i] == null) {
-                    _arrOrders[i] = or;
+                    _arrOrders[i] = newOr;
                     break;
                 }
             }
