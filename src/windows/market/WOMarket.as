@@ -83,7 +83,7 @@ public class WOMarket  extends WindowMain {
     private var _imBabbleCutScene:Image;
     private var _txtBabbleCutScene:CTextField;
     private var _btnRating:CButton;
-    private var _panelTimer:Sprite;
+    private var _panelTimer:CSprite;
     private var _panelTimerTxt:CTextField;
 
     public function WOMarket() {
@@ -205,8 +205,10 @@ public class WOMarket  extends WindowMain {
         _btnRating.x = _woWidth/2 - 64;
         _btnRating.y = - 190;
         _btnRating.clickCallback = ratingClick;
-        
-        _panelTimer = new Sprite();
+        _btnRating.hoverCallback = function():void { g.hint.showIt(g.managerLanguage.allTexts[1687]); };
+        _btnRating.outCallback = function():void { g.hint.hideIt(); };
+
+        _panelTimer = new CSprite();
         var hnt:HintBackground = new HintBackground(120, 40);
         _panelTimer.addChild(hnt);
         _panelTimerTxt = new CTextField(120,38,'24:24:24');
@@ -215,6 +217,8 @@ public class WOMarket  extends WindowMain {
         _panelTimer.alignPivot();
         _panelTimer.y = 285;
         _source.addChild(_panelTimer);
+        _panelTimer.hoverCallback = function():void { g.hint.showIt(g.managerLanguage.allTexts[1740]); };
+        _panelTimer.outCallback = function():void { g.hint.hideIt(); };
     }
 
     private function ratingClick():void {
