@@ -204,7 +204,11 @@ public class MainBottomPanel {
         _newsBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1285])); };
         _newsBtn.outCallback = function():void { g.hint.hideIt(); };
         _newsBtn.endClickCallback = function():void {onClick('news')};
-
+    }
+    
+    public function removeNewsBtn():void {
+        _source.removeChild(_newsBtn);
+        _optionBtn.y = -100;
     }
 
     public function friendBtnVisible(b:Boolean):void {

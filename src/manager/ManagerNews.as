@@ -14,9 +14,14 @@ public class ManagerNews {
     private var g:Vars = Vars.getInstance();
     private var count:int;
     private var _st:String;
+    public static const IS_ON:Boolean = false;
 
     public function ManagerNews() {
         _arrNews = [];
+        if (!ManagerNews.IS_ON) {
+            g.bottomPanel.removeNewsBtn();
+            return;
+        }
         g.server.getDataNews(null);
         _st = g.dataPath.getGraphicsPath();
         count=0;
@@ -39,6 +44,7 @@ public class ManagerNews {
     }
 
     public function addArr(ob:Object):void {
+        if (!ManagerNews.IS_ON) return;
         var b:Boolean = true;
         var data:Object = {};
         data.id = ob.id;
@@ -62,6 +68,7 @@ public class ManagerNews {
     public function get arrNews():Array { return _arrNews; }
 
     public function addArrNewsNew(id:int):void {
+        if (!ManagerNews.IS_ON) return;
         g.user.newsNew.push(id);
         var st:String = '';
         var stAnd:String = '';
@@ -83,6 +90,7 @@ public class ManagerNews {
     }
 
     public function checkNotificationBottomInterface():void {
+        if (!ManagerNews.IS_ON) return;
         if (g.user.newsNew.length >= 1) g.bottomPanel.needNotificationNews(_arrNews.length - g.user.newsNew.length);
         else g.bottomPanel.needNotificationNews(_arrNews.length);
     }
