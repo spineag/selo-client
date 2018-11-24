@@ -558,78 +558,86 @@ public class MarketItem {
         if (_closeCell) return;
         _person = p;
         _dataItem = obj;
-        if (_dataItem.buyerId != 0) {
-            isFill = 2;
-            _inPapper = _dataItem.inPapper;
-            if (_person.userSocialId == g.user.userSocialId) { //saled user item
-                try {
-                    if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET) {
-                        _dataItem.cost *= g.managerParty.coefficient;
-                    }
-                    showSaleImage(g.allData.getResourceById(_dataItem.resourceId), _dataItem.cost);
-                } catch (e:Error) {
-                    Cc.error('at showSaleImage');
-                }
-                _btnAdditem.visible = false;
-            } else { // sale away item
-                fillIt(g.allData.getResourceById(_dataItem.resourceId), _dataItem.resourceCount, _dataItem.cost);
-                _costTxt.text = String(g.managerLanguage.allTexts[389]);
-                _costTxt.x = 82;
-                _costTxt.y = 146;
-                _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                if (_avaDefault) {
-                    MCScaler.scale(_avaDefault, 85, 85);
-                    _avaDefault.pivotX = _avaDefault.width / 2;
-                    _avaDefault.pivotY = _avaDefault.height / 2;
-                    _avaDefault.x = _bg.width / 2 - 9;
-                    _avaDefault.y = 5;
-                    _imageCont.addChild(_avaDefault);
-                    _ramkAva.visible = true;
-                } else {
-                    Cc.error('MarketItem:: no default_avatar_big');
-                }
-
-                for (var i:int = 0; i < _person.marketItems.length; i++) {
-                    if (number == _person.marketItems[i].numberCell) {
-                        _personBuyerTempItem = _person.marketItems[i];
-                        if (_personBuyerTempItem) {
-                            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-                            g.socialNetwork.getTempUsersInfoById([_personBuyerTempItem.buyerSocialId]);
-                        }
-                        break;
-                    }
-                }
-                _coin.visible = false;
-                source.filter = ManagerFilters.getButtonDisableFilter();
-            }
-        } else { //have Item
-            isFill = 1;
-            if (_person is NeighborBot) {
-                if (g.allData.getResourceById(_dataItem.resourceId).buildType == BuildType.INSTRUMENT) {
-                    _dataItem.resourceCount = 1;
-                    _dataItem.cost *= 3;
-                }
-            }
-
-            _inPapper = _dataItem.inPapper;
+        if (!(_person is NeighborBot) && g.user.level < 7) {
             fillIt(g.allData.getResourceById(_dataItem.resourceId), _dataItem.resourceCount, _dataItem.cost);
-            if (g.allData.getResourceById(_dataItem.resourceId).blockByLevel > g.user.level) { //have item but your level so small
-                if (_plawkaBuy) {
-                    _plawkaCoins.removeChild(_plawkaBuy);
-                    _plawkaBuy.dispose();
-                    _plawkaBuy = null;
-                }
-                _plawkaBuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_cell_big_white_2'));
-                _plawkaBuy.x = 7;
-                _plawkaBuy.y = 125;
-                _plawkaCoins.addChildAt(_plawkaBuy,0);
-                _coin.visible = false;
+            _costTxt.text = String(g.managerLanguage.allTexts[398] + ' 7');
+            _costTxt.x = 82;
+            _costTxt.y = 146;
+            _coin.visible = false;
+            source.filter = ManagerFilters.getButtonDisableFilter();
+        } else {
+            if (_dataItem.buyerId != 0) {
+                isFill = 2;
+                _inPapper = _dataItem.inPapper;
+                if (_person.userSocialId == g.user.userSocialId) { //saled user item
+                    try {
+                        if (g.managerParty.eventOn && g.managerParty.typeParty == ManagerPartyNew.EVENT_MORE_COINS_MARKET) {
+                            _dataItem.cost *= g.managerParty.coefficient;
+                        }
+                        showSaleImage(g.allData.getResourceById(_dataItem.resourceId), _dataItem.cost);
+                    } catch (e:Error) {
+                        Cc.error('at showSaleImage');
+                    }
+                    _btnAdditem.visible = false;
+                } else { // sale away item
+                    fillIt(g.allData.getResourceById(_dataItem.resourceId), _dataItem.resourceCount, _dataItem.cost);
+                    _costTxt.text = String(g.managerLanguage.allTexts[389]);
+                    _costTxt.x = 82;
+                    _costTxt.y = 146;
+                    _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                    if (_avaDefault) {
+                        MCScaler.scale(_avaDefault, 85, 85);
+                        _avaDefault.pivotX = _avaDefault.width / 2;
+                        _avaDefault.pivotY = _avaDefault.height / 2;
+                        _avaDefault.x = _bg.width / 2 - 9;
+                        _avaDefault.y = 5;
+                        _imageCont.addChild(_avaDefault);
+                        _ramkAva.visible = true;
+                    } else {
+                        Cc.error('MarketItem:: no default_avatar_big');
+                    }
 
-                _plawkaCoins.visible = true;
-                _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataItem.resourceId).blockByLevel);
-                _txtPlawka.visible = true;
-                _costTxt.visible = false;
-                isFill = 3;
+                    for (var i:int = 0; i < _person.marketItems.length; i++) {
+                        if (number == _person.marketItems[i].numberCell) {
+                            _personBuyerTempItem = _person.marketItems[i];
+                            if (_personBuyerTempItem) {
+                                g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                                g.socialNetwork.getTempUsersInfoById([_personBuyerTempItem.buyerSocialId]);
+                            }
+                            break;
+                        }
+                    }
+                    _coin.visible = false;
+                    source.filter = ManagerFilters.getButtonDisableFilter();
+                }
+            } else { //have Item
+                isFill = 1;
+                if (_person is NeighborBot) {
+                    if (g.allData.getResourceById(_dataItem.resourceId).buildType == BuildType.INSTRUMENT) {
+                        _dataItem.resourceCount = 1;
+                        _dataItem.cost *= 3;
+                    }
+                }
+                _inPapper = _dataItem.inPapper;
+                fillIt(g.allData.getResourceById(_dataItem.resourceId), _dataItem.resourceCount, _dataItem.cost);
+                if (g.allData.getResourceById(_dataItem.resourceId).blockByLevel > g.user.level) { //have item but your level so small
+                    if (_plawkaBuy) {
+                        _plawkaCoins.removeChild(_plawkaBuy);
+                        _plawkaBuy.dispose();
+                        _plawkaBuy = null;
+                    }
+                    _plawkaBuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_cell_big_white_2'));
+                    _plawkaBuy.x = 7;
+                    _plawkaBuy.y = 125;
+                    _plawkaCoins.addChildAt(_plawkaBuy, 0);
+                    _coin.visible = false;
+
+                    _plawkaCoins.visible = true;
+                    _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataItem.resourceId).blockByLevel);
+                    _txtPlawka.visible = true;
+                    _costTxt.visible = false;
+                    isFill = 3;
+                }
             }
         }
     }

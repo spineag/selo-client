@@ -73,7 +73,6 @@ public class Market extends WorldObject{
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         _isOnHover = true;
         g.hint.showIt(_dataBuild.name);
-
     }
 
     private function onClick():void {
