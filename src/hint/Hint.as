@@ -79,6 +79,7 @@ public class Hint {
                 _timeHint = time;
                 _txtHint.text = st;
                 g.gameDispatcher.addToTimer(timer);
+                _txtHintTime.text = TimeUtils.convertSecondsForOrders(_timeHint);
 //                    return;
                 break;
             case 'tips':
@@ -185,7 +186,7 @@ public class Hint {
     }
 
     private function timer():void {
-        _txtHintTime.text = TimeUtils.convertSecondsToStringClassic(_timeHint);
+        _txtHintTime.text = TimeUtils.convertSecondsForOrders(_timeHint);
         _timeHint --;
         if (_timeHint <= 0) {
             g.gameDispatcher.removeFromTimer(timer);

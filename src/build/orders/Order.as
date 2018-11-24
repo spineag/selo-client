@@ -117,7 +117,8 @@ public class Order extends WorldObject{
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 _armature.animation.gotoAndPlayByFrame('over');
             }
-            g.hint.showIt(_dataBuild.name);
+            if (g.managerOrderCats.moveBoolean) g.hint.showIt(g.managerLanguage.allTexts[1741],'fabric',0,g.managerOrder.getTimeAfterSellOrder());
+            else g.hint.showIt(_dataBuild.name);
         }
         _isOnHover = true;
     }

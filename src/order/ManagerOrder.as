@@ -27,7 +27,7 @@ import windows.WindowsManager;
 
 public class ManagerOrder {
     public static const COST_SKIP_WAIT:int = 3;
-    public static const TIME_MOTO_DRIVING:int=30;
+    public static const TIME_MOTO_DRIVING:int=25;
 
     private var _countTimeDelay:Array;
     private var _countCellAtLevel:Array;
@@ -1067,5 +1067,14 @@ public class ManagerOrder {
         }
         if (i == _arrOrders.length) Cc.error('ManagerOrder onSkipTimer:: no order');
     }
+    
+    public function getTimeAfterSellOrder():int {
+        for (var i:int=0; i<_arrOrders.length; i++){
+            if ((_arrOrders[i] as OrderItemStructure).isAfterSell)
+                return (_arrOrders[i] as OrderItemStructure).startTime-TimeUtils.currentSeconds;
+        }
+        return ManagerOrder.TIME_MOTO_DRIVING;
+    }
+    
 }
 }
