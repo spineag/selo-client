@@ -82,14 +82,16 @@ public class WOFarmStandRatingItem {
         source.addChild(_txtNumber);
         _txtNumber.x = -201;
         _txtNumber.y = -22;
-        _goAway = new CButton();
-        _goAway.addButtonTexture(100, CButton.HEIGHT_55, CButton.GREEN, true);
-        _goAway.addTextField(100, 49, 0, 0, String(g.managerLanguage.allTexts[386]));
-        _goAway.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
-        _goAway.x = 540;
-        _goAway.y = 50;
-        source.addChild(_goAway);
-        _goAway.clickCallback = visitPerson;
+        if (userId != g.user.userId) {
+            _goAway = new CButton();
+            _goAway.addButtonTexture(100, CButton.HEIGHT_55, CButton.GREEN, true);
+            _goAway.addTextField(100, 49, 0, 0, String(g.managerLanguage.allTexts[386]));
+            _goAway.setTextFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            _goAway.x = 540;
+            _goAway.y = 50;
+            source.addChild(_goAway);
+            _goAway.clickCallback = visitPerson;
+        }
 
         _srcAva = new CSprite();
         source.addChild(_srcAva);
