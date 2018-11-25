@@ -236,7 +236,7 @@ public class MainBottomPanel {
                 }
                 if (g.miniScenes.isMiniScene) deleteArrow();    
                 g.toolsPanel.hideRepository();
-                var shopTab:int = WOShop.VILLAGE;
+                var shopTab:int = g.user.shopTab;
                 if (g.tuts.isTuts) {
                     g.user.shiftShop = 0;
                     g.user.decorShop = false;
