@@ -41,12 +41,9 @@ import windows.WindowsManager;
 import windows.salePack.saleInstruments.WOSalePackItemInstrument;
 
 public class WOSalePackVauchers  extends WindowMain{
-    private var _woBG:WindowBackground;
     private var _txtTime:CTextField;
     private var _txtName:CTextField;
-    private var _imName:Image;
     private var _txtDescription:CTextField;
-    private var _txtBtn:CTextField;
     private var _txtProfit:CTextField;
     private var _txtNewCost:CTextField;
     private var _txtOldCost:CTextField;
@@ -89,14 +86,14 @@ public class WOSalePackVauchers  extends WindowMain{
         _txtTime = new CTextField(200,90,'');
         _txtTime.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
         _txtTime.alignH = Align.LEFT;
-        _txtTime.x = 100;
+        _txtTime.x = 550;
         _txtTime.y = 100;
         _source.addChild(_txtTime);
 
         _txtTimeLeft = new CTextField(200,90,String(g.managerLanguage.allTexts[357]));
         _txtTimeLeft.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtTimeLeft.alignH = Align.LEFT;
-        _txtTimeLeft.x = -30;
+        _txtTimeLeft.x = -95;
         _txtTimeLeft.y = 102;
         _source.addChild(_txtTimeLeft);
         var _txt:CTextField;
@@ -150,7 +147,7 @@ public class WOSalePackVauchers  extends WindowMain{
         _txtNewCost = new CTextField(250,100,String(g.managerLanguage.allTexts[1243]));
         _txtNewCost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
         _txtNewCost.alignH = Align.LEFT;
-        _txtNewCost.x = -20;
+        _txtNewCost.x = -95;
         _txtNewCost.y = 40;
         _source.addChild(_txtNewCost);
 
@@ -196,7 +193,7 @@ public class WOSalePackVauchers  extends WindowMain{
         _arrItem = [];
         for (var i:int = 0; i < ar.length; i++) {
             item = new WOSalePackVauchersItem(ar[i],g.managerSalePack.userSale.objectType[i],g.managerSalePack.userSale.objectCount[i]);
-            item.source.x = -20 + 130 * i;
+            item.source.x = 15 + 130 * i;
             _sprItem.addChild(item.source);
             _arrItem.push(item);
         }
@@ -264,7 +261,7 @@ public class WOSalePackVauchers  extends WindowMain{
         if (g.userTimer.saleTimerToEnd > 0) {
             if (_txtTime) {
                 _txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.saleTimerToEnd);
-                _txtTime.x = 150 - _txtTime.textBounds.width/2;
+                _txtTime.x = 90 - _txtTime.textBounds.width/2;
             }
         } else {
             onClickExit();

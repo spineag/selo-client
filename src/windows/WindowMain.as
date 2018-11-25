@@ -46,6 +46,7 @@ public class WindowMain {
     protected var _blackAlpha:Number = .5;    
     public var isCashed:Boolean = false;
     protected var _isBigWO:Boolean = true;
+    protected var _deltaY:int = 0;
 
     public function WindowMain() {
         _source = new Sprite();
@@ -76,7 +77,7 @@ public class WindowMain {
             g.cont.windowsCont.addChild(_source);
             _source.x = int(g.managerResize.stageWidth/2);
             _source.y = int(-g.managerResize.stageHeight/2);
-            TweenMax.to(_source, .3, {y: int(g.managerResize.stageHeight/2), onComplete: onShowingWindow});
+            TweenMax.to(_source, .3, {y: int(g.managerResize.stageHeight/2 + _deltaY), onComplete: onShowingWindow});
         }
     }
 

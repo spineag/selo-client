@@ -33,12 +33,9 @@ import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOSalePackInstrument extends WindowMain{
-    private var _woBG:WindowBackground;
     private var _txtTime:CTextField;
     private var _txtName:CTextField;
-    private var _imName:Image;
     private var _txtDescription:CTextField;
-    private var _txtBtn:CTextField;
     private var _txtProfit:CTextField;
     private var _txtNewCost:CTextField;
     private var _sprItem:Sprite;
