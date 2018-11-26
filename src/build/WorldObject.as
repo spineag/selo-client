@@ -27,6 +27,9 @@ import utils.SimpleArrow;
 import tutorial.TutsAction;
 import utils.IsoUtils;
 import utils.Point3D;
+import utils.TimeUtils;
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class WorldObject {
@@ -399,7 +402,8 @@ public class WorldObject {
             else _buildingBuild.workAnimation();
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+        var bldTemp:BuildingBuild = new BuildingBuild('done');
+        _hitArea = g.managerHitArea.getHitArea(bldTemp.source, 'buildingBuild');
         _source.registerHitArea(_hitArea);
     }
 
