@@ -76,11 +76,12 @@ public class Hint {
                 break;
             case 'fabric':
                 _fabric = true;
-                _timeHint = time;
                 _txtHint.text = st;
-                g.gameDispatcher.addToTimer(timer);
-                _txtHintTime.text = TimeUtils.convertSecondsForOrders(_timeHint);
-//                    return;
+                if (time>0) {
+                    _timeHint = time;
+                    g.gameDispatcher.addToTimer(timer);
+                    _txtHintTime.text = TimeUtils.convertSecondsForOrders(_timeHint);
+                }
                 break;
             case 'tips':
                 _tips = true;
@@ -188,6 +189,7 @@ public class Hint {
     private function timer():void {
         _txtHintTime.text = TimeUtils.convertSecondsForOrders(_timeHint);
         _timeHint --;
+        trace(_timeHint);
         if (_timeHint <= 0) {
             g.gameDispatcher.removeFromTimer(timer);
             _txtHintTime.text = '';

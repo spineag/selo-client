@@ -25,7 +25,7 @@ public class ManagerDailyBonus {
     private var g:Vars = Vars.getInstance();
 
     public function ManagerDailyBonus() {
-        super();
+        _arrItems = [];
     }
 
     public function fillFromServer(day:String, lastCount:int):void {
@@ -81,7 +81,6 @@ public class ManagerDailyBonus {
     }
 
     public function generateDailyBonusItems():void {
-        _arrItems = [];
         var arr:Array;
         var i:int;
         var arAllResource:Array = g.allData.resource;
@@ -128,7 +127,7 @@ public class ManagerDailyBonus {
             _arrItems.push(obj);
         }
 
-        if (_arrItems.length == 10) return;
+        if (_arrItems.length >= 10) return;
         if (g.user.level >= 17) {
             if (0.4 < Math.random()) {
                 random = 1 + int(Math.random() * 3);
@@ -189,7 +188,7 @@ public class ManagerDailyBonus {
                 obj.type = RESOURCE;
             }
         }
-        if (_arrItems.length != 10) {
+        if (_arrItems.length < 10) {
             generateDailyBonusItems();
             return;
         }
