@@ -109,23 +109,19 @@ public class WOPartyWindow extends WindowMain {
         _txtName.y = -_woHeight/2 + 25;
         _source.addChild(_txtName);
         _txtTimeLost = new CTextField(200, 60, String(g.managerLanguage.allTexts[357]));
-        _txtTimeLost.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_LIGHT_NEW, Color.WHITE);
+        _txtTimeLost.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW,ManagerFilters.BROWN_COLOR);
         _txtTimeLost.alignH = Align.LEFT;
 
         _txtTime = new CTextField(130, 60, '');
-        _txtTime.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
+        _txtTime.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtTime.alignH = Align.LEFT;
 
         _scrollSprite = new DefaultVerticalScrollSprite(700, 230, 700, 115);
         _scrollSprite.source.x = - 370;
         _scrollSprite.createScoll(720, 0, 220, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
 //        _sprItem.addChild(_scrollSprite.source);
-        if (g.allData.atlas['partyAtlas']) {
-            _tabs = new PartyTabs(_source,callbackTab);
-            createEventWO(false);
-            g.server.getRatingParty(g.managerParty.dataPartyNowUse.id,true, ratingWO);
-//            ratingWO();
-        } else g.gameDispatcher.addEnterFrame(afterAtlas);
+        if (g.allData.atlas['partyAtlas']) afterAtlas();
+        else g.gameDispatcher.addEnterFrame(afterAtlas);
     }
 
     private function afterAtlas():void {
@@ -184,7 +180,7 @@ public class WOPartyWindow extends WindowMain {
     private function startTimer():void {
         if (g.userTimer.partyToEndTimer > 0) {
             if (_txtTime)_txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.partyToEndTimer);
-            if (_txtTime && _txtTime.x == 0) _txtTime.x = _txtTimeLost.x + _txtTimeLost.textBounds.width + 10;
+            if (_txtTime && _txtTime.x == 0) _txtTime.x = _txtTimeLost.x + _txtTimeLost.textBounds.width + 20;
         } else {
             onClickExit();
             g.gameDispatcher.removeFromTimer(startTimer);
@@ -234,7 +230,11 @@ public class WOPartyWindow extends WindowMain {
             _bgMainRed.x = -_bgMainRed.width/2 + 5;
             _bgMainRed.y = -_bgMainRed.height/2 + 40;
             _sprEvent.addChild(_bgMainRed);
-            _txtTimeLost.x = -150;
+            var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('pl_timer'));
+            im.x=16;
+            im.y=-64;
+            _sprEvent.addChild(im);
+            _txtTimeLost.x = -140;
             _txtTimeLost.y = -65;
             _txtTime.y = -65;
             _btnOK = new CButton();
@@ -246,7 +246,7 @@ public class WOPartyWindow extends WindowMain {
             _btnOK.clickCallback = onClickShow;
 
             _txtPrev = new CTextField(755, 200, String(g.managerLanguage.allTexts[g.managerParty.prevMain]));
-            _txtPrev.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_LIGHT_NEW);
+            _txtPrev.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW,ManagerFilters.BROWN_COLOR);
             _txtPrev.x = -383;
             _txtPrev.y = -255;
             _sprEvent.addChild(_txtPrev);

@@ -48,9 +48,9 @@ public class WOPartyWindowItem {
         _bg = new BackgroundQuestDone(700, 110);
         source.addChild(_bg);
         _txtCountResource = new CTextField(119,100,' ');
-        _txtCountResource.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCountResource.setFormat(CTextField.BOLD18, 18, ManagerFilters.WINDOW_COLOR_YELLOW,ManagerFilters.BROWN_COLOR);
         _txtCountResource.alignH = Align.RIGHT;
-        _txtCountResource.x = 570;
+        _txtCountResource.x = 572;
         _txtCountResource.y = -35;
         _bgWhite = new Image(g.allData.atlas['partyAtlas'].getTexture('ne_window_white_cell'));
         _bgWhite.x = 5;
@@ -128,14 +128,14 @@ public class WOPartyWindowItem {
         source.addChild(_txtCountResource);
         _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty[0].countResource));
         if (int(g.managerParty.userParty[0].countResource) < countToGift) _txtCountUser.setFormat(CTextField.BOLD30, 30,0xcf342f,Color.WHITE);
-        else _txtCountUser.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR,Color.WHITE);
+        else _txtCountUser.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW,ManagerFilters.BROWN_COLOR);
         _txtCountUser.alignH = Align.LEFT;
         _txtCountUser.x = 320;
         _txtCountUser.y = 35;
         source.addChild(_txtCountUser);
 
         _txtCountToGift = new CTextField(119,100,'/' + String(countToGift));
-        _txtCountToGift.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR, Color.WHITE);
+        _txtCountToGift.setFormat(CTextField.BOLD30, 30, ManagerFilters.WINDOW_COLOR_YELLOW,ManagerFilters.BROWN_COLOR);
         _txtCountToGift.alignH = Align.LEFT;
         _txtCountToGift.x = _txtCountUser.x + _txtCountUser.textBounds.width-1;
         _txtCountToGift.y = 35;

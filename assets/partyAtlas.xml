@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:0bb8d6358af9029d36c4d4a53bc1bc04:084e660d23d6d8047095a32c960a7209:ac880a930f9f4f68bee3173fda432350$ -->
-<TextureAtlas imagePath="partyAtlas.png" width="128" height="1224">
-    <SubTexture name="9_may_icon" x="1" y="311" width="100" height="100"/>
-    <SubTexture name="big_event_tap" x="1" y="413" width="100" height="100"/>
-    <SubTexture name="big_top_tap" x="1" y="515" width="100" height="100"/>
-    <SubTexture name="event_icons_1" x="1" y="719" width="100" height="99" frameX="0" frameY="-1" frameWidth="100" frameHeight="100"/>
+<!-- $TexturePacker:SmartUpdate:59f5e6358922a46b4d0824a0932705d2:8acc02afb6ae9434cb88bf48b7b7e0d1:ac880a930f9f4f68bee3173fda432350$ -->
+<TextureAtlas imagePath="partyAtlas.png">
+    <SubTexture name="9_may_icon" x="346" y="1" width="98" height="100" frameX="-1" frameY="0" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="big_event_tap" x="244" y="1" width="100" height="100"/>
+    <SubTexture name="big_top_tap" x="273" y="155" width="100" height="100"/>
+    <SubTexture name="event_icons_1" x="1" y="156" width="100" height="98" frameX="0" frameY="-2" frameWidth="100" frameHeight="100"/>
     <SubTexture name="event_tab_active" x="1" y="1" width="126" height="153"/>
-    <SubTexture name="event_tab_nactive" x="1" y="156" width="113" height="153"/>
-    <SubTexture name="first_top_event_window" x="1" y="1069" width="73" height="50"/>
-    <SubTexture name="ne_light_p_bottom" x="103" y="374" width="17" height="17"/>
-    <SubTexture name="ne_light_p_center" x="116" y="156" width="10" height="10"/>
-    <SubTexture name="ne_light_p_corner_bottom" x="103" y="311" width="19" height="19"/>
-    <SubTexture name="ne_light_p_corner_top" x="103" y="393" width="17" height="17"/>
-    <SubTexture name="ne_light_p_left" x="103" y="412" width="17" height="17"/>
-    <SubTexture name="ne_light_p_top" x="103" y="431" width="17" height="17"/>
-    <SubTexture name="ne_pastel_dark_p_bottom" x="103" y="450" width="17" height="17"/>
-    <SubTexture name="ne_pastel_dark_p_center" x="116" y="168" width="10" height="10"/>
-    <SubTexture name="ne_pastel_dark_p_corner_bottom" x="103" y="332" width="19" height="19"/>
-    <SubTexture name="ne_pastel_dark_p_corner_top" x="103" y="469" width="17" height="17"/>
-    <SubTexture name="ne_pastel_dark_p_left" x="103" y="488" width="17" height="17"/>
-    <SubTexture name="ne_pastel_dark_p_top" x="103" y="507" width="17" height="17"/>
-    <SubTexture name="ne_pastel_p_bottom" x="103" y="526" width="17" height="17"/>
-    <SubTexture name="ne_pastel_p_center" x="116" y="180" width="10" height="10"/>
-    <SubTexture name="ne_pastel_p_corner_bottom" x="103" y="353" width="19" height="19"/>
-    <SubTexture name="ne_pastel_p_corner_top" x="103" y="545" width="17" height="17"/>
-    <SubTexture name="ne_pastel_p_left" x="103" y="564" width="17" height="17"/>
-    <SubTexture name="ne_pastel_p_top" x="103" y="583" width="17" height="17"/>
-    <SubTexture name="ne_window_frame_1" x="1" y="820" width="83" height="81"/>
-    <SubTexture name="ne_window_frame_2" x="1" y="903" width="83" height="81"/>
-    <SubTexture name="ne_window_frame_3" x="1" y="986" width="83" height="81"/>
-    <SubTexture name="ne_window_white_cell" x="1" y="617" width="100" height="100"/>
-    <SubTexture name="other_top_event_window" x="76" y="1069" width="47" height="47"/>
-    <SubTexture name="second_top_event_window" x="1" y="1121" width="73" height="50"/>
-    <SubTexture name="third_top_event_window" x="1" y="1173" width="73" height="50"/>
+    <SubTexture name="event_tab_nactive" x="129" y="1" width="113" height="153"/>
+    <SubTexture name="first_top_event_window" x="244" y="103" width="73" height="50"/>
+    <SubTexture name="ne_light_p_bottom" x="575" y="60" width="17" height="17"/>
+    <SubTexture name="ne_light_p_center" x="103" y="239" width="10" height="10"/>
+    <SubTexture name="ne_light_p_corner_bottom" x="446" y="60" width="19" height="19"/>
+    <SubTexture name="ne_light_p_corner_top" x="575" y="79" width="17" height="17"/>
+    <SubTexture name="ne_light_p_left" x="554" y="81" width="17" height="17"/>
+    <SubTexture name="ne_light_p_top" x="573" y="98" width="17" height="17"/>
+    <SubTexture name="ne_pastel_dark_p_bottom" x="554" y="100" width="17" height="17"/>
+    <SubTexture name="ne_pastel_dark_p_center" x="115" y="239" width="10" height="10"/>
+    <SubTexture name="ne_pastel_dark_p_corner_bottom" x="446" y="81" width="19" height="19"/>
+    <SubTexture name="ne_pastel_dark_p_corner_top" x="573" y="117" width="17" height="17"/>
+    <SubTexture name="ne_pastel_dark_p_left" x="554" y="119" width="17" height="17"/>
+    <SubTexture name="ne_pastel_dark_p_top" x="573" y="136" width="17" height="17"/>
+    <SubTexture name="ne_pastel_p_bottom" x="554" y="138" width="17" height="17"/>
+    <SubTexture name="ne_pastel_p_center" x="127" y="239" width="10" height="10"/>
+    <SubTexture name="ne_pastel_p_corner_bottom" x="554" y="60" width="19" height="19"/>
+    <SubTexture name="ne_pastel_p_corner_top" x="573" y="155" width="17" height="17"/>
+    <SubTexture name="ne_pastel_p_left" x="526" y="143" width="17" height="17"/>
+    <SubTexture name="ne_pastel_p_top" x="545" y="157" width="17" height="17"/>
+    <SubTexture name="ne_window_frame_1" x="103" y="156" width="83" height="81"/>
+    <SubTexture name="ne_window_frame_2" x="188" y="156" width="83" height="81"/>
+    <SubTexture name="ne_window_frame_3" x="469" y="60" width="83" height="81"/>
+    <SubTexture name="ne_window_white_cell" x="375" y="155" width="100" height="100"/>
+    <SubTexture name="other_top_event_window" x="477" y="143" width="47" height="47"/>
+    <SubTexture name="pl_timer" x="446" y="1" width="150" height="57"/>
+    <SubTexture name="second_top_event_window" x="394" y="103" width="73" height="49" frameX="0" frameY="0" frameWidth="73" frameHeight="50"/>
+    <SubTexture name="third_top_event_window" x="319" y="103" width="73" height="50"/>
 </TextureAtlas>

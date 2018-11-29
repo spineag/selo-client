@@ -89,12 +89,8 @@ public class WOFarmStandRating extends WindowMain {
         _tabs.activate(_isAll);
         _arrItem = [];
         _scrollSprite.resetAll();
-        if (_isAll) {
-            showAll(false);
-        }
-        else {
-            showFriend(false);
-        }
+        if (_isAll) showAll(false);
+        else showFriend(false);
     }
 
     private function showFriend(needShow:Boolean = false):void {
