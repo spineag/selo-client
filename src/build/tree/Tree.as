@@ -586,123 +586,15 @@ public class Tree extends WorldObject {
                 if (_timerHint <= 0 && _state == GROW1 || _state == GROW2 || _state == GROW3) {
                     startGrow();
                 }
-                var newX:int;
-                var newY:int;
-                if (_dataBuild.id == 25) { //Яблоня
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    if (_state == GROW1 || _state == GROW_FLOWER1) {
-                        newX = g.cont.gameContX + _source.x * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 2.3) * g.currentGameScale;
-                    } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                        newX = g.cont.gameContX + _source.x * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
-                    } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameContX + _source.x * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height/1.4) * g.currentGameScale;
-                    } else {
-                        newX = g.cont.gameContX + _source.x * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.8) * g.currentGameScale;
-                    }
-                } else if (_dataBuild.id == 26) { // Вишня
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    if (_state == GROW1 || _state == GROW_FLOWER1) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 3.3) * g.currentGameScale;
-                    } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 3) * g.currentGameScale;
-                    } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 2.6) * g.currentGameScale;
-                    } else {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 3.3) * g.currentGameScale;
-                    }
-                } else if (_dataBuild.id == 153) { // Какао
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    if (_state == GROW1 || _state == GROW_FLOWER1) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 2.4) * g.currentGameScale;
-                    } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
-                    } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.4) * g.currentGameScale;
-                    } else {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
-                    }
-                } else if (_dataBuild.id == 154) { // Лемон
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    if (_state == GROW1 || _state == GROW_FLOWER1) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 25) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 2.4) * g.currentGameScale;
-                    } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.8) * g.currentGameScale;
-                    } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.3) * g.currentGameScale;
-                    } else {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 25) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
-                    }
-                } else if (_dataBuild.id == 155) { // Апельсин
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    if (_state == GROW1 || _state == GROW_FLOWER1) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.9) * g.currentGameScale;
-                    } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.7) * g.currentGameScale;
-                    } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height /1.3) * g.currentGameScale;
-                    } else {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
-                    }
-                } else if (_dataBuild.id == 41) { //Малина
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                    if (_state == GROW1 || _state == GROW_FLOWER1) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 19) * g.currentGameScale;
-                    } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
-                    } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
-                    } else {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
-                    }
-                } else if (_dataBuild.id == 42) { //Черника
-                    if (_state == GROW1 || _state == GROW_FLOWER1) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 9) * g.currentGameScale;
-                    } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 9) * g.currentGameScale;
-                    } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 6) * g.currentGameScale;
-                    } else {
-                        newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                        newY = g.cont.gameContY + (_source.y - _source.height / 6) * g.currentGameScale;
-                    }
-                    if (_state == ASK_FIX) makeWateringIcon(true);
-                }
+                if (_state == ASK_FIX) makeWateringIcon(true);
+                var coords:Array = getCoords();
                 if (_state == DEAD) {
-                    g.treeHint.onDelete = deleteTree;
-                    g.treeHint.showIt(_source.height, _dataBuild, newX, newY, _dataBuild.name, this, onOut);
-                    g.treeHint.onWatering = askWateringTree;
+                    showHintForDead();
                 } else if (_state == FULL_DEAD || _state == ASK_FIX) {
                     g.wildHint.onDelete = deleteTree;
-                    g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut,_dataBuild.buildType);
+                    g.wildHint.showIt(_source.height, coords[0], coords[1], _dataBuild.removeByResourceId, _dataBuild.name, onOut,_dataBuild.buildType);
                 } else {
-                    g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, _timerHint, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                    g.timerHint.showIt(_source.height, coords[0], coords[1], _dataBuild.buildTime, _timerHint, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                 }
                 _isClick = true;
             } else if (_state == FIXED) {
@@ -715,6 +607,118 @@ public class Tree extends WorldObject {
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
+    }
+    
+    public function showHintForDead(showArrow:Boolean = false):void {
+        var coords:Array = getCoords();
+        g.treeHint.onDelete = deleteTree;
+        g.treeHint.showIt(_source.height, _dataBuild, coords[0], coords[1], _dataBuild.name, this, onOut);
+        g.treeHint.onWatering = askWateringTree;
+    }
+    
+    private function getCoords():Array {
+        var newX:int;
+        var newY:int;
+        if (_dataBuild.id == 25) { //Яблоня
+            if (_state == GROW1 || _state == GROW_FLOWER1) {
+                newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 2.3) * g.currentGameScale;
+            } else if (_state == GROW2 || _state == GROW_FLOWER2) {
+                newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
+            } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height/1.4) * g.currentGameScale;
+            } else {
+                newX = g.cont.gameContX + _source.x * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.8) * g.currentGameScale;
+            }
+        } else if (_dataBuild.id == 26) { // Вишня
+            if (_state == GROW1 || _state == GROW_FLOWER1) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 3.3) * g.currentGameScale;
+            } else if (_state == GROW2 || _state == GROW_FLOWER2) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 3) * g.currentGameScale;
+            } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 2.6) * g.currentGameScale;
+            } else {
+                newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 3.3) * g.currentGameScale;
+            }
+        } else if (_dataBuild.id == 153) { // Какао
+            if (_state == GROW1 || _state == GROW_FLOWER1) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 2.4) * g.currentGameScale;
+            } else if (_state == GROW2 || _state == GROW_FLOWER2) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
+            } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.4) * g.currentGameScale;
+            } else {
+                newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
+            }
+        } else if (_dataBuild.id == 154) { // Лемон
+            if (_state == GROW1 || _state == GROW_FLOWER1) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 25) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 2.4) * g.currentGameScale;
+            } else if (_state == GROW2 || _state == GROW_FLOWER2) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.8) * g.currentGameScale;
+            } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.3) * g.currentGameScale;
+            } else {
+                newX = g.cont.gameContX + (_source.x + _source.width / 25) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
+            }
+        } else if (_dataBuild.id == 155) { // Апельсин
+            if (_state == GROW1 || _state == GROW_FLOWER1) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.9) * g.currentGameScale;
+            } else if (_state == GROW2 || _state == GROW_FLOWER2) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.7) * g.currentGameScale;
+            } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height /1.3) * g.currentGameScale;
+            } else {
+                newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
+            }
+        } else if (_dataBuild.id == 41) { //Малина
+            if (_state == GROW1 || _state == GROW_FLOWER1) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 19) * g.currentGameScale;
+            } else if (_state == GROW2 || _state == GROW_FLOWER2) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
+            } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
+            } else {
+                newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
+            }
+        } else if (_dataBuild.id == 42) { //Черника
+            if (_state == GROW1 || _state == GROW_FLOWER1) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 9) * g.currentGameScale;
+            } else if (_state == GROW2 || _state == GROW_FLOWER2) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 9) * g.currentGameScale;
+            } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 6) * g.currentGameScale;
+            } else {
+                newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
+                newY = g.cont.gameContY + (_source.y - _source.height / 6) * g.currentGameScale;
+            }
+        }
+        return [newX,newY];
     }
 
     private function callbackClose():void {
@@ -733,126 +737,15 @@ public class Tree extends WorldObject {
             if (_timerHint <= 0 && _state == GROW1 || _state == GROW2 || _state == GROW3) {
                 startGrow();
             }
-            var newX:int;
-            var newY:int;
-            if (_dataBuild.id == 25) { //Яблоня
-                if (_state == ASK_FIX) makeWateringIcon(true);
-                if (_state == GROW1 || _state == GROW_FLOWER1) {
-                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 2.3) * g.currentGameScale;
-                } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
-                } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height/1.4) * g.currentGameScale;
-                } else {
-                    newX = g.cont.gameContX + _source.x * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height/1.8) * g.currentGameScale;
-                }
-            } else if (_dataBuild.id == 153) { // Какао
-                if (_state == ASK_FIX) makeWateringIcon(true);
-                if (_state == GROW1 || _state == GROW_FLOWER1) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 2.4) * g.currentGameScale;
-                } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 2) * g.currentGameScale;
-                } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 1.4) * g.currentGameScale;
-                } else {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
-                }
-            } else if (_dataBuild.id == 154) { // Лемон
-                if (_state == ASK_FIX) makeWateringIcon(true);
-                if (_state == GROW1 || _state == GROW_FLOWER1) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 25) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 2.4) * g.currentGameScale;
-                } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 1.8) * g.currentGameScale;
-                } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 1.3) * g.currentGameScale;
-                } else {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 25) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
-                }
-            } else if (_dataBuild.id == 155) { // Апельсин
-                if (_state == ASK_FIX) makeWateringIcon(true);
-                if (_state == GROW1 || _state == GROW_FLOWER1) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 1.9) * g.currentGameScale;
-                } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 21) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 1.7) * g.currentGameScale;
-                } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height /1.3) * g.currentGameScale;
-                } else {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 1.6) * g.currentGameScale;
-                }
-            } else if (_dataBuild.id == 26) { // Вишня
-                if (_state == ASK_FIX) makeWateringIcon(true);
-
-                if (_state == GROW1 || _state == GROW_FLOWER1) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 3.3) * g.currentGameScale;
-                } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 3) * g.currentGameScale;
-                } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 17) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 2.6) * g.currentGameScale;
-                } else {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 3.3) * g.currentGameScale;
-                }
-            } else if (_dataBuild.id == 41) { //Малина
-                if (_state == ASK_FIX) makeWateringIcon(true);
-                if (_state == GROW1 || _state == GROW_FLOWER1) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 19) * g.currentGameScale;
-                } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
-
-                } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
-                } else {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 9) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 14) * g.currentGameScale;
-                }
-            } else if (_dataBuild.id == 42) { //Черника
-                if (_state == GROW1 || _state == GROW_FLOWER1) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 9) * g.currentGameScale;
-                } else if (_state == GROW2 || _state == GROW_FLOWER2) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 9) * g.currentGameScale;
-                } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 6) * g.currentGameScale;
-                } else {
-                    newX = g.cont.gameContX + (_source.x + _source.width / 12) * g.currentGameScale;
-                    newY = g.cont.gameContY + (_source.y - _source.height / 6) * g.currentGameScale;
-                }
-                if (_state == ASK_FIX) makeWateringIcon(true);
-
-            }
+            if (_state == ASK_FIX) makeWateringIcon(true);
+            var coords:Array = getCoords();
             if (_state == DEAD) {
-                g.treeHint.onDelete = deleteTree;
-                g.treeHint.showIt(_source.height, _dataBuild, newX, newY, _dataBuild.name, this, onOut);
-                g.treeHint.onWatering = askWateringTree;
+                showHintForDead();
             } else if (_state == FULL_DEAD || _state == ASK_FIX) {
                 g.wildHint.onDelete = deleteTree;
-                g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut);
+                g.wildHint.showIt(_source.height, coords[0], coords[1], _dataBuild.removeByResourceId, _dataBuild.name, onOut);
             } else {
-                g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, _timerHint, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                g.timerHint.showIt(_source.height, coords[0], coords[1], _dataBuild.buildTime, _timerHint, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
             }
             _isClick = true;
         } else if (_state == FIXED) {
@@ -935,6 +828,7 @@ public class Tree extends WorldObject {
                     _state = DEAD;
                     _craftedCountFromServer = 0;
                     g.managerTree.updateTreeState(tree_db_id, _state);
+                    g.miniScenes.onDeadTree(this);
                     break;
                 case GROWED_FIXED:
                     _state = FULL_DEAD;

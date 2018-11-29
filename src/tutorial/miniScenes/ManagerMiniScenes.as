@@ -5,6 +5,8 @@ package tutorial.miniScenes {
 import build.WorldObject;
 import build.market.Market;
 import build.orders.Order;
+import build.tree.Tree;
+
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import order.OrderCat;
@@ -30,6 +32,7 @@ public class ManagerMiniScenes {
     public static const BUY_INSTRUMENT:int = 6;
     public static const NEW_ORDER_CAT:int = 7;
     public static const ORDER_INSTRUMENT:int = 8;
+    public static const DEAD_TREE:int = 9;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -580,6 +583,36 @@ public class ManagerMiniScenes {
         g.user.miniScenes[6] = 1;
         saveUserMiniScenesData();
         g.windowsManager.openWindow(WindowsManager.WO_ORDER_INSTRUMENT_INFO,null);
+    }
+
+    public function onDeadTree(tr:Tree):void {
+        if (g.user.miniScenes[7] > 0) return;
+        if (!g.allData.factory['tutorialCatBig']) {
+            var st:String;
+            if (g.managerResize.stageWidth < 1040 || g.managerResize.stageHeight < 700) st = 'animations_json/cat_tutorial_small';
+            else st = 'animations_json/cat_tutorial';
+            g.loadAnimation.load(st, 'tutorialCatBig', onDeadTree, tr);
+            return;
+        }
+        isMiniScene = true;
+        _miniSceneBuildings = [tr];
+        g.cont.moveCenterToPos((_miniSceneBuildings[0] as Tree).posX, (_miniSceneBuildings[0] as Tree).posY, false, .5, deadTree_1);
+        _curMiniScenePropertie = _properties[7];
+    }
+
+    private function deadTree_1():void {
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curMiniScenePropertie.text, String(g.managerLanguage.allTexts[532]), deadTree_2);
+        addBlack();
+    }
+    private function deadTree_2():void {
+        _cutScene.hideIt(deleteCutScene);
+        removeBlack();
+        g.user.miniScenes[7] = 1;
+        saveUserMiniScenesData();
+        (_miniSceneBuildings[0] as Tree).showHintForDead();
+        _miniSceneBuildings=[];
+        _curMiniScenePropertie = null;
     }
 }
 }

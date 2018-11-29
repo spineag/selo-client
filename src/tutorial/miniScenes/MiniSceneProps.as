@@ -71,6 +71,13 @@ public class MiniSceneProps {
         obj.reason = ManagerMiniScenes.ORDER_INSTRUMENT;
         obj.level = 50;
         _prop.push(obj);
+
+        obj = {};
+        obj.id = 7;
+        obj.reason = ManagerMiniScenes.ORDER_INSTRUMENT;
+        obj.text = String(g.managerLanguage.allTexts[1742]);
+        obj.level = 50;
+        _prop.push(obj);
     }
 }
 }
