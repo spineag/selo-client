@@ -188,11 +188,11 @@ public class ManagerDailyBonus {
                 obj.type = RESOURCE;
             }
         }
-        if (_arrItems.length < 10) {
-            generateDailyBonusItems();
-            return;
+        if (_arrItems.length < 10)  generateDailyBonusItems();
+        else {
+            if (_arrItems.length > 10) _arrItems.length=10;
+            _arrItems.sortOn('id', Array.NUMERIC);
         }
-        _arrItems.sortOn('id', Array.NUMERIC);
     }
 
     public function get dailyBonusItems():Array {
