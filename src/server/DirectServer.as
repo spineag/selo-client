@@ -572,7 +572,6 @@ public class DirectServer {
         }
     }
 
-
     public function getDailyGift(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_DAILY_GIFT);
@@ -608,7 +607,10 @@ public class DirectServer {
 
         if (d.id == 0) {
             Cc.ch('server', 'getDailyGift OK', 5);
-            g.windowsManager.openWindow(WindowsManager.WO_DAILY_GIFT,null,d.message);
+            if (!g.user.useDailyGift) {
+                g.user.useDailyGift=true;
+                g.windowsManager.openWindow(WindowsManager.WO_DAILY_GIFT, null, d.message);
+            }
             if (callback != null) {
                 callback.apply();
             }

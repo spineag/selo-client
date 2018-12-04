@@ -71,6 +71,7 @@ public class User extends Someone {
     public var coinsMax:int;
     public var countStand:int;
     public var decorCount:int;
+    public var useDailyGift:Boolean = false;
 
     private var g:Vars = Vars.getInstance();
 

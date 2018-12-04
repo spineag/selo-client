@@ -577,7 +577,6 @@ public class ManagerMiniScenes {
         _miniSceneCallback = null;
     }
 
-
     public function onOrderGetFirstInstrument():void {
         if (g.user.miniScenes[6]>0) return;
         g.user.miniScenes[6] = 1;
