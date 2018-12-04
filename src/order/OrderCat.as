@@ -109,7 +109,6 @@ public class OrderCat {
             _posX = _posY = -1;
             _catData = ob;
             _source = new TownAreaBuildSprite();
-//            _source.isTouchable = false;
             _catImage = new CSprite();
             _catBackImage = new CSprite();
             armature = g.allData.factory['cat_moto'].buildArmature("cat_moto_front");
@@ -148,9 +147,7 @@ public class OrderCat {
     public function set arriveCallback(f:Function):void { _arriveCallback = f; }
     public function get dataCatId():int { return _catData.id; }
     public function get dataCat():Object { return _catData; }
-    public function showForOptimisation(needShow:Boolean):void { if (_source) _source.visible = needShow; }
     public function get stateBox():int { return _stateBox; }
-//    public function get isMiniScene():Boolean { return _catData.isMiniScene; }
 
     public function checkArriveCallback():void {
         if (_arriveCallback != null) {
